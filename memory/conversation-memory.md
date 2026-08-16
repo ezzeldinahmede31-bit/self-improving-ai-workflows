@@ -1082,3 +1082,36 @@ Both added to `compensatory-router` stacks.
 - FINAL AUDIT (all green): SKILL.md files=268, frontmatter_bad=0; duplicate_slugs=0; registry buckets=19 sum=383; real coverage project+global **383↔383, 0 missing, 0 real dead** (the 4 flagged 'dead' are backtick non-skills in the registry fast-lookup note: `<x>-automation`, `memory/skills-docs/<name>.md`, `memory/skills-library.md`, `scripts/router_register.py`). monday.com-automation present in library.
 - FULL SUITE: exit 0 (500 passed, 1 deselected) after dedup — no regressions.
 - Skill count now: 268 project SKILL.md / 383 unique slugs incl. global.
+## MonkeyCode bridge COMPLETE — sync script + hooks + cron + git (Aug 16)
+- User asked to bridge this whole project (skills + library + gates + memory) into MonkeyCode
+  (chaitin platform, baizhi.cloud) so it works immediately on open, with automatic sync.
+- RESEARCH: MonkeyCode conventions from `chaitin/MonkeyCodeProjectTemplate`
+  (`/tmp/opencode/monkey_template`): reads `AGENTS.md` at root, rules in `.ai-ready/rules/*.md`,
+  skills in `.ai-ready/skills/<name>/SKILL.md`, project memory in `.monkeycode/MEMORY.md` (≤150
+  lines), `.monkeycode-ai` for auto-commit rules; its internal dev tool is OpenCode → reads
+  `.opencode/skills` + `opencode.jsonc` natively.
+- BUILT `scripts/monkeycode_sync.py` (stdlib only, idempotent): regenerates `AGENTS.md`
+  (user's mandatory rules in Arabic), `.monkeycode/MEMORY.md` (distilled from conversation-memory.md,
+  `MEMORY_LINE_LIMIT=150`, Project section + standing rules + pointers), `.monkeycode-ai/README.md`,
+  9 `.ai-ready/rules/*.md` (project-orientation, gates-before-deploy, delivery-verification,
+  best-practice-first, search-ask-execute, omni-orchestration, skill-discovery, memory-protocol,
+  no-secrets), relative symlink `.ai-ready/skills` → `../.opencode/skills`, then git add/commit
+  (push ONLY if an upstream exists; safely skips when no `.git` or no user.name/email).
+  Flags: `--quiet`, `--no-git`.
+- HOOKS WIRED: `memory-encode.py` encode() calls `_sync_monkeycode()` (subprocess `sys.executable
+  ... --quiet`, non-fatal on failure); `skills_docs_generator.py` main() calls it after library
+  regen — covers `router_register.py` transitively (it invokes generator `--library-only`), so no
+  separate hook needed there.
+- BUGFIX: `AGENTS_MD` name collided (path vs template string) → `main()` uses `ROOT / "AGENTS.md"`.
+- SYNC RAN OK: 12 files written, symlink created (ls shows 268 entries vs 267 in .opencode/skills —
+  a hidden file, non-critical), second run writes nothing (idempotent verified).
+- CRON: managed block `# >>> monkeycode-sync (managed) >>>` added at **30 4 * * ***
+  (`cd "<proj>" && './venv/bin/python' scripts/monkeycode_sync.py >> memory/.monkeycode-sync.log`)
+  after skillopt-sleep block; backup at /tmp/opencode/crontab_backup_monkeycode.txt.
+- GIT: repo initialized (`git init -b main`), local identity set (`ezzeldin` / `ezzeldin@local`),
+  first commit `5a5c868` "MonkeyCode bridge: sync script + hooks + generated surfaces" — tree clean,
+  no secrets staged (verified: no .db/.env/.operator/rotation_override), symlink committed as mode
+  120000. 10.6 MB / 1238 files. NO remote → push impossible until user adds one or imports ZIP.
+- FULL SUITE: **500 passed, 1 deselected, exit 0** — no regressions after hook edits.
+- NEXT for user (optional): add a git remote (GitHub/GitLab/Gitee) to enable auto-push, or just
+  import this folder/ZIP into MonkeyCode — the sync surfaces are already generated and current.

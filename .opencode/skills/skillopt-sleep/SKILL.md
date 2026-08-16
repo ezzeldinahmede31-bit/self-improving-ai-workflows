@@ -92,9 +92,13 @@ Installs a nightly cron entry. `unschedule --all` removes every managed entry.
 
 > Vendored fix: the upstream `schedule` dropped `--claude-home`, `--target-skill-path`
 > and `--source` from the cron line (so it would scan `~/.claude` and evolve the wrong
-> SKILL.md). Our copy of `skillopt_sleep/scheduler.py` now forwards all three; the
-> installed 03:47 cron is `bridge && python -m skillopt_sleep run --claude-home
-> memory/.skillopt-sleep/home --target-skill-path .opencode/skills/skillopt-sleep/SKILL.md`.
+> SKILL.md), and it never includes the opencode bridge. Our copy of
+> `skillopt_sleep/scheduler.py` now forwards all three, but the installed 03:47 cron
+> is maintained **manually** (`crontab -l`) so it keeps the bridge line, and now runs
+> the real backend with auto-adopt:
+> `bridge && python -m skillopt_sleep run --claude-home
+> memory/.skillopt-sleep/home --scope invoked --backend nim --auto-adopt
+> --target-skill-path .opencode/skills/skillopt-sleep/SKILL.md`.
 
 ### OpenCode transcript bridge (this workspace)
 
@@ -119,8 +123,9 @@ Then run the cycle against that `--claude-home`:
   --backend mock --target-skill-path .opencode/skills/skillopt-sleep/SKILL.md
 ```
 
-The installed cron (03:47 nightly) runs bridge → `run` automatically, even when
-opencode is closed. State persists to `memory/.skillopt-sleep/.skillopt-sleep/state.json`;
+The installed cron (03:47 nightly) runs bridge → `run --backend nim --auto-adopt`
+automatically, even when opencode is closed, and needs no human approval to adopt
+gated improvements. State persists to `memory/.skillopt-sleep/.skillopt-sleep/state.json`;
 staged proposals land in `.skillopt-sleep/staging/<ts>/`.
 
 ## Common CLI flags
@@ -129,7 +134,7 @@ staged proposals land in `.skillopt-sleep/staging/<ts>/`.
 |------|---------|-------------|
 | `--project PATH` | cwd | Project directory to evolve |
 | `--scope all\|invoked` | invoked | Harvest scope |
-| `--backend mock\|claude\|codex\|copilot\|handoff\|azure_openai` | mock | Backend (mock = no provider calls) |
+| `--backend mock\|claude\|codex\|copilot\|handoff\|azure_openai\|nim` | mock | Backend (mock = no provider calls; `nim` = NVIDIA NIM via NVIDIA_API_KEY) |
 | `--model NAME` | backend default | Override the model used for replay |
 | `--source claude\|codex\|auto` | claude | Transcript source |
 | `--lookback-hours N` | 72 | Harvest window |
