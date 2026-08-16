@@ -1,0 +1,57 @@
+openapi: 3.0.3
+info:
+  title: Client Portal API (mock for local workflow testing via Prism)
+  version: 1.0.0
+  description: Digital-twin spec served by stoplight/prism so generated
+    workflows that call the portal can be tested locally before hitting the
+    real server. Mirrors the endpoints in client_portal/app.py.
+paths:
+  /health:
+    get:
+      operationId: health
+      responses:
+        "200":
+          description: service healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: { type: string, example: ok }
+  /api/clients:
+    get:
+      operationId: listClients
+      responses:
+        "200":
+          description: list of clients
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Client"
+    post:
+      operationId: createClient
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Client"
+      responses:
+        "201":
+          description: created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Client"
+components:
+  schemas:
+    Client:
+      type: object
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        email:
+          type: string
+          format: email

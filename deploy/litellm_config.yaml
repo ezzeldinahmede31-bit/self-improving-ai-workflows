@@ -1,0 +1,31 @@
+# LiteLLM proxy config — place in front of DeepSeek / Ollama / Claude.
+# Budget ceilings + auto-fallback on 429/503 enforced HERE, not in app code.
+model_list:
+  - model_name: deepseek-chat
+    litellm_params:
+      model: deepseek/deepseek-chat
+      api_key: os.environ/DEEPSEEK_API_KEY
+      rpm: 60
+  - model_name: deepseek-reasoner
+    litellm_params:
+      model: deepseek/deepseek-reasoner
+      api_key: os.environ/DEEPSEEK_API_KEY
+      rpm: 20
+  - model_name: qwen-coder-local
+    litellm_params:
+      model: ollama/qwen2.5-coder:7b
+      api_base: http://host.docker.internal:11434
+      rpm: 30
+
+litellm_settings:
+  drop_params: true
+  num_retries: 2
+
+router_settings:
+  routing_strategy: usage-based-routing  # least-expensive model wins
+  allowed_fails: 3
+
+general_settings:
+  # <daily-budget-kv> enforces a hard ceiling in USD (see LiteLLM docs)
+  # master_key: os.environ/LITELLM_MASTER_KEY
+  database_url: ""

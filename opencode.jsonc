@@ -1,0 +1,76 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": ["memory/conversation-memory.md"],
+  "skills": {
+    "paths": ["~/.claude/skills"]
+  },
+  "compaction": {
+    "auto": true,
+    "prune": true,
+    "preserve_recent_tokens": 60000,
+    "reserved": 8000
+  },
+  "tool_output": {
+    "max_lines": 500,
+    "max_bytes": 20000
+  },
+  "mcp": {
+    "n8n": {
+      "type": "local",
+      "command": ["npx", "-y", "n8n-mcp"],
+      "enabled": true,
+      "environment": {
+        "MCP_MODE": "stdio",
+        "LOG_LEVEL": "error",
+        "DISABLE_CONSOLE_OUTPUT": "true",
+        "N8N_API_URL": "https://ezzeldin8n.ezzeldin8n.cfd",
+        "N8N_API_KEY": "{file:/home/ezzeldin/.n8n_api_key.txt}"
+      }
+    },
+    "youtube-transcript": {
+      "type": "local",
+      "command": ["npx", "-y", "@kimtaeyoon83/mcp-server-youtube-transcript"],
+      "enabled": true
+    },
+    "yt-transcript": {
+      "type": "local",
+      "command": ["npx", "-y", "yt-transcript-mcp"],
+      "enabled": true
+    },
+    "apify": {
+      "type": "remote",
+      "url": "https://mcp.apify.com",
+      "enabled": true
+    },
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "enabled": true
+    },
+    "gh_grep": {
+      "type": "remote",
+      "url": "https://mcp.grep.app",
+      "enabled": true
+    },
+    "firecrawl": {
+      "type": "remote",
+      "url": "https://mcp.firecrawl.dev/v2/mcp",
+      "enabled": true
+    },
+    "github": {
+      "type": "remote",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "enabled": false
+    },
+    "playwright": {
+      "type": "local",
+      "command": ["npx", "-y", "@playwright/mcp@latest", "--user-data-dir", "/home/ezzeldin/Documents/Default Project/memory/.sessions/playwright_persistent", "--browser=chromium"],
+      "enabled": true
+    },
+    "browser-mcp": {
+      "type": "local",
+      "command": ["npx", "-y", "@agent360/browser-mcp"],
+      "enabled": false
+    }
+  }
+}

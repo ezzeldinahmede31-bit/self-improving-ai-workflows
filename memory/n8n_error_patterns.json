@@ -1,0 +1,86 @@
+[
+  {
+    "gate": "preflight",
+    "pattern": "no schema cache present — run n8n-schema-preflight first (fetch node schemas from the n8n API)",
+    "count": 5,
+    "first_seen": "2026-08-15T01:33:03.188424+00:00",
+    "last_seen": "2026-08-15T01:47:44.263263+00:00"
+  },
+  {
+    "gate": "quality",
+    "pattern": "No Error Trigger node and no continueOnFail on any node",
+    "count": 3,
+    "first_seen": "2026-08-15T01:45:33.866459+00:00",
+    "last_seen": "2026-08-15T01:47:44.266180+00:00"
+  },
+  {
+    "gate": "quality",
+    "pattern": "No pinnedData on primary nodes — cannot unit-test instantly",
+    "count": 3,
+    "first_seen": "2026-08-15T01:45:33.866641+00:00",
+    "last_seen": "2026-08-15T01:47:44.266545+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "[TOOL_SCOPE_LOCK] Agent 'Understand Request (LLM)' has unrestricted or undefined tool access (no explicit allowed_tools list)",
+    "count": 2,
+    "first_seen": "2026-08-15T01:33:03.188637+00:00",
+    "last_seen": "2026-08-15T01:33:42.470425+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "[NO_ITERATION_CEILING] Agent 'Understand Request (LLM)' maxIterations undefined or unreasonably high (runaway loop / cost risk)",
+    "count": 2,
+    "first_seen": "2026-08-15T01:33:03.188867+00:00",
+    "last_seen": "2026-08-15T01:33:42.470589+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "[TOOL_SCOPE_LOCK] Agent 'Summarize Results (LLM)' has unrestricted or undefined tool access (no explicit allowed_tools list)",
+    "count": 2,
+    "first_seen": "2026-08-15T01:33:03.196629+00:00",
+    "last_seen": "2026-08-15T01:33:42.470715+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "[NO_ITERATION_CEILING] Agent 'Summarize Results (LLM)' maxIterations undefined or unreasonably high (runaway loop / cost risk)",
+    "count": 2,
+    "first_seen": "2026-08-15T01:33:03.196889+00:00",
+    "last_seen": "2026-08-15T01:33:42.470919+00:00"
+  },
+  {
+    "gate": "quality",
+    "pattern": "Workflow has 16 nodes — recommend sub-workflow split",
+    "count": 2,
+    "first_seen": "2026-08-15T01:33:03.197084+00:00",
+    "last_seen": "2026-08-15T01:33:42.471045+00:00"
+  },
+  {
+    "gate": "quality",
+    "pattern": "Code node `Collect Brands (3 Sources)` exceeds cyclomatic threshold",
+    "count": 2,
+    "first_seen": "2026-08-15T01:33:03.197290+00:00",
+    "last_seen": "2026-08-15T01:33:42.471169+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "Invalid JSON — cannot scan safely",
+    "count": 2,
+    "first_seen": "2026-08-15T01:45:33.866276+00:00",
+    "last_seen": "2026-08-15T01:45:54.402452+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "Hardcoded secret pattern `\\bsk-[A-Za-z0-9]{16,}`",
+    "count": 1,
+    "first_seen": "2026-08-15T01:47:44.264740+00:00",
+    "last_seen": "2026-08-15T01:47:44.264776+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "Metadata/SSRF target `169.254.169.254` in flow",
+    "count": 1,
+    "first_seen": "2026-08-15T01:47:44.265583+00:00",
+    "last_seen": "2026-08-15T01:47:44.265591+00:00"
+  }
+]

@@ -1,0 +1,54 @@
+{
+  "artifact": "",
+  "timestamp": "2026-08-15T00:16:03.977730+00:00",
+  "verdict": "READY_FOR_DEPLOYMENT",
+  "reason_code": "",
+  "stages": {
+    "preflight": {
+      "status": "NEEDS_REVIEW",
+      "violations": [
+        "no schema cache present — run n8n-schema-preflight first (fetch node schemas from the n8n API)"
+      ],
+      "checked": 0
+    },
+    "security": {
+      "status": "APPROVED",
+      "risk_score": 0,
+      "violations": [],
+      "threshold": 40
+    },
+    "quality": {
+      "status": "PASSED",
+      "quality_score": 90,
+      "violations": [
+        "No Error Trigger node and no continueOnFail on any node"
+      ],
+      "threshold": 80
+    },
+    "integrity": {
+      "status": "PASS",
+      "violations": []
+    },
+    "math": {
+      "status": "SKIP",
+      "checks": [],
+      "violations": []
+    },
+    "reasoning": {
+      "status": "PASS",
+      "notes": [
+        "no counting/boundary trigger — off-by-one class not flagged",
+        "reasoning depth: single-pass"
+      ]
+    },
+    "dry_run": {
+      "status": "PASS",
+      "violations": [],
+      "dry_run": {
+        "pinned": true,
+        "expected_parity": false
+      }
+    }
+  },
+  "hitl_request": null
+}

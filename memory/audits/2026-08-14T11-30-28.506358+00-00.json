@@ -1,0 +1,46 @@
+{
+  "artifact": "",
+  "timestamp": "2026-08-14T11:30:28.506358+00:00",
+  "verdict": "REJECTED_SECURITY_RISK",
+  "reason_code": "SECURITY_VIOLATION_REQUIRES_HUMAN",
+  "stages": {
+    "security": {
+      "status": "REJECTED_SECURITY_RISK",
+      "risk_score": 65,
+      "violations": [
+        "Banned javascript pattern `\\bchild_process\\b`",
+        "Metadata/SSRF target `169.254.169.254` in flow",
+        "Metadata/SSRF target `metadata` in flow"
+      ],
+      "threshold": 40
+    },
+    "quality": {
+      "status": "REJECTED",
+      "quality_score": 50,
+      "violations": [
+        "Node name not verb-prefixed/discoverable: `Steal metadata`",
+        "Isolated/unreachable nodes: ['Code Node', 'Steal metadata']",
+        "No Error Trigger node and no continueOnFail on any node",
+        "No pinnedData on primary nodes — cannot unit-test instantly"
+      ],
+      "threshold": 80
+    },
+    "integrity": {
+      "status": "PASS",
+      "violations": []
+    },
+    "math": {
+      "status": "SKIP",
+      "checks": [],
+      "violations": []
+    },
+    "reasoning": {
+      "status": "PASS",
+      "notes": [
+        "no counting/boundary trigger — off-by-one class not flagged",
+        "reasoning depth: single-pass"
+      ]
+    }
+  },
+  "hitl_request": null
+}

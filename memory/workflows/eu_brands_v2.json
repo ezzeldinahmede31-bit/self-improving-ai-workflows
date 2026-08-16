@@ -1,0 +1,520 @@
+{
+  "name": "EU Mid-Size Brands Finder (LLM v2)",
+  "nodes": [
+    {
+      "id": "trigger",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        0
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "config",
+      "name": "Load Config",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -112,
+        0
+      ],
+      "parameters": {
+        "jsCode": "return [{ json: { request: 'Get 100 mid-size European brands', chatId: 'REPLACE_WITH_YOUR_CHAT_ID', userAgent: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36', maxPages: 4 } }];",
+        "pinnedData": {
+          "1": {
+            "json": {
+              "request": "Get 100 mid-size European brands",
+              "chatId": "REPLACE_WITH_YOUR_CHAT_ID",
+              "userAgent": "Mozilla/5.0 (X11; Linux x86_64) Chrome/126.0 Safari/537.36",
+              "maxPages": 4
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "llmUnderstand",
+      "name": "Understand Request (LLM)",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        288,
+        0
+      ],
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "nvidia/nemotron-3-super-120b-a12b"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "={{ 'You are a request parser. From the user request, extract a JSON object with exactly these keys: limit (integer, the desired number of brands, default 100), countries (array of English country names, empty array if not specified), minEmployees (integer, default 50), maxEmployees (integer, default 999). Reply with ONLY valid JSON, no markdown, no extra text. User request: ' + $json.request }}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "credentials": {
+        "openAiApi": {
+          "id": "w0Q74nel3mI9hssM",
+          "name": "OpenAI account 3"
+        }
+      }
+    },
+    {
+      "id": "parse",
+      "name": "Parse Request",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        464,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const raw = $input.first().json;\nlet parsed = {};\nconst out = raw.output ? raw.output : raw;\nconst text = out.output_text || (out.message && (typeof out.message === 'string' ? out.message : (out.message.content ? (typeof out.message.content === 'string' ? out.message.content : JSON.stringify(out.message.content)) : ''))) || JSON.stringify(out);\nconst m = String(text).match(/\\{[\\s\\S]*\\}/);\nif (m) { try { parsed = JSON.parse(m[0]); } catch (e) { parsed = {}; } }\nconst cfg = raw.request ? raw : {};\nconst limit = Math.max(1, Math.min(parseInt(parsed.limit || 100, 10) || 100, 500));\nconst countries = Array.isArray(parsed.countries) ? parsed.countries.map(String).filter(Boolean) : [];\nconst minEmployees = parseInt(parsed.minEmployees || 50, 10) || 50;\nconst maxEmployees = parseInt(parsed.maxEmployees || 999, 10) || 999;\nreturn [{ json: {\n  request: raw.request || '',\n  limit: limit, countries: countries,\n  minEmployees: minEmployees, maxEmployees: maxEmployees,\n  chatId: raw.chatId || '', userAgent: raw.userAgent || '', maxPages: parseInt(raw.maxPages || 4, 10) || 4\n} }];"
+      }
+    },
+    {
+      "id": "collect",
+      "name": "Collect Brands (3 Sources)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        640,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const params = $input.first().json;\nconst h = $helpers.httpRequest;\nconst LIMIT_PAGE = 200;\nconst MAX_PAGES = Math.min(params.maxPages || 4, 8);\nconst collected = [];\nconst seen = new Set();\nfunction pushBrand(id, name, country, employees, industry, website, instagram, linkedin, source) {\n  if (!website) return;\n  const host = String(website).replace(/^https?:\\/\\//i, '').replace(/^www\\./i, '').split('/')[0];\n  if (!host || seen.has(host)) return;\n  seen.add(host);\n  const emp = parseInt(employees || '0', 10) || 0;\n  const band = emp >= 250 ? 'Mid-cap (250-999)' : (emp >= 50 ? 'Medium SME (50-249)' : 'Unknown');\n  let site = String(website); if (site && !site.startsWith('http')) site = 'https://' + site;\n  collected.push({ json: { brand_id: id, brand_name: name || host, country: country || '', employees: emp, size_band: band, industry: industry || '', website: site, instagram: instagram || '', linkedin: linkedin || '', chatId: params.chatId, userAgent: params.userAgent, source: source } });\n}\nfunction sparql(whereLines, filterLines, offset) {\n  return ['SELECT DISTINCT ?brand ?brandLabel ?employees ?countryLabel ?industryLabel ?website ?instagram ?linkedin WHERE {',\n    ...whereLines,\n    '  ?country wdt:P30 wd:Q46 .',\n    ...filterLines,\n    '  OPTIONAL { ?brand wdt:P452 ?industry . }',\n    '  OPTIONAL { ?brand wdt:P2003 ?instagram . }',\n    '  OPTIONAL { ?brand wdt:P4264 ?linkedin . }',\n    '  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }',\n    '}', 'LIMIT ' + LIMIT_PAGE + ' OFFSET ' + offset].join('\\n');\n}\nconst strictWhere = ['  ?brand wdt:P31/wdt:P279* wd:Q431289 ;', '         wdt:P17 ?country ;', '         wdt:P1128 ?employees ;', '         wdt:P856 ?website .'];\nconst relaxedWhere = ['  ?brand wdt:P31/wdt:P279* wd:Q431289 ;', '         wdt:P17 ?country ;', '         wdt:P856 ?website .'];\nasync function fetchSparql(q) {\n  const url = 'https://query.wikidata.org/sparql?format=json&query=' + encodeURIComponent(q);\n  try {\n    const res = await h.httpRequest({ url: url, method: 'GET', timeout: 45000, headers: { 'user-agent': params.userAgent }, returnFullResponse: true, ignoreHttpStatusErrors: true });\n    return (res.body && res.body.results && res.body.results.bindings) || [];\n  } catch (e) { return []; }\n}\nfunction rowsToBrands(rows, source) {\n  for (const b of rows) {\n    pushBrand(\n      (b.brand.value || '').replace('http://www.wikidata.org/entity/', ''),\n      b.brandLabel ? b.brandLabel.value : '',\n      b.countryLabel ? b.countryLabel.value : '',\n      b.employees ? b.employees.value : '0',\n      b.industryLabel ? b.industryLabel.value : '',\n      b.website ? b.website.value : '',\n      b.instagram ? 'https://www.instagram.com/' + b.instagram.value : '',\n      b.linkedin ? 'https://www.linkedin.com/company/' + b.linkedin.value : '',\n      source);\n  }\n}\n(async () => {\n  // Strategy A: strict (employees 50-999, brand, EU, website)\n  for (let page = 0; page < MAX_PAGES && collected.length < params.limit; page++) {\n    const rows = await fetchSparql(sparql(strictWhere, ['  FILTER(?country != wd:Q43)', '  FILTER(?employees >= ' + params.minEmployees + ' && ?employees <= ' + params.maxEmployees + ')'], page * LIMIT_PAGE));\n    if (!rows.length) break;\n    rowsToBrands(rows, 'wikidata-strict');\n  }\n  // Strategy B: relaxed (employees optional — bigger net)\n  for (let page = 0; page < MAX_PAGES && collected.length < params.limit; page++) {\n    const rows = await fetchSparql(sparql(relaxedWhere, ['  FILTER(?country != wd:Q43)'], page * LIMIT_PAGE));\n    if (!rows.length) break;\n    rowsToBrands(rows, 'wikidata-relaxed');\n  }\n  // Strategy C: Wikipedia company categories + Wikidata website enrichment\n  if (collected.length < params.limit) {\n    const countries = (params.countries && params.countries.length) ? params.countries : ['Germany', 'France', 'Italy', 'Spain', 'Netherlands', 'Poland', 'Sweden', 'Belgium', 'Austria', 'Denmark', 'Portugal', 'Finland', 'Ireland', 'Greece'];\n    for (const country of countries) {\n      if (collected.length >= params.limit) break;\n      let titles = [];\n      try {\n        const cat = 'Category:Companies_of_' + String(country).replace(/ /g, '_');\n        const res = await h.httpRequest({ url: 'https://en.wikipedia.org/w/api.php?action=query&list=categorymembers&cmtitle=' + encodeURIComponent(cat) + '&cmtype=page&cmlimit=200&format=json', method: 'GET', timeout: 30000, headers: { 'user-agent': params.userAgent }, returnFullResponse: true, ignoreHttpStatusErrors: true });\n        titles = ((res.body && res.body.query && res.body.query.categorymembers) || []).map(m => m.title);\n      } catch (e) { continue; }\n      for (let i = 0; i < titles.length && collected.length < params.limit; i += 50) {\n        try {\n          const batch = titles.slice(i, i + 50).join('|');\n          const res = await h.httpRequest({ url: 'https://www.wikidata.org/w/api.php?action=wbgetentities&sites=enwiki&titles=' + encodeURIComponent(batch) + '&props=claims&format=json', method: 'GET', timeout: 30000, headers: { 'user-agent': params.userAgent }, returnFullResponse: true, ignoreHttpStatusErrors: true });\n          const entities = (res.body && res.body.entities) || {};\n          for (const qid of Object.keys(entities)) {\n            const e = entities[qid];\n            const claims = e.claims || {};\n            const web = claims.P856 && claims.P856[0] && claims.P856[0].mainsnak && claims.P856[0].mainsnak.datavalue ? claims.P856[0].mainsnak.datavalue.value : '';\n            if (!web) continue;\n            const emp = claims.P1128 && claims.P1128[0] && claims.P1128[0].mainsnak && claims.P1128[0].mainsnak.datavalue ? String(claims.P1128[0].mainsnak.datavalue.value) : '0';\n            pushBrand(qid, e.title || qid, country, emp, '', web, '', '', 'wikipedia');\n          }\n        } catch (e2) { }\n      }\n    }\n  }\n  return collected.slice(0, params.limit);\n})()"
+      },
+      "continueOnFail": true
+    },
+    {
+      "id": "dedup",
+      "name": "Deduplicate Brands",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        832,
+        0
+      ],
+      "parameters": {
+        "operation": "rowNotExists",
+        "dataTableId": {
+          "mode": "id",
+          "value": "xpsYIruEB8n5XK4f"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "brand_id",
+              "keyValue": "={{ $json.brand_id }}"
+            }
+          ]
+        },
+        "pinnedData": {
+          "1": {
+            "json": {
+              "brand_id": "Q0000",
+              "brand_name": "Sample Brand"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "fetchHomeCode",
+      "name": "Fetch Homepage (Code)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1008,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const h = (typeof $helpers !== 'undefined' && $helpers && $helpers.httpRequest) ? $helpers : helpers;\nconst item = $input.item.json;\nlet data = ''; let statusCode = 0;\ntry {\n  const res = await h.httpRequest({ url: item.website, method: 'GET', timeout: 15000, headers: { 'user-agent': item.userAgent }, returnFullResponse: true, ignoreHttpStatusErrors: true });\n  data = typeof res.body === 'string' ? res.body : JSON.stringify(res.body);\n  statusCode = res.statusCode || 0;\n} catch (e) { statusCode = (e && e.response && e.response.status) || 0; }\nreturn { json: { ...item, data: data, statusCode: statusCode } };",
+        "mode": "runOnceForEachItem"
+      },
+      "continueOnFail": true
+    },
+    {
+      "id": "extract",
+      "name": "Extract Contacts Homepage",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1184,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const item = $input.item.json;\nconst html = item.data ? String(item.data) : '';\nconst emailRe = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}/g;\nconst junkDom = /(\\.png|\\.jpg|\\.jpeg|\\.svg|\\.gif|\\.webp|\\.js)$/i;\nconst junkMail = /sentry|example|youremail|beispiel|voorbeeld|domein\\.com|@email\\.com|^itsme@|^naam@|\\.test$/i;\nconst emails = [...new Set((html.match(emailRe) || []).map(e => e.replace(/^u003[eE]/i, '').replace(/^%20/, '')).filter(e => e && !junkDom.test(e) && !junkMail.test(e)))].slice(0, 3);\nconst telRe = /(?:tel:|\\+\\d{1,3}[\\s.-]?)?\\(?\\d{2,4}\\)?[\\s.-]?\\d{2,4}[\\s.-]?\\d{2,4}[\\s.-]?\\d{0,4}/g;\nconst phones = [...new Set((html.match(telRe) || []).filter(t => { const d = t.replace(/\\D/g, ''); if (d.length < 7 || d.length > 14 || /^(\\d)\\1+$/.test(d) || /^\\d{4}-\\d{2}-\\d{2}$/.test(t)) return false; if (!/[+\\s()-]/.test(t) && d.length === 10 && /^1[78]/.test(d)) return false; if (!/[+\\s()-]/.test(t) && d.length === 9 && /^[78]/.test(d)) return false; return true; }).map(t => t.replace(/^tel:/i, '')))].slice(0, 2);\nconst liRe = /https?:\\/\\/[a-z.]*linkedin\\.com\\/(?:company|school)\\/[^\\\"'<>&\\s]+/gi;\nconst li = (item.linkedin ? [item.linkedin] : []).concat(html.match(liRe) || []);\nconst linkedin = (li[0] || '').replace(/[\\\\/]+$/, '');\nreturn { json: { ...item, data: undefined, emails: emails, phones: phones, linkedin: linkedin, statusCode: item.statusCode || 0, has_email: emails.length > 0 } };",
+        "mode": "runOnceForEachItem"
+      }
+    },
+    {
+      "id": "ifEmail",
+      "name": "Has Email?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1360,
+        0
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "c1",
+              "leftValue": "={{ $json.has_email }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "contactUrl",
+      "name": "Contact Page URL",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1504,
+        160
+      ],
+      "parameters": {
+        "jsCode": "const item = $input.item.json;\nconst site = String(item.website).replace(/\\/$/, '');\nreturn { json: { ...item, contact_url: site + '/contact' } };",
+        "mode": "runOnceForEachItem"
+      }
+    },
+    {
+      "id": "fetchContactCode",
+      "name": "Fetch Contact Page (Code)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1664,
+        240
+      ],
+      "parameters": {
+        "jsCode": "const h = (typeof $helpers !== 'undefined' && $helpers && $helpers.httpRequest) ? $helpers : helpers;\nconst item = $input.item.json;\nlet data = ''; let statusCode = 0;\ntry {\n  const res = await h.httpRequest({ url: item.contact_url, method: 'GET', timeout: 15000, headers: { 'user-agent': item.userAgent }, returnFullResponse: true, ignoreHttpStatusErrors: true });\n  data = typeof res.body === 'string' ? res.body : JSON.stringify(res.body);\n  statusCode = res.statusCode || 0;\n} catch (e) { statusCode = (e && e.response && e.response.status) || 0; }\nreturn { json: { ...item, data: data, statusCode: statusCode } };",
+        "mode": "runOnceForEachItem"
+      },
+      "continueOnFail": true
+    },
+    {
+      "id": "extractContact",
+      "name": "Extract Contacts Contact Page",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1856,
+        256
+      ],
+      "parameters": {
+        "jsCode": "const item = $input.item.json;\nconst html = item.data ? String(item.data) : '';\nconst emailRe = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}/g;\nconst junkDom = /(\\.png|\\.jpg|\\.jpeg|\\.svg|\\.gif|\\.webp|\\.js)$/i;\nconst junkMail = /sentry|example|youremail|beispiel|voorbeeld|domein\\.com|@email\\.com|^itsme@|^naam@|\\.test$/i;\nconst emails = [...new Set((html.match(emailRe) || []).map(e => e.replace(/^u003[eE]/i, '').replace(/^%20/, '')).filter(e => e && !junkDom.test(e) && !junkMail.test(e)))].slice(0, 3);\nreturn { json: { ...item, data: undefined, emails: emails, phones: item.phones || [], has_email: emails.length > 0 } };",
+        "mode": "runOnceForEachItem"
+      }
+    },
+    {
+      "id": "merge",
+      "name": "Merge Results",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2,
+      "position": [
+        2016,
+        0
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "exportCsv",
+      "name": "Export CSV (Download)",
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1,
+      "position": [
+        2208,
+        0
+      ],
+      "parameters": {
+        "options": {
+          "fileName": "eu_brands_contacts.csv"
+        }
+      }
+    },
+    {
+      "id": "record",
+      "name": "Record Sent Brands",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        2208,
+        128
+      ],
+      "parameters": {
+        "dataTableId": {
+          "mode": "id",
+          "value": "xpsYIruEB8n5XK4f"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "brand_id": "={{ $json.brand_id }}",
+            "brand_name": "={{ $json.brand_name }}",
+            "sent_at": "={{ new Date().toISOString() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "brand_id",
+              "displayName": "brand_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "brand_name",
+              "displayName": "brand_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "sent_at",
+              "displayName": "sent_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "llmSummary",
+      "name": "Summarize Results (LLM)",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        2592,
+        -160
+      ],
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "nvidia/nemotron-3-super-120b-a12b"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "={{ 'Summarize these EU mid-size brands in plain English, max 6 lines: total brands, the number with an email address, the number with a phone number, top 5 countries. Data: ' + JSON.stringify($input.all().map(i => ({ name: i.json.brand_name, country: i.json.country, email: (i.json.emails || [])[0] || '', phone: (i.json.phones || [])[0] || '' })).slice(0, 250)) }}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "credentials": {
+        "openAiApi": {
+          "id": "w0Q74nel3mI9hssM",
+          "name": "OpenAI account 3"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Load Config"
+          }
+        ]
+      ]
+    },
+    "Load Config": {
+      "main": [
+        [
+          {
+            "node": "Understand Request (LLM)"
+          }
+        ]
+      ]
+    },
+    "Understand Request (LLM)": {
+      "main": [
+        [
+          {
+            "node": "Parse Request"
+          }
+        ]
+      ]
+    },
+    "Parse Request": {
+      "main": [
+        [
+          {
+            "node": "Collect Brands (3 Sources)"
+          }
+        ]
+      ]
+    },
+    "Collect Brands (3 Sources)": {
+      "main": [
+        [
+          {
+            "node": "Deduplicate Brands"
+          }
+        ]
+      ]
+    },
+    "Deduplicate Brands": {
+      "main": [
+        [
+          {
+            "node": "Fetch Homepage (Code)"
+          }
+        ]
+      ]
+    },
+    "Fetch Homepage (Code)": {
+      "main": [
+        [
+          {
+            "node": "Extract Contacts Homepage"
+          }
+        ]
+      ]
+    },
+    "Extract Contacts Homepage": {
+      "main": [
+        [
+          {
+            "node": "Has Email?"
+          }
+        ]
+      ]
+    },
+    "Has Email?": {
+      "main": [
+        [
+          {
+            "node": "Merge Results"
+          }
+        ],
+        [
+          {
+            "node": "Contact Page URL"
+          }
+        ]
+      ]
+    },
+    "Contact Page URL": {
+      "main": [
+        [
+          {
+            "node": "Fetch Contact Page (Code)"
+          }
+        ]
+      ]
+    },
+    "Fetch Contact Page (Code)": {
+      "main": [
+        [
+          {
+            "node": "Extract Contacts Contact Page"
+          }
+        ]
+      ]
+    },
+    "Extract Contacts Contact Page": {
+      "main": [
+        [
+          {
+            "node": "Merge Results"
+          }
+        ]
+      ]
+    },
+    "Merge Results": {
+      "main": [
+        [
+          {
+            "node": "Export CSV (Download)"
+          },
+          {
+            "node": "Record Sent Brands"
+          },
+          {
+            "node": "Summarize Results (LLM)"
+          }
+        ]
+      ]
+    },
+    "Export CSV (Download)": {
+      "main": [
+        []
+      ]
+    },
+    "Record Sent Brands": {
+      "main": [
+        []
+      ]
+    },
+    "Summarize Results (LLM)": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true,
+    "saveExecutionProgress": true,
+    "binaryMode": "separate"
+  },
+  "pinData": {
+    "Load Config": [
+      {
+        "json": {
+          "request": "Get 100 mid-size European brands",
+          "chatId": "REPLACE_WITH_YOUR_CHAT_ID",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64) Chrome/126.0 Safari/537.36",
+          "maxPages": 4
+        }
+      }
+    ]
+  }
+}

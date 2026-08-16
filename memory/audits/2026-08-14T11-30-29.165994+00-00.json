@@ -1,0 +1,67 @@
+{
+  "artifact": "",
+  "timestamp": "2026-08-14T11:30:29.165994+00:00",
+  "verdict": "READY_FOR_DEPLOYMENT",
+  "reason_code": "",
+  "stages": {
+    "security": {
+      "status": "APPROVED",
+      "risk_score": 0,
+      "violations": [],
+      "threshold": 40
+    },
+    "quality": {
+      "status": "PASSED",
+      "quality_score": 80,
+      "violations": [
+        "No Error Trigger node and no continueOnFail on any node",
+        "No pinnedData on primary nodes — cannot unit-test instantly"
+      ],
+      "threshold": 80
+    },
+    "integrity": {
+      "status": "PASS",
+      "violations": []
+    },
+    "math": {
+      "status": "PASS",
+      "checks": [
+        {
+          "gate": "math_verify",
+          "ok": true,
+          "detail": {
+            "answer": "1/3",
+            "expected": "0.3333333333333333"
+          }
+        },
+        {
+          "gate": "boundary_sanity",
+          "ok": true,
+          "detail": {
+            "answer": 149
+          }
+        },
+        {
+          "gate": "self_consistency_vote",
+          "ok": true,
+          "detail": {
+            "votes": {
+              "149": 2,
+              "150": 1
+            },
+            "winner": "149"
+          }
+        }
+      ],
+      "violations": []
+    },
+    "reasoning": {
+      "status": "PASS",
+      "notes": [
+        "no counting/boundary trigger — off-by-one class not flagged",
+        "reasoning depth: multi-candidate"
+      ]
+    }
+  },
+  "hitl_request": null
+}

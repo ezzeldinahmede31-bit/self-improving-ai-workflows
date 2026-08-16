@@ -1,0 +1,40 @@
+{
+  "artifact": "",
+  "timestamp": "2026-08-14T12:12:13.268294+00:00",
+  "verdict": "READY_FOR_DEPLOYMENT",
+  "reason_code": "",
+  "stages": {
+    "security": {
+      "status": "APPROVED",
+      "risk_score": 0,
+      "violations": [],
+      "threshold": 40
+    },
+    "quality": {
+      "status": "PASSED",
+      "quality_score": 85,
+      "violations": [
+        "Workflow has 16 nodes — recommend sub-workflow split",
+        "Code node `Collect Brands (3 Sources)` exceeds cyclomatic threshold"
+      ],
+      "threshold": 80
+    },
+    "integrity": {
+      "status": "PASS",
+      "violations": []
+    },
+    "math": {
+      "status": "SKIP",
+      "checks": [],
+      "violations": []
+    },
+    "reasoning": {
+      "status": "PASS",
+      "notes": [
+        "no counting/boundary trigger — off-by-one class not flagged",
+        "reasoning depth: single-pass"
+      ]
+    }
+  },
+  "hitl_request": null
+}

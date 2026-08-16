@@ -1,0 +1,59 @@
+{
+  "artifact": "",
+  "timestamp": "2026-08-15T00:16:13.086571+00:00",
+  "verdict": "DRY_RUN_EVIDENCE_MISSING",
+  "reason_code": "RUN_TRIAL_EXECUTION_FIRST",
+  "stages": {
+    "preflight": {
+      "status": "NEEDS_REVIEW",
+      "violations": [
+        "no schema cache present — run n8n-schema-preflight first (fetch node schemas from the n8n API)"
+      ],
+      "checked": 0
+    },
+    "security": {
+      "status": "APPROVED",
+      "risk_score": 0,
+      "violations": [],
+      "threshold": 40
+    },
+    "quality": {
+      "status": "PASSED",
+      "quality_score": 90,
+      "violations": [
+        "No pinnedData on primary nodes — cannot unit-test instantly"
+      ],
+      "threshold": 80
+    },
+    "integrity": {
+      "status": "PASS",
+      "violations": []
+    },
+    "math": {
+      "status": "SKIP",
+      "checks": [],
+      "violations": []
+    },
+    "reasoning": {
+      "status": "PASS",
+      "notes": [
+        "AVOID previous rejection: no schema cache present — run n8n-schema-preflight first (fetch node schemas from the n8n API)",
+        "AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly",
+        "AVOID previous rejection: no dry-run evidence: nodes carry no pinned data and no expected_result from a trial run — run the workflow on the n8n instance (n8n-pinned-data-mocking) before delivery",
+        "no counting/boundary trigger — off-by-one class not flagged",
+        "reasoning depth: single-pass"
+      ]
+    },
+    "dry_run": {
+      "status": "FAIL",
+      "violations": [
+        "no dry-run evidence: nodes carry no pinned data and no expected_result from a trial run — run the workflow on the n8n instance (n8n-pinned-data-mocking) before delivery"
+      ],
+      "dry_run": {
+        "pinned": false,
+        "expected_parity": false
+      }
+    }
+  },
+  "hitl_request": null
+}

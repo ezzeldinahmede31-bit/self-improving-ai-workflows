@@ -1,0 +1,50 @@
+{
+  "artifact": "",
+  "timestamp": "2026-08-14T11:30:30.559338+00:00",
+  "verdict": "HEURISTIC_APPROVED",
+  "reason_code": "REASONING_REVIEW_REQUIRED",
+  "stages": {
+    "security": {
+      "status": "APPROVED",
+      "risk_score": 0,
+      "violations": [],
+      "threshold": 40
+    },
+    "quality": {
+      "status": "PASSED",
+      "quality_score": 80,
+      "violations": [
+        "No Error Trigger node and no continueOnFail on any node",
+        "No pinnedData on primary nodes — cannot unit-test instantly"
+      ],
+      "threshold": 80
+    },
+    "integrity": {
+      "status": "PASS",
+      "violations": []
+    },
+    "math": {
+      "status": "NEEDS_REVIEW",
+      "checks": [
+        {
+          "gate": "boundary_sanity",
+          "ok": false,
+          "detail": {
+            "answer": 149
+          }
+        }
+      ],
+      "violations": [
+        "counting answer present but no independent expected value — off-by-one boundary class cannot be ruled out mechanically"
+      ]
+    },
+    "reasoning": {
+      "status": "NEEDS_REVIEW",
+      "notes": [
+        "no counting/boundary trigger — off-by-one class not flagged",
+        "reasoning depth: single-pass"
+      ]
+    }
+  },
+  "hitl_request": null
+}

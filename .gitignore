@@ -1,0 +1,21 @@
+# secrets — NEVER sync
+.env
+.opencode/.env
+.operator/
+**/rotation_override.secret
+memory/.sessions/
+memory/.skillopt-sleep/
+.skillopt-sleep/
+
+# databases (local state, no memory value)
+*.db
+*.db-shm
+*.db-wal
+
+# tooling noise
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+.eslintcache

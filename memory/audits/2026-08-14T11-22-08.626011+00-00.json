@@ -1,0 +1,52 @@
+{
+  "artifact": "",
+  "timestamp": "2026-08-14T11:22:08.626011+00:00",
+  "verdict": "MATH_VIOLATION",
+  "reason_code": "MATH_VERIFICATION_FAILED",
+  "stages": {
+    "security": {
+      "status": "APPROVED",
+      "risk_score": 0,
+      "violations": [],
+      "threshold": 40
+    },
+    "quality": {
+      "status": "PASSED",
+      "quality_score": 80,
+      "violations": [
+        "No Error Trigger node and no continueOnFail on any node",
+        "No pinnedData on primary nodes — cannot unit-test instantly"
+      ],
+      "threshold": 80
+    },
+    "integrity": {
+      "status": "PASS",
+      "violations": []
+    },
+    "math": {
+      "status": "FAIL",
+      "checks": [
+        {
+          "gate": "math_verify",
+          "ok": false,
+          "detail": {
+            "answer": "150",
+            "expected": "149"
+          }
+        }
+      ],
+      "violations": [
+        "math-verify: answer '150' != expected '149'"
+      ]
+    },
+    "reasoning": {
+      "status": "FAIL",
+      "notes": [
+        "no counting/boundary trigger — off-by-one class not flagged",
+        "math gate failed — artifact must not ship",
+        "reasoning depth: single-pass"
+      ]
+    }
+  },
+  "hitl_request": null
+}

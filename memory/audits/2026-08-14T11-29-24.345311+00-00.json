@@ -1,0 +1,45 @@
+{
+  "artifact": "",
+  "timestamp": "2026-08-14T11:29:24.345311+00:00",
+  "verdict": "QUALITY_VIOLATION",
+  "reason_code": "QUALITY_BELOW_THRESHOLD",
+  "stages": {
+    "security": {
+      "status": "APPROVED",
+      "risk_score": 0,
+      "violations": [],
+      "threshold": 40
+    },
+    "quality": {
+      "status": "REJECTED",
+      "quality_score": 15,
+      "violations": [
+        "Deprecated syntax `\\$json\\b(?!\\.)` used",
+        "Code-node uses bare $json without $input accessor",
+        "Code-node uses bare $json without $input accessor",
+        "Node name not verb-prefixed/discoverable: `Config`",
+        "Workflow has 15 nodes — recommend sub-workflow split",
+        "No Error Trigger node and no continueOnFail on any node",
+        "No pinnedData on primary nodes — cannot unit-test instantly"
+      ],
+      "threshold": 80
+    },
+    "integrity": {
+      "status": "PASS",
+      "violations": []
+    },
+    "math": {
+      "status": "SKIP",
+      "checks": [],
+      "violations": []
+    },
+    "reasoning": {
+      "status": "PASS",
+      "notes": [
+        "no counting/boundary trigger — off-by-one class not flagged",
+        "reasoning depth: single-pass"
+      ]
+    }
+  },
+  "hitl_request": null
+}

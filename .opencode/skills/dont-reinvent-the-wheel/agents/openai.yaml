@@ -1,0 +1,4 @@
+interface:
+  display_name: "Don't Reinvent the Wheel"
+  short_description: "Find native, OSS, SaaS, or scripts first"
+  default_prompt: "Use $dont-reinvent-the-wheel to audit this app or feature, interview me on key decisions when needed, then research native stack capabilities, OSS, marketplace scripts, SaaS tools, and integration options before building custom code."

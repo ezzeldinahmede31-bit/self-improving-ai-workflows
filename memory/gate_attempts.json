@@ -1,0 +1,9 @@
+{
+  "eu_brands_v2.json": {
+    "SECURITY_VIOLATION_REQUIRES_HUMAN::[TOOL_SCOPE_LOCK] Agent 'Understand Request (LLM)' has unrestricted or undefined tool access (no explicit allowed_tools ": 2
+  },
+  "SKILL.md": {
+    "SECURITY_VIOLATION_REQUIRES_HUMAN::Invalid JSON — cannot scan safely": 2,
+    "SECURITY_VIOLATION_REQUIRES_HUMAN::Hardcoded secret pattern `\\bsk-[A-Za-z0-9]{16,}`": 1
+  }
+}

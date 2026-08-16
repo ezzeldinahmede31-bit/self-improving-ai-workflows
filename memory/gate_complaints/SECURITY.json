@@ -1,0 +1,38 @@
+[
+  {
+    "id": "security-1786758323725",
+    "gate": "SECURITY",
+    "kind": "SKILL_GAP",
+    "violation": "Invalid JSON — cannot scan safely",
+    "keywords": [
+      "invalid",
+      "json",
+      "scan",
+      "safely"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-08-15T01:45:23.725330+00:00",
+    "resolved_at": "2026-08-15T01:45:33.856988+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "security-1786758345247",
+    "gate": "SECURITY",
+    "kind": "SKILL_GAP",
+    "violation": "Invalid JSON — cannot scan safely",
+    "keywords": [
+      "invalid",
+      "json",
+      "scan",
+      "safely"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-08-15T01:45:45.247873+00:00",
+    "resolved_at": "2026-08-15T01:45:54.401758+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  }
+]

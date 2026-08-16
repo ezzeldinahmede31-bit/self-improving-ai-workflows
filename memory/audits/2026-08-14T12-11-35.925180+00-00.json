@@ -1,0 +1,43 @@
+{
+  "artifact": "",
+  "timestamp": "2026-08-14T12:11:35.925180+00:00",
+  "verdict": "HEURISTIC_APPROVED",
+  "reason_code": "REASONING_REVIEW_REQUIRED",
+  "stages": {
+    "security": {
+      "status": "APPROVED",
+      "risk_score": 0,
+      "violations": [],
+      "threshold": 40
+    },
+    "quality": {
+      "status": "REJECTED",
+      "quality_score": 65,
+      "violations": [
+        "Node name not verb-prefixed/discoverable: `Dedup vs Fetched`",
+        "Workflow has 16 nodes — recommend sub-workflow split",
+        "No pinnedData on primary nodes — cannot unit-test instantly",
+        "Code node `Collect Brands (3 Sources)` exceeds cyclomatic threshold"
+      ],
+      "threshold": 80
+    },
+    "integrity": {
+      "status": "PASS",
+      "violations": []
+    },
+    "math": {
+      "status": "SKIP",
+      "checks": [],
+      "violations": []
+    },
+    "reasoning": {
+      "status": "NEEDS_REVIEW",
+      "notes": [
+        "counting/boundary problem detected — boundary scan required",
+        "NEEDS_REVIEW: counting problem without independent verification",
+        "reasoning depth: single-pass"
+      ]
+    }
+  },
+  "hitl_request": null
+}
