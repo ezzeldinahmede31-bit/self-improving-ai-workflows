@@ -1134,3 +1134,11 @@ Both added to `compensatory-router` stacks.
 - ROOT-CAUSE FIX in `scripts/router_register.py`: new `_truncate_word_boundary(text, limit)` — cuts at last whitespace before limit + `" …"`, hard-cut fallback; `ensure_routing_row` now uses it for trigger and description.
 - TESTS: +5 in tests/test_router_register.py (25 total there; short/word-boundary/hard-cut/row uses ellipsis). FULL SUITE exit 0 green.
 - VERIFY: main routing table 65 rows all 3 cells, 0 `||`, trailing pipes OK; YAML frontmatter OK; registry 383 = 19 buckets sum; both repaired skills in routing row + registry; library regenerated 268 entries.
+
+## RAG workflow gates — P5 `@n8n/` prefix + strict trigger fix (Aug 17) — 501+ tests
+- Active task: build n8n "RAG" workflow (per-file Qdrant collections Q1–Q6.pdf + Drive auto-sync, NVIDIA models). Gate had 2 failing tests from the earlier `_normalize_node_type` work.
+- ROOT-CAUSE 1 (real gate bug): `_is_trigger_node` uses substring hints (`TRIGGER_NODE_HINTS` = trigger/webhook/schedule/chat) so `@n8n/n8n-nodes-langchain.lmChatNvidia` contains "chat" → P5 wrongly exempted model nodes from the credential rule. FIX: new `_is_trigger_type(node_type)` = `_normalize_node_type(...).lower().endswith(("trigger","webhook",".form"))` — used in P5 ONLY (P2/DryRunGate keep the broad predicate, unchanged). Verified strict: webhook/respondToWebhook/chatTrigger/scheduleTrigger/form are triggers; lmChatNvidia/lmChatOpenAi/embeddingsNvidia/vectorStoreQdrant/httpRequest are NOT.
+- ROOT-CAUSE 2 (test-only): `test_p5_agent_with_n8n_prefix_no_credential_ok` had an agent with no `ai_languageModel` connection → E1 failed first. FIX: test now wires Chat(main→Agent+Model) + Agent(ai_languageModel→NVIDIA Chat Model with nvidiaApi credential) — asserts PASS + no "requires a credential".
+- Added `test_is_trigger_type_strict` (7 positives + 5 negative app-like cases) — regression-locks the exemption bug.
+- SUITE: `tests/test_n8n_precision_gate.py` + `tests/test_build_gates_pipeline.py` green; FULL SUITE exit 0, 1 deselected e2e, no regressions.
+- n8n instance + MCP confirmed available (n8n 2.69.0, ezzeldin8n.ezzeldin8n.cfd). NEXT: build `/tmp/opencode/rag_workflow.json` (17-node design), run `build_gates_pipeline.py` → READY, create "RAG", run 3 e2e tests, deliver Arabic.
