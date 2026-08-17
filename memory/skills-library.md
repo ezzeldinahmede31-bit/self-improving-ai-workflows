@@ -7,7 +7,7 @@ for the full doc of the chosen skill. Grouping matches the router
 registry buckets (`compensatory-router/SKILL.md`), so new skills that were
 registered in the router appear under the same family here automatically.
 
-## Automation (per-tool) (61)
+## Automation (per-tool) (56)
 
 - **ai-skill-authoring-standards** — The GLOBAL standards gate for creating, reviewing, designing, and building ANY AI agent skill in this workspace.
 - **airtable-automation** — Airtable database automation - views, automations, integrations, and workflow triggers
@@ -16,18 +16,14 @@ registered in the router appear under the same family here automatically.
 - **asana-automation** — Automate Asana project management workflows, task tracking, team collaboration, and reporting
 - **calendar-automation** — Google Calendar and Outlook automation - scheduling optimization, meeting workflows, time blocking, and Slack/Sheets integration
 - **clickup-automation** — Automate ClickUp workspace management, task workflows, time tracking, and team productivity
-- **cloud-native-patterns** — Applies Cornelia Davis' Cloud Native Patterns to design applications that fully exploit cloud environments: stateless and stateful design, event-driven architec…
 - **code-smell-detector** — Detects code smells in n8n workflows based on Martin Fowler's catalog of 70+ smells from 'Refactoring' (1999).
 - **crm-automation** — CRM workflow automation for HubSpot, Salesforce, Pipedrive - lead management, deal tracking, and multi-CRM synchronization
 - **devops-automation** — DevOps and IT Ops automation - CI/CD, monitoring, incident management, and infrastructure workflows
 - **devops-handbook-flow** — Applies The DevOps Handbook (Kim, Humble, Debois, Willis) to accelerate software delivery with quality intact: the Three Ways (flow, feedback, continual learnin…
 - **docusign-automation** — Automate document signing workflows, envelope management, and e-signature processes
-- **domain-modeling-functional** — Applies Scott Wlaschin's Domain Modeling Made Functional method: translate business requirements into precise code by modeling the domain as types and workflows…
 - **email-marketing** — Email marketing automation - campaign creation, sequence building, A/B testing, deliverability optimization, and analytics
-- **evolutionary-architecture** — Applies Building Evolutionary Architectures by Ford, Parsons & Kua: design systems that adapt to continuous change instead of freezing — architecture fitness fu…
 - **excel-automation** — Automate Excel spreadsheets: formulas, data cleanup, chart creation, VBA macros, and reporting workflows.
 - **gate-first-pass-builder** — Build ANY n8n workflow or AI agent so it passes the user's own build gates (build_gates_pipeline.py) on the FIRST attempt — no rejections, no fixes-after-the-fa…
-- **goos-outside-in-tdd** — Applies Freeman & Pryce's Growing Object-Oriented Software, Guided by Tests (GOOS): build systems outside-in with a walking skeleton, write a failing integratio…
 - **high-output-management** — Applies Andrew Grove's High Output Management to manage time, teams, and productivity: managerial leverage (output = output of the org), the output-oriented mee…
 - **home-assistant-automation** — Automate smart home devices and create intelligent home automation workflows with Home Assistant
 - **hr-automation** — HR workflow automation - recruiting, onboarding, employee management, and offboarding processes
@@ -58,7 +54,6 @@ registered in the router appear under the same family here automatically.
 - **skillopt-sleep** — Use when the user wants their Claude agent to self-improve from past usage, asks about a nightly/offline 'sleep' or 'dream' cycle, memory/skill consolidation, o…
 - **spotify-automation** — Automate Spotify music playback, playlist management, and audio analysis workflows
 - **staff-engineer-leadership** — Applies Will Larson's Staff Engineer to operate at Staff/Principal level without a management title: find the leverage point (work where the multiplier is large…
-- **systems-performance-profiling** — Applies Brendan Gregg's Systems Performance methodology to find and fix real bottlenecks: the USE method (Utilization, Saturation, Errors) for every resource, l…
 - **transcription-automation** — Automate audio/video transcription, meeting notes, subtitle generation, and content processing
 - **trello-automation** — Automate Trello board management, card workflows, power-ups, and team collaboration
 - **twilio-sms-automation** — Automate SMS communications, two-way messaging, notifications, and voice workflows with Twilio
@@ -71,8 +66,9 @@ registered in the router appear under the same family here automatically.
 - **youtube-automation** — Automate YouTube content workflows including video management, analytics, scheduling, and channel optimization
 - **zendesk-automation** — Automate customer support workflows with Zendesk ticket management, routing, and analytics
 
-## n8n (17)
+## n8n (19)
 
+- **cloud-native-patterns** — Applies Cornelia Davis' Cloud Native Patterns to design applications that fully exploit cloud environments: stateless and stateful design, event-driven architec…
 - **n8n-agents-official** — Use when building or editing any AI feature in n8n: AI Agents, Text Classifier, Information Extractor, Sentiment Analysis, Summarization Chain, Basic LLM Chain,…
 - **n8n-autodoc-mermaid** — Automatically generate a README.md with a Mermaid flowchart, inputs/outputs table, and step-by-step client runbook for every n8n workflow delivered.
 - **n8n-code-nodes-official** — Use when the user reaches for a Code node, mentions writing JavaScript or Python in n8n, or any custom logic comes up in workflow design.
@@ -90,6 +86,7 @@ registered in the router appear under the same family here automatically.
 - **n8n-workflow-lifecycle-official** — Use when starting, designing, organizing, finishing, or shipping an n8n workflow.
 - **nvidia-embeddings** — Embed text with NVIDIA's nv-embedqa-e5-v5 via the integrate.api.nvidia.com API — correct input_type (passage when indexing, query when searching), small batches…
 - **qdrant-ops** — Operate the workspace's Qdrant vector store safely and correctly — create/delete/search collections, upsert and inspect points, and troubleshoot the classic Qdr…
+- **systems-performance-profiling** — Applies Brendan Gregg's Systems Performance methodology to find and fix real bottlenecks: the USE method (Utilization, Saturation, Errors) for every resource, l…
 
 ## Zapier (9)
 
@@ -103,7 +100,7 @@ registered in the router appear under the same family here automatically.
 - **zapier-sdk** — Zapier SDK for TypeScript.
 - **zapier-system-cloner** — Replicates any Zapier (Zap) system — especially premium/expensive ones — with identical outputs and quality on n8n or code, using different (free/local) tools w…
 
-## Marketing/SEO/Growth (17)
+## Marketing/SEO/Growth (19)
 
 - **apify-audience-analysis** — Understand audience demographics, preferences, behavior patterns, and engagement quality across Facebook, Instagram, YouTube, and TikTok.
 - **audience-psychology-analyst** — Build a psychological profile of any target audience and translate it into marketing AND video-editing decisions.
@@ -112,6 +109,7 @@ registered in the router appear under the same family here automatically.
 - **content-research-writer** — Research topics and write content like blog posts, articles, and copy
 - **conversion-psychology** — Psychology of conversion for sponsored content.
 - **customer-research** — When the user wants to conduct, analyze, or synthesize customer research.
+- **domain-modeling-functional** — Applies Scott Wlaschin's Domain Modeling Made Functional method: translate business requirements into precise code by modeling the domain as types and workflows…
 - **engineering-management-path** — Applies Camille Fournier's The Manager's Path to grow from engineer to engineering manager and beyond: the tech-lead and manager roles, one-on-ones, feedback (p…
 - **influence-psychology** — Apply the seven principles of ethical persuasion (reciprocity, commitment, social proof, authority, liking, scarcity, unity) to product design, copy, and sales.
 - **influencer-marketing** — When the user wants to run influencer, creator, or ambassador partnerships to promote their product — finding and vetting partners, structuring deals, briefing…
@@ -121,6 +119,7 @@ registered in the router appear under the same family here automatically.
 - **marketing-plan** — When the user needs a comprehensive marketing plan for a client, a company they advise, or their own product.
 - **marketing-psychology** — When the user wants to apply psychological principles, mental models, or behavioral science to marketing.
 - **persuasion-principles** — Master Robert Cialdini's 6 (+1) Principles of Persuasion from "Influence: The Psychology of Persuasion" (1984).
+- **sicp-abstraction-and-interpretation** — Applies the SICP (Structure and Interpretation of Computer Programs) discipline to system design and code: build programs as layers of abstraction with named pr…
 - **viral-hooks** — Expert in creating opening lines, thumbnails, and hooks that stop the scroll.
 
 ## Social media (7)
@@ -143,14 +142,12 @@ registered in the router appear under the same family here automatically.
 - **video-inpainting** — Region edits across video frames on RunComfy via the `runcomfy` CLI — remove an object that appears across many frames, clean up wires or watermarks, replace a…
 - **video-processing-editing** — FFmpeg automation for cutting, trimming, concatenating videos.
 
-## Research (15)
+## Research (12)
 
 - **academic-search** — Search and analyze academic literature.
 - **algorithm-design-manual-war-stories** — Applies Steven Skiena's Algorithm Design Manual 'war manual' to real-world problems: classify the problem type first, consult the problem catalog for the proven…
-- **clrs-algorithm-mastery** — Enforces the CLRS (Introduction to Algorithms) method on hard algorithmic problems: rigorous asymptotic complexity analysis (Big-O/Theta/Omega) for time and spa…
 - **company-research** — Conduct comprehensive company research and due diligence.
 - **data-analysis** — Generate statistical analysis code with 4-round review.
-- **database-internals-engines** — Applies Alex Petrov's Database Internals knowledge to design and troubleshoot storage-backed systems: how storage engines actually work under the hood (B-Trees…
 - **deep-research** — Conduct comprehensive research on any topic.
 - **evidence-over-memory** — Kill hallucination by making verification a reflex: any factual claim, API detail, library version, file path, or numeric fact must come from a tool result, not…
 - **firecrawl-deep-research** — Produce an intensive, cited analytical report: executive summary, multi-angle findings, contrarian views, open questions, and full sources.
@@ -158,16 +155,17 @@ registered in the router appear under the same family here automatically.
 - **literature-search** — Search academic literature using Semantic Scholar, arXiv, and OpenAlex APIs.
 - **parallel-deep-research** — ONLY use when user explicitly says 'deep research', 'exhaustive', 'comprehensive report', or 'thorough investigation'.
 - **parallel-web-search** — DEFAULT for all research and web queries.
-- **sicp-abstraction-and-interpretation** — Applies the SICP (Structure and Interpretation of Computer Programs) discipline to system design and code: build programs as layers of abstraction with named pr…
 - **web-search** — Formulate effective web search queries, analyze search results, and synthesize findings.
 
-## Reasoning/Math/Logic (14)
+## Reasoning/Math/Logic (16)
 
 - **algorithmic-math-reasoner** — Raises correctness on hard algorithmic and mathematical problems where a fast model tends to jump to plausible-but-wrong answers: forces formal restatement, inv…
+- **clrs-algorithm-mastery** — Enforces the CLRS (Introduction to Algorithms) method on hard algorithmic problems: rigorous asymptotic complexity analysis (Big-O/Theta/Omega) for time and spa…
 - **critical-thinking-logical-reasoning** — Critically analyse the reasoning in written content (articles, blogs, transcripts, reports), not code.
 - **execution-guided-tot-validator** — Validates Tree-of-Thought (ToT) reasoning branches using real execution feedback in a local Docker sandbox rather than relying on LLM self-judgment.
 - **formal-math-logic-verification-engine** — Deterministic, mechanical verification for math and logic answers using real solver tooling installed in this workspace's venv — math-verify (HuggingFace: parse…
 - **frontier-deep-reasoner** — Compensate for shallow/degraded multi-step reasoning by forcing an explicit decomposition ladder (Problem -> Constraints -> Steps -> Verify -> Output).
+- **goos-outside-in-tdd** — Applies Freeman & Pryce's Growing Object-Oriented Software, Guided by Tests (GOOS): build systems outside-in with a walking skeleton, write a failing integratio…
 - **math-olympiad** — Solve competition math problems (IMO, Putnam, USAMO, AIME) with adversarial verification that catches the errors self-verification misses.
 - **math-reasoning** — Formal mathematical reasoning for research papers — derive equations, write proofs, formalize problem settings, select statistical tests, and generate LaTeX mat…
 - **off-by-one-boundary-guard** — Destroys the off-by-one class of errors in counting problems (open vs closed intervals, fence-post counts, period-crossing counts, inclusive/exclusive ranges, e…
@@ -209,7 +207,7 @@ registered in the router appear under the same family here automatically.
 - **thinking-triz** — When two design requirements seem mutually exclusive, name the contradiction, separate conflicting states, then invent a concrete no-compromise resolution.
 - **thinking-via-negativa** — Use when the reflex is to add a feature, layer, or process.
 
-## Context/Memory/System (34)
+## Context/Memory/System (35)
 
 - **advanced-evaluation** — This skill should be used for advanced LLM evaluation: LLM-as-judge systems, direct scoring, pairwise comparison, rubric calibration, evaluator bias mitigation,…
 - **ambiguity-resolver** — Forced-explicit ambiguity gate for weak/free models.
@@ -225,6 +223,7 @@ registered in the router appear under the same family here automatically.
 - **context-enrichment** — Explicit-rule lexicon for implicit intents (weak-model hardening).
 - **context-fundamentals** — This skill should be used to explain or reason about the foundational concepts of context engineering: what context is, the anatomy of a context window, how att…
 - **context-optimization** — This skill should be used for improving context efficiency: context budgeting, observation masking, prefix or KV-cache strategy, partitioning, token-cost reduct…
+- **database-internals-engines** — Applies Alex Petrov's Database Internals knowledge to design and troubleshoot storage-backed systems: how storage engines actually work under the hood (B-Trees…
 - **durable-experience-consolidator** — Turns a finished working session into durable cross-session knowledge so nothing important is forgotten after the chat ends: extracts principles, verified facts…
 - **evaluation** — This skill should be used when building agent evaluation systems: deterministic checks, regression suites, multi-dimensional rubrics, quality gates, production…
 - **filesystem-context** — This skill should be used when agent work needs file-backed context: durable scratchpads, tool-output offloading, just-in-time discovery, cross-agent handoff fi…
@@ -246,12 +245,13 @@ registered in the router appear under the same family here automatically.
 - **state-machine-persistence** — Design n8n automations as recoverable state machines: persist multi-turn or long-running state (conversation context, job progress, dedupe keys) to Supabase, Re…
 - **tool-design** — This skill should be used for the tool-interface layer of an agent system specifically: writing tool descriptions agents can route on, designing tool schemas an…
 
-## Agents/Architecture (5)
+## Agents/Architecture (6)
 
 - **agent-arch-system-design** — Expert system architecture design: patterns, scalability planning, ADRs, C4 diagrams, technology trade-offs, non-functional requirements.
 - **agent-reach** — Read and search external sources through the channels installed on this machine.
 - **autonomous-git-coworker** — Manages Git workflows natively: checks status, creates feature branches, crafts atomic commits with descriptive logs, and prepares PRs.
 - **autonomous-model-self-evolver** — Autonomous meta-skill that MEASURES the current model against a live leader with real model calls on deterministic probes, pulls real weaknesses from the audit…
+- **evolutionary-architecture** — Applies Building Evolutionary Architectures by Ford, Parsons & Kua: design systems that adapt to continuous change instead of freezing — architecture fitness fu…
 - **site-architecture** — When the user wants to plan, map, or restructure their website's page hierarchy, navigation, URL structure, or internal linking.
 
 ## Security (8)
@@ -359,4 +359,4 @@ registered in the router appear under the same family here automatically.
 - **wizard** — Generate an interactive bash wizard that walks a human through steps only they can perform.
 
 ---
-*Auto-generated by `scripts/skills_docs_generator.py` on 2026-08-17 17:33 — 297 skills, 18 families*
+*Auto-generated by `scripts/skills_docs_generator.py` on 2026-08-17 17:34 — 297 skills, 18 families*
