@@ -15,7 +15,7 @@ sys.path.insert(0, str(ROOT))
 
 from scripts.build_gates_pipeline import (
     run_pipeline, N8nPrecisionGate, DryRunGate,
-    _is_trigger_node, _extract_node_refs,
+    _is_trigger_node, _is_trigger_type, _extract_node_refs, _normalize_node_type,
 )
 
 
@@ -210,6 +210,105 @@ def test_placeholder_credential_fails():
     res = N8nPrecisionGate().run(wf, {})
     assert res["status"] == "FAIL"
     assert any("placeholder credential" in v for v in res["violations"])
+
+
+# ---------------------------------------------------------------------------
+# P5 with "@n8n/" package prefix (real n8n 2.x langchain node exports)
+# ---------------------------------------------------------------------------
+
+def test_normalize_node_type_strips_prefix():
+    assert _normalize_node_type("@n8n/n8n-nodes-langchain.agent") == \
+        "n8n-nodes-langchain.agent"
+    assert _normalize_node_type("n8n-nodes-base.httpRequest") == \
+        "n8n-nodes-base.httpRequest"
+    assert _normalize_node_type("") == ""
+
+
+def test_is_trigger_type_strict():
+    # Strict trigger predicate: only types ENDING in a trigger marker count.
+    assert _is_trigger_type("n8n-nodes-base.webhook")
+    assert _is_trigger_type("n8n-nodes-base.respondToWebhook")
+    assert _is_trigger_type("n8n-nodes-base.chatTrigger")
+    assert _is_trigger_type("@n8n/n8n-nodes-langchain.chatTrigger")
+    assert _is_trigger_type("n8n-nodes-base.scheduleTrigger")
+    assert _is_trigger_type("n8n-nodes-base.form")
+    # App-like nodes whose names merely CONTAIN a trigger hint ('chat' in
+    # lmChatNvidia, 'form' in transformations, 'webhook' in tool names) must
+    # never be treated as triggers — P5 depends on this.
+    assert not _is_trigger_type("n8n-nodes-langchain.lmChatNvidia")
+    assert not _is_trigger_type("@n8n/n8n-nodes-langchain.lmChatOpenAi")
+    assert not _is_trigger_type("n8n-nodes-langchain.embeddingsNvidia")
+    assert not _is_trigger_type("n8n-nodes-langchain.vectorStoreQdrant")
+    assert not _is_trigger_type("n8n-nodes-base.httpRequest")
+
+
+def test_p5_agent_with_n8n_prefix_no_credential_ok():
+    # Real export: agent container carries "@n8n/" prefix and NO credential —
+    # must be treated as LLM_AGENT_CONTAINER, not an app-like node. The model
+    # node wired via ai_languageModel DOES bind a credential (P5 checks it)
+    # and satisfies E1 (agent has something to reason with).
+    agent = _node("AI Agent", "@n8n/n8n-nodes-langchain.agent",
+                  promptType="define", text="={{ $('Chat').item.json.chatInput }}")
+    model = _node("NVIDIA Chat Model", "@n8n/n8n-nodes-langchain.lmChatNvidia")
+    model["credentials"] = {"nvidiaApi": {"id": "c1", "name": "NVIDIA Nemotron account"}}
+    chat = _node("Chat", "@n8n/n8n-nodes-langchain.chatTrigger")
+    wf = _wf([chat, agent, model],
+             {"Chat": {"main": [{"node": "AI Agent"}, {"node": "NVIDIA Chat Model"}]},
+              "AI Agent": {"ai_languageModel": [{"node": "NVIDIA Chat Model"}]}})
+    res = N8nPrecisionGate().run(wf, {})
+    assert res["status"] == "PASS"
+    assert not any("requires a credential" in v for v in res["violations"])
+
+
+def test_p5_langchain_helper_nodes_no_credential_ok():
+    # Data loader / text splitter / tool vector store bind NO credential of
+    # their own — allowlisted even with the "@n8n/" prefix.
+    helper_types = [
+        "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+        "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+        "@n8n/n8n-nodes-langchain.toolVectorStore",
+        "@n8n/n8n-nodes-langchain.toolCode",
+    ]
+    for htype in helper_types:
+        n = _node("Helper", htype)
+        wf = _wf([_trigger(), n])
+        res = N8nPrecisionGate().run(wf, {})
+        assert res["status"] == "PASS", f"{htype} should be exempt"
+        assert not any("requires a credential" in v for v in res["violations"])
+
+
+def test_p5_model_node_with_n8n_prefix_still_requires_credential():
+    # Model nodes DO bind credentials — the "@n8n/" prefix must NOT hide them.
+    n = _node("NVIDIA Chat Model", "@n8n/n8n-nodes-langchain.lmChatNvidia")
+    wf = _wf([_trigger(), n])
+    res = N8nPrecisionGate().run(wf, {})
+    assert res["status"] == "FAIL"
+    assert any("requires a credential" in v for v in res["violations"])
+
+
+def test_p5_vectorstore_with_n8n_prefix_still_requires_credential():
+    n = _node("Qdrant Store", "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+              mode="retrieve")
+    wf = _wf([_trigger(), n])
+    res = N8nPrecisionGate().run(wf, {})
+    assert res["status"] == "FAIL"
+    assert any("requires a credential" in v for v in res["violations"])
+
+
+def test_p5_model_node_with_n8n_prefix_and_credential_ok():
+    n = _node("NVIDIA Chat Model", "@n8n/n8n-nodes-langchain.lmChatNvidia")
+    n["credentials"] = {"nvidiaApi": {"id": "c1", "name": "NVIDIA Nemotron account"}}
+    wf = _wf([_trigger(), n])
+    res = N8nPrecisionGate().run(wf, {})
+    assert res["status"] == "PASS"
+
+
+def test_p5_langchain_chat_trigger_is_trigger():
+    # "@n8n/n8n-nodes-langchain.chatTrigger" contains the 'chat' hint so it
+    # counts as a trigger (no credential, not app-like).
+    n = _node("Chat", "@n8n/n8n-nodes-langchain.chatTrigger")
+    res = N8nPrecisionGate().run(_wf([n]), {})
+    assert res["status"] == "PASS"
 
 
 def test_empty_workflow_skips():

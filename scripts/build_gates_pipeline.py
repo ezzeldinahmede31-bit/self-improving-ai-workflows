@@ -141,6 +141,17 @@ NO_CRED_ALLOWLIST = {
     "n8n-nodes-base.errorTrigger", "n8n-nodes-base.loop",
     "n8n-nodes-base.workflowTool", "n8n-nodes-langchain.toolWorkflow",
     "n8n-nodes-langchain.agent",
+    # LangChain helper/plumbing nodes — bind NO credential of their own (the
+    # model / vector-store / tool nodes connected to them do). Real workflows
+    # carry these with the "@n8n/" package prefix; membership is checked after
+    # prefix normalization (see _normalize_node_type). Model nodes (lmChat*,
+    # embeddings*) and vector-store nodes (vectorStoreQdrant/Pinecone) are NOT
+    # here — they bind real credentials and P5 must require them.
+    "n8n-nodes-langchain.chatTrigger",
+    "n8n-nodes-langchain.toolVectorStore", "n8n-nodes-langchain.toolCode",
+    "n8n-nodes-langchain.toolHttpRequest", "n8n-nodes-langchain.toolWorkflow",
+    "n8n-nodes-langchain.documentDefaultDataLoader",
+    "n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
 }
 
 # LLM-agent container nodes (n8n-nodes-langchain.agent and similar). These
@@ -149,6 +160,17 @@ NO_CRED_ALLOWLIST = {
 # what gets checked. Exact-type match only (never substring — "magento" etc.
 # contain "agent" but are app nodes that DO bind credentials).
 LLM_AGENT_CONTAINERS = {"n8n-nodes-langchain.agent"}
+
+
+def _normalize_node_type(node_type: str) -> str:
+    """Strip the '@n8n/' package prefix from a live workflow node type so the
+    gate's exact-type allowlists match real n8n 2.x exports. n8n serializes
+    langchain nodes as '@n8n/n8n-nodes-langchain.agent', the gate stores them
+    as 'n8n-nodes-langchain.agent'. Both must be equivalent for membership."""
+    t = (node_type or "")
+    if t.startswith("@n8n/"):
+        return t[len("@n8n/"):]
+    return t
 
 # Credential names that are clearly placeholders and must never ship.
 PLACEHOLDER_CRED_RE = re.compile(
@@ -304,6 +326,16 @@ def _is_trigger_node(node_type: str) -> bool:
     t = (node_type or "").lower()
     return (any(h in t for h in TRIGGER_NODE_HINTS)
             or t.endswith(".form"))
+
+
+def _is_trigger_type(node_type: str) -> bool:
+    """STRICT trigger detection for P5's credential exemption. _is_trigger_node
+    uses substring hints ('chat' also matches lmChatNvidia / lmChatOpenAi), so
+    a model node would be wrongly exempted from the P5 credential rule. This
+    only accepts node types that END with a trigger marker (…Trigger / …webhook
+    / …form), which no app-like node satisfies."""
+    t = _normalize_node_type(node_type).lower()
+    return t.endswith(("trigger", "webhook", ".form"))
 
 
 def _is_loop_node(node_name_or_type: str) -> bool:
@@ -807,12 +839,13 @@ class N8nPrecisionGate:
         # P5 — credential binding on app-like nodes.
         for n in nodes:
             ntype = n.get("type") or ""
+            norm = _normalize_node_type(ntype)
             creds = n.get("credentials") or {}
             params = n.get("parameters") or {}
             needs = False
-            if ntype not in NO_CRED_ALLOWLIST and not _is_trigger_node(ntype) \
-                    and ntype not in LLM_AGENT_CONTAINERS:
-                if ntype in {"n8n-nodes-base.httpRequest", "n8n-nodes-base.httpRequestTool"}:
+            if norm not in NO_CRED_ALLOWLIST and not _is_trigger_type(ntype) \
+                    and norm not in LLM_AGENT_CONTAINERS:
+                if norm in {"n8n-nodes-base.httpRequest", "n8n-nodes-base.httpRequestTool"}:
                     auth = params.get("authentication")
                     needs = bool(auth) and auth != "none"
                 else:
