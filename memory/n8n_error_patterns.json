@@ -2,23 +2,23 @@
   {
     "gate": "preflight",
     "pattern": "no schema cache present — run n8n-schema-preflight first (fetch node schemas from the n8n API)",
-    "count": 11,
+    "count": 12,
     "first_seen": "2026-08-15T01:33:03.188424+00:00",
-    "last_seen": "2026-08-17T08:53:59.932276+00:00"
+    "last_seen": "2026-08-17T09:02:59.886792+00:00"
   },
   {
     "gate": "quality",
     "pattern": "No Error Trigger node and no continueOnFail on any node",
-    "count": 6,
+    "count": 7,
     "first_seen": "2026-08-15T01:45:33.866459+00:00",
-    "last_seen": "2026-08-17T06:11:21.961110+00:00"
+    "last_seen": "2026-08-17T09:02:59.887605+00:00"
   },
   {
     "gate": "quality",
     "pattern": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "count": 6,
+    "count": 7,
     "first_seen": "2026-08-15T01:45:33.866641+00:00",
-    "last_seen": "2026-08-17T06:11:21.968583+00:00"
+    "last_seen": "2026-08-17T09:02:59.888606+00:00"
   },
   {
     "gate": "dry_run",
