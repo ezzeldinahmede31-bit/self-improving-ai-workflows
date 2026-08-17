@@ -60,6 +60,13 @@ Run these gates before ANY n8n build:
 | Code node memory error on big data | sandbox context limit | runOnceForEachItem + process in chunks; or HTTP/DB |
 | Response body JSON malformed in repo | expression produced string not object | JSON.parse in Code / Set node, validate with schema guardrail |
 | Connection map with numeric keys / duplicates | hand-edited JSON | autofix (connection-numeric-keys / duplicate-removal) — n8n_validate_workflow |
+| Qdrant upsert "missing field `ids`" | POST used on `/points` (that path is RETRIEVE) | upsert must be PUT `/collections/{name}/points?wait=true` (qdrant-ops) |
+| Qdrant upsert "status" not ok | checking top-level status instead of `result.status` | read `result.status` == "completed" (rag_common.upsert_points) |
+| NVIDIA embeddings 4xx | missing `input_type` or batch > 2 | input_type passage/query + batch <= 2 (nvidia-embeddings) |
+| Vector store node red "no embeddings" | store node without ai_embedding wiring | wire embeddings node into store; RAG gate R1 fails this (n8n-rag-vector-qa) |
+| Retrieval returns 0 hits / agent answers from general knowledge | collection name mismatch OR dim mismatch OR doc not ingested | rag_query first, check qdrantCollection + 1024-dim + points_count (qdrant-ops) |
+| Store reads garbage in n8n | payload keys not `content`/`metadata` | @langchain/qdrant payload shape (rag_ingest.py) |
+| RAG gate verdict `RAG_STRUCTURAL_VIOLATION` | store w/o embeddings (R1) or dangling ai_vectorStore/ai_retriever (R3) | fix wiring, re-run build_gates_pipeline Stage 3.45 (n8n-rag-vector-qa) |
 
 ## 3 — Zapier limits & pitfalls catalog (for cloning decisions)
 
