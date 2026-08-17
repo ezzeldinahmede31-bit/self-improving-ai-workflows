@@ -8,6 +8,13 @@
   },
   {
     "gate": "quality",
+    "pattern": "No pinnedData on primary nodes — cannot unit-test instantly",
+    "count": 13,
+    "first_seen": "2026-08-15T01:45:33.866641+00:00",
+    "last_seen": "2026-08-17T13:27:57.397078+00:00"
+  },
+  {
+    "gate": "quality",
     "pattern": "No Error Trigger node and no continueOnFail on any node",
     "count": 10,
     "first_seen": "2026-08-15T01:45:33.866459+00:00",
@@ -15,24 +22,17 @@
   },
   {
     "gate": "quality",
-    "pattern": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "count": 10,
-    "first_seen": "2026-08-15T01:45:33.866641+00:00",
-    "last_seen": "2026-08-17T12:41:54.423956+00:00"
+    "pattern": "Workflow has 18 nodes — recommend sub-workflow split",
+    "count": 6,
+    "first_seen": "2026-08-17T07:05:48.140035+00:00",
+    "last_seen": "2026-08-17T13:27:57.395564+00:00"
   },
   {
     "gate": "dry_run",
     "pattern": "no dry-run evidence: nodes carry no pinned data and no expected_result from a trial run — run the workflow on the n8n instance (n8n-pinned-data-mocking) before delivery",
-    "count": 3,
+    "count": 6,
     "first_seen": "2026-08-17T06:06:55.931702+00:00",
-    "last_seen": "2026-08-17T06:11:21.969503+00:00"
-  },
-  {
-    "gate": "quality",
-    "pattern": "Workflow has 18 nodes — recommend sub-workflow split",
-    "count": 3,
-    "first_seen": "2026-08-17T07:05:48.140035+00:00",
-    "last_seen": "2026-08-17T08:53:59.933117+00:00"
+    "last_seen": "2026-08-17T13:27:57.402030+00:00"
   },
   {
     "gate": "security",
@@ -145,6 +145,83 @@
     "count": 2,
     "first_seen": "2026-08-17T07:05:48.142017+00:00",
     "last_seen": "2026-08-17T07:06:53.770981+00:00"
+  },
+  {
+    "gate": "preflight",
+    "pattern": "node type '@n8n/n8n-nodes-langchain.agent' not found in live schema cache",
+    "count": 2,
+    "first_seen": "2026-08-17T13:10:14.182908+00:00",
+    "last_seen": "2026-08-17T13:10:23.324703+00:00"
+  },
+  {
+    "gate": "preflight",
+    "pattern": "node type '@n8n/n8n-nodes-langchain.chatTrigger' not found in live schema cache",
+    "count": 2,
+    "first_seen": "2026-08-17T13:10:14.183586+00:00",
+    "last_seen": "2026-08-17T13:10:23.327884+00:00"
+  },
+  {
+    "gate": "preflight",
+    "pattern": "node type '@n8n/n8n-nodes-langchain.documentDefaultDataLoader' not found in live schema cache",
+    "count": 2,
+    "first_seen": "2026-08-17T13:10:14.184295+00:00",
+    "last_seen": "2026-08-17T13:10:23.332945+00:00"
+  },
+  {
+    "gate": "preflight",
+    "pattern": "node type '@n8n/n8n-nodes-langchain.embeddingsNvidia' not found in live schema cache",
+    "count": 2,
+    "first_seen": "2026-08-17T13:10:14.184971+00:00",
+    "last_seen": "2026-08-17T13:10:23.334143+00:00"
+  },
+  {
+    "gate": "preflight",
+    "pattern": "node type '@n8n/n8n-nodes-langchain.lmChatNvidia' not found in live schema cache",
+    "count": 2,
+    "first_seen": "2026-08-17T13:10:14.185637+00:00",
+    "last_seen": "2026-08-17T13:10:23.335105+00:00"
+  },
+  {
+    "gate": "preflight",
+    "pattern": "node type '@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter' not found in live schema cache",
+    "count": 2,
+    "first_seen": "2026-08-17T13:10:14.186316+00:00",
+    "last_seen": "2026-08-17T13:10:23.336159+00:00"
+  },
+  {
+    "gate": "preflight",
+    "pattern": "node type '@n8n/n8n-nodes-langchain.toolVectorStore' not found in live schema cache",
+    "count": 2,
+    "first_seen": "2026-08-17T13:10:14.186996+00:00",
+    "last_seen": "2026-08-17T13:10:23.338003+00:00"
+  },
+  {
+    "gate": "preflight",
+    "pattern": "node type '@n8n/n8n-nodes-langchain.vectorStoreQdrant' not found in live schema cache",
+    "count": 2,
+    "first_seen": "2026-08-17T13:10:14.187666+00:00",
+    "last_seen": "2026-08-17T13:10:23.339707+00:00"
+  },
+  {
+    "gate": "preflight",
+    "pattern": "node type 'n8n-nodes-base.googleDrive' not found in live schema cache",
+    "count": 2,
+    "first_seen": "2026-08-17T13:10:14.188365+00:00",
+    "last_seen": "2026-08-17T13:10:23.341510+00:00"
+  },
+  {
+    "gate": "preflight",
+    "pattern": "node type 'n8n-nodes-base.googleDriveTrigger' not found in live schema cache",
+    "count": 2,
+    "first_seen": "2026-08-17T13:10:14.189899+00:00",
+    "last_seen": "2026-08-17T13:10:23.344437+00:00"
+  },
+  {
+    "gate": "preflight",
+    "pattern": "node type 'n8n-nodes-base.splitInBatches' not found in live schema cache",
+    "count": 2,
+    "first_seen": "2026-08-17T13:10:14.190822+00:00",
+    "last_seen": "2026-08-17T13:10:23.347556+00:00"
   },
   {
     "gate": "security",

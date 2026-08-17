@@ -13,6 +13,8 @@
   },
   "rag_workflow.json": {
     "SECURITY_VIOLATION_REQUIRES_HUMAN::Metadata/SSRF target `metadata` in flow": 2,
-    "RAG_VECTOR_STORE_INCONSISTENCY::AVOID previous rejection: no schema cache present — run n8n-schema-preflight first (fetch node schemas from the n8n API)": 1
+    "RAG_VECTOR_STORE_INCONSISTENCY::AVOID previous rejection: no schema cache present — run n8n-schema-preflight first (fetch node schemas from the n8n API)": 1,
+    "NODE_OR_FIELD_NOT_IN_LIVE_SCHEMA::AVOID previous rejection: no schema cache present — run n8n-schema-preflight first (fetch node schemas from the n8n API)": 2,
+    "RUN_TRIAL_EXECUTION_FIRST::AVOID previous rejection: no schema cache present — run n8n-schema-preflight first (fetch node schemas from the n8n API)": 1
   }
 }

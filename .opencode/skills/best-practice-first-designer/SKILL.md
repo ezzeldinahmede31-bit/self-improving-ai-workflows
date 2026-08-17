@@ -7,6 +7,8 @@ description: MANDATORY research-first gate before designing or building ANY n8n 
 
 User's rule: **"لما اطلب منك تصمم workflow or ai agent لزم تشوف افضل طريقة ممكن تتعمل بيها علي الانترنت مثل github وباقي المواقع مش لزم تخترع العجلة من الاول وضيف انت عليه التعديلات المطلوبة"** — before designing any workflow or AI agent, find the best existing way on the internet (GitHub and other sites); don't reinvent the wheel; then add your required modifications on top.
 
+Clean Code alignment: This skill enforces the Clean Code principle of "research first" (ground task in real context before building), "meaningful names" (ensure node names and variables are intention-revealing), "single-function nodes" (each node does one thing), "small functions" (keep nodes under 20 lines), "no duplication" (avoid reinventing existing patterns), and "command-query separation" (separate trigger from action nodes).
+
 ## Phase 0 — Inventory what we already know (30 seconds)
 
 1. Check the internal skill stack FIRST: n8n-* skills, automation-known-issues-compass (failure catalog), zapier-system-cloner (for cloning), using-n8n-mcp-skills. If our own catalog already encodes the failure modes and best patterns for this task type, that is your baseline.
@@ -31,16 +33,21 @@ Record findings as a short table:
 | GitHub repo X | same scrape task | 60% | uses HTTP + Code parse, warns about responseFormat |
 ```
 
+**Clean Code alignment**: Research grounds the task in real-world context before building, preventing "ivory tower" designs that violate the Clean Code principle of writing code that humans can understand.
+
 ## Phase 2 — Adopt the strongest pattern
 
 1. Choose the ONE reference design that fits best (highest fit, most recent, most maintained).
-2. State explicitly: "Baseline: <source>, adopted pattern: <nodes/flow>" — the design is BASED ON existing best practice, not invented.
-3. Apply user modifications on top: every change they asked for is an explicit diff against the baseline (node added/removed, parameter changed, branch added).
+2. **Ensure meaningful names**: Adopted nodes and variables must have intention-revealing names (Clean Code: "use intention-revealing names — variable/function names should explain why they exist and what they do").
+3. **Single function per node**: Ensure each node performs exactly one responsibility (Clean Code: "single responsibility principle — classes should have only one reason to change").
+4. State explicitly: "Baseline: <source>, adopted pattern: <nodes/flow>" — the design is BASED ON existing best practice, not invented.
+5. Apply user modifications on top: every change they asked for is an explicit diff against the baseline (node added/removed, parameter changed, branch added).
 
 ## Phase 3 — Build and hand off
 
-1. Build via n8n-mcp-workflow-builder discipline (schema-first, credentials by ID, error boundaries per automation-known-issues-compass).
-2. Hand off to n8n-delivery-verification-gate — the workflow MUST be executed and verified before delivery (that gate is mandatory and separate from this one).
+1. **Build small nodes**: Ensure each node is small and performs one function (Clean Code: "keep functions small — 20 lines or fewer, ideally 4-6 lines; one level of abstraction per function"). Avoid piling multiple responsibilities into a single node.
+2. **Use meaningful names**: All node names, parameter names, and variable names must be intention-revealing (Clean Code: "pick one word per concept — don't use fetch, retrieve, and get for similar methods; use pronounsable names — makes discussion and code reviews easier").
+3. **Hand off to n8n-delivery-verification-gate** — the workflow MUST be executed and verified before delivery (that gate is mandatory and separate from this one).
 
 ## Phase 4 — Report what was reused
 
