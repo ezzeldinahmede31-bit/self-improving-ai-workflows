@@ -1126,3 +1126,11 @@ Both added to `compensatory-router` stacks.
 - BOUNDED LIVE VERIFY of the whole cycle with the real backend: first `run` correctly returned 0 sessions (filtered since last_harvest 18:03 — not a bug); bridge export ran (40/40 sessions); then `dry-run --max-tasks 2 --max-sessions 2`: night 3, harvested 2 sessions, LLM mining produced 2 real tasks, gate honestly REJECTED (held-out 0.000→0.000 → accepted=False, 0 edits). Fail-closed gate works with real backend. NOTE: adopt path NOT live-exercised (dry-run never adopts; gate rejected) — the nightly cron will do real adoption under the gate.
 - SKILL.md updated: backend options now document `--backend nim`; CLI flags table += nim; installed-cron note now documents the manual cron with bridge + nim + auto-adopt; `python -m skillopt_sleep` from project root (local vendored copy wins).
 - State: night 3 recorded, last_harvest 2026-08-16T18:15:52.
+## Router repair — merged row + truncated auto-rows + word-boundary truncation (Aug 17)
+- User: "مهارة استدعاء المهارات و findskill حاسس فيهم مشكلة — شوفهم ولو مش شغالين كويس حل المشكلة."
+- AUDIT: find-skills healthy (YAML OK, `npx skills find` runs non-interactively EXIT 0). Router had 3 real defects:
+  1. **Merged row** — line 150 had "Security deep" + "Research aids" concatenated with `||` (6 cells vs 3) → broke routing for BOTH families. Split into 2 rows.
+  2. **2 truncated auto-registered rows** — `ai-skill-authoring-standards` (desc cut mid-sentence at "progressive disclosure <500") and `skillopt-sleep` (cut at "skillopt_s") by router_register's `desc[:400]` / `desc.split(".")[0][:90]` mid-word slices. Rewrote both rows complete.
+- ROOT-CAUSE FIX in `scripts/router_register.py`: new `_truncate_word_boundary(text, limit)` — cuts at last whitespace before limit + `" …"`, hard-cut fallback; `ensure_routing_row` now uses it for trigger and description.
+- TESTS: +5 in tests/test_router_register.py (25 total there; short/word-boundary/hard-cut/row uses ellipsis). FULL SUITE exit 0 green.
+- VERIFY: main routing table 65 rows all 3 cells, 0 `||`, trailing pipes OK; YAML frontmatter OK; registry 383 = 19 buckets sum; both repaired skills in routing row + registry; library regenerated 268 entries.
