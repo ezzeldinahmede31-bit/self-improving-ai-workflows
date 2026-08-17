@@ -10,6 +10,8 @@ pass the gates on the FIRST attempt — rejections are a build defect, not a
 permission slip. This skill makes first-pass success the norm instead of an
 accident.
 
+Clean Code alignment + Code Complete influence: This skill treats workflow construction as "software construction" (Code Complete: 30-40% of total lifecycle). Emphasis on code READING (comprehending existing workflows) before writing, systematic DEBUGGING (post-mortem analysis of gate failures), and COMPREHENSIVE ERROR HANDLING (defect prevention, not defect tolerance).
+
 ## The one-liner contract
 
 Before touching a single node, emit this line so the route is visible:
@@ -71,19 +73,35 @@ is created, so A1/A2 can never fire at the end.
 - Destructive or state-changing tools on agents require
   `requiresHumanApproval`.
 
+**Code Complete alignment**: Every agent node's input/output contract should be
+documented as if it will be read by maintainers (Code Complete: "code reading
+is 50% of maintenance"). Wiring should include explicit comments documenting
+what each connection conveys, aiding future code reading.
+
 ### Quality
 - Schema V2 expressions: `$input.first().json`, no bare `$json` on nodes with
   multiple incoming edges, no `moment.js`.
 - Error handling present: an Error Trigger node OR `continueOnFail` /
   `onError: continueRegularOutput` on the fragile nodes. Silent
   failure is a defect.
-- Pinned data on the primary nodes so the workflow is unit-testable instantly.
+- **Pinned data on the primary nodes so the workflow is unit-testable instantly** (Code Complete: "unit testing is essential for maintenance; every good workflow should be testable").
 - Keep the graph small — split large graphs into sub-workflows
   (`n8n-subworkflow-modularizer`) rather than one oversized canvas.
+- **One assert per test** principle: each testable unit should have a clear
+  success/failure criterion, not vague "it works" assertions.
+- **Build-Operate-Check pattern**: arrange test data → execute workflow → verify
+  output shape — this is the Code Complete approach to workflow testing.
 
 ### Integrity (DAG)
 - Every node reachable from a trigger; no orphaned nodes, no cycles, no
   unknown source/target references, no dangling output branches.
+- **Systematic debugging**: when a gate fires, use the "build-first-pass"
+  approach: (1) characterize current behavior (what the workflow actually does),
+  (2) identify the seams (where can behavior change without code edit), (3)
+  make minimal changes, (4) re-run gates — mirroring Code Complete's
+  systematic debugging methodology.
+- Unknown source/target references: verify every `$node.X` / `$('X')` resolves
+  to an existing node by name before considering the DAG valid.
 
 ### Precision (runtime structural)
 - Duplicate node names are a hard failure — keep names unique and verb-first.
@@ -92,16 +110,25 @@ is created, so A1/A2 can never fire at the end.
 - Every `$node.X` / `$('X')` reference resolves to a real node name.
 - App-like nodes (HTTP, Google Sheets, Telegram, Qdrant, NVIDIA...) carry a
   real credential; HTTP may declare `authentication: none` explicitly.
-- RAG graphs: embeddings wired into the store's `ai_embedding`, store wired
+- **RAG graphs**: embeddings wired into the store's `ai_embedding`, store wired
   into the agent via `ai_vectorStore`/`ai_retriever`, a text splitter sitting
   load-side of the embeddings, real (non-placeholder) collection names, Qdrant
   upsert via PUT not POST, NVIDIA `input_type` present.
+- **Complete application mindset**: every workflow should serve a clear business
+  purpose (Code Complete: "software development is a team sport; the code you
+  write is read and maintained by others, and its quality directly impacts the
+  productivity and happiness of your team"). Before building, explicitly answer:
+  "What problem does this workflow solve? Who uses it? What 'done' means?"
 
 ### Dry-run
 - Before delivery the workflow must have run with real evidence: pinned data
   AND an expected result — either pinned on the trigger (when a trigger
   exists) or on any node for offline mocks. `DRY_RUN_EVIDENCE_MISSING` blocks
   delivery.
+- **Code Complete alignment**: the expected result should be specific and
+  measurable (Code Complete: "good tests have clear pass/fail criteria, not
+  vague 'it works' claims"). pinned data should represent a realistic but
+  concrete scenario, not a vague "happy path" approximation.
 
 ## Step 4 — run the gates on the finished artifact
 
