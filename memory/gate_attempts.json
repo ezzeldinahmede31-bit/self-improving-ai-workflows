@@ -5,7 +5,7 @@
   "SKILL.md": {
     "SECURITY_VIOLATION_REQUIRES_HUMAN::Invalid JSON — cannot scan safely": 2,
     "SECURITY_VIOLATION_REQUIRES_HUMAN::Hardcoded secret pattern `\\bsk-[A-Za-z0-9]{16,}`": 1,
-    "REASONING_REVIEW_REQUIRED::AVOID previous rejection: no schema cache present — run n8n-schema-preflight first (fetch node schemas from the n8n API)": 1
+    "REASONING_REVIEW_REQUIRED::AVOID previous rejection: no schema cache present — run n8n-schema-preflight first (fetch node schemas from the n8n API)": 3
   },
   "provision_apple.json": {
     "RUNTIME_STRUCTURAL_INCONSISTENCY::AVOID previous rejection: no schema cache present — run n8n-schema-preflight first (fetch node schemas from the n8n API)": 1,

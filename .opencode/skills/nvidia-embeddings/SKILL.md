@@ -48,8 +48,8 @@ and `embed_query(query)`.
 - 400/422 => check `input_type` present and valid (passage/query); check `input`
   is an array of strings; check batch size <= 2.
 - 401 => NVIDIA_API_KEY wrong/rotated; update `.env`.
-- Embeddings returned but search finds nothing => dimension mismatch between
-  embedding and Qdrant vector size, or store payload keys not `content`/`metadata`.
+- Embeddings returned but search finds nothing => dimension mismatch with the
+  Qdrant vector size, or store payload keys not `content`/`metadata`.
 - Slow first call => cold model load; retry once before assuming failure.
 
 ## Output contract
