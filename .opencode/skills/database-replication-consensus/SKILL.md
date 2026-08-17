@@ -9,7 +9,7 @@ Transfers Petrov's Database Internals knowledge of replication and consensus to 
 
 ## When to use
 - Designing multi-node storage that must survive node loss.
-- Choosing between leader-based, multi-leader, and leaderless replication.
+- Choosing the replication topology — leader-based, multi-leader, or leaderless.
 - Reasoning about replication lag and stale reads.
 - Implementing or evaluating a consensus layer (Raft/Paxos).
 
@@ -19,7 +19,7 @@ Transfers Petrov's Database Internals knowledge of replication and consensus to 
 3. Leaderless: quorum writes/reads (W + R > N) tolerate node loss; the trade-off is weaker ordering guarantees.
 
 ## Quorum reasoning
-- A write quorum W and read quorum R with W + R > N guarantee at least one node holds the newest version, so reads never return entirely stale data.
+- A write quorum W and read quorum R with W + R > N guarantee one or more nodes hold the newest version, so reads never return entirely stale data.
 - Choosing W and R is an availability-latency trade; document the failure mode when quorums cannot be met.
 
 ## Consensus (Raft/Paxos)

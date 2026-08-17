@@ -22,7 +22,7 @@ Transfers Herlihy & Shavit's rigorous treatment of lock-free and wait-free progr
 - Read-modify-write ops (fetch-and-add, etc.) cover counters; avoid ABA-prone pointer swaps without a scheme.
 
 ## The classic hazards and their fixes
-- ABA: a value flips A→B→A between read and CAS; fix with a stamped/versioned descriptor or hazard pointers.
+- ABA: a value flips A→B→A across the gap from read to CAS; fix with a stamped/versioned descriptor or hazard pointers.
 - Memory reordering: relaxations on weak memory models reorder loads/stores; insert the required fences or use sequentially-consistent ops where the contract demands.
 - Reclamation: freeing a node while another thread still reads it is the reclamation problem; hazard pointers or epoch-based reclamation keep retired nodes alive.
 

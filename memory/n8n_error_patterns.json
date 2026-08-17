@@ -2,16 +2,16 @@
   {
     "gate": "quality",
     "pattern": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "count": 23,
+    "count": 26,
     "first_seen": "2026-08-15T01:45:33.866641+00:00",
-    "last_seen": "2026-08-17T15:01:48.267044+00:00"
+    "last_seen": "2026-08-17T15:31:39.815700+00:00"
   },
   {
     "gate": "quality",
     "pattern": "No Error Trigger node and no continueOnFail on any node",
-    "count": 20,
+    "count": 23,
     "first_seen": "2026-08-15T01:45:33.866459+00:00",
-    "last_seen": "2026-08-17T15:01:48.265657+00:00"
+    "last_seen": "2026-08-17T15:31:39.813529+00:00"
   },
   {
     "gate": "preflight",

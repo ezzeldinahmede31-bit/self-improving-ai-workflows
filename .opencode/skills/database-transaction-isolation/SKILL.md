@@ -24,7 +24,7 @@ Transfers the transaction internals of Database Internals (Petrov) to real syste
 - Garbage collection of old versions is a background concern; runaway version accumulation degrades read performance.
 
 ## Locking (2PL) mechanics
-- Shared and exclusive locks with the two-phase rule: acquire during the growing phase, release only after the shrinking phase begins.
+- Shared and write locks follow the two-phase rule: acquire during the growing phase, release only after the shrinking phase begins.
 - Deadlock requires a detection/avoidance strategy; document the victim selection policy.
 - Lock granularity trades concurrency for overhead; escalating granularity under contention is a known practice.
 
