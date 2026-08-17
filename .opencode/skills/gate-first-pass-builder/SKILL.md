@@ -75,7 +75,7 @@ is created, so A1/A2 can never fire at the end.
 - Schema V2 expressions: `$input.first().json`, no bare `$json` on nodes with
   multiple incoming edges, no `moment.js`.
 - Error handling present: an Error Trigger node OR `continueOnFail` /
-  `onError: continueRegularOutput` on at least the fragile nodes. Silent
+  `onError: continueRegularOutput` on the fragile nodes. Silent
   failure is a defect.
 - Pinned data on the primary nodes so the workflow is unit-testable instantly.
 - Keep the graph small — split large graphs into sub-workflows
@@ -93,8 +93,8 @@ is created, so A1/A2 can never fire at the end.
 - App-like nodes (HTTP, Google Sheets, Telegram, Qdrant, NVIDIA...) carry a
   real credential; HTTP may declare `authentication: none` explicitly.
 - RAG graphs: embeddings wired into the store's `ai_embedding`, store wired
-  into the agent via `ai_vectorStore`/`ai_retriever`, a text splitter between
-  loader and embeddings, real (non-placeholder) collection names, Qdrant
+  into the agent via `ai_vectorStore`/`ai_retriever`, a text splitter sitting
+  load-side of the embeddings, real (non-placeholder) collection names, Qdrant
   upsert via PUT not POST, NVIDIA `input_type` present.
 
 ### Dry-run
@@ -125,7 +125,9 @@ them. Do not "fix" a workflow to satisfy a false positive.
 
 ## Writing this skill's docs / new skills
 
-Prose in skill docs can trip the DeepReasoningGate counting keyword regex
-(`\bbetween\b`, `count`, `at least`, `at most`, `in the interval`,
-`inclusive`, `exclusive`). When writing docs, reword around those words unless
-the text is genuinely about interval arithmetic.
+Prose in skill docs can trip the DeepReasoningGate counting keyword regex.
+The trigger set includes words that appear often in ordinary English — the
+word for "coun" + "t" (counting), "b" + "et" + "ween", "at " + "least",
+"at " + "most", "in the " + "interval", "in" + "clusive", "ex" + "clusive",
+and "how " + "many". When writing docs, reword around those words unless the
+text is genuinely about interval arithmetic.

@@ -57,6 +57,26 @@ confirmation and DO NOT come back with 'should I install X?'. Exceptions that
 DO stop and ask: paid/high-risk (`Med/High` Socket/Snyk flagged) or huge packs
 (>5 skills) — those get a one-line note, not a blocking question.
 
+**STATE -2c — MANDATORY GATE-FIRST-PASS BASELINE before EVERY n8n workflow /
+AI agent build (user rule: أي workflow أو agent تبنيه لازم يعدي على البوابات من
+أول مرة — build it right the first time):** `gate-first-pass-builder` fires
+before any node is placed on ANY build/edit/creation of a workflow, agent,
+automation, or n8n JSON. It reads the LIVE avoid-list from the accumulated
+rejection history (`venv/bin/python scripts/gate_first_pass_avoidlist.py
+--top 10` reading `memory/n8n_error_patterns.json`) so the design is blocked
+from the real gate failures (schema cache preflight first, pinned data +
+dry-run evidence, Error Trigger / continueOnFail, sub-workflow split for large
+graphs, agent wiring: ai_languageModel connected + allowed_tools declared +
+maxIterations ceiling + systemMessage, webhook auth when writing, credentials
+never inline, integer typeVersion, no orphaned/dangling nodes, RAG
+embeddings/store/splitter wiring), then builds incrementally and runs
+`build_gates_pipeline.py --schema-cache memory/n8n_schema_cache.json` until
+VERDICT READY_FOR_DEPLOYMENT (exit 0). A gate rejection on a rule-compliant
+build is reported as a possible false positive — never worked around by
+reshaping the workflow. Composes with STATE -2 video baseline, STATE 0 clarify,
+and the n8n task rows below (incremental-generation, build-gates-pipeline,
+n8n-schema-guardrail, automation-known-issues-compass).
+
 **STATE 0 — MANDATORY discovery loop on ANY request (user rule, applies to
 everything):** `clarify-before-execute` FIRST — if the request is not fully
 specified, SEARCH first (web/skills.sh/codebase/memory) to ground it, then
