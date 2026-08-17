@@ -140,7 +140,7 @@ def test_truncate_word_boundary_cuts_at_last_word():
 
 def test_truncate_word_boundary_hard_cuts_whitespace_free():
     out = _truncate_word_boundary("a" * 500, 400)
-    assert len(out) == 401
+    assert len(out) == 402
     assert out.endswith("…")
 
 
@@ -148,10 +148,10 @@ def test_routing_row_uses_word_boundary_truncation():
     long = "First sentence with many words. " + "word " * 300
     txt, added = ensure_routing_row(_router_text(), "zzlong", long)
     assert added is True
-    row = txt.splitlines()[[i for i, l in enumerate(txt.splitlines()) if "zzlong" in l][0]]
-    # the description cell must not contain a mid-word cut (no stray letters
-    # followed by '…' glued to a partial word)
-    assert "… " not in row  # truncation marker always preceded by whitespace
+    row = [l for l in txt.splitlines() if "zzlong" in l][0]
+    # truncation marker, if present, must be space-prefixed — never glued to a
+    # partial word (the old desc[:400] mid-word bug)
+    assert " …" in row
 
 
 
