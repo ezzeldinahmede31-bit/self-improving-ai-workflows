@@ -40,7 +40,7 @@ SECRET_PATTERNS = [
 # SSRF / egress targets
 METADATA_ENDPOINTS = [
     '169.254.169.254', '169.254.170.2',             # AWS IMDS
-    'metadata.google.internal', 'metadata',         # GCP
+    'metadata.google.internal',                      # GCP
     '169.254.169.254/metadata',                     # Azure
 ]
 
@@ -187,8 +187,13 @@ class SecurityGate:
     # AI-automation security: tool over-permissioning + prompt injection
     # ------------------------------------------------------------------
     def _is_agent_node(self, node: dict) -> bool:
+        # Match ONLY actual agent node types (AI Agent, OpenAI Assistant), not
+        # every @n8n/n8n-nodes-langchain.* sub-node (chat trigger, vector
+        # store, embeddings, chat model) — those have no tools, iterations or
+        # system prompts to gate. Normalize by the final type segment.
         ntype = node.get("type", "").lower()
-        return ("agent" in ntype or "openai" in ntype or "langchain" in ntype)
+        segment = ntype.rsplit(".", 1)[-1] if "." in ntype else ntype
+        return segment.startswith("agent") or "assistant" in segment
 
     def _agent_system_prompt(self, node: dict) -> str:
         params = node.get("parameters", {})
@@ -233,21 +238,52 @@ class SecurityGate:
 
     def _connected_tool_names(self, workflow_json: dict, node_name: str) -> list:
         """n8n agent tools are connected via the ai_tool output, NOT stored in
-        node parameters — resolve them from the connections graph."""
+        node parameters — resolve them from the connections graph. n8n 2.x owns
+        the edge on the TOOL node (tool.ai_tool -> agent); the legacy shape has
+        it on the agent (agent.ai_tool -> tool). Resolve BOTH directions."""
         conns = workflow_json.get("connections", {})
-        out = conns.get(node_name, {})
         names = []
-        for out_key, targets in out.items():
-            if "tool" not in out_key.lower():
+
+        def _edge_targets(targets) -> list:
+            found = []
+            if isinstance(targets, list):
+                for t in targets:
+                    if isinstance(t, dict):
+                        if t.get("node"):
+                            found.append(t["node"])
+                    elif isinstance(t, list):
+                        found.extend(_edge_targets(t))
+            elif isinstance(targets, dict) and targets.get("node"):
+                found.append(targets["node"])
+            return found
+
+        def _is_tool_key(key) -> bool:
+            return "tool" in (key or "").lower()
+
+        # Forward: agent.ai_tool -> tool node
+        agent_out = conns.get(node_name)
+        if isinstance(agent_out, dict):
+            for out_key, targets in agent_out.items():
+                if _is_tool_key(out_key):
+                    names.extend(_edge_targets(targets))
+
+        # Reverse: tool node.ai_tool -> agent
+        for src, groups in conns.items():
+            if src == node_name or not isinstance(groups, dict):
                 continue
-            for t in targets:
-                if isinstance(t, dict):
-                    names.append(t.get("node"))
-                elif isinstance(t, list):
-                    for sub in t:
-                        if isinstance(sub, dict) and sub.get("node"):
-                            names.append(sub.get("node"))
-        return [n for n in names if n]
+            for out_key, targets in groups.items():
+                if _is_tool_key(out_key):
+                    for tgt in _edge_targets(targets):
+                        if tgt == node_name:
+                            names.append(src)
+
+        seen = set()
+        out = []
+        for n in names:
+            if n not in seen:
+                seen.add(n)
+                out.append(n)
+        return out
 
     def _check_ai_automation(self, workflow_json: dict) -> tuple[list[str], int, list[str]]:
         """Enforces the 8 AI-automation rules. Returns (violations, extra_risk,

@@ -9,5 +9,9 @@
   "provision_apple.json": {
     "RUNTIME_STRUCTURAL_INCONSISTENCY::AVOID previous rejection: no schema cache present — run n8n-schema-preflight first (fetch node schemas from the n8n API)": 1,
     "RUN_TRIAL_EXECUTION_FIRST::AVOID previous rejection: no schema cache present — run n8n-schema-preflight first (fetch node schemas from the n8n API)": 2
+  },
+  "rag_workflow.json": {
+    "SECURITY_VIOLATION_REQUIRES_HUMAN::Metadata/SSRF target `metadata` in flow": 2,
+    "RAG_VECTOR_STORE_INCONSISTENCY::AVOID previous rejection: no schema cache present — run n8n-schema-preflight first (fetch node schemas from the n8n API)": 1
   }
 }

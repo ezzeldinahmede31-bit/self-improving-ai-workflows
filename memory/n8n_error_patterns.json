@@ -2,9 +2,9 @@
   {
     "gate": "preflight",
     "pattern": "no schema cache present — run n8n-schema-preflight first (fetch node schemas from the n8n API)",
-    "count": 8,
+    "count": 11,
     "first_seen": "2026-08-15T01:33:03.188424+00:00",
-    "last_seen": "2026-08-17T06:11:21.960445+00:00"
+    "last_seen": "2026-08-17T08:53:59.932276+00:00"
   },
   {
     "gate": "quality",
@@ -26,6 +26,13 @@
     "count": 3,
     "first_seen": "2026-08-17T06:06:55.931702+00:00",
     "last_seen": "2026-08-17T06:11:21.969503+00:00"
+  },
+  {
+    "gate": "quality",
+    "pattern": "Workflow has 18 nodes — recommend sub-workflow split",
+    "count": 3,
+    "first_seen": "2026-08-17T07:05:48.140035+00:00",
+    "last_seen": "2026-08-17T08:53:59.933117+00:00"
   },
   {
     "gate": "security",
@@ -78,6 +85,69 @@
   },
   {
     "gate": "security",
+    "pattern": "Metadata/SSRF target `metadata` in flow",
+    "count": 2,
+    "first_seen": "2026-08-17T07:05:48.135063+00:00",
+    "last_seen": "2026-08-17T07:06:53.761548+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "[TOOL_SCOPE_LOCK] Agent 'AI Agent' has unrestricted or undefined tool access (no explicit allowed_tools list)",
+    "count": 2,
+    "first_seen": "2026-08-17T07:05:48.136027+00:00",
+    "last_seen": "2026-08-17T07:06:53.768763+00:00"
+  },
+  {
+    "gate": "quality",
+    "pattern": "Isolated/unreachable nodes: ['Qdrant Insert', 'AI Agent']",
+    "count": 2,
+    "first_seen": "2026-08-17T07:05:48.140281+00:00",
+    "last_seen": "2026-08-17T07:06:53.769377+00:00"
+  },
+  {
+    "gate": "precision",
+    "pattern": "A1: node 'Query Vector Store' is unreachable — no node connects into it (orphaned/dead node never executes)",
+    "count": 2,
+    "first_seen": "2026-08-17T07:05:48.140531+00:00",
+    "last_seen": "2026-08-17T07:06:53.769665+00:00"
+  },
+  {
+    "gate": "precision",
+    "pattern": "A1: node 'Qdrant Retrieve' is unreachable — no node connects into it (orphaned/dead node never executes)",
+    "count": 2,
+    "first_seen": "2026-08-17T07:05:48.140897+00:00",
+    "last_seen": "2026-08-17T07:06:53.769942+00:00"
+  },
+  {
+    "gate": "precision",
+    "pattern": "A1: node 'NVIDIA Embeddings' is unreachable — no node connects into it (orphaned/dead node never executes)",
+    "count": 2,
+    "first_seen": "2026-08-17T07:05:48.141160+00:00",
+    "last_seen": "2026-08-17T07:06:53.770203+00:00"
+  },
+  {
+    "gate": "precision",
+    "pattern": "A1: node 'Load Document' is unreachable — no node connects into it (orphaned/dead node never executes)",
+    "count": 2,
+    "first_seen": "2026-08-17T07:05:48.141428+00:00",
+    "last_seen": "2026-08-17T07:06:53.770459+00:00"
+  },
+  {
+    "gate": "precision",
+    "pattern": "A1: node 'Split Text' is unreachable — no node connects into it (orphaned/dead node never executes)",
+    "count": 2,
+    "first_seen": "2026-08-17T07:05:48.141744+00:00",
+    "last_seen": "2026-08-17T07:06:53.770711+00:00"
+  },
+  {
+    "gate": "precision",
+    "pattern": "E1: agent node 'AI Agent' (@n8n/n8n-nodes-langchain.agent) has no language-model node connected (ai_languageModel output) — the agent has nothing to reason with; wire a model node or it fails at runti",
+    "count": 2,
+    "first_seen": "2026-08-17T07:05:48.142017+00:00",
+    "last_seen": "2026-08-17T07:06:53.770981+00:00"
+  },
+  {
+    "gate": "security",
     "pattern": "Hardcoded secret pattern `\\bsk-[A-Za-z0-9]{16,}`",
     "count": 1,
     "first_seen": "2026-08-15T01:47:44.264740+00:00",
@@ -103,5 +173,117 @@
     "count": 1,
     "first_seen": "2026-08-17T06:06:55.930693+00:00",
     "last_seen": "2026-08-17T06:06:55.930765+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "[TOOL_SCOPE_LOCK] Agent 'Qdrant Insert' has unrestricted or undefined tool access (no explicit allowed_tools list)",
+    "count": 1,
+    "first_seen": "2026-08-17T07:05:48.135249+00:00",
+    "last_seen": "2026-08-17T07:05:48.135252+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "[NO_ITERATION_CEILING] Agent 'Qdrant Insert' maxIterations undefined or unreasonably high (runaway loop / cost risk)",
+    "count": 1,
+    "first_seen": "2026-08-17T07:05:48.135421+00:00",
+    "last_seen": "2026-08-17T07:05:48.135424+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "[TOOL_SCOPE_LOCK] Agent 'Chat Trigger' has unrestricted or undefined tool access (no explicit allowed_tools list)",
+    "count": 1,
+    "first_seen": "2026-08-17T07:05:48.135597+00:00",
+    "last_seen": "2026-08-17T07:05:48.135600+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "[NO_ITERATION_CEILING] Agent 'Chat Trigger' maxIterations undefined or unreasonably high (runaway loop / cost risk)",
+    "count": 1,
+    "first_seen": "2026-08-17T07:05:48.135818+00:00",
+    "last_seen": "2026-08-17T07:05:48.135823+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "[TOOL_SCOPE_LOCK] Agent 'NVIDIA Chat Model' has unrestricted or undefined tool access (no explicit allowed_tools list)",
+    "count": 1,
+    "first_seen": "2026-08-17T07:05:48.136313+00:00",
+    "last_seen": "2026-08-17T07:05:48.136318+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "[NO_ITERATION_CEILING] Agent 'NVIDIA Chat Model' maxIterations undefined or unreasonably high (runaway loop / cost risk)",
+    "count": 1,
+    "first_seen": "2026-08-17T07:05:48.136632+00:00",
+    "last_seen": "2026-08-17T07:05:48.136637+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "[NO_ITERATION_CEILING] Agent 'Query Vector Store' maxIterations undefined or unreasonably high (runaway loop / cost risk)",
+    "count": 1,
+    "first_seen": "2026-08-17T07:05:48.137006+00:00",
+    "last_seen": "2026-08-17T07:05:48.137011+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "[TOOL_SCOPE_LOCK] Agent 'Qdrant Retrieve' has unrestricted or undefined tool access (no explicit allowed_tools list)",
+    "count": 1,
+    "first_seen": "2026-08-17T07:05:48.137325+00:00",
+    "last_seen": "2026-08-17T07:05:48.137329+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "[NO_ITERATION_CEILING] Agent 'Qdrant Retrieve' maxIterations undefined or unreasonably high (runaway loop / cost risk)",
+    "count": 1,
+    "first_seen": "2026-08-17T07:05:48.137658+00:00",
+    "last_seen": "2026-08-17T07:05:48.137662+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "[TOOL_SCOPE_LOCK] Agent 'NVIDIA Embeddings' has unrestricted or undefined tool access (no explicit allowed_tools list)",
+    "count": 1,
+    "first_seen": "2026-08-17T07:05:48.137995+00:00",
+    "last_seen": "2026-08-17T07:05:48.138002+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "[NO_ITERATION_CEILING] Agent 'NVIDIA Embeddings' maxIterations undefined or unreasonably high (runaway loop / cost risk)",
+    "count": 1,
+    "first_seen": "2026-08-17T07:05:48.138337+00:00",
+    "last_seen": "2026-08-17T07:05:48.138342+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "[TOOL_SCOPE_LOCK] Agent 'Load Document' has unrestricted or undefined tool access (no explicit allowed_tools list)",
+    "count": 1,
+    "first_seen": "2026-08-17T07:05:48.138664+00:00",
+    "last_seen": "2026-08-17T07:05:48.138669+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "[NO_ITERATION_CEILING] Agent 'Load Document' maxIterations undefined or unreasonably high (runaway loop / cost risk)",
+    "count": 1,
+    "first_seen": "2026-08-17T07:05:48.138976+00:00",
+    "last_seen": "2026-08-17T07:05:48.138980+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "[TOOL_SCOPE_LOCK] Agent 'Split Text' has unrestricted or undefined tool access (no explicit allowed_tools list)",
+    "count": 1,
+    "first_seen": "2026-08-17T07:05:48.139251+00:00",
+    "last_seen": "2026-08-17T07:05:48.139254+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "[NO_ITERATION_CEILING] Agent 'Split Text' maxIterations undefined or unreasonably high (runaway loop / cost risk)",
+    "count": 1,
+    "first_seen": "2026-08-17T07:05:48.139723+00:00",
+    "last_seen": "2026-08-17T07:05:48.139733+00:00"
+  },
+  {
+    "gate": "rag",
+    "pattern": "R1: vector-store node 'Query Vector Store' has no embeddings node wired to its ai_embedding input — it cannot embed or query anything at runtime",
+    "count": 1,
+    "first_seen": "2026-08-17T08:53:59.933834+00:00",
+    "last_seen": "2026-08-17T08:53:59.933842+00:00"
   }
 ]

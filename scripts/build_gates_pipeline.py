@@ -393,6 +393,62 @@ def _connected_to(connections, node_name: str, out_key: str) -> list[str]:
     return out
 
 
+def _connected_into(connections, node_name: str, out_key: str) -> list[str]:
+    """Reverse of _connected_to: node names whose `out_key` output wires INTO
+    node_name. n8n 2.x agent sub-nodes own the edge (model.ai_languageModel ->
+    agent, tool.ai_tool -> agent), so agent-outgoing lookups alone miss them.
+    Accepts both legacy and 2.x shapes. Returns [] when there is no
+    information."""
+    srcs = []
+    if not isinstance(connections, dict):
+        return srcs
+    for src, groups in connections.items():
+        if src == node_name or not isinstance(groups, dict):
+            continue
+        group = groups.get(out_key)
+        if isinstance(group, list):
+            for edge in group:
+                if isinstance(edge, dict):
+                    if edge.get("node") == node_name:
+                        srcs.append(src)
+                elif isinstance(edge, list):
+                    for sub in edge:
+                        if isinstance(sub, dict) and sub.get("node") == node_name:
+                            srcs.append(src)
+    return srcs
+
+
+def _ai_wired_nodes(connections) -> set:
+    """Node names involved in ai_* wiring (ai_languageModel / ai_tool /
+    ai_memory / ai_outputParser / ai_retriever ...). Agent sub-nodes connect
+    ONLY via these named outputs, never the main flow — so they are
+    intentionally not reachable through main edges and must not be flagged
+    as orphans by the A1 graph-integrity check. Returns an empty set when
+    there is no information."""
+    wired = set()
+    if not isinstance(connections, dict):
+        return wired
+    for src, groups in connections.items():
+        if not isinstance(groups, dict):
+            continue
+        for out_key, targets in groups.items():
+            if "ai_" not in (out_key or "").lower():
+                continue
+            wired.add(src)
+            if isinstance(targets, list):
+                for t in targets:
+                    if isinstance(t, dict):
+                        if t.get("node"):
+                            wired.add(t["node"])
+                    elif isinstance(t, list):
+                        for sub in t:
+                            if isinstance(sub, dict) and sub.get("node"):
+                                wired.add(sub["node"])
+            elif isinstance(targets, dict) and targets.get("node"):
+                wired.add(targets["node"])
+    return wired
+
+
 def _load_artifact(path: str) -> tuple[Any, str]:
     p = Path(path)
     if not p.exists():
@@ -870,9 +926,11 @@ class N8nPrecisionGate:
 
         # A1 — dead/unreachable nodes (only meaningful when a graph exists).
         if isinstance(connections, dict) and connections:
+            ai_wired = _ai_wired_nodes(connections)
             for n in nodes:
                 nm = n.get("name")
-                if not _is_trigger_node(n.get("type") or "") and nm not in incoming:
+                if not _is_trigger_node(n.get("type") or "") \
+                        and nm not in incoming and nm not in ai_wired:
                     violations.append(f"A1: node '{nm}' is unreachable — no node connects "
                                       f"into it (orphaned/dead node never executes)")
 
@@ -1006,7 +1064,8 @@ class N8nPrecisionGate:
             prompt = (options.get("systemMessage") or params.get("systemMessage")
                       or params.get("text") or "")
             max_iter = options.get("maxIterations", params.get("maxIterations"))
-            models = _connected_to(connections, nm, "ai_languageModel")
+            models = _connected_to(connections, nm, "ai_languageModel") \
+                + _connected_into(connections, nm, "ai_languageModel")
             if not models:
                 violations.append(
                     f"E1: agent node '{nm}' ({ntype}) has no language-model node "
@@ -1028,7 +1087,8 @@ class N8nPrecisionGate:
                     f"E3: agent node '{nm}' has no maxIterations bound — unbounded "
                     f"autonomy / runaway-cost risk; set a small iteration ceiling"
                 )
-            for tool in _connected_to(connections, nm, "ai_tool"):
+            for tool in _connected_to(connections, nm, "ai_tool") \
+                    + _connected_into(connections, nm, "ai_tool"):
                 if tool not in known:
                     warnings.append(
                         f"E4: agent node '{nm}' wires ai_tool output to '{tool}' "
@@ -1092,6 +1152,143 @@ class N8nPrecisionGate:
                     f"(non-TLS) URL literal — credentials/data ride plaintext "
                     f"if this is ever reached"
                 )
+
+        return {"status": "FAIL" if violations else "PASS",
+                "violations": violations, "warnings": warnings,
+                "checked": len(nodes)}
+
+
+class RagVectorGate:
+    """Stage 3.45 RAG — vector-store / RAG pipeline structural gate. Encodes
+    the hard-won lessons of the first RAG build (Apple Q1.pdf -> Qdrant +
+    NVIDIA embeddings, Aug 2026) as deterministic checks so a RAG workflow
+    either proves its pieces are wired, or fails before deploy:
+
+      R1  FAIL — a vector-store node (vectorStoreQdrant / *vectorStore*)
+          exists but no embeddings node is wired into it (ai_embedding
+          input). A store with nothing to embed/query with is a runtime
+          error in the n8n langchain nodes.
+      R2  WARNING — a vector-store node's collection name parameter
+          (qdrantCollection / collectionName) is empty or a placeholder —
+          the pipeline reads/writes an ambiguous collection.
+      R3  FAIL — a tool/retriever connection (ai_vectorStore / ai_retriever)
+          wires a target node that does not exist in the workflow — dangling
+          retriever ref = runtime error.
+      R4  WARNING — an HTTP Request node calls a Qdrant REST /points path
+          with method POST (upsert must be PUT; POST is the RETRIEVE
+          endpoint and errors 'missing field `ids`' at runtime).
+      R5  WARNING — an HTTP Request node calls the NVIDIA embeddings endpoint
+          without an `input_type` (passage/query) body field — NVIDIA
+          mis-embeds / rejects with 4xx.
+      R6  WARNING — a document loader node exists but no text splitter node
+          (textSplitter*) is wired — the whole document embeds as one vector.
+
+    Verdicts: PASS / FAIL / SKIP (no vector-store / embedding / retriever
+    nodes present). Structural, never overridable."""
+
+    def run(self, workflow: dict) -> dict:
+        nodes = workflow.get("nodes", [])
+        connections = workflow.get("connections", {})
+        violations: list[str] = []
+        warnings: list[str] = []
+        names = {n.get("name") for n in nodes}
+
+        stores = [n for n in nodes
+                  if "vectorstore" in _normalize_node_type(n.get("type") or "").lower()
+                  and "toolvectorstore" not in _normalize_node_type(n.get("type") or "").lower()]
+        embeddings = [n for n in nodes if "embeddings" in _normalize_node_type(n.get("type") or "").lower()]
+        splitters = [n for n in nodes if "splitter" in _normalize_node_type(n.get("type") or "").lower()]
+        loaders = [n for n in nodes if ("loader" in _normalize_node_type(n.get("type") or "").lower()
+                                        or "readbinaryfiles" in _normalize_node_type(n.get("type") or "").lower()
+                                        or "extractfromfile" in _normalize_node_type(n.get("type") or "").lower())]
+
+        rag_http = [
+            n for n in nodes
+            if "httprequest" in _normalize_node_type(n.get("type") or "").lower()
+            and ("qdrant" in str((n.get("parameters") or {}).get("url") or "").lower()
+                 or "nvidia" in str((n.get("parameters") or {}).get("url") or "").lower())
+        ]
+        if not (nodes and (stores or embeddings or splitters or loaders or rag_http)):
+            return {"status": "SKIP", "violations": [], "warnings": [],
+                    "checked": len(nodes)}
+
+        # R1 — every vector store must have an embeddings node wired in.
+        for st in stores:
+            emb = _connected_into(connections, st.get("name"), "ai_embedding")
+            if not emb:
+                violations.append(
+                    f"R1: vector-store node '{st.get('name')}' has no embeddings "
+                    f"node wired to its ai_embedding input — it cannot embed or "
+                    f"query anything at runtime"
+                )
+
+        # R2 — collection name must be a real, non-placeholder value.
+        for st in stores:
+            params = st.get("parameters") or {}
+            col = params.get("qdrantCollection") or params.get("collectionName") or {}
+            if isinstance(col, dict):
+                col = col.get("value", "")
+            if not col or PLACEHOLDER_CRED_RE.search(str(col)):
+                warnings.append(
+                    f"R2: vector-store node '{st.get('name')}' collection name "
+                    f"{col!r} is empty or a placeholder — set the real Qdrant "
+                    f"collection"
+                )
+
+        # R3 — dangling ai_vectorStore / ai_retriever references.
+        for n in nodes:
+            for out_key in ("ai_vectorStore", "ai_retriever"):
+                for target in _connected_to(connections, n.get("name"), out_key):
+                    if target not in names:
+                        violations.append(
+                            f"R3: node '{n.get('name')}' {out_key} wiring points "
+                            f"to '{target}' which does not exist in the workflow"
+                        )
+
+        # R4 — Qdrant upsert must be PUT, not POST (the Aug 2026 400).
+        for n in nodes:
+            ntype = _normalize_node_type(n.get("type") or "").lower()
+            if "httprequest" not in ntype:
+                continue
+            params = n.get("parameters") or {}
+            url = str(params.get("url") or params.get("urlParameters") or "")
+            if "qdrant" not in url.lower():
+                continue
+            method = str(params.get("method") or "GET").upper()
+            path = url.split("?", 1)[0].rstrip("/")
+            if method == "POST" and path.endswith("/points") and "search" not in path \
+                    and "delete" not in path:
+                warnings.append(
+                    f"R4: node '{n.get('name')}' calls Qdrant with POST on "
+                    f"{path} — upsert must be PUT; POST is the RETRIEVE "
+                    f"endpoint and errors 'missing field `ids`' at runtime"
+                )
+
+        # R5 — NVIDIA embeddings need input_type passage/query.
+        for n in nodes:
+            ntype = _normalize_node_type(n.get("type") or "").lower()
+            if "httprequest" not in ntype:
+                continue
+            params = n.get("parameters") or {}
+            url = str(params.get("url") or "")
+            if "api.nvidia.com" not in url.lower() or "embeddings" not in url.lower():
+                continue
+            body = params.get("jsonBody") or params.get("body") or ""
+            body_text = json.dumps(body, default=str) if not isinstance(body, str) else body
+            if "input_type" not in body_text:
+                warnings.append(
+                    f"R5: node '{n.get('name')}' calls the NVIDIA embeddings API "
+                    f"without an `input_type` (passage/query) body field — "
+                    f"NVIDIA mis-embeds or rejects with 4xx"
+                )
+
+        # R6 — a document loader without a splitter embeds whole docs.
+        if loaders and embeddings and not splitters:
+            warnings.append(
+                "R6: document loader node(s) present but no text splitter "
+                "node (textSplitter*) wired — the whole document embeds as "
+                "one vector, degrading retrieval"
+            )
 
         return {"status": "FAIL" if violations else "PASS",
                 "violations": violations, "warnings": warnings,
@@ -1175,6 +1372,12 @@ def _dag_checks(workflow: dict) -> list[str]:
     node_names = {n.get("name") for n in nodes}
 
     incoming: dict[str, list[str]] = {name: [] for name in node_names}
+    # Loop nodes (splitInBatches v3, etc.) legitimately form cycles: the body's
+    # last node loops back into the loop node to trigger the next iteration.
+    # Those loop-back edges are canonical n8n (blessed by the A2 loop handling)
+    # and must NOT be treated as DAG cycles. Edges INTO a loop node are exempt
+    # from the cycle/ordering computation; genuine cycles elsewhere still fail.
+    loop_names = {n.get("name") for n in nodes if _is_loop_node(n.get("type") or "")}
     for src, outs in connections.items():
         if src not in node_names:
             violations.append(f"connection source '{src}' is not a node")
@@ -1185,6 +1388,8 @@ def _dag_checks(workflow: dict) -> list[str]:
                 continue
             if dst not in node_names:
                 violations.append(f"step depends on unknown node '{dst}'")
+                continue
+            if dst in loop_names:
                 continue
             incoming.setdefault(dst, []).append(src)
 
@@ -1279,6 +1484,18 @@ def run_pipeline(artifact: Any, full_text: str, hitl: bool, reporter,
     reporter.stage("PRECISION", precision["status"], precision["violations"],
                    precision["checked"], precision.get("warnings"))
     _record_gate("PRECISION", precision, time.time() - s34)
+
+    # ---- Stage 3.45: RAG (vector-store / RAG pipeline structural gate) ----
+    # RAG-specific runtime invariants that generic PRECISION misses: an
+    # embeddings node wired into every vector store, a real collection name,
+    # no dangling ai_vectorStore/ai_retriever refs, PUT-not-POST for Qdrant
+    # upserts, NVIDIA input_type, and loader-without-splitter. Structural,
+    # never overridable (RagVectorGate).
+    s345 = time.time()
+    rag = RagVectorGate().run(workflow)
+    reporter.stage("RAG", rag["status"], rag["violations"], rag["checked"],
+                   rag.get("warnings"))
+    _record_gate("RAG", rag, time.time() - s345)
 
     # ---- Stage 3.5: SKILLS (mandatory-skill invocation, fail-closed) ----
     # Every gate must PROVE its mandatory router skills are consultable; when a
@@ -1389,6 +1606,13 @@ def run_pipeline(artifact: Any, full_text: str, hitl: bool, reporter,
         # / resolvable refs / real credentials. Hard stop like INTEGRITY.
         verdict = "N8N_PRECISION_VIOLATION"
         reason_code = "RUNTIME_STRUCTURAL_INCONSISTENCY"
+    elif rag["status"] == "FAIL":
+        # RAG vector-store structural violation: store without embeddings /
+        # dangling retriever refs / upsert-on-wrong-verb. Hard stop — a RAG
+        # workflow that cannot embed or query must not ship.
+        verdict = "RAG_STRUCTURAL_VIOLATION"
+        reason_code = "RAG_VECTOR_STORE_INCONSISTENCY"
+        risk = max(risk, 30)
     elif stability["status"] == "FAIL":
         # A real live-instance stability failure (or unverifiable because the
         # expected output / API key is missing) is a hard stop — a workflow
@@ -1420,6 +1644,7 @@ def run_pipeline(artifact: Any, full_text: str, hitl: bool, reporter,
                 "integrity": {"status": "PASS" if integrity_ok else "FAIL",
                               "violations": dag_violations},
                 "precision": precision,
+                "rag": rag,
                 "stability": stability, "math": math, "reasoning": reason, "dry_run": dry_run,
             }
         })
@@ -1440,7 +1665,7 @@ def run_pipeline(artifact: Any, full_text: str, hitl: bool, reporter,
             payload={"verdict": verdict, "reason_code": reason_code,
                      "security": sec, "quality": qual, "math": math, "reasoning": reason,
                      "skills": skill_stage, "preflight": preflight, "stability": stability,
-                     "precision": precision, "dry_run": dry_run},
+                     "precision": precision, "rag": rag, "dry_run": dry_run},
         )
         hitl_request = {"request_id": req.request_id, "expires_at": req.expires_at}
         reporter.stage("HITL", "PENDING_APPROVAL",
@@ -1457,6 +1682,7 @@ def run_pipeline(artifact: Any, full_text: str, hitl: bool, reporter,
             "integrity": {"status": "PASS" if integrity_ok else "FAIL",
                           "violations": dag_violations},
             "precision": precision,
+            "rag": rag,
             "skills": skill_stage,
             "stability": stability,
             "math": math, "reasoning": reason, "dry_run": dry_run,

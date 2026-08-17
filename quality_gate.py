@@ -75,14 +75,25 @@ class QualityGate:
         connections = workflow.get('connections', {})
 
         # Isolated nodes: defined but not referenced in connections
+        def _edge_nodes(edges) -> list:
+            """Extract target node names from an edge value, handling BOTH the
+            legacy shape {out: [edge, edge]} and the 2.x nested-list shape
+            {out: [[edge, ...], [edge, ...]]} where index i = branch i."""
+            found = []
+            if isinstance(edges, dict):
+                if 'node' in edges:
+                    found.append(edges['node'])
+            elif isinstance(edges, list):
+                for e in edges:
+                    found.extend(_edge_nodes(e))
+            return found
+
         all_referenced = set()
         for src, outs in connections.items():
             all_referenced.add(src)
             for out_type, edges in outs.items():
-                if isinstance(edges, list):
-                    for e in edges:
-                        if isinstance(e, dict) and 'node' in e:
-                            all_referenced.add(e['node'])
+                for tgt in _edge_nodes(edges):
+                    all_referenced.add(tgt)
         isolated = [k for k in node_keys if k and k not in all_referenced]
         if isolated:
             findings.append(f"Isolated/unreachable nodes: {isolated}")

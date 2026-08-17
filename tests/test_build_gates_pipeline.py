@@ -134,6 +134,17 @@ def test_linear_dag_clean():
     assert _dag_checks(wf) == []
 
 
+def test_loop_back_edge_not_cycle():
+    # Canonical splitInBatches v3: body loops back into the loop node to
+    # trigger the next iteration. That edge must NOT be flagged as a DAG cycle
+    # (the A2 check already blesses this pattern); genuine cycles still fail.
+    wf = _wf([_node("Loop", ntype="n8n-nodes-base.splitInBatches"),
+              _node("Work")],
+             {"Loop": {"main": [[], [{"node": "Work"}]]},
+              "Work": {"main": [{"node": "Loop"}]}})
+    assert _dag_checks(wf) == []
+
+
 # ---------------------------------------------------------------------------
 # Stage 4: MATH (math-verify + z3 + voting)
 # ---------------------------------------------------------------------------
