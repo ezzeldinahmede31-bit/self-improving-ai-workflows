@@ -1,0 +1,107 @@
+{
+  "name": "EU Mid-Size Brands Finder (Simple)",
+  "nodes": [
+    {
+      "id": "trigger",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "get-brands",
+      "name": "Get Brands from Wikidata",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 2,
+      "position": [
+        240,
+        0
+      ],
+      "parameters": {
+        "url": "https://query.wikidata.org/sparql?format=json&query=SELECT%20DISTINCT%20%3Fbrand%20%3FbrandLabel%20%3Femployees%20%3FcountryLabel%20%3FindustryLabel%20%3Fwebsite%20%3Finstagram%20%3Flinkedin%20WHERE%20%7B%20%3Fbrand%20wdt%3AP31%2Fwdt%3AP279*%20wd%3AQ431289%3B%20%3Fbrand%20wdt%3AP17%20%3Fcountry%3B%20%3Fbrand%20wdt%3AP1128%20%3Femployees%3B%20%3Fbrand%20wdt%3AP856%20%3Fwebsite%20%7D%20LIMIT%20200%20OFFSET%200",
+        "method": "GET",
+        "responseFormat": "json",
+        "jsonParameters": true,
+        "headerParameters": [],
+        "options": {}
+      },
+      "credentials": {}
+    },
+    {
+      "id": "extract",
+      "name": "Extract Contacts",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const item = $input.item.json;\nconst html = item.results ? item.results.bindings : item;\nconst emailRe = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}/g;\nconst telRe = /\\+\\d{1,3}\\s\\d{2,4}\\s\\d{2,4}\\s\\d{2,4}/g;\nconst liRe = /https?:\\/\\/[a-z.]*linkedin\\.com\\/(?:company|school)\\/[^\\\"'<>&\\s]+/gi;\nconst emails = (html.match(emailRe) || []).filter(e => e).slice(0, 3);\nconst phones = (html.match(telRe) || []).filter(t => t).slice(0, 2);\nconst linkedin = (item.linkedin ? [item.linkedin] : []).concat(html.match(liRe) || []).filter(Boolean)[0] || '';\nreturn { json: { brand_name: item.brandLabel || '', country: item.countryLabel || '', employees: item.employees ? Number(item.employees.value) || 0 : 0, website: item.website ? item.website.value : '', emails: emails, phones: phones, linkedin: linkedin.replace(/\\/$/, '') } };",
+        "mode": "runOnceForEachItem"
+      }
+    },
+    {
+      "id": "export",
+      "name": "Export to CSV",
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1,
+      "position": [
+        720,
+        0
+      ],
+      "parameters": {
+        "options": {
+          "fileName": "eu_brands_simple.csv"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get Brands from Wikidata",
+            "type": "n8n-nodes-base.httpRequest",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Brands from Wikidata": {
+      "main": [
+        [
+          {
+            "node": "Extract Contacts",
+            "type": "n8n-nodes-base.code",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Contacts": {
+      "main": [
+        [
+          {
+            "node": "Export to CSV",
+            "type": "n8n-nodes-base.convertToFile",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true,
+    "saveExecutionProgress": true
+  },
+  "pinData": {}
+}

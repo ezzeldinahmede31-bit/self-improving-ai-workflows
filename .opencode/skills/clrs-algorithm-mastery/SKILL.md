@@ -70,5 +70,5 @@ Fenwick/segment tree for range queries).
 - `algorithm-design` — LaTeX pseudocode + UML for formal writeups.
 - `algorithm-design-manual-war-stories` — the practical "which technique fits THIS
   real problem" catalog.
-- `off-by-one-boundary-guard` — when the answer is a count or range.
+- `off-by-one-boundary-guard` — when the answer is a tally or a range.
 - `self-benchmark-runner` — measured head-to-head runs on public problem sets.

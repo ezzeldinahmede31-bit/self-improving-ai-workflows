@@ -7,48 +7,64 @@ for the full doc of the chosen skill. Grouping matches the router
 registry buckets (`compensatory-router/SKILL.md`), so new skills that were
 registered in the router appear under the same family here automatically.
 
-## Automation (per-tool) (45)
+## Automation (per-tool) (61)
 
 - **ai-skill-authoring-standards** — The GLOBAL standards gate for creating, reviewing, designing, and building ANY AI agent skill in this workspace.
 - **airtable-automation** — Airtable database automation - views, automations, integrations, and workflow triggers
 - **ansible-automation** — Infrastructure automation and configuration management using Ansible playbooks, roles, and inventory.
+- **api-design-patterns** — Applies JJ Geewax's API Design Patterns to design professional, evolvable REST/HTTP APIs: resource-oriented design with the standard methods (get/list/create/up…
 - **asana-automation** — Automate Asana project management workflows, task tracking, team collaboration, and reporting
 - **calendar-automation** — Google Calendar and Outlook automation - scheduling optimization, meeting workflows, time blocking, and Slack/Sheets integration
 - **clickup-automation** — Automate ClickUp workspace management, task workflows, time tracking, and team productivity
+- **cloud-native-patterns** — Applies Cornelia Davis' Cloud Native Patterns to design applications that fully exploit cloud environments: stateless and stateful design, event-driven architec…
 - **code-smell-detector** — Detects code smells in n8n workflows based on Martin Fowler's catalog of 70+ smells from 'Refactoring' (1999).
 - **crm-automation** — CRM workflow automation for HubSpot, Salesforce, Pipedrive - lead management, deal tracking, and multi-CRM synchronization
 - **devops-automation** — DevOps and IT Ops automation - CI/CD, monitoring, incident management, and infrastructure workflows
+- **devops-handbook-flow** — Applies The DevOps Handbook (Kim, Humble, Debois, Willis) to accelerate software delivery with quality intact: the Three Ways (flow, feedback, continual learnin…
 - **docusign-automation** — Automate document signing workflows, envelope management, and e-signature processes
+- **domain-modeling-functional** — Applies Scott Wlaschin's Domain Modeling Made Functional method: translate business requirements into precise code by modeling the domain as types and workflows…
 - **email-marketing** — Email marketing automation - campaign creation, sequence building, A/B testing, deliverability optimization, and analytics
+- **evolutionary-architecture** — Applies Building Evolutionary Architectures by Ford, Parsons & Kua: design systems that adapt to continuous change instead of freezing — architecture fitness fu…
 - **excel-automation** — Automate Excel spreadsheets: formulas, data cleanup, chart creation, VBA macros, and reporting workflows.
 - **gate-first-pass-builder** — Build ANY n8n workflow or AI agent so it passes the user's own build gates (build_gates_pipeline.py) on the FIRST attempt — no rejections, no fixes-after-the-fa…
+- **goos-outside-in-tdd** — Applies Freeman & Pryce's Growing Object-Oriented Software, Guided by Tests (GOOS): build systems outside-in with a walking skeleton, write a failing integratio…
+- **high-output-management** — Applies Andrew Grove's High Output Management to manage time, teams, and productivity: managerial leverage (output = output of the org), the output-oriented mee…
 - **home-assistant-automation** — Automate smart home devices and create intelligent home automation workflows with Home Assistant
 - **hr-automation** — HR workflow automation - recruiting, onboarding, employee management, and offboarding processes
+- **infrastructure-as-code** — Applies Kief Morris' Infrastructure as Code: define all infrastructure (servers, networks, config) as versioned, reviewable, testable code — provisioning, compo…
 - **intercom-automation** — Automate Intercom customer messaging, support workflows, user engagement, and product tours
 - **invoice-automation** — Automate invoice generation, sending, tracking, and payment reconciliation across accounting platforms
 - **jira-automation** — Automate Jira project management workflows, sprint planning, issue tracking, and reporting
+- **kubernetes-operations** — Applies Kubernetes Up & Running (Beda, Hightower, Burns) to deploy and operate containerized workloads: the Kubernetes object model (pods, deployments, services…
 - **law-of-demeter-guard** — Enforces Clean Code's Law of Demeter principle: objects should only talk to their immediate friends (direct dependencies).
 - **linear-automation** — Automate Linear issue tracking, cycle planning, roadmap management, and engineering workflows
 - **linkedin-automation** — Automate LinkedIn marketing, lead generation, content publishing, and professional networking
 - **mailchimp-automation** — Automate Mailchimp email marketing campaigns, audience management, automations, and analytics
 - **microsoft-teams-automation** — Automate Microsoft Teams messaging, meetings, channels, and workflow integrations
 - **monday.com-automation** — Automate Monday.com workflows, board management, team collaboration, and cross-board integrations
+- **multiprocessor-concurrency** — Applies Herlihy & Shavit's The Art of Multiprocessor Programming to design correct concurrent systems: lock-based and lock-free concurrent objects, atomicity an…
 - **n8n-rag-vector-qa** — Build production RAG (retrieval-augmented generation) workflows in n8n — ingest a document corpus into a vector store and answer questions over it through a cha…
 - **notion-automation** — Notion database automation - sync, templates, workflows, and cross-platform integrations
 - **obsidian-automation** — Automate Obsidian knowledge management, note linking, and personal knowledge base workflows
+- **orthogonality-guard** — Enforces the Pragmatic Programmer principle of Orthogonality: changes in one area of the system should not affect other areas.
 - **pipedrive-automation** — Automate Pipedrive CRM workflows including deal management, pipeline tracking, and sales reporting
 - **podcast-automation** — Automate podcast production workflows including recording, editing, publishing, and distribution
 - **quickbooks-automation** — Automate QuickBooks accounting workflows including invoicing, expenses, reporting, and bank reconciliation
+- **reversibility-engine** — Enforces the Pragmatic Programmer principle of Reversibility: design so decisions can be undone.
+- **security-engineering-threat-modeling** — Applies Ross Anderson's Security Engineering to design systems that resist real adversaries: threat modeling (who attacks, why, with what resources), fail-safe…
 - **security-monitoring** — Automate security monitoring, threat detection, incident response, and compliance workflows
 - **sheets-automation** — Google Sheets automation workflows - data sync, task management, reporting dashboards, and multi-platform integrations
 - **shopify-automation** — Shopify e-commerce automation - inventory management, order processing, customer workflows, and analytics
 - **skillopt-sleep** — Use when the user wants their Claude agent to self-improve from past usage, asks about a nightly/offline 'sleep' or 'dream' cycle, memory/skill consolidation, o…
 - **spotify-automation** — Automate Spotify music playback, playlist management, and audio analysis workflows
+- **staff-engineer-leadership** — Applies Will Larson's Staff Engineer to operate at Staff/Principal level without a management title: find the leverage point (work where the multiplier is large…
+- **systems-performance-profiling** — Applies Brendan Gregg's Systems Performance methodology to find and fix real bottlenecks: the USE method (Utilization, Saturation, Errors) for every resource, l…
 - **transcription-automation** — Automate audio/video transcription, meeting notes, subtitle generation, and content processing
 - **trello-automation** — Automate Trello board management, card workflows, power-ups, and team collaboration
 - **twilio-sms-automation** — Automate SMS communications, two-way messaging, notifications, and voice workflows with Twilio
 - **twitter-x-automation** — Automate Twitter/X social media workflows including posting, engagement, analytics, and audience growth
 - **weather-automation** — Automate weather-based workflows, forecasts, alerts, and location-aware notifications
+- **web-security-browser-internals** — Applies Michal Zalewski's The Tangled Web to secure modern web applications: how browsers and HTTP actually behave (parsing, encoding, navigation, the same-orig…
 - **webhook-automation** — Build and manage webhook-based integrations for real-time event processing and API connections
 - **whatsapp-automation** — WhatsApp Business automation - customer support, notifications, chatbots, and broadcast messaging
 - **woocommerce-automation** — Automate WooCommerce e-commerce operations including orders, inventory, customers, and marketing
@@ -87,7 +103,7 @@ registered in the router appear under the same family here automatically.
 - **zapier-sdk** — Zapier SDK for TypeScript.
 - **zapier-system-cloner** — Replicates any Zapier (Zap) system — especially premium/expensive ones — with identical outputs and quality on n8n or code, using different (free/local) tools w…
 
-## Marketing/SEO/Growth (16)
+## Marketing/SEO/Growth (17)
 
 - **apify-audience-analysis** — Understand audience demographics, preferences, behavior patterns, and engagement quality across Facebook, Instagram, YouTube, and TikTok.
 - **audience-psychology-analyst** — Build a psychological profile of any target audience and translate it into marketing AND video-editing decisions.
@@ -96,6 +112,7 @@ registered in the router appear under the same family here automatically.
 - **content-research-writer** — Research topics and write content like blog posts, articles, and copy
 - **conversion-psychology** — Psychology of conversion for sponsored content.
 - **customer-research** — When the user wants to conduct, analyze, or synthesize customer research.
+- **engineering-management-path** — Applies Camille Fournier's The Manager's Path to grow from engineer to engineering manager and beyond: the tech-lead and manager roles, one-on-ones, feedback (p…
 - **influence-psychology** — Apply the seven principles of ethical persuasion (reciprocity, commitment, social proof, authority, liking, scarcity, unity) to product design, copy, and sales.
 - **influencer-marketing** — When the user wants to run influencer, creator, or ambassador partnerships to promote their product — finding and vetting partners, structuring deals, briefing…
 - **lead-research-assistant** — Research company and contact information for sales outreach
@@ -126,13 +143,14 @@ registered in the router appear under the same family here automatically.
 - **video-inpainting** — Region edits across video frames on RunComfy via the `runcomfy` CLI — remove an object that appears across many frames, clean up wires or watermarks, replace a…
 - **video-processing-editing** — FFmpeg automation for cutting, trimming, concatenating videos.
 
-## Research (13)
+## Research (15)
 
 - **academic-search** — Search and analyze academic literature.
 - **algorithm-design-manual-war-stories** — Applies Steven Skiena's Algorithm Design Manual 'war manual' to real-world problems: classify the problem type first, consult the problem catalog for the proven…
 - **clrs-algorithm-mastery** — Enforces the CLRS (Introduction to Algorithms) method on hard algorithmic problems: rigorous asymptotic complexity analysis (Big-O/Theta/Omega) for time and spa…
 - **company-research** — Conduct comprehensive company research and due diligence.
 - **data-analysis** — Generate statistical analysis code with 4-round review.
+- **database-internals-engines** — Applies Alex Petrov's Database Internals knowledge to design and troubleshoot storage-backed systems: how storage engines actually work under the hood (B-Trees…
 - **deep-research** — Conduct comprehensive research on any topic.
 - **evidence-over-memory** — Kill hallucination by making verification a reflex: any factual claim, API detail, library version, file path, or numeric fact must come from a tool result, not…
 - **firecrawl-deep-research** — Produce an intensive, cited analytical report: executive summary, multi-angle findings, contrarian views, open questions, and full sources.
@@ -140,9 +158,10 @@ registered in the router appear under the same family here automatically.
 - **literature-search** — Search academic literature using Semantic Scholar, arXiv, and OpenAlex APIs.
 - **parallel-deep-research** — ONLY use when user explicitly says 'deep research', 'exhaustive', 'comprehensive report', or 'thorough investigation'.
 - **parallel-web-search** — DEFAULT for all research and web queries.
+- **sicp-abstraction-and-interpretation** — Applies the SICP (Structure and Interpretation of Computer Programs) discipline to system design and code: build programs as layers of abstraction with named pr…
 - **web-search** — Formulate effective web search queries, analyze search results, and synthesize findings.
 
-## Reasoning/Math/Logic (13)
+## Reasoning/Math/Logic (14)
 
 - **algorithmic-math-reasoner** — Raises correctness on hard algorithmic and mathematical problems where a fast model tends to jump to plausible-but-wrong answers: forces formal restatement, inv…
 - **critical-thinking-logical-reasoning** — Critically analyse the reasoning in written content (articles, blogs, transcripts, reports), not code.
@@ -157,6 +176,7 @@ registered in the router appear under the same family here automatically.
 - **test-time-compute-scaling** — Brings frontier-level accuracy to a fast/cheap model on HARD problems only, using test-time scaling: generate multiple independent solution paths in parallel, t…
 - **thought-based-reasoning** — Use when facing complex reasoning tasks - multi-step math, logic puzzles, decisions with tradeoffs, problems where direct answers fail, or when you need to show…
 - **unit-test-boundary-conditions** — Provides edge case, corner case, boundary condition, and limit testing patterns for Java unit tests.
+- **xunit-test-patterns** — Applies Gerard Meszaros' XUnit Test Patterns to write clean, maintainable test suites: the Four-Phase test structure, the Test Double taxonomy (dummy, stub, fak…
 
 ## Thinking frames (28)
 
@@ -339,4 +359,4 @@ registered in the router appear under the same family here automatically.
 - **wizard** — Generate an interactive bash wizard that walks a human through steps only they can perform.
 
 ---
-*Auto-generated by `scripts/skills_docs_generator.py` on 2026-08-17 17:25 — 277 skills, 18 families*
+*Auto-generated by `scripts/skills_docs_generator.py` on 2026-08-17 17:33 — 297 skills, 18 families*
