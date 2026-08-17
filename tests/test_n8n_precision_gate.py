@@ -123,6 +123,16 @@ def test_zero_typeversion_fails():
     assert any("typeVersion" in v for v in res["violations"])
 
 
+def test_fractional_typeversion_passes():
+    # n8n genuinely supports fractional versions (e.g. httpRequest 4.4, set 3.4)
+    n = _node("A", "n8n-nodes-base.httpRequest", url="https://example.com")
+    n["typeVersion"] = 4.4
+    wf = _wf([_trigger(), n])
+    res = N8nPrecisionGate().run(wf, {})
+    assert res["status"] == "PASS"
+    assert not any("typeVersion" in v for v in res["violations"])
+
+
 # ---------------------------------------------------------------------------
 # P4 expression refs
 # ---------------------------------------------------------------------------
@@ -313,6 +323,36 @@ def test_a2_all_branches_wired_passes():
               "Split": {"main": [[{"node": "T"}], [{"node": "F"}]]}})
     res = N8nPrecisionGate().run(wf, {})
     assert res["status"] == "PASS"
+
+
+def test_a2_split_in_batches_done_output_not_dangling():
+    # canonical loop pattern: splitInBatches v3 main[0]='done' unwired,
+    # main[1]='loop' -> processing -> loop-back to input.
+    wf = _wf(
+        [_trigger(),
+         _node("Loop", "n8n-nodes-base.splitInBatches", batchSize=1),
+         _node("Work", "n8n-nodes-base.httpRequest", url="https://example.com")],
+        {"Receive Webhook": {"main": [{"node": "Loop"}]},
+         "Loop": {"main": [[], [{"node": "Work"}]]},
+         "Work": {"main": [[{"node": "Loop"}]]}})
+    res = N8nPrecisionGate().run(wf, {})
+    assert res["status"] == "PASS"
+    assert not any(v.startswith("A2:") for v in res["violations"])
+
+
+def test_a2_loop_second_branch_still_dangling_fails():
+    # the loop branch (main[1]) must still be wired; a genuinely empty loop
+    # output is a real bug, only the 'done' exit is exempt.
+    wf = _wf(
+        [_trigger(),
+         _node("Loop", "n8n-nodes-base.splitInBatches", batchSize=1),
+         _node("Work", "n8n-nodes-base.httpRequest", url="https://example.com")],
+        {"Receive Webhook": {"main": [{"node": "Loop"}]},
+         "Loop": {"main": [[], []]},
+         "Work": {"main": [[{"node": "Loop"}]]}})
+    res = N8nPrecisionGate().run(wf, {})
+    assert res["status"] == "FAIL"
+    assert any(v.startswith("A2: node 'Loop' output branch 1") for v in res["violations"])
 
 
 def test_a3_respond_to_webhook_without_trigger_fails():

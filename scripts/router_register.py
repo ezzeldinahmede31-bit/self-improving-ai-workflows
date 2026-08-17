@@ -69,6 +69,20 @@ def classify(desc):
     return FALLBACK_BUCKET
 
 
+def _truncate_word_boundary(text, limit):
+    """Cut at the last whitespace before `limit` so rows never end mid-word.
+
+    Falls back to a hard cut if the text has no whitespace within the limit.
+    """
+    if len(text) <= limit:
+        return text
+    cut = text[:limit]
+    space = cut.rfind(" ")
+    if space > 0:
+        cut = cut[:space]
+    return cut.strip() + " …"
+
+
 def ensure_routing_row(router_txt, name, desc):
     """Insert a routing row just before the '## Decision table' section."""
     row_marker = "## Decision table"
@@ -77,9 +91,9 @@ def ensure_routing_row(router_txt, name, desc):
     # already present? the row is '| 'Use <name>: ...' (Auto-registered) | `<name>` |'
     if re.search(r"\(Auto-registered\)\s*\|\s*`" + re.escape(name) + r"`\s*\|", router_txt):
         return router_txt, False
-    first = desc.split(".")[0][:90].strip()
+    first = _truncate_word_boundary(desc.split(".")[0], 90)
     trigger = f"'Use {name}: {first}'"
-    row = (f"| {trigger} (Auto-registered) | `{name}` | {desc[:400]} |\n")
+    row = (f"| {trigger} (Auto-registered) | `{name}` | {_truncate_word_boundary(desc, 400)} |\n")
     router_txt = router_txt.replace("## Decision table", row + "## Decision table", 1)
     return router_txt, True
 

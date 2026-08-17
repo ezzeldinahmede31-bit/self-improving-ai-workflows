@@ -1,0 +1,21 @@
+[
+  {
+    "id": "precision-1786946806980",
+    "gate": "PRECISION",
+    "kind": "SKILL_GAP",
+    "violation": "P3: node 'Download PDF' typeVersion 4.4 is not a positive integer",
+    "keywords": [
+      "download",
+      "pdf",
+      "typeversion",
+      "positive",
+      "integer"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-08-17T06:06:46.980101+00:00",
+    "resolved_at": "2026-08-17T06:06:55.926010+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  }
+]

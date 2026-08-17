@@ -306,6 +306,13 @@ def _is_trigger_node(node_type: str) -> bool:
             or t.endswith(".form"))
 
 
+def _is_loop_node(node_name_or_type: str) -> bool:
+    """splitInBatches v3 (and future loop nodes): main[0] = 'done' exit is
+    intentionally left unwired in the canonical loop-back pattern."""
+    t = (node_name_or_type or "").lower()
+    return "splitinbatches" in t or "loop" in t
+
+
 def _extract_node_refs(text: str) -> list[str]:
     """Every node name referenced by n8n expression syntax:
     $node.Name, $node['Name'], $node["Name"], $('Name'), $nodes.Name.
@@ -780,12 +787,13 @@ class N8nPrecisionGate:
                 violations.append("P2: workflow has no trigger node (webhook / schedule / "
                                   "manual / form / chat) — add one or set _gates.subworkflow: true")
 
-        # P3 — valid typeVersion on every node.
+        # P3 — valid typeVersion on every node (int or float, n8n supports
+        # fractional versions like 4.4 / 3.4).
         for n in nodes:
             tv = n.get("typeVersion")
-            if not isinstance(tv, int) or tv < 1:
+            if isinstance(tv, bool) or not isinstance(tv, (int, float)) or tv < 1:
                 violations.append(f"P3: node '{n.get('name')}' typeVersion {tv!r} is not a "
-                                  f"positive integer")
+                                  f"valid numeric version (int/float >= 1)")
 
         # P4 — every expression node reference must resolve to a real node.
         known = set(names)
@@ -836,7 +844,14 @@ class N8nPrecisionGate:
                                       f"into it (orphaned/dead node never executes)")
 
         # A2 — dangling branches (IF true/false or Switch output with no edge).
+        # splitInBatches v3 has TWO outputs: main[0] = 'done' (loop finished),
+        # main[1] = 'loop' (per-iteration). The done output is intentionally left
+        # unwired in the canonical loop pattern — only flag dangling branches on
+        # genuine split/branch nodes, never the loop-done exit.
+        loop_names = {n.get("name") for n in nodes if _is_loop_node(n.get("type") or "")}
         for src, out_idx in dangling:
+            if src in loop_names and out_idx == 0:
+                continue
             violations.append(f"A2: node '{src}' output branch {out_idx} is dangling — no "
                               f"edge wired from it (items on that branch are silently dropped)")
 

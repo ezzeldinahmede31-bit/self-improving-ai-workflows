@@ -18,7 +18,7 @@ sys.path.insert(0, str(ROOT))
 
 from scripts.router_register import (
     read_frontmatter, classify, ensure_routing_row, ensure_registry_entry,
-    bump_total, FALLBACK_BUCKET,
+    bump_total, _truncate_word_boundary, FALLBACK_BUCKET,
 )
 
 
@@ -125,6 +125,35 @@ def test_routing_row_noop_without_decision_table():
     txt, added = ensure_routing_row("no table here", "zztest", "Test.")
     assert added is False
     assert txt == "no table here"
+
+
+def test_truncate_word_boundary_keeps_short_text():
+    assert _truncate_word_boundary("short text", 400) == "short text"
+
+
+def test_truncate_word_boundary_cuts_at_last_word():
+    out = _truncate_word_boundary("one two three four five six", 12)
+    assert out.endswith("…")
+    assert "three" not in out
+    assert out.startswith("one two")
+
+
+def test_truncate_word_boundary_hard_cuts_whitespace_free():
+    out = _truncate_word_boundary("a" * 500, 400)
+    assert len(out) == 401
+    assert out.endswith("…")
+
+
+def test_routing_row_uses_word_boundary_truncation():
+    long = "First sentence with many words. " + "word " * 300
+    txt, added = ensure_routing_row(_router_text(), "zzlong", long)
+    assert added is True
+    row = txt.splitlines()[[i for i, l in enumerate(txt.splitlines()) if "zzlong" in l][0]]
+    # the description cell must not contain a mid-word cut (no stray letters
+    # followed by '…' glued to a partial word)
+    assert "… " not in row  # truncation marker always preceded by whitespace
+
+
 
 
 # ---------------------------------------------------------------------------

@@ -2,23 +2,30 @@
   {
     "gate": "preflight",
     "pattern": "no schema cache present — run n8n-schema-preflight first (fetch node schemas from the n8n API)",
-    "count": 5,
+    "count": 8,
     "first_seen": "2026-08-15T01:33:03.188424+00:00",
-    "last_seen": "2026-08-15T01:47:44.263263+00:00"
+    "last_seen": "2026-08-17T06:11:21.960445+00:00"
   },
   {
     "gate": "quality",
     "pattern": "No Error Trigger node and no continueOnFail on any node",
-    "count": 3,
+    "count": 6,
     "first_seen": "2026-08-15T01:45:33.866459+00:00",
-    "last_seen": "2026-08-15T01:47:44.266180+00:00"
+    "last_seen": "2026-08-17T06:11:21.961110+00:00"
   },
   {
     "gate": "quality",
     "pattern": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "count": 3,
+    "count": 6,
     "first_seen": "2026-08-15T01:45:33.866641+00:00",
-    "last_seen": "2026-08-15T01:47:44.266545+00:00"
+    "last_seen": "2026-08-17T06:11:21.968583+00:00"
+  },
+  {
+    "gate": "dry_run",
+    "pattern": "no dry-run evidence: nodes carry no pinned data and no expected_result from a trial run — run the workflow on the n8n instance (n8n-pinned-data-mocking) before delivery",
+    "count": 3,
+    "first_seen": "2026-08-17T06:06:55.931702+00:00",
+    "last_seen": "2026-08-17T06:11:21.969503+00:00"
   },
   {
     "gate": "security",
@@ -82,5 +89,19 @@
     "count": 1,
     "first_seen": "2026-08-15T01:47:44.265583+00:00",
     "last_seen": "2026-08-15T01:47:44.265591+00:00"
+  },
+  {
+    "gate": "precision",
+    "pattern": "P3: node 'Download PDF' typeVersion 4.4 is not a positive integer",
+    "count": 1,
+    "first_seen": "2026-08-17T06:06:55.929011+00:00",
+    "last_seen": "2026-08-17T06:06:55.929027+00:00"
+  },
+  {
+    "gate": "precision",
+    "pattern": "A2: node 'Loop Over Items' output branch 0 is dangling — no edge wired from it (items on that branch are silently dropped)",
+    "count": 1,
+    "first_seen": "2026-08-17T06:06:55.930693+00:00",
+    "last_seen": "2026-08-17T06:06:55.930765+00:00"
   }
 ]
