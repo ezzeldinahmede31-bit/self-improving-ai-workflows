@@ -1,0 +1,4 @@
+monkeycode_sync: regenerating MonkeyCode bridge
+  symlink ok .ai-ready/skills -> ../.opencode/skills
+  [git] committed bridge changes
+monkeycode_sync: done
