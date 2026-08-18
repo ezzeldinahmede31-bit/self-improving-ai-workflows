@@ -1240,5 +1240,23 @@
     "resolved_at": "2026-08-17T15:33:32.829210+00:00",
     "resolution": "no skill found by find-skills",
     "search_hits": []
+  },
+  {
+    "id": "quality-1787013800015",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
+    "keywords": [
+      "pinneddata",
+      "primary",
+      "unit-test",
+      "instantly"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-08-18T00:43:20.015967+00:00",
+    "resolved_at": "2026-08-18T00:43:32.907974+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
   }
 ]

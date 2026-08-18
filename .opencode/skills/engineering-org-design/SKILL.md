@@ -11,7 +11,7 @@ Transfers the organization design chapters of Camille Fournier's The Manager's P
 - A team grows past the size where one manager can know everyone's work.
 - Delivery is blocked by unclear ownership, ambiguous reporting lines, or handoffs.
 - Planning a reorg, a new team, or a promotion into management.
-- Cross-team work keeps colliding because interfaces between teams are undefined.
+- Cross-team work keeps colliding because no team owns the interfaces that connect the work.
 
 ## Team shape for the work
 - Size teams around the work's coupling: a tightly coupled product area stays in one team; loosely coupled areas can split.
@@ -32,7 +32,7 @@ Transfers the organization design chapters of Camille Fournier's The Manager's P
 - Keep the promoted manager on a ramp: define the new expectations before the title changes.
 
 ## Cross-team interfaces
-- Define interfaces between teams: who owns what API, which team consumes it, and how changes are communicated.
+- Define cross-team interfaces: who owns what API, which team consumes it, and how changes are communicated.
 - Assign one team as owner and one as consumer for every shared system; change requires the owner's consent.
 - Resolve cross-team disputes at the lowest level that can decide, with a clear escalation path.
 
