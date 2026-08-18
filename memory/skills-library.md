@@ -7,22 +7,26 @@ for the full doc of the chosen skill. Grouping matches the router
 registry buckets (`compensatory-router/SKILL.md`), so new skills that were
 registered in the router appear under the same family here automatically.
 
-## Automation (per-tool) (56)
+## Automation (per-tool) (63)
 
 - **abstraction-quality-gate** — Enforces A Philosophy of Software Design's core principle: complexity management through deep modules and shallow interfaces.
 - **ai-skill-authoring-standards** — The GLOBAL standards gate for creating, reviewing, designing, and building ANY AI agent skill in this workspace.
 - **airtable-automation** — Airtable database automation - views, automations, integrations, and workflow triggers
 - **ansible-automation** — Infrastructure automation and configuration management using Ansible playbooks, roles, and inventory.
 - **asana-automation** — Automate Asana project management workflows, task tracking, team collaboration, and reporting
+- **building-data-heavy-applications** — Encodes the engineering standards for building applications that handle large data volumes reliably: batching and streaming input, pagination and cursors, cachi…
 - **building-ml-powered-applications** — Applies Emmanuel Ameisen's Building Machine Learning Powered Applications to ship ML products end-to-end, not just notebooks — define the application's success…
 - **calendar-automation** — Google Calendar and Outlook automation - scheduling optimization, meeting workflows, time blocking, and Slack/Sheets integration
 - **clickup-automation** — Automate ClickUp workspace management, task workflows, time tracking, and team productivity
 - **code-smell-detector** — Detects code smells in n8n workflows based on Martin Fowler's catalog of 70+ smells from 'Refactoring' (1999).
 - **crm-automation** — CRM workflow automation for HubSpot, Salesforce, Pipedrive - lead management, deal tracking, and multi-CRM synchronization
+- **data-mesh-architecture** — Applies Zhamak Dehghani's Data Mesh to decentralize data ownership at enterprise scale: the four principles — domain-oriented data ownership, data as a product,…
+- **data-pipelines-pocket-reference** — Applies James Densmore's Data Pipelines Pocket Reference to design, build, test, and operate robust data pipelines: pipeline types and lifecycle, ingestion patt…
 - **dependency-inversion-enforcer** — Enforces Clean Architecture's core principle: Dependency Rule - source code dependencies must point inward, never outward.
 - **devops-automation** — DevOps and IT Ops automation - CI/CD, monitoring, incident management, and infrastructure workflows
 - **docusign-automation** — Automate document signing workflows, envelope management, and e-signature processes
 - **email-marketing** — Email marketing automation - campaign creation, sequence building, A/B testing, deliverability optimization, and analytics
+- **engineering-org-design** — Applies the organization design chapters of Camille Fournier's The Manager's Path to shape engineering teams: choose team size and structure for the work, desig…
 - **excel-automation** — Automate Excel spreadsheets: formulas, data cleanup, chart creation, VBA macros, and reporting workflows.
 - **gate-first-pass-builder** — Build ANY n8n workflow or AI agent so it passes the user's own build gates (build_gates_pipeline.py) on the FIRST attempt — no rejections, no fixes-after-the-fa…
 - **home-assistant-automation** — Automate smart home devices and create intelligent home automation workflows with Home Assistant
@@ -46,7 +50,9 @@ registered in the router appear under the same family here automatically.
 - **pipedrive-automation** — Automate Pipedrive CRM workflows including deal management, pipeline tracking, and sales reporting
 - **podcast-automation** — Automate podcast production workflows including recording, editing, publishing, and distribution
 - **professional-conduct-gate** — Enforces The Clean Coder's professionalism principles: honest estimation, saying no to impossible deadlines, continuous learning, test-driven development as dis…
+- **prompt-engineering-llm-apps** — Applies industry prompt-engineering guidance (OpenAI/Anthropic cookbooks, DSPy-style prompt programming) to build reliable LLM features — role and instruction c…
 - **quickbooks-automation** — Automate QuickBooks accounting workflows including invoicing, expenses, reporting, and bank reconciliation
+- **restful-web-apis** — Applies Richardson & Amundsen's RESTful Web APIs to design APIs around resources and their representations — the maturity model from plain HTTP to hypermedia, U…
 - **reversibility-engine** — Enforces the Pragmatic Programmer principle of Reversibility: design so decisions can be undone.
 - **security-monitoring** — Automate security monitoring, threat detection, incident response, and compliance workflows
 - **sheets-automation** — Google Sheets automation workflows - data sync, task management, reporting dashboards, and multi-platform integrations
@@ -60,16 +66,18 @@ registered in the router appear under the same family here automatically.
 - **twitter-x-automation** — Automate Twitter/X social media workflows including posting, engagement, analytics, and audience growth
 - **value-stream-mapping** — Applies the First Way of The DevOps Handbook (Kim, Humble, Debois, Willis) to accelerate flow: map the end-to-end value stream from request to deployed, quantif…
 - **weather-automation** — Automate weather-based workflows, forecasts, alerts, and location-aware notifications
+- **web-api-design-love** — Applies Leonard Richardson & Sam Ruby's RESTful Web Services ('web-api-design-love' — the pragmatic REST classic) to build HTTP APIs that treat the web as a pla…
 - **webhook-automation** — Build and manage webhook-based integrations for real-time event processing and API connections
 - **whatsapp-automation** — WhatsApp Business automation - customer support, notifications, chatbots, and broadcast messaging
 - **woocommerce-automation** — Automate WooCommerce e-commerce operations including orders, inventory, customers, and marketing
 - **youtube-automation** — Automate YouTube content workflows including video management, analytics, scheduling, and channel optimization
 - **zendesk-automation** — Automate customer support workflows with Zendesk ticket management, routing, and analytics
 
-## n8n (19)
+## n8n (22)
 
 - **ai-engineering-foundation-models** — Applies Chip Huyen's AI Engineering to design production systems around foundation models and LLMs — when to use an LLM at all, prompting and context engineerin…
 - **artificial-intelligence-modern-approach** — Applies Russell & Norvig's Artificial Intelligence: A Modern Approach (AIMA) as the operating manual for intelligent agents — the agent paradigm, search and pla…
+- **cloud-resilience-patterns** — Applies the resilience patterns of Cornelia Davis' Cloud Native Patterns to applications that must survive partial failure: circuit breakers, retries with backo…
 - **n8n-agents-official** — Use when building or editing any AI feature in n8n: AI Agents, Text Classifier, Information Extractor, Sentiment Analysis, Summarization Chain, Basic LLM Chain,…
 - **n8n-autodoc-mermaid** — Automatically generate a README.md with a Mermaid flowchart, inputs/outputs table, and step-by-step client runbook for every n8n workflow delivered.
 - **n8n-code-nodes-official** — Use when the user reaches for a Code node, mentions writing JavaScript or Python in n8n, or any custom logic comes up in workflow design.
@@ -87,6 +95,8 @@ registered in the router appear under the same family here automatically.
 - **n8n-workflow-lifecycle-official** — Use when starting, designing, organizing, finishing, or shipping an n8n workflow.
 - **nvidia-embeddings** — Embed text with NVIDIA's nv-embedqa-e5-v5 via the integrate.api.nvidia.com API — correct input_type (passage when indexing, query when searching), small batches…
 - **qdrant-ops** — Operate the workspace's Qdrant vector store safely and correctly — create/delete/search collections, upsert and inspect points, and troubleshoot the classic Qdr…
+- **search-patterns** — Applies Peter Morville's Search Patterns to design search and discovery experiences that actually work: the search UX/IA anatomy (query box, results, faceted na…
+- **vector-databases-similarity-search** — Covers the fundamentals of vector databases and similarity search that any RAG or semantic-search build depends on: embedding representation, vector indexes (HN…
 
 ## Zapier (9)
 
@@ -100,7 +110,7 @@ registered in the router appear under the same family here automatically.
 - **zapier-sdk** — Zapier SDK for TypeScript.
 - **zapier-system-cloner** — Replicates any Zapier (Zap) system — especially premium/expensive ones — with identical outputs and quality on n8n or code, using different (free/local) tools w…
 
-## Marketing/SEO/Growth (16)
+## Marketing/SEO/Growth (17)
 
 - **apify-audience-analysis** — Understand audience demographics, preferences, behavior patterns, and engagement quality across Facebook, Instagram, YouTube, and TikTok.
 - **audience-psychology-analyst** — Build a psychological profile of any target audience and translate it into marketing AND video-editing decisions.
@@ -112,6 +122,7 @@ registered in the router appear under the same family here automatically.
 - **influence-psychology** — Apply the seven principles of ethical persuasion (reciprocity, commitment, social proof, authority, liking, scarcity, unity) to product design, copy, and sales.
 - **influencer-marketing** — When the user wants to run influencer, creator, or ambassador partnerships to promote their product — finding and vetting partners, structuring deals, briefing…
 - **lead-research-assistant** — Research company and contact information for sales outreach
+- **managerial-leverage-okrs** — Applies Andrew Grove's High Output Management to measure and raise managerial output: compute managerial leverage as the output of the people and decisions you…
 - **marketing-council** — When the user wants multiple expert perspectives on a marketing question — a simulated board of advisors staffed by legendary marketers (Seth Godin, David Ogilv…
 - **marketing-loops** — When the user wants to set up a recurring, self-running marketing workflow — a repeatable loop an AI agent runs on a cadence (weekly, daily, on a trigger) rathe…
 - **marketing-plan** — When the user needs a comprehensive marketing plan for a client, a company they advise, or their own product.
@@ -139,14 +150,16 @@ registered in the router appear under the same family here automatically.
 - **video-inpainting** — Region edits across video frames on RunComfy via the `runcomfy` CLI — remove an object that appears across many frames, clean up wires or watermarks, replace a…
 - **video-processing-editing** — FFmpeg automation for cutting, trimming, concatenating videos.
 
-## Research (13)
+## Research (15)
 
 - **academic-search** — Search and analyze academic literature.
 - **company-research** — Conduct comprehensive company research and due diligence.
 - **data-analysis** — Generate statistical analysis code with 4-round review.
+- **deep-learning-goodfellow** — Applies the Deep Learning book (Goodfellow, Bengio, Courville) as the theoretical foundation for building and debugging neural networks — the deep feedforward s…
 - **deep-research** — Conduct comprehensive research on any topic.
 - **evidence-over-memory** — Kill hallucination by making verification a reflex: any factual claim, API detail, library version, file path, or numeric fact must come from a tool result, not…
 - **firecrawl-deep-research** — Produce an intensive, cited analytical report: executive summary, multi-angle findings, contrarian views, open questions, and full sources.
+- **fundamentals-of-data-engineering** — Applies Joe Reis & Matt Housley's Fundamentals of Data Engineering to build and operate production data systems: the data engineering lifecycle (generation, ing…
 - **generative-deep-learning** — Applies David Foster's Generative Deep Learning to design, train, and evaluate generative models — variational autoencoders (VAE), generative adversarial networ…
 - **github-research** — Explore and analyze GitHub repositories related to a research topic.
 - **hands-on-ai-python** — Applies Prateek Joshi's Artificial Intelligence with Python to implement classic AI algorithms from scratch in Python — search (BFS, DFS, A*), constraint satisf…
@@ -426,4 +439,4 @@ registered in the router appear under the same family here automatically.
 - **the-goal-constraints** — Applies Eliyahu Goldratt's The Goal and the Theory of Constraints to operations, processes, and any flow you are responsible for: the goal is making money (for…
 
 ---
-*Auto-generated by `scripts/skills_docs_generator.py` on 2026-08-18 03:40 — 355 skills, 21 families*
+*Auto-generated by `scripts/skills_docs_generator.py` on 2026-08-18 03:42 — 368 skills, 21 families*
