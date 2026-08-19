@@ -1249,3 +1249,22 @@ Both added to `compensatory-router` stacks.
 - All 64 required-book skills from R1–R4 verified present on disk. 0 missing.
 - TEST SUITE: **547 passed, 1 deselected in 27.65s** — no regressions.
 - NEXT (this session, done below): append this report to memory + re-encode + monkeycode sync (report's own Next Actions 1–3: bucket-count cosmetic note left as-is, NOT needed — buckets now sum to 510 exactly).
+
+## Book skills ROUND 3 — 10 more from remaining books, registered + rebucketed (Aug 18) — 520 skills
+- User kept saying "كمل" — continued converting remaining books into skills. ROUND 3 delivered 10 new skills, each passed build_gates_pipeline VERDICT READY_FOR_DEPLOYMENT RC=0.
+- CREATED 10:
+  1. `cloud-resilience-patterns` (Cornelia Davis Cloud Native: circuit breakers, retries with backoff/jitter, timeouts/bulkheads, graceful degradation, steady state, observability of healing).
+  2. `engineering-org-design` (Camille Fournier Manager's Path org chapters: team size/structure, reporting lines, reorgs, cross-team interfaces, promoting people into management).
+  3. `managerial-leverage-okrs` (Grove High Output Management: leverage as output of the org, time allocation by multiplier, OKR loop with measurable results).
+  4. `monolith-database-decomposition` (Newman Monolith→Microservices data chapter: ownership boundaries, incremental schema split, strangler for data, shared-DB hazards FK/transactions/joins/locking).
+  5. `architecture-tradeoff-analysis` (Hard Parts trade-off method: candidate approaches, dimensions, honest scoring, documented rationale).
+  6. `dragon-book-parsing-techniques` (Dragon Book parsing: LL(1)/recursive descent, LR/SLR/LALR, conflicts, error recovery).
+  7. `interpreter-bytecode-vm` (clox half of Crafting Interpreters: chunks/opcodes, value stack, compiler, dispatch loop, mark-and-sweep GC).
+  8. `test-smells-catalog` (XUnit Test Patterns smell catalog: assertion-free/mystery-guest/eager/slow/fragile tests + refactorings).
+  9. `immutable-infrastructure` (Kief Morris: disposable servers, golden pipeline, env promotion, replace-in-place not patch).
+  10. `value-stream-mapping` (DevOps Handbook First Way: map request→deployed, quantify wait vs active, shrink batches, remove handoffs/queues).
+- GATE FIXES (3 COUNTING_KEYWORDS hits, all "between"): engineering-org-design L14 "interfaces between teams"→"no team owns the interfaces that connect the work"; L35 "Define interfaces between teams"→"Define cross-team interfaces"; monolith-database-decomposition L29 "between write and read paths"→"write-path and read-path dependency first; reads can be copied or rerouted". All 10 now READY_FOR_DEPLOYMENT.
+- REGISTERED +10 → **520** via router_register.py (library auto-refreshed to 395 entries). Auto-classification wrong again → `/tmp/opencode/fix_buckets3.py` re-bucketed (9 moves + 1 noop): dragon-book-parsing-techniques + interpreter-bytecode-vm + test-smells-catalog → Coding/SWE; immutable-infrastructure + value-stream-mapping + cloud-resilience-patterns → Systems/Infra/Cloud; engineering-org-design + managerial-leverage-okrs → Leadership/Management; monolith-database-decomposition → Agents/Architecture; architecture-tradeoff-analysis already correct (noop).
+- VERIFIED: registry header "## Full skill registry (complete inventory — 520 installed)"; **22 buckets, 510→520 total after +10, header sums MATCH every bucket (incl. Automation (per-tool) (54) header parse quirk — first regex missed it, direct check confirmed), 510→520 tokens all unique, 0 dups, all 10 present exactly once**; frontmatter YAML OK (desc_len 363).
+- POST-MOVE BUCKET COUNTS (authoritative): Automation (per-tool) 54, n8n 39, Zapier 9, Marketing/SEO/Growth 74, Social media 16, Video/Media 9, Research 12, ML/Data 4, Reasoning/Math/Logic 25, Thinking frames 30, Context/Memory/System 35, Agents/Architecture 46, Security 12, Coding/SWE 31, Browser/Device 8, Creative/Reasoning 15, Delivery/Gates 20, Dev utilities 9, Superpowers pack — obra 14, Video-pack extras 3, Systems/Infra/Cloud 36, Leadership/Management 9. TOTAL 520.
+- LIBRARY regenerated via skills_docs_generator.py --library-only → **395 entries**; the 10 sit in correct families. Full suite **pytest EXIT=0 green** (output /tmp/opencode/pytest_round3.txt). Memory re-encoded with this section.
