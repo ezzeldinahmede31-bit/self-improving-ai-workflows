@@ -7,7 +7,7 @@ for the full doc of the chosen skill. Grouping matches the router
 registry buckets (`compensatory-router/SKILL.md`), so new skills that were
 registered in the router appear under the same family here automatically.
 
-## Automation (per-tool) (57)
+## Automation (per-tool) (54)
 
 - **abstraction-quality-gate** — Enforces A Philosophy of Software Design's core principle: complexity management through deep modules and shallow interfaces.
 - **ai-skill-authoring-standards** — The GLOBAL standards gate for creating, reviewing, designing, and building ANY AI agent skill in this workspace.
@@ -16,12 +16,10 @@ registered in the router appear under the same family here automatically.
 - **asana-automation** — Automate Asana project management workflows, task tracking, team collaboration, and reporting
 - **business-process-management-weske** — Applies Mathias Weske's Business Process Management to design, model, analyze, and orchestrate business processes — process modeling with BPMN, process enactmen…
 - **calendar-automation** — Google Calendar and Outlook automation - scheduling optimization, meeting workflows, time blocking, and Slack/Sheets integration
-- **clean-craftsmanship** — Applies Robert C.
 - **clickup-automation** — Automate ClickUp workspace management, task workflows, time tracking, and team productivity
 - **crm-automation** — CRM workflow automation for HubSpot, Salesforce, Pipedrive - lead management, deal tracking, and multi-CRM synchronization
 - **devops-automation** — DevOps and IT Ops automation - CI/CD, monitoring, incident management, and infrastructure workflows
 - **docusign-automation** — Automate document signing workflows, envelope management, and e-signature processes
-- **dont-make-me-think** — Applies Steve Krug's Don't Make Me Think to web usability: a page is good if a user can say 'of course' — self-evident design, no thinking required.
 - **email-marketing** — Email marketing automation - campaign creation, sequence building, A/B testing, deliverability optimization, and analytics
 - **enterprise-service-bus** — Applies David Chappell's Enterprise Service Bus to integrate heterogeneous systems with a mediation layer — routing, transformation, protocol bridging, and reli…
 - **excel-automation** — Automate Excel spreadsheets: formulas, data cleanup, chart creation, VBA macros, and reporting workflows.
@@ -42,7 +40,6 @@ registered in the router appear under the same family here automatically.
 - **n8n-rag-vector-qa** — Build production RAG (retrieval-augmented generation) workflows in n8n — ingest a document corpus into a vector store and answer questions over it through a cha…
 - **notion-automation** — Notion database automation - sync, templates, workflows, and cross-platform integrations
 - **obsidian-automation** — Automate Obsidian knowledge management, note linking, and personal knowledge base workflows
-- **phoenix-project-flow** — Applies the Theory of Constraints from The Phoenix Project (Kim, Behr, Spafford) to IT operations and delivery: the goal is throughput of the whole value stream…
 - **pipedrive-automation** — Automate Pipedrive CRM workflows including deal management, pipeline tracking, and sales reporting
 - **podcast-automation** — Automate podcast production workflows including recording, editing, publishing, and distribution
 - **prompt-engineering-llm-apps** — Applies industry prompt-engineering guidance (OpenAI/Anthropic cookbooks, DSPy-style prompt programming) to build reliable LLM features — role and instruction c…
@@ -106,7 +103,7 @@ registered in the router appear under the same family here automatically.
 - **zapier-sdk** — Zapier SDK for TypeScript.
 - **zapier-system-cloner** — Replicates any Zapier (Zap) system — especially premium/expensive ones — with identical outputs and quality on n8n or code, using different (free/local) tools w…
 
-## Marketing/SEO/Growth (18)
+## Marketing/SEO/Growth (19)
 
 - **apify-audience-analysis** — Understand audience demographics, preferences, behavior patterns, and engagement quality across Facebook, Instagram, YouTube, and TikTok.
 - **audience-psychology-analyst** — Build a psychological profile of any target audience and translate it into marketing AND video-editing decisions.
@@ -115,6 +112,7 @@ registered in the router appear under the same family here automatically.
 - **content-research-writer** — Research topics and write content like blog posts, articles, and copy
 - **conversion-psychology** — Psychology of conversion for sponsored content.
 - **customer-research** — When the user wants to conduct, analyze, or synthesize customer research.
+- **dont-make-me-think** — Applies Steve Krug's Don't Make Me Think to web usability: a page is good if a user can say 'of course' — self-evident design, no thinking required.
 - **influence-psychology** — Apply the seven principles of ethical persuasion (reciprocity, commitment, social proof, authority, liking, scarcity, unity) to product design, copy, and sales.
 - **influencer-marketing** — When the user wants to run influencer, creator, or ambassador partnerships to promote their product — finding and vetting partners, structuring deals, briefing…
 - **integration-architecture-frameworks** — Applies the standard integration-architecture frameworks (SOA Reference Architecture, TOGAF-style integration, EAI/ESB patterns, and the integration capability…
@@ -124,7 +122,7 @@ registered in the router appear under the same family here automatically.
 - **marketing-plan** — When the user needs a comprehensive marketing plan for a client, a company they advise, or their own product.
 - **marketing-psychology** — When the user wants to apply psychological principles, mental models, or behavioral science to marketing.
 - **persuasion-principles** — Master Robert Cialdini's 6 (+1) Principles of Persuasion from "Influence: The Psychology of Persuasion" (1984).
-- **range-generalists** — Applies David Epstein's Range: the case for breadth over early specialization.
+- **rework-range-lean** — Applies the counter-conventional product and business principles from Rework (Fried & Hansson): small is a feature not a stage, constraints are an advantage, sc…
 - **viral-hooks** — Expert in creating opening lines, thumbnails, and hooks that stop the scroll.
 
 ## Social media (7)
@@ -197,8 +195,10 @@ registered in the router appear under the same family here automatically.
 - **thought-based-reasoning** — Use when facing complex reasoning tasks - multi-step math, logic puzzles, decisions with tradeoffs, problems where direct answers fail, or when you need to show…
 - **unit-test-boundary-conditions** — Provides edge case, corner case, boundary condition, and limit testing patterns for Java unit tests.
 
-## Thinking frames (30)
+## Thinking frames (32)
 
+- **atomic-habits** — Applies James Clear's Atomic Habits to systems change: tiny 1% improvements compound; habits are built by systems, not by goals.
+- **range-generalists** — Applies David Epstein's Range: the case for breadth over early specialization.
 - **reengineering-the-corporation** — Applies Hammer & Champy's Reengineering the Work to radically redesign business processes — questioning every assumption, organizing around outcomes instead of…
 - **thinking-bounded-rationality** — Use when search or investigation could run forever.
 - **thinking-circle-of-competence** — Use when a specific claim may lack grounding.
@@ -310,12 +310,13 @@ registered in the router appear under the same family here automatically.
 - **security-review** — Security code review for vulnerabilities.
 - **web-security-browser-internals** — Applies Michal Zalewski's The Tangled Web to secure modern web applications: how browsers and HTTP actually behave (parsing, encoding, navigation, the same-orig…
 
-## Coding/SWE (31)
+## Coding/SWE (32)
 
 - **algorithm-design** — Design algorithms with LaTeX pseudocode and UML diagrams.
 - **algorithm-design-manual-war-stories** — Applies Steven Skiena's Algorithm Design Manual 'war manual' to real-world problems: classify the problem type first, consult the problem catalog for the proven…
 - **ast-codebase-graph-navigator** — Navigates multi-file codebases using Abstract Syntax Trees (AST), import graphs, and caller-callee traces instead of brute-force full-file loading.
 - **atomic-decomposition** — Decompose research ideas into atomic, self-contained concepts with bidirectional math-code mapping.
+- **clean-craftsmanship** — Applies Robert C.
 - **code-debugging** — Debug experiment code with structured error analysis.
 - **code-execution-guided-swemaster** — Closes the last measured gap vs frontier coding models: instead of plan-once-patch-once, we drive large code fixes with EXECUTION evidence and MEASURED results.
 - **code-linter-python-js** — Deterministically lint and structurally check any JavaScript or Python written for n8n Code nodes before delivery.
@@ -395,7 +396,7 @@ registered in the router appear under the same family here automatically.
 - **reflection-and-audit-loop** — Impose a mandatory 4-stage structured workflow before delivering any n8n workflow JSON or Code-node script: plan the path, draft, structural self-critique, then…
 - **tradeoff-and-postmortem-documenter** — Auto-generates production-ready documentation, architecture rationale, design trade-offs, and an explicit KNOWN_ISSUES.md for every implementation.
 
-## Superpowers pack — obra (15)
+## Superpowers pack — obra (14)
 
 - **brainstorming** — You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior.
 - **dispatching-parallel-agents** — Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies
@@ -403,7 +404,6 @@ registered in the router appear under the same family here automatically.
 - **finishing-a-development-branch** — Use when implementation is complete, all tests pass, and you need to decide how to integrate the work
 - **receiving-code-review** — Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical…
 - **requesting-code-review** — Use when completing tasks, implementing major features, or before merging to verify work meets requirements
-- **rework-range-lean** — Applies the counter-conventional product and business principles from Rework (Fried & Hansson): small is a feature not a stage, constraints are an advantage, sc…
 - **subagent-driven-development** — Use when executing implementation plans with independent tasks in the current session
 - **systematic-debugging** — Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes
 - **test-driven-development** — Use when implementing any feature or bugfix, before writing implementation code
@@ -419,7 +419,7 @@ registered in the router appear under the same family here automatically.
 - **remembering-conversations** — You MUST invoke this skill before saying "I don't know," guessing, or treating any topic as new, no matter how trivial the question seems.
 - **wizard** — Generate an interactive bash wizard that walks a human through steps only they can perform.
 
-## Systems/Infra/Cloud (36)
+## Systems/Infra/Cloud (37)
 
 - **accelerate-dora-metrics** — Applies Forsgren, Humble & Kim's Accelerate to measure and improve software delivery performance using the DORA metrics: Deployment Frequency, Lead Time for Cha…
 - **building-data-heavy-applications** — Encodes the engineering standards for building applications that handle large data volumes reliably: batching and streaming input, pagination and cursors, cachi…
@@ -449,6 +449,7 @@ registered in the router appear under the same family here automatically.
 - **kubernetes-operations** — Applies Kubernetes Up & Running (Beda, Hightower, Burns) to deploy and operate containerized workloads: the Kubernetes object model (pods, deployments, services…
 - **operating-systems-three-easy-pieces** — Applies OSTEP (Operating Systems: Three Easy Pieces) to understand and debug the three pillars of any OS: virtualization (processes, threads, CPU scheduling), c…
 - **petrov-lsm-storage-compaction** — Applies Alex Petrov's Database Internals treatment of log-structured merge (LSM) storage engines to design and troubleshoot write-heavy data layers: the memtabl…
+- **phoenix-project-flow** — Applies the Theory of Constraints from The Phoenix Project (Kim, Behr, Spafford) to IT operations and delivery: the goal is throughput of the whole value stream…
 - **practice-of-cloud-system-administration** — Applies Limoncelli, Chalup & Hogan's The Practice of Cloud System Administration to run services on the cloud reliably: the core duties of a sysadmin as a servi…
 - **readings-in-database-systems** — Encodes the foundational papers of the Red Book (Hellerstein & Stonebraker) into design instincts for data systems: why column stores beat row stores on analyti…
 - **release-it-production-hardening** — Applies Michael Nygard's Release It!
@@ -470,9 +471,5 @@ registered in the router appear under the same family here automatically.
 - **staff-engineer-leadership** — Applies Will Larson's Staff Engineer to operate at Staff/Principal level without a management title: find the leverage point (work where the multiplier is large…
 - **the-goal-constraints** — Applies Eliyahu Goldratt's The Goal and the Theory of Constraints to operations, processes, and any flow you are responsible for: the goal is making money (for…
 
-## Auto-installed (find-skills) (1)
-
-- **atomic-habits** — Applies James Clear's Atomic Habits to systems change: tiny 1% improvements compound; habits are built by systems, not by goals.
-
 ---
-*Auto-generated by `scripts/skills_docs_generator.py` on 2026-08-19 06:18 — 401 skills, 22 families*
+*Auto-generated by `scripts/skills_docs_generator.py` on 2026-08-19 06:22 — 401 skills, 21 families*
