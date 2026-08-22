@@ -146,80 +146,23 @@
         "observability-execution-monitoring"
       ],
       "note": "Workflow Automation & Orchestration - filesystem-context batched (gen_s15.py single script, 35/35 frontmatter, 3/3 gates READY sampled, router +35)"
+    },
+    "PENDING_CLASSICS": {
+      "count": 10,
+      "skills": [
+        "refactoring-principles-fowler",
+        "philosophy-software-design-ousterhout",
+        "test-driven-development-by-example-beck",
+        "practice-of-programming-kernighan",
+        "effective-engineer-lau",
+        "thinking-fast-and-slow-kahneman",
+        "lean-startup-ries",
+        "zero-to-one-thiel",
+        "made-to-stick-heath",
+        "hooked-nir-eyal"
+      ],
+      "note": "Pending classics completed - 8 already existed, built missing 10 via gen_pending.py, 10/10 frontmatter OK, 3/3 gates READY sampled"
     }
   },
-  "auto_select_classics_pending_approval": [
-    {
-      "title": "Code Complete",
-      "author": "Steve McConnell"
-    },
-    {
-      "title": "Refactoring",
-      "author": "Martin Fowler"
-    },
-    {
-      "title": "A Philosophy of Software Design",
-      "author": "John Ousterhout"
-    },
-    {
-      "title": "The Clean Coder",
-      "author": "Robert C. Martin"
-    },
-    {
-      "title": "Test-Driven Development: By Example",
-      "author": "Kent Beck"
-    },
-    {
-      "title": "The Practice of Programming",
-      "author": "Kernighan & Pike"
-    },
-    {
-      "title": "Programming Pearls",
-      "author": "Jon Bentley"
-    },
-    {
-      "title": "Team Topologies",
-      "author": "Skelton & Pais"
-    },
-    {
-      "title": "Peopleware",
-      "author": "DeMarco & Lister"
-    },
-    {
-      "title": "The Effective Engineer",
-      "author": "Edmond Lau"
-    },
-    {
-      "title": "Computer Networking: A Top-Down Approach",
-      "author": "Kurose & Ross"
-    },
-    {
-      "title": "Computer Architecture: A Quantitative Approach",
-      "author": "Hennessy & Patterson"
-    },
-    {
-      "title": "Database System Concepts",
-      "author": "Silberschatz, Korth & Sudarshan"
-    },
-    {
-      "title": "Thinking, Fast and Slow",
-      "author": "Daniel Kahneman"
-    },
-    {
-      "title": "The Lean Startup",
-      "author": "Eric Ries"
-    },
-    {
-      "title": "Zero to One",
-      "author": "Peter Thiel"
-    },
-    {
-      "title": "Made to Stick",
-      "author": "Chip & Dan Heath"
-    },
-    {
-      "title": "Hooked",
-      "author": "Nir Eyal"
-    }
-  ]
+  "auto_select_classics_pending_approval": []
 }
