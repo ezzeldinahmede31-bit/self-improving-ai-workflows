@@ -1,0 +1,130 @@
+{
+  "purpose": "DONE inventory of book-to-skill conversions. Original master book catalog was NEVER saved to disk (verified via glob + grep); this file reconstructs what WAS converted, by round.",
+  "rounds": {
+    "R1": {
+      "count": 20,
+      "skills": [
+        "clrs-algorithm-mastery",
+        "algorithm-design-manual-war-stories",
+        "sicp-abstraction-and-interpretation",
+        "database-internals-engines",
+        "systems-performance-profiling",
+        "multiprocessor-concurrency",
+        "domain-modeling-functional",
+        "api-design-patterns",
+        "evolutionary-architecture",
+        "web-security-browser-internals",
+        "security-engineering-threat-modeling",
+        "goos-outside-in-tdd",
+        "xunit-test-patterns",
+        "kubernetes-operations",
+        "infrastructure-as-code",
+        "cloud-native-patterns",
+        "devops-handbook-flow",
+        "staff-engineer-leadership",
+        "engineering-management-path",
+        "high-output-management"
+      ]
+    },
+    "R2": {
+      "count": 11,
+      "skills": [
+        "clrs-data-structures-mastery",
+        "clrs-graph-algorithm-design",
+        "database-replication-consensus",
+        "database-transaction-isolation",
+        "concurrent-lock-free-structures",
+        "api-long-running-operations",
+        "api-versioning-compatibility",
+        "fitness-function-engineering",
+        "applied-cryptography-engineering",
+        "kubernetes-deployment-strategies",
+        "sicp-interpreter-evaluator"
+      ]
+    },
+    "R3": {
+      "count": 13,
+      "skills": [
+        "gof-design-patterns",
+        "domain-driven-design-strategic",
+        "ddd-tactical-aggregates",
+        "enterprise-application-architecture",
+        "data-intensive-application-design",
+        "microservices-boundary-design",
+        "enterprise-integration-patterns",
+        "legacy-code-characterization",
+        "continuous-delivery-pipeline",
+        "sre-reliability-engineering",
+        "release-it-production-hardening",
+        "accelerate-dora-metrics",
+        "mythical-man-month-leadership"
+      ]
+    },
+    "R4": {
+      "count": 10,
+      "skills": [
+        "fundamentals-of-data-engineering",
+        "data-pipelines-pocket-reference",
+        "data-mesh-architecture",
+        "search-patterns",
+        "vector-databases-similarity-search",
+        "building-data-heavy-applications",
+        "distributed-control-systems-design",
+        "clean-architecture",
+        "fundamentals-of-software-architecture",
+        "pragmatic-programmer"
+      ]
+    },
+    "R5": {
+      "count": 6,
+      "skills": [
+        "phoenix-project-flow",
+        "rework-range-lean",
+        "range-generalists",
+        "atomic-habits",
+        "dont-make-me-think",
+        "clean-craftsmanship"
+      ]
+    },
+    "R6": {
+      "count": 145,
+      "skills_note": "Names NOT recorded in conversation memory; they live in the router registry (.opencode/skills/compensatory-router/SKILL.md) and memory/skills-library.md. Totals: 516 -> 661."
+    },
+    "R7": {
+      "count": 12,
+      "skills_named": [
+        "taocp-hashing-techniques",
+        "taocp-backtracking-exact-cover",
+        "clean-code-naming-functions",
+        "clean-code-classes-error-handling",
+        "linux-kernel-scheduler",
+        "linux-kernel-memory-management",
+        "mysql-query-optimization-indexing",
+        "mongodb-data-modeling-aggregation",
+        "redis-data-structures-patterns",
+        "os-storage-filesystems"
+      ],
+      "skills_note": "+2 more unnamed slugs present in the router registry. Totals: 661 -> 673."
+    }
+  },
+  "auto_select_classics_pending_approval": [
+    {"title": "Code Complete", "author": "Steve McConnell"},
+    {"title": "Refactoring", "author": "Martin Fowler"},
+    {"title": "A Philosophy of Software Design", "author": "John Ousterhout"},
+    {"title": "The Clean Coder", "author": "Robert C. Martin"},
+    {"title": "Test-Driven Development: By Example", "author": "Kent Beck"},
+    {"title": "The Practice of Programming", "author": "Kernighan & Pike"},
+    {"title": "Programming Pearls", "author": "Jon Bentley"},
+    {"title": "Team Topologies", "author": "Skelton & Pais"},
+    {"title": "Peopleware", "author": "DeMarco & Lister"},
+    {"title": "The Effective Engineer", "author": "Edmond Lau"},
+    {"title": "Computer Networking: A Top-Down Approach", "author": "Kurose & Ross"},
+    {"title": "Computer Architecture: A Quantitative Approach", "author": "Hennessy & Patterson"},
+    {"title": "Database System Concepts", "author": "Silberschatz, Korth & Sudarshan"},
+    {"title": "Thinking, Fast and Slow", "author": "Daniel Kahneman"},
+    {"title": "The Lean Startup", "author": "Eric Ries"},
+    {"title": "Zero to One", "author": "Peter Thiel"},
+    {"title": "Made to Stick", "author": "Chip & Dan Heath"},
+    {"title": "Hooked", "author": "Nir Eyal"}
+  ]
+}

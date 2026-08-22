@@ -134,7 +134,7 @@ staged proposals land in `.skillopt-sleep/staging/<ts>/`.
 |------|---------|-------------|
 | `--project PATH` | cwd | Project directory to evolve |
 | `--scope all\|invoked` | invoked | Harvest scope |
-| `--backend mock\|claude\|codex\|copilot\|handoff\|azure_openai\|nim` | mock | Backend (mock = no provider calls; `nim` = NVIDIA NIM via NVIDIA_API_KEY) |
+| `--backend nim` | nim | Backend ( `nim` = NVIDIA NIM via NVIDIA_API_KEY) |
 | `--model NAME` | backend default | Override the model used for replay |
 | `--source claude\|codex\|auto` | claude | Transcript source |
 | `--lookback-hours N` | 72 | Harvest window |
