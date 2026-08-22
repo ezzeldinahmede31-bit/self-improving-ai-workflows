@@ -105,26 +105,121 @@
         "os-storage-filesystems"
       ],
       "skills_note": "+2 more unnamed slugs present in the router registry. Totals: 661 -> 673."
+    },
+    "S15": {
+      "count": 35,
+      "skills": [
+        "workflow-automation-architecture",
+        "lowcode-nocode-platforms",
+        "trigger-design-selection",
+        "cron-scheduling-automation",
+        "webhook-trigger-hardening",
+        "idempotency-key-design",
+        "retry-backoff-jitter",
+        "dead-letter-error-routes",
+        "saga-compensation-flows",
+        "human-approval-gates",
+        "audit-trail-compliance",
+        "conditional-routing-switches",
+        "loop-batch-pagination",
+        "fan-out-fan-in-merge",
+        "queue-decoupled-workers",
+        "long-running-operations-tracking",
+        "state-machine-workflow-modeling",
+        "timeout-graceful-degradation",
+        "circuit-breaker-api-calls",
+        "rate-limit-aware-consumers",
+        "credential-secret-handling",
+        "expression-template-injection-safety",
+        "data-mapping-transformation-nodes",
+        "validation-gate-data-quality",
+        "duplicate-detection-deduplication",
+        "scheduled-digest-aggregation",
+        "notification-multi-channel-patterns",
+        "crm-contact-sync-patterns",
+        "ecommerce-order-processing-flows",
+        "lead-capture-enrichment-routing",
+        "document-report-generation",
+        "environment-promotion-config",
+        "workflow-versioning-upgrades",
+        "end-to-end-workflow-testing",
+        "observability-execution-monitoring"
+      ],
+      "note": "Workflow Automation & Orchestration - filesystem-context batched (gen_s15.py single script, 35/35 frontmatter, 3/3 gates READY sampled, router +35)"
     }
   },
   "auto_select_classics_pending_approval": [
-    {"title": "Code Complete", "author": "Steve McConnell"},
-    {"title": "Refactoring", "author": "Martin Fowler"},
-    {"title": "A Philosophy of Software Design", "author": "John Ousterhout"},
-    {"title": "The Clean Coder", "author": "Robert C. Martin"},
-    {"title": "Test-Driven Development: By Example", "author": "Kent Beck"},
-    {"title": "The Practice of Programming", "author": "Kernighan & Pike"},
-    {"title": "Programming Pearls", "author": "Jon Bentley"},
-    {"title": "Team Topologies", "author": "Skelton & Pais"},
-    {"title": "Peopleware", "author": "DeMarco & Lister"},
-    {"title": "The Effective Engineer", "author": "Edmond Lau"},
-    {"title": "Computer Networking: A Top-Down Approach", "author": "Kurose & Ross"},
-    {"title": "Computer Architecture: A Quantitative Approach", "author": "Hennessy & Patterson"},
-    {"title": "Database System Concepts", "author": "Silberschatz, Korth & Sudarshan"},
-    {"title": "Thinking, Fast and Slow", "author": "Daniel Kahneman"},
-    {"title": "The Lean Startup", "author": "Eric Ries"},
-    {"title": "Zero to One", "author": "Peter Thiel"},
-    {"title": "Made to Stick", "author": "Chip & Dan Heath"},
-    {"title": "Hooked", "author": "Nir Eyal"}
+    {
+      "title": "Code Complete",
+      "author": "Steve McConnell"
+    },
+    {
+      "title": "Refactoring",
+      "author": "Martin Fowler"
+    },
+    {
+      "title": "A Philosophy of Software Design",
+      "author": "John Ousterhout"
+    },
+    {
+      "title": "The Clean Coder",
+      "author": "Robert C. Martin"
+    },
+    {
+      "title": "Test-Driven Development: By Example",
+      "author": "Kent Beck"
+    },
+    {
+      "title": "The Practice of Programming",
+      "author": "Kernighan & Pike"
+    },
+    {
+      "title": "Programming Pearls",
+      "author": "Jon Bentley"
+    },
+    {
+      "title": "Team Topologies",
+      "author": "Skelton & Pais"
+    },
+    {
+      "title": "Peopleware",
+      "author": "DeMarco & Lister"
+    },
+    {
+      "title": "The Effective Engineer",
+      "author": "Edmond Lau"
+    },
+    {
+      "title": "Computer Networking: A Top-Down Approach",
+      "author": "Kurose & Ross"
+    },
+    {
+      "title": "Computer Architecture: A Quantitative Approach",
+      "author": "Hennessy & Patterson"
+    },
+    {
+      "title": "Database System Concepts",
+      "author": "Silberschatz, Korth & Sudarshan"
+    },
+    {
+      "title": "Thinking, Fast and Slow",
+      "author": "Daniel Kahneman"
+    },
+    {
+      "title": "The Lean Startup",
+      "author": "Eric Ries"
+    },
+    {
+      "title": "Zero to One",
+      "author": "Peter Thiel"
+    },
+    {
+      "title": "Made to Stick",
+      "author": "Chip & Dan Heath"
+    },
+    {
+      "title": "Hooked",
+      "author": "Nir Eyal"
+    }
   ]
 }
