@@ -2,16 +2,16 @@
   {
     "gate": "quality",
     "pattern": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "count": 42,
+    "count": 46,
     "first_seen": "2026-08-15T01:45:33.866641+00:00",
-    "last_seen": "2026-08-19T03:18:18.047742+00:00"
+    "last_seen": "2026-08-24T13:28:09.208989+00:00"
   },
   {
     "gate": "quality",
     "pattern": "No Error Trigger node and no continueOnFail on any node",
-    "count": 39,
+    "count": 43,
     "first_seen": "2026-08-15T01:45:33.866459+00:00",
-    "last_seen": "2026-08-19T03:18:18.047340+00:00"
+    "last_seen": "2026-08-24T13:28:09.207933+00:00"
   },
   {
     "gate": "preflight",
@@ -21,6 +21,13 @@
     "last_seen": "2026-08-17T12:41:54.422748+00:00"
   },
   {
+    "gate": "dry_run",
+    "pattern": "no dry-run evidence: nodes carry no pinned data and no expected_result from a trial run — run the workflow on the n8n instance (n8n-pinned-data-mocking) before delivery",
+    "count": 10,
+    "first_seen": "2026-08-17T06:06:55.931702+00:00",
+    "last_seen": "2026-08-24T13:28:09.211098+00:00"
+  },
+  {
     "gate": "quality",
     "pattern": "Workflow has 18 nodes — recommend sub-workflow split",
     "count": 6,
@@ -28,11 +35,46 @@
     "last_seen": "2026-08-17T13:27:57.395564+00:00"
   },
   {
-    "gate": "dry_run",
-    "pattern": "no dry-run evidence: nodes carry no pinned data and no expected_result from a trial run — run the workflow on the n8n instance (n8n-pinned-data-mocking) before delivery",
-    "count": 6,
-    "first_seen": "2026-08-17T06:06:55.931702+00:00",
-    "last_seen": "2026-08-17T13:27:57.402030+00:00"
+    "gate": "quality",
+    "pattern": "Deprecated syntax `\\$[Nn]ode\\[[\\'\"]` used",
+    "count": 4,
+    "first_seen": "2026-08-24T13:18:28.242419+00:00",
+    "last_seen": "2026-08-24T13:28:09.194582+00:00"
+  },
+  {
+    "gate": "quality",
+    "pattern": "Deprecated syntax `\\$json\\b(?!\\.)` used",
+    "count": 4,
+    "first_seen": "2026-08-24T13:18:28.243630+00:00",
+    "last_seen": "2026-08-24T13:28:09.196820+00:00"
+  },
+  {
+    "gate": "quality",
+    "pattern": "Node name not verb-prefixed/discoverable: `Set`",
+    "count": 4,
+    "first_seen": "2026-08-24T13:18:28.249444+00:00",
+    "last_seen": "2026-08-24T13:28:09.203131+00:00"
+  },
+  {
+    "gate": "quality",
+    "pattern": "Isolated/unreachable nodes: ['Manual Trigger']",
+    "count": 4,
+    "first_seen": "2026-08-24T13:18:28.252049+00:00",
+    "last_seen": "2026-08-24T13:28:09.206488+00:00"
+  },
+  {
+    "gate": "skills",
+    "pattern": "no --skills-loaded manifest — actual agent loads are NOT verifiable headless; readiness (installed + frontmatter + routable) verified only",
+    "count": 4,
+    "first_seen": "2026-08-24T13:18:28.258531+00:00",
+    "last_seen": "2026-08-24T13:28:09.210037+00:00"
+  },
+  {
+    "gate": "precision",
+    "pattern": "A1: node 'HTTP Request_1' is unreachable — no node connects into it (orphaned/dead node never executes)",
+    "count": 3,
+    "first_seen": "2026-08-24T13:18:28.256785+00:00",
+    "last_seen": "2026-08-24T13:26:00.088013+00:00"
   },
   {
     "gate": "security",
@@ -257,5 +299,19 @@
     "count": 1,
     "first_seen": "2026-08-17T08:53:59.933834+00:00",
     "last_seen": "2026-08-17T08:53:59.933842+00:00"
+  },
+  {
+    "gate": "precision",
+    "pattern": "P1: duplicate node name 'NoOp (auto-fix)' — n8n requires unique node names",
+    "count": 1,
+    "first_seen": "2026-08-24T13:18:28.255897+00:00",
+    "last_seen": "2026-08-24T13:18:28.255909+00:00"
+  },
+  {
+    "gate": "precision",
+    "pattern": "A1: node 'NoOp (auto-fix)_1' is unreachable — no node connects into it (orphaned/dead node never executes)",
+    "count": 1,
+    "first_seen": "2026-08-24T13:18:28.257657+00:00",
+    "last_seen": "2026-08-24T13:18:28.257668+00:00"
   }
 ]

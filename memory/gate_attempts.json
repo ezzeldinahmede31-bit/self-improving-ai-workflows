@@ -1,5 +1,9 @@
 {
   "SKILL.md": {
     "REASONING_REVIEW_REQUIRED::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 3
+  },
+  "test_autofix.json": {
+    "RUNTIME_STRUCTURAL_INCONSISTENCY::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 2,
+    "QUALITY_BELOW_THRESHOLD::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 1
   }
 }

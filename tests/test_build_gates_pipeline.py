@@ -28,6 +28,9 @@ from hitl_gate import HITLGate, DEFAULT_TIMEOUT_MINUTES
 
 
 class _SilentReporter:
+    def __init__(self):
+        self.json_out = False
+
     def stage(self, name, status, violations, score=None, warnings=None):
         pass
 
@@ -104,10 +107,16 @@ def test_bare_json_quality_reject():
 
 
 def test_oversized_workflow_quality_reject():
+    # Create a chain of 13 nodes (1 webhook + 12 code) - connected to avoid PRECISION orphans
     nodes = [_node("Receive Webhook", "n8n-nodes-base.webhook",
-                   path="h", authentication="headerAuth")] + \
-            [_node(f"Step {i}", "n8n-nodes-base.code", jsCode="return [];") for i in range(12)]
-    res = _run(_wf(nodes))
+                   path="h", authentication="headerAuth")]
+    for i in range(12):
+        nodes.append(_node(f"Step {i}", "n8n-nodes-base.code", jsCode="return [];"))
+    # Connect them in a chain
+    connections = {"Receive Webhook": {"main": [{"node": "Step 0"}]}}
+    for i in range(11):
+        connections[f"Step {i}"] = {"main": [{"node": f"Step {i+1}"}]}
+    res = _run(_wf(nodes, connections))
     assert res["verdict"] == "QUALITY_VIOLATION"
     assert any("nodes" in v for v in res["stages"]["quality"]["violations"])
 
@@ -355,10 +364,15 @@ def test_dry_run_does_not_mask_security():
 
 def test_dry_run_does_not_mask_quality():
     # oversized workflow -> QUALITY_VIOLATION, not DRY_RUN_EVIDENCE_MISSING
+    # Connected chain to avoid PRECISION orphaned node violations
     nodes = [_node("Receive Webhook", "n8n-nodes-base.webhook",
-                   path="h", authentication="headerAuth")] + \
-            [_node(f"Step {i}", "n8n-nodes-base.code", jsCode="return [];") for i in range(12)]
-    res = _run(_wf(nodes))
+                   path="h", authentication="headerAuth")]
+    for i in range(12):
+        nodes.append(_node(f"Step {i}", "n8n-nodes-base.code", jsCode="return [];"))
+    connections = {"Receive Webhook": {"main": [{"node": "Step 0"}]}}
+    for i in range(11):
+        connections[f"Step {i}"] = {"main": [{"node": f"Step {i+1}"}]}
+    res = _run(_wf(nodes, connections))
     assert res["verdict"] == "QUALITY_VIOLATION"
 
 
@@ -452,7 +466,14 @@ def test_audit_report_persisted(tmp_path, monkeypatch):
 
 
 def test_full_pipeline_math_annotated_pass():
-    wf = _wf([], extra={"_gates": {
+    wf = _wf([
+        _node("Manual Trigger", "n8n-nodes-base.manualTrigger",
+              pinnedData={"1": {"json": {"value": 1}}}),
+        _node("Math Node", "n8n-nodes-base.code", jsCode="return [];",
+              pinnedData={"1": {"json": {"result": 149}}})
+    ], {
+        "Manual Trigger": {"main": [{"node": "Math Node"}]}
+    }, extra={"_gates": {
         "math": {"answer": "149", "expected": "149"},
         "counting": {"answer": 149, "expected": 149},
         "vote": {"candidates": [{"answer": "149"}, {"answer": "149"}, {"answer": "150"}]},

@@ -18,13 +18,16 @@ from scripts.build_gates_pipeline import RagVectorGate, run_pipeline
 
 
 class _SilentReporter:
+    def __init__(self):
+        self.json_out = False
+
     def stage(self, name, status, violations, score=None, warnings=None):
         pass
 
 
-def _run(artifact, hitl=False):
+def _run(artifact, hitl=False, enable_autofix=False):
     full_text = json.dumps(artifact, default=str)
-    return run_pipeline(artifact, full_text, hitl=hitl, reporter=_SilentReporter())
+    return run_pipeline(artifact, full_text, hitl=hitl, reporter=_SilentReporter(), enable_autofix=enable_autofix)
 
 
 def _wf(nodes, connections=None, extra=None):
@@ -34,9 +37,12 @@ def _wf(nodes, connections=None, extra=None):
     return wf
 
 
-def _node(name, ntype="n8n-nodes-base.httpRequest", **params):
-    return {"id": name, "name": name, "type": ntype, "typeVersion": 2,
+def _node(name, ntype="n8n-nodes-base.httpRequest", credentials=None, **params):
+    node = {"id": name, "name": name, "type": ntype, "typeVersion": 2,
             "position": [0, 0], "parameters": params or {}}
+    if credentials:
+        node["credentials"] = credentials
+    return node
 
 
 def _store(name, collection="docs"):
@@ -275,11 +281,21 @@ def test_pipeline_rag_violation_blocks():
     # Trigger + credentials so PRECISION passes; the store-without-embeddings
     # must be the single blocking stage (RAG_STRUCTURAL_VIOLATION).
     trigger = _node("Receive Webhook", "n8n-nodes-base.webhook",
-                    path="h", authentication="headerAuth")
-    store = _store("Qdrant")
-    store["credentials"] = {"qdrantApi": {"id": "c1", "name": "Qdrant account"}}
-    wf = _wf([trigger, store], {})
-    res = _run(wf)
+                    path="h", authentication="headerAuth",
+                    continueOnFail=True,
+                    pinnedData={"1": {"json": {"test": "data"}}})  # Satisfy QUALITY gate
+    # Store WITHOUT embeddings wired in -> should fail R1
+    store = _node("Store in Qdrant", "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+                  qdrantCollection="docs",
+                  credentials={"qdrantApi": {"id": "c1", "name": "Qdrant account"}},
+                  pinnedData={"1": {"json": {"stored": True}}})
+    wf = _wf(
+        [trigger, store],
+        {
+            "Receive Webhook": {"main": [[{"node": "Store in Qdrant"}]]}
+        }
+    )
+    res = _run(wf, enable_autofix=False)
     assert res["verdict"] == "RAG_STRUCTURAL_VIOLATION"
     assert res["reason_code"] == "RAG_VECTOR_STORE_INCONSISTENCY"
     assert "rag" in res["stages"]

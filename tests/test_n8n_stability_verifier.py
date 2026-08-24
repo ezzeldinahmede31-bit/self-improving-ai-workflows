@@ -14,6 +14,9 @@ from scripts.build_gates_pipeline import StabilityGate, run_pipeline
 
 
 class _SilentReporter:
+    def __init__(self):
+        self.json_out = False
+
     def stage(self, name, status, violations=None, score=None, warnings=None):
         pass
 

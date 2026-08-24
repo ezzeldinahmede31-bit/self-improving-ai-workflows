@@ -751,36 +751,30 @@ class AutoFixEngine:
         self.fixes_applied.append(f"[{gate}] {description}")
 
     def _fix_precision_p1_duplicate_names(self):
-        """P1: Rename duplicate nodes by appending _1, _2, etc."""
+        """P1: Rename duplicate nodes by appending _1, _2, etc. and update connections."""
         nodes = self.workflow.get("nodes", [])
+        # Build list of (old_name, new_name) pairs
         name_counts = {}
+        rename_pairs = []
         for n in nodes:
             name = n.get("name", "")
             if name:
-                name_counts[name] = name_counts.get(name, 0) + 1
-        for name, count in name_counts.items():
-            if count > 1:
-                idx = 0
-                for n in nodes:
-                    if n.get("name") == name:
-                        if idx > 0:
-                            new_name = f"{name}_{idx}"
-                            n["name"] = new_name
-                            self._add_fix("PRECISION", f"Renamed duplicate node '{name}' to '{new_name}'")
-                        idx += 1
-        # Also update connections references
-        connections = self.workflow.get("connections", {})
-        old_to_new = {}
-        for n in nodes:
-            old_name = n.get("name")
-            if old_name and "_" in old_name and old_name.rsplit("_", 1)[-1].isdigit():
-                base = old_name.rsplit("_", 1)[0]
-                if name_counts.get(base, 0) > 1:
-                    old_to_new[base] = old_name
-        if old_to_new:
+                count = name_counts.get(name, 0)
+                if count > 0:
+                    new_name = f"{name}_{count}"
+                    rename_pairs.append((name, new_name))
+                    n["name"] = new_name
+                    self._add_fix("PRECISION", f"Renamed duplicate node '{name}' to '{new_name}'")
+                name_counts[name] = count + 1
+        
+        # Update connections using the rename pairs
+        if rename_pairs:
+            connections = self.workflow.get("connections", {})
+            # Build mapping from old name to new name
+            rename_map = {old: new for old, new in rename_pairs}
             new_conns = {}
             for src, targets in connections.items():
-                new_src = old_to_new.get(src, src)
+                new_src = rename_map.get(src, src)
                 new_targets = {}
                 for out_key, edges in targets.items():
                     if isinstance(edges, dict) and "main" in edges:
@@ -790,7 +784,7 @@ class AutoFixEngine:
                             for e in group if isinstance(group, list) else [group]:
                                 if isinstance(e, dict) and e.get("node"):
                                     e = dict(e)
-                                    e["node"] = old_to_new.get(e["node"], e["node"])
+                                    e["node"] = rename_map.get(e["node"], e["node"])
                                 new_group.append(e)
                             new_edges["main"].append(new_group)
                         new_targets[out_key] = new_edges
@@ -871,7 +865,8 @@ class AutoFixEngine:
                     self._add_fix("PRECISION", f"Removed placeholder credential '{ct}' from '{n.get('name')}'")
 
     def _fix_precision_a1_orphaned_nodes(self):
-        """A1: Connect orphaned nodes to a dummy NoOp node."""
+        """A1: Connect orphaned nodes (nodes with no incoming edges) by adding
+        an edge from a suitable source node TO the orphaned node."""
         connections = self.workflow.get("connections", {})
         incoming, _ = _build_incoming_map(connections)
         nodes = self.workflow.get("nodes", [])
@@ -881,25 +876,34 @@ class AutoFixEngine:
                    and n.get("name") not in incoming
                    and n.get("name") not in ai_wired]
         if orphans:
-            # Add a NoOp node and connect orphans to it
-            noop = {
-                "id": "noop-autofix",
-                "name": "NoOp (auto-fix)",
-                "type": "n8n-nodes-base.noOp",
-                "typeVersion": 1,
-                "position": [500, 300],
-                "parameters": {}
-            }
-            nodes.append(noop)
-            # Wire orphans -> noop
-            for n in orphans:
-                src = n.get("name")
-                if "connections" not in self.workflow:
-                    self.workflow["connections"] = {}
-                if src not in self.workflow["connections"]:
-                    self.workflow["connections"][src] = {"main": [[]]}
-                self.workflow["connections"][src]["main"][0].append({"node": noop["name"]})
-                self._add_fix("PRECISION", f"Connected orphaned node '{src}' to NoOp")
+            # Find suitable source nodes (nodes that have outputs but aren't triggers)
+            sources = [n for n in nodes
+                       if not _is_trigger_node(n.get("type") or "")
+                       and n.get("name") not in [o.get("name") for o in orphans]]
+            if sources:
+                source = sources[0]  # Use first available source
+                for n in orphans:
+                    target_name = n.get("name")
+                    source_name = source.get("name")
+                    if "connections" not in self.workflow:
+                        self.workflow["connections"] = {}
+                    if source_name not in self.workflow["connections"]:
+                        self.workflow["connections"][source_name] = {"main": [[]]}
+                    # Check if connection already exists
+                    existing = False
+                    for group in self.workflow["connections"][source_name].get("main", [[]]):
+                        for e in group:
+                            if isinstance(e, dict) and e.get("node") == target_name:
+                                existing = True
+                                break
+                    if not existing:
+                        self.workflow["connections"][source_name]["main"][0].append({"node": target_name})
+                        self._add_fix("PRECISION", f"Connected '{source_name}' to orphaned node '{target_name}'")
+                    else:
+                        self._add_fix("PRECISION", f"NOTED: '{source_name}' already connects to orphaned node '{target_name}'")
+            else:
+                for n in orphans:
+                    self._add_fix("PRECISION", f"NOTED: orphaned node '{n.get('name')}' needs manual wiring (no suitable source)")
 
     def _fix_precision_a2_dangling_branches(self):
         """A2: Remove dangling branch outputs (set to empty)."""
@@ -945,8 +949,10 @@ class AutoFixEngine:
                 # Wire embeddings -> store
                 if "connections" not in self.workflow:
                     self.workflow["connections"] = {}
+                # Modern n8n 2.x format: {"main": [[edge], [edge]]}
                 if emb_node["name"] not in self.workflow["connections"]:
                     self.workflow["connections"][emb_node["name"]] = {"main": [[]]}
+                # main[0] is a list of edges for the first output
                 self.workflow["connections"][emb_node["name"]]["main"][0].append(
                     {"node": st.get("name"), "output": "ai_embedding"}
                 )
@@ -1709,7 +1715,8 @@ def run_pipeline(artifact: Any, full_text: str, hitl: bool, reporter,
                  artifact_id: str | None = None,
                  skills_loaded: set[str] | list[str] | None = None,
                  complaints: ComplaintsRegistry | None = None,
-                 resolve_complaints: bool = True) -> dict:
+                 resolve_complaints: bool = True,
+                 enable_autofix: bool = True) -> dict:
     gates = _extract_gates_section(artifact)
     workflow = artifact if isinstance(artifact, dict) and "nodes" in artifact else {"nodes": []}
     t0 = time.time()
@@ -1833,71 +1840,75 @@ def run_pipeline(artifact: Any, full_text: str, hitl: bool, reporter,
             "workflow": wf, "full_text": ft
         }
 
-    # ---- AUTO-FIX LOOP ----
+# ---- AUTO-FIX LOOP ----
     # Run gates, if safe gates have violations, apply auto-fixes and re-run
     # up to MAX_AUTOFIX_ITERATIONS times.
     autofix_history = []
     current_workflow = json.loads(json.dumps(workflow))
     current_full_text = full_text
     
-    for iteration in range(MAX_AUTOFIX_ITERATIONS + 1):
-        if not reporter.json_out:
-            print(f"\n  === Pipeline Iteration {iteration + 1}/{MAX_AUTOFIX_ITERATIONS + 1} ===")
+    if enable_autofix:
+        for iteration in range(MAX_AUTOFIX_ITERATIONS + 1):
+            if not reporter.json_out:
+                print(f"\n  === Pipeline Iteration {iteration + 1}/{MAX_AUTOFIX_ITERATIONS + 1} ===")
+            
+            results = _run_all_gates(current_workflow, current_full_text)
         
+            # Check if any safe gates have violations
+            safe_gate_violations = {}
+            unsafe_gate_failures = {}
+            
+            for gate_name in ["PREFLIGHT", "QUALITY", "PRECISION", "RAG", "INTEGRITY", "MATH", "REASONING"]:
+                gate_result = results.get(gate_name.lower())
+                if gate_result and gate_result.get("violations"):
+                    safe_gate_violations[gate_name] = gate_result["violations"]
+            
+            for gate_name in ["SECURITY", "STABILITY", "DRY-RUN", "SKILLS"]:
+                gate_result = results.get(gate_name.lower())
+                if gate_result and gate_result.get("violations") and gate_result.get("status") == "FAIL":
+                    unsafe_gate_failures[gate_name] = gate_result["violations"]
+            
+            # If no safe gate violations, we're done
+            if not safe_gate_violations and not unsafe_gate_failures:
+                if not reporter.json_out:
+                    print(f"  ✓ All gates passed on iteration {iteration + 1}")
+                break
+            
+            # If we have unsafe gate failures, we can't auto-fix those
+            if unsafe_gate_failures:
+                if not reporter.json_out:
+                    for gn, vs in unsafe_gate_failures.items():
+                        print(f"  ✗ {gn} has violations (unsafe for auto-fix): {vs[:3]}")
+                break
+            
+            # If we've reached max iterations, stop
+            if iteration >= MAX_AUTOFIX_ITERATIONS:
+                if not reporter.json_out:
+                    print(f"  ⚠ Max auto-fix iterations ({MAX_AUTOFIX_ITERATIONS}) reached")
+                break
+            
+            # Apply auto-fixes for safe gate violations
+            if not reporter.json_out:
+                print(f"  🔧 Auto-fixing {len(safe_gate_violations)} gate(s) with violations...")
+            
+            autofix = AutoFixEngine(current_workflow, safe_gate_violations)
+            fixed_workflow, fixes = autofix.apply_all()
+            
+            if not fixes:
+                if not reporter.json_out:
+                    print(f"  ⚠ No auto-fixes applicable for current violations")
+                break
+            
+            if not reporter.json_out:
+                for fix in fixes:
+                    print(f"    - {fix}")
+            
+            autofix_history.append({"iteration": iteration + 1, "fixes": fixes})
+            current_workflow = fixed_workflow
+            current_full_text = json.dumps(current_workflow, default=str)
+    else:
+        # Auto-fix disabled: run gates once
         results = _run_all_gates(current_workflow, current_full_text)
-        
-        # Check if any safe gates have violations
-        safe_gate_violations = {}
-        unsafe_gate_failures = {}
-        
-        for gate_name in ["PREFLIGHT", "QUALITY", "PRECISION", "RAG", "INTEGRITY", "MATH", "REASONING"]:
-            gate_result = results.get(gate_name.lower())
-            if gate_result and gate_result.get("violations"):
-                safe_gate_violations[gate_name] = gate_result["violations"]
-        
-        for gate_name in ["SECURITY", "STABILITY", "DRY-RUN", "SKILLS"]:
-            gate_result = results.get(gate_name.lower())
-            if gate_result and gate_result.get("violations") and gate_result.get("status") == "FAIL":
-                unsafe_gate_failures[gate_name] = gate_result["violations"]
-        
-        # If no safe gate violations, we're done
-        if not safe_gate_violations and not unsafe_gate_failures:
-            if not reporter.json_out:
-                print(f"  ✓ All gates passed on iteration {iteration + 1}")
-            break
-        
-        # If we have unsafe gate failures, we can't auto-fix those
-        if unsafe_gate_failures:
-            if not reporter.json_out:
-                for gn, vs in unsafe_gate_failures.items():
-                    print(f"  ✗ {gn} has violations (unsafe for auto-fix): {vs[:3]}")
-            break
-        
-        # If we've reached max iterations, stop
-        if iteration >= MAX_AUTOFIX_ITERATIONS:
-            if not reporter.json_out:
-                print(f"  ⚠ Max auto-fix iterations ({MAX_AUTOFIX_ITERATIONS}) reached")
-            break
-        
-        # Apply auto-fixes for safe gate violations
-        if not reporter.json_out:
-            print(f"  🔧 Auto-fixing {len(safe_gate_violations)} gate(s) with violations...")
-        
-        autofix = AutoFixEngine(current_workflow, safe_gate_violations)
-        fixed_workflow, fixes = autofix.apply_all()
-        
-        if not fixes:
-            if not reporter.json_out:
-                print(f"  ⚠ No auto-fixes applicable for current violations")
-            break
-        
-        if not reporter.json_out:
-            for fix in fixes:
-                print(f"    - {fix}")
-        
-        autofix_history.append({"iteration": iteration + 1, "fixes": fixes})
-        current_workflow = fixed_workflow
-        current_full_text = json.dumps(current_workflow, default=str)
     
     # Use the last results for final verdict
     results = _run_all_gates(current_workflow, current_full_text)
@@ -2083,7 +2094,9 @@ def main(argv=None) -> int:
     ap.add_argument("--no-patterns", action="store_true",
                     help="disable accumulated error-pattern memory (ErrorPatternDB)")
     ap.add_argument("--no-attempt-guard", action="store_true",
-                    help="disable per-artifact loop/attempt guard (AttemptGuard)")
+                        help="disable per-artifact loop/attempt guard (AttemptGuard)")
+    ap.add_argument("--no-autofix", action="store_true",
+                        help="disable the auto-fix loop (AutoFixEngine)")
     ap.add_argument("--no-complaints", action="store_true",
                     help="disable the per-gate complaints sections (ComplaintsRegistry)")
     ap.add_argument("--no-resolve", action="store_true",
@@ -2139,6 +2152,9 @@ def main(argv=None) -> int:
     error_patterns = None if args.no_patterns else ErrorPatternDB()
     attempt_guard = None if args.no_attempt_guard else AttemptGuard()
 
+    # Auto-fix: enabled by default, disabled with --no-autofix
+    enable_autofix = not args.no_autofix
+
     # Complaints sections: per-gate skill-gap/slow ledger + find-skills
     # resolution (record always unless disabled; resolve unless --no-resolve).
     complaints = None if args.no_complaints else ComplaintsRegistry()
@@ -2174,7 +2190,8 @@ def main(argv=None) -> int:
                           artifact_id=Path(args.artifact).name,
                           skills_loaded=skills_loaded,
                           complaints=complaints,
-                          resolve_complaints=resolve_complaints)
+                          resolve_complaints=resolve_complaints,
+                          enable_autofix=enable_autofix)
     _persist_audit(result, full_text)
 
     if not args.json:

@@ -20,13 +20,16 @@ from scripts.build_gates_pipeline import (
 
 
 class _SilentReporter:
+    def __init__(self):
+        self.json_out = False
+
     def stage(self, name, status, violations, score=None, warnings=None):
         pass
 
 
-def _run(artifact, hitl=False):
+def _run(artifact, hitl=False, enable_autofix=False):
     full_text = json.dumps(artifact, default=str)
-    return run_pipeline(artifact, full_text, hitl=hitl, reporter=_SilentReporter())
+    return run_pipeline(artifact, full_text, hitl=hitl, reporter=_SilentReporter(), enable_autofix=enable_autofix)
 
 
 def _wf(nodes, connections=None, extra=None):
@@ -354,7 +357,7 @@ def test_dry_run_pinned_any_node_ok_without_trigger():
 def test_pipeline_precision_violation_blocks():
     wf = _wf([_node("A", "n8n-nodes-base.code", jsCode="return [];"),
               _node("A", "n8n-nodes-base.code", jsCode="return [];")])
-    res = _run(wf)
+    res = _run(wf, enable_autofix=False)
     assert res["verdict"] == "N8N_PRECISION_VIOLATION"
     assert res["reason_code"] == "RUNTIME_STRUCTURAL_INCONSISTENCY"
     assert res["stages"]["precision"]["status"] == "FAIL"
@@ -369,7 +372,7 @@ def test_pipeline_clean_workflow_passes_precision():
 
 
 def test_pipeline_precision_reports_checked_count():
-    wf = _wf([_trigger(), _node("A")])
+    wf = _wf([_trigger(), _node("A")], {"Receive Webhook": {"main": [{"node": "A"}]}})
     res = _run(wf)
     assert res["stages"]["precision"]["checked"] == 2
 

@@ -1,0 +1,66 @@
+{
+  "name": "Test Auto-fix Workflow",
+  "nodes": [
+    {
+      "id": "1",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 0,
+      "position": [250, 300],
+      "parameters": {
+        "url": "https://api.example.com/data",
+        "method": "GET",
+        "authentication": "none"
+      }
+    },
+    {
+      "id": "2",
+      "name": "Set",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [500, 300],
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "result",
+              "value": "={{ $node['HTTP Request'].json }}"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "3",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [750, 300],
+      "parameters": {
+        "url": "https://api.example.com/save",
+        "method": "POST",
+        "jsonBody": "={{ $json }}"
+      }
+    }
+  ],
+  "connections": {
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Set"
+          }
+        ]
+      ]
+    },
+    "Set": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request"
+          }
+        ]
+      ]
+    }
+  }
+}
