@@ -2,16 +2,16 @@
   {
     "gate": "quality",
     "pattern": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "count": 46,
+    "count": 47,
     "first_seen": "2026-08-15T01:45:33.866641+00:00",
-    "last_seen": "2026-08-24T13:28:09.208989+00:00"
+    "last_seen": "2026-08-24T13:49:55.791654+00:00"
   },
   {
     "gate": "quality",
     "pattern": "No Error Trigger node and no continueOnFail on any node",
-    "count": 43,
+    "count": 44,
     "first_seen": "2026-08-15T01:45:33.866459+00:00",
-    "last_seen": "2026-08-24T13:28:09.207933+00:00"
+    "last_seen": "2026-08-24T13:49:55.790787+00:00"
   },
   {
     "gate": "preflight",
@@ -23,9 +23,9 @@
   {
     "gate": "dry_run",
     "pattern": "no dry-run evidence: nodes carry no pinned data and no expected_result from a trial run — run the workflow on the n8n instance (n8n-pinned-data-mocking) before delivery",
-    "count": 10,
+    "count": 11,
     "first_seen": "2026-08-17T06:06:55.931702+00:00",
-    "last_seen": "2026-08-24T13:28:09.211098+00:00"
+    "last_seen": "2026-08-24T13:49:55.793334+00:00"
   },
   {
     "gate": "quality",
@@ -37,37 +37,37 @@
   {
     "gate": "quality",
     "pattern": "Deprecated syntax `\\$[Nn]ode\\[[\\'\"]` used",
-    "count": 4,
+    "count": 5,
     "first_seen": "2026-08-24T13:18:28.242419+00:00",
-    "last_seen": "2026-08-24T13:28:09.194582+00:00"
+    "last_seen": "2026-08-24T13:49:55.782128+00:00"
   },
   {
     "gate": "quality",
     "pattern": "Deprecated syntax `\\$json\\b(?!\\.)` used",
-    "count": 4,
+    "count": 5,
     "first_seen": "2026-08-24T13:18:28.243630+00:00",
-    "last_seen": "2026-08-24T13:28:09.196820+00:00"
+    "last_seen": "2026-08-24T13:49:55.783631+00:00"
   },
   {
     "gate": "quality",
     "pattern": "Node name not verb-prefixed/discoverable: `Set`",
-    "count": 4,
+    "count": 5,
     "first_seen": "2026-08-24T13:18:28.249444+00:00",
-    "last_seen": "2026-08-24T13:28:09.203131+00:00"
+    "last_seen": "2026-08-24T13:49:55.788827+00:00"
   },
   {
     "gate": "quality",
     "pattern": "Isolated/unreachable nodes: ['Manual Trigger']",
-    "count": 4,
+    "count": 5,
     "first_seen": "2026-08-24T13:18:28.252049+00:00",
-    "last_seen": "2026-08-24T13:28:09.206488+00:00"
+    "last_seen": "2026-08-24T13:49:55.789782+00:00"
   },
   {
     "gate": "skills",
     "pattern": "no --skills-loaded manifest — actual agent loads are NOT verifiable headless; readiness (installed + frontmatter + routable) verified only",
-    "count": 4,
+    "count": 5,
     "first_seen": "2026-08-24T13:18:28.258531+00:00",
-    "last_seen": "2026-08-24T13:28:09.210037+00:00"
+    "last_seen": "2026-08-24T13:49:55.792514+00:00"
   },
   {
     "gate": "precision",
