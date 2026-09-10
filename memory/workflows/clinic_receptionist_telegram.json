@@ -1,0 +1,757 @@
+{
+  "name": "AI Clinic Receptionist - Telegram Inbound (Enterprise)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "clinic-telegram-inbound",
+        "responseMode": "onReceived",
+        "options": {
+          "rawBody": true
+        },
+        "authentication": "headerAuth",
+        "pinnedData": [
+          {
+            "json": {
+              "headers": {
+                "x-telegram-bot-api-secret-token": "pinned-sample"
+              },
+              "body": {
+                "update_id": 900001,
+                "message": {
+                  "message_id": 41,
+                  "from": {
+                    "id": 765000111,
+                    "first_name": "pinned sample patient"
+                  },
+                  "chat": {
+                    "id": 765000111,
+                    "type": "private"
+                  },
+                  "date": 1789000000,
+                  "text": "hello, I want to book an appointment"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "id": "tg-1-webhook",
+      "name": "Receive Telegram Update",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        120,
+        300
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "0SCwDwRSuy3ZA8zZ",
+          "name": "Clinic Telegram Header Auth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Verify Telegram secret_token header (fail-closed). The webhook\n// headerAuth credential is the primary gate; this node adds a second check\n// against the container env value before any payload handling.\nconst inp = $input.first().json;\nconst body = inp.body;\nconst headers = inp.headers ? inp.headers : {};\nconst secret = $env.TELEGRAM_WEBHOOK_SECRET ? $env.TELEGRAM_WEBHOOK_SECRET : '';\nif (!secret) { throw new Error('TELEGRAM_WEBHOOK_SECRET is not configured - refusing all traffic'); }\nconst got = headers['x-telegram-bot-api-secret-token'] ? String(headers['x-telegram-bot-api-secret-token']).trim() : '';\nif (!got) { throw new Error('Missing Telegram secret header - rejected'); }\nfunction safeEqual(a, b) {\n  const x = String(a);\n  const y = String(b);\n  if (x.length !== y.length) { return false; }\n  let d = 0;\n  for (let i = 0; i < x.length; i++) { d |= x.charCodeAt(i) ^ y.charCodeAt(i); }\n  return d === 0;\n}\nif (!safeEqual(got, secret)) { throw new Error('Invalid Telegram secret header - rejected'); }\nreturn [{ json: { provider: 'telegram', verified: true, body: body, headers: headers } }];"
+      },
+      "id": "tg-2-verify",
+      "name": "Verify Telegram Secret",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        340,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract patient payload from a Telegram Update (table dispatch,\n// ternaries only). Supports text, voice, button taps, photo, document,\n// video and location updates.\nconst inp = $input.first().json;\nconst body = inp.body;\nconst upd = body.edited_message ? body.edited_message : (body.message ? body.message : null);\nconst cb = body.callback_query ? body.callback_query : null;\nlet messageId = 'tg_' + Date.now();\nlet chatId = 'unknown';\nlet userId = 'unknown';\nlet pushName = 'esteemed patient';\nlet textMessage = '';\nlet isAudio = false;\nlet voiceFileId = null;\nif (cb) {\n  messageId = cb.id ? cb.id : messageId;\n  const from = cb.from ? cb.from : {};\n  userId = from.id ? String(from.id) : userId;\n  pushName = from.first_name ? from.first_name : pushName;\n  chatId = cb.message ? (cb.message.chat ? String(cb.message.chat.id) : chatId) : chatId;\n  textMessage = cb.data ? String(cb.data) : '';\n} else if (upd) {\n  messageId = upd.message_id ? ('tg_' + String(upd.message_id)) : messageId;\n  const from = upd.from ? upd.from : {};\n  userId = from.id ? String(from.id) : userId;\n  pushName = from.first_name ? from.first_name : pushName;\n  chatId = upd.chat ? String(upd.chat.id) : chatId;\n  const KIND = {\n    text: (m) => m.text ? String(m.text) : '',\n    voice: (m) => '',\n    photo: (m) => m.caption ? ('[patient sent image: ' + m.caption + ']') : '[patient sent image]',\n    document: (m) => '[patient sent document]',\n    video: (m) => m.caption ? ('[patient sent video: ' + m.caption + ']') : '[patient sent video]',\n    location: (m) => m.location ? ('[patient geo location: Lat ' + m.location.latitude + ', Lng ' + m.location.longitude + ']') : '[patient geo location]',\n    sticker: (m) => '[patient sent sticker]',\n    unknown: (m) => '[unsupported message type]'\n  };\n  const kind = upd.text ? 'text' : (upd.voice ? 'voice' : (upd.photo ? 'photo' : (upd.document ? 'document' : (upd.video ? 'video' : (upd.location ? 'location' : (upd.sticker ? 'sticker' : 'unknown'))))));\n  const fn = KIND[kind] ? KIND[kind] : KIND.unknown;\n  textMessage = fn(upd);\n  isAudio = kind === 'voice';\n  voiceFileId = kind === 'voice' ? (upd.voice.file_id ? upd.voice.file_id : null) : null;\n} else {\n  textMessage = '[unsupported update type]';\n}\nreturn [{ json: { messageId: messageId, chatId: chatId, userId: userId, pushName: pushName, provider: 'telegram', isAudio: isAudio, voiceFileId: voiceFileId, textMessage: String(textMessage).trim(), timestamp: new Date().toISOString() } }];"
+      },
+      "id": "tg-3-extract",
+      "name": "Extract Telegram Payload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        540,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "incr",
+        "key": "=tg:{{ $input.item.json.messageId }}",
+        "expire": true,
+        "ttl": 86400
+      },
+      "id": "tg-4-redis",
+      "name": "Redis Atomic Deduplication",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        740,
+        300
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-first",
+              "leftValue": "={{ Object.values($input.item.json)[0] === 1 }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "tg-5-first",
+      "name": "Is Message First Time?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        940,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-out",
+              "leftValue": "={{ $input.item.json.error !== undefined }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "tg-6-outage",
+      "name": "Check Redis Failure vs Duplicate",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        940,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $env.TELEGRAM_DEVOPS_CHAT_ID || '-100123456789' }}",
+        "text": "=Redis outage alert. key check failed: {{ $input.item.json.error }}",
+        "additionalFields": {}
+      },
+      "id": "tg-7-devops",
+      "name": "Alert DevOps - Redis Outage",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1160,
+        580
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "DLlemykGQ7Zm867F",
+          "name": "Telegram account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {},
+      "id": "tg-8-discard",
+      "name": "Discard Duplicate Message",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1160,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-voice",
+              "leftValue": "={{ $('Extract Telegram Payload').first().json.isAudio }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "tg-9-voice",
+      "name": "Is Voice Message?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1160,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "get",
+        "fileId": "={{ $('Extract Telegram Payload').first().json.voiceFileId }}",
+        "download": true
+      },
+      "id": "tg-10-dl",
+      "name": "Download Telegram Voice File",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1360,
+        180
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "DLlemykGQ7Zm867F",
+          "name": "Telegram account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "operation": "transcribe",
+        "binaryPropertyName": "data",
+        "options": {
+          "language": "ar",
+          "temperature": 0.2
+        }
+      },
+      "id": "tg-11-stt",
+      "name": "OpenAI Whisper STT",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        1560,
+        180
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "jdnkbiAs02RzHXaw",
+          "name": "OpenAI account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Whisper quality check: fall back to a polite retry prompt on empty audio.\nconst item = $input.first().json;\nconst prev = $('Extract Telegram Payload').first().json;\nconst t = item.text ? String(item.text).trim() : '';\nconst bad = item.error ? true : (t.length < 2);\nconst fallback = '[voice note unclear - kindly ask the patient to re-record in a quiet place or type the message]';\nreturn [{ json: { chatId: prev.chatId, pushName: prev.pushName, provider: prev.provider, finalMessage: bad ? fallback : t, wasVoice: true, isAudioMuffled: bad } }];"
+      },
+      "id": "tg-12-wcheck",
+      "name": "Whisper Fallback & Text Merger",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1760,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Direct text merge handling non-audio messages.\nconst prev = $('Extract Telegram Payload').first().json;\nreturn [{ json: { chatId: prev.chatId, pushName: prev.pushName, provider: prev.provider, finalMessage: prev.textMessage ? prev.textMessage : 'hello', wasVoice: false, isAudioMuffled: false } }];"
+      },
+      "id": "tg-13-merge",
+      "name": "Merge Patient Input",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1360,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Patient Chat: {{ $input.item.json.chatId }}\nPatient Name: {{ $input.item.json.pushName }}\nMessage: {{ $input.item.json.finalMessage }}",
+        "options": {
+          "systemMessage": "=You are \"Sara\", the smart receptionist of [clinic name].\nAnalyze the patient message and reply politely and professionally in the same language and dialect of the patient.\nStrict tool rules:\n1. Knowledge tool (Get Clinic Knowledge Base): use it at once for any question about exam prices, services, doctors or working hours. Never invent a price.\n2. Booking tool (Check Calendar Availability): use it when the patient asks to book or asks about free slots.\n3. Escalation tool (Escalate Human Emergency): call it at once for a serious emergency (bleeding, broken tooth, unbearable pain), a request to talk to staff, or a complaint. Direct the patient to call the clinic or visit emergency when severe.\nAttachments: when the message holds an [patient sent image/document/video] note, ask politely for a written clarification and confirm a doctor reviews the file at the clinic.",
+          "maxIterations": 5
+        },
+        "tools": [
+          "Check Calendar Availability",
+          "Get Clinic Knowledge Base",
+          "Escalate Human Emergency"
+        ]
+      },
+      "id": "tg-14-agent",
+      "name": "AI Clinic Receptionist Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        2000,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "model": "={{ $env.NVIDIA_MODEL_NAME || 'nvidia/nemotron-3.5-lightning-30b-a3b' }}",
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "id": "tg-15-model",
+      "name": "Use NVIDIA Nemotron Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatNvidia",
+      "typeVersion": 1,
+      "position": [
+        1840,
+        520
+      ],
+      "credentials": {
+        "nvidiaApi": {
+          "id": "fiUTXMC9j2rZxNDt",
+          "name": "NVIDIA Nemotron account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $input.item.json.chatId }}_{{ new Date().toISOString().slice(0, 10) }}",
+        "contextWindowLength": 10,
+        "sessionTTL": 86400
+      },
+      "id": "tg-16-mem",
+      "name": "Store Patient Session Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
+      "typeVersion": 1.6,
+      "position": [
+        2000,
+        520
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "check_and_book_calendar_appointment",
+        "description": "Check live doctor availability and book confirmed appointments without double booking.",
+        "workflowId": "={{ $env.CALENDAR_WORKFLOW_ID || 'clinic-calendar-booking-subworkflow' }}"
+      },
+      "id": "tg-17-cal",
+      "name": "Check Calendar Availability",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1840,
+        680
+      ]
+    },
+    {
+      "parameters": {
+        "name": "get_clinic_services_and_prices",
+        "description": "Look up verified clinic services, pricing, specialties and working hours. Never guess prices.",
+        "workflowId": "={{ $env.KB_WORKFLOW_ID || 'clinic-knowledge-base-subworkflow' }}"
+      },
+      "id": "tg-18-kb",
+      "name": "Get Clinic Knowledge Base",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        2000,
+        680
+      ]
+    },
+    {
+      "parameters": {
+        "name": "escalate_to_human_receptionist",
+        "description": "Escalate emergencies, human-handoff requests and complaints to clinic staff at once.",
+        "workflowId": "={{ $env.ESCALATION_WORKFLOW_ID || 'clinic-human-escalation-subworkflow' }}"
+      },
+      "id": "tg-19-esc",
+      "name": "Escalate Human Emergency",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        2160,
+        680
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $('Extract Telegram Payload').first().json.chatId }}",
+        "text": "={{ $input.item.json.output }}",
+        "additionalFields": {}
+      },
+      "id": "tg-20-send",
+      "name": "Send Telegram Response",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2260,
+        300
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "DLlemykGQ7Zm867F",
+          "name": "Telegram account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-del",
+              "leftValue": "={{ $input.item.json.error !== undefined }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "tg-21-delivery",
+      "name": "Check Telegram Delivery Status",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2480,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $env.TELEGRAM_STAFF_CHAT_ID || '-100123456789' }}",
+        "text": "=Delivery failed for chat {{ $('Extract Telegram Payload').first().json.chatId }} ({{ $('Extract Telegram Payload').first().json.pushName }}). error: {{ $input.item.json.error }}",
+        "additionalFields": {}
+      },
+      "id": "tg-22-staff",
+      "name": "Alert Clinic Staff - Send Failed",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2700,
+        220
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "DLlemykGQ7Zm867F",
+          "name": "Telegram account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {},
+      "id": "tg-23-done",
+      "name": "Delivery Success",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        2700,
+        380
+      ]
+    }
+  ],
+  "connections": {
+    "Receive Telegram Update": {
+      "main": [
+        [
+          {
+            "node": "Verify Telegram Secret",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Verify Telegram Secret": {
+      "main": [
+        [
+          {
+            "node": "Extract Telegram Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Telegram Payload": {
+      "main": [
+        [
+          {
+            "node": "Redis Atomic Deduplication",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis Atomic Deduplication": {
+      "main": [
+        [
+          {
+            "node": "Is Message First Time?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Message First Time?": {
+      "main": [
+        [
+          {
+            "node": "Is Voice Message?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Check Redis Failure vs Duplicate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Redis Failure vs Duplicate": {
+      "main": [
+        [
+          {
+            "node": "Alert DevOps - Redis Outage",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Discard Duplicate Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Voice Message?": {
+      "main": [
+        [
+          {
+            "node": "Download Telegram Voice File",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge Patient Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Telegram Voice File": {
+      "main": [
+        [
+          {
+            "node": "OpenAI Whisper STT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Whisper STT": {
+      "main": [
+        [
+          {
+            "node": "Whisper Fallback & Text Merger",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Whisper Fallback & Text Merger": {
+      "main": [
+        [
+          {
+            "node": "AI Clinic Receptionist Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Patient Input": {
+      "main": [
+        [
+          {
+            "node": "AI Clinic Receptionist Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Use NVIDIA Nemotron Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Clinic Receptionist Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Store Patient Session Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Clinic Receptionist Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Calendar Availability": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Clinic Receptionist Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Clinic Knowledge Base": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Clinic Receptionist Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Escalate Human Emergency": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Clinic Receptionist Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Clinic Receptionist Agent": {
+      "main": [
+        [
+          {
+            "node": "Send Telegram Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Telegram Response": {
+      "main": [
+        [
+          {
+            "node": "Check Telegram Delivery Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Telegram Delivery Status": {
+      "main": [
+        [
+          {
+            "node": "Alert Clinic Staff - Send Failed",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Delivery Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
