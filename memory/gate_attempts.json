@@ -5,5 +5,8 @@
   "test_autofix.json": {
     "RUNTIME_STRUCTURAL_INCONSISTENCY::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 2,
     "QUALITY_BELOW_THRESHOLD::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 2
+  },
+  "ai-clinic-receptionist--main-whatsapp---voice-agent-n8n.json": {
+    "SECURITY_VIOLATION_REQUIRES_HUMAN::[TOOL_SCOPE_LOCK] Agent 'AI Clinic Receptionist Agent' has unrestricted or undefined tool access (no explicit allowed_to": 2
   }
 }

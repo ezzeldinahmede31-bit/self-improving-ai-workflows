@@ -1,0 +1,513 @@
+{
+  "artifact": "",
+  "timestamp": "2026-09-10T04:58:32.133272+00:00",
+  "verdict": "REJECTED_SECURITY_RISK",
+  "reason_code": "SECURITY_VIOLATION_REQUIRES_HUMAN",
+  "stages": {
+    "preflight": {
+      "status": "PASS",
+      "violations": [],
+      "checked": 27
+    },
+    "security": {
+      "status": "REJECTED_SECURITY_RISK",
+      "risk_score": 95,
+      "violations": [
+        "[TOOL_SCOPE_LOCK] Agent 'AI Clinic Receptionist Agent' has unrestricted or undefined tool access (no explicit allowed_tools list)",
+        "[NO_ITERATION_CEILING] Agent 'AI Clinic Receptionist Agent' maxIterations undefined or unreasonably high (runaway loop / cost risk)",
+        "[WEBHOOK_NO_AUTH] Webhook trigger 'WhatsApp Inbound Webhook' has no authentication configured"
+      ],
+      "threshold": 40,
+      "auto_fixes": []
+    },
+    "quality": {
+      "status": "REJECTED",
+      "quality_score": 35,
+      "violations": [
+        "Deprecated syntax `\\$json\\b(?!\\.)` used",
+        "Code-node uses bare $json without $input accessor",
+        "Node name not verb-prefixed/discoverable: `Tool: Calendar Booking & Conflict Guard`",
+        "Workflow has 27 nodes — recommend sub-workflow split",
+        "No pinnedData on primary nodes — cannot unit-test instantly",
+        "Code node `Normalize Inbound & Verify Signature` exceeds cyclomatic threshold"
+      ],
+      "threshold": 80
+    },
+    "integrity": {
+      "status": "PASS",
+      "violations": []
+    },
+    "precision": {
+      "status": "FAIL",
+      "violations": [
+        "P5: node 'Redis Atomic Deduplication' (n8n-nodes-base.redis) requires a credential but none is bound",
+        "P5: node 'Alert DevOps - Redis Outage' (n8n-nodes-base.telegram) requires a credential but none is bound",
+        "P5: node 'Fetch Meta Audio URL' (n8n-nodes-base.httpRequest) requires a credential but none is bound",
+        "P5: node 'Download Meta Audio File' (n8n-nodes-base.httpRequest) requires a credential but none is bound",
+        "P5: node 'OpenAI Whisper STT' (n8n-nodes-base.openAi) requires a credential but none is bound",
+        "P5: node 'Google Gemini 2.5 Flash Model' (@n8n/n8n-nodes-langchain.lmChatGoogleGemini) requires a credential but none is bound",
+        "P5: node 'Patient Session Memory' (@n8n/n8n-nodes-langchain.memoryBufferWindow) requires a credential but none is bound",
+        "P5: node 'Send Meta WhatsApp Response' (n8n-nodes-base.httpRequest) requires a credential but none is bound",
+        "P5: node 'Send Evolution WhatsApp Response' (n8n-nodes-base.httpRequest) requires a credential but none is bound",
+        "P5: node 'Alert Clinic Staff - Send Failed' (n8n-nodes-base.telegram) requires a credential but none is bound"
+      ],
+      "warnings": [
+        "C1: network node 'Redis Atomic Deduplication' (n8n-nodes-base.redis) has no retryOnFail — a transient 429/5xx turns a stable workflow flaky; add retryOnFail + retry cap with backoff",
+        "C1: network node 'Alert DevOps - Redis Outage' (n8n-nodes-base.telegram) has no retryOnFail — a transient 429/5xx turns a stable workflow flaky; add retryOnFail + retry cap with backoff",
+        "C1: network node 'Fetch Meta Audio URL' (n8n-nodes-base.httpRequest) has no retryOnFail — a transient 429/5xx turns a stable workflow flaky; add retryOnFail + retry cap with backoff",
+        "C1: network node 'Download Meta Audio File' (n8n-nodes-base.httpRequest) has no retryOnFail — a transient 429/5xx turns a stable workflow flaky; add retryOnFail + retry cap with backoff",
+        "C1: network node 'Download Evolution Audio File' (n8n-nodes-base.httpRequest) has no retryOnFail — a transient 429/5xx turns a stable workflow flaky; add retryOnFail + retry cap with backoff",
+        "C1: network node 'OpenAI Whisper STT' (n8n-nodes-base.openAi) has no retryOnFail — a transient 429/5xx turns a stable workflow flaky; add retryOnFail + retry cap with backoff",
+        "B1: node 'AI Clinic Receptionist Agent' has 2 incoming edges and uses bare $json — upstream renames silently rebind it; prefer explicit $('NodeName') references",
+        "C1: network node 'Send Meta WhatsApp Response' (n8n-nodes-base.httpRequest) has no retryOnFail — a transient 429/5xx turns a stable workflow flaky; add retryOnFail + retry cap with backoff",
+        "C1: network node 'Send Evolution WhatsApp Response' (n8n-nodes-base.httpRequest) has no retryOnFail — a transient 429/5xx turns a stable workflow flaky; add retryOnFail + retry cap with backoff",
+        "B1: node 'Check WhatsApp Delivery Status' has 2 incoming edges and uses bare $json — upstream renames silently rebind it; prefer explicit $('NodeName') references",
+        "C1: network node 'Alert Clinic Staff - Send Failed' (n8n-nodes-base.telegram) has no retryOnFail — a transient 429/5xx turns a stable workflow flaky; add retryOnFail + retry cap with backoff",
+        "E3: agent node 'AI Clinic Receptionist Agent' has no maxIterations bound — unbounded autonomy / runaway-cost risk; set a small iteration ceiling"
+      ],
+      "checked": 27
+    },
+    "rag": {
+      "status": "SKIP",
+      "violations": [],
+      "warnings": [],
+      "checked": 27
+    },
+    "skills": {
+      "status": "PASS",
+      "violations": [
+        "no --skills-loaded manifest — actual agent loads are NOT verifiable headless; readiness (installed + frontmatter + routable) verified only"
+      ],
+      "invoked": [
+        {
+          "skill": "security-review",
+          "status": "SUCCESS",
+          "evidence": {
+            "skill": "security-review",
+            "exists": true,
+            "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/security-review/SKILL.md",
+            "frontmatter_ok": true,
+            "frontmatter_error": null,
+            "declared_name": "security-review",
+            "name_matches": true,
+            "router_registered": true
+          }
+        },
+        {
+          "skill": "security-and-hardening",
+          "status": "SUCCESS",
+          "evidence": {
+            "skill": "security-and-hardening",
+            "exists": true,
+            "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/security-and-hardening/SKILL.md",
+            "frontmatter_ok": true,
+            "frontmatter_error": null,
+            "declared_name": "security-and-hardening",
+            "name_matches": true,
+            "router_registered": true
+          }
+        },
+        {
+          "skill": "frontier-red-team-auditor",
+          "status": "SUCCESS",
+          "evidence": {
+            "skill": "frontier-red-team-auditor",
+            "exists": true,
+            "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/frontier-red-team-auditor/SKILL.md",
+            "frontmatter_ok": true,
+            "frontmatter_error": null,
+            "declared_name": "frontier-red-team-auditor",
+            "name_matches": true,
+            "router_registered": true
+          }
+        },
+        {
+          "skill": "n8n-credential-security-guard",
+          "status": "SUCCESS",
+          "evidence": {
+            "skill": "n8n-credential-security-guard",
+            "exists": true,
+            "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/n8n-credential-security-guard/SKILL.md",
+            "frontmatter_ok": true,
+            "frontmatter_error": null,
+            "declared_name": "n8n-credential-security-guard",
+            "name_matches": true,
+            "router_registered": true
+          }
+        },
+        {
+          "skill": "enterprise-security-gate",
+          "status": "SUCCESS",
+          "evidence": {
+            "skill": "enterprise-security-gate",
+            "exists": true,
+            "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/enterprise-security-gate/SKILL.md",
+            "frontmatter_ok": true,
+            "frontmatter_error": null,
+            "declared_name": "enterprise-security-gate",
+            "name_matches": true,
+            "router_registered": true
+          }
+        },
+        {
+          "skill": "n8n-validation-expert",
+          "status": "SUCCESS",
+          "evidence": {
+            "skill": "n8n-validation-expert",
+            "exists": true,
+            "path": "/home/ezzeldin/.claude/skills/n8n-validation-expert/SKILL.md",
+            "frontmatter_ok": true,
+            "frontmatter_error": null,
+            "declared_name": "n8n-validation-expert",
+            "name_matches": true,
+            "router_registered": true
+          }
+        },
+        {
+          "skill": "n8n-schema-guardrail",
+          "status": "SUCCESS",
+          "evidence": {
+            "skill": "n8n-schema-guardrail",
+            "exists": true,
+            "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/n8n-schema-guardrail/SKILL.md",
+            "frontmatter_ok": true,
+            "frontmatter_error": null,
+            "declared_name": "n8n-schema-guardrail",
+            "name_matches": true,
+            "router_registered": true
+          }
+        },
+        {
+          "skill": "critical-thinking-logical-reasoning",
+          "status": "SUCCESS",
+          "evidence": {
+            "skill": "critical-thinking-logical-reasoning",
+            "exists": true,
+            "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/critical-thinking-logical-reasoning/SKILL.md",
+            "frontmatter_ok": true,
+            "frontmatter_error": null,
+            "declared_name": "critical-thinking-logical-reasoning",
+            "name_matches": true,
+            "router_registered": true
+          }
+        },
+        {
+          "skill": "n8n-error-boundary-architect",
+          "status": "SUCCESS",
+          "evidence": {
+            "skill": "n8n-error-boundary-architect",
+            "exists": true,
+            "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/n8n-error-boundary-architect/SKILL.md",
+            "frontmatter_ok": true,
+            "frontmatter_error": null,
+            "declared_name": "n8n-error-boundary-architect",
+            "name_matches": true,
+            "router_registered": true
+          }
+        },
+        {
+          "skill": "automation-known-issues-compass",
+          "status": "SUCCESS",
+          "evidence": {
+            "skill": "automation-known-issues-compass",
+            "exists": true,
+            "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/automation-known-issues-compass/SKILL.md",
+            "frontmatter_ok": true,
+            "frontmatter_error": null,
+            "declared_name": "automation-known-issues-compass",
+            "name_matches": true,
+            "router_registered": true
+          }
+        },
+        {
+          "skill": "off-by-one-boundary-guard",
+          "status": "SUCCESS",
+          "evidence": {
+            "skill": "off-by-one-boundary-guard",
+            "exists": true,
+            "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/off-by-one-boundary-guard/SKILL.md",
+            "frontmatter_ok": true,
+            "frontmatter_error": null,
+            "declared_name": "off-by-one-boundary-guard",
+            "name_matches": true,
+            "router_registered": true
+          }
+        },
+        {
+          "skill": "frontier-deep-reasoner",
+          "status": "SUCCESS",
+          "evidence": {
+            "skill": "frontier-deep-reasoner",
+            "exists": true,
+            "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/frontier-deep-reasoner/SKILL.md",
+            "frontmatter_ok": true,
+            "frontmatter_error": null,
+            "declared_name": "frontier-deep-reasoner",
+            "name_matches": true,
+            "router_registered": true
+          }
+        }
+      ],
+      "failed_gates": [],
+      "manifest_provided": false
+    },
+    "stability": {
+      "status": "SKIP",
+      "violations": [],
+      "stability": null
+    },
+    "math": {
+      "status": "SKIP",
+      "checks": [],
+      "violations": []
+    },
+    "reasoning": {
+      "status": "PASS",
+      "notes": [
+        "AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly",
+        "AVOID previous rejection: No Error Trigger node and no continueOnFail on any node",
+        "AVOID previous rejection: no schema cache present — run n8n-schema-preflight first (fetch node schemas from the n8n API)",
+        "AVOID previous rejection: no dry-run evidence: nodes carry no pinned data and no expected_result from a trial run — run the workflow on the n8n instance (n8n-pinned-data-mocking) before delivery",
+        "AVOID previous rejection: Workflow has 18 nodes — recommend sub-workflow split",
+        "AVOID previous rejection: Deprecated syntax `\\$json\\b(?!\\.)` used",
+        "AVOID previous rejection: no --skills-loaded manifest — actual agent loads are NOT verifiable headless; readiness (installed + frontmatter + routable) verified only",
+        "AVOID previous rejection: Deprecated syntax `\\$[Nn]ode\\[[\\'\"]` used",
+        "no counting/boundary trigger — off-by-one class not flagged",
+        "reasoning depth: single-pass"
+      ]
+    },
+    "dry_run": {
+      "status": "FAIL",
+      "violations": [
+        "no dry-run evidence: nodes carry no pinned data and no expected_result from a trial run — run the workflow on the n8n instance (n8n-pinned-data-mocking) before delivery"
+      ],
+      "dry_run": {
+        "pinned": false,
+        "expected_parity": false
+      }
+    },
+    "complaints": {
+      "status": "COMPLAINTS_RESOLVED",
+      "violations": [
+        "complaint quality-1789016307971: no installable skill found — retry later"
+      ],
+      "open": 1,
+      "installed": [],
+      "created": [],
+      "no_solution": [
+        "quality-1789016307971"
+      ]
+    }
+  },
+  "hitl_request": null,
+  "mandatory_skills_invoked": [
+    {
+      "skill": "security-review",
+      "status": "SUCCESS",
+      "evidence": {
+        "skill": "security-review",
+        "exists": true,
+        "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/security-review/SKILL.md",
+        "frontmatter_ok": true,
+        "frontmatter_error": null,
+        "declared_name": "security-review",
+        "name_matches": true,
+        "router_registered": true
+      }
+    },
+    {
+      "skill": "security-and-hardening",
+      "status": "SUCCESS",
+      "evidence": {
+        "skill": "security-and-hardening",
+        "exists": true,
+        "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/security-and-hardening/SKILL.md",
+        "frontmatter_ok": true,
+        "frontmatter_error": null,
+        "declared_name": "security-and-hardening",
+        "name_matches": true,
+        "router_registered": true
+      }
+    },
+    {
+      "skill": "frontier-red-team-auditor",
+      "status": "SUCCESS",
+      "evidence": {
+        "skill": "frontier-red-team-auditor",
+        "exists": true,
+        "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/frontier-red-team-auditor/SKILL.md",
+        "frontmatter_ok": true,
+        "frontmatter_error": null,
+        "declared_name": "frontier-red-team-auditor",
+        "name_matches": true,
+        "router_registered": true
+      }
+    },
+    {
+      "skill": "n8n-credential-security-guard",
+      "status": "SUCCESS",
+      "evidence": {
+        "skill": "n8n-credential-security-guard",
+        "exists": true,
+        "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/n8n-credential-security-guard/SKILL.md",
+        "frontmatter_ok": true,
+        "frontmatter_error": null,
+        "declared_name": "n8n-credential-security-guard",
+        "name_matches": true,
+        "router_registered": true
+      }
+    },
+    {
+      "skill": "enterprise-security-gate",
+      "status": "SUCCESS",
+      "evidence": {
+        "skill": "enterprise-security-gate",
+        "exists": true,
+        "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/enterprise-security-gate/SKILL.md",
+        "frontmatter_ok": true,
+        "frontmatter_error": null,
+        "declared_name": "enterprise-security-gate",
+        "name_matches": true,
+        "router_registered": true
+      }
+    },
+    {
+      "skill": "n8n-validation-expert",
+      "status": "SUCCESS",
+      "evidence": {
+        "skill": "n8n-validation-expert",
+        "exists": true,
+        "path": "/home/ezzeldin/.claude/skills/n8n-validation-expert/SKILL.md",
+        "frontmatter_ok": true,
+        "frontmatter_error": null,
+        "declared_name": "n8n-validation-expert",
+        "name_matches": true,
+        "router_registered": true
+      }
+    },
+    {
+      "skill": "n8n-schema-guardrail",
+      "status": "SUCCESS",
+      "evidence": {
+        "skill": "n8n-schema-guardrail",
+        "exists": true,
+        "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/n8n-schema-guardrail/SKILL.md",
+        "frontmatter_ok": true,
+        "frontmatter_error": null,
+        "declared_name": "n8n-schema-guardrail",
+        "name_matches": true,
+        "router_registered": true
+      }
+    },
+    {
+      "skill": "critical-thinking-logical-reasoning",
+      "status": "SUCCESS",
+      "evidence": {
+        "skill": "critical-thinking-logical-reasoning",
+        "exists": true,
+        "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/critical-thinking-logical-reasoning/SKILL.md",
+        "frontmatter_ok": true,
+        "frontmatter_error": null,
+        "declared_name": "critical-thinking-logical-reasoning",
+        "name_matches": true,
+        "router_registered": true
+      }
+    },
+    {
+      "skill": "n8n-error-boundary-architect",
+      "status": "SUCCESS",
+      "evidence": {
+        "skill": "n8n-error-boundary-architect",
+        "exists": true,
+        "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/n8n-error-boundary-architect/SKILL.md",
+        "frontmatter_ok": true,
+        "frontmatter_error": null,
+        "declared_name": "n8n-error-boundary-architect",
+        "name_matches": true,
+        "router_registered": true
+      }
+    },
+    {
+      "skill": "automation-known-issues-compass",
+      "status": "SUCCESS",
+      "evidence": {
+        "skill": "automation-known-issues-compass",
+        "exists": true,
+        "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/automation-known-issues-compass/SKILL.md",
+        "frontmatter_ok": true,
+        "frontmatter_error": null,
+        "declared_name": "automation-known-issues-compass",
+        "name_matches": true,
+        "router_registered": true
+      }
+    },
+    {
+      "skill": "off-by-one-boundary-guard",
+      "status": "SUCCESS",
+      "evidence": {
+        "skill": "off-by-one-boundary-guard",
+        "exists": true,
+        "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/off-by-one-boundary-guard/SKILL.md",
+        "frontmatter_ok": true,
+        "frontmatter_error": null,
+        "declared_name": "off-by-one-boundary-guard",
+        "name_matches": true,
+        "router_registered": true
+      }
+    },
+    {
+      "skill": "frontier-deep-reasoner",
+      "status": "SUCCESS",
+      "evidence": {
+        "skill": "frontier-deep-reasoner",
+        "exists": true,
+        "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/frontier-deep-reasoner/SKILL.md",
+        "frontmatter_ok": true,
+        "frontmatter_error": null,
+        "declared_name": "frontier-deep-reasoner",
+        "name_matches": true,
+        "router_registered": true
+      }
+    }
+  ],
+  "skill_invocation_status": "PASS",
+  "skill_manifest_provided": false,
+  "autofix_history": [],
+  "owasp_aa0x": {
+    "AA03": {
+      "title": "Insecure Agent Communication",
+      "findings": [
+        "security: [TOOL_SCOPE_LOCK] Agent 'AI Clinic Receptionist Agent' has unrestricted or undefined tool access (no explicit allowed_tools list)"
+      ]
+    },
+    "AA09": {
+      "title": "Unbounded Autonomy",
+      "findings": [
+        "security: [TOOL_SCOPE_LOCK] Agent 'AI Clinic Receptionist Agent' has unrestricted or undefined tool access (no explicit allowed_tools list)",
+        "security: [NO_ITERATION_CEILING] Agent 'AI Clinic Receptionist Agent' maxIterations undefined or unreasonably high (runaway loop / cost risk)"
+      ]
+    },
+    "AA04": {
+      "title": "Inadequate Access Control",
+      "findings": [
+        "security: [WEBHOOK_NO_AUTH] Webhook trigger 'WhatsApp Inbound Webhook' has no authentication configured",
+        "precision: P5: node 'Redis Atomic Deduplication' (n8n-nodes-base.redis) requires a credential but none is bound",
+        "precision: P5: node 'Alert DevOps - Redis Outage' (n8n-nodes-base.telegram) requires a credential but none is bound",
+        "precision: P5: node 'Fetch Meta Audio URL' (n8n-nodes-base.httpRequest) requires a credential but none is bound",
+        "precision: P5: node 'Download Meta Audio File' (n8n-nodes-base.httpRequest) requires a credential but none is bound",
+        "precision: P5: node 'OpenAI Whisper STT' (n8n-nodes-base.openAi) requires a credential but none is bound",
+        "precision: P5: node 'Google Gemini 2.5 Flash Model' (@n8n/n8n-nodes-langchain.lmChatGoogleGemini) requires a credential but none is bound",
+        "precision: P5: node 'Patient Session Memory' (@n8n/n8n-nodes-langchain.memoryBufferWindow) requires a credential but none is bound",
+        "precision: P5: node 'Send Meta WhatsApp Response' (n8n-nodes-base.httpRequest) requires a credential but none is bound",
+        "precision: P5: node 'Send Evolution WhatsApp Response' (n8n-nodes-base.httpRequest) requires a credential but none is bound",
+        "precision: P5: node 'Alert Clinic Staff - Send Failed' (n8n-nodes-base.telegram) requires a credential but none is bound"
+      ]
+    },
+    "AA08": {
+      "title": "Insecure Memory & State Management",
+      "findings": [
+        "precision: P5: node 'Patient Session Memory' (@n8n/n8n-nodes-langchain.memoryBufferWindow) requires a credential but none is bound"
+      ]
+    }
+  }
+}

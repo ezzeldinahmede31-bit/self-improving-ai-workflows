@@ -2,9 +2,9 @@
   {
     "gate": "quality",
     "pattern": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "count": 47,
+    "count": 49,
     "first_seen": "2026-08-15T01:45:33.866641+00:00",
-    "last_seen": "2026-08-24T13:49:55.791654+00:00"
+    "last_seen": "2026-09-10T04:58:32.112782+00:00"
   },
   {
     "gate": "quality",
@@ -23,9 +23,23 @@
   {
     "gate": "dry_run",
     "pattern": "no dry-run evidence: nodes carry no pinned data and no expected_result from a trial run — run the workflow on the n8n instance (n8n-pinned-data-mocking) before delivery",
-    "count": 11,
+    "count": 13,
     "first_seen": "2026-08-17T06:06:55.931702+00:00",
-    "last_seen": "2026-08-24T13:49:55.793334+00:00"
+    "last_seen": "2026-09-10T04:58:32.131451+00:00"
+  },
+  {
+    "gate": "quality",
+    "pattern": "Deprecated syntax `\\$json\\b(?!\\.)` used",
+    "count": 7,
+    "first_seen": "2026-08-24T13:18:28.243630+00:00",
+    "last_seen": "2026-09-10T04:58:32.106824+00:00"
+  },
+  {
+    "gate": "skills",
+    "pattern": "no --skills-loaded manifest — actual agent loads are NOT verifiable headless; readiness (installed + frontmatter + routable) verified only",
+    "count": 7,
+    "first_seen": "2026-08-24T13:18:28.258531+00:00",
+    "last_seen": "2026-09-10T04:58:32.130196+00:00"
   },
   {
     "gate": "quality",
@@ -43,13 +57,6 @@
   },
   {
     "gate": "quality",
-    "pattern": "Deprecated syntax `\\$json\\b(?!\\.)` used",
-    "count": 5,
-    "first_seen": "2026-08-24T13:18:28.243630+00:00",
-    "last_seen": "2026-08-24T13:49:55.783631+00:00"
-  },
-  {
-    "gate": "quality",
     "pattern": "Node name not verb-prefixed/discoverable: `Set`",
     "count": 5,
     "first_seen": "2026-08-24T13:18:28.249444+00:00",
@@ -61,13 +68,6 @@
     "count": 5,
     "first_seen": "2026-08-24T13:18:28.252049+00:00",
     "last_seen": "2026-08-24T13:49:55.789782+00:00"
-  },
-  {
-    "gate": "skills",
-    "pattern": "no --skills-loaded manifest — actual agent loads are NOT verifiable headless; readiness (installed + frontmatter + routable) verified only",
-    "count": 5,
-    "first_seen": "2026-08-24T13:18:28.258531+00:00",
-    "last_seen": "2026-08-24T13:49:55.792514+00:00"
   },
   {
     "gate": "precision",
@@ -264,6 +264,125 @@
     "count": 2,
     "first_seen": "2026-08-17T13:10:14.190822+00:00",
     "last_seen": "2026-08-17T13:10:23.347556+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "[TOOL_SCOPE_LOCK] Agent 'AI Clinic Receptionist Agent' has unrestricted or undefined tool access (no explicit allowed_tools list)",
+    "count": 2,
+    "first_seen": "2026-09-10T04:57:50.527485+00:00",
+    "last_seen": "2026-09-10T04:58:32.094062+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "[NO_ITERATION_CEILING] Agent 'AI Clinic Receptionist Agent' maxIterations undefined or unreasonably high (runaway loop / cost risk)",
+    "count": 2,
+    "first_seen": "2026-09-10T04:57:50.529036+00:00",
+    "last_seen": "2026-09-10T04:58:32.095764+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "[WEBHOOK_NO_AUTH] Webhook trigger 'WhatsApp Inbound Webhook' has no authentication configured",
+    "count": 2,
+    "first_seen": "2026-09-10T04:57:50.530131+00:00",
+    "last_seen": "2026-09-10T04:58:32.101639+00:00"
+  },
+  {
+    "gate": "quality",
+    "pattern": "Code-node uses bare $json without $input accessor",
+    "count": 2,
+    "first_seen": "2026-09-10T04:57:50.532228+00:00",
+    "last_seen": "2026-09-10T04:58:32.108603+00:00"
+  },
+  {
+    "gate": "quality",
+    "pattern": "Node name not verb-prefixed/discoverable: `Tool: Calendar Booking & Conflict Guard`",
+    "count": 2,
+    "first_seen": "2026-09-10T04:57:50.533581+00:00",
+    "last_seen": "2026-09-10T04:58:32.109763+00:00"
+  },
+  {
+    "gate": "quality",
+    "pattern": "Workflow has 27 nodes — recommend sub-workflow split",
+    "count": 2,
+    "first_seen": "2026-09-10T04:57:50.535880+00:00",
+    "last_seen": "2026-09-10T04:58:32.110963+00:00"
+  },
+  {
+    "gate": "quality",
+    "pattern": "Code node `Normalize Inbound & Verify Signature` exceeds cyclomatic threshold",
+    "count": 2,
+    "first_seen": "2026-09-10T04:57:50.539867+00:00",
+    "last_seen": "2026-09-10T04:58:32.114668+00:00"
+  },
+  {
+    "gate": "precision",
+    "pattern": "P5: node 'Redis Atomic Deduplication' (n8n-nodes-base.redis) requires a credential but none is bound",
+    "count": 2,
+    "first_seen": "2026-09-10T04:57:50.541644+00:00",
+    "last_seen": "2026-09-10T04:58:32.116995+00:00"
+  },
+  {
+    "gate": "precision",
+    "pattern": "P5: node 'Alert DevOps - Redis Outage' (n8n-nodes-base.telegram) requires a credential but none is bound",
+    "count": 2,
+    "first_seen": "2026-09-10T04:57:50.543521+00:00",
+    "last_seen": "2026-09-10T04:58:32.119653+00:00"
+  },
+  {
+    "gate": "precision",
+    "pattern": "P5: node 'Fetch Meta Audio URL' (n8n-nodes-base.httpRequest) requires a credential but none is bound",
+    "count": 2,
+    "first_seen": "2026-09-10T04:57:50.544845+00:00",
+    "last_seen": "2026-09-10T04:58:32.121396+00:00"
+  },
+  {
+    "gate": "precision",
+    "pattern": "P5: node 'Download Meta Audio File' (n8n-nodes-base.httpRequest) requires a credential but none is bound",
+    "count": 2,
+    "first_seen": "2026-09-10T04:57:50.545942+00:00",
+    "last_seen": "2026-09-10T04:58:32.122747+00:00"
+  },
+  {
+    "gate": "precision",
+    "pattern": "P5: node 'OpenAI Whisper STT' (n8n-nodes-base.openAi) requires a credential but none is bound",
+    "count": 2,
+    "first_seen": "2026-09-10T04:57:50.546980+00:00",
+    "last_seen": "2026-09-10T04:58:32.124117+00:00"
+  },
+  {
+    "gate": "precision",
+    "pattern": "P5: node 'Google Gemini 2.5 Flash Model' (@n8n/n8n-nodes-langchain.lmChatGoogleGemini) requires a credential but none is bound",
+    "count": 2,
+    "first_seen": "2026-09-10T04:57:50.548066+00:00",
+    "last_seen": "2026-09-10T04:58:32.125203+00:00"
+  },
+  {
+    "gate": "precision",
+    "pattern": "P5: node 'Patient Session Memory' (@n8n/n8n-nodes-langchain.memoryBufferWindow) requires a credential but none is bound",
+    "count": 2,
+    "first_seen": "2026-09-10T04:57:50.549123+00:00",
+    "last_seen": "2026-09-10T04:58:32.126188+00:00"
+  },
+  {
+    "gate": "precision",
+    "pattern": "P5: node 'Send Meta WhatsApp Response' (n8n-nodes-base.httpRequest) requires a credential but none is bound",
+    "count": 2,
+    "first_seen": "2026-09-10T04:57:50.550915+00:00",
+    "last_seen": "2026-09-10T04:58:32.126973+00:00"
+  },
+  {
+    "gate": "precision",
+    "pattern": "P5: node 'Send Evolution WhatsApp Response' (n8n-nodes-base.httpRequest) requires a credential but none is bound",
+    "count": 2,
+    "first_seen": "2026-09-10T04:57:50.552821+00:00",
+    "last_seen": "2026-09-10T04:58:32.127769+00:00"
+  },
+  {
+    "gate": "precision",
+    "pattern": "P5: node 'Alert Clinic Staff - Send Failed' (n8n-nodes-base.telegram) requires a credential but none is bound",
+    "count": 2,
+    "first_seen": "2026-09-10T04:57:50.555256+00:00",
+    "last_seen": "2026-09-10T04:58:32.128648+00:00"
   },
   {
     "gate": "security",
