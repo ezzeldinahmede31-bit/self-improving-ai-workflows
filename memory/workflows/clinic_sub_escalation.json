@@ -1,0 +1,105 @@
+{
+  "name": "Clinic Tool - Human Escalation",
+  "nodes": [
+    {
+      "parameters": {
+        "pinnedData": [
+          {
+            "json": {
+              "ping": "pinned-sample"
+            }
+          }
+        ],
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "patientName",
+              "type": "string"
+            },
+            {
+              "name": "patientChatId",
+              "type": "string"
+            },
+            {
+              "name": "reason",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "id": "sw3-t",
+      "name": "Receive Escalation Request",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        120,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $env.TELEGRAM_STAFF_CHAT_ID || '-100123456789' }}",
+        "text": "=ESCALATION from {{ $input.item.json.patientName }} (chat {{ $input.item.json.patientChatId }}): {{ $input.item.json.reason }}",
+        "additionalFields": {}
+      },
+      "id": "sw3-a",
+      "name": "Alert On-Call Staff",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        380,
+        300
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "DLlemykGQ7Zm867F",
+          "name": "Telegram account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Escalation contract for the agent.\nreturn [{ json: { escalated: true, message: 'Your request was escalated to clinic staff. They respond shortly.' } }];"
+      },
+      "id": "sw3-c",
+      "name": "Confirm Escalation Sent",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        640,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Receive Escalation Request": {
+      "main": [
+        [
+          {
+            "node": "Alert On-Call Staff",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Alert On-Call Staff": {
+      "main": [
+        [
+          {
+            "node": "Confirm Escalation Sent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

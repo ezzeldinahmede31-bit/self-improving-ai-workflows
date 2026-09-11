@@ -1,0 +1,61 @@
+{
+  "name": "Clinic Tool - Knowledge Base & Pricing",
+  "nodes": [
+    {
+      "parameters": {
+        "pinnedData": [
+          {
+            "json": {
+              "ping": "pinned-sample"
+            }
+          }
+        ],
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "query",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "id": "sw2-t",
+      "name": "Receive Knowledge Query",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        120,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// EDIT HERE: official clinic catalog (services, prices in EGP, doctors, hours).\n// The agent reads this output verbatim and must never invent prices.\nconst catalog = {\n  currency: 'EGP',\n  services: [\n    { name: 'General exam', price: 300 },\n    { name: 'Cleaning and polishing', price: 800 },\n    { name: 'Filling per tooth', price: 1200 },\n    { name: 'Root canal', price: 2500 },\n    { name: 'Braces consult', price: 500 },\n    { name: 'Implant consult', price: 500 },\n    { name: 'Whitening', price: 1500 }\n  ],\n  doctors: [\n    { name: 'Dr. Samir', specialty: 'general dentistry', days: 'Sat-Thu', hours: '10:00-18:00' },\n    { name: 'Dr. Layla', specialty: 'orthodontics', days: 'Sun-Tue-Thu', hours: '12:00-20:00' }\n  ],\n  hours: 'Sat-Thu 10:00-22:00, Fri 16:00-22:00',\n  phone: '[EDIT: clinic phone]',\n  address: '[EDIT: clinic address]'\n};\nreturn [{ json: catalog }];"
+      },
+      "id": "sw2-k",
+      "name": "Lookup Clinic Catalog",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        340,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Receive Knowledge Query": {
+      "main": [
+        [
+          {
+            "node": "Lookup Clinic Catalog",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

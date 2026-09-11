@@ -8,5 +8,8 @@
   },
   "ai-clinic-receptionist--main-whatsapp---voice-agent-n8n.json": {
     "SECURITY_VIOLATION_REQUIRES_HUMAN::[TOOL_SCOPE_LOCK] Agent 'AI Clinic Receptionist Agent' has unrestricted or undefined tool access (no explicit allowed_to": 2
+  },
+  "clinic_sub_calendar_booking.json": {
+    "SECURITY_VIOLATION_REQUIRES_HUMAN::[DESTRUCTIVE_ACTION_NO_APPROVAL] Single destructive action 'Release Slot Claim' (n8n-nodes-base.redis delete) requires h": 1
   }
 }

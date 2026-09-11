@@ -28,18 +28,18 @@
     "last_seen": "2026-09-10T04:58:32.131451+00:00"
   },
   {
+    "gate": "skills",
+    "pattern": "no --skills-loaded manifest — actual agent loads are NOT verifiable headless; readiness (installed + frontmatter + routable) verified only",
+    "count": 8,
+    "first_seen": "2026-08-24T13:18:28.258531+00:00",
+    "last_seen": "2026-09-11T06:55:21.208390+00:00"
+  },
+  {
     "gate": "quality",
     "pattern": "Deprecated syntax `\\$json\\b(?!\\.)` used",
     "count": 7,
     "first_seen": "2026-08-24T13:18:28.243630+00:00",
     "last_seen": "2026-09-10T04:58:32.106824+00:00"
-  },
-  {
-    "gate": "skills",
-    "pattern": "no --skills-loaded manifest — actual agent loads are NOT verifiable headless; readiness (installed + frontmatter + routable) verified only",
-    "count": 7,
-    "first_seen": "2026-08-24T13:18:28.258531+00:00",
-    "last_seen": "2026-09-10T04:58:32.130196+00:00"
   },
   {
     "gate": "quality",
@@ -432,5 +432,26 @@
     "count": 1,
     "first_seen": "2026-08-24T13:18:28.257657+00:00",
     "last_seen": "2026-08-24T13:18:28.257668+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "[DESTRUCTIVE_ACTION_NO_APPROVAL] Single destructive action 'Release Slot Claim' (n8n-nodes-base.redis delete) requires human approval regardless of chaining",
+    "count": 1,
+    "first_seen": "2026-09-11T06:55:21.206962+00:00",
+    "last_seen": "2026-09-11T06:55:21.206975+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "[DESTRUCTIVE_ACTION_NO_APPROVAL] Single destructive action 'Release Failed Claim' (n8n-nodes-base.redis delete) requires human approval regardless of chaining",
+    "count": 1,
+    "first_seen": "2026-09-11T06:55:21.207493+00:00",
+    "last_seen": "2026-09-11T06:55:21.207499+00:00"
+  },
+  {
+    "gate": "quality",
+    "pattern": "Workflow has 14 nodes — recommend sub-workflow split",
+    "count": 1,
+    "first_seen": "2026-09-11T06:55:21.207938+00:00",
+    "last_seen": "2026-09-11T06:55:21.207945+00:00"
   }
 ]

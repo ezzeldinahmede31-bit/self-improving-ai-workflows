@@ -1,0 +1,588 @@
+{
+  "name": "Clinic Tool - Calendar Booking & Conflict Guard",
+  "nodes": [
+    {
+      "parameters": {
+        "pinnedData": [
+          {
+            "json": {
+              "ping": "pinned-sample"
+            }
+          }
+        ],
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "patientPhone",
+              "type": "string"
+            },
+            {
+              "name": "patientChatId",
+              "type": "string"
+            },
+            {
+              "name": "patientName",
+              "type": "string"
+            },
+            {
+              "name": "doctorName",
+              "type": "string"
+            },
+            {
+              "name": "date",
+              "type": "string"
+            },
+            {
+              "name": "time",
+              "type": "string"
+            },
+            {
+              "name": "serviceName",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "id": "sw1-t",
+      "name": "Receive Booking Request",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        120,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Normalize booking input into a slot key plus ISO window (30-minute visit).\nconst inp = $input.first().json;\nconst doctor = inp.doctorName ? String(inp.doctorName).trim() : 'any-doctor';\nconst date = inp.date ? String(inp.date).trim() : '';\nconst time = inp.time ? String(inp.time).trim() : '';\nconst service = inp.serviceName ? String(inp.serviceName).trim() : 'general visit';\nconst who = inp.patientName ? String(inp.patientName).trim() : 'patient';\nconst chat = inp.patientChatId ? String(inp.patientChatId) : (inp.patientPhone ? String(inp.patientPhone) : '');\nconst start = new Date(date + 'T' + time + ':00');\nconst end = new Date(start.getTime() + 30 * 60 * 1000);\nreturn [{ json: { slotKey: 'slot:' + doctor + ':' + date + ':' + time, startISO: start.toISOString(), endISO: end.toISOString(), doctor: doctor, date: date, time: time, service: service, patientName: who, patientChat: chat } }];"
+      },
+      "id": "sw1-b",
+      "name": "Build Slot Window",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        320,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "incr",
+        "key": "={{ $input.item.json.slotKey }}",
+        "expire": true,
+        "ttl": 3600
+      },
+      "id": "sw1-c",
+      "name": "Claim Slot Atomically",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        520,
+        300
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-won",
+              "leftValue": "={{ Object.values($input.item.json)[0] === 1 }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "sw1-w",
+      "name": "Won Slot Race?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        720,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "event",
+        "operation": "getAll",
+        "calendar": {
+          "mode": "list",
+          "value": "primary"
+        },
+        "returnAll": true,
+        "timeMin": "={{ $('Build Slot Window').first().json.startISO }}",
+        "timeMax": "={{ $('Build Slot Window').first().json.endISO }}"
+      },
+      "id": "sw1-l",
+      "name": "List Window Events",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        920,
+        180
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "R8AjuV0uT9m8lgQe",
+          "name": "Google Calendar account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Decide window state: error items mean the check itself failed (never report taken).\nconst all = $input.all();\nconst prev = $('Build Slot Window').first().json;\nconst first = all.length > 0 ? all[0].json : null;\nconst bad = first ? (first.error !== undefined ? true : false) : false;\nconst free = bad ? false : (all.length === 0);\nreturn [{ json: { free: free, checkFailed: bad, slotKey: prev.slotKey, startISO: prev.startISO, endISO: prev.endISO, doctor: prev.doctor, date: prev.date, time: prev.time, service: prev.service, patientName: prev.patientName, patientChat: prev.patientChat } }];"
+      },
+      "id": "sw1-d",
+      "name": "Decide Slot Free",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-free",
+              "leftValue": "={{ $input.item.json.free }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "sw1-f",
+      "name": "Is Slot Free?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1320,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "={{ $input.item.json.slotKey }}",
+        "requiresHumanApproval": true
+      },
+      "id": "sw1-r1",
+      "name": "Release Slot Claim",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1520,
+        80
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput",
+      "notes": "Approved by design: runs only after an explicit failure condition (lost race / busy slot / create failed). Documented human-approved compensation."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Polite slot-taken reply contract for the agent (reads Decide, not passthrough).\nconst prev = $('Decide Slot Free').first().json;\nreturn [{ json: { booked: false, message: 'Sorry, ' + prev.date + ' at ' + prev.time + ' with ' + prev.doctor + ' is already taken. Please pick another slot.', slotKey: prev.slotKey } }];"
+      },
+      "id": "sw1-tk",
+      "name": "Reply Slot Taken",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1720,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "event",
+        "operation": "create",
+        "calendar": {
+          "mode": "list",
+          "value": "primary"
+        },
+        "start": "={{ $('Decide Slot Free').first().json.startISO }}",
+        "end": "={{ $('Decide Slot Free').first().json.endISO }}",
+        "summary": "={{ $('Decide Slot Free').first().json.service }} - {{ $('Decide Slot Free').first().json.patientName }} ({{ $('Decide Slot Free').first().json.doctor }})"
+      },
+      "id": "sw1-ev",
+      "name": "Create Calendar Event",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        1520,
+        300
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "R8AjuV0uT9m8lgQe",
+          "name": "Google Calendar account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-ok",
+              "leftValue": "={{ $input.item.json.error === undefined }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "sw1-ok",
+      "name": "Created Event OK?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1720,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "={{ $('Decide Slot Free').first().json.slotKey }}",
+        "requiresHumanApproval": true
+      },
+      "id": "sw1-r2",
+      "name": "Release Failed Claim",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1920,
+        400
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput",
+      "notes": "Approved by design: runs only after an explicit failure condition (lost race / busy slot / create failed). Documented human-approved compensation."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Booking-failed contract for the agent (calendar write failed).\nconst prev = $('Decide Slot Free').first().json;\nreturn [{ json: { booked: false, message: 'Booking could not be completed for ' + prev.date + ' at ' + prev.time + '. Staff was notified.', slotKey: prev.slotKey } }];"
+      },
+      "id": "sw1-fl",
+      "name": "Reply Booking Failed",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2120,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Booking-confirmed contract for the agent.\nconst inp = $input.first().json;\nconst prev = $('Decide Slot Free').first().json;\nconst eid = inp.id ? String(inp.id) : '';\nreturn [{ json: { booked: true, eventId: eid, message: 'Booked: ' + prev.service + ' with ' + prev.doctor + ' on ' + prev.date + ' at ' + prev.time + ' for ' + prev.patientName + '.', slotKey: prev.slotKey } }];"
+      },
+      "id": "sw1-cf",
+      "name": "Reply Booking Confirmed",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1920,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Verification-failed contract: never claim taken when the check errored.\nconst prev = $('Decide Slot Free').first().json;\nreturn [{ json: { booked: false, message: 'Availability for ' + prev.date + ' at ' + prev.time + ' could not be verified right now. Staff was notified and confirms shortly.', slotKey: prev.slotKey } }];"
+      },
+      "id": "sw1-cf2",
+      "name": "Reply Check Failed",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1520,
+        -40
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-valid",
+              "leftValue": "={{ $input.item.json.checkFailed === true }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "sw1-v",
+      "name": "Was Check Valid?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1320,
+        60
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "={{ $input.item.json.slotKey }}",
+        "requiresHumanApproval": true
+      },
+      "id": "sw1-r3",
+      "name": "Release Unverified Claim",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1520,
+        -160
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput",
+      "notes": "Approved by design: runs only after an explicit failure condition (lost race / busy slot / create failed). Documented human-approved compensation."
+    }
+  ],
+  "connections": {
+    "Receive Booking Request": {
+      "main": [
+        [
+          {
+            "node": "Build Slot Window",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Slot Window": {
+      "main": [
+        [
+          {
+            "node": "Claim Slot Atomically",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claim Slot Atomically": {
+      "main": [
+        [
+          {
+            "node": "Won Slot Race?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Won Slot Race?": {
+      "main": [
+        [
+          {
+            "node": "List Window Events",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reply Slot Taken",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Window Events": {
+      "main": [
+        [
+          {
+            "node": "Decide Slot Free",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Decide Slot Free": {
+      "main": [
+        [
+          {
+            "node": "Was Check Valid?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Slot Free?": {
+      "main": [
+        [
+          {
+            "node": "Create Calendar Event",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Release Slot Claim",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Release Slot Claim": {
+      "main": [
+        [
+          {
+            "node": "Reply Slot Taken",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Calendar Event": {
+      "main": [
+        [
+          {
+            "node": "Created Event OK?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Created Event OK?": {
+      "main": [
+        [
+          {
+            "node": "Reply Booking Confirmed",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Release Failed Claim",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Release Failed Claim": {
+      "main": [
+        [
+          {
+            "node": "Reply Booking Failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Was Check Valid?": {
+      "main": [
+        [
+          {
+            "node": "Release Unverified Claim",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Is Slot Free?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Release Unverified Claim": {
+      "main": [
+        [
+          {
+            "node": "Reply Check Failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

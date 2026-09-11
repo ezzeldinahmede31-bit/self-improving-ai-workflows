@@ -80,7 +80,7 @@
     {
       "parameters": {
         "operation": "incr",
-        "key": "=tg:{{ $input.item.json.messageId }}",
+        "key": "=tg:{{ $input.item.json.chatId }}:{{ $input.item.json.messageId }}",
         "expire": true,
         "ttl": 86400
       },
@@ -313,7 +313,7 @@
         "text": "=Patient Chat: {{ $input.item.json.chatId }}\nPatient Name: {{ $input.item.json.pushName }}\nMessage: {{ $input.item.json.finalMessage }}",
         "options": {
           "systemMessage": "=You are \"Sara\", the smart receptionist of [clinic name].\nAnalyze the patient message and reply politely and professionally in the same language and dialect of the patient.\nStrict tool rules:\n1. Knowledge tool (Get Clinic Knowledge Base): use it at once for any question about exam prices, services, doctors or working hours. Never invent a price.\n2. Booking tool (Check Calendar Availability): use it when the patient asks to book or asks about free slots.\n3. Escalation tool (Escalate Human Emergency): call it at once for a serious emergency (bleeding, broken tooth, unbearable pain), a request to talk to staff, or a complaint. Direct the patient to call the clinic or visit emergency when severe.\nAttachments: when the message holds an [patient sent image/document/video] note, ask politely for a written clarification and confirm a doctor reviews the file at the clinic.",
-          "maxIterations": 5
+          "maxIterations": 8
         },
         "tools": [
           "Check Calendar Availability",
@@ -377,13 +377,93 @@
     {
       "parameters": {
         "name": "check_and_book_calendar_appointment",
-        "description": "Check live doctor availability and book confirmed appointments without double booking.",
-        "workflowId": "={{ $env.CALENDAR_WORKFLOW_ID || 'clinic-calendar-booking-subworkflow' }}"
+        "description": "Check live doctor availability and book confirmed appointments without double booking. Inputs: doctorName, date YYYY-MM-DD, time HH:MM, serviceName, patientName.",
+        "source": "database",
+        "workflowId": {
+          "mode": "list",
+          "value": "={{ $env.CALENDAR_WORKFLOW_ID || 'Jy8EYH1uLoap9nU3' }}",
+          "cachedResultName": "check_and_book_calendar_appointment"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "patientChatId": "={{ $input.item.json.chatId }}",
+            "patientName": "={{ $input.item.json.pushName }}",
+            "doctorName": "={{ $fromAI('doctorName', 'Doctor name, e.g. Dr. Samir', 'string') }}",
+            "date": "={{ $fromAI('date', 'Visit date as YYYY-MM-DD', 'string') }}",
+            "time": "={{ $fromAI('time', 'Visit time as HH:MM 24-hour', 'string') }}",
+            "serviceName": "={{ $fromAI('serviceName', 'Service name, e.g. general visit', 'string') }}"
+          },
+          "matchingColumns": [
+            "patientChatId",
+            "patientName",
+            "doctorName",
+            "date",
+            "time",
+            "serviceName"
+          ],
+          "schema": [
+            {
+              "id": "patientChatId",
+              "displayName": "patientChatId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "patientName",
+              "displayName": "patientName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "doctorName",
+              "displayName": "doctorName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "date",
+              "displayName": "date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "time",
+              "displayName": "time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "serviceName",
+              "displayName": "serviceName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        }
       },
       "id": "tg-17-cal",
       "name": "Check Calendar Availability",
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
-      "typeVersion": 1.2,
+      "typeVersion": 2.2,
       "position": [
         1840,
         680
@@ -392,13 +472,38 @@
     {
       "parameters": {
         "name": "get_clinic_services_and_prices",
-        "description": "Look up verified clinic services, pricing, specialties and working hours. Never guess prices.",
-        "workflowId": "={{ $env.KB_WORKFLOW_ID || 'clinic-knowledge-base-subworkflow' }}"
+        "description": "Look up verified clinic services, pricing, specialties and working hours. Never guess prices. Input: query.",
+        "source": "database",
+        "workflowId": {
+          "mode": "list",
+          "value": "={{ $env.KB_WORKFLOW_ID || 'Jiyz8PIjggRnvTzB' }}",
+          "cachedResultName": "get_clinic_services_and_prices"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "query": "={{ $fromAI('query', 'What to look up, e.g. cleaning price', 'string') }}"
+          },
+          "matchingColumns": [
+            "query"
+          ],
+          "schema": [
+            {
+              "id": "query",
+              "displayName": "query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        }
       },
       "id": "tg-18-kb",
       "name": "Get Clinic Knowledge Base",
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
-      "typeVersion": 1.2,
+      "typeVersion": 2.2,
       "position": [
         2000,
         680
@@ -407,13 +512,60 @@
     {
       "parameters": {
         "name": "escalate_to_human_receptionist",
-        "description": "Escalate emergencies, human-handoff requests and complaints to clinic staff at once.",
-        "workflowId": "={{ $env.ESCALATION_WORKFLOW_ID || 'clinic-human-escalation-subworkflow' }}"
+        "description": "Escalate emergencies, human-handoff requests and complaints to clinic staff at once. Inputs: reason.",
+        "source": "database",
+        "workflowId": {
+          "mode": "list",
+          "value": "={{ $env.ESCALATION_WORKFLOW_ID || '4sfcxJL7rF14JXWt' }}",
+          "cachedResultName": "escalate_to_human_receptionist"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "patientChatId": "={{ $input.item.json.chatId }}",
+            "patientName": "={{ $input.item.json.pushName }}",
+            "reason": "={{ $fromAI('reason', 'Why this needs a human, one line', 'string') }}"
+          },
+          "matchingColumns": [
+            "patientChatId",
+            "patientName",
+            "reason"
+          ],
+          "schema": [
+            {
+              "id": "patientChatId",
+              "displayName": "patientChatId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "patientName",
+              "displayName": "patientName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "reason",
+              "displayName": "reason",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        }
       },
       "id": "tg-19-esc",
       "name": "Escalate Human Emergency",
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
-      "typeVersion": 1.2,
+      "typeVersion": 2.2,
       "position": [
         2160,
         680
@@ -424,7 +576,7 @@
         "resource": "message",
         "operation": "sendMessage",
         "chatId": "={{ $('Extract Telegram Payload').first().json.chatId }}",
-        "text": "={{ $input.item.json.output }}",
+        "text": "={{ $input.item.json.output || $input.item.json.finalMessage }}",
         "additionalFields": {}
       },
       "id": "tg-20-send",
@@ -509,6 +661,37 @@
       "position": [
         2700,
         380
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-muf",
+              "leftValue": "={{ $input.item.json.isAudioMuffled === true }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "tg-24-muf",
+      "name": "Was Voice Unclear?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1900,
+        100
       ]
     }
   ],
@@ -637,7 +820,7 @@
       "main": [
         [
           {
-            "node": "AI Clinic Receptionist Agent",
+            "node": "Was Voice Unclear?",
             "type": "main",
             "index": 0
           }
@@ -744,6 +927,24 @@
         [
           {
             "node": "Delivery Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Was Voice Unclear?": {
+      "main": [
+        [
+          {
+            "node": "Send Telegram Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Clinic Receptionist Agent",
             "type": "main",
             "index": 0
           }
