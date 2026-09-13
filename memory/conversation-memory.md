@@ -1344,3 +1344,10 @@ Both added to `compensatory-router` stacks.
 - Hard-won lessons: (1) NEVER chain `cmd &` with `;` (bash backgrounds the whole AND-list → curl races build/restart); restart in separate calls. (2) esbuild escapes non-ASCII to \uXXXX — grep dist with ASCII tokens only. (3) query.wikidata.org hangs from this net (use 1x15s attempt); en.wikipedia.org ETIMEDOUTs intermittently → retries everywhere, never cache empty results. (4) Wikidata 429s big wbgetentities batches → 5-ID batches + 700ms gaps. (5) `npm run lint` output hides failures — check exit code.
 - Box rebooted Sep 13 07:52 — background server died as expected; launcher script restarts on demand. Server currently UP (started Sep 13 ~08:00).
 - NEXT: user one-time LinkedIn login into `memory/.sessions/linkedin_b2b_profile` (for employee lookup); optional HUNTER_API_KEY later.
+
+## Post-reboot recovery + Google still dead + anti-silence cron (Sep 13)
+- Box rebooted (containers Up ~52min, /tmp wiped incl. tg_probe.py). User authorized device use to fix + continue.
+- REBUILT harness permanently at `scripts/tg_probe.py` (same modes + mid support; reads secret from .env, never prints).
+- FOUND: all 4 workflows INACTIVE after reboot (n8n did not reactivate). Re-activated all via API (200). ROOT-CAUSE PREVENTION: new `scripts/n8n_reactivate.sh` (healthz wait + activate 4 IDs, key from .env) + `@reboot` cron installed (log at memory/.n8n-reactivate.log). Tested live (4×200). This kills the whole "messages stop arriving after reboot" failure class.
+- Google Calendar OAuth STILL expired (live proof exec 666: List Window Events → "needs to be reconnected"). Hardening verified live: Decide checkFailed=true → Was Check Valid? TRUE → Release Unverified Claim (slot key GONE from Redis, TTL -2) → Reply Check Failed (honest message, never "taken"). T2 race remains blocked on USER reconnect only.
+- Cleaned probe execs 665/666. Redis: no slot:* keys linger (all released/expired); probe dedup keys expire via TTL.
