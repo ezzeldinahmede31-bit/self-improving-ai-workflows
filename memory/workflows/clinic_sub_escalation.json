@@ -56,8 +56,8 @@
       ],
       "credentials": {
         "telegramApi": {
-          "id": "DLlemykGQ7Zm867F",
-          "name": "Telegram account"
+          "id": "8YZmGiJXc70srNgA",
+          "name": "Secretary Bot API"
         }
       },
       "retryOnFail": true,
@@ -75,6 +75,33 @@
         640,
         300
       ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $env.TELEGRAM_DOCTOR_CHAT_ID || '-100123456789' }}",
+        "text": "=🚨 استشارة طارئة: {{ $('Receive Escalation Request').first().json.patientName }} (شات {{ $('Receive Escalation Request').first().json.patientChatId }}): {{ $('Receive Escalation Request').first().json.reason }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "sw3-doc",
+      "name": "Notify Doctor Emergency",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        500,
+        300
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "zhNlAEMhve1hxdov",
+          "name": "Doctor Bot API"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
     }
   ],
   "connections": {
@@ -90,6 +117,17 @@
       ]
     },
     "Alert On-Call Staff": {
+      "main": [
+        [
+          {
+            "node": "Notify Doctor Emergency",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notify Doctor Emergency": {
       "main": [
         [
           {

@@ -812,223 +812,6 @@
     },
     {
       "parameters": {
-        "operation": "get",
-        "key": "=staff:{{ $input.item.json.userId }}"
-      },
-      "id": "tg-30-lookup",
-      "name": "Lookup Staff Flag",
-      "type": "n8n-nodes-base.redis",
-      "typeVersion": 1,
-      "position": [
-        540,
-        480
-      ],
-      "credentials": {
-        "redis": {
-          "id": "dVToMpaQ33TGQdX3",
-          "name": "Redis account"
-        }
-      },
-      "retryOnFail": true,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict"
-          },
-          "conditions": [
-            {
-              "id": "c-staff",
-              "leftValue": "={{ String($input.item.json.value !== undefined ? $input.item.json.value : ($input.item.json.propertyName !== undefined ? $input.item.json.propertyName : '')) === '1' }}",
-              "rightValue": true,
-              "operator": {
-                "type": "boolean",
-                "operation": "equals"
-              }
-            }
-          ],
-          "combinator": "and"
-        }
-      },
-      "id": "tg-31-isstaff",
-      "name": "Is Staff Member?",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.3,
-      "position": [
-        740,
-        480
-      ]
-    },
-    {
-      "parameters": {
-        "jsCode": "// Parse staff commands (/serving N, /queue). Unknown text gets help.\nconst prev = $('Extract Telegram Payload').first().json;\nconst t = prev.textMessage ? String(prev.textMessage) : '';\nconst m = t.match(/\\/serving\\s+(\\d+)/i);\nconst cmd = m ? 'serving' : (/\\/queue/i.test(t) ? 'queue' : 'help');\nreturn [{ json: { chatId: prev.chatId, cmd: cmd, n: m ? m[1] : '' } }];"
-      },
-      "id": "tg-32-cmd",
-      "name": "Parse Staff Command",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        940,
-        480
-      ]
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict"
-          },
-          "conditions": [
-            {
-              "id": "c-srv",
-              "leftValue": "={{ $input.item.json.cmd === 'serving' }}",
-              "rightValue": true,
-              "operator": {
-                "type": "boolean",
-                "operation": "equals"
-              }
-            }
-          ],
-          "combinator": "and"
-        }
-      },
-      "id": "tg-33-issrv",
-      "name": "Is Serving Command?",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.3,
-      "position": [
-        1140,
-        480
-      ]
-    },
-    {
-      "parameters": {
-        "operation": "set",
-        "key": "={{ 'serving:' + $now.toISO().slice(0, 10) }}",
-        "value": "={{ $input.item.json.n }}"
-      },
-      "id": "tg-34-set",
-      "name": "Set Serving Number",
-      "type": "n8n-nodes-base.redis",
-      "typeVersion": 1,
-      "position": [
-        1340,
-        380
-      ],
-      "credentials": {
-        "redis": {
-          "id": "dVToMpaQ33TGQdX3",
-          "name": "Redis account"
-        }
-      },
-      "retryOnFail": true,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "jsCode": "// Serving-number confirmation for staff.\nconst inp = $input.first().json;\nreturn [{ json: { message: 'تم: الدور الحالي ' + inp.n + ' ✅' } }];"
-      },
-      "id": "tg-35-srep",
-      "name": "Build Serving Reply",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        1540,
-        380
-      ]
-    },
-    {
-      "parameters": {
-        "operation": "get",
-        "key": "={{ 'serving:' + $now.toISO().slice(0, 10) }}"
-      },
-      "id": "tg-36-rserv",
-      "name": "Read Serving Stat",
-      "type": "n8n-nodes-base.redis",
-      "typeVersion": 1,
-      "position": [
-        1340,
-        580
-      ],
-      "credentials": {
-        "redis": {
-          "id": "dVToMpaQ33TGQdX3",
-          "name": "Redis account"
-        }
-      },
-      "retryOnFail": true,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "operation": "get",
-        "key": "={{ 'queue:' + $now.toISO().slice(0, 10) }}"
-      },
-      "id": "tg-37-rcount",
-      "name": "Read Queue Counter",
-      "type": "n8n-nodes-base.redis",
-      "typeVersion": 1,
-      "position": [
-        1540,
-        580
-      ],
-      "credentials": {
-        "redis": {
-          "id": "dVToMpaQ33TGQdX3",
-          "name": "Redis account"
-        }
-      },
-      "retryOnFail": true,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "jsCode": "// Format queue stats for staff (tolerant reads).\nfunction readVal(v) {\n  const t = (typeof v === 'string') ? v : JSON.stringify(v);\n  try { const p = JSON.parse(t); return (p && typeof p === 'object' && !p.value) ? p : (p.value !== undefined ? p.value : p); }\n  catch (e) { return null; }\n}\nconst srv = readVal($('Read Serving Stat').first().json);\nconst tot = readVal($('Read Queue Counter').first().json);\nconst sNum = (srv === null || isNaN(Number(srv))) ? null : Number(srv);\nconst total = (tot === null || isNaN(Number(tot))) ? 0 : Number(tot);\nconst head = sNum === null ? 'الدور الحالي غير معلن بعد.' : ('الدور الحالي ' + String(sNum) + '.');\nreturn [{ json: { message: '📊 الطابور اليوم: ' + head + ' إجمالي الأرقام ' + String(total) + '.' } }];"
-      },
-      "id": "tg-38-fmt",
-      "name": "Format Queue Stats",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        1740,
-        580
-      ]
-    },
-    {
-      "parameters": {
-        "resource": "message",
-        "operation": "sendMessage",
-        "chatId": "={{ $('Parse Staff Command').first().json.chatId }}",
-        "text": "={{ $input.item.json.message }}",
-        "additionalFields": {
-          "appendAttribution": false
-        }
-      },
-      "id": "tg-39-send",
-      "name": "Send Staff Reply",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        1940,
-        480
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "DLlemykGQ7Zm867F",
-          "name": "Telegram account"
-        }
-      },
-      "retryOnFail": true,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
         "name": "check_queue_position",
         "description": "MUST USE when the patient asks about their turn, queue number, or the wait ahead. Returns their number and the wait ahead — always call it instead of guessing.",
         "source": "database",
@@ -1085,17 +868,6 @@
         [
           {
             "node": "Extract Telegram Payload",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Extract Telegram Payload": {
-      "main": [
-        [
-          {
-            "node": "Lookup Staff Flag",
             "type": "main",
             "index": 0
           }
@@ -1284,6 +1056,11 @@
             "node": "Check Telegram Delivery Status",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Alert Clinic Staff - Send Failed",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -1349,11 +1126,6 @@
             "node": "Send Telegram Response",
             "type": "main",
             "index": 0
-          },
-          {
-            "node": "Alert Clinic Staff - Send Failed",
-            "type": "main",
-            "index": 0
           }
         ]
       ]
@@ -1385,125 +1157,23 @@
         ]
       ]
     },
-    "Lookup Staff Flag": {
-      "main": [
-        [
-          {
-            "node": "Is Staff Member?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Is Staff Member?": {
-      "main": [
-        [
-          {
-            "node": "Parse Staff Command",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Redis Atomic Deduplication",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Parse Staff Command": {
-      "main": [
-        [
-          {
-            "node": "Is Serving Command?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Is Serving Command?": {
-      "main": [
-        [
-          {
-            "node": "Set Serving Number",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Read Serving Stat",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Set Serving Number": {
-      "main": [
-        [
-          {
-            "node": "Build Serving Reply",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Build Serving Reply": {
-      "main": [
-        [
-          {
-            "node": "Send Staff Reply",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Read Serving Stat": {
-      "main": [
-        [
-          {
-            "node": "Read Queue Counter",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Read Queue Counter": {
-      "main": [
-        [
-          {
-            "node": "Format Queue Stats",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Format Queue Stats": {
-      "main": [
-        [
-          {
-            "node": "Send Staff Reply",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Check Queue Position": {
       "ai_tool": [
         [
           {
             "node": "AI Clinic Receptionist Agent",
             "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Telegram Payload": {
+      "main": [
+        [
+          {
+            "node": "Redis Atomic Deduplication",
+            "type": "main",
             "index": 0
           }
         ]

@@ -14,5 +14,9 @@
   },
   "clinic_receptionist_telegram.json": {
     "REASONING_REVIEW_REQUIRED::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 3
+  },
+  "whop_campaign_monitor.py": {
+    "QUALITY_BELOW_THRESHOLD::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 2,
+    "REASONING_REVIEW_REQUIRED::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 1
   }
 }

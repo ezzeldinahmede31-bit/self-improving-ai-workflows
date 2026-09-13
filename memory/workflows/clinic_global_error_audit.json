@@ -56,8 +56,8 @@
       ],
       "credentials": {
         "telegramApi": {
-          "id": "DLlemykGQ7Zm867F",
-          "name": "Telegram account"
+          "id": "8YZmGiJXc70srNgA",
+          "name": "Secretary Bot API"
         }
       },
       "retryOnFail": true,
@@ -83,8 +83,8 @@
       ],
       "credentials": {
         "telegramApi": {
-          "id": "DLlemykGQ7Zm867F",
-          "name": "Telegram account"
+          "id": "WmAJYvtGMYhE2WEb",
+          "name": "Developer Bot API"
         }
       },
       "retryOnFail": true,

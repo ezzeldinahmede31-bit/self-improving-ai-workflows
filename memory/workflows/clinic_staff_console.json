@@ -1,0 +1,652 @@
+{
+  "name": "clinic_staff_console",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "clinic-staff-inbound",
+        "responseMode": "onReceived",
+        "options": {
+          "rawBody": true
+        },
+        "authentication": "headerAuth",
+        "pinnedData": [
+          {
+            "json": {
+              "headers": {
+                "x-telegram-bot-api-secret-token": "pinned-sample"
+              },
+              "body": {
+                "update_id": 1,
+                "message": {
+                  "message_id": 1,
+                  "from": {
+                    "id": 1,
+                    "first_name": "Staff"
+                  },
+                  "chat": {
+                    "id": 1,
+                    "type": "private"
+                  },
+                  "date": 1790000000,
+                  "text": "/serving 5"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "id": "st-1",
+      "name": "Receive Staff Update",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        120,
+        300
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "7fjxnk5cevi9Oj07",
+          "name": "Clinic Secretary Header Auth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Verify staff webhook secret (fail-closed, constant-time compare).\nconst inp = $input.first().json;\nconst body = inp.body;\nconst headers = inp.headers ? inp.headers : {};\nconst secret = $env.TELEGRAM_SECRETARY_WEBHOOK_SECRET ? $env.TELEGRAM_SECRETARY_WEBHOOK_SECRET : '';\nif (!secret) { throw new Error('TELEGRAM_SECRETARY_WEBHOOK_SECRET is not configured - refusing all traffic'); }\nconst got = headers['x-telegram-bot-api-secret-token'] ? String(headers['x-telegram-bot-api-secret-token']).trim() : '';\nif (!got) { throw new Error('Missing secret header - rejected'); }\nfunction safeEqual(a, b) {\n  const x = String(a);\n  const y = String(b);\n  if (x.length !== y.length) { return false; }\n  let d = 0;\n  for (let i = 0; i < x.length; i++) { d |= x.charCodeAt(i) ^ y.charCodeAt(i); }\n  return d === 0;\n}\nif (!safeEqual(got, secret)) { throw new Error('Invalid secret header - rejected'); }\nreturn [{ json: { provider: 'staff', verified: true, body: body } }];"
+      },
+      "id": "st-2",
+      "name": "Verify Staff Secret",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        340,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract staff text message (text commands only).\nconst inp = $input.first().json;\nconst body = inp.body;\nconst m = body.message ? body.message : null;\nconst from = m && m.from ? m.from : {};\nconst chat = m && m.chat ? m.chat : {};\nreturn [{ json: { chatId: m ? String(chat.id || '') : '', userId: String(from.id || ''),\n  pushName: from.first_name ? String(from.first_name) : 'staff',\n  textMessage: m && m.text ? String(m.text).trim() : '' } }];"
+      },
+      "id": "st-3",
+      "name": "Extract Staff Message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        540,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "key": "=staff:{{ $input.item.json.userId }}"
+      },
+      "id": "st-4",
+      "name": "Lookup Staff Flag",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        740,
+        300
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-st",
+              "leftValue": "={{ String($input.item.json.value !== undefined ? $input.item.json.value : ($input.item.json.propertyName !== undefined ? $input.item.json.propertyName : '')) === '1' }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "st-5",
+      "name": "Is Staff Member?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        940,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Non-staff refusal (never reveal internals).\nreturn [{ json: { message: 'هذه القناة مخصصة لطاقم العيادة فقط.' } }];"
+      },
+      "id": "st-6",
+      "name": "Refuse Non Staff",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1140,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse staff commands (/serving N, /queue, /agenda). Anything else helps.\nconst inp = $input.first().json;\nconst t = inp.textMessage ? String(inp.textMessage) : '';\nconst m = t.match(/\\/serving\\s+(\\d+)/i);\nconst cmd = m ? 'serving' : (/\\/queue/i.test(t) ? 'queue' : (/\\/agenda/i.test(t) ? 'agenda' : 'help'));\nreturn [{ json: { chatId: inp.chatId, cmd: cmd, n: m ? m[1] : '' } }];"
+      },
+      "id": "st-7",
+      "name": "Parse Staff Instruction",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1140,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-srv",
+              "leftValue": "={{ $input.item.json.cmd === 'serving' }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "st-8",
+      "name": "Is Serving Instruction?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1340,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "={{ 'serving:' + $now.toISO().slice(0, 10) }}",
+        "value": "={{ $input.item.json.n }}"
+      },
+      "id": "st-9",
+      "name": "Set Serving Number",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1540,
+        200
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Serving-number confirmation for staff.\nconst inp = $input.first().json;\nreturn [{ json: { message: 'تم: الدور الحالي ' + inp.n + ' ✅' } }];"
+      },
+      "id": "st-10",
+      "name": "Build Serving Reply",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1740,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-ag",
+              "leftValue": "={{ $input.item.json.cmd === 'agenda' }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "st-11",
+      "name": "Is Agenda Instruction?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1540,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "keys",
+        "keyPattern": "remind:*"
+      },
+      "id": "st-12",
+      "name": "List Today Keys",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1740,
+        320
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Format today agenda from reminder key names (no patient names listed).\nconst j = $input.first().json;\nconst src = Array.isArray(j) ? j : Object.keys(j || {});\nconst today = new Date().toISOString().slice(0, 10);\nconst rows = src\n  .filter((k) => String(k).indexOf('remind:') === 0)\n  .map((k) => String(k).split(':'))\n  .filter((p) => p.length >= 5 && p[3] === today)\n  .map((p) => ({ time: p[4], doctor: p[2] }));\nrows.sort((a, b) => (a.time < b.time ? -1 : 1));\nconst lines = rows.map((r) => '• ' + r.time + ' — ' + r.doctor);\nconst head = '📋 حجوزات اليوم (' + String(rows.length) + '):';\nconst msg = rows.length === 0 ? 'لا توجد حجوزات اليوم.' : (head + '\\n' + lines.join('\\n'));\nreturn [{ json: { message: msg } }];"
+      },
+      "id": "st-13",
+      "name": "Format Agenda Reply",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1940,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-q",
+              "leftValue": "={{ $input.item.json.cmd === 'queue' }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "st-14",
+      "name": "Is Queue Instruction?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1740,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "key": "={{ 'serving:' + $now.toISO().slice(0, 10) }}"
+      },
+      "id": "st-15",
+      "name": "Read Serving Stat",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1940,
+        460
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "key": "={{ 'queue:' + $now.toISO().slice(0, 10) }}"
+      },
+      "id": "st-16",
+      "name": "Read Queue Counter",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        2140,
+        460
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Format queue stats for staff (tolerant reads).\nfunction readVal(v) {\n  const t = (typeof v === 'string') ? v : JSON.stringify(v);\n  try {\n    const p = JSON.parse(t);\n    const u = (p && typeof p === 'object' && p.propertyName !== undefined) ? p.propertyName : p;\n    return (u && typeof u === 'object' && !u.value) ? u : ((u && typeof u === 'object' && u.value !== undefined) ? u.value : u);\n  }\n  catch (e) { return null; }\n}\nconst srv = readVal($('Read Serving Stat').first().json);\nconst tot = readVal($('Read Queue Counter').first().json);\nconst sNum = (srv === null || isNaN(Number(srv))) ? null : Number(srv);\nconst total = (tot === null || isNaN(Number(tot))) ? 0 : Number(tot);\nconst head = sNum === null ? 'الدور الحالي غير معلن بعد.' : ('الدور الحالي ' + String(sNum) + '.');\nreturn [{ json: { message: '📊 الطابور اليوم: ' + head + ' إجمالي الأرقام ' + String(total) + '.' } }];"
+      },
+      "id": "st-17",
+      "name": "Format Queue Stats",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2340,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Staff help card.\nreturn [{ json: { message: 'أوامر الطاقم:\\n/serving <رقم> — تعيين الدور الحالي\\n/queue — إحصائية الطابور\\n/agenda — حجوزات اليوم' } }];"
+      },
+      "id": "st-18",
+      "name": "Build Help Reply",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1940,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $('Parse Staff Instruction').first().json.chatId }}",
+        "text": "={{ $input.item.json.message }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "st-19",
+      "name": "Send Staff Reply",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2140,
+        400
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "8YZmGiJXc70srNgA",
+          "name": "Secretary Bot API"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    }
+  ],
+  "connections": {
+    "Receive Staff Update": {
+      "main": [
+        [
+          {
+            "node": "Verify Staff Secret",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Verify Staff Secret": {
+      "main": [
+        [
+          {
+            "node": "Extract Staff Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Staff Message": {
+      "main": [
+        [
+          {
+            "node": "Lookup Staff Flag",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lookup Staff Flag": {
+      "main": [
+        [
+          {
+            "node": "Is Staff Member?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Staff Member?": {
+      "main": [
+        [
+          {
+            "node": "Parse Staff Instruction",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Refuse Non Staff",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Refuse Non Staff": {
+      "main": [
+        [
+          {
+            "node": "Send Staff Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Staff Instruction": {
+      "main": [
+        [
+          {
+            "node": "Is Serving Instruction?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Serving Instruction?": {
+      "main": [
+        [
+          {
+            "node": "Set Serving Number",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Is Agenda Instruction?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Serving Number": {
+      "main": [
+        [
+          {
+            "node": "Build Serving Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Serving Reply": {
+      "main": [
+        [
+          {
+            "node": "Send Staff Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Agenda Instruction?": {
+      "main": [
+        [
+          {
+            "node": "List Today Keys",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Is Queue Instruction?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Today Keys": {
+      "main": [
+        [
+          {
+            "node": "Format Agenda Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Agenda Reply": {
+      "main": [
+        [
+          {
+            "node": "Send Staff Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Queue Instruction?": {
+      "main": [
+        [
+          {
+            "node": "Read Serving Stat",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build Help Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Serving Stat": {
+      "main": [
+        [
+          {
+            "node": "Read Queue Counter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Queue Counter": {
+      "main": [
+        [
+          {
+            "node": "Format Queue Stats",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Queue Stats": {
+      "main": [
+        [
+          {
+            "node": "Send Staff Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Help Reply": {
+      "main": [
+        [
+          {
+            "node": "Send Staff Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

@@ -2,16 +2,23 @@
   {
     "gate": "quality",
     "pattern": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "count": 49,
+    "count": 52,
     "first_seen": "2026-08-15T01:45:33.866641+00:00",
-    "last_seen": "2026-09-10T04:58:32.112782+00:00"
+    "last_seen": "2026-09-13T23:54:44.482269+00:00"
   },
   {
     "gate": "quality",
     "pattern": "No Error Trigger node and no continueOnFail on any node",
-    "count": 44,
+    "count": 47,
     "first_seen": "2026-08-15T01:45:33.866459+00:00",
-    "last_seen": "2026-08-24T13:49:55.790787+00:00"
+    "last_seen": "2026-09-13T23:54:44.479826+00:00"
+  },
+  {
+    "gate": "skills",
+    "pattern": "no --skills-loaded manifest — actual agent loads are NOT verifiable headless; readiness (installed + frontmatter + routable) verified only",
+    "count": 19,
+    "first_seen": "2026-08-24T13:18:28.258531+00:00",
+    "last_seen": "2026-09-13T23:54:44.483811+00:00"
   },
   {
     "gate": "preflight",
@@ -21,18 +28,11 @@
     "last_seen": "2026-08-17T12:41:54.422748+00:00"
   },
   {
-    "gate": "skills",
-    "pattern": "no --skills-loaded manifest — actual agent loads are NOT verifiable headless; readiness (installed + frontmatter + routable) verified only",
-    "count": 14,
-    "first_seen": "2026-08-24T13:18:28.258531+00:00",
-    "last_seen": "2026-09-13T13:34:37.825357+00:00"
-  },
-  {
     "gate": "dry_run",
     "pattern": "no dry-run evidence: nodes carry no pinned data and no expected_result from a trial run — run the workflow on the n8n instance (n8n-pinned-data-mocking) before delivery",
-    "count": 13,
+    "count": 15,
     "first_seen": "2026-08-17T06:06:55.931702+00:00",
-    "last_seen": "2026-09-10T04:58:32.131451+00:00"
+    "last_seen": "2026-09-13T23:53:43.733895+00:00"
   },
   {
     "gate": "quality",
@@ -40,6 +40,13 @@
     "count": 7,
     "first_seen": "2026-08-24T13:18:28.243630+00:00",
     "last_seen": "2026-09-10T04:58:32.106824+00:00"
+  },
+  {
+    "gate": "quality",
+    "pattern": "Isolated/unreachable nodes: ['Manual Trigger']",
+    "count": 7,
+    "first_seen": "2026-08-24T13:18:28.252049+00:00",
+    "last_seen": "2026-09-13T23:53:43.721998+00:00"
   },
   {
     "gate": "quality",
@@ -61,13 +68,6 @@
     "count": 5,
     "first_seen": "2026-08-24T13:18:28.249444+00:00",
     "last_seen": "2026-08-24T13:49:55.788827+00:00"
-  },
-  {
-    "gate": "quality",
-    "pattern": "Isolated/unreachable nodes: ['Manual Trigger']",
-    "count": 5,
-    "first_seen": "2026-08-24T13:18:28.252049+00:00",
-    "last_seen": "2026-08-24T13:49:55.789782+00:00"
   },
   {
     "gate": "quality",
@@ -397,6 +397,27 @@
     "count": 2,
     "first_seen": "2026-09-13T08:54:48.951826+00:00",
     "last_seen": "2026-09-13T08:55:08.301072+00:00"
+  },
+  {
+    "gate": "quality",
+    "pattern": "Workflow has 29 nodes — recommend sub-workflow split",
+    "count": 2,
+    "first_seen": "2026-09-13T23:17:44.536945+00:00",
+    "last_seen": "2026-09-13T23:24:50.487846+00:00"
+  },
+  {
+    "gate": "integrity",
+    "pattern": "connection source 'Enrich Escalated Facts' is not a node",
+    "count": 2,
+    "first_seen": "2026-09-13T23:17:44.546239+00:00",
+    "last_seen": "2026-09-13T23:24:50.489958+00:00"
+  },
+  {
+    "gate": "integrity",
+    "pattern": "connection source 'Process Reminder State' is not a node",
+    "count": 2,
+    "first_seen": "2026-09-13T23:17:44.547801+00:00",
+    "last_seen": "2026-09-13T23:24:50.497252+00:00"
   },
   {
     "gate": "security",

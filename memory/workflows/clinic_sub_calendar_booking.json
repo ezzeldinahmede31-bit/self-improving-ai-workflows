@@ -466,8 +466,8 @@
       ],
       "credentials": {
         "telegramApi": {
-          "id": "DLlemykGQ7Zm867F",
-          "name": "Telegram account"
+          "id": "8YZmGiJXc70srNgA",
+          "name": "Secretary Bot API"
         }
       },
       "retryOnFail": true,
@@ -492,6 +492,33 @@
         "redis": {
           "id": "dVToMpaQ33TGQdX3",
           "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $env.TELEGRAM_DOCTOR_CHAT_ID || '-100123456789' }}",
+        "text": "=🩺 حجز جديد: {{ $('Decide Slot Free').first().json.patientName }} — {{ $('Decide Slot Free').first().json.service }} مع {{ $('Decide Slot Free').first().json.doctor }} يوم {{ $('Decide Slot Free').first().json.date }} الساعة {{ $('Decide Slot Free').first().json.time }} (دور {{ $('Reply Booking Confirmed').first().json.queueNumber }}).",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "sw1-doc",
+      "name": "Notify Doctor New Booking",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2120,
+        120
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "zhNlAEMhve1hxdov",
+          "name": "Doctor Bot API"
         }
       },
       "retryOnFail": true,
@@ -637,11 +664,6 @@
             "node": "Reply Booking Failed",
             "type": "main",
             "index": 0
-          },
-          {
-            "node": "Alert Staff Manual Booking",
-            "type": "main",
-            "index": 0
           }
         ]
       ]
@@ -671,11 +693,6 @@
             "node": "Reply Check Failed",
             "type": "main",
             "index": 0
-          },
-          {
-            "node": "Alert Staff Manual Booking",
-            "type": "main",
-            "index": 0
           }
         ]
       ]
@@ -685,6 +702,13 @@
         [
           {
             "node": "Build Reminder Record",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Notify Doctor New Booking",
             "type": "main",
             "index": 0
           }
@@ -707,6 +731,28 @@
         [
           {
             "node": "Reply Booking Confirmed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reply Check Failed": {
+      "main": [
+        [
+          {
+            "node": "Alert Staff Manual Booking",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reply Booking Failed": {
+      "main": [
+        [
+          {
+            "node": "Alert Staff Manual Booking",
             "type": "main",
             "index": 0
           }

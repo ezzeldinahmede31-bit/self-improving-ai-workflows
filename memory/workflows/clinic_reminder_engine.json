@@ -52,7 +52,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Fan the KEYS map out to one candidate item per reminder record.\nconst j = $input.first().json;\nconst entries = Array.isArray(j) ? j.map((v) => ['', v]) : Object.entries(j || {});\nconst parseRec = (v) => {\n  if (typeof v === 'string') { try { return JSON.parse(v); } catch (e) { return null; } }\n  return (v && typeof v === 'object') ? v : null;\n};\nconst shaped = (k, rec) => {\n  const appt = Date.parse(rec.appointmentISO);\n  const lead = (Number(rec.leadHours) || 6) * 3600 * 1000;\n  const rAt = Number(rec.remindedAt) || null;\n  return { json: { record: rec, apptMs: appt, remindAtMs: appt - lead,\n    escAtMs: rAt ? (rAt + 120000) : null } };\n};\nreturn entries\n  .filter(([k]) => String(k).indexOf('remind:') === 0)\n  .map(([, v]) => parseRec(v))\n  .filter((rec) => rec && rec.appointmentISO)\n  .map((rec) => shaped('', rec));"
+        "jsCode": "// Fan reminder + confirmed maps out to decided items (single pass, no joins).\nconst items = $input.all().map((it) => it.json);\nconst rmap = items.find((o) => o && Object.keys(o).some((k) => String(k).indexOf('remind:') === 0)) || {};\nconst cmap = items.find((o) => o && Object.keys(o).some((k) => String(k).indexOf('confirmed:') === 0)) || {};\nconst now = Date.now();\nconst parseRec = (v) => {\n  if (typeof v === 'string') { try { return JSON.parse(v); } catch (e) { return null; } }\n  return (v && typeof v === 'object') ? v : null;\n};\nconst shape = (rec) => {\n  const appt = Date.parse(rec.appointmentISO);\n  const lead = (Number(rec.leadHours) || 6) * 3600 * 1000;\n  const rAt = Number(rec.remindedAt) || null;\n  const confRaw = cmap['confirmed:' + (rec.chatId || '')];\n  const confAt = (confRaw === null || confRaw === undefined) ? null : Number(confRaw);\n  const fresh = confAt !== null && !isNaN(confAt) && rAt !== null && confAt > rAt;\n  const future = !isNaN(appt) && appt > now;\n  return { json: { record: rec,\n    needsRemind: !isNaN(appt) && !rAt && future && now >= appt - lead,\n    needsCleanup: isNaN(appt) || appt < now - 2 * 3600 * 1000,\n    needsEscalation: !isNaN(appt) && !!rAt && !fresh && !rec.escalatedAt && future && now > rAt + 120000 } };\n};\nreturn Object.keys(rmap)\n  .filter((k) => String(k).indexOf('remind:') === 0)\n  .map((k) => parseRec(rmap[k]))\n  .filter((rec) => rec && rec.appointmentISO)\n  .map((rec) => shape(rec));"
       },
       "id": "en-sk",
       "name": "Split Map To Items",
@@ -74,7 +74,7 @@
           "conditions": [
             {
               "id": "c-rem",
-              "leftValue": "={{ !$input.item.json.record.remindedAt && $now.toMillis() >= $input.item.json.remindAtMs && $now.toMillis() < $input.item.json.apptMs }}",
+              "leftValue": "={{ $input.item.json.needsRemind === true }}",
               "rightValue": true,
               "operator": {
                 "type": "boolean",
@@ -168,7 +168,7 @@
           "conditions": [
             {
               "id": "c-clean",
-              "leftValue": "={{ $now.toMillis() > $input.item.json.apptMs + 7200000 }}",
+              "leftValue": "={{ $input.item.json.needsCleanup === true }}",
               "rightValue": true,
               "operator": {
                 "type": "boolean",
@@ -271,7 +271,7 @@
           "conditions": [
             {
               "id": "c-esc",
-              "leftValue": "={{ !!$input.item.json.record.remindedAt && $input.item.json.escAtMs !== null && $now.toMillis() > $input.item.json.escAtMs && $now.toMillis() < $input.item.json.apptMs }}",
+              "leftValue": "={{ $input.item.json.needsEscalation === true }}",
               "rightValue": true,
               "operator": {
                 "type": "boolean",
@@ -288,87 +288,6 @@
       "typeVersion": 2.3,
       "position": [
         720,
-        660
-      ]
-    },
-    {
-      "parameters": {
-        "operation": "get",
-        "key": "={{ 'confirmed:' + $input.item.json.record.chatId }}"
-      },
-      "id": "en-gc",
-      "name": "Read Confirmed Marker",
-      "type": "n8n-nodes-base.redis",
-      "typeVersion": 1,
-      "position": [
-        920,
-        660
-      ],
-      "credentials": {
-        "redis": {
-          "id": "dVToMpaQ33TGQdX3",
-          "name": "Redis account"
-        }
-      },
-      "retryOnFail": true,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "mode": "combine",
-        "outputDataFrom": "both",
-        "options": {}
-      },
-      "id": "en-mf",
-      "name": "Merge Freshness Context",
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 3.2,
-      "position": [
-        1120,
-        660
-      ]
-    },
-    {
-      "parameters": {
-        "jsCode": "// Freshness verdict for one escalation candidate (single merged item).\nconst inp = $input.first().json;\nconst raw = inp.propertyName;\nconst conf = (raw === null || raw === undefined) ? null : Number(raw);\nconst rec = inp.record || {};\nconst rAt = Number(rec.remindedAt) || null;\nconst fresh = (conf !== null && !isNaN(conf) && rAt !== null && conf > rAt);\nreturn [{ json: { fresh: fresh, record: rec } }];"
-      },
-      "id": "en-df",
-      "name": "Decide Freshness Verdict",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        1320,
-        660
-      ]
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict"
-          },
-          "conditions": [
-            {
-              "id": "c-fresh",
-              "leftValue": "={{ $input.item.json.fresh === true }}",
-              "rightValue": true,
-              "operator": {
-                "type": "boolean",
-                "operation": "equals"
-              }
-            }
-          ],
-          "combinator": "and"
-        }
-      },
-      "id": "en-if",
-      "name": "Is Freshly Confirmed?",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.3,
-      "position": [
-        1520,
         660
       ]
     },
@@ -403,8 +322,8 @@
       ],
       "credentials": {
         "telegramApi": {
-          "id": "DLlemykGQ7Zm867F",
-          "name": "Telegram account"
+          "id": "8YZmGiJXc70srNgA",
+          "name": "Secretary Bot API"
         }
       },
       "retryOnFail": true,
@@ -618,8 +537,8 @@
       ],
       "credentials": {
         "telegramApi": {
-          "id": "DLlemykGQ7Zm867F",
-          "name": "Telegram account"
+          "id": "WmAJYvtGMYhE2WEb",
+          "name": "Developer Bot API"
         }
       },
       "retryOnFail": true,
@@ -645,8 +564,30 @@
       ],
       "credentials": {
         "telegramApi": {
-          "id": "DLlemykGQ7Zm867F",
-          "name": "Telegram account"
+          "id": "8YZmGiJXc70srNgA",
+          "name": "Secretary Bot API"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "keys",
+        "keyPattern": "confirmed:*"
+      },
+      "id": "en-kc",
+      "name": "List Confirmed Markers",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        320,
+        480
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
         }
       },
       "retryOnFail": true,
@@ -664,6 +605,11 @@
           },
           {
             "node": "Probe Redis Health",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "List Confirmed Markers",
             "type": "main",
             "index": 0
           }
@@ -789,57 +735,6 @@
         ]
       ]
     },
-    "Read Confirmed Marker": {
-      "main": [
-        [
-          {
-            "node": "Merge Freshness Context",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Merge Freshness Context": {
-      "main": [
-        [
-          {
-            "node": "Decide Freshness Verdict",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Decide Freshness Verdict": {
-      "main": [
-        [
-          {
-            "node": "Is Freshly Confirmed?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Is Freshly Confirmed?": {
-      "main": [
-        [
-          {
-            "node": "No Action Due",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Notify Nurse Unconfirmed",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Mark Escalated Record": {
       "main": [
         [
@@ -936,6 +831,28 @@
         [
           {
             "node": "Alert Secretary Health",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notify Nurse Unconfirmed": {
+      "main": [
+        [
+          {
+            "node": "Mark Escalated Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Confirmed Markers": {
+      "main": [
+        [
+          {
+            "node": "Split Map To Items",
             "type": "main",
             "index": 0
           }
