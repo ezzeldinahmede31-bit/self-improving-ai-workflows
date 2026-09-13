@@ -42,7 +42,9 @@
         "operation": "sendMessage",
         "chatId": "={{ $env.TELEGRAM_STAFF_CHAT_ID || '-100123456789' }}",
         "text": "=ESCALATION from {{ $input.item.json.patientName }} (chat {{ $input.item.json.patientChatId }}): {{ $input.item.json.reason }}",
-        "additionalFields": {}
+        "additionalFields": {
+          "appendAttribution": false
+        }
       },
       "id": "sw3-a",
       "name": "Alert On-Call Staff",
