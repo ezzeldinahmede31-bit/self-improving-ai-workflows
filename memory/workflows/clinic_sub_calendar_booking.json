@@ -151,7 +151,9 @@
     },
     {
       "parameters": {
-        "jsCode": "// Decide window state: error items mean the check itself failed (never report taken).\nconst all = $input.all();\nconst prev = $('Build Slot Window').first().json;\nconst first = all.length > 0 ? all[0].json : null;\nconst bad = first ? (first.error !== undefined ? true : false) : false;\nconst free = bad ? false : (all.length === 0);\nreturn [{ json: { free: free, checkFailed: bad, slotKey: prev.slotKey, startISO: prev.startISO, endISO: prev.endISO, doctor: prev.doctor, date: prev.date, time: prev.time, service: prev.service, patientName: prev.patientName, patientChat: prev.patientChat } }];"
+        "jsCode": "// Decide window state: error items mean the check itself failed (never report taken).\nconst all = $input.all();\nconst prev = $('Build Slot Window').first().json;\nconst first = all.length > 0 ? all[0].json : null;\nconst bad = first ? (first.error !== undefined ? true : false) : false;\nconst free = bad ? false : (all.length === 0);\nreturn [{ json: { free: free, checkFailed: bad, slotKey: prev.slotKey, startISO: prev.startISO, endISO: prev.endISO, doctor: prev.doctor, date: prev.date, time: prev.time, service: prev.service, patientName: prev.patientName, patientChat: prev.patientChat } }];",
+        "mode": "runOnceForAllItems",
+        "alwaysOutputData": true
       },
       "id": "sw1-d",
       "name": "Decide Slot Free",
@@ -329,7 +331,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Booking-confirmed contract for the agent.\nconst inp = $input.first().json;\nconst prev = $('Decide Slot Free').first().json;\nconst eid = inp.id ? String(inp.id) : '';\nreturn [{ json: { booked: true, eventId: eid, message: 'تم الحجز: ' + prev.service + ' مع ' + prev.doctor + ' يوم ' + prev.date + ' الساعة ' + prev.time + ' باسم ' + prev.patientName + '.', slotKey: prev.slotKey } }];"
+        "jsCode": "// Booking-confirmed contract for the agent (number from queue claim, event from create).\nconst prev = $('Decide Slot Free').first().json;\nconst q = $input.first().json;\nconst eid = $('Create Calendar Event').first().json.id;\nconst num = q[Object.keys(q)[0]];\nreturn [{ json: { booked: true, eventId: eid ? String(eid) : '', queueNumber: num, message: 'تم الحجز: ' + prev.service + ' مع ' + prev.doctor + ' يوم ' + prev.date + ' الساعة ' + prev.time + ' باسم ' + prev.patientName + '. رقم دورك ' + String(num) + '.', slotKey: prev.slotKey } }];"
       },
       "id": "sw1-cf",
       "name": "Reply Booking Confirmed",
@@ -407,6 +409,93 @@
       "retryOnFail": true,
       "onError": "continueRegularOutput",
       "notes": "Approved by design: runs only after an explicit failure condition (lost race / busy slot / create failed). Documented human-approved compensation."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Build the reminder record (immutable facts for the reminder engine).\nconst prev = $('Decide Slot Free').first().json;\nconst rep = $input.first().json;\nconst today = new Date().toISOString().slice(0, 10);\nconst sameDay = today === prev.date;\nreturn [{ json: { chatId: prev.patientChat, appointmentISO: prev.startISO, bookedDate: today, leadHours: sameDay ? 2 : 6, doctor: prev.doctor, service: prev.service, patientName: prev.patientName, slotKey: prev.slotKey, date: prev.date, time: prev.time, eventId: rep.eventId ? rep.eventId : '', queueNumber: rep.queueNumber ? rep.queueNumber : 0 } }];"
+      },
+      "id": "sw1-br",
+      "name": "Build Reminder Record",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2120,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=remind:{{ $input.item.json.chatId }}:{{ $input.item.json.slotKey }}",
+        "value": "={{ JSON.stringify($input.item.json) }}"
+      },
+      "id": "sw1-sr",
+      "name": "Store Reminder Record",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        2320,
+        220
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $env.TELEGRAM_STAFF_CHAT_ID || '-100123456789' }}",
+        "text": "=حجز يدوي مطلوب: {{ $('Decide Slot Free').first().json.patientName }} (شات {{ $('Decide Slot Free').first().json.patientChat }}) — {{ $('Decide Slot Free').first().json.service }} مع {{ $('Decide Slot Free').first().json.doctor }} يوم {{ $('Decide Slot Free').first().json.date }} الساعة {{ $('Decide Slot Free').first().json.time }}. أكمل الحجز يدويا من فضلك.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "sw1-sa",
+      "name": "Alert Staff Manual Booking",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2120,
+        520
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "DLlemykGQ7Zm867F",
+          "name": "Telegram account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "incr",
+        "key": "=queue:{{ $input.item.json.date }}:{{ $input.item.json.doctor }}",
+        "expire": true,
+        "ttl": 172800
+      },
+      "id": "sw1-qq",
+      "name": "Claim Queue Number",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1720,
+        160
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
     }
   ],
   "connections": {
@@ -527,7 +616,7 @@
       "main": [
         [
           {
-            "node": "Reply Booking Confirmed",
+            "node": "Claim Queue Number",
             "type": "main",
             "index": 0
           }
@@ -546,6 +635,11 @@
         [
           {
             "node": "Reply Booking Failed",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Alert Staff Manual Booking",
             "type": "main",
             "index": 0
           }
@@ -577,12 +671,51 @@
             "node": "Reply Check Failed",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Alert Staff Manual Booking",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reply Booking Confirmed": {
+      "main": [
+        [
+          {
+            "node": "Build Reminder Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Reminder Record": {
+      "main": [
+        [
+          {
+            "node": "Store Reminder Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claim Queue Number": {
+      "main": [
+        [
+          {
+            "node": "Reply Booking Confirmed",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
     }
   },
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "errorWorkflow": "QvodOlYfZIRV22Qn"
   }
 }

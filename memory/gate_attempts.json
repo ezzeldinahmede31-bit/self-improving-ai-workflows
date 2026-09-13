@@ -13,6 +13,6 @@
     "SECURITY_VIOLATION_REQUIRES_HUMAN::[DESTRUCTIVE_ACTION_NO_APPROVAL] Single destructive action 'Release Slot Claim' (n8n-nodes-base.redis delete) requires h": 1
   },
   "clinic_receptionist_telegram.json": {
-    "REASONING_REVIEW_REQUIRED::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 2
+    "REASONING_REVIEW_REQUIRED::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 3
   }
 }

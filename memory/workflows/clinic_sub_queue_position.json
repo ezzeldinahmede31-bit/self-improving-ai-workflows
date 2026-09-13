@@ -1,0 +1,186 @@
+{
+  "name": "check_queue_position",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "patientChatId",
+              "type": "string"
+            }
+          ]
+        },
+        "pinnedData": [
+          {
+            "json": {
+              "ping": "pinned-sample"
+            }
+          }
+        ]
+      },
+      "id": "sq-t",
+      "name": "Receive Queue Query",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        120,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "keys",
+        "keyPattern": "=remind:{{ $input.item.json.patientChatId }}:*"
+      },
+      "id": "sq-k",
+      "name": "Find Patient Booking",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        340,
+        300
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Pick the patient booking key (tolerant to Redis KEYS output shapes).\nconst s = JSON.stringify($input.all());\nconst m = s.match(/remind:[^\"\\\\]+/);\nconst key = m ? m[0] : '';\nreturn [{ json: { key: key } }];",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "sq-p",
+      "name": "Pick Nearest Booking",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        560,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "key": "={{ $input.item.json.key }}"
+      },
+      "id": "sq-r",
+      "name": "Read Booking Record",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        780,
+        300
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "key": "={{ 'serving:' + $now.toISO().slice(0, 10) }}"
+      },
+      "id": "sq-s",
+      "name": "Read Serving Number",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        300
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Compute queue reply (tolerant reads, Arabic-first chic copy).\nfunction readVal(v) {\n  const un = (x) => {\n    if (x && typeof x === 'object' && x.propertyName !== undefined) { return un(x.propertyName); }\n    if (typeof x === 'string') { const t = x.trim(); if (t.startsWith('{') || t.startsWith('[')) { try { return JSON.parse(t); } catch (e) { return t; } } return t; }\n    if (x && typeof x === 'object' && x.value !== undefined) { return x.value; }\n    return x;\n  };\n  return un(v);\n}\nconst rec = readVal($('Read Booking Record').first().json);\nconst srv = readVal($input.first().json);\nconst sNum = srv === null ? null : Number(srv);\nif (rec === null || !rec.queueNumber) {\n  return [{ json: { found: false, message: 'لا يوجد حجز قادم باسمك. احجز أولا وسأخبرك برقم دورك.' } }];\n}\nconst mine = Number(rec.queueNumber);\nconst left = (sNum === null || isNaN(sNum)) ? null : Math.max(0, mine - sNum);\nconst head = 'رقم دورك ' + String(mine) + '️⃣';\nconst body = left === null ? 'لم يعلن الدور الحالي بعد.' : (left === 0 ? 'دورك الحالي الآن! توجه للاستقبال.' : ('الدور الحالي ' + String(sNum) + '، فاضل ' + String(left) + ' قبلك ✅'));\nreturn [{ json: { found: true, message: head + '\\n' + body } }];"
+      },
+      "id": "sq-c",
+      "name": "Compute Queue Reply",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1220,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Receive Queue Query": {
+      "main": [
+        [
+          {
+            "node": "Find Patient Booking",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Patient Booking": {
+      "main": [
+        [
+          {
+            "node": "Pick Nearest Booking",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pick Nearest Booking": {
+      "main": [
+        [
+          {
+            "node": "Read Booking Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Booking Record": {
+      "main": [
+        [
+          {
+            "node": "Read Serving Number",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Serving Number": {
+      "main": [
+        [
+          {
+            "node": "Compute Queue Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "QvodOlYfZIRV22Qn"
+  }
+}

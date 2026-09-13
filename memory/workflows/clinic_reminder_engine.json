@@ -1,0 +1,950 @@
+{
+  "name": "clinic_reminder_engine",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 2
+            }
+          ]
+        },
+        "pinnedData": [
+          {
+            "json": {
+              "ping": "pinned-sample"
+            }
+          }
+        ]
+      },
+      "id": "en-t",
+      "name": "Tick Reminder Engine",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        120,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "keys",
+        "keyPattern": "remind:*"
+      },
+      "id": "en-k",
+      "name": "List Reminder Keys",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        320,
+        300
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Fan the KEYS map out to one candidate item per reminder record.\nconst j = $input.first().json;\nconst entries = Array.isArray(j) ? j.map((v) => ['', v]) : Object.entries(j || {});\nconst parseRec = (v) => {\n  if (typeof v === 'string') { try { return JSON.parse(v); } catch (e) { return null; } }\n  return (v && typeof v === 'object') ? v : null;\n};\nconst shaped = (k, rec) => {\n  const appt = Date.parse(rec.appointmentISO);\n  const lead = (Number(rec.leadHours) || 6) * 3600 * 1000;\n  const rAt = Number(rec.remindedAt) || null;\n  return { json: { record: rec, apptMs: appt, remindAtMs: appt - lead,\n    escAtMs: rAt ? (rAt + 120000) : null } };\n};\nreturn entries\n  .filter(([k]) => String(k).indexOf('remind:') === 0)\n  .map(([, v]) => parseRec(v))\n  .filter((rec) => rec && rec.appointmentISO)\n  .map((rec) => shaped('', rec));"
+      },
+      "id": "en-sk",
+      "name": "Split Map To Items",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        520,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-rem",
+              "leftValue": "={{ !$input.item.json.record.remindedAt && $now.toMillis() >= $input.item.json.remindAtMs && $now.toMillis() < $input.item.json.apptMs }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "en-ir",
+      "name": "Time To Remind?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        720,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $input.item.json.record.chatId }}",
+        "text": "=🌟 تذكير بموعدك في عيادتنا\n👨‍⚕️ {{ $input.item.json.record.doctor }} — {{ $input.item.json.record.service }}\n🕙 {{ $input.item.json.record.date }} الساعة {{ $input.item.json.record.time }} — رقم دورك {{ $input.item.json.record.queueNumber }}\nرد بـ «تمام» للتأكيد ✅",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "en-sr",
+      "name": "Send Patient Reminder",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        920,
+        300
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "DLlemykGQ7Zm867F",
+          "name": "Telegram account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Stamp remindedAt on record items; ignore anything else.\nconst inp = $input.first().json;\nconst rec = inp.record;\nif (!rec || !rec.chatId) { return []; }\nreturn [{ json: { ...rec, remindedAt: Date.now() } }];"
+      },
+      "id": "en-mr",
+      "name": "Mark Reminded Record",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=remind:{{ $input.item.json.chatId }}:{{ $input.item.json.slotKey }}",
+        "value": "={{ JSON.stringify($input.item.json) }}"
+      },
+      "id": "en-sv",
+      "name": "Store Reminded Record",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1320,
+        300
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-clean",
+              "leftValue": "={{ $now.toMillis() > $input.item.json.apptMs + 7200000 }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "en-ic",
+      "name": "Needs Cleanup?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        720,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "=remind:{{ $input.item.json.record.chatId }}:{{ $input.item.json.record.slotKey }}",
+        "requiresHumanApproval": true
+      },
+      "id": "en-d1",
+      "name": "Delete Reminder Record",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        920,
+        480
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput",
+      "notes": "Approved by design: removes only its own expired booking reminder + markers."
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "=reminded:{{ $input.item.json.record.chatId }}:{{ $input.item.json.record.slotKey }}",
+        "requiresHumanApproval": true
+      },
+      "id": "en-d2",
+      "name": "Delete Reminded Marker",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        480
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput",
+      "notes": "Approved by design: removes only its own expired booking reminder + markers."
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "=escalated:{{ $input.item.json.record.chatId }}:{{ $input.item.json.record.slotKey }}",
+        "requiresHumanApproval": true
+      },
+      "id": "en-d3",
+      "name": "Delete Escalated Marker",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1320,
+        480
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput",
+      "notes": "Approved by design: removes only its own expired booking reminder + markers."
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-esc",
+              "leftValue": "={{ !!$input.item.json.record.remindedAt && $input.item.json.escAtMs !== null && $now.toMillis() > $input.item.json.escAtMs && $now.toMillis() < $input.item.json.apptMs }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "en-ie",
+      "name": "Needs Escalation?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        720,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "key": "={{ 'confirmed:' + $input.item.json.record.chatId }}"
+      },
+      "id": "en-gc",
+      "name": "Read Confirmed Marker",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        920,
+        660
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "outputDataFrom": "both",
+        "options": {}
+      },
+      "id": "en-mf",
+      "name": "Merge Freshness Context",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1120,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Freshness verdict for one escalation candidate (single merged item).\nconst inp = $input.first().json;\nconst raw = inp.propertyName;\nconst conf = (raw === null || raw === undefined) ? null : Number(raw);\nconst rec = inp.record || {};\nconst rAt = Number(rec.remindedAt) || null;\nconst fresh = (conf !== null && !isNaN(conf) && rAt !== null && conf > rAt);\nreturn [{ json: { fresh: fresh, record: rec } }];"
+      },
+      "id": "en-df",
+      "name": "Decide Freshness Verdict",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1320,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-fresh",
+              "leftValue": "={{ $input.item.json.fresh === true }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "en-if",
+      "name": "Is Freshly Confirmed?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1520,
+        660
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "en-nn",
+      "name": "No Action Due",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1720,
+        560
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $env.TELEGRAM_NURSE_CHAT_ID || $env.TELEGRAM_STAFF_CHAT_ID || '-100123456789' }}",
+        "text": "=📞 مكالمة مطلوبة: {{ $input.item.json.record.patientName }} (شات {{ $input.item.json.record.chatId }}) — ميعاده اليوم {{ $input.item.json.record.time }} مع {{ $input.item.json.record.doctor }} ({{ $input.item.json.record.service }})، لم يؤكد بعد التذكير. اتصلي به هاتفيا من فضلك.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "en-ne",
+      "name": "Notify Nurse Unconfirmed",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1720,
+        760
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "DLlemykGQ7Zm867F",
+          "name": "Telegram account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Stamp escalatedAt on record items; ignore anything else.\nconst inp = $input.first().json;\nconst rec = inp.record;\nif (!rec || !rec.chatId) { return []; }\nreturn [{ json: { ...rec, escalatedAt: Date.now() } }];"
+      },
+      "id": "en-me",
+      "name": "Mark Escalated Record",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1920,
+        760
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=remind:{{ $input.item.json.chatId }}:{{ $input.item.json.slotKey }}",
+        "value": "={{ JSON.stringify($input.item.json) }}"
+      },
+      "id": "en-se",
+      "name": "Store Escalated Record",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        2120,
+        760
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "incr",
+        "key": "health:engine",
+        "expire": true,
+        "ttl": 300
+      },
+      "id": "en-hi",
+      "name": "Probe Redis Health",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        320,
+        120
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-hr",
+              "leftValue": "={{ $input.item.json.error === undefined }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "en-hr",
+      "name": "Is Redis Healthy?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        520,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "event",
+        "operation": "getAll",
+        "calendar": {
+          "mode": "list",
+          "value": "primary"
+        },
+        "returnAll": true,
+        "timeMin": "={{ $now.plus(30, 'days').toISO() }}",
+        "timeMax": "={{ $now.plus(30, 'days').plus(1, 'hour').toISO() }}"
+      },
+      "id": "en-gp",
+      "name": "Probe Calendar Health",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        520,
+        20
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "iFjuW0ce6IHFydGn",
+          "name": "Google Calendar account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-hg",
+              "leftValue": "={{ $input.item.json.error === undefined }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "en-hg",
+      "name": "Is Calendar Healthy?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        720,
+        20
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Shape a redis health alert for owner + secretary.\nconst inp = $input.first().json;\nconst problem = inp.error ? String(inp.error) : 'unreachable';\nreturn [{ json: { message: '🚨 عطل بالنظام [redis]: ' + problem } }];"
+      },
+      "id": "en-fh",
+      "name": "Format Redis Alert",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        920,
+        70
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Shape a calendar health alert for owner + secretary.\nconst inp = $input.first().json;\nconst problem = inp.error ? String(inp.error) : 'unreachable';\nreturn [{ json: { message: '🚨 عطل بالنظام [calendar]: ' + problem + ' — أعد ربط توكن جوجل' } }];"
+      },
+      "id": "en-fc",
+      "name": "Format Calendar Alert",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        920,
+        -30
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "en-hp",
+      "name": "Health Checks Passed",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        920,
+        -90
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $env.TELEGRAM_OWNER_CHAT_ID || '7198289938' }}",
+        "text": "={{ $input.item.json.message }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "en-ao",
+      "name": "Alert Owner Health",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1120,
+        70
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "DLlemykGQ7Zm867F",
+          "name": "Telegram account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $env.TELEGRAM_STAFF_CHAT_ID || '-100123456789' }}",
+        "text": "={{ $input.item.json.message }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "en-as",
+      "name": "Alert Secretary Health",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1320,
+        70
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "DLlemykGQ7Zm867F",
+          "name": "Telegram account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    }
+  ],
+  "connections": {
+    "Tick Reminder Engine": {
+      "main": [
+        [
+          {
+            "node": "List Reminder Keys",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Probe Redis Health",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Reminder Keys": {
+      "main": [
+        [
+          {
+            "node": "Split Map To Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Map To Items": {
+      "main": [
+        [
+          {
+            "node": "Time To Remind?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Time To Remind?": {
+      "main": [
+        [
+          {
+            "node": "Send Patient Reminder",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Mark Reminded Record",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Needs Escalation?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Reminded Record": {
+      "main": [
+        [
+          {
+            "node": "Store Reminded Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Needs Cleanup?": {
+      "main": [
+        [
+          {
+            "node": "Delete Reminder Record",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Needs Escalation?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete Reminder Record": {
+      "main": [
+        [
+          {
+            "node": "Delete Reminded Marker",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete Reminded Marker": {
+      "main": [
+        [
+          {
+            "node": "Delete Escalated Marker",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Needs Escalation?": {
+      "main": [
+        [
+          {
+            "node": "Notify Nurse Unconfirmed",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Mark Escalated Record",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Action Due",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Confirmed Marker": {
+      "main": [
+        [
+          {
+            "node": "Merge Freshness Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Freshness Context": {
+      "main": [
+        [
+          {
+            "node": "Decide Freshness Verdict",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Decide Freshness Verdict": {
+      "main": [
+        [
+          {
+            "node": "Is Freshly Confirmed?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Freshly Confirmed?": {
+      "main": [
+        [
+          {
+            "node": "No Action Due",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Notify Nurse Unconfirmed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Escalated Record": {
+      "main": [
+        [
+          {
+            "node": "Store Escalated Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Probe Redis Health": {
+      "main": [
+        [
+          {
+            "node": "Is Redis Healthy?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Redis Healthy?": {
+      "main": [
+        [
+          {
+            "node": "Probe Calendar Health",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Format Redis Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Probe Calendar Health": {
+      "main": [
+        [
+          {
+            "node": "Is Calendar Healthy?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Calendar Healthy?": {
+      "main": [
+        [
+          {
+            "node": "Health Checks Passed",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Format Calendar Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Redis Alert": {
+      "main": [
+        [
+          {
+            "node": "Alert Owner Health",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Calendar Alert": {
+      "main": [
+        [
+          {
+            "node": "Alert Owner Health",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Alert Owner Health": {
+      "main": [
+        [
+          {
+            "node": "Alert Secretary Health",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "QvodOlYfZIRV22Qn"
+  }
+}

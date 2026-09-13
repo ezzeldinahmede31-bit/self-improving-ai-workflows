@@ -1,0 +1,129 @@
+{
+  "name": "clinic_global_error_audit",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "nodes": [
+    {
+      "parameters": {
+        "pinnedData": [
+          {
+            "json": {
+              "ping": "pinned-sample"
+            }
+          }
+        ]
+      },
+      "id": "er-t",
+      "name": "Catch Workflow Failure",
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        120,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Shape the failure report (Error Trigger nests under execution/workflow).\nconst inp = $input.first().json;\nconst ex = inp.execution ? inp.execution : {};\nconst err = ex.error ? ex.error : (inp.error ? inp.error : {});\nconst src = inp.workflow ? inp.workflow : {};\nconst msg = err.message ? String(err.message) : 'unknown error';\nconst node = ex.lastNodeExecuted ? String(ex.lastNodeExecuted) : 'unknown node';\nconst wname = src.name ? String(src.name) : 'unknown workflow';\nreturn [{ json: { message: '🚨 عطل بالنظام — ' + wname + ' — العقدة ' + node + ': ' + msg } }];"
+      },
+      "id": "er-f",
+      "name": "Format Failure Report",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        340,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $env.TELEGRAM_STAFF_CHAT_ID || '-100123456789' }}",
+        "text": "={{ $input.item.json.message }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "er-s",
+      "name": "Alert Secretary On Failure",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        560,
+        300
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "DLlemykGQ7Zm867F",
+          "name": "Telegram account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $env.TELEGRAM_OWNER_CHAT_ID || '7198289938' }}",
+        "text": "={{ $('Format Failure Report').first().json.message }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "er-o",
+      "name": "Alert Owner On Failure",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        780,
+        300
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "DLlemykGQ7Zm867F",
+          "name": "Telegram account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    }
+  ],
+  "connections": {
+    "Catch Workflow Failure": {
+      "main": [
+        [
+          {
+            "node": "Format Failure Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Failure Report": {
+      "main": [
+        [
+          {
+            "node": "Alert Secretary On Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Alert Secretary On Failure": {
+      "main": [
+        [
+          {
+            "node": "Alert Owner On Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

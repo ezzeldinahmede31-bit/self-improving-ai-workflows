@@ -80,7 +80,7 @@
     {
       "parameters": {
         "operation": "incr",
-        "key": "=tg:{{ $input.item.json.chatId }}:{{ $input.item.json.messageId }}",
+        "key": "=tg:{{ $('Extract Telegram Payload').first().json.chatId }}:{{ $('Extract Telegram Payload').first().json.messageId }}",
         "expire": true,
         "ttl": 86400
       },
@@ -314,13 +314,14 @@
         "promptType": "define",
         "text": "=Patient Chat: {{ $input.item.json.chatId }}\nPatient Name: {{ $input.item.json.pushName }}\nMessage: {{ $input.item.json.finalMessage }}",
         "options": {
-          "systemMessage": "=You are \"Sara\", the smart receptionist of [clinic name].\nAnalyze the patient message and reply politely and professionally in the same language and dialect of the patient.\nStrict tool rules:\n1. Knowledge tool (Get Clinic Knowledge Base): use it at once for any question about exam prices, services, doctors or working hours. Never invent a price.\n2. Booking tool (Check Calendar Availability): use it when the patient asks to book or asks about free slots.\n3. Escalation tool (Escalate Human Emergency): call it at once for a serious emergency (bleeding, broken tooth, unbearable pain), a request to talk to staff, or a complaint. Direct the patient to call the clinic or visit emergency when severe.\nAttachments: when the message holds an [patient sent image/document/video] note, ask politely for a written clarification and confirm a doctor reviews the file at the clinic.\nReply SHORT always: one or two lines, forty words or fewer. Plain text, no bullets, no lectures, a single emoji or none. Price or hours questions get a one-line answer with the exact figure from the knowledge tool. Booking tries: report the tool result in one line. Emergencies: one calming line plus escalation. Match the patient language and dialect. Never send lists or numbered options. Ask one question per reply. Reply in the exact language and style the patient used: Egyptian Arabic in, Egyptian Arabic out; formal Arabic in, formal Arabic out; French in, French out; and so on for every language. Colloquial stays colloquial, formal stays formal. Never switch languages mid-reply. Copy every price digit-by-digit exactly as the knowledge tool shows it. Repeat day names and times verbatim as shown. Mirror the patient dialect with these anchors: Egyptian words like بكام or عايز get an Egyptian reply; Gulf words like كم get a Gulf reply; formal phrasing gets formal Modern Standard Arabic. French, Spanish, Turkish and every other language are answered in that same language. Output only the final reply. Never show thinking or deliberation; begin with the answer itself.",
+          "systemMessage": "=You are \"Sara\", the smart receptionist of [clinic name].\nAnalyze the patient message and reply politely and professionally in the same language and dialect of the patient.\nStrict tool rules:\n1. Knowledge tool (Get Clinic Knowledge Base): use it at once for any question about exam prices, services, doctors or working hours. Never invent a price.\n2. Booking tool (Check Calendar Availability): use it when the patient asks to book or asks about free slots.\n3. Escalation tool (Escalate Human Emergency): call it at once for a serious emergency (bleeding, broken tooth, unbearable pain), a request to talk to staff, or a complaint. Direct the patient to call the clinic or visit emergency when severe.\nAttachments: when the message holds an [patient sent image/document/video] note, ask politely for a written clarification and confirm a doctor reviews the file at the clinic.\nReply SHORT always: one or two lines, forty words or fewer. Plain text, no bullets, no lectures, a single emoji or none. Price or hours questions get a one-line answer with the exact figure from the knowledge tool. Booking tries: report the tool result in one line. Emergencies: one calming line plus escalation. Match the patient language and dialect. Never send lists or numbered options. Ask one question per reply. Reply in the exact language and style the patient used: Egyptian Arabic in, Egyptian Arabic out; formal Arabic in, formal Arabic out; French in, French out; and so on for every language. Colloquial stays colloquial, formal stays formal. Never switch languages mid-reply. Copy every price digit-by-digit exactly as the knowledge tool shows it. Repeat day names and times verbatim as shown. Mirror the patient dialect with these anchors: Egyptian words like بكام or عايز get an Egyptian reply; Gulf words like كم get a Gulf reply; formal phrasing gets formal Modern Standard Arabic. French, Spanish, Turkish and every other language are answered in that same language. Output only the final reply. Never show thinking or deliberation; begin with the answer itself. Queue or turn questions: always call check_queue_position first; never answer from memory.",
           "maxIterations": 8
         },
         "tools": [
           "Check Calendar Availability",
           "Get Clinic Knowledge Base",
-          "Escalate Human Emergency"
+          "Escalate Human Emergency",
+          "Check Queue Position"
         ]
       },
       "id": "tg-14-agent",
@@ -772,6 +773,299 @@
       },
       "retryOnFail": true,
       "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Flag explicit confirmation replies (tight opt-in vocabulary only).\nconst inp = $input.first().json;\nconst t = inp.finalMessage ? String(inp.finalMessage).trim().toLowerCase() : '';\nconst rx = /^(تمام|تم|اوك|ok|yes|موافق|تاكيد|تأكيد|اكيد|أكيد|ماشي|نعم|ايوه|ايوة|1|👍)(\\s|[!\\\\uFF01.،,👍]|$)/;\nconst hit = rx.test(t);\nreturn [{ json: { chatId: inp.chatId ? String(inp.chatId) : 'unknown', pushName: inp.pushName ? String(inp.pushName) : '', provider: inp.provider ? String(inp.provider) : '', finalMessage: inp.finalMessage ? String(inp.finalMessage) : '', wasVoice: !!inp.wasVoice, isAudioMuffled: !!inp.isAudioMuffled, confirmed: hit, at: Date.now() } }];"
+      },
+      "id": "tg-28-track",
+      "name": "Track Confirmation Intent",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1900,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=confirmed:{{ $input.item.json.chatId }}",
+        "value": "={{ $input.item.json.confirmed ? String($input.item.json.at) : '0' }}"
+      },
+      "id": "tg-29-mark",
+      "name": "Mark Confirmation State",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1900,
+        420
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "key": "=staff:{{ $input.item.json.userId }}"
+      },
+      "id": "tg-30-lookup",
+      "name": "Lookup Staff Flag",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        540,
+        480
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-staff",
+              "leftValue": "={{ String($input.item.json.value !== undefined ? $input.item.json.value : ($input.item.json.propertyName !== undefined ? $input.item.json.propertyName : '')) === '1' }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "tg-31-isstaff",
+      "name": "Is Staff Member?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        740,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse staff commands (/serving N, /queue). Unknown text gets help.\nconst prev = $('Extract Telegram Payload').first().json;\nconst t = prev.textMessage ? String(prev.textMessage) : '';\nconst m = t.match(/\\/serving\\s+(\\d+)/i);\nconst cmd = m ? 'serving' : (/\\/queue/i.test(t) ? 'queue' : 'help');\nreturn [{ json: { chatId: prev.chatId, cmd: cmd, n: m ? m[1] : '' } }];"
+      },
+      "id": "tg-32-cmd",
+      "name": "Parse Staff Command",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        940,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-srv",
+              "leftValue": "={{ $input.item.json.cmd === 'serving' }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "tg-33-issrv",
+      "name": "Is Serving Command?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1140,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "={{ 'serving:' + $now.toISO().slice(0, 10) }}",
+        "value": "={{ $input.item.json.n }}"
+      },
+      "id": "tg-34-set",
+      "name": "Set Serving Number",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1340,
+        380
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Serving-number confirmation for staff.\nconst inp = $input.first().json;\nreturn [{ json: { message: 'تم: الدور الحالي ' + inp.n + ' ✅' } }];"
+      },
+      "id": "tg-35-srep",
+      "name": "Build Serving Reply",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1540,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "key": "={{ 'serving:' + $now.toISO().slice(0, 10) }}"
+      },
+      "id": "tg-36-rserv",
+      "name": "Read Serving Stat",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1340,
+        580
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "key": "={{ 'queue:' + $now.toISO().slice(0, 10) }}"
+      },
+      "id": "tg-37-rcount",
+      "name": "Read Queue Counter",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1540,
+        580
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Format queue stats for staff (tolerant reads).\nfunction readVal(v) {\n  const t = (typeof v === 'string') ? v : JSON.stringify(v);\n  try { const p = JSON.parse(t); return (p && typeof p === 'object' && !p.value) ? p : (p.value !== undefined ? p.value : p); }\n  catch (e) { return null; }\n}\nconst srv = readVal($('Read Serving Stat').first().json);\nconst tot = readVal($('Read Queue Counter').first().json);\nconst sNum = (srv === null || isNaN(Number(srv))) ? null : Number(srv);\nconst total = (tot === null || isNaN(Number(tot))) ? 0 : Number(tot);\nconst head = sNum === null ? 'الدور الحالي غير معلن بعد.' : ('الدور الحالي ' + String(sNum) + '.');\nreturn [{ json: { message: '📊 الطابور اليوم: ' + head + ' إجمالي الأرقام ' + String(total) + '.' } }];"
+      },
+      "id": "tg-38-fmt",
+      "name": "Format Queue Stats",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1740,
+        580
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $('Parse Staff Command').first().json.chatId }}",
+        "text": "={{ $input.item.json.message }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "tg-39-send",
+      "name": "Send Staff Reply",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1940,
+        480
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "DLlemykGQ7Zm867F",
+          "name": "Telegram account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "name": "check_queue_position",
+        "description": "MUST USE when the patient asks about their turn, queue number, or the wait ahead. Returns their number and the wait ahead — always call it instead of guessing.",
+        "source": "database",
+        "workflowId": {
+          "mode": "list",
+          "value": "zCa590P1sL49r3PL",
+          "cachedResultName": "check_queue_position"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "patientChatId": "={{ $input.item.json.chatId }}"
+          },
+          "matchingColumns": [
+            "patientChatId"
+          ],
+          "schema": [
+            {
+              "id": "patientChatId",
+              "displayName": "patientChatId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        }
+      },
+      "id": "tg-40-queue",
+      "name": "Check Queue Position",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        2160,
+        680
+      ]
     }
   ],
   "connections": {
@@ -801,7 +1095,7 @@
       "main": [
         [
           {
-            "node": "Redis Atomic Deduplication",
+            "node": "Lookup Staff Flag",
             "type": "main",
             "index": 0
           }
@@ -910,7 +1204,7 @@
       "main": [
         [
           {
-            "node": "AI Clinic Receptionist Agent",
+            "node": "Track Confirmation Intent",
             "type": "main",
             "index": 0
           }
@@ -1023,7 +1317,7 @@
         ],
         [
           {
-            "node": "AI Clinic Receptionist Agent",
+            "node": "Track Confirmation Intent",
             "type": "main",
             "index": 0
           }
@@ -1055,6 +1349,11 @@
             "node": "Send Telegram Response",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Alert Clinic Staff - Send Failed",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -1069,9 +1368,150 @@
           }
         ]
       ]
+    },
+    "Track Confirmation Intent": {
+      "main": [
+        [
+          {
+            "node": "AI Clinic Receptionist Agent",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Mark Confirmation State",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lookup Staff Flag": {
+      "main": [
+        [
+          {
+            "node": "Is Staff Member?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Staff Member?": {
+      "main": [
+        [
+          {
+            "node": "Parse Staff Command",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Redis Atomic Deduplication",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Staff Command": {
+      "main": [
+        [
+          {
+            "node": "Is Serving Command?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Serving Command?": {
+      "main": [
+        [
+          {
+            "node": "Set Serving Number",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Read Serving Stat",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Serving Number": {
+      "main": [
+        [
+          {
+            "node": "Build Serving Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Serving Reply": {
+      "main": [
+        [
+          {
+            "node": "Send Staff Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Serving Stat": {
+      "main": [
+        [
+          {
+            "node": "Read Queue Counter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Queue Counter": {
+      "main": [
+        [
+          {
+            "node": "Format Queue Stats",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Queue Stats": {
+      "main": [
+        [
+          {
+            "node": "Send Staff Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Queue Position": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Clinic Receptionist Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "errorWorkflow": "QvodOlYfZIRV22Qn"
   }
 }
