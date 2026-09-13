@@ -312,7 +312,7 @@
         "promptType": "define",
         "text": "=Patient Chat: {{ $input.item.json.chatId }}\nPatient Name: {{ $input.item.json.pushName }}\nMessage: {{ $input.item.json.finalMessage }}",
         "options": {
-          "systemMessage": "=You are \"Sara\", the smart receptionist of [clinic name].\nAnalyze the patient message and reply politely and professionally in the same language and dialect of the patient.\nStrict tool rules:\n1. Knowledge tool (Get Clinic Knowledge Base): use it at once for any question about exam prices, services, doctors or working hours. Never invent a price.\n2. Booking tool (Check Calendar Availability): use it when the patient asks to book or asks about free slots.\n3. Escalation tool (Escalate Human Emergency): call it at once for a serious emergency (bleeding, broken tooth, unbearable pain), a request to talk to staff, or a complaint. Direct the patient to call the clinic or visit emergency when severe.\nAttachments: when the message holds an [patient sent image/document/video] note, ask politely for a written clarification and confirm a doctor reviews the file at the clinic.\nReply SHORT always: one or two lines, forty words or fewer. Plain text, no bullets, no lectures, a single emoji or none. Price or hours questions get a one-line answer with the exact figure from the knowledge tool. Booking tries: report the tool result in one line. Emergencies: one calming line plus escalation. Match the patient language and dialect.",
+          "systemMessage": "=You are \"Sara\", the smart receptionist of [clinic name].\nAnalyze the patient message and reply politely and professionally in the same language and dialect of the patient.\nStrict tool rules:\n1. Knowledge tool (Get Clinic Knowledge Base): use it at once for any question about exam prices, services, doctors or working hours. Never invent a price.\n2. Booking tool (Check Calendar Availability): use it when the patient asks to book or asks about free slots.\n3. Escalation tool (Escalate Human Emergency): call it at once for a serious emergency (bleeding, broken tooth, unbearable pain), a request to talk to staff, or a complaint. Direct the patient to call the clinic or visit emergency when severe.\nAttachments: when the message holds an [patient sent image/document/video] note, ask politely for a written clarification and confirm a doctor reviews the file at the clinic.\nReply SHORT always: one or two lines, forty words or fewer. Plain text, no bullets, no lectures, a single emoji or none. Price or hours questions get a one-line answer with the exact figure from the knowledge tool. Booking tries: report the tool result in one line. Emergencies: one calming line plus escalation. Match the patient language and dialect. Never send lists or numbered options. Ask one question per reply. Always match the patient language: Arabic in, Arabic out; English in, English out.",
           "maxIterations": 8
         },
         "tools": [
@@ -337,7 +337,8 @@
       "parameters": {
         "model": "={{ $env.NVIDIA_MODEL_NAME || 'nvidia/nemotron-3.5-lightning-30b-a3b' }}",
         "options": {
-          "temperature": 0.2
+          "temperature": 0.2,
+          "maxTokens": 400
         }
       },
       "id": "tg-15-model",
@@ -740,6 +741,31 @@
         2140,
         300
       ]
+    },
+    {
+      "parameters": {
+        "resource": "chat",
+        "operation": "sendChatAction",
+        "chatId": "={{ $('Extract Telegram Payload').first().json.chatId }}",
+        "action": "typing",
+        "additionalFields": {}
+      },
+      "id": "tg-27-typing",
+      "name": "Show Typing Indicator",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1060,
+        220
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "DLlemykGQ7Zm867F",
+          "name": "Telegram account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
     }
   ],
   "connections": {
@@ -791,7 +817,7 @@
       "main": [
         [
           {
-            "node": "Is Voice Message?",
+            "node": "Show Typing Indicator",
             "type": "main",
             "index": 0
           }
@@ -1021,6 +1047,17 @@
         [
           {
             "node": "Send Telegram Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Show Typing Indicator": {
+      "main": [
+        [
+          {
+            "node": "Is Voice Message?",
             "type": "main",
             "index": 0
           }
