@@ -283,7 +283,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Whisper quality check: fall back to a polite retry prompt on empty audio.\nconst item = $input.first().json;\nconst prev = $('Extract Telegram Payload').first().json;\nconst t = item.text ? String(item.text).trim() : '';\nconst bad = item.error ? true : (t.length < 2);\nconst fallback = '[voice note unclear - kindly ask the patient to re-record in a quiet place or type the message]';\nreturn [{ json: { chatId: prev.chatId, pushName: prev.pushName, provider: prev.provider, finalMessage: bad ? fallback : t, wasVoice: true, isAudioMuffled: bad } }];"
+        "jsCode": "// Whisper quality check: fall back to a polite retry prompt on empty audio.\nconst item = $input.first().json;\nconst prev = $('Extract Telegram Payload').first().json;\nconst t = item.text ? String(item.text).trim() : '';\nconst bad = item.error ? true : (t.length < 2);\nconst fallback = '[التسجيل الصوتي غير واضح - أعد التسجيل في مكان هادئ أو اكتب رسالتك نصا من فضلك]';\nreturn [{ json: { chatId: prev.chatId, pushName: prev.pushName, provider: prev.provider, finalMessage: bad ? fallback : t, wasVoice: true, isAudioMuffled: bad } }];"
       },
       "id": "tg-12-wcheck",
       "name": "Whisper Fallback & Text Merger",

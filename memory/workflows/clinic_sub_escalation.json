@@ -63,7 +63,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Escalation contract for the agent.\nreturn [{ json: { escalated: true, message: 'Your request was escalated to clinic staff. They respond shortly.' } }];"
+        "jsCode": "// Escalation contract for the agent.\nreturn [{ json: { escalated: true, message: 'تم تصعيد طلبك لفريق العمل. سيتواصلون معك قريبا.' } }];"
       },
       "id": "sw3-c",
       "name": "Confirm Escalation Sent",

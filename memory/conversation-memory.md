@@ -1366,3 +1366,9 @@ Both added to `compensatory-router` stacks.
 - Also spotted in screenshot: brevity violations on booking turns (long options list + an English reply to Arabic user).
 - FIX (live): (1) NEW "Show Typing Indicator" node (telegram sendChatAction typing, fires <2s after receipt, validated clean) between first-time check and voice routing; (2) model maxTokens 400 (caps cost + latency + length structurally); (3) prompt strengthened ("Never send lists or numbered options. Ask one question per reply. Arabic in/out, English in/out") — gate-safe wording, READY.
 - LIVE PROOF exec 721: typing node ran + agent answered in 37 chars Arabic ("ساعات العمل اليوم من 10:00 إلى 22:00."). Gates READY, validate 0/0 (27 nodes). Probe exec deleted.
+
+## "staff" English leak in Arabic reply — arabized contracts (Sep 13)
+- User screenshot: bot reply ended "...قيد انتظار تأكيد staff. هل تفضل..." — user asked "staff ده؟". ROOT: subworkflow reply contracts were written in ENGLISH ("Staff was notified...") and the agent relayed the word untranslated.
+- FIX (structural, not prompt-only): all patient-facing contract strings rewritten IN ARABIC at the source: Reply Slot Taken / Check Failed / Booking Failed / Booking Confirmed (calendar sub), Confirm Escalation Sent (escalation sub), Whisper Fallback (main — sent verbatim, highest leak risk). KB data stays English (agent translates proven-good: "كشف عام 300 جنيه").
+- Gates READY ×3, deployed + validated 0/0 (sub 17 nodes, main 27).
+- LIVE PROOF exec 730 (booking attempt, Google still dead): agent replied "تم تسجيل طلبك، سيتواصل فريقنا لتأكيد الموعد في 2026-09-25 الساعة 10:00 مع د. سمير." — zero Latin tokens. Probe exec deleted.

@@ -219,7 +219,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Polite slot-taken reply contract for the agent (reads Decide, not passthrough).\nconst prev = $('Decide Slot Free').first().json;\nreturn [{ json: { booked: false, message: 'Sorry, ' + prev.date + ' at ' + prev.time + ' with ' + prev.doctor + ' is already taken. Please pick another slot.', slotKey: prev.slotKey } }];"
+        "jsCode": "// Polite slot-taken reply contract for the agent (reads Decide, not passthrough).\nconst prev = $('Decide Slot Free').first().json;\nreturn [{ json: { booked: false, message: 'عذرا، ميعاد ' + prev.date + ' الساعة ' + prev.time + ' مع ' + prev.doctor + ' محجوز. اختر ميعادا آخر من فضلك.', slotKey: prev.slotKey } }];"
       },
       "id": "sw1-tk",
       "name": "Reply Slot Taken",
@@ -316,7 +316,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Booking-failed contract for the agent (calendar write failed).\nconst prev = $('Decide Slot Free').first().json;\nreturn [{ json: { booked: false, message: 'Booking could not be completed for ' + prev.date + ' at ' + prev.time + '. Staff was notified.', slotKey: prev.slotKey } }];"
+        "jsCode": "// Booking-failed contract for the agent (calendar write failed).\nconst prev = $('Decide Slot Free').first().json;\nreturn [{ json: { booked: false, message: 'تعذر اتمام الحجز لميعاد ' + prev.date + ' الساعة ' + prev.time + '. فريق العمل تم اخطاره.', slotKey: prev.slotKey } }];"
       },
       "id": "sw1-fl",
       "name": "Reply Booking Failed",
@@ -329,7 +329,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Booking-confirmed contract for the agent.\nconst inp = $input.first().json;\nconst prev = $('Decide Slot Free').first().json;\nconst eid = inp.id ? String(inp.id) : '';\nreturn [{ json: { booked: true, eventId: eid, message: 'Booked: ' + prev.service + ' with ' + prev.doctor + ' on ' + prev.date + ' at ' + prev.time + ' for ' + prev.patientName + '.', slotKey: prev.slotKey } }];"
+        "jsCode": "// Booking-confirmed contract for the agent.\nconst inp = $input.first().json;\nconst prev = $('Decide Slot Free').first().json;\nconst eid = inp.id ? String(inp.id) : '';\nreturn [{ json: { booked: true, eventId: eid, message: 'تم الحجز: ' + prev.service + ' مع ' + prev.doctor + ' يوم ' + prev.date + ' الساعة ' + prev.time + ' باسم ' + prev.patientName + '.', slotKey: prev.slotKey } }];"
       },
       "id": "sw1-cf",
       "name": "Reply Booking Confirmed",
@@ -342,7 +342,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Verification-failed contract: never claim taken when the check errored.\nconst prev = $('Decide Slot Free').first().json;\nreturn [{ json: { booked: false, message: 'Availability for ' + prev.date + ' at ' + prev.time + ' could not be verified right now. Staff was notified and confirms shortly.', slotKey: prev.slotKey } }];"
+        "jsCode": "// Verification-failed contract: never claim taken when the check errored.\nconst prev = $('Decide Slot Free').first().json;\nreturn [{ json: { booked: false, message: 'تعذر التحقق من ميعاد ' + prev.date + ' الساعة ' + prev.time + ' حاليا. فريق العمل تم اخطاره وسيؤكد لك قريبا.', slotKey: prev.slotKey } }];"
       },
       "id": "sw1-cf2",
       "name": "Reply Check Failed",
