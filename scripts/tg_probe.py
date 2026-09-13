@@ -54,7 +54,7 @@ def nxt():
     return UID["n"]
 
 
-def msg(chat, name, text=None, mid=1, voice=None, photo=False, date=1790000000):
+def msg(chat, name, text=None, mid=1, voice=None, photo=False, date=1790000000, **kw):
     m = {"message_id": mid, "from": {"id": chat, "first_name": name},
          "chat": {"id": chat, "type": "private"}, "date": date}
     if text is not None:
@@ -64,6 +64,8 @@ def msg(chat, name, text=None, mid=1, voice=None, photo=False, date=1790000000):
     if photo:
         m["photo"] = [{"file_id": "photo_small"}, {"file_id": "photo_big"}]
         m["caption"] = "see my tooth"
+    for k, v in kw.items():
+        m[k] = v
     return {"update_id": nxt(), "message": m}
 
 
@@ -89,5 +91,14 @@ if __name__ == "__main__":
                        mid=int(sys.argv[4]), voice="FAKE_FILE_ID_12345"), auth()))
     elif mode == "raw":
         print(post(None, auth(), raw=sys.argv[2].encode()))
+    elif mode == "media":
+        import ast as _ast
+        kind = sys.argv[5]
+        payload = _ast.literal_eval(sys.argv[6]) if len(sys.argv) > 6 else {}
+        m = {"message_id": int(sys.argv[4]) if len(sys.argv) > 4 and sys.argv[4].isdigit() else 1,
+             "from": {"id": int(sys.argv[2]), "first_name": sys.argv[3]},
+             "chat": {"id": int(sys.argv[2]), "type": "private"}, "date": 1790000000}
+        m[kind] = payload
+        print(post({"update_id": nxt(), "message": m}, auth()))
     elif mode == "empty":
         print(post({}, auth()))

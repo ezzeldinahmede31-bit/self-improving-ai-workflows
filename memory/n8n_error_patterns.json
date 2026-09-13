@@ -30,9 +30,9 @@
   {
     "gate": "skills",
     "pattern": "no --skills-loaded manifest — actual agent loads are NOT verifiable headless; readiness (installed + frontmatter + routable) verified only",
-    "count": 8,
+    "count": 10,
     "first_seen": "2026-08-24T13:18:28.258531+00:00",
-    "last_seen": "2026-09-11T06:55:21.208390+00:00"
+    "last_seen": "2026-09-13T08:55:08.302626+00:00"
   },
   {
     "gate": "quality",
@@ -383,6 +383,13 @@
     "count": 2,
     "first_seen": "2026-09-10T04:57:50.555256+00:00",
     "last_seen": "2026-09-10T04:58:32.128648+00:00"
+  },
+  {
+    "gate": "quality",
+    "pattern": "Workflow has 24 nodes — recommend sub-workflow split",
+    "count": 2,
+    "first_seen": "2026-09-13T08:54:48.951826+00:00",
+    "last_seen": "2026-09-13T08:55:08.301072+00:00"
   },
   {
     "gate": "security",

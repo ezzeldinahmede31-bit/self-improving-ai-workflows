@@ -66,7 +66,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Extract patient payload from a Telegram Update (table dispatch,\n// ternaries only). Supports text, voice, button taps, photo, document,\n// video and location updates.\nconst inp = $input.first().json;\nconst body = inp.body;\nconst upd = body.edited_message ? body.edited_message : (body.message ? body.message : null);\nconst cb = body.callback_query ? body.callback_query : null;\nlet messageId = 'tg_' + Date.now();\nlet chatId = 'unknown';\nlet userId = 'unknown';\nlet pushName = 'esteemed patient';\nlet textMessage = '';\nlet isAudio = false;\nlet voiceFileId = null;\nif (cb) {\n  messageId = cb.id ? cb.id : messageId;\n  const from = cb.from ? cb.from : {};\n  userId = from.id ? String(from.id) : userId;\n  pushName = from.first_name ? from.first_name : pushName;\n  chatId = cb.message ? (cb.message.chat ? String(cb.message.chat.id) : chatId) : chatId;\n  textMessage = cb.data ? String(cb.data) : '';\n} else if (upd) {\n  messageId = upd.message_id ? ('tg_' + String(upd.message_id)) : messageId;\n  const from = upd.from ? upd.from : {};\n  userId = from.id ? String(from.id) : userId;\n  pushName = from.first_name ? from.first_name : pushName;\n  chatId = upd.chat ? String(upd.chat.id) : chatId;\n  const KIND = {\n    text: (m) => m.text ? String(m.text) : '',\n    voice: (m) => '',\n    photo: (m) => m.caption ? ('[patient sent image: ' + m.caption + ']') : '[patient sent image]',\n    document: (m) => '[patient sent document]',\n    video: (m) => m.caption ? ('[patient sent video: ' + m.caption + ']') : '[patient sent video]',\n    location: (m) => m.location ? ('[patient geo location: Lat ' + m.location.latitude + ', Lng ' + m.location.longitude + ']') : '[patient geo location]',\n    sticker: (m) => '[patient sent sticker]',\n    unknown: (m) => '[unsupported message type]'\n  };\n  const kind = upd.text ? 'text' : (upd.voice ? 'voice' : (upd.photo ? 'photo' : (upd.document ? 'document' : (upd.video ? 'video' : (upd.location ? 'location' : (upd.sticker ? 'sticker' : 'unknown'))))));\n  const fn = KIND[kind] ? KIND[kind] : KIND.unknown;\n  textMessage = fn(upd);\n  isAudio = kind === 'voice';\n  voiceFileId = kind === 'voice' ? (upd.voice.file_id ? upd.voice.file_id : null) : null;\n} else {\n  textMessage = '[unsupported update type]';\n}\nreturn [{ json: { messageId: messageId, chatId: chatId, userId: userId, pushName: pushName, provider: 'telegram', isAudio: isAudio, voiceFileId: voiceFileId, textMessage: String(textMessage).trim(), timestamp: new Date().toISOString() } }];"
+        "jsCode": "// Extract patient payload from a Telegram Update (table dispatch,\n// ternaries only). Supports text, voice, button taps, photo, document,\n// video and location updates.\nconst inp = $input.first().json;\nconst body = inp.body;\nconst upd = body.edited_message ? body.edited_message : (body.message ? body.message : null);\nconst cb = body.callback_query ? body.callback_query : null;\nlet messageId = 'tg_' + Date.now();\nlet chatId = 'unknown';\nlet userId = 'unknown';\nlet pushName = 'esteemed patient';\nlet textMessage = '';\nlet isAudio = false;\nlet voiceFileId = null;\nif (cb) {\n  messageId = cb.id ? cb.id : messageId;\n  const from = cb.from ? cb.from : {};\n  userId = from.id ? String(from.id) : userId;\n  pushName = from.first_name ? from.first_name : pushName;\n  chatId = cb.message ? (cb.message.chat ? String(cb.message.chat.id) : chatId) : chatId;\n  textMessage = cb.data ? String(cb.data) : '';\n} else if (upd) {\n  messageId = upd.message_id ? ('tg_' + String(upd.message_id)) : messageId;\n  const from = upd.from ? upd.from : {};\n  userId = from.id ? String(from.id) : userId;\n  pushName = from.first_name ? from.first_name : pushName;\n  chatId = upd.chat ? String(upd.chat.id) : chatId;\n  const KIND = {\n    text: (m) => m.text ? String(m.text) : '',\n    voice: (m) => '',\n    photo: (m) => m.caption ? ('[patient sent image: ' + m.caption + ']') : '[patient sent image]',\n    document: (m) => '[patient sent document]',\n    video: (m) => m.caption ? ('[patient sent video: ' + m.caption + ']') : '[patient sent video]',\n    location: (m) => m.location ? ('[patient geo location: Lat ' + m.location.latitude + ', Lng ' + m.location.longitude + ']') : '[patient geo location]',\n    sticker: (m) => '[patient sent sticker]',\n    contact: (m) => m.contact ? ('[patient shared contact: ' + (m.contact.phone_number ? m.contact.phone_number : 'no number') + ']') : '[patient shared contact]',\n    unknown: (m) => '[unsupported message type]'\n  };\n  const kind = upd.text ? 'text' : (upd.voice ? 'voice' : (upd.photo ? 'photo' : (upd.document ? 'document' : (upd.video ? 'video' : (upd.location ? 'location' : (upd.sticker ? 'sticker' : (upd.contact ? 'contact' : 'unknown')))))));\n  const fn = KIND[kind] ? KIND[kind] : KIND.unknown;\n  textMessage = fn(upd);\n  isAudio = kind === 'voice';\n  voiceFileId = kind === 'voice' ? (upd.voice.file_id ? upd.voice.file_id : null) : null;\n} else {\n  textMessage = '[unsupported update type]';\n}\nreturn [{ json: { messageId: messageId, chatId: chatId, userId: userId, pushName: pushName, provider: 'telegram', isAudio: isAudio, voiceFileId: voiceFileId, textMessage: String(textMessage).trim(), timestamp: new Date().toISOString() } }];"
       },
       "id": "tg-3-extract",
       "name": "Extract Telegram Payload",
@@ -312,7 +312,7 @@
         "promptType": "define",
         "text": "=Patient Chat: {{ $input.item.json.chatId }}\nPatient Name: {{ $input.item.json.pushName }}\nMessage: {{ $input.item.json.finalMessage }}",
         "options": {
-          "systemMessage": "=You are \"Sara\", the smart receptionist of [clinic name].\nAnalyze the patient message and reply politely and professionally in the same language and dialect of the patient.\nStrict tool rules:\n1. Knowledge tool (Get Clinic Knowledge Base): use it at once for any question about exam prices, services, doctors or working hours. Never invent a price.\n2. Booking tool (Check Calendar Availability): use it when the patient asks to book or asks about free slots.\n3. Escalation tool (Escalate Human Emergency): call it at once for a serious emergency (bleeding, broken tooth, unbearable pain), a request to talk to staff, or a complaint. Direct the patient to call the clinic or visit emergency when severe.\nAttachments: when the message holds an [patient sent image/document/video] note, ask politely for a written clarification and confirm a doctor reviews the file at the clinic.",
+          "systemMessage": "=You are \"Sara\", the smart receptionist of [clinic name].\nAnalyze the patient message and reply politely and professionally in the same language and dialect of the patient.\nStrict tool rules:\n1. Knowledge tool (Get Clinic Knowledge Base): use it at once for any question about exam prices, services, doctors or working hours. Never invent a price.\n2. Booking tool (Check Calendar Availability): use it when the patient asks to book or asks about free slots.\n3. Escalation tool (Escalate Human Emergency): call it at once for a serious emergency (bleeding, broken tooth, unbearable pain), a request to talk to staff, or a complaint. Direct the patient to call the clinic or visit emergency when severe.\nAttachments: when the message holds an [patient sent image/document/video] note, ask politely for a written clarification and confirm a doctor reviews the file at the clinic.\nReply SHORT always: one or two lines, forty words or fewer. Plain text, no bullets, no lectures, a single emoji or none. Price or hours questions get a one-line answer with the exact figure from the knowledge tool. Booking tries: report the tool result in one line. Emergencies: one calming line plus escalation. Match the patient language and dialect.",
           "maxIterations": 8
         },
         "tools": [
@@ -328,7 +328,10 @@
       "position": [
         2000,
         300
-      ]
+      ],
+      "retryOnFail": true,
+      "maxTries": 2,
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -693,6 +696,50 @@
         1900,
         100
       ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Deterministic apology when the model fails or returns nothing usable.\nreturn [{ json: { output: 'Sorry, I am having trouble right now. Please try again in a moment or contact the clinic directly.' } }];"
+      },
+      "id": "tg-25-afail",
+      "name": "Reply Agent Failure",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2140,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-usable",
+              "leftValue": "={{ ($input.item.json.output || '').length > 4 }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "tg-26-usable",
+      "name": "Is Agent Reply Usable?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2140,
+        300
+      ]
     }
   ],
   "connections": {
@@ -897,7 +944,7 @@
       "main": [
         [
           {
-            "node": "Send Telegram Response",
+            "node": "Is Agent Reply Usable?",
             "type": "main",
             "index": 0
           }
@@ -945,6 +992,35 @@
         [
           {
             "node": "AI Clinic Receptionist Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Agent Reply Usable?": {
+      "main": [
+        [
+          {
+            "node": "Send Telegram Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reply Agent Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reply Agent Failure": {
+      "main": [
+        [
+          {
+            "node": "Send Telegram Response",
             "type": "main",
             "index": 0
           }
