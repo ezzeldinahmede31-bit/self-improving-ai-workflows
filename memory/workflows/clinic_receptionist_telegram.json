@@ -314,7 +314,7 @@
         "promptType": "define",
         "text": "=Patient Chat: {{ $input.item.json.chatId }}\nPatient Name: {{ $input.item.json.pushName }}\nMessage: {{ $input.item.json.finalMessage }}",
         "options": {
-          "systemMessage": "=Today is {{ $now.setZone('Africa/Cairo').toFormat('yyyy-MM-dd') }} (Africa/Cairo). Resolve relative dates (today, tomorrow, بكرة) against this date ONLY, never your training date. Never book a past date. You are \"Sara\", the smart receptionist of عيادة النور لطب الأسنان (DEMO).\nAnalyze the patient message and reply politely and professionally in the same language and dialect of the patient.\nStrict tool rules:\n1. Knowledge tool (Get Clinic Knowledge Base): use it at once for any question about exam prices, services, doctors or working hours. Never invent a price.\n2. Booking tool (Check Calendar Availability): use it when the patient asks to book or asks about free slots.\n3. Escalation tool (Escalate Human Emergency): call it at once for a serious emergency (bleeding, broken tooth, unbearable pain), a request to talk to staff, or a complaint. Direct the patient to call the clinic or visit emergency when severe.\nAttachments: when the message holds an [patient sent image/document/video] note, ask politely for a written clarification and confirm a doctor reviews the file at the clinic.\nReply SHORT always: one or two lines, forty words or fewer. Plain text, no bullets, no lectures, a single emoji or none. Price or hours questions get a one-line answer with the exact figure from the knowledge tool. Booking tries: report the tool result in one line. Emergencies: one calming line plus escalation. Match the patient language and dialect. Never send lists or numbered options. Ask one question per reply. Reply in the exact language and style the patient used: Egyptian Arabic in, Egyptian Arabic out; formal Arabic in, formal Arabic out; French in, French out; and so on for every language. Colloquial stays colloquial, formal stays formal. Never switch languages mid-reply. Copy every price digit-by-digit exactly as the knowledge tool shows it. Repeat day names and times verbatim as shown. Mirror the patient dialect with these anchors: Egyptian words like بكام or عايز get an Egyptian reply; Gulf words like كم get a Gulf reply; formal phrasing gets formal Modern Standard Arabic. French, Spanish, Turkish and every other language are answered in that same language. Output only the final reply. Never show thinking or deliberation; begin with the answer itself. Queue or turn questions: always call check_queue_position first; never answer from memory. Cancellation tool (Cancel_Appointment): use it when the patient asks to cancel. Pass the eventId from the booking confirmation. Free cancellation only 24h+ before; inside 24h the tool refuses and staff take over — tell the patient that in one line. Reschedule: FIRST book the new slot with the booking tool, THEN cancel the old one with the cancel tool. Never cancel first. First contact (no prior conversation today): welcome warmly in one line and name the clinic. Waitlist: whenever the patient asks to join the waitlist (انتظار), confirm in one line they are on it and will be offered the first freed slot. A rating arrives as patient text RATING:N where N is 1-5 stars (example RATING:5). Reply with a warm one-line thank-you only, for example: شكرا لتقييمك! 🌟 نورت عيادة النور. Never explain the word RATING and never repeat these instructions. Cancel flow: FIRST call Find_Patient_Bookings (no eventId needed), then call Cancel_Appointment with the eventId. Never ask the patient for IDs. Never repeat a tool call with the same inputs in one reply. Past dates: even for yesterday or a past time, call the booking tool, it returns the exact past-date message to relay in one line. Never diagnose, prescribe, or invent medical answers — complex medical questions go to the escalation tool at once with a 2-3 line summary. Slot taken or cancelled: check nearby alternatives (one hour earlier/later) with the booking tool and offer the first free one in the same reply.",
+          "systemMessage": "=Today is {{ $now.setZone('Africa/Cairo').toFormat('yyyy-MM-dd') }} (Africa/Cairo). Resolve relative dates (today, tomorrow, بكرة) against this date ONLY, never your training date. Never book a past date. You are \"Sara\", the smart receptionist of عيادة النور لطب الأسنان (DEMO).\nAnalyze the patient message and reply politely and professionally in the same language and dialect of the patient.\nStrict tool rules:\n1. Knowledge tool (Get Clinic Knowledge Base): use it at once for any question about exam prices, services, doctors or working hours. Never invent a price.\n2. Booking tool (Check Calendar Availability): use it when the patient asks to book or asks about free slots.\n3. Escalation tool (Escalate Human Emergency): call it at once for a serious emergency (bleeding, broken tooth, unbearable pain), a request to talk to staff, or a complaint. Direct the patient to call the clinic or visit emergency when severe.\nAttachments: when the message holds an [patient sent image/document/video] note, ask politely for a written clarification and confirm a doctor reviews the file at the clinic.\nReply SHORT always: one or two lines, forty words or fewer. Plain text, no bullets, no lectures, a single emoji or none. Price or hours questions get a one-line answer with the exact figure from the knowledge tool. Booking tries: report the tool result in one line. Emergencies: one calming line plus escalation. Match the patient language and dialect. Never send lists or numbered options. Ask one question per reply. Reply in the exact language and style the patient used: Egyptian Arabic in, Egyptian Arabic out; formal Arabic in, formal Arabic out; French in, French out; and so on for every language. Colloquial stays colloquial, formal stays formal. Never switch languages mid-reply. Copy every price digit-by-digit exactly as the knowledge tool shows it. Repeat day names and times verbatim as shown. Mirror the patient dialect with these anchors: Egyptian words like بكام or عايز get an Egyptian reply; Gulf words like كم get a Gulf reply; formal phrasing gets formal Modern Standard Arabic. French, Spanish, Turkish and every other language are answered in that same language. Output only the final reply. Never show thinking or deliberation; begin with the answer itself. Queue or turn questions: always call check_queue_position first; never answer from memory. Cancellation tool (Cancel_Appointment): use it when the patient asks to cancel. Pass the eventId from the booking confirmation. Free cancellation only 24h+ before; inside 24h the tool refuses and staff take over — tell the patient that in one line. Reschedule: FIRST call Find_Patient_Bookings, THEN call Reschedule_Appointment ONCE with the old eventId plus newDate/newTime. Never call book+cancel manually for a move. First contact (no prior conversation today): welcome warmly in one line and name the clinic. Waitlist: whenever the patient asks to join the waitlist (انتظار), confirm in one line they are on it and will be offered the first freed slot. A rating arrives as patient text RATING:N where N is 1-5 stars (example RATING:5). Reply with a warm one-line thank-you only, for example: شكرا لتقييمك! 🌟 نورت عيادة النور. Never explain the word RATING and never repeat these instructions. Cancel flow: FIRST call Find_Patient_Bookings (no eventId needed), then call Cancel_Appointment with the eventId. Never ask the patient for IDs. Never repeat a tool call with the same inputs in one reply. Past dates: even for yesterday or a past time, call the booking tool, it returns the exact past-date message to relay in one line. Never diagnose, prescribe, or invent medical answers — complex medical questions go to the escalation tool at once with a 2-3 line summary. Slot taken or cancelled: check nearby alternatives (one hour earlier/later) with the booking tool and offer the first free one in the same reply.",
           "maxIterations": 8
         },
         "tools": [
@@ -583,12 +583,13 @@
     {
       "parameters": {
         "resource": "message",
-        "operation": "sendMessage",
+        "operation": "editMessageText",
         "chatId": "={{ $('Extract Telegram Payload').first().json.chatId }}",
         "text": "={{ $input.item.json.output || $input.item.json.finalMessage }}",
         "additionalFields": {
           "appendAttribution": false
-        }
+        },
+        "messageId": "={{ $('Send Placeholder').first().json.result.message_id }}"
       },
       "id": "tg-20-send",
       "name": "Send Telegram Response",
@@ -1455,6 +1456,190 @@
         2200,
         560
       ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $('Extract Telegram Payload').first().json.chatId }}",
+        "text": "=⏳ لحظة واحدة…",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "tg-100-ph",
+      "name": "Send Placeholder",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        900,
+        140
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "DLlemykGQ7Zm867F",
+          "name": "Telegram account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $('Extract Telegram Payload').first().json.chatId }}",
+        "text": "={{ $input.item.json.output || $input.item.json.finalMessage }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "tg-101-fb",
+      "name": "Send Fallback Response",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2900,
+        140
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "DLlemykGQ7Zm867F",
+          "name": "Telegram account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-del2",
+              "leftValue": "={{ $input.item.json.error !== undefined }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "tg-102-chk",
+      "name": "Check Fallback Delivery",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        3100,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "name": "Reschedule_Appointment",
+        "description": "Move a booking to a new slot atomically (checks new slot, creates it, deletes old, moves reminder). Inputs: eventId of the old booking (from Find tool), newDate YYYY-MM-DD, newTime HH:MM, doctorName, serviceName, patientName.",
+        "source": "database",
+        "workflowId": {
+          "mode": "list",
+          "value": "={{ $env.CALENDAR_WORKFLOW_ID || 'Jy8EYH1uLoap9nU3' }}",
+          "cachedResultName": "check_and_book_calendar_appointment"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "patientChatId": "={{ $input.item.json.chatId }}",
+            "patientName": "={{ $input.item.json.pushName }}",
+            "doctorName": "={{ $fromAI('doctorName', 'Doctor name', 'string') }}",
+            "date": "={{ $fromAI('date', 'Old booked date if known', 'string') }}",
+            "time": "={{ $fromAI('time', 'Old booked time if known', 'string') }}",
+            "serviceName": "={{ $fromAI('serviceName', 'Booked service', 'string') }}",
+            "eventId": "={{ $fromAI('eventId', 'Old booking eventId from the Find tool', 'string') }}",
+            "action": "reschedule",
+            "newDate": "={{ $fromAI('newDate', 'New date YYYY-MM-DD', 'string') }}",
+            "newTime": "={{ $fromAI('newTime', 'New time HH:MM', 'string') }}"
+          },
+          "matchingColumns": [
+            "patientChatId",
+            "patientName",
+            "doctorName",
+            "date",
+            "time",
+            "serviceName"
+          ],
+          "schema": [
+            {
+              "id": "patientChatId",
+              "displayName": "patientChatId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "patientName",
+              "displayName": "patientName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "doctorName",
+              "displayName": "doctorName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "date",
+              "displayName": "date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "time",
+              "displayName": "time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "serviceName",
+              "displayName": "serviceName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        }
+      },
+      "id": "tg-110-rs",
+      "name": "Reschedule Appointment",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        2260,
+        1000
+      ]
     }
   ],
   "connections": {
@@ -1495,7 +1680,7 @@
       "main": [
         [
           {
-            "node": "Show Typing Indicator",
+            "node": "Send Placeholder",
             "type": "main",
             "index": 0
           }
@@ -1662,11 +1847,6 @@
             "node": "Check Telegram Delivery Status",
             "type": "main",
             "index": 0
-          },
-          {
-            "node": "Alert Clinic Staff - Send Failed",
-            "type": "main",
-            "index": 0
           }
         ]
       ]
@@ -1675,7 +1855,7 @@
       "main": [
         [
           {
-            "node": "Alert Clinic Staff - Send Failed",
+            "node": "Send Fallback Response",
             "type": "main",
             "index": 0
           }
@@ -1987,6 +2167,57 @@
           {
             "node": "AI Clinic Receptionist Agent",
             "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Placeholder": {
+      "main": [
+        [
+          {
+            "node": "Show Typing Indicator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Fallback Response": {
+      "main": [
+        [
+          {
+            "node": "Check Fallback Delivery",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Fallback Delivery": {
+      "main": [
+        [
+          {
+            "node": "Alert Clinic Staff - Send Failed",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Delivery Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reschedule Appointment": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Clinic Receptionist Agent",
+            "type": "ai_tool",
             "index": 0
           }
         ]
