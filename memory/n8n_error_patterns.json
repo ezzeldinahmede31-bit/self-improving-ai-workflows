@@ -16,9 +16,9 @@
   {
     "gate": "skills",
     "pattern": "no --skills-loaded manifest — actual agent loads are NOT verifiable headless; readiness (installed + frontmatter + routable) verified only",
-    "count": 31,
+    "count": 32,
     "first_seen": "2026-08-24T13:18:28.258531+00:00",
-    "last_seen": "2026-09-14T10:47:14.013955+00:00"
+    "last_seen": "2026-09-14T12:29:40.895861+00:00"
   },
   {
     "gate": "dry_run",
@@ -628,5 +628,19 @@
     "count": 1,
     "first_seen": "2026-09-14T10:47:14.010395+00:00",
     "last_seen": "2026-09-14T10:47:14.010407+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "[DESTRUCTIVE_ACTION_NO_APPROVAL] Single destructive action 'Delete Alt Cache' (n8n-nodes-base.redis delete) requires human approval regardless of chaining",
+    "count": 1,
+    "first_seen": "2026-09-14T12:29:40.887431+00:00",
+    "last_seen": "2026-09-14T12:29:40.887445+00:00"
+  },
+  {
+    "gate": "quality",
+    "pattern": "Workflow has 74 nodes — recommend sub-workflow split",
+    "count": 1,
+    "first_seen": "2026-09-14T12:29:40.888112+00:00",
+    "last_seen": "2026-09-14T12:29:40.888117+00:00"
   }
 ]

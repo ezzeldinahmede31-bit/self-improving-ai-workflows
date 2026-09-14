@@ -234,7 +234,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Polite slot-taken reply contract for the agent (reads Decide, not passthrough).\nlet prev = null;\ntry { prev = $('Decide Slot Free').first().json; } catch (e) { prev = null; }\nif (!prev) { prev = $('Build Slot Window').first().json; }\nreturn [{ json: { booked: false, message: 'عذرا، ميعاد ' + prev.date + ' الساعة ' + prev.time + ' مع ' + prev.doctor + ' محجوز. اختر ميعادا آخر من فضلك.', slotKey: prev.slotKey } }];"
+        "jsCode": "// Taken contract WITH verified alternatives (agent relays them verbatim).\nlet prev = null;\ntry { prev = $('Decide Slot Free').first().json; } catch (e) { prev = null; }\nif (!prev) { prev = $('Build Slot Window').first().json; }\nlet alts = [];\ntry { alts = $('Pick Alternatives').first().json.alternatives || []; } catch (e) { alts = []; }\nconst altTxt = alts.length ? (' البدائل المتاحة: ' + alts.map((a) => a.date + ' الساعة ' + a.time).join(' أو ') + '.') : '';\nreturn [{ json: { booked: false, taken: true,\n  message: 'عذرا، ميعاد ' + prev.date + ' الساعة ' + prev.time + ' محجوز.' + altTxt,\n  alternatives: alts, slotKey: prev.slotKey } }];"
       },
       "id": "sw1-tk",
       "name": "Reply Slot Taken",
@@ -1609,6 +1609,107 @@
         300,
         560
       ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// +-12h window around the requested slot for alternative hunting.\nlet prev = null;\ntry { prev = $('Decide Slot Free').first().json; } catch (e) { prev = null; }\nif (!prev) { prev = $('Build Slot Window').first().json; }\nconst s = new Date(prev.startISO).getTime();\nconst e = new Date(prev.endISO).getTime();\nreturn [{ json: { winMin: new Date(s - 12 * 3600 * 1000).toISOString(),\n  winMax: new Date(e + 12 * 3600 * 1000).toISOString() } }];"
+      },
+      "id": "cal-769",
+      "name": "Build Alt Window",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2500,
+        860
+      ]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ 'https://www.googleapis.com/calendar/v3/calendars/primary/events?singleEvents=true&orderBy=startTime&timeMin=' + $('Build Alt Window').first().json.winMin + '&timeMax=' + $('Build Alt Window').first().json.winMax }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleCalendarOAuth2Api",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "cal-770",
+      "name": "List Alt Window",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2720,
+        860
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "R8AjuV0uT9m8lgQe",
+          "name": "Google Calendar account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Verified alternatives: requested Cairo hour +-1/+-2, inside 09:00-22:00, no overlap.\nconst inp = $input.first().json;\nlet prev = null;\ntry { prev = $('Decide Slot Free').first().json; } catch (e) { prev = null; }\nif (!prev) { prev = $('Build Slot Window').first().json; }\nconst items = (inp.error !== undefined || !Array.isArray(inp.items)) ? [] : inp.items;\nconst busy = items.map((ev) => {\n  const s = ev.start ? Date.parse(ev.start.dateTime || ev.start.date) : NaN;\n  const t = ev.end ? Date.parse(ev.end.dateTime || ev.end.date) : NaN;\n  return [s, t];\n}).filter((x) => !isNaN(x[0]) && !isNaN(x[1]));\nconst reqStart = new Date(prev.startISO).getTime();\nconst mins = prev.minutes || 30;\nconst cairoH = Number(new Intl.DateTimeFormat('en-GB', { timeZone: 'Africa/Cairo', hour: '2-digit', hour12: false }).format(new Date(reqStart)));\nconst dayStr = prev.date;\nconst out = [];\nfor (const dh of [-1, 1, -2, 2]) {\n  if (out.length >= 2) { break; }\n  const h = cairoH + dh;\n  if (h < 9 || h > 21) { continue; }\n  const hh = String(h).padStart(2, '0');\n  const mm = String(prev.time ? prev.time.slice(3, 5) : '00');\n  const guess2 = dayStr + 'T' + hh + ':' + mm + ':00+02:00';\n  const wall = new Intl.DateTimeFormat('en-GB', { timeZone: 'Africa/Cairo', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date(guess2));\n  const iso = (wall.slice(0, 5) === (hh + ':' + mm)) ? guess2 : (dayStr + 'T' + hh + ':' + mm + ':00+03:00');\n  const s = new Date(iso).getTime();\n  const e = s + mins * 60 * 1000;\n  const clash = busy.some((b) => s < b[1] && b[0] < e);\n  if (!clash && Math.abs(s - reqStart) > 60000) { out.push({ date: dayStr, time: hh + ':' + mm }); }\n}\nreturn [{ json: { alternatives: out } }];"
+      },
+      "id": "cal-771",
+      "name": "Pick Alternatives",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2940,
+        860
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=alt:{{ $('Receive Booking Request').item.json.patientChatId }}",
+        "value": "={{ JSON.stringify({ requested: { date: $('Build Slot Window').first().json.date, time: $('Build Slot Window').first().json.time }, alternatives: $input.item.json.alternatives }) }}",
+        "expire": true,
+        "ttl": 3600
+      },
+      "id": "cal-872",
+      "name": "Store Alt Cache",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        3160,
+        860
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "=alt:{{ $('Decide Slot Free').first().json.patientChat }}",
+        "requiresHumanApproval": true
+      },
+      "id": "cal-873",
+      "name": "Delete Alt Cache",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        920,
+        860
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
     }
   ],
   "connections": {
@@ -1707,7 +1808,7 @@
       "main": [
         [
           {
-            "node": "Reply Slot Taken",
+            "node": "Build Alt Window",
             "type": "main",
             "index": 0
           }
@@ -1793,6 +1894,11 @@
           },
           {
             "node": "Notify Doctor New Booking",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Delete Alt Cache",
             "type": "main",
             "index": 0
           }
@@ -2330,6 +2436,50 @@
         [
           {
             "node": "Reply Rescheduled",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Alt Window": {
+      "main": [
+        [
+          {
+            "node": "List Alt Window",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Alt Window": {
+      "main": [
+        [
+          {
+            "node": "Pick Alternatives",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pick Alternatives": {
+      "main": [
+        [
+          {
+            "node": "Store Alt Cache",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Store Alt Cache": {
+      "main": [
+        [
+          {
+            "node": "Reply Slot Taken",
             "type": "main",
             "index": 0
           }

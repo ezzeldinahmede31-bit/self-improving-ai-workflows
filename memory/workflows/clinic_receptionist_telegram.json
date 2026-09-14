@@ -314,7 +314,7 @@
         "promptType": "define",
         "text": "=Patient Chat: {{ $input.item.json.chatId }}\nPatient Name: {{ $input.item.json.pushName }}\nMessage: {{ $input.item.json.finalMessage }}",
         "options": {
-          "systemMessage": "=Today is {{ $now.setZone('Africa/Cairo').toFormat('yyyy-MM-dd') }} (Africa/Cairo). Resolve relative dates (today, tomorrow, بكرة) against this date ONLY, never your training date. Never book a past date. You are \"Sara\", the smart receptionist of عيادة النور لطب الأسنان (DEMO).\nAnalyze the patient message and reply politely and professionally in the same language and dialect of the patient.\nStrict tool rules:\n1. Knowledge tool (Get Clinic Knowledge Base): use it at once for any question about exam prices, services, doctors or working hours. Never invent a price.\n2. Booking tool (Check Calendar Availability): use it when the patient asks to book or asks about free slots.\n3. Escalation tool (Escalate Human Emergency): call it at once for a serious emergency (bleeding, broken tooth, unbearable pain), a request to talk to staff, or a complaint. Direct the patient to call the clinic or visit emergency when severe.\nAttachments: when the message holds an [patient sent image/document/video] note, ask politely for a written clarification and confirm a doctor reviews the file at the clinic.\nReply SHORT always: one or two lines, forty words or fewer. Plain text, no bullets, no lectures, a single emoji or none. Price or hours questions get a one-line answer with the exact figure from the knowledge tool. Booking tries: report the tool result in one line. Emergencies: one calming line plus escalation. Match the patient language and dialect. Never send lists or numbered options. Ask one question per reply. Reply in the exact language and style the patient used: Egyptian Arabic in, Egyptian Arabic out; formal Arabic in, formal Arabic out; French in, French out; and so on for every language. Colloquial stays colloquial, formal stays formal. Never switch languages mid-reply. Copy every price digit-by-digit exactly as the knowledge tool shows it. Repeat day names and times verbatim as shown. Mirror the patient dialect with these anchors: Egyptian words like بكام or عايز get an Egyptian reply; Gulf words like كم get a Gulf reply; formal phrasing gets formal Modern Standard Arabic. French, Spanish, Turkish and every other language are answered in that same language. Output only the final reply. Never show thinking or deliberation; begin with the answer itself. Queue or turn questions: always call check_queue_position first; never answer from memory. Cancellation tool (Cancel_Appointment): use it when the patient asks to cancel. Pass the eventId from the booking confirmation. Free cancellation only 24h+ before; inside 24h the tool refuses and staff take over — tell the patient that in one line. Reschedule: FIRST call Find_Patient_Bookings, THEN call Reschedule_Appointment ONCE with the old eventId plus newDate/newTime. Never call book+cancel manually for a move. First contact (no prior conversation today): welcome warmly in one line and name the clinic. Waitlist: whenever the patient asks to join the waitlist (انتظار), confirm in one line they are on it and will be offered the first freed slot. A rating arrives as patient text RATING:N where N is 1-5 stars (example RATING:5). Reply with a warm one-line thank-you only, for example: شكرا لتقييمك! 🌟 نورت عيادة النور. Never explain the word RATING and never repeat these instructions. Cancel flow: FIRST call Find_Patient_Bookings (no eventId needed), then call Cancel_Appointment with the eventId. Never ask the patient for IDs. Never repeat a tool call with the same inputs in one reply. Past dates: even for yesterday or a past time, call the booking tool, it returns the exact past-date message to relay in one line. Never diagnose, prescribe, or invent medical answers — complex medical questions go to the escalation tool at once with a 2-3 line summary. Slot taken or cancelled: check nearby alternatives (one hour earlier/later) with the booking tool and offer the first free one in the same reply.",
+          "systemMessage": "=Today is {{ $now.setZone('Africa/Cairo').toFormat('yyyy-MM-dd') }} (Africa/Cairo). Resolve relative dates (today, tomorrow, بكرة) against this date ONLY, never your training date. Never book a past date. You are \"Sara\", the smart receptionist of عيادة النور لطب الأسنان (DEMO).\nAnalyze the patient message and reply politely and professionally in the same language and dialect of the patient.\nStrict tool rules:\n1. Knowledge tool (Get Clinic Knowledge Base): use it at once for any question about exam prices, services, doctors or working hours. Never invent a price.\n2. Booking tool (Check Calendar Availability): use it when the patient asks to book or asks about free slots.\n3. Escalation tool (Escalate Human Emergency): call it at once for a serious emergency (bleeding, broken tooth, unbearable pain), a request to talk to staff, or a complaint. Direct the patient to call the clinic or visit emergency when severe.\nAttachments: when the message holds an [patient sent image/document/video] note, ask politely for a written clarification and confirm a doctor reviews the file at the clinic.\nReply SHORT always: one or two lines, forty words or fewer. Plain text, no bullets, no lectures, a single emoji or none. Price or hours questions get a one-line answer with the exact figure from the knowledge tool. Booking tries: report the tool result in one line. Emergencies: one calming line plus escalation. Match the patient language and dialect. Never send lists or numbered options. Ask one question per reply. Reply in the exact language and style the patient used: Egyptian Arabic in, Egyptian Arabic out; formal Arabic in, formal Arabic out; French in, French out; and so on for every language. Colloquial stays colloquial, formal stays formal. Never switch languages mid-reply. Copy every price digit-by-digit exactly as the knowledge tool shows it. Repeat day names and times verbatim as shown. Mirror the patient dialect with these anchors: Egyptian words like بكام or عايز get an Egyptian reply; Gulf words like كم get a Gulf reply; formal phrasing gets formal Modern Standard Arabic. French, Spanish, Turkish and every other language are answered in that same language. Output only the final reply. Never show thinking or deliberation; begin with the answer itself. Queue or turn questions: always call check_queue_position first; never answer from memory. Cancellation tool (Cancel_Appointment): use it when the patient asks to cancel. Pass the eventId from the booking confirmation. Free cancellation only 24h+ before; inside 24h the tool refuses and staff take over — tell the patient that in one line. Reschedule: FIRST call Find_Patient_Bookings, THEN call Reschedule_Appointment ONCE with the old eventId plus newDate/newTime. Never call book+cancel manually for a move. First contact (no prior conversation today): welcome warmly in one line and name the clinic. Waitlist: whenever the patient asks to join the waitlist (انتظار), confirm in one line they are on it and will be offered the first freed slot. A rating arrives as patient text RATING:N where N is 1-5 stars (example RATING:5). Reply with a warm one-line thank-you only, for example: شكرا لتقييمك! 🌟 نورت عيادة النور. Never explain the word RATING and never repeat these instructions. Cancel flow: FIRST call Find_Patient_Bookings (no eventId needed), then call Cancel_Appointment with the eventId. Never ask the patient for IDs. Never repeat a tool call with the same inputs in one reply. Past dates: even for yesterday or a past time, call the booking tool, it returns the exact past-date message to relay in one line. Never diagnose, prescribe, or invent medical answers — complex medical questions go to the escalation tool at once with a 2-3 line summary. Slot taken or cancelled: check nearby alternatives (one hour earlier/later) with the booking tool and offer the first free one in the same reply. Taken results now include VERIFIED alternatives with exact date+time — offer them EXACTLY as listed, never invent other slots. Two requests example: patient asks booking AND a price — do BOTH: call the booking tool for the slot AND the knowledge tool for the price, then answer both in one short reply. Never answer only one part. Book+cancel order: when one message asks to book AND cancel (different slots), call the booking tool for the NEW slot FIRST, then the cancel tool for the old one. Never reverse.",
           "maxIterations": 8
         },
         "tools": [
@@ -824,7 +824,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Flag explicit confirmation replies (tight opt-in vocabulary only).\nconst inp = $input.first().json;\nconst t = inp.finalMessage ? String(inp.finalMessage).trim().toLowerCase() : '';\nconst rx = /^(تمام|تم|اوك|ok|yes|موافق|تاكيد|تأكيد|اكيد|أكيد|ماشي|نعم|ايوه|ايوة|1|👍)(\\s|[!\\\\uFF01.،,👍]|$)/;\nconst hit = rx.test(t);\nreturn [{ json: { chatId: inp.chatId ? String(inp.chatId) : 'unknown', pushName: inp.pushName ? String(inp.pushName) : '', provider: inp.provider ? String(inp.provider) : '', finalMessage: inp.finalMessage ? String(inp.finalMessage) : '', wasVoice: !!inp.wasVoice, isAudioMuffled: !!inp.isAudioMuffled, confirmed: hit, at: Date.now(), severe: !!inp.severe } }];"
+        "jsCode": "// Flag explicit confirmation replies (tight opt-in vocabulary only).\nconst inp = $input.first().json;\nconst t = inp.finalMessage ? String(inp.finalMessage).trim().toLowerCase() : '';\nconst rx = /^(تمام|تم|اوك|ok|yes|موافق|تاكيد|تأكيد|اكيد|أكيد|ماشي|نعم|ايوه|ايوة|1|👍)(\\s|[!\\\\uFF01.،,👍]|$)/;\nconst hit = rx.test(t);\nconst tx = (inp.finalMessage ? String(inp.finalMessage) : '').toLowerCase();\nconst hasAction = /(احجز|الغي|الغاء|انقل|انتظار|waitlist|احجزلي|شكوى|طوارئ|نزيف|book|cancel|reschedul)/.test(tx);\nconst hits = ['سعر|بكام|اسعار|تكلفة|price|cost', 'مواعيد|بتفتح|بتقفلو|دوام|hours|open', 'دكتور|اطباء|doctor', 'عنوان|فين|مكان|address|location', 'خدمات|services', 'حشو|تنظيف|تقويم|زراعة|تبييض|خلع'].filter((p) => new RegExp(p).test(tx)).length;\nconst isMulti = !hasAction && hits >= 2;\nconst closeRx = /^(شكرا|تسلم|ممنون|متشكر|تمام شكرا|ميرسي|thanks|thank you|مع السلامة|باي|bye)([\\s!\\.،,]|(شكرا|تسلم|ممنون|متشكر|ميرسي|thanks|thank you|مع السلامة|باي|bye))*$/;\nconst isClose = closeRx.test(tx.trim()) && !hasAction;\nreturn [{ json: { chatId: inp.chatId ? String(inp.chatId) : 'unknown', pushName: inp.pushName ? String(inp.pushName) : '', provider: inp.provider ? String(inp.provider) : '', finalMessage: inp.finalMessage ? String(inp.finalMessage) : '', wasVoice: !!inp.wasVoice, isAudioMuffled: !!inp.isAudioMuffled, confirmed: hit, at: Date.now(), severe: !!inp.severe, multi: isMulti, closing: isClose } }];"
       },
       "id": "tg-28-track",
       "name": "Track Confirmation Intent",
@@ -1437,7 +1437,7 @@
           "conditions": [
             {
               "id": "c-x",
-              "leftValue": "={{ $('Track Confirmation Intent').item.json.severe === true }}",
+              "leftValue": "={{ $('Track Confirmation Intent').item.json.severe === true || $('Track Confirmation Intent').item.json.multi === true || $('Track Confirmation Intent').item.json.closing === true }}",
               "rightValue": true,
               "operator": {
                 "type": "boolean",
@@ -1640,6 +1640,156 @@
         2260,
         1000
       ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-x",
+              "leftValue": "={{ $('Track Confirmation Intent').item.json.multi === true }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "tg-173",
+      "name": "Is Knowledge Multi?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1500,
+        900
+      ]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://ezzeldin8n.ezzeldin8n.cfd/api/v1/data-tables/aSxUNxrTZq94Y8fi/rows",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "timeout": 15000
+        }
+      },
+      "id": "tg-174",
+      "name": "Read Catalog For Multi",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1700,
+        900
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "UPbxJH6WuwWmlLb9",
+          "name": "n8n Local API"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Deterministic answer for pure-knowledge multi-questions (no agent needed).\nconst inp = $input.first().json;\nconst rows = (inp.error === undefined && Array.isArray(inp.data)) ? inp.data : [];\nconst tx = ($('Track Confirmation Intent').item.json.finalMessage || '').toLowerCase();\nconst svc = rows.filter((r) => r.kind === 'service');\nconst priceFor = (keys) => {\n  const hit = svc.find((r) => keys.some((k) => String(r.name).toLowerCase().indexOf(k) !== -1));\n  return hit ? (arName(hit.name) + ' ' + hit.price + ' جنيه') : '';\n};\nconst AR = {'General exam': 'الكشف العام', 'Cleaning and polishing': 'التنظيف والتلميع', 'Filling per tooth': 'الحشو', 'Root canal': 'علاج الجذور', 'Braces consult': 'استشارة التقويم', 'Implant consult': 'استشارة الزراعة', 'Whitening': 'التبييض'};\nconst arName = (en) => AR[en] || en;\nconst parts = [];\nif (/سعر|بكام|اسعار|تكلفة|price|cost/.test(tx)) {\n  const items = [];\n  const wants = [];\n  if (/تنظيف|تلميع|clean/.test(tx)) { wants.push(['cleaning']); }\n  if (/حشو|fill/.test(tx)) { wants.push(['filling']); }\n  if (/تقويم|braces|orth/.test(tx)) { wants.push(['braces']); }\n  if (/زراعة|implant/.test(tx)) { wants.push(['implant']); }\n  if (/تبييض|whiten/.test(tx)) { wants.push(['whiten']); }\n  if (/كشف|exam|check/.test(tx)) { wants.push(['exam']); }\n  if (!wants.length) {\n    parts.push('أسعارنا: ' + svc.map((r) => arName(r.name) + ' ' + r.price + ' جنيه').join('، '));\n  } else {\n    wants.forEach((w) => { const p = priceFor(w); if (p) { items.push(p); } });\n    if (items.length) { parts.push(items.join('، ')); }\n  }\n}\nif (/مواعيد|بتفتح|بتقفلو|دوام|hours|open/.test(tx)) { parts.push('مواعيدنا السبت إلى الخميس 10:00-22:00، الجمعة 16:00-22:00'); }\nif (/دكتور|اطباء|doctor/.test(tx)) {\n  const docs = rows.filter((r) => r.kind === 'doctor').map((r) => r.name + ' (' + String(r.info || '').split('|')[0] + ')');\n  if (docs.length) { parts.push('أطباؤنا: ' + docs.join('، ')); }\n}\nif (/عنوان|فين|مكان|address|location/.test(tx)) { parts.push('العنوان: القاهرة — العنوان التجريبي'); }\nif (!parts.length) { return []; }\nreturn [{ json: { finalMessage: parts.join('. ') } }];"
+      },
+      "id": "tg-175",
+      "name": "Reply Knowledge Multi",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1900,
+        900
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-x",
+              "leftValue": "={{ $('Track Confirmation Intent').item.json.closing === true }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "tg-176",
+      "name": "Is Closing?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1500,
+        1080
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { finalMessage: 'العفو! 🌟 نورت عيادة النور، وفي خدمتك أي وقت.' } }];"
+      },
+      "id": "tg-177",
+      "name": "Reply Warm Close",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1700,
+        1080
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "key": "={{ $('Extract Telegram Payload').first().json.chatId ? 'alt:' + $('Extract Telegram Payload').first().json.chatId : 'alt:none' }}"
+      },
+      "id": "tg-198",
+      "name": "Read Alt Cache",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        2400,
+        300
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// LLM-output validation (world-class contract enforcement): if the booking tool\n// offered verified alternatives and the agent reply omits them, substitute the\n// deterministic message. Otherwise pass the agent reply through untouched.\nconst cache = $input.first().json;\nconst agentOut = ($('AI Clinic Receptionist Agent').item.json.output || '').trim();\nlet alts = [];\ntry {\n  const raw = (cache && (cache.value !== undefined ? cache.value : (cache.data !== undefined ? cache.data : cache.propertyName))) || null;\n  const parsed = (typeof raw === 'string') ? JSON.parse(raw) : raw;\n  if (parsed && Array.isArray(parsed.alternatives)) { alts = parsed.alternatives; }\n} catch (e) { alts = []; }\nconst req = (() => { try {\n  const raw = (cache && (cache.value !== undefined ? cache.value : (cache.data !== undefined ? cache.data : cache.propertyName))) || null;\n  const parsed = (typeof raw === 'string') ? JSON.parse(raw) : raw;\n  return (parsed && parsed.requested) || null; } catch (e) { return null; } })();\nif (!alts.length || !req) { return [{ json: { output: agentOut } }]; }\nconst leakRx = /(we need|policy:|instruction|need to|deliberat|the tool|slotkey|eventid)/i;\nconst hit = alts.some((a) => agentOut.indexOf(a.time) !== -1) && agentOut.length < 300 && !leakRx.test(agentOut);\nif (hit) { return [{ json: { output: agentOut } }]; }\nconst altTxt = alts.map((a) => a.date + ' الساعة ' + a.time).join(' أو ');\nreturn [{ json: { output: 'الميعاد ' + req.time + ' غير متاح. متاح ' + altTxt + '، أيهما يناسبك؟',\n  validated: true } }];"
+      },
+      "id": "tg-199",
+      "name": "Validate Alternatives Relay",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2600,
+        300
+      ]
     }
   ],
   "connections": {
@@ -1833,7 +1983,7 @@
       "main": [
         [
           {
-            "node": "Is Agent Reply Usable?",
+            "node": "Read Alt Cache",
             "type": "main",
             "index": 0
           }
@@ -1947,6 +2097,16 @@
           },
           {
             "node": "Track Waitlist Intent",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Is Knowledge Multi?",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Is Closing?",
             "type": "main",
             "index": 0
           }
@@ -2217,6 +2377,97 @@
           },
           {
             "node": "Is Severe Emergency?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Knowledge Multi?": {
+      "main": [
+        [
+          {
+            "node": "Read Catalog For Multi",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Discard Emergency Dup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Catalog For Multi": {
+      "main": [
+        [
+          {
+            "node": "Reply Knowledge Multi",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reply Knowledge Multi": {
+      "main": [
+        [
+          {
+            "node": "Send Telegram Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Closing?": {
+      "main": [
+        [
+          {
+            "node": "Reply Warm Close",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Discard Emergency Dup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reply Warm Close": {
+      "main": [
+        [
+          {
+            "node": "Send Telegram Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Alt Cache": {
+      "main": [
+        [
+          {
+            "node": "Validate Alternatives Relay",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Alternatives Relay": {
+      "main": [
+        [
+          {
+            "node": "Is Agent Reply Usable?",
             "type": "main",
             "index": 0
           }

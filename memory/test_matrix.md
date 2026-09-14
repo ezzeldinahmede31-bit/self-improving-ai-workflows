@@ -11,8 +11,8 @@ Every production bug gets a row here. Status: PASS / FAIL / UNPROVEN.
 | A5 | cancel natural | find+cancel, event deleted | PASS (1297/98) |
 | A6 | reschedule natural | atomic move + Cairo reply | PASS (1479) |
 | A7 | complaint/human-request | deterministic ESC + summary, agent suppressed | PASS (1617/18: human-request intent) |
-| A8 | graceful close | polite close, no loop | FAIL-turn (apology via guard; tone wrong, safe) |
-| A9 | multi-intent | both handled | FAIL (deliberation; lighter multi also flaked 2x — provider variance) |
+| A8 | graceful close | deterministic warm-close lane incl. combos (regex fix) | PASS (1709) |
+| A9 | multi-intent | knowledge-multis deterministic (arabized, no agent); book+cancel = order rule + reschedule tool | PASS-deterministic for knowledge (1718: التنظيف والتلميع 800 جنيه); book+cancel via reschedule tool proven |
 | A10 | language switch mid-conv | mirror new language | NEW |
 
 ## B. Special cases (edge)
@@ -23,7 +23,7 @@ Every production bug gets a row here. Status: PASS / FAIL / UNPROVEN.
 | B3 | correction (لا قصدي الحشو) | corrected entity + exact price | PASS (800→1200 both exact) |
 | B4 | conflicting (احجز والغي) | clarify, no destructive act | NEW |
 | B5 | past date booking | past-date refusal | PASS (tool path) |
-| B6 | taken slot + alternatives | mechanism+check proven in traces; final phrasing flaked 4x; 1 hang-capped | PARTIAL |
+| B6 | taken slot + verified alternatives | tool returns 2 verified alts + relay rule + VALIDATOR substitution (propertyName fix) | PASS (1733: الحلول المتاحة 11:00 أو 13:00، هل تفضل 11:00؟) |
 | B7 | cutoff <24h cancel | staffOnly Arabic | PASS (1333) |
 | B8 | resched: new-taken / past-new / unknown / old<24h | graceful each | PASS (direct 1485/87/90) |
 | B9 | severe emergency keywords | deterministic ESC, agent suppressed | PASS (1491) |
