@@ -276,8 +276,8 @@
       ],
       "credentials": {
         "openAiApi": {
-          "id": "jdnkbiAs02RzHXaw",
-          "name": "OpenAI account"
+          "id": "HIO2DYV6knLGCrBI",
+          "name": "OpenAI account (working)"
         }
       },
       "retryOnFail": true,
