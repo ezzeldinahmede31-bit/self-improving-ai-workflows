@@ -1489,3 +1489,15 @@ Both added to `compensatory-router` stacks.
 - LIVE: visit rows written durably + record cleaned; recall invited 200d-old chat with CORRECT chatId, ignored 10d chat, invite-once suppressed repeats; junk probe/undefined rows deleted (table EMPTY for production).
 - ISSUE 2 (Cairo 11PM, explicit test as demanded): direct CAL booking date=2026-10-03 time=23:00 → event start **2026-10-03T20:00:00Z same date** (23:00 Cairo UTC+3 ✓), 30-min duration, confirm text "الساعة 23:00" Cairo wall — NO slip. Intl trick names Africa/Cairo explicitly (never server locale). (Agent Arabic "11 مساء" parsing flaked twice at the model — tool path proven; parsing is prompt-level.)
 - Hygiene: test event deleted, test rows deleted, Redis clean, pytest EXIT 0.
+
+## Full-system refactoring COMPLETE (Sep 14) — split + speed + docs
+- SCOPE (user answers): full lane split, speed first, delete dead, document all.
+- CAL 74 → ROUTER (8 nodes, same ID Jy8EYH1uLoap9nU3, same trigger contract → zero agent changes) + 4 lanes: book (31), cancel (13), find (3+sticky), reschedule (28). Terminal-last refactor: side effects BEFORE terminal replies (deterministic tool results — previously fan-out made results last-finisher-wins; this likely caused old cancel-turn confusion). Queue fix en route: Reply reads queue via paired Claim ref (was $input garbage after reorder).
+- MAIN 60 → 58: voice pipeline extracted to voice sub mABfupZqeGQ0Rpgn (Download→Whisper→Merger; hot text path untouched for speed). Proven live (fake voice → Arabic fallback through sub).
+- ENGINE 52 → ROUTER (29) + 6 lanes (remind/info/escalate/cleanup/postvisit/offers) with Unpack entry nodes (no cross-workflow $() refs — paired data travels with items). Router also keeps health subsystem.
+- DELETED: clinic_receptionist_gated.json (stale), engine marker nodes (orphaned island), legacy Send→Alert spam edge.
+- SINGLE-SOURCE durations: book+reschedule lanes read KB Data Table (hairpin) with baked mirror fallback.
+- STICKIES in all 12 new/refactored files. Naming kept (tg-/cal-/eng-/st-).
+- BUGS killed: (1) subs must publish BEFORE router (400 ordering); (2) lane fan-out lost (Send ran without Mark — monolith used IF-true fan-out [Send,Mark], restored); (3) duplicate exec IDs eng-r-call; (4) multi-detector counted service names as topics (single-price → wrong lane); (5) unconditional severe=true (all traffic → ESC — caught by live test); (6) n8n runs fan-out depth-first (flag-race → order-proof data flags, documented earlier).
+- PROOFS post-refactor: router book/find/cancel terminals live; voice sub live; remind-lane lifecycle live; engine ticks green; 21/21 workflows validate 0/0 except main's 2 pre-existing; gates 14/14 READY; pytest EXIT 0; calendar EMPTY; Redis clean.
+- Count: 10 → 21 workflows. New IDs: CAL book c0lcuMSsBafCU2EQ / cancel mEfKlXcSjfkFyGDm / find nq8HOsxsaE0alVqR / resched kT9EB420Yqy7DYeA / voice mABfupZqeGQ0Rpgn / eng remind CQFLfV4ozsI62id9 / info YrA8ZAXhw80QwyW7 / escalate QalQeexQ2jz7TfMs / cleanup qldAIMCqGbmdNXaF / postvisit qgcyB6HzsylAANlt / offers OR2bSrNu7nxnSkpS.
