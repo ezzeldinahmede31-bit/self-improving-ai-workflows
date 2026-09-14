@@ -1,0 +1,194 @@
+{
+  "name": "Clinic Recall Weekly (DEMO)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "weeksInterval": 1,
+              "triggerAtDay": [
+                6
+              ],
+              "triggerAtHour": 10
+            }
+          ]
+        },
+        "pinnedData": [
+          {
+            "json": {
+              "ping": "pinned-sample"
+            }
+          }
+        ]
+      },
+      "id": "wee-0",
+      "name": "Weekly Recall Tick",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "keys",
+        "keyPattern": "lastvisit:*"
+      },
+      "id": "lis-1",
+      "name": "List Last Visits",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        220,
+        0
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Patients whose last visit is 180+ days ago (world dental recall standard).\nconst j = $input.first().json;\nconst now = Date.now();\nconst out = [];\nfor (const k of Object.keys(j || {})) {\n  if (String(k).indexOf('lastvisit:') !== 0) { continue; }\n  const chat = String(k).slice('lastvisit:'.length);\n  const last = Number(j[k]) || 0;\n  if (last > 0 && now - last > 180 * 86400 * 1000) {\n    out.push({ json: { chatId: chat } });\n  }\n}\nreturn out;"
+      },
+      "id": "fil-2",
+      "name": "Filter Due Recall",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $input.item.json.chatId }}",
+        "text": "=وحشتنا في عيادة النور 🌟 فات 6 شهور على آخر زيارة — الفحص الدوري يحمي أسنانك. رد بـ «احجز» ونرتب لك ميعادا.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "sen-3",
+      "name": "Send Recall Invite",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        660,
+        0
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "DLlemykGQ7Zm867F",
+          "name": "Telegram account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const inp = $input.first().json;\nif (inp.error !== undefined) { return []; }\nconst chat = $('Filter Due Recall').item.json.chatId;\nreturn [{ json: { chatId: String(chat), now: String(Date.now()) } }];"
+      },
+      "id": "sta-4",
+      "name": "Stamp Recall Moment",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=lastvisit:{{ $input.item.json.chatId }}",
+        "value": "={{ $input.item.json.now }}",
+        "expire": true,
+        "ttl": 17280000
+      },
+      "id": "sto-5",
+      "name": "Store Recall Stamp",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        0
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    }
+  ],
+  "connections": {
+    "Weekly Recall Tick": {
+      "main": [
+        [
+          {
+            "node": "List Last Visits",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Last Visits": {
+      "main": [
+        [
+          {
+            "node": "Filter Due Recall",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Due Recall": {
+      "main": [
+        [
+          {
+            "node": "Send Recall Invite",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Recall Invite": {
+      "main": [
+        [
+          {
+            "node": "Stamp Recall Moment",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Stamp Recall Moment": {
+      "main": [
+        [
+          {
+            "node": "Store Recall Stamp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {}
+}

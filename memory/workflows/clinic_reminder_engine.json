@@ -52,7 +52,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Fan the KEYS map out to decided items (confirmation lives in-record).\nconst j = $input.first().json;\nconst now = Date.now();\nconst parseRec = (v) => {\n  if (typeof v === 'string') { try { return JSON.parse(v); } catch (e) { return null; } }\n  return (v && typeof v === 'object') ? v : null;\n};\nconst shape = (rec) => {\n  const appt = Date.parse(rec.appointmentISO);\n  const lead = (Number(rec.leadHours) || 6) * 3600 * 1000;\n  const rAt = Number(rec.remindedAt) || null;\n  const confAt = Number(rec.confirmedAt) || null;\n  const fresh = confAt !== null && rAt !== null && confAt > rAt;\n  const future = !isNaN(appt) && appt > now;\n  return { json: { record: rec,\n    needsRemind: !isNaN(appt) && !rAt && future && now >= appt - lead,\n    needsCleanup: isNaN(appt) || appt < now - 2 * 3600 * 1000,\n    needsEscalation: !isNaN(appt) && !!rAt && !fresh && future && now > rAt + 120000 } };\n};\nreturn Object.keys(j || {})\n  .filter((k) => String(k).indexOf('remind:') === 0)\n  .map((k) => parseRec(j[k]))\n  .filter((rec) => rec && rec.appointmentISO)\n  .map((rec) => shape(rec));"
+        "jsCode": "// Fan the KEYS map out to decided items (confirmation lives in-record).\n// Two-touch cadence (world standard): info at T-24h (infoSentAt), confirm at T-2h (remindedAt, button).\nconst j = $input.first().json;\nconst now = Date.now();\nconst parseRec = (v) => {\n  if (typeof v === 'string') { try { return JSON.parse(v); } catch (e) { return null; } }\n  return (v && typeof v === 'object') ? v : null;\n};\nconst shape = (rec) => {\n  const appt = Date.parse(rec.appointmentISO);\n  const infoAt = Number(rec.infoSentAt) || null;\n  const rAt = Number(rec.remindedAt) || null;\n  const confAt = Number(rec.confirmedAt) || null;\n  const fresh = confAt !== null && rAt !== null && confAt > rAt;\n  const future = !isNaN(appt) && appt > now;\n  const endedAgo = !isNaN(appt) ? now - appt : -1;\n  return { json: { record: rec,\n    needsInfo: !isNaN(appt) && !infoAt && future && now >= appt - 24 * 3600 * 1000,\n    needsRemind: !isNaN(appt) && !rAt && future && now >= appt - 2 * 3600 * 1000,\n    needsPostVisit: !isNaN(appt) && !rec.followedUp && !!confAt && endedAgo > 45 * 60 * 1000 && endedAgo < 20 * 3600 * 1000,\n    needsCleanup: isNaN(appt) || appt < now - 2 * 3600 * 1000,\n    needsEscalation: !isNaN(appt) && !!rAt && !fresh && future && now > rAt + 120000 } };\n};\nreturn Object.keys(j || {})\n  .filter((k) => String(k).indexOf('remind:') === 0)\n  .map((k) => parseRec(j[k]))\n  .filter((rec) => rec && rec.appointmentISO)\n  .map((rec) => shape(rec));"
       },
       "id": "en-sk",
       "name": "Split Map To Items",
@@ -324,7 +324,7 @@
         "resource": "message",
         "operation": "sendMessage",
         "chatId": "={{ $env.TELEGRAM_NURSE_CHAT_ID || $env.TELEGRAM_STAFF_CHAT_ID || '-100123456789' }}",
-        "text": "=📞 مكالمة مطلوبة: {{ $input.item.json.record.patientName }} (شات {{ $input.item.json.record.chatId }}) — ميعاده اليوم {{ $input.item.json.record.time }} مع {{ $input.item.json.record.doctor }} ({{ $input.item.json.record.service }})، لم يؤكد بعد التذكير. اتصلي به هاتفيا من فضلك.",
+        "text": "=📞 مكالمة مطلوبة: {{ $('Attach Risk').item.json.record.patientName }} (شات {{ $('Attach Risk').item.json.record.chatId }}) — ميعاده اليوم {{ $('Attach Risk').item.json.record.time }} مع {{ $('Attach Risk').item.json.record.doctor }} ({{ $('Attach Risk').item.json.record.service }})، لم يؤكد بعد التذكير. سوابق تغيب: {{ $('Attach Risk').item.json.risk }}. اتصلي به هاتفيا من فضلك.",
         "additionalFields": {
           "appendAttribution": false
         }
@@ -685,6 +685,503 @@
         }
       },
       "notes": "Approved by design: re-arms health alerts after recovery."
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-x",
+              "leftValue": "={{ $input.item.json.needsInfo === true }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "eng-229",
+      "name": "Time To Inform?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        480,
+        60
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $input.item.json.record.chatId }}",
+        "text": "=📌 تذكير مبكر: ميعادك {{ $input.item.json.record.service }} مع {{ $input.item.json.record.doctor }} {{ $input.item.json.record.date }} الساعة {{ $input.item.json.record.time }} (دور {{ $input.item.json.record.queueNumber }}). سنرسل لك تأكيدا قبل الموعد بساعتين.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "eng-230",
+      "name": "Send Info Reminder",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        700,
+        60
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "DLlemykGQ7Zm867F",
+          "name": "Telegram account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const rec = $input.first().json.record;\nif (!rec || !rec.chatId) { return []; }\nreturn [{ json: { ...rec, infoSentAt: Date.now() } }];"
+      },
+      "id": "eng-231",
+      "name": "Mark Info Sent",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        920,
+        60
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=remind:{{ $input.item.json.chatId }}:{{ $input.item.json.slotKey }}",
+        "value": "={{ JSON.stringify($input.item.json) }}"
+      },
+      "id": "eng-232",
+      "name": "Store Info Record",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1140,
+        60
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-x",
+              "leftValue": "={{ $input.item.json.needsPostVisit === true }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "eng-233",
+      "name": "Time For Follow-Up?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        480,
+        900
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $input.item.json.record.chatId }}",
+        "text": "=شكرا لزيارتك عيادة النور 🌟 نتمنى أن تكون بخير. قيّمنا هنا من فضلك:\nhttps://ezzeldin8n.ezzeldin8n.cfd/form/clinic-review-noor-2026\nوساعدنا نخدمك أفضل.",
+        "additionalFields": {
+          "appendAttribution": false
+        },
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "⭐",
+                    "additionalFields": {
+                      "callback_data": "rate:1"
+                    }
+                  },
+                  {
+                    "text": "⭐⭐",
+                    "additionalFields": {
+                      "callback_data": "rate:2"
+                    }
+                  },
+                  {
+                    "text": "⭐⭐⭐",
+                    "additionalFields": {
+                      "callback_data": "rate:3"
+                    }
+                  },
+                  {
+                    "text": "⭐⭐⭐⭐",
+                    "additionalFields": {
+                      "callback_data": "rate:4"
+                    }
+                  },
+                  {
+                    "text": "⭐⭐⭐⭐⭐",
+                    "additionalFields": {
+                      "callback_data": "rate:5"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "id": "eng-234",
+      "name": "Send Post-Visit Thanks",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        700,
+        900
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "DLlemykGQ7Zm867F",
+          "name": "Telegram account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const rec = $input.first().json.record;\nif (!rec || !rec.chatId) { return []; }\nreturn [{ json: { ...rec, followedUp: Date.now() } }];"
+      },
+      "id": "eng-235",
+      "name": "Mark Followed-Up",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        920,
+        900
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=remind:{{ $input.item.json.chatId }}:{{ $input.item.json.slotKey }}",
+        "value": "={{ JSON.stringify($input.item.json) }}"
+      },
+      "id": "eng-236",
+      "name": "Store Followed-Up",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1140,
+        900
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Decide no-show (never confirmed) and archive last visit; pass item through.\nconst inp = $input.first().json;\nconst rec = inp.record || {};\nconst rAt = Number(rec.remindedAt) || null;\nconst confAt = Number(rec.confirmedAt) || null;\nconst fresh = confAt !== null && rAt !== null && confAt > rAt;\nreturn [{ json: { record: rec, needsCleanup: inp.needsCleanup, needsEscalation: inp.needsEscalation,\n  needsInfo: inp.needsInfo, needsRemind: inp.needsRemind, needsPostVisit: inp.needsPostVisit,\n  isNoShow: !fresh, chatId: rec.chatId || '', apptISO: rec.appointmentISO || '' } }];"
+      },
+      "id": "eng-237",
+      "name": "Tally No-Show + Archive",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        1080
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "incr",
+        "key": "stats:noshow"
+      },
+      "id": "eng-238",
+      "name": "Tally No-Show Day",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        700,
+        1080
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "incr",
+        "key": "=noshow:{{ $input.item.json.chatId }}"
+      },
+      "id": "eng-239",
+      "name": "Tally No-Show Patient",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        920,
+        1080
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=lastvisit:{{ $input.item.json.chatId }}",
+        "value": "={{ String(Date.now()) }}",
+        "expire": true,
+        "ttl": 17280000
+      },
+      "id": "eng-240",
+      "name": "Archive Last Visit",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1140,
+        1080
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "key": "=noshow:{{ $input.item.json.record.chatId }}"
+      },
+      "id": "eng-241",
+      "name": "Read No-Show Tally",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        700,
+        1240
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-x",
+              "leftValue": "={{ $input.item.json.isNoShow === true }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "eng-342",
+      "name": "Was No-Show?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        700,
+        1080
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Merge escalation record with the patient's prior no-show tally.\nconst cnt = $input.first().json;\nconst rec = $('Needs Escalation?').item.json.record;\nconst n = Number(cnt.value !== undefined ? cnt.value : (cnt.data !== undefined ? cnt.data : 0)) || 0;\nreturn [{ json: { record: rec, risk: n } }];"
+      },
+      "id": "eng-343",
+      "name": "Attach Risk",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        920,
+        1240
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "keys",
+        "keyPattern": "offer:*"
+      },
+      "id": "eng-344",
+      "name": "List Freed Offers",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        200,
+        1400
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Pop the oldest waiter for each freed offer (duplicate-offer race accepted: booking lock keeps taps safe).\nconst outs = [];\nfor (const it of $input.all()) {\n  const j = it.json;\n  const offerKey = Object.keys(j).find((k) => String(k).indexOf('offer:') === 0);\n  if (!offerKey) { continue; }\n  let offer = null;\n  try { offer = JSON.parse(j[offerKey]); } catch (e) { offer = null; }\n  if (!offer) { continue; }\n  outs.push({ json: { offerKey: offerKey, offer: offer, waiter: null, rest: '[]' } });\n}\nreturn outs;"
+      },
+      "id": "eng-346",
+      "name": "Take Oldest Waiter",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        640,
+        1400
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "pop",
+        "list": "waitlist"
+      },
+      "id": "eng-410-pop",
+      "name": "Pop Waitlist",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        640,
+        1400
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Merge popped waiter with the shaped offer (empty pop -> stop).\nconst w = $input.first().json;\nconst shaped = $('Take Oldest Waiter').item.json;\nconst waiter = (typeof w === 'string') ? (function(){ try { return JSON.parse(w); } catch (e) { return null; } })() : (w && (w.value || w.data) ? (function(){ try { return JSON.parse(w.value || w.data); } catch (e) { return null; } })() : w);\nif (!waiter || !waiter.chatId) { return []; }\nreturn [{ json: { offerKey: shaped.offerKey, offer: shaped.offer, waiter: waiter } }];"
+      },
+      "id": "eng-411-merge",
+      "name": "Merge Offer Waiter",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        860,
+        1400
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $input.item.json.waiter.chatId }}",
+        "text": "=🎉 فضي ميعاد: {{ $input.item.json.offer.service }} مع {{ $input.item.json.offer.doctor }} يوم {{ $input.item.json.offer.date }} الساعة {{ $input.item.json.offer.time }}. رد بـ «احجز» سريعا قبل أن يأخذه غيرك!",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "eng-412-send",
+      "name": "Send Slot Offer",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1080,
+        1400
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "DLlemykGQ7Zm867F",
+          "name": "Telegram account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "={{ $input.item.json.offerKey }}",
+        "requiresHumanApproval": true
+      },
+      "id": "eng-413-del",
+      "name": "Delete Consumed Offer",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1300,
+        1400
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
     }
   ],
   "connections": {
@@ -698,6 +1195,11 @@
           },
           {
             "node": "Probe Redis Health",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "List Freed Offers",
             "type": "main",
             "index": 0
           }
@@ -742,7 +1244,7 @@
         ],
         [
           {
-            "node": "Needs Cleanup?",
+            "node": "Time To Inform?",
             "type": "main",
             "index": 0
           }
@@ -764,7 +1266,7 @@
       "main": [
         [
           {
-            "node": "Delete Reminder Record",
+            "node": "Tally No-Show + Archive",
             "type": "main",
             "index": 0
           }
@@ -804,19 +1306,14 @@
       "main": [
         [
           {
-            "node": "Notify Nurse Unconfirmed",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Mark Escalated Record",
+            "node": "Read No-Show Tally",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "No Action Due",
+            "node": "Time For Follow-Up?",
             "type": "main",
             "index": 0
           }
@@ -981,6 +1478,218 @@
         [
           {
             "node": "Health Checks Passed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Time To Inform?": {
+      "main": [
+        [
+          {
+            "node": "Send Info Reminder",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Mark Info Sent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Needs Cleanup?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Info Sent": {
+      "main": [
+        [
+          {
+            "node": "Store Info Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Time For Follow-Up?": {
+      "main": [
+        [
+          {
+            "node": "Send Post-Visit Thanks",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Mark Followed-Up",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Action Due",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Followed-Up": {
+      "main": [
+        [
+          {
+            "node": "Store Followed-Up",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tally No-Show + Archive": {
+      "main": [
+        [
+          {
+            "node": "Was No-Show?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Was No-Show?": {
+      "main": [
+        [
+          {
+            "node": "Tally No-Show Day",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Archive Last Visit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tally No-Show Day": {
+      "main": [
+        [
+          {
+            "node": "Tally No-Show Patient",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tally No-Show Patient": {
+      "main": [
+        [
+          {
+            "node": "Archive Last Visit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Archive Last Visit": {
+      "main": [
+        [
+          {
+            "node": "Delete Reminder Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read No-Show Tally": {
+      "main": [
+        [
+          {
+            "node": "Attach Risk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Attach Risk": {
+      "main": [
+        [
+          {
+            "node": "Notify Nurse Unconfirmed",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Mark Escalated Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pop Waitlist": {
+      "main": [
+        [
+          {
+            "node": "Merge Offer Waiter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Offer Waiter": {
+      "main": [
+        [
+          {
+            "node": "Send Slot Offer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Freed Offers": {
+      "main": [
+        [
+          {
+            "node": "Take Oldest Waiter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Take Oldest Waiter": {
+      "main": [
+        [
+          {
+            "node": "Pop Waitlist",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Slot Offer": {
+      "main": [
+        [
+          {
+            "node": "Delete Consumed Offer",
             "type": "main",
             "index": 0
           }

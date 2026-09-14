@@ -39,6 +39,22 @@
             {
               "name": "serviceName",
               "type": "string"
+            },
+            {
+              "name": "action",
+              "type": "string"
+            },
+            {
+              "name": "eventId",
+              "type": "string"
+            },
+            {
+              "name": "newDate",
+              "type": "string"
+            },
+            {
+              "name": "newTime",
+              "type": "string"
             }
           ]
         }
@@ -54,7 +70,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Normalize booking input into a slot key plus ISO window (30-minute visit).\nconst inp = $input.first().json;\nconst doctor = inp.doctorName ? String(inp.doctorName).trim() : 'any-doctor';\nconst date = inp.date ? String(inp.date).trim() : '';\nconst time = inp.time ? String(inp.time).trim() : '';\nconst service = inp.serviceName ? String(inp.serviceName).trim() : 'general visit';\nconst who = inp.patientName ? String(inp.patientName).trim() : 'patient';\nconst chat = inp.patientChatId ? String(inp.patientChatId) : (inp.patientPhone ? String(inp.patientPhone) : '');\nconst start = new Date(date + 'T' + time + ':00');\nconst end = new Date(start.getTime() + 30 * 60 * 1000);\nreturn [{ json: { slotKey: 'slot:' + doctor + ':' + date + ':' + time, startISO: start.toISOString(), endISO: end.toISOString(), doctor: doctor, date: date, time: time, service: service, patientName: who, patientChat: chat } }];"
+        "jsCode": "// Normalize booking input into a slot key plus ISO window (per-service duration, KB mirror).\nconst MINUTES = {'General exam': 30, 'Cleaning and polishing': 45, 'Filling per tooth': 45, 'Root canal': 90, 'Braces consult': 30, 'Implant consult': 30, 'Whitening': 60};\nconst inp = $input.first().json;\nconst doctor = inp.doctorName ? String(inp.doctorName).trim() : 'any-doctor';\nconst date = inp.date ? String(inp.date).trim() : '';\nconst time = inp.time ? String(inp.time).trim() : '';\nconst service = inp.serviceName ? String(inp.serviceName).trim() : 'general visit';\nconst who = inp.patientName ? String(inp.patientName).trim() : 'patient';\nconst chat = inp.patientChatId ? String(inp.patientChatId) : (inp.patientPhone ? String(inp.patientPhone) : '');\nconst mins = MINUTES[service] || 30;\nconst cairoISO = (d, t) => {\n  const try2 = d + 'T' + t + ':00+02:00';\n  const wall = new Intl.DateTimeFormat('en-GB', { timeZone: 'Africa/Cairo', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date(try2));\n  const hm = wall.split(':');\n  const wt = t.split(':');\n  return (Number(hm[0]) === Number(wt[0]) && Number(hm[1]) === Number(wt[1])) ? try2 : (d + 'T' + t + ':00+03:00');\n};\nconst start = new Date(cairoISO(date, time));\nconst end = new Date(start.getTime() + mins * 60 * 1000);\nconst isPast = isNaN(start.getTime()) || start.getTime() < Date.now() + 15 * 60 * 1000;\nreturn [{ json: { slotKey: 'slot:' + doctor + ':' + date + ':' + time, startISO: isNaN(start.getTime()) ? '' : start.toISOString(), endISO: isNaN(start.getTime()) ? '' : end.toISOString(), doctor: doctor, date: date, time: time, service: service, minutes: mins, patientName: who, patientChat: chat, isPast: isPast } }];"
       },
       "id": "sw1-b",
       "name": "Build Slot Window",
@@ -239,7 +255,11 @@
         },
         "start": "={{ $('Decide Slot Free').first().json.startISO }}",
         "end": "={{ $('Decide Slot Free').first().json.endISO }}",
-        "summary": "={{ $('Decide Slot Free').first().json.service }} - {{ $('Decide Slot Free').first().json.patientName }} ({{ $('Decide Slot Free').first().json.doctor }})"
+        "additionalFields": {
+          "summary": "={{ $('Decide Slot Free').first().json.service }} - {{ $('Decide Slot Free').first().json.patientName }} ({{ $('Decide Slot Free').first().json.doctor }})",
+          "description": "={{ 'Patient: ' + $('Decide Slot Free').first().json.patientName + ' | chat: ' + $('Decide Slot Free').first().json.patientChat + ' | slot: ' + $('Decide Slot Free').first().json.slotKey }}",
+          "visibility": "default"
+        }
       },
       "id": "sw1-ev",
       "name": "Create Calendar Event",
@@ -409,7 +429,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Build the reminder record (immutable facts for the reminder engine).\nconst prev = $('Decide Slot Free').first().json;\nconst rep = $input.first().json;\nconst today = new Date().toISOString().slice(0, 10);\nconst sameDay = today === prev.date;\nreturn [{ json: { chatId: prev.patientChat, appointmentISO: prev.startISO, bookedDate: today, leadHours: sameDay ? 2 : 6, doctor: prev.doctor, service: prev.service, patientName: prev.patientName, slotKey: prev.slotKey, date: prev.date, time: prev.time, eventId: rep.eventId ? rep.eventId : '', queueNumber: rep.queueNumber ? rep.queueNumber : 0 } }];"
+        "jsCode": "// Build the reminder record (immutable facts for the reminder engine).\nconst prev = $('Decide Slot Free').first().json;\nconst rep = $input.first().json;\nconst today = new Date().toISOString().slice(0, 10);\nreturn [{ json: { chatId: prev.patientChat, appointmentISO: prev.startISO, bookedDate: today, leadHours: 24, doctor: prev.doctor, service: prev.service, patientName: prev.patientName, slotKey: prev.slotKey, date: prev.date, time: prev.time, eventId: rep.eventId ? rep.eventId : '', queueNumber: rep.queueNumber ? rep.queueNumber : 0 } }];"
       },
       "id": "sw1-br",
       "name": "Build Reminder Record",
@@ -520,6 +540,464 @@
       },
       "retryOnFail": true,
       "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-act",
+              "leftValue": "={{ ($input.item.json.action || 'book') }}",
+              "rightValue": "book",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "cal-122",
+      "name": "Route Booking Action",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        120,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-fut",
+              "leftValue": "={{ $input.item.json.isPast === true }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "cal-123",
+      "name": "Is Future Slot?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        480,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const p = $('Build Slot Window').first().json;\nreturn [{ json: { booked: false, message: 'هذا الميعاد فات (' + p.date + ' ' + p.time + '). اختر ميعادا في المستقبل من فضلك.', slotKey: p.slotKey } }];"
+      },
+      "id": "cal-124",
+      "name": "Reply Past Date",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        700,
+        40
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "event",
+        "operation": "get",
+        "calendar": {
+          "mode": "list",
+          "value": "primary"
+        },
+        "eventId": "={{ $input.item.json.eventId }}"
+      },
+      "id": "cal-125",
+      "name": "Fetch Event Details",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.2,
+      "position": [
+        480,
+        420
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "R8AjuV0uT9m8lgQe",
+          "name": "Google Calendar account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 24h cutoff (world dental standard): inside 24h -> staff only.\nconst inp = $input.first().json;\nconst trigIn = $('Receive Booking Request').first().json;\nconst ev = (inp && !inp.error) ? inp : null;\nconst startMs = ev ? Date.parse(ev.start && (ev.start.dateTime || ev.start.date)) : NaN;\nconst eid = trigIn.eventId ? String(trigIn.eventId) : '';\nif (!eid) { return [{ json: { ok: false, staffOnly: false, message: 'لا أجد رقم الحجز. تواصل مع الاستقبال للإلغاء من فضلك.', eventId: '' } }]; }\nif (ev && ev.error !== undefined) { return [{ json: { ok: false, staffOnly: true, message: 'تعذر الوصول للحجز. تم إخطار الطاقم.', eventId: eid } }]; }\nif (isNaN(startMs)) { return [{ json: { ok: false, staffOnly: true, message: 'تعذر قراءة الحجز. تم إخطار الطاقم.', eventId: eid } }]; }\nconst hrsLeft = (startMs - Date.now()) / 3600000;\nif (hrsLeft < 24) { return [{ json: { ok: false, staffOnly: true, cutoff: true, message: 'هذا الميعاد خلال أقل من 24 ساعة — الإلغاء عبر الطاقم فقط. تم إخطارهم.', eventId: eid, startISO: new Date(startMs).toISOString() } }]; }\nconst cairo = new Intl.DateTimeFormat('en-CA', { timeZone: 'Africa/Cairo', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(startMs));\nconst ctime = new Intl.DateTimeFormat('en-GB', { timeZone: 'Africa/Cairo', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date(startMs));\nreturn [{ json: { ok: true, eventId: eid, startISO: new Date(startMs).toISOString(),\n  date: cairo, time: ctime,\n  doctor: trigIn.doctorName ? String(trigIn.doctorName) : 'any-doctor',\n  service: trigIn.serviceName ? String(trigIn.serviceName) : 'general visit',\n  patientName: trigIn.patientName ? String(trigIn.patientName) : 'patient',\n  patientChat: trigIn.patientChatId ? String(trigIn.patientChatId) : '' } }];"
+      },
+      "id": "cal-126",
+      "name": "Check Cancel Cutoff",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        700,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-ok",
+              "leftValue": "={{ $input.item.json.ok === true }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "cal-127",
+      "name": "Cancel Allowed?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        920,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "event",
+        "operation": "delete",
+        "calendar": {
+          "mode": "list",
+          "value": "primary"
+        },
+        "eventId": "={{ $('Check Cancel Cutoff').first().json.eventId }}",
+        "requiresHumanApproval": true
+      },
+      "id": "cal-128",
+      "name": "Delete Calendar Event",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.2,
+      "position": [
+        1140,
+        340
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "R8AjuV0uT9m8lgQe",
+          "name": "Google Calendar account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "key": "=ev:{{ $('Check Cancel Cutoff').first().json.eventId }}"
+      },
+      "id": "cal-129",
+      "name": "Read Event Index",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1140,
+        500
+      ],
+      "retryOnFail": true,
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "={{ $input.item.json.propertyName }}",
+        "requiresHumanApproval": true
+      },
+      "id": "cal-130",
+      "name": "Delete Reminder Record",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1360,
+        500
+      ],
+      "retryOnFail": true,
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "=ev:{{ $('Check Cancel Cutoff').first().json.eventId }}",
+        "requiresHumanApproval": true
+      },
+      "id": "cal-131",
+      "name": "Delete Event Index",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1360,
+        340
+      ],
+      "retryOnFail": true,
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "incr",
+        "key": "stats:cancelled"
+      },
+      "id": "cal-132",
+      "name": "Tally Cancelled Stat",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1560,
+        340
+      ],
+      "retryOnFail": true,
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=offer:{{ $('Check Cancel Cutoff').first().json.eventId }}",
+        "value": "={{ JSON.stringify($('Check Cancel Cutoff').first().json) }}",
+        "expire": true,
+        "ttl": 86400
+      },
+      "id": "cal-133",
+      "name": "Write Freed-Slot Offer",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1560,
+        500
+      ],
+      "retryOnFail": true,
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const c = $('Check Cancel Cutoff').first().json;\nreturn [{ json: { cancelled: true, message: 'تم إلغاء ميعاد ' + c.date + ' الساعة ' + c.time + ' (' + c.service + '). لو حابب ميعادا بديلا أخبرني.', eventId: c.eventId } }];"
+      },
+      "id": "cal-134",
+      "name": "Reply Cancelled",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1780,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $env.TELEGRAM_STAFF_CHAT_ID || '-100123456789' }}",
+        "text": "=🗑️ إلغاء ذاتي: {{ $('Check Cancel Cutoff').first().json.patientName }} ألغى ميعاد {{ $('Check Cancel Cutoff').first().json.date }} {{ $('Check Cancel Cutoff').first().json.time }} ({{ $('Check Cancel Cutoff').first().json.service }}). الميعاد معروض الآن على قائمة الانتظار.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "cal-135",
+      "name": "Notify Staff Cancelled",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1780,
+        560
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "8YZmGiJXc70srNgA",
+          "name": "Clinic Secretary Bot"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const c = $input.first().json;\nreturn [{ json: { cancelled: false, staffOnly: !!c.staffOnly, message: c.message } }];"
+      },
+      "id": "cal-136",
+      "name": "Reply Cancel Blocked",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1140,
+        580
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=ev:{{ $('Reply Booking Confirmed').first().json.eventId }}",
+        "value": "=remind:{{ $('Decide Slot Free').first().json.patientChat }}:{{ $('Decide Slot Free').first().json.slotKey }}"
+      },
+      "id": "cal-137",
+      "name": "Store Event Index",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        700,
+        700
+      ],
+      "retryOnFail": true,
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "incr",
+        "key": "stats:booked"
+      },
+      "id": "cal-138",
+      "name": "Tally Booked Stat",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        920,
+        700
+      ],
+      "retryOnFail": true,
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-find",
+              "leftValue": "={{ ($input.item.json.action || '') }}",
+              "rightValue": "find",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "cal-539",
+      "name": "Route Find Or Cancel",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        300,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://www.googleapis.com/calendar/v3/calendars/primary/events?singleEvents=true&orderBy=startTime&timeMin={{ $now.toISO() }}&timeMax={{ $now.plus({ days: 60 }).toISO() }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleCalendarOAuth2Api",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "cal-540",
+      "name": "List Patient Events",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        520,
+        300
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "R8AjuV0uT9m8lgQe",
+          "name": "Google Calendar account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// DentAI-style get_patient_appointments: match our summary format, return future bookings.\nconst inp = $input.first().json;\nconst trig = $('Receive Booking Request').first().json;\nconst want = trig.patientName ? String(trig.patientName).trim().toLowerCase() : '';\nconst items = inp.error !== undefined ? [] : (Array.isArray(inp.items) ? inp.items : []);\nconst out = [];\nfor (const ev of items) {\n  const sum = ev.summary ? String(ev.summary) : '';\n  const desc = ev.description ? String(ev.description) : '';\n  if (want && sum.toLowerCase().indexOf(want) === -1 && desc.toLowerCase().indexOf(want) === -1) { continue; }\n  const s = ev.start ? (ev.start.dateTime || ev.start.date || '') : '';\n  const d = s.slice(0, 10); const t = s.slice(11, 16);\n  out.push({ json: { eventId: ev.id, summary: sum, date: d, time: t, startISO: s } });\n}\nreturn out.length ? out : [{ json: { none: true, message: 'لا توجد حجوزات قادمة بهذا الاسم.' } }];"
+      },
+      "id": "cal-541",
+      "name": "Filter Patient Bookings",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        740,
+        300
+      ]
     }
   ],
   "connections": {
@@ -527,7 +1005,7 @@
       "main": [
         [
           {
-            "node": "Build Slot Window",
+            "node": "Route Booking Action",
             "type": "main",
             "index": 0
           }
@@ -538,7 +1016,7 @@
       "main": [
         [
           {
-            "node": "Claim Slot Atomically",
+            "node": "Is Future Slot?",
             "type": "main",
             "index": 0
           }
@@ -698,12 +1176,10 @@
       "main": [
         [
           {
-            "node": "Build Reminder Record",
+            "node": "Store Event Index",
             "type": "main",
             "index": 0
-          }
-        ],
-        [
+          },
           {
             "node": "Notify Doctor New Booking",
             "type": "main",
@@ -750,6 +1226,204 @@
         [
           {
             "node": "Alert Staff Manual Booking",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Booking Action": {
+      "main": [
+        [
+          {
+            "node": "Build Slot Window",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Route Find Or Cancel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Future Slot?": {
+      "main": [
+        [
+          {
+            "node": "Reply Past Date",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Claim Slot Atomically",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Event Details": {
+      "main": [
+        [
+          {
+            "node": "Check Cancel Cutoff",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Cancel Cutoff": {
+      "main": [
+        [
+          {
+            "node": "Cancel Allowed?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cancel Allowed?": {
+      "main": [
+        [
+          {
+            "node": "Delete Calendar Event",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reply Cancel Blocked",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete Calendar Event": {
+      "main": [
+        [
+          {
+            "node": "Read Event Index",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Event Index": {
+      "main": [
+        [
+          {
+            "node": "Delete Reminder Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete Reminder Record": {
+      "main": [
+        [
+          {
+            "node": "Delete Event Index",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete Event Index": {
+      "main": [
+        [
+          {
+            "node": "Tally Cancelled Stat",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tally Cancelled Stat": {
+      "main": [
+        [
+          {
+            "node": "Write Freed-Slot Offer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Freed-Slot Offer": {
+      "main": [
+        [
+          {
+            "node": "Reply Cancelled",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Notify Staff Cancelled",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Store Event Index": {
+      "main": [
+        [
+          {
+            "node": "Tally Booked Stat",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tally Booked Stat": {
+      "main": [
+        [
+          {
+            "node": "Build Reminder Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Find Or Cancel": {
+      "main": [
+        [
+          {
+            "node": "List Patient Events",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Fetch Event Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Patient Events": {
+      "main": [
+        [
+          {
+            "node": "Filter Patient Bookings",
             "type": "main",
             "index": 0
           }

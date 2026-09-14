@@ -1,0 +1,133 @@
+{
+  "name": "Clinic Review Form (DEMO)",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "clinic-review-noor-2026",
+        "formTitle": "قيّم عيادة النور",
+        "formDescription": "شكرا لزيارتك. قيّم تجربتك وساعدنا نخدمك أفضل.",
+        "responseMode": "lastNode",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "name",
+              "fieldType": "text",
+              "requiredField": false,
+              "placeholder": "الاسم"
+            },
+            {
+              "fieldLabel": "rating",
+              "fieldType": "dropdown",
+              "requiredField": false,
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "5"
+                  },
+                  {
+                    "option": "4"
+                  },
+                  {
+                    "option": "3"
+                  },
+                  {
+                    "option": "2"
+                  },
+                  {
+                    "option": "1"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "notes",
+              "fieldType": "textarea",
+              "requiredField": false,
+              "placeholder": "ملاحظات"
+            }
+          ]
+        },
+        "pinnedData": [
+          {
+            "json": {
+              "ping": "pinned-sample"
+            }
+          }
+        ]
+      },
+      "id": "cli-0",
+      "name": "Clinic Review Form",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const j = $input.first().json;\nreturn [{ json: { text: '⭐ تقييم جديد: ' + (j.rating || '?') + '/5 من ' + (j.name || 'مريض') + ' — ' + (j.notes || 'بدون تعليق') } }];"
+      },
+      "id": "for-1",
+      "name": "Format Review Digest",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $env.TELEGRAM_STAFF_CHAT_ID || '-100123456789' }}",
+        "text": "={{ $input.item.json.text }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "sen-2",
+      "name": "Send Review Digest",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        440,
+        0
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "8YZmGiJXc70srNgA",
+          "name": "Clinic Secretary Bot"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    }
+  ],
+  "connections": {
+    "Clinic Review Form": {
+      "main": [
+        [
+          {
+            "node": "Format Review Digest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Review Digest": {
+      "main": [
+        [
+          {
+            "node": "Send Review Digest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {}
+}

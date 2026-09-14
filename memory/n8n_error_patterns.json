@@ -2,9 +2,9 @@
   {
     "gate": "quality",
     "pattern": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "count": 52,
+    "count": 54,
     "first_seen": "2026-08-15T01:45:33.866641+00:00",
-    "last_seen": "2026-09-13T23:54:44.482269+00:00"
+    "last_seen": "2026-09-14T04:00:24.315787+00:00"
   },
   {
     "gate": "quality",
@@ -16,9 +16,16 @@
   {
     "gate": "skills",
     "pattern": "no --skills-loaded manifest — actual agent loads are NOT verifiable headless; readiness (installed + frontmatter + routable) verified only",
-    "count": 19,
+    "count": 29,
     "first_seen": "2026-08-24T13:18:28.258531+00:00",
-    "last_seen": "2026-09-13T23:54:44.483811+00:00"
+    "last_seen": "2026-09-14T05:00:38.839723+00:00"
+  },
+  {
+    "gate": "dry_run",
+    "pattern": "no dry-run evidence: nodes carry no pinned data and no expected_result from a trial run — run the workflow on the n8n instance (n8n-pinned-data-mocking) before delivery",
+    "count": 17,
+    "first_seen": "2026-08-17T06:06:55.931702+00:00",
+    "last_seen": "2026-09-14T04:00:24.323986+00:00"
   },
   {
     "gate": "preflight",
@@ -26,13 +33,6 @@
     "count": 15,
     "first_seen": "2026-08-15T01:33:03.188424+00:00",
     "last_seen": "2026-08-17T12:41:54.422748+00:00"
-  },
-  {
-    "gate": "dry_run",
-    "pattern": "no dry-run evidence: nodes carry no pinned data and no expected_result from a trial run — run the workflow on the n8n instance (n8n-pinned-data-mocking) before delivery",
-    "count": 15,
-    "first_seen": "2026-08-17T06:06:55.931702+00:00",
-    "last_seen": "2026-09-13T23:53:43.733895+00:00"
   },
   {
     "gate": "quality",
@@ -75,6 +75,13 @@
     "count": 4,
     "first_seen": "2026-09-13T11:10:30.077074+00:00",
     "last_seen": "2026-09-13T13:34:37.824803+00:00"
+  },
+  {
+    "gate": "quality",
+    "pattern": "Workflow has 47 nodes — recommend sub-workflow split",
+    "count": 4,
+    "first_seen": "2026-09-14T03:55:51.420415+00:00",
+    "last_seen": "2026-09-14T03:56:25.443001+00:00"
   },
   {
     "gate": "precision",
@@ -421,6 +428,34 @@
   },
   {
     "gate": "security",
+    "pattern": "[DESTRUCTIVE_ACTION_NO_APPROVAL] Single destructive action 'Delete Calendar Event' (n8n-nodes-base.googlecalendar event delete) requires human approval regardless of chaining",
+    "count": 2,
+    "first_seen": "2026-09-14T03:50:55.579871+00:00",
+    "last_seen": "2026-09-14T03:51:07.142476+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "[DESTRUCTIVE_ACTION_NO_APPROVAL] Single destructive action 'Delete Reminder Record' (n8n-nodes-base.redis delete) requires human approval regardless of chaining",
+    "count": 2,
+    "first_seen": "2026-09-14T03:50:55.580595+00:00",
+    "last_seen": "2026-09-14T03:51:07.143086+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "[DESTRUCTIVE_ACTION_NO_APPROVAL] Single destructive action 'Delete Event Index' (n8n-nodes-base.redis delete) requires human approval regardless of chaining",
+    "count": 2,
+    "first_seen": "2026-09-14T03:50:55.589713+00:00",
+    "last_seen": "2026-09-14T03:51:07.152619+00:00"
+  },
+  {
+    "gate": "quality",
+    "pattern": "Workflow has 39 nodes — recommend sub-workflow split",
+    "count": 2,
+    "first_seen": "2026-09-14T03:50:55.590547+00:00",
+    "last_seen": "2026-09-14T03:51:07.153955+00:00"
+  },
+  {
+    "gate": "security",
     "pattern": "Hardcoded secret pattern `\\bsk-[A-Za-z0-9]{16,}`",
     "count": 1,
     "first_seen": "2026-08-15T01:47:44.264740+00:00",
@@ -488,5 +523,82 @@
     "count": 1,
     "first_seen": "2026-09-11T06:55:21.207938+00:00",
     "last_seen": "2026-09-11T06:55:21.207945+00:00"
+  },
+  {
+    "gate": "precision",
+    "pattern": "P5: node 'Read Event Index' (n8n-nodes-base.redis) requires a credential but none is bound",
+    "count": 1,
+    "first_seen": "2026-09-14T03:50:55.591218+00:00",
+    "last_seen": "2026-09-14T03:50:55.591227+00:00"
+  },
+  {
+    "gate": "precision",
+    "pattern": "P5: node 'Delete Reminder Record' (n8n-nodes-base.redis) requires a credential but none is bound",
+    "count": 1,
+    "first_seen": "2026-09-14T03:50:55.591812+00:00",
+    "last_seen": "2026-09-14T03:50:55.591818+00:00"
+  },
+  {
+    "gate": "precision",
+    "pattern": "P5: node 'Delete Event Index' (n8n-nodes-base.redis) requires a credential but none is bound",
+    "count": 1,
+    "first_seen": "2026-09-14T03:50:55.592385+00:00",
+    "last_seen": "2026-09-14T03:50:55.592389+00:00"
+  },
+  {
+    "gate": "precision",
+    "pattern": "P5: node 'Tally Cancelled Stat' (n8n-nodes-base.redis) requires a credential but none is bound",
+    "count": 1,
+    "first_seen": "2026-09-14T03:50:55.593010+00:00",
+    "last_seen": "2026-09-14T03:50:55.593015+00:00"
+  },
+  {
+    "gate": "precision",
+    "pattern": "P5: node 'Write Freed-Slot Offer' (n8n-nodes-base.redis) requires a credential but none is bound",
+    "count": 1,
+    "first_seen": "2026-09-14T03:50:55.593589+00:00",
+    "last_seen": "2026-09-14T03:50:55.593594+00:00"
+  },
+  {
+    "gate": "precision",
+    "pattern": "P5: node 'Store Event Index' (n8n-nodes-base.redis) requires a credential but none is bound",
+    "count": 1,
+    "first_seen": "2026-09-14T03:50:55.594166+00:00",
+    "last_seen": "2026-09-14T03:50:55.594170+00:00"
+  },
+  {
+    "gate": "precision",
+    "pattern": "P5: node 'Tally Booked Stat' (n8n-nodes-base.redis) requires a credential but none is bound",
+    "count": 1,
+    "first_seen": "2026-09-14T03:50:55.594731+00:00",
+    "last_seen": "2026-09-14T03:50:55.594736+00:00"
+  },
+  {
+    "gate": "quality",
+    "pattern": "Workflow has 48 nodes — recommend sub-workflow split",
+    "count": 1,
+    "first_seen": "2026-09-14T03:57:43.377383+00:00",
+    "last_seen": "2026-09-14T03:57:43.377459+00:00"
+  },
+  {
+    "gate": "integrity",
+    "pattern": "connection source 'Shape First Offer' is not a node",
+    "count": 1,
+    "first_seen": "2026-09-14T03:57:43.378807+00:00",
+    "last_seen": "2026-09-14T03:57:43.378826+00:00"
+  },
+  {
+    "gate": "precision",
+    "pattern": "P4: node 'Merge Offer Waiter' references '$node['Shape First Offer']' but no node named 'Shape First Offer' exists",
+    "count": 1,
+    "first_seen": "2026-09-14T03:57:43.386432+00:00",
+    "last_seen": "2026-09-14T03:57:43.386442+00:00"
+  },
+  {
+    "gate": "quality",
+    "pattern": "Workflow has 43 nodes — recommend sub-workflow split",
+    "count": 1,
+    "first_seen": "2026-09-14T05:00:38.838967+00:00",
+    "last_seen": "2026-09-14T05:00:38.838979+00:00"
   }
 ]

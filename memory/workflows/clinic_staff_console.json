@@ -416,6 +416,160 @@
       },
       "retryOnFail": true,
       "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-st",
+              "leftValue": "={{ $('Extract Staff Message').item.json.textMessage }}",
+              "rightValue": "/stats",
+              "operator": {
+                "type": "string",
+                "operation": "startsWith"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "stx-100",
+      "name": "Is Stats Instruction?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1500,
+        560
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "key": "stats:booked"
+      },
+      "id": "stx-101",
+      "name": "Read Booked Tally",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1500,
+        560
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "key": "stats:cancelled"
+      },
+      "id": "stx-102",
+      "name": "Read Cancelled Tally",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1500,
+        560
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "key": "stats:confirmed"
+      },
+      "id": "stx-103",
+      "name": "Read Confirmed Tally",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1500,
+        560
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "key": "stats:fallback"
+      },
+      "id": "stx-104",
+      "name": "Read Fallback Tally",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1500,
+        560
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "key": "stats:noshow"
+      },
+      "id": "stx-105",
+      "name": "Read NoShow Tally",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1500,
+        560
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Rolling totals (reset with DEL stats:*).\nconst num = (n) => { const j = (n && n.first()) ? n.first().json : 0; const v = (j && (j.propertyName !== undefined && j.propertyName !== null ? j.propertyName : (j.value !== undefined ? j.value : (j.data !== undefined ? j.data : j)))); const x = Number(v); return isNaN(x) ? 0 : x; };\nconst b = num($('Read Booked Tally')); const c = num($('Read Cancelled Tally'));\nconst f = num($('Read Confirmed Tally')); const fb = num($('Read Fallback Tally')); const ns = num($('Read NoShow Tally'));\nreturn [{ json: { text: '📊 إحصائيات العيادة (تراكمية):\\nحجوزات: ' + b + '\\nإلغاءات: ' + c + '\\nتأكيدات: ' + f + '\\nردود احتياطية: ' + fb + '\\nتغيّب: ' + ns } }];"
+      },
+      "id": "stx-106",
+      "name": "Format Stats Reply",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1500,
+        700
+      ]
     }
   ],
   "connections": {
@@ -594,7 +748,7 @@
         ],
         [
           {
-            "node": "Build Help Reply",
+            "node": "Is Stats Instruction?",
             "type": "main",
             "index": 0
           }
@@ -635,6 +789,90 @@
       ]
     },
     "Build Help Reply": {
+      "main": [
+        [
+          {
+            "node": "Send Staff Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Stats Instruction?": {
+      "main": [
+        [
+          {
+            "node": "Read Booked Tally",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build Help Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Booked Tally": {
+      "main": [
+        [
+          {
+            "node": "Read Cancelled Tally",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Cancelled Tally": {
+      "main": [
+        [
+          {
+            "node": "Read Confirmed Tally",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Confirmed Tally": {
+      "main": [
+        [
+          {
+            "node": "Read Fallback Tally",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Fallback Tally": {
+      "main": [
+        [
+          {
+            "node": "Read NoShow Tally",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read NoShow Tally": {
+      "main": [
+        [
+          {
+            "node": "Format Stats Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Stats Reply": {
       "main": [
         [
           {
