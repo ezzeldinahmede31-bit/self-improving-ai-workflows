@@ -102,6 +102,23 @@
         "text": "=🌟 تذكير بموعدك في عيادتنا\n👨‍⚕️ {{ $input.item.json.record.doctor }} — {{ $input.item.json.record.service }}\n🕙 {{ $input.item.json.record.date }} الساعة {{ $input.item.json.record.time }} — رقم دورك {{ $input.item.json.record.queueNumber }}\nرد بـ «تمام» للتأكيد ✅",
         "additionalFields": {
           "appendAttribution": false
+        },
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "تمام ✅",
+                    "additionalFields": {
+                      "callback_data": "confirm"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
         }
       },
       "id": "en-sr",
