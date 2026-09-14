@@ -145,7 +145,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Parse staff commands (/serving N, /queue, /agenda). Anything else helps.\nconst inp = $input.first().json;\nconst t = inp.textMessage ? String(inp.textMessage) : '';\nconst m = t.match(/\\/serving\\s+(\\d+)/i);\nconst cmd = m ? 'serving' : (/\\/queue/i.test(t) ? 'queue' : (/\\/agenda/i.test(t) ? 'agenda' : 'help'));\nreturn [{ json: { chatId: inp.chatId, cmd: cmd, n: m ? m[1] : '' } }];"
+        "jsCode": "// Parse staff commands (/serving N, /queue, /agenda). Unknown text gets help.\nconst prev = $('Extract Staff Message').first().json;\nconst t = prev.textMessage ? String(prev.textMessage) : '';\nconst m = t.match(/\\/serving\\s+(\\d+)/i);\nconst cmd = m ? 'serving' : (/\\/queue/i.test(t) ? 'queue' : (/\\/agenda/i.test(t) ? 'agenda' : 'help'));\nreturn [{ json: { chatId: prev.chatId, cmd: cmd, n: m ? m[1] : '' } }];"
       },
       "id": "st-7",
       "name": "Parse Staff Instruction",

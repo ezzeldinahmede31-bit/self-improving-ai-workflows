@@ -849,6 +849,108 @@
         2160,
         680
       ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-conf",
+              "leftValue": "={{ $input.item.json.confirmed === true }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "tg-41-ifc",
+      "name": "Is Confirmation Reply?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1900,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "keys",
+        "keyPattern": "=remind:{{ $input.item.json.chatId }}:*"
+      },
+      "id": "tg-42-keys",
+      "name": "List Own Reminders",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        2100,
+        200
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Fan own reminder map to parsed records (single input item).\nconst j = $input.first().json;\nconst parseRec = (v) => {\n  if (typeof v === 'string') { try { return JSON.parse(v); } catch (e) { return null; } }\n  return (v && typeof v === 'object') ? v : null;\n};\nreturn Object.keys(j || {})\n  .filter((k) => String(k).indexOf('remind:') === 0)\n  .map((k) => parseRec(j[k]))\n  .filter((rec) => rec && rec.appointmentISO)\n  .map((rec) => ({ json: { record: rec } }));"
+      },
+      "id": "tg-43-split",
+      "name": "Split Own Reminders",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2300,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Stamp confirmedAt on the record ($input carries it).\nconst rec = $input.first().json.record;\nif (!rec || !rec.chatId) { return []; }\nreturn [{ json: { ...rec, confirmedAt: Date.now() } }];"
+      },
+      "id": "tg-44-upd",
+      "name": "Stamp Confirmed Moment",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2500,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=remind:{{ $input.item.json.chatId }}:{{ $input.item.json.slotKey }}",
+        "value": "={{ JSON.stringify($input.item.json) }}"
+      },
+      "id": "tg-45-set",
+      "name": "Store Confirmed Record",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        2700,
+        200
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
     }
   ],
   "connections": {
@@ -1145,12 +1247,12 @@
       "main": [
         [
           {
-            "node": "AI Clinic Receptionist Agent",
+            "node": "Mark Confirmation State",
             "type": "main",
             "index": 0
           },
           {
-            "node": "Mark Confirmation State",
+            "node": "Is Confirmation Reply?",
             "type": "main",
             "index": 0
           }
@@ -1173,6 +1275,62 @@
         [
           {
             "node": "Redis Atomic Deduplication",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Confirmation Reply?": {
+      "main": [
+        [
+          {
+            "node": "List Own Reminders",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "AI Clinic Receptionist Agent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Clinic Receptionist Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Own Reminders": {
+      "main": [
+        [
+          {
+            "node": "Split Own Reminders",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Own Reminders": {
+      "main": [
+        [
+          {
+            "node": "Stamp Confirmed Moment",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Stamp Confirmed Moment": {
+      "main": [
+        [
+          {
+            "node": "Store Confirmed Record",
             "type": "main",
             "index": 0
           }
