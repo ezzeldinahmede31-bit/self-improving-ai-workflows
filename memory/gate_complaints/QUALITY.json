@@ -1,23 +1,5 @@
 [
   {
-    "id": "quality-1787013917525",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-08-18T00:45:17.525580+00:00",
-    "resolved_at": "2026-08-18T00:45:20.196876+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
     "id": "quality-1787013920890",
     "gate": "QUALITY",
     "kind": "SKILL_GAP",
@@ -3596,6 +3578,25 @@
     "status": "NO_SOLUTION",
     "created_at": "2026-09-14T04:00:20.705512+00:00",
     "resolved_at": "2026-09-14T04:00:24.308785+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1789382830772",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Isolated/unreachable nodes: ['Track Emergency Intent']",
+    "keywords": [
+      "isolated",
+      "unreachable",
+      "track",
+      "emergency",
+      "intent"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-09-14T10:47:10.772553+00:00",
+    "resolved_at": "2026-09-14T10:47:13.640056+00:00",
     "resolution": "no skill found by find-skills",
     "search_hits": []
   }

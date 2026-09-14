@@ -31,7 +31,7 @@
     {
       "parameters": {
         "method": "GET",
-        "url": "http://localhost:5677/api/v1/data-tables/aSxUNxrTZq94Y8fi/rows",
+        "url": "https://ezzeldin8n.ezzeldin8n.cfd/api/v1/data-tables/aSxUNxrTZq94Y8fi/rows",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
         "options": {

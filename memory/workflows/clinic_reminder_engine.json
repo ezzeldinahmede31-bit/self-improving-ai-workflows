@@ -140,7 +140,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Stamp remindedAt on record items; ignore anything else.\nconst inp = $input.first().json;\nconst rec = inp.record;\nif (!rec || !rec.chatId) { return []; }\nreturn [{ json: { ...rec, remindedAt: Date.now() } }];"
+        "jsCode": "const rec = ($('Split Map To Items').item.json.record || {});\nif (!rec || !rec.chatId) { return []; }\nreturn [{ json: { ...rec, remindedAt: Date.now() } }];"
       },
       "id": "en-mr",
       "name": "Mark Reminded Record",
@@ -208,7 +208,7 @@
     {
       "parameters": {
         "operation": "delete",
-        "key": "=remind:{{ $input.item.json.record.chatId }}:{{ $input.item.json.record.slotKey }}",
+        "key": "=remind:{{ $('Tally No-Show + Archive').item.json.record.chatId }}:{{ $('Tally No-Show + Archive').item.json.record.slotKey }}",
         "requiresHumanApproval": true
       },
       "id": "en-d1",
@@ -348,7 +348,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Stamp escalatedAt on record items; ignore anything else.\nconst inp = $input.first().json;\nconst rec = inp.record;\nif (!rec || !rec.chatId) { return []; }\nreturn [{ json: { ...rec, escalatedAt: Date.now() } }];"
+        "jsCode": "const rec = ($('Split Map To Items').item.json.record || {});\nif (!rec || !rec.chatId) { return []; }\nreturn [{ json: { ...rec, escalatedAt: Date.now() } }];"
       },
       "id": "en-me",
       "name": "Mark Escalated Record",
@@ -746,7 +746,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const rec = $input.first().json.record;\nif (!rec || !rec.chatId) { return []; }\nreturn [{ json: { ...rec, infoSentAt: Date.now() } }];"
+        "jsCode": "const rec = ($('Split Map To Items').item.json.record || {});\nif (!rec || !rec.chatId) { return []; }\nreturn [{ json: { ...rec, infoSentAt: Date.now() } }];"
       },
       "id": "eng-231",
       "name": "Mark Info Sent",
@@ -881,7 +881,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const rec = $input.first().json.record;\nif (!rec || !rec.chatId) { return []; }\nreturn [{ json: { ...rec, followedUp: Date.now() } }];"
+        "jsCode": "const rec = ($('Split Map To Items').item.json.record || {});\nif (!rec || !rec.chatId) { return []; }\nreturn [{ json: { ...rec, followedUp: Date.now() } }];"
       },
       "id": "eng-235",
       "name": "Mark Followed-Up",
@@ -953,7 +953,7 @@
     {
       "parameters": {
         "operation": "incr",
-        "key": "=noshow:{{ $input.item.json.chatId }}"
+        "key": "=noshow:{{ $('Tally No-Show + Archive').item.json.record.chatId }}"
       },
       "id": "eng-239",
       "name": "Tally No-Show Patient",
@@ -975,7 +975,7 @@
     {
       "parameters": {
         "operation": "set",
-        "key": "=lastvisit:{{ $input.item.json.chatId }}",
+        "key": "=lastvisit:{{ $('Tally No-Show + Archive').item.json.record.chatId }}",
         "value": "={{ String(Date.now()) }}",
         "expire": true,
         "ttl": 17280000
@@ -1122,7 +1122,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Merge popped waiter with the shaped offer (empty pop -> stop).\nconst w = $input.first().json;\nconst shaped = $('Take Oldest Waiter').item.json;\nconst waiter = (typeof w === 'string') ? (function(){ try { return JSON.parse(w); } catch (e) { return null; } })() : (w && (w.value || w.data) ? (function(){ try { return JSON.parse(w.value || w.data); } catch (e) { return null; } })() : w);\nif (!waiter || !waiter.chatId) { return []; }\nreturn [{ json: { offerKey: shaped.offerKey, offer: shaped.offer, waiter: waiter } }];"
+        "jsCode": "// Merge popped waiter with the shaped offer (empty pop -> stop).\nconst win = $input.first().json;\nconst w = (win && win.propertyName !== undefined && win.propertyName !== null) ? win.propertyName : win;\nconst shaped = $('Take Oldest Waiter').item.json;\nconst waiter = (typeof w === 'string') ? (function(){ try { return JSON.parse(w); } catch (e) { return null; } })() : (w && (w.value || w.data) ? (function(){ try { return JSON.parse(w.value || w.data); } catch (e) { return null; } })() : w);\nif (!waiter || !waiter.chatId) { return []; }\nreturn [{ json: { offerKey: shaped.offerKey, offer: shaped.offer, waiter: waiter } }];"
       },
       "id": "eng-411-merge",
       "name": "Merge Offer Waiter",
@@ -1163,7 +1163,7 @@
     {
       "parameters": {
         "operation": "delete",
-        "key": "={{ $input.item.json.offerKey }}",
+        "key": "={{ $('Merge Offer Waiter').item.json.offerKey }}",
         "requiresHumanApproval": true
       },
       "id": "eng-413-del",
@@ -1187,7 +1187,7 @@
       "parameters": {
         "resource": "message",
         "operation": "sendMessage",
-        "chatId": "={{ $input.item.json.chatId }}",
+        "chatId": "={{ $('Tally No-Show + Archive').item.json.record.chatId }}",
         "text": "=فاتك ميعادك في عيادة النور 😟 لا مشكلة — صحتك تهمنا. رد بـ «احجز» ونرتب لك ميعادا بديلا فورا.",
         "additionalFields": {
           "appendAttribution": false
@@ -1624,6 +1624,11 @@
         [
           {
             "node": "Send No-Show Follow-Up",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Archive Last Visit",
             "type": "main",
             "index": 0
           }

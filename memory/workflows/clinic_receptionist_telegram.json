@@ -1333,10 +1333,10 @@
     },
     {
       "parameters": {
-        "jsCode": "// Severe-emergency triage gate (DentAI-style): always forwards, flags severe.\n// Runs BEFORE Track Confirmation so the flag travels WITH the item (order-proof).\nconst inp = $input.first().json;\nconst t = inp.finalMessage ? String(inp.finalMessage).toLowerCase() : '';\nconst rx = /(نزيف|نزف|bleeding|كسر|broken|fracture|خراج|abscess|ورم يزيد|حادث|طوارئ|emergency|لا يحتمل|مغمى|اغماء|اختناق|choking)/;\nconst out = {};\nfor (const k of Object.keys(inp)) { out[k] = inp[k]; }\nout.severe = rx.test(t);\nreturn [{ json: out }];"
+        "jsCode": "// Severe-emergency triage gate (DentAI-style): always forwards, flags severe.\n// Runs BEFORE Track Confirmation so the flag travels WITH the item (order-proof).\nconst inp = $input.first().json;\nconst t = inp.finalMessage ? String(inp.finalMessage).toLowerCase() : '';\nconst severeRx = /(نزيف|نزف|bleeding|كسر|broken|fracture|خراج|abscess|ورم يزيد|حادث|طوارئ|emergency|لا يحتمل|مغمى|اغماء|اختناق|choking)/;\nconst humanRx = /(عايز اكلم|عاوز اكلم|ابغى اكلم|بدي احكي|talk to (a )?(human|person|staff|manager|someone)|speak to|call (the )?staff|human request|موظف بشري|حد مسؤول|وصلني بموظف|كلمني حد)/;\nconst severe = severeRx.test(t);\nconst humanReq = humanRx.test(t);\nconst out = {};\nfor (const k of Object.keys(inp)) { out[k] = inp[k]; }\nout.severe = (severe || humanReq);\nout.kind = severe ? 'emergency' : 'human-request';\nreturn [{ json: out }];"
       },
       "id": "tg-123",
-      "name": "Track Emergency Intent",
+      "name": "Track Handoff Intent",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
@@ -1767,7 +1767,7 @@
       "main": [
         [
           {
-            "node": "Track Emergency Intent",
+            "node": "Track Handoff Intent",
             "type": "main",
             "index": 0
           }
@@ -1885,7 +1885,7 @@
         ],
         [
           {
-            "node": "Track Emergency Intent",
+            "node": "Track Handoff Intent",
             "type": "main",
             "index": 0
           }
@@ -2098,22 +2098,6 @@
         ]
       ]
     },
-    "Track Emergency Intent": {
-      "main": [
-        [
-          {
-            "node": "Track Confirmation Intent",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Is Severe Emergency?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Call Escalation Sub": {
       "main": [
         [
@@ -2218,6 +2202,22 @@
           {
             "node": "AI Clinic Receptionist Agent",
             "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Track Handoff Intent": {
+      "main": [
+        [
+          {
+            "node": "Track Confirmation Intent",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Is Severe Emergency?",
+            "type": "main",
             "index": 0
           }
         ]
