@@ -1,5 +1,5 @@
 {
-  "name": "clinic_reminder_engine",
+  "name": "Clinic Reminder Engine Router (thin)",
   "nodes": [
     {
       "parameters": {
@@ -27,6 +27,30 @@
         120,
         300
       ]
+    },
+    {
+      "parameters": {
+        "operation": "incr",
+        "key": "health:engine",
+        "expire": true,
+        "ttl": 300
+      },
+      "id": "en-hi",
+      "name": "Probe Redis Health",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        320,
+        120
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -96,83 +120,65 @@
     },
     {
       "parameters": {
-        "resource": "message",
-        "operation": "sendMessage",
-        "chatId": "={{ $input.item.json.record.chatId }}",
-        "text": "=🌟 تذكير بموعدك في عيادتنا\n👨‍⚕️ {{ $input.item.json.record.doctor }} — {{ $input.item.json.record.service }}\n🕙 {{ $input.item.json.record.date }} الساعة {{ $input.item.json.record.time }} — رقم دورك {{ $input.item.json.record.queueNumber }}\nرد بـ «تمام» للتأكيد ✅",
-        "additionalFields": {
-          "appendAttribution": false
-        },
-        "replyMarkup": "inlineKeyboard",
-        "inlineKeyboard": {
-          "rows": [
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
             {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "تمام ✅",
-                    "additionalFields": {
-                      "callback_data": "confirm"
-                    }
-                  }
-                ]
+              "id": "c-x",
+              "leftValue": "={{ $input.item.json.needsInfo === true }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
               }
             }
-          ]
+          ],
+          "combinator": "and"
         }
       },
-      "id": "en-sr",
-      "name": "Send Patient Reminder",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
+      "id": "eng-229",
+      "name": "Time To Inform?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
       "position": [
-        920,
-        300
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "DLlemykGQ7Zm867F",
-          "name": "Telegram account"
-        }
-      },
-      "retryOnFail": true,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "jsCode": "const rec = ($('Split Map To Items').item.json.record || {});\nif (!rec || !rec.chatId) { return []; }\nreturn [{ json: { ...rec, remindedAt: Date.now() } }];"
-      },
-      "id": "en-mr",
-      "name": "Mark Reminded Record",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        1120,
-        300
+        480,
+        60
       ]
     },
     {
       "parameters": {
-        "operation": "set",
-        "key": "=remind:{{ $input.item.json.chatId }}:{{ $input.item.json.slotKey }}",
-        "value": "={{ JSON.stringify($input.item.json) }}"
-      },
-      "id": "en-sv",
-      "name": "Store Reminded Record",
-      "type": "n8n-nodes-base.redis",
-      "typeVersion": 1,
-      "position": [
-        1320,
-        300
-      ],
-      "credentials": {
-        "redis": {
-          "id": "dVToMpaQ33TGQdX3",
-          "name": "Redis account"
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-esc",
+              "leftValue": "={{ $input.item.json.needsEscalation === true }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
         }
       },
-      "retryOnFail": true,
-      "onError": "continueRegularOutput"
+      "id": "en-ie",
+      "name": "Needs Escalation?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        720,
+        660
+      ]
     },
     {
       "parameters": {
@@ -207,78 +213,6 @@
     },
     {
       "parameters": {
-        "operation": "delete",
-        "key": "=remind:{{ $('Tally No-Show + Archive').item.json.record.chatId }}:{{ $('Tally No-Show + Archive').item.json.record.slotKey }}",
-        "requiresHumanApproval": true
-      },
-      "id": "en-d1",
-      "name": "Delete Reminder Record",
-      "type": "n8n-nodes-base.redis",
-      "typeVersion": 1,
-      "position": [
-        920,
-        480
-      ],
-      "credentials": {
-        "redis": {
-          "id": "dVToMpaQ33TGQdX3",
-          "name": "Redis account"
-        }
-      },
-      "retryOnFail": true,
-      "onError": "continueRegularOutput",
-      "notes": "Approved by design: removes only its own expired booking reminder + markers."
-    },
-    {
-      "parameters": {
-        "operation": "delete",
-        "key": "=reminded:{{ $input.item.json.record.chatId }}:{{ $input.item.json.record.slotKey }}",
-        "requiresHumanApproval": true
-      },
-      "id": "en-d2",
-      "name": "Delete Reminded Marker",
-      "type": "n8n-nodes-base.redis",
-      "typeVersion": 1,
-      "position": [
-        1120,
-        480
-      ],
-      "credentials": {
-        "redis": {
-          "id": "dVToMpaQ33TGQdX3",
-          "name": "Redis account"
-        }
-      },
-      "retryOnFail": true,
-      "onError": "continueRegularOutput",
-      "notes": "Approved by design: removes only its own expired booking reminder + markers."
-    },
-    {
-      "parameters": {
-        "operation": "delete",
-        "key": "=escalated:{{ $input.item.json.record.chatId }}:{{ $input.item.json.record.slotKey }}",
-        "requiresHumanApproval": true
-      },
-      "id": "en-d3",
-      "name": "Delete Escalated Marker",
-      "type": "n8n-nodes-base.redis",
-      "typeVersion": 1,
-      "position": [
-        1320,
-        480
-      ],
-      "credentials": {
-        "redis": {
-          "id": "dVToMpaQ33TGQdX3",
-          "name": "Redis account"
-        }
-      },
-      "retryOnFail": true,
-      "onError": "continueRegularOutput",
-      "notes": "Approved by design: removes only its own expired booking reminder + markers."
-    },
-    {
-      "parameters": {
         "conditions": {
           "options": {
             "caseSensitive": true,
@@ -287,8 +221,8 @@
           },
           "conditions": [
             {
-              "id": "c-esc",
-              "leftValue": "={{ $input.item.json.needsEscalation === true }}",
+              "id": "c-x",
+              "leftValue": "={{ $input.item.json.needsPostVisit === true }}",
               "rightValue": true,
               "operator": {
                 "type": "boolean",
@@ -299,14 +233,36 @@
           "combinator": "and"
         }
       },
-      "id": "en-ie",
-      "name": "Needs Escalation?",
+      "id": "eng-233",
+      "name": "Time For Follow-Up?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        720,
-        660
+        480,
+        900
       ]
+    },
+    {
+      "parameters": {
+        "operation": "keys",
+        "keyPattern": "offer:*"
+      },
+      "id": "eng-344",
+      "name": "List Freed Offers",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        200,
+        1400
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {},
@@ -318,93 +274,6 @@
         1720,
         560
       ]
-    },
-    {
-      "parameters": {
-        "resource": "message",
-        "operation": "sendMessage",
-        "chatId": "={{ $env.TELEGRAM_NURSE_CHAT_ID || $env.TELEGRAM_STAFF_CHAT_ID || '-100123456789' }}",
-        "text": "=📞 مكالمة مطلوبة: {{ $('Attach Risk').item.json.record.patientName }} (شات {{ $('Attach Risk').item.json.record.chatId }}) — ميعاده اليوم {{ $('Attach Risk').item.json.record.time }} مع {{ $('Attach Risk').item.json.record.doctor }} ({{ $('Attach Risk').item.json.record.service }})، لم يؤكد بعد التذكير. سوابق تغيب: {{ $('Attach Risk').item.json.risk }}. اتصلي به هاتفيا من فضلك.",
-        "additionalFields": {
-          "appendAttribution": false
-        }
-      },
-      "id": "en-ne",
-      "name": "Notify Nurse Unconfirmed",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        1720,
-        760
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "8YZmGiJXc70srNgA",
-          "name": "Secretary Bot API"
-        }
-      },
-      "retryOnFail": true,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "jsCode": "const rec = ($('Split Map To Items').item.json.record || {});\nif (!rec || !rec.chatId) { return []; }\nreturn [{ json: { ...rec, escalatedAt: Date.now() } }];"
-      },
-      "id": "en-me",
-      "name": "Mark Escalated Record",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        1920,
-        760
-      ]
-    },
-    {
-      "parameters": {
-        "operation": "set",
-        "key": "=remind:{{ $input.item.json.chatId }}:{{ $input.item.json.slotKey }}",
-        "value": "={{ JSON.stringify($input.item.json) }}"
-      },
-      "id": "en-se",
-      "name": "Store Escalated Record",
-      "type": "n8n-nodes-base.redis",
-      "typeVersion": 1,
-      "position": [
-        2120,
-        760
-      ],
-      "credentials": {
-        "redis": {
-          "id": "dVToMpaQ33TGQdX3",
-          "name": "Redis account"
-        }
-      },
-      "retryOnFail": true,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "operation": "incr",
-        "key": "health:engine",
-        "expire": true,
-        "ttl": 300
-      },
-      "id": "en-hi",
-      "name": "Probe Redis Health",
-      "type": "n8n-nodes-base.redis",
-      "typeVersion": 1,
-      "position": [
-        320,
-        120
-      ],
-      "credentials": {
-        "redis": {
-          "id": "dVToMpaQ33TGQdX3",
-          "name": "Redis account"
-        }
-      },
-      "retryOnFail": true,
-      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -688,562 +557,197 @@
     },
     {
       "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict"
-          },
-          "conditions": [
-            {
-              "id": "c-x",
-              "leftValue": "={{ $input.item.json.needsInfo === true }}",
-              "rightValue": true,
-              "operator": {
-                "type": "boolean",
-                "operation": "equals"
-              }
-            }
-          ],
-          "combinator": "and"
-        }
-      },
-      "id": "eng-229",
-      "name": "Time To Inform?",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.3,
-      "position": [
-        480,
-        60
-      ]
-    },
-    {
-      "parameters": {
-        "resource": "message",
-        "operation": "sendMessage",
-        "chatId": "={{ $input.item.json.record.chatId }}",
-        "text": "=📌 تذكير مبكر: ميعادك {{ $input.item.json.record.service }} مع {{ $input.item.json.record.doctor }} {{ $input.item.json.record.date }} الساعة {{ $input.item.json.record.time }} (دور {{ $input.item.json.record.queueNumber }}). سنرسل لك تأكيدا قبل الموعد بساعتين.",
-        "additionalFields": {
-          "appendAttribution": false
-        }
-      },
-      "id": "eng-230",
-      "name": "Send Info Reminder",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        700,
-        60
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "DLlemykGQ7Zm867F",
-          "name": "Telegram account"
-        }
-      },
-      "retryOnFail": true,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "jsCode": "const rec = ($('Split Map To Items').item.json.record || {});\nif (!rec || !rec.chatId) { return []; }\nreturn [{ json: { ...rec, infoSentAt: Date.now() } }];"
-      },
-      "id": "eng-231",
-      "name": "Mark Info Sent",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        920,
-        60
-      ]
-    },
-    {
-      "parameters": {
-        "operation": "set",
-        "key": "=remind:{{ $input.item.json.chatId }}:{{ $input.item.json.slotKey }}",
-        "value": "={{ JSON.stringify($input.item.json) }}"
-      },
-      "id": "eng-232",
-      "name": "Store Info Record",
-      "type": "n8n-nodes-base.redis",
-      "typeVersion": 1,
-      "position": [
-        1140,
-        60
-      ],
-      "credentials": {
-        "redis": {
-          "id": "dVToMpaQ33TGQdX3",
-          "name": "Redis account"
-        }
-      },
-      "retryOnFail": true,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict"
-          },
-          "conditions": [
-            {
-              "id": "c-x",
-              "leftValue": "={{ $input.item.json.needsPostVisit === true }}",
-              "rightValue": true,
-              "operator": {
-                "type": "boolean",
-                "operation": "equals"
-              }
-            }
-          ],
-          "combinator": "and"
-        }
-      },
-      "id": "eng-233",
-      "name": "Time For Follow-Up?",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.3,
-      "position": [
-        480,
-        900
-      ]
-    },
-    {
-      "parameters": {
-        "resource": "message",
-        "operation": "sendMessage",
-        "chatId": "={{ $input.item.json.record.chatId }}",
-        "text": "=شكرا لزيارتك عيادة النور 🌟 نتمنى أن تكون بخير. قيّمنا هنا من فضلك:\nhttps://ezzeldin8n.ezzeldin8n.cfd/form/clinic-review-noor-2026\nوساعدنا نخدمك أفضل.",
-        "additionalFields": {
-          "appendAttribution": false
+        "source": "database",
+        "workflowId": {
+          "mode": "list",
+          "value": "CQFLfV4ozsI62id9"
         },
-        "replyMarkup": "inlineKeyboard",
-        "inlineKeyboard": {
-          "rows": [
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "⭐",
-                    "additionalFields": {
-                      "callback_data": "rate:1"
-                    }
-                  },
-                  {
-                    "text": "⭐⭐",
-                    "additionalFields": {
-                      "callback_data": "rate:2"
-                    }
-                  },
-                  {
-                    "text": "⭐⭐⭐",
-                    "additionalFields": {
-                      "callback_data": "rate:3"
-                    }
-                  },
-                  {
-                    "text": "⭐⭐⭐⭐",
-                    "additionalFields": {
-                      "callback_data": "rate:4"
-                    }
-                  },
-                  {
-                    "text": "⭐⭐⭐⭐⭐",
-                    "additionalFields": {
-                      "callback_data": "rate:5"
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        }
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "record": "={{ $input.item.json.record }}",
+            "needsInfo": "={{ $input.item.json.needsInfo }}",
+            "needsRemind": "={{ $input.item.json.needsRemind }}",
+            "needsEscalation": "={{ $input.item.json.needsEscalation }}",
+            "needsCleanup": "={{ $input.item.json.needsCleanup }}",
+            "needsPostVisit": "={{ $input.item.json.needsPostVisit }}",
+            "offerKey": "={{ $input.item.json.offerKey }}",
+            "offer": "={{ $input.item.json.offer }}"
+          }
+        },
+        "options": {}
       },
-      "id": "eng-234",
-      "name": "Send Post-Visit Thanks",
-      "type": "n8n-nodes-base.telegram",
+      "id": "eng-r-call",
+      "name": "Call Remind Lane",
+      "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
         700,
-        900
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "DLlemykGQ7Zm867F",
-          "name": "Telegram account"
-        }
-      },
-      "retryOnFail": true,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "jsCode": "const rec = ($('Split Map To Items').item.json.record || {});\nif (!rec || !rec.chatId) { return []; }\nreturn [{ json: { ...rec, followedUp: Date.now() } }];"
-      },
-      "id": "eng-235",
-      "name": "Mark Followed-Up",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        920,
-        900
+        240
       ]
     },
     {
       "parameters": {
-        "operation": "set",
-        "key": "=remind:{{ $input.item.json.chatId }}:{{ $input.item.json.slotKey }}",
-        "value": "={{ JSON.stringify($input.item.json) }}"
+        "source": "database",
+        "workflowId": {
+          "mode": "list",
+          "value": "YrA8ZAXhw80QwyW7"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "record": "={{ $input.item.json.record }}",
+            "needsInfo": "={{ $input.item.json.needsInfo }}",
+            "needsRemind": "={{ $input.item.json.needsRemind }}",
+            "needsEscalation": "={{ $input.item.json.needsEscalation }}",
+            "needsCleanup": "={{ $input.item.json.needsCleanup }}",
+            "needsPostVisit": "={{ $input.item.json.needsPostVisit }}",
+            "offerKey": "={{ $input.item.json.offerKey }}",
+            "offer": "={{ $input.item.json.offer }}"
+          }
+        },
+        "options": {}
       },
-      "id": "eng-236",
-      "name": "Store Followed-Up",
-      "type": "n8n-nodes-base.redis",
-      "typeVersion": 1,
-      "position": [
-        1140,
-        900
-      ],
-      "credentials": {
-        "redis": {
-          "id": "dVToMpaQ33TGQdX3",
-          "name": "Redis account"
-        }
-      },
-      "retryOnFail": true,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "jsCode": "// Decide no-show (never confirmed) and archive last visit; pass item through.\nconst inp = $input.first().json;\nconst rec = inp.record || {};\nconst rAt = Number(rec.remindedAt) || null;\nconst confAt = Number(rec.confirmedAt) || null;\nconst fresh = confAt !== null && rAt !== null && confAt > rAt;\nreturn [{ json: { record: rec, needsCleanup: inp.needsCleanup, needsEscalation: inp.needsEscalation,\n  needsInfo: inp.needsInfo, needsRemind: inp.needsRemind, needsPostVisit: inp.needsPostVisit,\n  isNoShow: !fresh, chatId: rec.chatId || '', apptISO: rec.appointmentISO || '' } }];"
-      },
-      "id": "eng-237",
-      "name": "Tally No-Show + Archive",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        480,
-        1080
-      ]
-    },
-    {
-      "parameters": {
-        "operation": "incr",
-        "key": "stats:noshow"
-      },
-      "id": "eng-238",
-      "name": "Tally No-Show Day",
-      "type": "n8n-nodes-base.redis",
-      "typeVersion": 1,
-      "position": [
-        700,
-        1080
-      ],
-      "credentials": {
-        "redis": {
-          "id": "dVToMpaQ33TGQdX3",
-          "name": "Redis account"
-        }
-      },
-      "retryOnFail": true,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "operation": "incr",
-        "key": "=noshow:{{ $('Tally No-Show + Archive').item.json.record.chatId }}"
-      },
-      "id": "eng-239",
-      "name": "Tally No-Show Patient",
-      "type": "n8n-nodes-base.redis",
-      "typeVersion": 1,
-      "position": [
-        920,
-        1080
-      ],
-      "credentials": {
-        "redis": {
-          "id": "dVToMpaQ33TGQdX3",
-          "name": "Redis account"
-        }
-      },
-      "retryOnFail": true,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "operation": "get",
-        "key": "=noshow:{{ $input.item.json.record.chatId }}"
-      },
-      "id": "eng-241",
-      "name": "Read No-Show Tally",
-      "type": "n8n-nodes-base.redis",
-      "typeVersion": 1,
-      "position": [
-        700,
-        1240
-      ],
-      "credentials": {
-        "redis": {
-          "id": "dVToMpaQ33TGQdX3",
-          "name": "Redis account"
-        }
-      },
-      "retryOnFail": true,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict"
-          },
-          "conditions": [
-            {
-              "id": "c-x",
-              "leftValue": "={{ $input.item.json.isNoShow === true }}",
-              "rightValue": true,
-              "operator": {
-                "type": "boolean",
-                "operation": "equals"
-              }
-            }
-          ],
-          "combinator": "and"
-        }
-      },
-      "id": "eng-342",
-      "name": "Was No-Show?",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.3,
-      "position": [
-        700,
-        1080
-      ]
-    },
-    {
-      "parameters": {
-        "jsCode": "// Merge escalation record with the patient's prior no-show tally.\nconst cnt = $input.first().json;\nconst rec = $('Needs Escalation?').item.json.record;\nconst n = Number(cnt.value !== undefined ? cnt.value : (cnt.data !== undefined ? cnt.data : 0)) || 0;\nreturn [{ json: { record: rec, risk: n } }];"
-      },
-      "id": "eng-343",
-      "name": "Attach Risk",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        920,
-        1240
-      ]
-    },
-    {
-      "parameters": {
-        "operation": "keys",
-        "keyPattern": "offer:*"
-      },
-      "id": "eng-344",
-      "name": "List Freed Offers",
-      "type": "n8n-nodes-base.redis",
-      "typeVersion": 1,
-      "position": [
-        200,
-        1400
-      ],
-      "credentials": {
-        "redis": {
-          "id": "dVToMpaQ33TGQdX3",
-          "name": "Redis account"
-        }
-      },
-      "retryOnFail": true,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "jsCode": "// Pop the oldest waiter for each freed offer (duplicate-offer race accepted: booking lock keeps taps safe).\nconst outs = [];\nfor (const it of $input.all()) {\n  const j = it.json;\n  const offerKey = Object.keys(j).find((k) => String(k).indexOf('offer:') === 0);\n  if (!offerKey) { continue; }\n  let offer = null;\n  try { offer = JSON.parse(j[offerKey]); } catch (e) { offer = null; }\n  if (!offer) { continue; }\n  outs.push({ json: { offerKey: offerKey, offer: offer, waiter: null, rest: '[]' } });\n}\nreturn outs;"
-      },
-      "id": "eng-346",
-      "name": "Take Oldest Waiter",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        640,
-        1400
-      ]
-    },
-    {
-      "parameters": {
-        "operation": "pop",
-        "list": "waitlist"
-      },
-      "id": "eng-410-pop",
-      "name": "Pop Waitlist",
-      "type": "n8n-nodes-base.redis",
-      "typeVersion": 1,
-      "position": [
-        640,
-        1400
-      ],
-      "credentials": {
-        "redis": {
-          "id": "dVToMpaQ33TGQdX3",
-          "name": "Redis account"
-        }
-      },
-      "retryOnFail": true,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "jsCode": "// Merge popped waiter with the shaped offer (empty pop -> stop).\nconst win = $input.first().json;\nconst w = (win && win.propertyName !== undefined && win.propertyName !== null) ? win.propertyName : win;\nconst shaped = $('Take Oldest Waiter').item.json;\nconst waiter = (typeof w === 'string') ? (function(){ try { return JSON.parse(w); } catch (e) { return null; } })() : (w && (w.value || w.data) ? (function(){ try { return JSON.parse(w.value || w.data); } catch (e) { return null; } })() : w);\nif (!waiter || !waiter.chatId) { return []; }\nreturn [{ json: { offerKey: shaped.offerKey, offer: shaped.offer, waiter: waiter } }];"
-      },
-      "id": "eng-411-merge",
-      "name": "Merge Offer Waiter",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        860,
-        1400
-      ]
-    },
-    {
-      "parameters": {
-        "resource": "message",
-        "operation": "sendMessage",
-        "chatId": "={{ $input.item.json.waiter.chatId }}",
-        "text": "=🎉 فضي ميعاد: {{ $input.item.json.offer.service }} مع {{ $input.item.json.offer.doctor }} يوم {{ $input.item.json.offer.date }} الساعة {{ $input.item.json.offer.time }}. رد بـ «احجز» سريعا قبل أن يأخذه غيرك!",
-        "additionalFields": {
-          "appendAttribution": false
-        }
-      },
-      "id": "eng-412-send",
-      "name": "Send Slot Offer",
-      "type": "n8n-nodes-base.telegram",
+      "id": "eng-r-call-call-info-la",
+      "name": "Call Info Lane",
+      "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        1080,
-        1400
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "DLlemykGQ7Zm867F",
-          "name": "Telegram account"
-        }
-      },
-      "retryOnFail": true,
-      "onError": "continueRegularOutput"
+        700,
+        420
+      ]
     },
     {
       "parameters": {
-        "operation": "delete",
-        "key": "={{ $('Merge Offer Waiter').item.json.offerKey }}",
-        "requiresHumanApproval": true
+        "source": "database",
+        "workflowId": {
+          "mode": "list",
+          "value": "QalQeexQ2jz7TfMs"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "record": "={{ $input.item.json.record }}",
+            "needsInfo": "={{ $input.item.json.needsInfo }}",
+            "needsRemind": "={{ $input.item.json.needsRemind }}",
+            "needsEscalation": "={{ $input.item.json.needsEscalation }}",
+            "needsCleanup": "={{ $input.item.json.needsCleanup }}",
+            "needsPostVisit": "={{ $input.item.json.needsPostVisit }}",
+            "offerKey": "={{ $input.item.json.offerKey }}",
+            "offer": "={{ $input.item.json.offer }}"
+          }
+        },
+        "options": {}
       },
-      "id": "eng-413-del",
-      "name": "Delete Consumed Offer",
-      "type": "n8n-nodes-base.redis",
-      "typeVersion": 1,
-      "position": [
-        1300,
-        1400
-      ],
-      "credentials": {
-        "redis": {
-          "id": "dVToMpaQ33TGQdX3",
-          "name": "Redis account"
-        }
-      },
-      "retryOnFail": true,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "resource": "message",
-        "operation": "sendMessage",
-        "chatId": "={{ $('Tally No-Show + Archive').item.json.record.chatId }}",
-        "text": "=فاتك ميعادك في عيادة النور 😟 لا مشكلة — صحتك تهمنا. رد بـ «احجز» ونرتب لك ميعادا بديلا فورا.",
-        "additionalFields": {
-          "appendAttribution": false
-        }
-      },
-      "id": "eng-500-nsf",
-      "name": "Send No-Show Follow-Up",
-      "type": "n8n-nodes-base.telegram",
+      "id": "eng-r-call-call-escalat",
+      "name": "Call Escalate Lane",
+      "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        1140,
-        1240
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "DLlemykGQ7Zm867F",
-          "name": "Telegram account"
-        }
-      },
-      "retryOnFail": true,
-      "onError": "continueRegularOutput"
+        700,
+        600
+      ]
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "https://ezzeldin8n.ezzeldin8n.cfd/api/v1/data-tables/MuP3xIno5NkLoAyk/rows",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpHeaderAuth",
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({ data: [{ kind: 'visit', chatId: $('Tally No-Show + Archive').item.json.record.chatId, patientName: $('Tally No-Show + Archive').item.json.record.patientName, visitISO: $('Tally No-Show + Archive').item.json.record.appointmentISO, service: $('Tally No-Show + Archive').item.json.record.service, doctor: $('Tally No-Show + Archive').item.json.record.doctor }]}) }}",
-        "options": {
-          "timeout": 20000
-        }
+        "source": "database",
+        "workflowId": {
+          "mode": "list",
+          "value": "qldAIMCqGbmdNXaF"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "record": "={{ $input.item.json.record }}",
+            "needsInfo": "={{ $input.item.json.needsInfo }}",
+            "needsRemind": "={{ $input.item.json.needsRemind }}",
+            "needsEscalation": "={{ $input.item.json.needsEscalation }}",
+            "needsCleanup": "={{ $input.item.json.needsCleanup }}",
+            "needsPostVisit": "={{ $input.item.json.needsPostVisit }}",
+            "offerKey": "={{ $input.item.json.offerKey }}",
+            "offer": "={{ $input.item.json.offer }}"
+          }
+        },
+        "options": {}
       },
-      "id": "eng-600-log",
-      "name": "Log Visit Durably",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
+      "id": "eng-r-call-call-cleanup",
+      "name": "Call Cleanup Lane",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
       "position": [
-        1140,
-        1080
-      ],
-      "credentials": {
-        "httpHeaderAuth": {
-          "id": "UPbxJH6WuwWmlLb9",
-          "name": "n8n Local API"
-        }
-      },
-      "retryOnFail": true,
-      "onError": "continueRegularOutput"
+        700,
+        780
+      ]
     },
     {
       "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict"
-          },
-          "conditions": [
-            {
-              "id": "c-logged",
-              "leftValue": "={{ $input.item.json.error !== undefined }}",
-              "rightValue": true,
-              "operator": {
-                "type": "boolean",
-                "operation": "equals"
-              }
-            }
-          ],
-          "combinator": "and"
-        }
+        "source": "database",
+        "workflowId": {
+          "mode": "list",
+          "value": "qgcyB6HzsylAANlt"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "record": "={{ $input.item.json.record }}",
+            "needsInfo": "={{ $input.item.json.needsInfo }}",
+            "needsRemind": "={{ $input.item.json.needsRemind }}",
+            "needsEscalation": "={{ $input.item.json.needsEscalation }}",
+            "needsCleanup": "={{ $input.item.json.needsCleanup }}",
+            "needsPostVisit": "={{ $input.item.json.needsPostVisit }}",
+            "offerKey": "={{ $input.item.json.offerKey }}",
+            "offer": "={{ $input.item.json.offer }}"
+          }
+        },
+        "options": {}
       },
-      "id": "eng-601-gate",
-      "name": "Visit Logged?",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.3,
+      "id": "eng-r-call-call-postvis",
+      "name": "Call Postvisit Lane",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
       "position": [
-        1250,
-        1080
+        700,
+        960
+      ]
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "mode": "list",
+          "value": "OR2bSrNu7nxnSkpS"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "keysmap": "={{ $input.item.json }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "eng-r-call-call-offers-",
+      "name": "Call Offers Lane",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        420,
+        1400
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Engine Router (thin)\nTick → health + keys → Split → per-flag lane subs. No business logic here.",
+        "height": 320,
+        "width": 440,
+        "color": 4
+      },
+      "id": "sticky-12",
+      "name": "Lane Docs",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        -220
       ]
     }
   ],
@@ -1295,12 +799,7 @@
       "main": [
         [
           {
-            "node": "Send Patient Reminder",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Mark Reminded Record",
+            "node": "Call Remind Lane",
             "type": "main",
             "index": 0
           }
@@ -1314,22 +813,11 @@
         ]
       ]
     },
-    "Mark Reminded Record": {
-      "main": [
-        [
-          {
-            "node": "Store Reminded Record",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Needs Cleanup?": {
       "main": [
         [
           {
-            "node": "Tally No-Show + Archive",
+            "node": "Call Cleanup Lane",
             "type": "main",
             "index": 0
           }
@@ -1343,33 +831,11 @@
         ]
       ]
     },
-    "Delete Reminder Record": {
-      "main": [
-        [
-          {
-            "node": "Delete Reminded Marker",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Delete Reminded Marker": {
-      "main": [
-        [
-          {
-            "node": "Delete Escalated Marker",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Needs Escalation?": {
       "main": [
         [
           {
-            "node": "Read No-Show Tally",
+            "node": "Call Escalate Lane",
             "type": "main",
             "index": 0
           }
@@ -1377,17 +843,6 @@
         [
           {
             "node": "Time For Follow-Up?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Mark Escalated Record": {
-      "main": [
-        [
-          {
-            "node": "Store Escalated Record",
             "type": "main",
             "index": 0
           }
@@ -1485,17 +940,6 @@
         ]
       ]
     },
-    "Notify Nurse Unconfirmed": {
-      "main": [
-        [
-          {
-            "node": "Mark Escalated Record",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Read Alert Marker": {
       "main": [
         [
@@ -1551,12 +995,7 @@
       "main": [
         [
           {
-            "node": "Send Info Reminder",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Mark Info Sent",
+            "node": "Call Info Lane",
             "type": "main",
             "index": 0
           }
@@ -1570,27 +1009,11 @@
         ]
       ]
     },
-    "Mark Info Sent": {
-      "main": [
-        [
-          {
-            "node": "Store Info Record",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Time For Follow-Up?": {
       "main": [
         [
           {
-            "node": "Send Post-Visit Thanks",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Mark Followed-Up",
+            "node": "Call Postvisit Lane",
             "type": "main",
             "index": 0
           }
@@ -1598,122 +1021,6 @@
         [
           {
             "node": "No Action Due",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Mark Followed-Up": {
-      "main": [
-        [
-          {
-            "node": "Store Followed-Up",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Tally No-Show + Archive": {
-      "main": [
-        [
-          {
-            "node": "Was No-Show?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Was No-Show?": {
-      "main": [
-        [
-          {
-            "node": "Tally No-Show Day",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Log Visit Durably",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Tally No-Show Day": {
-      "main": [
-        [
-          {
-            "node": "Tally No-Show Patient",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Tally No-Show Patient": {
-      "main": [
-        [
-          {
-            "node": "Send No-Show Follow-Up",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Log Visit Durably",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Read No-Show Tally": {
-      "main": [
-        [
-          {
-            "node": "Attach Risk",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Attach Risk": {
-      "main": [
-        [
-          {
-            "node": "Notify Nurse Unconfirmed",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Mark Escalated Record",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Pop Waitlist": {
-      "main": [
-        [
-          {
-            "node": "Merge Offer Waiter",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Merge Offer Waiter": {
-      "main": [
-        [
-          {
-            "node": "Send Slot Offer",
             "type": "main",
             "index": 0
           }
@@ -1724,69 +1031,7 @@
       "main": [
         [
           {
-            "node": "Take Oldest Waiter",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Take Oldest Waiter": {
-      "main": [
-        [
-          {
-            "node": "Pop Waitlist",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Send Slot Offer": {
-      "main": [
-        [
-          {
-            "node": "Delete Consumed Offer",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Send No-Show Follow-Up": {
-      "main": [
-        [
-          {
-            "node": "Log Visit Durably",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Log Visit Durably": {
-      "main": [
-        [
-          {
-            "node": "Visit Logged?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Visit Logged?": {
-      "main": [
-        [
-          {
-            "node": "No Action Due",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Delete Reminder Record",
+            "node": "Call Offers Lane",
             "type": "main",
             "index": 0
           }
@@ -1794,8 +1039,5 @@
       ]
     }
   },
-  "settings": {
-    "executionOrder": "v1",
-    "errorWorkflow": "QvodOlYfZIRV22Qn"
-  }
+  "settings": {}
 }

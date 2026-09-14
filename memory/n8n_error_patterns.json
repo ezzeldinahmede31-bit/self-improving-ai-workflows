@@ -2,9 +2,16 @@
   {
     "gate": "quality",
     "pattern": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "count": 54,
+    "count": 62,
     "first_seen": "2026-08-15T01:45:33.866641+00:00",
-    "last_seen": "2026-09-14T04:00:24.315787+00:00"
+    "last_seen": "2026-09-14T14:26:52.148406+00:00"
+  },
+  {
+    "gate": "skills",
+    "pattern": "no --skills-loaded manifest — actual agent loads are NOT verifiable headless; readiness (installed + frontmatter + routable) verified only",
+    "count": 48,
+    "first_seen": "2026-08-24T13:18:28.258531+00:00",
+    "last_seen": "2026-09-14T14:28:11.796113+00:00"
   },
   {
     "gate": "quality",
@@ -14,18 +21,11 @@
     "last_seen": "2026-09-13T23:54:44.479826+00:00"
   },
   {
-    "gate": "skills",
-    "pattern": "no --skills-loaded manifest — actual agent loads are NOT verifiable headless; readiness (installed + frontmatter + routable) verified only",
-    "count": 34,
-    "first_seen": "2026-08-24T13:18:28.258531+00:00",
-    "last_seen": "2026-09-14T13:28:41.944242+00:00"
-  },
-  {
     "gate": "dry_run",
     "pattern": "no dry-run evidence: nodes carry no pinned data and no expected_result from a trial run — run the workflow on the n8n instance (n8n-pinned-data-mocking) before delivery",
-    "count": 17,
+    "count": 25,
     "first_seen": "2026-08-17T06:06:55.931702+00:00",
-    "last_seen": "2026-09-14T04:00:24.323986+00:00"
+    "last_seen": "2026-09-14T14:26:52.151194+00:00"
   },
   {
     "gate": "preflight",
@@ -82,6 +82,13 @@
     "count": 4,
     "first_seen": "2026-09-14T03:55:51.420415+00:00",
     "last_seen": "2026-09-14T03:56:25.443001+00:00"
+  },
+  {
+    "gate": "precision",
+    "pattern": "A2: node 'Receive Booking Request' output branch 0 is dangling — no edge wired from it (items on that branch are silently dropped)",
+    "count": 4,
+    "first_seen": "2026-09-14T14:06:48.640005+00:00",
+    "last_seen": "2026-09-14T14:06:54.568268+00:00"
   },
   {
     "gate": "precision",
@@ -455,6 +462,13 @@
     "last_seen": "2026-09-14T03:51:07.153955+00:00"
   },
   {
+    "gate": "precision",
+    "pattern": "A2: node 'Delete Reminder Record' output branch 0 is dangling — no edge wired from it (items on that branch are silently dropped)",
+    "count": 2,
+    "first_seen": "2026-09-14T14:25:51.315935+00:00",
+    "last_seen": "2026-09-14T14:26:52.149162+00:00"
+  },
+  {
     "gate": "security",
     "pattern": "Hardcoded secret pattern `\\bsk-[A-Za-z0-9]{16,}`",
     "count": 1,
@@ -663,5 +677,26 @@
     "count": 1,
     "first_seen": "2026-09-14T13:28:41.943423+00:00",
     "last_seen": "2026-09-14T13:28:41.943436+00:00"
+  },
+  {
+    "gate": "quality",
+    "pattern": "Workflow has 31 nodes — recommend sub-workflow split",
+    "count": 1,
+    "first_seen": "2026-09-14T14:06:48.639298+00:00",
+    "last_seen": "2026-09-14T14:06:48.639311+00:00"
+  },
+  {
+    "gate": "quality",
+    "pattern": "Workflow has 13 nodes — recommend sub-workflow split",
+    "count": 1,
+    "first_seen": "2026-09-14T14:06:50.735296+00:00",
+    "last_seen": "2026-09-14T14:06:50.735309+00:00"
+  },
+  {
+    "gate": "quality",
+    "pattern": "Workflow has 28 nodes — recommend sub-workflow split",
+    "count": 1,
+    "first_seen": "2026-09-14T14:06:54.567603+00:00",
+    "last_seen": "2026-09-14T14:06:54.567616+00:00"
   }
 ]

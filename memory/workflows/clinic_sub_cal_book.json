@@ -1,0 +1,1140 @@
+{
+  "name": "Clinic CAL Book Lane",
+  "nodes": [
+    {
+      "parameters": {
+        "pinnedData": [
+          {
+            "json": {
+              "ping": "pinned-sample"
+            }
+          }
+        ],
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "patientPhone",
+              "type": "string"
+            },
+            {
+              "name": "patientChatId",
+              "type": "string"
+            },
+            {
+              "name": "patientName",
+              "type": "string"
+            },
+            {
+              "name": "doctorName",
+              "type": "string"
+            },
+            {
+              "name": "date",
+              "type": "string"
+            },
+            {
+              "name": "time",
+              "type": "string"
+            },
+            {
+              "name": "serviceName",
+              "type": "string"
+            },
+            {
+              "name": "action",
+              "type": "string"
+            },
+            {
+              "name": "eventId",
+              "type": "string"
+            },
+            {
+              "name": "newDate",
+              "type": "string"
+            },
+            {
+              "name": "newTime",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "id": "sw1-t",
+      "name": "Receive Booking Request",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        120,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Normalize booking input into a slot key plus ISO window (per-service duration, KB mirror).\nconst MINUTES = Object.assign({}, {'General exam': 30, 'Cleaning and polishing': 45, 'Filling per tooth': 45, 'Root canal': 90, 'Braces consult': 30, 'Implant consult': 30, 'Whitening': 60}, (function(){ try { return $('Build Durations Map').first().json.minutesMap || {}; } catch (e) { return {}; } })());\nconst inp = $input.first().json;\nconst doctor = inp.doctorName ? String(inp.doctorName).trim() : 'any-doctor';\nconst date = inp.date ? String(inp.date).trim() : '';\nconst time = inp.time ? String(inp.time).trim() : '';\nconst service = inp.serviceName ? String(inp.serviceName).trim() : 'general visit';\nconst who = inp.patientName ? String(inp.patientName).trim() : 'patient';\nconst chat = inp.patientChatId ? String(inp.patientChatId) : (inp.patientPhone ? String(inp.patientPhone) : '');\nconst mins = MINUTES[service] || 30;\nconst cairoISO = (d, t) => {\n  const try2 = d + 'T' + t + ':00+02:00';\n  const wall = new Intl.DateTimeFormat('en-GB', { timeZone: 'Africa/Cairo', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date(try2));\n  const hm = wall.split(':');\n  const wt = t.split(':');\n  return (Number(hm[0]) === Number(wt[0]) && Number(hm[1]) === Number(wt[1])) ? try2 : (d + 'T' + t + ':00+03:00');\n};\nconst start = new Date(cairoISO(date, time));\nconst end = new Date(start.getTime() + mins * 60 * 1000);\nconst isPast = isNaN(start.getTime()) || start.getTime() < Date.now() + 15 * 60 * 1000;\nreturn [{ json: { slotKey: 'slot:' + doctor + ':' + date + ':' + time, startISO: isNaN(start.getTime()) ? '' : start.toISOString(), endISO: isNaN(start.getTime()) ? '' : end.toISOString(), doctor: doctor, date: date, time: time, service: service, minutes: mins, patientName: who, patientChat: chat, isPast: isPast } }];"
+      },
+      "id": "sw1-b",
+      "name": "Build Slot Window",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        320,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-fut",
+              "leftValue": "={{ $input.item.json.isPast === true }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "cal-123",
+      "name": "Is Future Slot?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        480,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const p = $('Build Slot Window').first().json;\nreturn [{ json: { booked: false, message: 'هذا الميعاد فات (' + p.date + ' ' + p.time + '). اختر ميعادا في المستقبل من فضلك.', slotKey: p.slotKey } }];"
+      },
+      "id": "cal-124",
+      "name": "Reply Past Date",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        700,
+        40
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "incr",
+        "key": "={{ $input.item.json.slotKey }}",
+        "expire": true,
+        "ttl": 3600
+      },
+      "id": "sw1-c",
+      "name": "Claim Slot Atomically",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        520,
+        300
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-won",
+              "leftValue": "={{ Object.values($input.item.json)[0] === 1 }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "sw1-w",
+      "name": "Won Slot Race?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        720,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ 'https://www.googleapis.com/calendar/v3/calendars/primary/events?singleEvents=true&orderBy=startTime&timeMin=' + $('Build Slot Window').first().json.startISO + '&timeMax=' + $('Build Slot Window').first().json.endISO }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleCalendarOAuth2Api",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "sw1-l",
+      "name": "List Window Events",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        920,
+        180
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "R8AjuV0uT9m8lgQe",
+          "name": "Google Calendar account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Decide window state from the events API envelope (always exactly one item).\nconst inp = $input.first().json;\nconst prev = $('Build Slot Window').first().json;\nconst failed = inp.error !== undefined;\nconst items = failed ? [] : (Array.isArray(inp.items) ? inp.items : []);\nconst free = !failed && items.length === 0;\nconst base = { free: free, checkFailed: failed, slotKey: prev.slotKey, startISO: prev.startISO, endISO: prev.endISO, doctor: prev.doctor, date: prev.date, time: prev.time, service: prev.service, patientName: prev.patientName, patientChat: prev.patientChat };\nreturn [{ json: base }];",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "sw1-d",
+      "name": "Decide Slot Free",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-free",
+              "leftValue": "={{ $input.item.json.free }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "sw1-f",
+      "name": "Is Slot Free?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1320,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "={{ $input.item.json.slotKey }}",
+        "requiresHumanApproval": true
+      },
+      "id": "sw1-r1",
+      "name": "Release Slot Claim",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1520,
+        80
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput",
+      "notes": "Approved by design: runs only after an explicit failure condition (lost race / busy slot / create failed). Documented human-approved compensation."
+    },
+    {
+      "parameters": {
+        "jsCode": "// +-12h window around the requested slot for alternative hunting.\nlet prev = null;\ntry { prev = $('Decide Slot Free').first().json; } catch (e) { prev = null; }\nif (!prev) { prev = $('Build Slot Window').first().json; }\nconst s = new Date(prev.startISO).getTime();\nconst e = new Date(prev.endISO).getTime();\nreturn [{ json: { winMin: new Date(s - 12 * 3600 * 1000).toISOString(),\n  winMax: new Date(e + 12 * 3600 * 1000).toISOString() } }];"
+      },
+      "id": "cal-769",
+      "name": "Build Alt Window",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2500,
+        860
+      ]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ 'https://www.googleapis.com/calendar/v3/calendars/primary/events?singleEvents=true&orderBy=startTime&timeMin=' + $('Build Alt Window').first().json.winMin + '&timeMax=' + $('Build Alt Window').first().json.winMax }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleCalendarOAuth2Api",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "cal-770",
+      "name": "List Alt Window",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2720,
+        860
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "R8AjuV0uT9m8lgQe",
+          "name": "Google Calendar account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Verified alternatives: requested Cairo hour +-1/+-2, inside 09:00-22:00, no overlap.\nconst inp = $input.first().json;\nlet prev = null;\ntry { prev = $('Decide Slot Free').first().json; } catch (e) { prev = null; }\nif (!prev) { prev = $('Build Slot Window').first().json; }\nconst items = (inp.error !== undefined || !Array.isArray(inp.items)) ? [] : inp.items;\nconst busy = items.map((ev) => {\n  const s = ev.start ? Date.parse(ev.start.dateTime || ev.start.date) : NaN;\n  const t = ev.end ? Date.parse(ev.end.dateTime || ev.end.date) : NaN;\n  return [s, t];\n}).filter((x) => !isNaN(x[0]) && !isNaN(x[1]));\nconst reqStart = new Date(prev.startISO).getTime();\nconst mins = prev.minutes || 30;\nconst cairoH = Number(new Intl.DateTimeFormat('en-GB', { timeZone: 'Africa/Cairo', hour: '2-digit', hour12: false }).format(new Date(reqStart)));\nconst dayStr = prev.date;\nconst out = [];\nfor (const dh of [-1, 1, -2, 2]) {\n  if (out.length >= 2) { break; }\n  const h = cairoH + dh;\n  if (h < 9 || h > 21) { continue; }\n  const hh = String(h).padStart(2, '0');\n  const mm = String(prev.time ? prev.time.slice(3, 5) : '00');\n  const guess2 = dayStr + 'T' + hh + ':' + mm + ':00+02:00';\n  const wall = new Intl.DateTimeFormat('en-GB', { timeZone: 'Africa/Cairo', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date(guess2));\n  const iso = (wall.slice(0, 5) === (hh + ':' + mm)) ? guess2 : (dayStr + 'T' + hh + ':' + mm + ':00+03:00');\n  const s = new Date(iso).getTime();\n  const e = s + mins * 60 * 1000;\n  const clash = busy.some((b) => s < b[1] && b[0] < e);\n  if (!clash && Math.abs(s - reqStart) > 60000) { out.push({ date: dayStr, time: hh + ':' + mm }); }\n}\nreturn [{ json: { alternatives: out } }];"
+      },
+      "id": "cal-771",
+      "name": "Pick Alternatives",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2940,
+        860
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=alt:{{ $('Receive Booking Request').item.json.patientChatId }}",
+        "value": "={{ JSON.stringify({ requested: { date: $('Build Slot Window').first().json.date, time: $('Build Slot Window').first().json.time }, alternatives: $input.item.json.alternatives }) }}",
+        "expire": true,
+        "ttl": 3600
+      },
+      "id": "cal-872",
+      "name": "Store Alt Cache",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        3160,
+        860
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Taken contract WITH verified alternatives (agent relays them verbatim).\nlet prev = null;\ntry { prev = $('Decide Slot Free').first().json; } catch (e) { prev = null; }\nif (!prev) { prev = $('Build Slot Window').first().json; }\nlet alts = [];\ntry { alts = $('Pick Alternatives').first().json.alternatives || []; } catch (e) { alts = []; }\nconst altTxt = alts.length ? (' البدائل المتاحة: ' + alts.map((a) => a.date + ' الساعة ' + a.time).join(' أو ') + '.') : '';\nreturn [{ json: { booked: false, taken: true,\n  message: 'عذرا، ميعاد ' + prev.date + ' الساعة ' + prev.time + ' محجوز.' + altTxt,\n  alternatives: alts, slotKey: prev.slotKey } }];"
+      },
+      "id": "sw1-tk",
+      "name": "Reply Slot Taken",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1720,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "event",
+        "operation": "create",
+        "calendar": {
+          "mode": "list",
+          "value": "primary"
+        },
+        "start": "={{ $('Decide Slot Free').first().json.startISO }}",
+        "end": "={{ $('Decide Slot Free').first().json.endISO }}",
+        "additionalFields": {
+          "summary": "={{ $('Decide Slot Free').first().json.service }} - {{ $('Decide Slot Free').first().json.patientName }} ({{ $('Decide Slot Free').first().json.doctor }})",
+          "description": "={{ 'Patient: ' + $('Decide Slot Free').first().json.patientName + ' | chat: ' + $('Decide Slot Free').first().json.patientChat + ' | slot: ' + $('Decide Slot Free').first().json.slotKey }}",
+          "visibility": "default"
+        }
+      },
+      "id": "sw1-ev",
+      "name": "Create Calendar Event",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        1520,
+        300
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "R8AjuV0uT9m8lgQe",
+          "name": "Google Calendar account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-ok",
+              "leftValue": "={{ $input.item.json.error === undefined }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "sw1-ok",
+      "name": "Created Event OK?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1720,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "={{ $('Decide Slot Free').first().json.slotKey }}",
+        "requiresHumanApproval": true
+      },
+      "id": "sw1-r2",
+      "name": "Release Failed Claim",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1920,
+        400
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput",
+      "notes": "Approved by design: runs only after an explicit failure condition (lost race / busy slot / create failed). Documented human-approved compensation."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Booking-failed contract for the agent (calendar write failed).\nconst prev = $('Decide Slot Free').first().json;\nreturn [{ json: { booked: false, message: 'تعذر اتمام الحجز لميعاد ' + prev.date + ' الساعة ' + prev.time + '. فريق العمل تم اخطاره.', slotKey: prev.slotKey } }];"
+      },
+      "id": "sw1-fl",
+      "name": "Reply Booking Failed",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2120,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Verification-failed contract: never claim taken when the check errored.\nconst prev = $('Decide Slot Free').first().json;\nreturn [{ json: { booked: false, message: 'تعذر التحقق من ميعاد ' + prev.date + ' الساعة ' + prev.time + ' حاليا. فريق العمل تم اخطاره وسيؤكد لك قريبا.', slotKey: prev.slotKey } }];"
+      },
+      "id": "sw1-cf2",
+      "name": "Reply Check Failed",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1520,
+        -40
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-valid",
+              "leftValue": "={{ $input.item.json.checkFailed === true }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "sw1-v",
+      "name": "Was Check Valid?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1320,
+        60
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "={{ $input.item.json.slotKey }}",
+        "requiresHumanApproval": true
+      },
+      "id": "sw1-r3",
+      "name": "Release Unverified Claim",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1520,
+        -160
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput",
+      "notes": "Approved by design: runs only after an explicit failure condition (lost race / busy slot / create failed). Documented human-approved compensation."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Booking-confirmed contract for the agent (number from queue claim, event from create).\nconst prev = $('Decide Slot Free').first().json;\nconst q = $('Claim Queue Number').item.json;\nconst eid = $('Create Calendar Event').first().json.id;\nconst num = q[Object.keys(q)[0]];\nreturn [{ json: { booked: true, eventId: eid ? String(eid) : '', queueNumber: num, message: 'تم الحجز: ' + prev.service + ' مع ' + prev.doctor + ' يوم ' + prev.date + ' الساعة ' + prev.time + ' باسم ' + prev.patientName + '. رقم دورك ' + String(num) + '. العنوان: القاهرة — العنوان التجريبي (DEMO).', slotKey: prev.slotKey } }];"
+      },
+      "id": "sw1-cf",
+      "name": "Reply Booking Confirmed",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1920,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=ev:{{ $('Reply Booking Confirmed').first().json.eventId }}",
+        "value": "=remind:{{ $('Decide Slot Free').first().json.patientChat }}:{{ $('Decide Slot Free').first().json.slotKey }}"
+      },
+      "id": "cal-137",
+      "name": "Store Event Index",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        700,
+        700
+      ],
+      "retryOnFail": true,
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "incr",
+        "key": "stats:booked"
+      },
+      "id": "cal-138",
+      "name": "Tally Booked Stat",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        920,
+        700
+      ],
+      "retryOnFail": true,
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Build the reminder record (immutable facts for the reminder engine).\nconst prev = $('Decide Slot Free').first().json;\nconst rep = $input.first().json;\nconst today = new Date().toISOString().slice(0, 10);\nreturn [{ json: { chatId: prev.patientChat, appointmentISO: prev.startISO, bookedDate: today, leadHours: 24, doctor: prev.doctor, service: prev.service, patientName: prev.patientName, slotKey: prev.slotKey, date: prev.date, time: prev.time, eventId: rep.eventId ? rep.eventId : '', queueNumber: rep.queueNumber ? rep.queueNumber : 0 } }];"
+      },
+      "id": "sw1-br",
+      "name": "Build Reminder Record",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2120,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=remind:{{ $input.item.json.chatId }}:{{ $input.item.json.slotKey }}",
+        "value": "={{ JSON.stringify($input.item.json) }}"
+      },
+      "id": "sw1-sr",
+      "name": "Store Reminder Record",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        2320,
+        220
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $env.TELEGRAM_STAFF_CHAT_ID || '-100123456789' }}",
+        "text": "=حجز يدوي مطلوب: {{ $('Decide Slot Free').first().json.patientName }} (شات {{ $('Decide Slot Free').first().json.patientChat }}) — {{ $('Decide Slot Free').first().json.service }} مع {{ $('Decide Slot Free').first().json.doctor }} يوم {{ $('Decide Slot Free').first().json.date }} الساعة {{ $('Decide Slot Free').first().json.time }}. أكمل الحجز يدويا من فضلك.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "sw1-sa",
+      "name": "Alert Staff Manual Booking",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2120,
+        520
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "8YZmGiJXc70srNgA",
+          "name": "Secretary Bot API"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "incr",
+        "key": "=queue:{{ $('Decide Slot Free').first().json.date }}:{{ $('Decide Slot Free').first().json.doctor }}",
+        "expire": true,
+        "ttl": 172800
+      },
+      "id": "sw1-qq",
+      "name": "Claim Queue Number",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1720,
+        160
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $env.TELEGRAM_DOCTOR_CHAT_ID || '-100123456789' }}",
+        "text": "=🩺 حجز جديد: {{ $('Decide Slot Free').first().json.patientName }} — {{ $('Decide Slot Free').first().json.service }} مع {{ $('Decide Slot Free').first().json.doctor }} يوم {{ $('Decide Slot Free').first().json.date }} الساعة {{ $('Decide Slot Free').first().json.time }} (دور {{ $('Reply Booking Confirmed').first().json.queueNumber }}).",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "sw1-doc",
+      "name": "Notify Doctor New Booking",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2120,
+        120
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "zhNlAEMhve1hxdov",
+          "name": "Doctor Bot API"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "=alt:{{ $('Decide Slot Free').first().json.patientChat }}",
+        "requiresHumanApproval": true
+      },
+      "id": "cal-873",
+      "name": "Delete Alt Cache",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        920,
+        860
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://ezzeldin8n.ezzeldin8n.cfd/api/v1/data-tables/aSxUNxrTZq94Y8fi/rows",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "timeout": 15000
+        }
+      },
+      "id": "cal-dur-read",
+      "name": "Read Durations Table",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        200,
+        0
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "UPbxJH6WuwWmlLb9",
+          "name": "n8n Local API"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Durations single-source: KB Data Table (staff-editable), baked mirror fallback.\nconst inp = $input.first().json;\nconst rows = (inp.error === undefined && Array.isArray(inp.data)) ? inp.data : [];\nconst map = {};\nrows.filter((r) => r && r.kind === 'service').forEach((r) => {\n  if (r.name && Number(r.minutes) > 0) { map[r.name] = Number(r.minutes); } });\nreturn [{ json: { minutesMap: map } }];"
+      },
+      "id": "cal-dur-map",
+      "name": "Build Durations Map",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        420,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Book Lane (refactored Sep 14)\nDurations single-source (KB table + mirror) → Cairo window → INCR lock → availability → create (1.3 summary/desc) → queue+index+tally+reminder. Taken path computes 2 verified alternatives + alt cache. Single terminal: contract. Called by CAL router action=book.",
+        "height": 320,
+        "width": 440,
+        "color": 4
+      },
+      "id": "sticky-1",
+      "name": "Lane Docs",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        -220
+      ]
+    }
+  ],
+  "connections": {
+    "Receive Booking Request": {
+      "main": [
+        [
+          {
+            "node": "Read Durations Table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Slot Window": {
+      "main": [
+        [
+          {
+            "node": "Is Future Slot?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claim Slot Atomically": {
+      "main": [
+        [
+          {
+            "node": "Won Slot Race?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Won Slot Race?": {
+      "main": [
+        [
+          {
+            "node": "List Window Events",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reply Slot Taken",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Window Events": {
+      "main": [
+        [
+          {
+            "node": "Decide Slot Free",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Decide Slot Free": {
+      "main": [
+        [
+          {
+            "node": "Was Check Valid?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Slot Free?": {
+      "main": [
+        [
+          {
+            "node": "Create Calendar Event",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Release Slot Claim",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Release Slot Claim": {
+      "main": [
+        [
+          {
+            "node": "Build Alt Window",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Calendar Event": {
+      "main": [
+        [
+          {
+            "node": "Created Event OK?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Created Event OK?": {
+      "main": [
+        [
+          {
+            "node": "Store Event Index",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Release Failed Claim",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Release Failed Claim": {
+      "main": [
+        [
+          {
+            "node": "Reply Booking Failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Was Check Valid?": {
+      "main": [
+        [
+          {
+            "node": "Release Unverified Claim",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Is Slot Free?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Release Unverified Claim": {
+      "main": [
+        [
+          {
+            "node": "Reply Check Failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Reminder Record": {
+      "main": [
+        [
+          {
+            "node": "Store Reminder Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claim Queue Number": {
+      "main": [
+        [
+          {
+            "node": "Notify Doctor New Booking",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reply Check Failed": {
+      "main": [
+        [
+          {
+            "node": "Alert Staff Manual Booking",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reply Booking Failed": {
+      "main": [
+        [
+          {
+            "node": "Alert Staff Manual Booking",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Future Slot?": {
+      "main": [
+        [
+          {
+            "node": "Reply Past Date",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Claim Slot Atomically",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Store Event Index": {
+      "main": [
+        [
+          {
+            "node": "Tally Booked Stat",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tally Booked Stat": {
+      "main": [
+        [
+          {
+            "node": "Build Reminder Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Alt Window": {
+      "main": [
+        [
+          {
+            "node": "List Alt Window",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Alt Window": {
+      "main": [
+        [
+          {
+            "node": "Pick Alternatives",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pick Alternatives": {
+      "main": [
+        [
+          {
+            "node": "Store Alt Cache",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Store Alt Cache": {
+      "main": [
+        [
+          {
+            "node": "Reply Slot Taken",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Store Reminder Record": {
+      "main": [
+        [
+          {
+            "node": "Claim Queue Number",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notify Doctor New Booking": {
+      "main": [
+        [
+          {
+            "node": "Reply Booking Confirmed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reply Booking Confirmed": {
+      "main": []
+    },
+    "Read Durations Table": {
+      "main": [
+        [
+          {
+            "node": "Build Durations Map",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Durations Map": {
+      "main": [
+        [
+          {
+            "node": "Build Slot Window",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {}
+}

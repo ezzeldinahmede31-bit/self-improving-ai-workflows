@@ -1,0 +1,489 @@
+{
+  "name": "Clinic CAL Cancel Lane",
+  "nodes": [
+    {
+      "parameters": {
+        "pinnedData": [
+          {
+            "json": {
+              "ping": "pinned-sample"
+            }
+          }
+        ],
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "patientPhone",
+              "type": "string"
+            },
+            {
+              "name": "patientChatId",
+              "type": "string"
+            },
+            {
+              "name": "patientName",
+              "type": "string"
+            },
+            {
+              "name": "doctorName",
+              "type": "string"
+            },
+            {
+              "name": "date",
+              "type": "string"
+            },
+            {
+              "name": "time",
+              "type": "string"
+            },
+            {
+              "name": "serviceName",
+              "type": "string"
+            },
+            {
+              "name": "action",
+              "type": "string"
+            },
+            {
+              "name": "eventId",
+              "type": "string"
+            },
+            {
+              "name": "newDate",
+              "type": "string"
+            },
+            {
+              "name": "newTime",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "id": "sw1-t",
+      "name": "Receive Booking Request",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        120,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "event",
+        "operation": "get",
+        "calendar": {
+          "mode": "list",
+          "value": "primary"
+        },
+        "eventId": "={{ $input.item.json.eventId }}"
+      },
+      "id": "cal-125",
+      "name": "Fetch Event Details",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.2,
+      "position": [
+        480,
+        420
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "R8AjuV0uT9m8lgQe",
+          "name": "Google Calendar account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 24h cutoff (world dental standard): inside 24h -> staff only.\nconst inp = $input.first().json;\nconst trigIn = $('Receive Booking Request').first().json;\nconst ev = (inp && !inp.error) ? inp : null;\nconst startMs = ev ? Date.parse(ev.start && (ev.start.dateTime || ev.start.date)) : NaN;\nconst eid = trigIn.eventId ? String(trigIn.eventId) : '';\nif (!eid) { return [{ json: { ok: false, staffOnly: false, message: 'لا أجد رقم الحجز. تواصل مع الاستقبال للإلغاء من فضلك.', eventId: '' } }]; }\nif (ev && ev.error !== undefined) { return [{ json: { ok: false, staffOnly: true, message: 'تعذر الوصول للحجز. تم إخطار الطاقم.', eventId: eid } }]; }\nif (isNaN(startMs)) { return [{ json: { ok: false, staffOnly: true, message: 'تعذر قراءة الحجز. تم إخطار الطاقم.', eventId: eid } }]; }\nconst hrsLeft = (startMs - Date.now()) / 3600000;\nif (hrsLeft < 24) { return [{ json: { ok: false, staffOnly: true, cutoff: true, message: 'هذا الميعاد خلال أقل من 24 ساعة — الإلغاء عبر الطاقم فقط. تم إخطارهم.', eventId: eid, startISO: new Date(startMs).toISOString() } }]; }\nconst cairo = new Intl.DateTimeFormat('en-CA', { timeZone: 'Africa/Cairo', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(startMs));\nconst ctime = new Intl.DateTimeFormat('en-GB', { timeZone: 'Africa/Cairo', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date(startMs));\nreturn [{ json: { ok: true, eventId: eid, startISO: new Date(startMs).toISOString(),\n  date: cairo, time: ctime,\n  doctor: trigIn.doctorName ? String(trigIn.doctorName) : 'any-doctor',\n  service: trigIn.serviceName ? String(trigIn.serviceName) : 'general visit',\n  patientName: trigIn.patientName ? String(trigIn.patientName) : 'patient',\n  patientChat: trigIn.patientChatId ? String(trigIn.patientChatId) : '' } }];"
+      },
+      "id": "cal-126",
+      "name": "Check Cancel Cutoff",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        700,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-ok",
+              "leftValue": "={{ $input.item.json.ok === true }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "cal-127",
+      "name": "Cancel Allowed?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        920,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "event",
+        "operation": "delete",
+        "calendar": {
+          "mode": "list",
+          "value": "primary"
+        },
+        "eventId": "={{ $('Check Cancel Cutoff').first().json.eventId }}",
+        "requiresHumanApproval": true
+      },
+      "id": "cal-128",
+      "name": "Delete Calendar Event",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.2,
+      "position": [
+        1140,
+        340
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "R8AjuV0uT9m8lgQe",
+          "name": "Google Calendar account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "key": "=ev:{{ $('Check Cancel Cutoff').first().json.eventId }}"
+      },
+      "id": "cal-129",
+      "name": "Read Event Index",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1140,
+        500
+      ],
+      "retryOnFail": true,
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "={{ $input.item.json.propertyName }}",
+        "requiresHumanApproval": true
+      },
+      "id": "cal-130",
+      "name": "Delete Reminder Record",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1360,
+        500
+      ],
+      "retryOnFail": true,
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "=ev:{{ $('Check Cancel Cutoff').first().json.eventId }}",
+        "requiresHumanApproval": true
+      },
+      "id": "cal-131",
+      "name": "Delete Event Index",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1360,
+        340
+      ],
+      "retryOnFail": true,
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "incr",
+        "key": "stats:cancelled"
+      },
+      "id": "cal-132",
+      "name": "Tally Cancelled Stat",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1560,
+        340
+      ],
+      "retryOnFail": true,
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=offer:{{ $('Check Cancel Cutoff').first().json.eventId }}",
+        "value": "={{ JSON.stringify($('Check Cancel Cutoff').first().json) }}",
+        "expire": true,
+        "ttl": 86400
+      },
+      "id": "cal-133",
+      "name": "Write Freed-Slot Offer",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1560,
+        500
+      ],
+      "retryOnFail": true,
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const c = $('Check Cancel Cutoff').first().json;\nreturn [{ json: { cancelled: true, message: 'تم إلغاء ميعاد ' + c.date + ' الساعة ' + c.time + ' (' + c.service + '). لو حابب ميعادا بديلا أخبرني.', eventId: c.eventId } }];"
+      },
+      "id": "cal-134",
+      "name": "Reply Cancelled",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1780,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $env.TELEGRAM_STAFF_CHAT_ID || '-100123456789' }}",
+        "text": "=🗑️ إلغاء ذاتي: {{ $('Check Cancel Cutoff').first().json.patientName }} ألغى ميعاد {{ $('Check Cancel Cutoff').first().json.date }} {{ $('Check Cancel Cutoff').first().json.time }} ({{ $('Check Cancel Cutoff').first().json.service }}). الميعاد معروض الآن على قائمة الانتظار.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "cal-135",
+      "name": "Notify Staff Cancelled",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1780,
+        560
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "8YZmGiJXc70srNgA",
+          "name": "Clinic Secretary Bot"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const c = $input.first().json;\nreturn [{ json: { cancelled: false, staffOnly: !!c.staffOnly, message: c.message } }];"
+      },
+      "id": "cal-136",
+      "name": "Reply Cancel Blocked",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1140,
+        580
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Cancel Lane\nFetch → 24h cutoff → delete event → del index/record → tally → freed-slot offer → staff note. Single terminal: cancel contract. action=cancel.",
+        "height": 320,
+        "width": 440,
+        "color": 4
+      },
+      "id": "sticky-2",
+      "name": "Lane Docs",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        -220
+      ]
+    }
+  ],
+  "connections": {
+    "Receive Booking Request": {
+      "main": [
+        [
+          {
+            "node": "Fetch Event Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Event Details": {
+      "main": [
+        [
+          {
+            "node": "Check Cancel Cutoff",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Cancel Cutoff": {
+      "main": [
+        [
+          {
+            "node": "Cancel Allowed?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cancel Allowed?": {
+      "main": [
+        [
+          {
+            "node": "Delete Calendar Event",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reply Cancel Blocked",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete Calendar Event": {
+      "main": [
+        [
+          {
+            "node": "Read Event Index",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Event Index": {
+      "main": [
+        [
+          {
+            "node": "Delete Reminder Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete Reminder Record": {
+      "main": [
+        [
+          {
+            "node": "Delete Event Index",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete Event Index": {
+      "main": [
+        [
+          {
+            "node": "Tally Cancelled Stat",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tally Cancelled Stat": {
+      "main": [
+        [
+          {
+            "node": "Write Freed-Slot Offer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Freed-Slot Offer": {
+      "main": [
+        [
+          {
+            "node": "Notify Staff Cancelled",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notify Staff Cancelled": {
+      "main": [
+        [
+          {
+            "node": "Reply Cancelled",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reply Cancelled": {
+      "main": []
+    }
+  },
+  "settings": {}
+}

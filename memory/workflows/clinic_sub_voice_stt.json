@@ -1,0 +1,163 @@
+{
+  "name": "Clinic Voice STT Lane",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "voiceFileId",
+              "type": "string"
+            },
+            {
+              "name": "chatId",
+              "type": "string"
+            },
+            {
+              "name": "pushName",
+              "type": "string"
+            },
+            {
+              "name": "provider",
+              "type": "string"
+            }
+          ]
+        },
+        "pinnedData": [
+          {
+            "json": {
+              "voiceFileId": "<KnownGoodFileId>",
+              "chatId": "772001102",
+              "pushName": "Test",
+              "provider": "telegram"
+            }
+          }
+        ]
+      },
+      "id": "vs-1-trig",
+      "name": "Receive Voice Task",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "get",
+        "fileId": "={{ $('Receive Voice Task').first().json.voiceFileId }}",
+        "download": true
+      },
+      "id": "tg-10-dl",
+      "name": "Download Telegram Voice File",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1360,
+        180
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "DLlemykGQ7Zm867F",
+          "name": "Telegram account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "operation": "transcribe",
+        "binaryPropertyName": "data",
+        "options": {
+          "language": "ar",
+          "temperature": 0.2
+        }
+      },
+      "id": "tg-11-stt",
+      "name": "OpenAI Whisper STT",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        1560,
+        180
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "HIO2DYV6knLGCrBI",
+          "name": "OpenAI account (working)"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Whisper quality check: fall back to a polite retry prompt on empty audio.\nconst item = $input.first().json;\nconst prev = $('Receive Voice Task').first().json;\nconst t = item.text ? String(item.text).trim() : '';\nconst bad = item.error ? true : (t.length < 2);\nconst fallback = '[التسجيل الصوتي غير واضح - أعد التسجيل في مكان هادئ أو اكتب رسالتك نصا من فضلك]';\nreturn [{ json: { chatId: prev.chatId, pushName: prev.pushName, provider: prev.provider, finalMessage: bad ? fallback : t, wasVoice: true, isAudioMuffled: bad } }];"
+      },
+      "id": "tg-12-wcheck",
+      "name": "Whisper Fallback & Text Merger",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1760,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Voice STT Lane\nTelegram file get → Whisper (ar) → fallback merger. Off the text hot path (+1s negligible vs 30s+ STT).",
+        "height": 320,
+        "width": 440,
+        "color": 4
+      },
+      "id": "sticky-5",
+      "name": "Lane Docs",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        -220
+      ]
+    }
+  ],
+  "connections": {
+    "Receive Voice Task": {
+      "main": [
+        [
+          {
+            "node": "Download Telegram Voice File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Telegram Voice File": {
+      "main": [
+        [
+          {
+            "node": "OpenAI Whisper STT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Whisper STT": {
+      "main": [
+        [
+          {
+            "node": "Whisper Fallback & Text Merger",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {}
+}

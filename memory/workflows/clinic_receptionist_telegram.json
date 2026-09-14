@@ -234,70 +234,6 @@
     },
     {
       "parameters": {
-        "resource": "file",
-        "operation": "get",
-        "fileId": "={{ $('Extract Telegram Payload').first().json.voiceFileId }}",
-        "download": true
-      },
-      "id": "tg-10-dl",
-      "name": "Download Telegram Voice File",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        1360,
-        180
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "DLlemykGQ7Zm867F",
-          "name": "Telegram account"
-        }
-      },
-      "retryOnFail": true,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "resource": "audio",
-        "operation": "transcribe",
-        "binaryPropertyName": "data",
-        "options": {
-          "language": "ar",
-          "temperature": 0.2
-        }
-      },
-      "id": "tg-11-stt",
-      "name": "OpenAI Whisper STT",
-      "type": "@n8n/n8n-nodes-langchain.openAi",
-      "typeVersion": 2.3,
-      "position": [
-        1560,
-        180
-      ],
-      "credentials": {
-        "openAiApi": {
-          "id": "HIO2DYV6knLGCrBI",
-          "name": "OpenAI account (working)"
-        }
-      },
-      "retryOnFail": true,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "jsCode": "// Whisper quality check: fall back to a polite retry prompt on empty audio.\nconst item = $input.first().json;\nconst prev = $('Extract Telegram Payload').first().json;\nconst t = item.text ? String(item.text).trim() : '';\nconst bad = item.error ? true : (t.length < 2);\nconst fallback = '[التسجيل الصوتي غير واضح - أعد التسجيل في مكان هادئ أو اكتب رسالتك نصا من فضلك]';\nreturn [{ json: { chatId: prev.chatId, pushName: prev.pushName, provider: prev.provider, finalMessage: bad ? fallback : t, wasVoice: true, isAudioMuffled: bad } }];"
-      },
-      "id": "tg-12-wcheck",
-      "name": "Whisper Fallback & Text Merger",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        1760,
-        180
-      ]
-    },
-    {
-      "parameters": {
         "jsCode": "// Direct text merge handling non-audio messages.\nconst prev = $('Extract Telegram Payload').first().json;\nreturn [{ json: { chatId: prev.chatId, pushName: prev.pushName, provider: prev.provider, finalMessage: prev.textMessage ? prev.textMessage : 'hello', wasVoice: false, isAudioMuffled: false } }];"
       },
       "id": "tg-13-merge",
@@ -824,7 +760,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Flag explicit confirmation replies (tight opt-in vocabulary only).\nconst inp = $input.first().json;\nconst t = inp.finalMessage ? String(inp.finalMessage).trim().toLowerCase() : '';\nconst rx = /^(تمام|تم|اوك|ok|yes|موافق|تاكيد|تأكيد|اكيد|أكيد|ماشي|نعم|ايوه|ايوة|1|👍)(\\s|[!\\\\uFF01.،,👍]|$)/;\nconst hit = rx.test(t);\nconst tx = (inp.finalMessage ? String(inp.finalMessage) : '').toLowerCase();\nconst hasAction = /(احجز|الغي|الغاء|انقل|انتظار|waitlist|احجزلي|شكوى|طوارئ|نزيف|book|cancel|reschedul)/.test(tx);\nconst hits = ['سعر|بكام|اسعار|تكلفة|price|cost', 'مواعيد|بتفتح|بتقفلو|دوام|hours|open', 'دكتور|اطباء|doctor', 'عنوان|فين|مكان|address|location', 'خدمات|services', 'حشو|تنظيف|تقويم|زراعة|تبييض|خلع'].filter((p) => new RegExp(p).test(tx)).length;\nconst isMulti = !hasAction && hits >= 2;\nconst closeRx = /^(شكرا|تسلم|ممنون|متشكر|تمام شكرا|ميرسي|thanks|thank you|مع السلامة|باي|bye)([\\s!\\.،,]|(شكرا|تسلم|ممنون|متشكر|ميرسي|thanks|thank you|مع السلامة|باي|bye))*$/;\nconst isClose = closeRx.test(tx.trim()) && !hasAction;\nreturn [{ json: { chatId: inp.chatId ? String(inp.chatId) : 'unknown', pushName: inp.pushName ? String(inp.pushName) : '', provider: inp.provider ? String(inp.provider) : '', finalMessage: inp.finalMessage ? String(inp.finalMessage) : '', wasVoice: !!inp.wasVoice, isAudioMuffled: !!inp.isAudioMuffled, confirmed: hit, at: Date.now(), severe: !!inp.severe, multi: isMulti, closing: isClose } }];"
+        "jsCode": "// Flag explicit confirmation replies (tight opt-in vocabulary only).\nconst inp = $input.first().json;\nconst t = inp.finalMessage ? String(inp.finalMessage).trim().toLowerCase() : '';\nconst rx = /^(تمام|تم|اوك|ok|yes|موافق|تاكيد|تأكيد|اكيد|أكيد|ماشي|نعم|ايوه|ايوة|1|👍)(\\s|[!\\\\uFF01.،,👍]|$)/;\nconst hit = rx.test(t);\nconst tx = (inp.finalMessage ? String(inp.finalMessage) : '').toLowerCase();\nconst hasAction = /(احجز|الغي|الغاء|انقل|انتظار|waitlist|احجزلي|شكوى|طوارئ|نزيف|book|cancel|reschedul)/.test(tx);\nconst hits = ['سعر|بكام|اسعار|تكلفة|price|cost', 'مواعيد|بتفتح|بتقفلو|دوام|hours|open', 'دكتور|اطباء|doctor', 'عنوان|فين|مكان|address|location', 'خدمات|services'].filter((p) => new RegExp(p).test(tx)).length;\nconst isMulti = !hasAction && hits >= 2;\nconst closeRx = /^(شكرا|تسلم|ممنون|متشكر|تمام شكرا|ميرسي|thanks|thank you|مع السلامة|باي|bye)([\\s!\\.،,]|(شكرا|تسلم|ممنون|متشكر|ميرسي|thanks|thank you|مع السلامة|باي|bye))*$/;\nconst isClose = closeRx.test(tx.trim()) && !hasAction;\nreturn [{ json: { chatId: inp.chatId ? String(inp.chatId) : 'unknown', pushName: inp.pushName ? String(inp.pushName) : '', provider: inp.provider ? String(inp.provider) : '', finalMessage: inp.finalMessage ? String(inp.finalMessage) : '', wasVoice: !!inp.wasVoice, isAudioMuffled: !!inp.isAudioMuffled, confirmed: hit, at: Date.now(), severe: !!inp.severe, multi: isMulti, closing: isClose } }];"
       },
       "id": "tg-28-track",
       "name": "Track Confirmation Intent",
@@ -1790,6 +1726,33 @@
         2600,
         300
       ]
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "mode": "list",
+          "value": "mABfupZqeGQ0Rpgn"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "voiceFileId": "={{ $('Extract Telegram Payload').first().json.voiceFileId }}",
+            "chatId": "={{ $('Extract Telegram Payload').first().json.chatId }}",
+            "pushName": "={{ $('Extract Telegram Payload').first().json.pushName }}",
+            "provider": "={{ $('Extract Telegram Payload').first().json.provider }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "tg-200-voice",
+      "name": "Transcribe Voice Note",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1160,
+        180
+      ]
     }
   ],
   "connections": {
@@ -1866,7 +1829,7 @@
       "main": [
         [
           {
-            "node": "Download Telegram Voice File",
+            "node": "Transcribe Voice Note",
             "type": "main",
             "index": 0
           }
@@ -1874,39 +1837,6 @@
         [
           {
             "node": "Merge Patient Input",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Download Telegram Voice File": {
-      "main": [
-        [
-          {
-            "node": "OpenAI Whisper STT",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "OpenAI Whisper STT": {
-      "main": [
-        [
-          {
-            "node": "Whisper Fallback & Text Merger",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Whisper Fallback & Text Merger": {
-      "main": [
-        [
-          {
-            "node": "Was Voice Unclear?",
             "type": "main",
             "index": 0
           }
@@ -2468,6 +2398,17 @@
         [
           {
             "node": "Is Agent Reply Usable?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transcribe Voice Note": {
+      "main": [
+        [
+          {
+            "node": "Was Voice Unclear?",
             "type": "main",
             "index": 0
           }

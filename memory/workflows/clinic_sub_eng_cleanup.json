@@ -1,0 +1,421 @@
+{
+  "name": "Clinic Engine Cleanup Lane",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "record",
+              "type": "string"
+            },
+            {
+              "name": "needsInfo",
+              "type": "string"
+            },
+            {
+              "name": "needsRemind",
+              "type": "string"
+            },
+            {
+              "name": "needsEscalation",
+              "type": "string"
+            },
+            {
+              "name": "needsCleanup",
+              "type": "string"
+            },
+            {
+              "name": "needsPostVisit",
+              "type": "string"
+            },
+            {
+              "name": "offerKey",
+              "type": "string"
+            },
+            {
+              "name": "offer",
+              "type": "string"
+            }
+          ]
+        },
+        "pinnedData": [
+          {
+            "json": {
+              "record": {
+                "chatId": "772001000",
+                "patientName": "Pin",
+                "appointmentISO": "2026-09-20T07:00:00Z",
+                "bookedDate": "2026-09-14",
+                "leadHours": 24,
+                "doctor": "Dr. Samir",
+                "service": "General exam",
+                "date": "2026-09-20",
+                "time": "10:00",
+                "slotKey": "slot:pin",
+                "queueNumber": 1,
+                "infoSentAt": 0,
+                "remindedAt": 0,
+                "confirmedAt": 0,
+                "escalatedAt": 0,
+                "followedUp": 0
+              },
+              "needsInfo": false,
+              "needsRemind": true,
+              "needsEscalation": false,
+              "needsCleanup": false,
+              "needsPostVisit": false,
+              "offerKey": "",
+              "offer": null
+            }
+          }
+        ]
+      },
+      "id": "en-cle-0",
+      "name": "Receive Lane Item",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Decide no-show (never confirmed) and archive last visit; pass item through.\nconst inp = $input.first().json;\nconst rec = inp.record || {};\nconst rAt = Number(rec.remindedAt) || null;\nconst confAt = Number(rec.confirmedAt) || null;\nconst fresh = confAt !== null && rAt !== null && confAt > rAt;\nreturn [{ json: { record: rec, needsCleanup: inp.needsCleanup, needsEscalation: inp.needsEscalation,\n  needsInfo: inp.needsInfo, needsRemind: inp.needsRemind, needsPostVisit: inp.needsPostVisit,\n  isNoShow: !fresh, chatId: rec.chatId || '', apptISO: rec.appointmentISO || '' } }];"
+      },
+      "id": "eng-237",
+      "name": "Tally No-Show + Archive",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        1080
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-x",
+              "leftValue": "={{ $input.item.json.isNoShow === true }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "eng-342",
+      "name": "Was No-Show?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        700,
+        1080
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "incr",
+        "key": "stats:noshow"
+      },
+      "id": "eng-238",
+      "name": "Tally No-Show Day",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        700,
+        1080
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "incr",
+        "key": "=noshow:{{ $('Tally No-Show + Archive').item.json.record.chatId }}"
+      },
+      "id": "eng-239",
+      "name": "Tally No-Show Patient",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        920,
+        1080
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $('Tally No-Show + Archive').item.json.record.chatId }}",
+        "text": "=فاتك ميعادك في عيادة النور 😟 لا مشكلة — صحتك تهمنا. رد بـ «احجز» ونرتب لك ميعادا بديلا فورا.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "eng-500-nsf",
+      "name": "Send No-Show Follow-Up",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1140,
+        1240
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "DLlemykGQ7Zm867F",
+          "name": "Telegram account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://ezzeldin8n.ezzeldin8n.cfd/api/v1/data-tables/MuP3xIno5NkLoAyk/rows",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ data: [{ kind: 'visit', chatId: $('Tally No-Show + Archive').item.json.record.chatId, patientName: $('Tally No-Show + Archive').item.json.record.patientName, visitISO: $('Tally No-Show + Archive').item.json.record.appointmentISO, service: $('Tally No-Show + Archive').item.json.record.service, doctor: $('Tally No-Show + Archive').item.json.record.doctor }]}) }}",
+        "options": {
+          "timeout": 20000
+        }
+      },
+      "id": "eng-600-log",
+      "name": "Log Visit Durably",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1140,
+        1080
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "UPbxJH6WuwWmlLb9",
+          "name": "n8n Local API"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-logged",
+              "leftValue": "={{ $input.item.json.error !== undefined }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "eng-601-gate",
+      "name": "Visit Logged?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1250,
+        1080
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "=remind:{{ $('Tally No-Show + Archive').item.json.record.chatId }}:{{ $('Tally No-Show + Archive').item.json.record.slotKey }}",
+        "requiresHumanApproval": true
+      },
+      "id": "en-d1",
+      "name": "Delete Reminder Record",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        920,
+        480
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput",
+      "notes": "Approved by design: removes only its own expired booking reminder + markers."
+    },
+    {
+      "parameters": {},
+      "id": "en-clea-park",
+      "name": "Park Failed Log",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1360,
+        1080
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Cleanup Lane\nTally no-show → follow-up → durable visit log (Visit Logged? gate keeps record on write-fail) → delete.",
+        "height": 320,
+        "width": 440,
+        "color": 4
+      },
+      "id": "sticky-9",
+      "name": "Lane Docs",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        -220
+      ]
+    }
+  ],
+  "connections": {
+    "Receive Lane Item": {
+      "main": [
+        [
+          {
+            "node": "Tally No-Show + Archive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tally No-Show + Archive": {
+      "main": [
+        [
+          {
+            "node": "Was No-Show?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Was No-Show?": {
+      "main": [
+        [
+          {
+            "node": "Tally No-Show Day",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Log Visit Durably",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tally No-Show Day": {
+      "main": [
+        [
+          {
+            "node": "Tally No-Show Patient",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tally No-Show Patient": {
+      "main": [
+        [
+          {
+            "node": "Send No-Show Follow-Up",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Log Visit Durably",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send No-Show Follow-Up": {
+      "main": [
+        [
+          {
+            "node": "Log Visit Durably",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Visit Durably": {
+      "main": [
+        [
+          {
+            "node": "Visit Logged?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Visit Logged?": {
+      "main": [
+        [
+          {
+            "node": "Park Failed Log",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Delete Reminder Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {}
+}

@@ -1,0 +1,256 @@
+{
+  "name": "Clinic Engine Offers Lane",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "record",
+              "type": "string"
+            },
+            {
+              "name": "needsInfo",
+              "type": "string"
+            },
+            {
+              "name": "needsRemind",
+              "type": "string"
+            },
+            {
+              "name": "needsEscalation",
+              "type": "string"
+            },
+            {
+              "name": "needsCleanup",
+              "type": "string"
+            },
+            {
+              "name": "needsPostVisit",
+              "type": "string"
+            },
+            {
+              "name": "offerKey",
+              "type": "string"
+            },
+            {
+              "name": "offer",
+              "type": "string"
+            }
+          ]
+        },
+        "pinnedData": [
+          {
+            "json": {
+              "record": {
+                "chatId": "772001000",
+                "patientName": "Pin",
+                "appointmentISO": "2026-09-20T07:00:00Z",
+                "bookedDate": "2026-09-14",
+                "leadHours": 24,
+                "doctor": "Dr. Samir",
+                "service": "General exam",
+                "date": "2026-09-20",
+                "time": "10:00",
+                "slotKey": "slot:pin",
+                "queueNumber": 1,
+                "infoSentAt": 0,
+                "remindedAt": 0,
+                "confirmedAt": 0,
+                "escalatedAt": 0,
+                "followedUp": 0
+              },
+              "needsInfo": false,
+              "needsRemind": true,
+              "needsEscalation": false,
+              "needsCleanup": false,
+              "needsPostVisit": false,
+              "offerKey": "",
+              "offer": null
+            }
+          }
+        ]
+      },
+      "id": "en-off-0",
+      "name": "Receive Lane Item",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Pop the oldest waiter for each freed offer (duplicate-offer race accepted: booking lock keeps taps safe).\nconst outs = [];\nfor (const it of [{ json: ($input.first().json.keysmap || {}) }]) {\n  const j = it.json;\n  const offerKey = Object.keys(j).find((k) => String(k).indexOf('offer:') === 0);\n  if (!offerKey) { continue; }\n  let offer = null;\n  try { offer = JSON.parse(j[offerKey]); } catch (e) { offer = null; }\n  if (!offer) { continue; }\n  outs.push({ json: { offerKey: offerKey, offer: offer, waiter: null, rest: '[]' } });\n}\nreturn outs;"
+      },
+      "id": "eng-346",
+      "name": "Take Oldest Waiter",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        640,
+        1400
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "pop",
+        "list": "waitlist"
+      },
+      "id": "eng-410-pop",
+      "name": "Pop Waitlist",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        640,
+        1400
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Merge popped waiter with the shaped offer (empty pop -> stop).\nconst win = $input.first().json;\nconst w = (win && win.propertyName !== undefined && win.propertyName !== null) ? win.propertyName : win;\nconst shaped = $('Take Oldest Waiter').item.json;\nconst waiter = (typeof w === 'string') ? (function(){ try { return JSON.parse(w); } catch (e) { return null; } })() : (w && (w.value || w.data) ? (function(){ try { return JSON.parse(w.value || w.data); } catch (e) { return null; } })() : w);\nif (!waiter || !waiter.chatId) { return []; }\nreturn [{ json: { offerKey: shaped.offerKey, offer: shaped.offer, waiter: waiter } }];"
+      },
+      "id": "eng-411-merge",
+      "name": "Merge Offer Waiter",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        860,
+        1400
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $input.item.json.waiter.chatId }}",
+        "text": "=🎉 فضي ميعاد: {{ $input.item.json.offer.service }} مع {{ $input.item.json.offer.doctor }} يوم {{ $input.item.json.offer.date }} الساعة {{ $input.item.json.offer.time }}. رد بـ «احجز» سريعا قبل أن يأخذه غيرك!",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "eng-412-send",
+      "name": "Send Slot Offer",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1080,
+        1400
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "DLlemykGQ7Zm867F",
+          "name": "Telegram account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "={{ $('Merge Offer Waiter').item.json.offerKey }}",
+        "requiresHumanApproval": true
+      },
+      "id": "eng-413-del",
+      "name": "Delete Consumed Offer",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1300,
+        1400
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "content": "## Offers Lane\nPops oldest waiter per freed slot (propertyName unwrap) → offer → consume key.",
+        "height": 320,
+        "width": 440,
+        "color": 4
+      },
+      "id": "sticky-11",
+      "name": "Lane Docs",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        -220
+      ]
+    }
+  ],
+  "connections": {
+    "Receive Lane Item": {
+      "main": [
+        [
+          {
+            "node": "Take Oldest Waiter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pop Waitlist": {
+      "main": [
+        [
+          {
+            "node": "Merge Offer Waiter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Offer Waiter": {
+      "main": [
+        [
+          {
+            "node": "Send Slot Offer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Take Oldest Waiter": {
+      "main": [
+        [
+          {
+            "node": "Pop Waitlist",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Slot Offer": {
+      "main": [
+        [
+          {
+            "node": "Delete Consumed Offer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {}
+}

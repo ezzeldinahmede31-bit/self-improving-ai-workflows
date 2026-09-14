@@ -1,0 +1,153 @@
+{
+  "name": "Clinic CAL Find Lane",
+  "nodes": [
+    {
+      "parameters": {
+        "pinnedData": [
+          {
+            "json": {
+              "ping": "pinned-sample"
+            }
+          }
+        ],
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "patientPhone",
+              "type": "string"
+            },
+            {
+              "name": "patientChatId",
+              "type": "string"
+            },
+            {
+              "name": "patientName",
+              "type": "string"
+            },
+            {
+              "name": "doctorName",
+              "type": "string"
+            },
+            {
+              "name": "date",
+              "type": "string"
+            },
+            {
+              "name": "time",
+              "type": "string"
+            },
+            {
+              "name": "serviceName",
+              "type": "string"
+            },
+            {
+              "name": "action",
+              "type": "string"
+            },
+            {
+              "name": "eventId",
+              "type": "string"
+            },
+            {
+              "name": "newDate",
+              "type": "string"
+            },
+            {
+              "name": "newTime",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "id": "sw1-t",
+      "name": "Receive Booking Request",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        120,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://www.googleapis.com/calendar/v3/calendars/primary/events?singleEvents=true&orderBy=startTime&timeMin={{ $now.toISO() }}&timeMax={{ $now.plus({ days: 60 }).toISO() }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleCalendarOAuth2Api",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "cal-540",
+      "name": "List Patient Events",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        520,
+        300
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "R8AjuV0uT9m8lgQe",
+          "name": "Google Calendar account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// DentAI-style get_patient_appointments: match our summary format, return future bookings.\nconst inp = $input.first().json;\nconst trig = $('Receive Booking Request').first().json;\nconst want = trig.patientName ? String(trig.patientName).trim().toLowerCase() : '';\nconst items = inp.error !== undefined ? [] : (Array.isArray(inp.items) ? inp.items : []);\nconst out = [];\nfor (const ev of items) {\n  const sum = ev.summary ? String(ev.summary) : '';\n  const desc = ev.description ? String(ev.description) : '';\n  if (want && sum.toLowerCase().indexOf(want) === -1 && desc.toLowerCase().indexOf(want) === -1) { continue; }\n  const s = ev.start ? (ev.start.dateTime || ev.start.date || '') : '';\n  const dt = new Date(s);\n  const d = new Intl.DateTimeFormat('en-CA', { timeZone: 'Africa/Cairo', year: 'numeric', month: '2-digit', day: '2-digit' }).format(dt);\n  const t = new Intl.DateTimeFormat('en-GB', { timeZone: 'Africa/Cairo', hour: '2-digit', minute: '2-digit', hour12: false }).format(dt);\n  out.push({ json: { eventId: ev.id, summary: sum, date: d, time: t, startISO: s } });\n}\nreturn out.length ? out : [{ json: { none: true, message: 'لا توجد حجوزات قادمة بهذا الاسم.' } }];"
+      },
+      "id": "cal-541",
+      "name": "Filter Patient Bookings",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        740,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Find Lane (refactored Sep 14)\nLists 60d events → matches summary/description (Cairo wall time). Called by CAL router with action=find. Single terminal: Filter output array.",
+        "height": 300,
+        "width": 420,
+        "color": 4
+      },
+      "id": "sticky-find-1",
+      "name": "Lane Docs",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -300,
+        -200
+      ]
+    }
+  ],
+  "connections": {
+    "Receive Booking Request": {
+      "main": [
+        [
+          {
+            "node": "List Patient Events",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Patient Events": {
+      "main": [
+        [
+          {
+            "node": "Filter Patient Bookings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {}
+}
