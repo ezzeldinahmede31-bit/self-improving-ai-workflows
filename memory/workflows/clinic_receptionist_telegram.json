@@ -722,18 +722,54 @@
       "parameters": {
         "conditions": {
           "options": {
-            "caseSensitive": true,
+            "caseSensitive": false,
             "leftValue": "",
-            "typeValidation": "strict"
+            "typeValidation": "loose"
           },
           "conditions": [
             {
-              "id": "c-usable",
-              "leftValue": "={{ ($input.item.json.output || '').length > 4 }}",
+              "id": "c-len",
+              "leftValue": "={{ ($input.item.json.output || '').length > 12 }}",
               "rightValue": true,
               "operator": {
                 "type": "boolean",
                 "operation": "equals"
+              }
+            },
+            {
+              "id": "c-noleak",
+              "leftValue": "={{ $input.item.json.output || '' }}",
+              "rightValue": "The user wants me to",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            },
+            {
+              "id": "c-noleak2",
+              "leftValue": "={{ $input.item.json.output || '' }}",
+              "rightValue": "We need to",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            },
+            {
+              "id": "c-noleak3",
+              "leftValue": "={{ $input.item.json.output || '' }}",
+              "rightValue": "</pause>",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            },
+            {
+              "id": "c-norep",
+              "leftValue": "={{ $input.item.json.output || '' }}",
+              "rightValue": "(\\b\\w+\\b)(?:\\s+\\1){4,}",
+              "operator": {
+                "type": "string",
+                "operation": "notMatchesRegex"
               }
             }
           ],

@@ -122,20 +122,18 @@
     },
     {
       "parameters": {
-        "resource": "event",
-        "operation": "getAll",
-        "calendar": {
-          "mode": "list",
-          "value": "primary"
-        },
-        "returnAll": true,
-        "timeMin": "={{ $('Build Slot Window').first().json.startISO }}",
-        "timeMax": "={{ $('Build Slot Window').first().json.endISO }}"
+        "method": "GET",
+        "url": "={{ 'https://www.googleapis.com/calendar/v3/calendars/primary/events?singleEvents=true&orderBy=startTime&timeMin=' + $('Build Slot Window').first().json.startISO + '&timeMax=' + $('Build Slot Window').first().json.endISO }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleCalendarOAuth2Api",
+        "options": {
+          "timeout": 30000
+        }
       },
       "id": "sw1-l",
       "name": "List Window Events",
-      "type": "n8n-nodes-base.googleCalendar",
-      "typeVersion": 1.3,
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
       "position": [
         920,
         180
@@ -151,9 +149,8 @@
     },
     {
       "parameters": {
-        "jsCode": "// Decide window state: error items mean the check itself failed (never report taken).\nconst all = $input.all();\nconst prev = $('Build Slot Window').first().json;\nconst first = all.length > 0 ? all[0].json : null;\nconst bad = first ? (first.error !== undefined ? true : false) : false;\nconst free = bad ? false : (all.length === 0);\nreturn [{ json: { free: free, checkFailed: bad, slotKey: prev.slotKey, startISO: prev.startISO, endISO: prev.endISO, doctor: prev.doctor, date: prev.date, time: prev.time, service: prev.service, patientName: prev.patientName, patientChat: prev.patientChat } }];",
-        "mode": "runOnceForAllItems",
-        "alwaysOutputData": true
+        "jsCode": "// Decide window state from the events API envelope (always exactly one item).\nconst inp = $input.first().json;\nconst prev = $('Build Slot Window').first().json;\nconst failed = inp.error !== undefined;\nconst items = failed ? [] : (Array.isArray(inp.items) ? inp.items : []);\nconst free = !failed && items.length === 0;\nconst base = { free: free, checkFailed: failed, slotKey: prev.slotKey, startISO: prev.startISO, endISO: prev.endISO, doctor: prev.doctor, date: prev.date, time: prev.time, service: prev.service, patientName: prev.patientName, patientChat: prev.patientChat };\nreturn [{ json: base }];",
+        "mode": "runOnceForAllItems"
       },
       "id": "sw1-d",
       "name": "Decide Slot Free",
@@ -476,7 +473,7 @@
     {
       "parameters": {
         "operation": "incr",
-        "key": "=queue:{{ $input.item.json.date }}:{{ $input.item.json.doctor }}",
+        "key": "=queue:{{ $('Decide Slot Free').first().json.date }}:{{ $('Decide Slot Free').first().json.doctor }}",
         "expire": true,
         "ttl": 172800
       },
