@@ -131,6 +131,28 @@
       },
       "retryOnFail": true,
       "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "incr",
+        "key": "stats:recall"
+      },
+      "id": "rc-60-tally",
+      "name": "Tally Recall Stat",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        770,
+        0
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
     }
   ],
   "connections": {
@@ -171,7 +193,7 @@
       "main": [
         [
           {
-            "node": "Stamp Recall Moment",
+            "node": "Tally Recall Stat",
             "type": "main",
             "index": 0
           }
@@ -183,6 +205,17 @@
         [
           {
             "node": "Store Recall Stamp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tally Recall Stat": {
+      "main": [
+        [
+          {
+            "node": "Stamp Recall Moment",
             "type": "main",
             "index": 0
           }

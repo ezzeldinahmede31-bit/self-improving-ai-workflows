@@ -23,6 +23,10 @@
             {
               "name": "reason",
               "type": "string"
+            },
+            {
+              "name": "summary",
+              "type": "string"
             }
           ]
         }
@@ -41,7 +45,7 @@
         "resource": "message",
         "operation": "sendMessage",
         "chatId": "={{ $env.TELEGRAM_STAFF_CHAT_ID || '-100123456789' }}",
-        "text": "=ESCALATION from {{ $input.item.json.patientName }} (chat {{ $input.item.json.patientChatId }}): {{ $input.item.json.reason }}",
+        "text": "=ESCALATION from {{ $input.item.json.patientName }} (chat {{ $input.item.json.patientChatId }}): {{ $input.item.json.reason }}\nملخص: {{ $input.item.json.summary }}",
         "additionalFields": {
           "appendAttribution": false
         }
@@ -81,7 +85,7 @@
         "resource": "message",
         "operation": "sendMessage",
         "chatId": "={{ $env.TELEGRAM_DOCTOR_CHAT_ID || '-100123456789' }}",
-        "text": "=🚨 استشارة طارئة: {{ $('Receive Escalation Request').first().json.patientName }} (شات {{ $('Receive Escalation Request').first().json.patientChatId }}): {{ $('Receive Escalation Request').first().json.reason }}",
+        "text": "=🚨 استشارة طارئة: {{ $('Receive Escalation Request').first().json.patientName }} (شات {{ $('Receive Escalation Request').first().json.patientChatId }}): {{ $('Receive Escalation Request').first().json.reason }}\nملخص: {{ $('Receive Escalation Request').first().json.summary }}",
         "additionalFields": {
           "appendAttribution": false
         }

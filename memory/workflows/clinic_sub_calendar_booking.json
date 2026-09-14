@@ -234,7 +234,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Polite slot-taken reply contract for the agent (reads Decide, not passthrough).\nconst prev = $('Decide Slot Free').first().json;\nreturn [{ json: { booked: false, message: 'عذرا، ميعاد ' + prev.date + ' الساعة ' + prev.time + ' مع ' + prev.doctor + ' محجوز. اختر ميعادا آخر من فضلك.', slotKey: prev.slotKey } }];"
+        "jsCode": "// Polite slot-taken reply contract for the agent (reads Decide, not passthrough).\nlet prev = null;\ntry { prev = $('Decide Slot Free').first().json; } catch (e) { prev = null; }\nif (!prev) { prev = $('Build Slot Window').first().json; }\nreturn [{ json: { booked: false, message: 'عذرا، ميعاد ' + prev.date + ' الساعة ' + prev.time + ' مع ' + prev.doctor + ' محجوز. اختر ميعادا آخر من فضلك.', slotKey: prev.slotKey } }];"
       },
       "id": "sw1-tk",
       "name": "Reply Slot Taken",
@@ -348,7 +348,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Booking-confirmed contract for the agent (number from queue claim, event from create).\nconst prev = $('Decide Slot Free').first().json;\nconst q = $input.first().json;\nconst eid = $('Create Calendar Event').first().json.id;\nconst num = q[Object.keys(q)[0]];\nreturn [{ json: { booked: true, eventId: eid ? String(eid) : '', queueNumber: num, message: 'تم الحجز: ' + prev.service + ' مع ' + prev.doctor + ' يوم ' + prev.date + ' الساعة ' + prev.time + ' باسم ' + prev.patientName + '. رقم دورك ' + String(num) + '.', slotKey: prev.slotKey } }];"
+        "jsCode": "// Booking-confirmed contract for the agent (number from queue claim, event from create).\nconst prev = $('Decide Slot Free').first().json;\nconst q = $input.first().json;\nconst eid = $('Create Calendar Event').first().json.id;\nconst num = q[Object.keys(q)[0]];\nreturn [{ json: { booked: true, eventId: eid ? String(eid) : '', queueNumber: num, message: 'تم الحجز: ' + prev.service + ' مع ' + prev.doctor + ' يوم ' + prev.date + ' الساعة ' + prev.time + ' باسم ' + prev.patientName + '. رقم دورك ' + String(num) + '. العنوان: القاهرة — العنوان التجريبي (DEMO).', slotKey: prev.slotKey } }];"
       },
       "id": "sw1-cf",
       "name": "Reply Booking Confirmed",

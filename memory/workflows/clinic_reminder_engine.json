@@ -1182,6 +1182,33 @@
       },
       "retryOnFail": true,
       "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $input.item.json.chatId }}",
+        "text": "=فاتك ميعادك في عيادة النور 😟 لا مشكلة — صحتك تهمنا. رد بـ «احجز» ونرتب لك ميعادا بديلا فورا.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "eng-500-nsf",
+      "name": "Send No-Show Follow-Up",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1140,
+        1240
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "DLlemykGQ7Zm867F",
+          "name": "Telegram account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
     }
   ],
   "connections": {
@@ -1596,7 +1623,7 @@
       "main": [
         [
           {
-            "node": "Archive Last Visit",
+            "node": "Send No-Show Follow-Up",
             "type": "main",
             "index": 0
           }
@@ -1690,6 +1717,17 @@
         [
           {
             "node": "Delete Consumed Offer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send No-Show Follow-Up": {
+      "main": [
+        [
+          {
+            "node": "Archive Last Visit",
             "type": "main",
             "index": 0
           }

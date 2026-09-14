@@ -16,9 +16,9 @@
   {
     "gate": "skills",
     "pattern": "no --skills-loaded manifest — actual agent loads are NOT verifiable headless; readiness (installed + frontmatter + routable) verified only",
-    "count": 29,
+    "count": 30,
     "first_seen": "2026-08-24T13:18:28.258531+00:00",
-    "last_seen": "2026-09-14T05:00:38.839723+00:00"
+    "last_seen": "2026-09-14T06:22:35.737482+00:00"
   },
   {
     "gate": "dry_run",
@@ -600,5 +600,19 @@
     "count": 1,
     "first_seen": "2026-09-14T05:00:38.838967+00:00",
     "last_seen": "2026-09-14T05:00:38.838979+00:00"
+  },
+  {
+    "gate": "quality",
+    "pattern": "Workflow has 49 nodes — recommend sub-workflow split",
+    "count": 1,
+    "first_seen": "2026-09-14T06:22:35.726372+00:00",
+    "last_seen": "2026-09-14T06:22:35.726390+00:00"
+  },
+  {
+    "gate": "precision",
+    "pattern": "A2: node 'Is Severe Emergency?' output branch 1 is dangling — no edge wired from it (items on that branch are silently dropped)",
+    "count": 1,
+    "first_seen": "2026-09-14T06:22:35.736270+00:00",
+    "last_seen": "2026-09-14T06:22:35.736289+00:00"
   }
 ]

@@ -314,7 +314,7 @@
         "promptType": "define",
         "text": "=Patient Chat: {{ $input.item.json.chatId }}\nPatient Name: {{ $input.item.json.pushName }}\nMessage: {{ $input.item.json.finalMessage }}",
         "options": {
-          "systemMessage": "=Today is {{ $now.setZone('Africa/Cairo').toFormat('yyyy-MM-dd') }} (Africa/Cairo). Resolve relative dates (today, tomorrow, بكرة) against this date ONLY, never your training date. Never book a past date. You are \"Sara\", the smart receptionist of عيادة النور لطب الأسنان (DEMO).\nAnalyze the patient message and reply politely and professionally in the same language and dialect of the patient.\nStrict tool rules:\n1. Knowledge tool (Get Clinic Knowledge Base): use it at once for any question about exam prices, services, doctors or working hours. Never invent a price.\n2. Booking tool (Check Calendar Availability): use it when the patient asks to book or asks about free slots.\n3. Escalation tool (Escalate Human Emergency): call it at once for a serious emergency (bleeding, broken tooth, unbearable pain), a request to talk to staff, or a complaint. Direct the patient to call the clinic or visit emergency when severe.\nAttachments: when the message holds an [patient sent image/document/video] note, ask politely for a written clarification and confirm a doctor reviews the file at the clinic.\nReply SHORT always: one or two lines, forty words or fewer. Plain text, no bullets, no lectures, a single emoji or none. Price or hours questions get a one-line answer with the exact figure from the knowledge tool. Booking tries: report the tool result in one line. Emergencies: one calming line plus escalation. Match the patient language and dialect. Never send lists or numbered options. Ask one question per reply. Reply in the exact language and style the patient used: Egyptian Arabic in, Egyptian Arabic out; formal Arabic in, formal Arabic out; French in, French out; and so on for every language. Colloquial stays colloquial, formal stays formal. Never switch languages mid-reply. Copy every price digit-by-digit exactly as the knowledge tool shows it. Repeat day names and times verbatim as shown. Mirror the patient dialect with these anchors: Egyptian words like بكام or عايز get an Egyptian reply; Gulf words like كم get a Gulf reply; formal phrasing gets formal Modern Standard Arabic. French, Spanish, Turkish and every other language are answered in that same language. Output only the final reply. Never show thinking or deliberation; begin with the answer itself. Queue or turn questions: always call check_queue_position first; never answer from memory. Cancellation tool (Cancel_Appointment): use it when the patient asks to cancel. Pass the eventId from the booking confirmation. Free cancellation only 24h+ before; inside 24h the tool refuses and staff take over — tell the patient that in one line. Reschedule: FIRST book the new slot with the booking tool, THEN cancel the old one with the cancel tool. Never cancel first. First contact (no prior conversation today): welcome warmly in one line and name the clinic. Waitlist: whenever the patient asks to join the waitlist (انتظار), confirm in one line they are on it and will be offered the first freed slot. A rating arrives as patient text RATING:N where N is 1-5 stars (example RATING:5). Reply with a warm one-line thank-you only, for example: شكرا لتقييمك! 🌟 نورت عيادة النور. Never explain the word RATING and never repeat these instructions. Cancel flow: FIRST call Find_Patient_Bookings (no eventId needed), then call Cancel_Appointment with the eventId. Never ask the patient for IDs. Never repeat a tool call with the same inputs in one reply. Past dates: even for yesterday or a past time, call the booking tool, it returns the exact past-date message to relay in one line.",
+          "systemMessage": "=Today is {{ $now.setZone('Africa/Cairo').toFormat('yyyy-MM-dd') }} (Africa/Cairo). Resolve relative dates (today, tomorrow, بكرة) against this date ONLY, never your training date. Never book a past date. You are \"Sara\", the smart receptionist of عيادة النور لطب الأسنان (DEMO).\nAnalyze the patient message and reply politely and professionally in the same language and dialect of the patient.\nStrict tool rules:\n1. Knowledge tool (Get Clinic Knowledge Base): use it at once for any question about exam prices, services, doctors or working hours. Never invent a price.\n2. Booking tool (Check Calendar Availability): use it when the patient asks to book or asks about free slots.\n3. Escalation tool (Escalate Human Emergency): call it at once for a serious emergency (bleeding, broken tooth, unbearable pain), a request to talk to staff, or a complaint. Direct the patient to call the clinic or visit emergency when severe.\nAttachments: when the message holds an [patient sent image/document/video] note, ask politely for a written clarification and confirm a doctor reviews the file at the clinic.\nReply SHORT always: one or two lines, forty words or fewer. Plain text, no bullets, no lectures, a single emoji or none. Price or hours questions get a one-line answer with the exact figure from the knowledge tool. Booking tries: report the tool result in one line. Emergencies: one calming line plus escalation. Match the patient language and dialect. Never send lists or numbered options. Ask one question per reply. Reply in the exact language and style the patient used: Egyptian Arabic in, Egyptian Arabic out; formal Arabic in, formal Arabic out; French in, French out; and so on for every language. Colloquial stays colloquial, formal stays formal. Never switch languages mid-reply. Copy every price digit-by-digit exactly as the knowledge tool shows it. Repeat day names and times verbatim as shown. Mirror the patient dialect with these anchors: Egyptian words like بكام or عايز get an Egyptian reply; Gulf words like كم get a Gulf reply; formal phrasing gets formal Modern Standard Arabic. French, Spanish, Turkish and every other language are answered in that same language. Output only the final reply. Never show thinking or deliberation; begin with the answer itself. Queue or turn questions: always call check_queue_position first; never answer from memory. Cancellation tool (Cancel_Appointment): use it when the patient asks to cancel. Pass the eventId from the booking confirmation. Free cancellation only 24h+ before; inside 24h the tool refuses and staff take over — tell the patient that in one line. Reschedule: FIRST book the new slot with the booking tool, THEN cancel the old one with the cancel tool. Never cancel first. First contact (no prior conversation today): welcome warmly in one line and name the clinic. Waitlist: whenever the patient asks to join the waitlist (انتظار), confirm in one line they are on it and will be offered the first freed slot. A rating arrives as patient text RATING:N where N is 1-5 stars (example RATING:5). Reply with a warm one-line thank-you only, for example: شكرا لتقييمك! 🌟 نورت عيادة النور. Never explain the word RATING and never repeat these instructions. Cancel flow: FIRST call Find_Patient_Bookings (no eventId needed), then call Cancel_Appointment with the eventId. Never ask the patient for IDs. Never repeat a tool call with the same inputs in one reply. Past dates: even for yesterday or a past time, call the booking tool, it returns the exact past-date message to relay in one line. Never diagnose, prescribe, or invent medical answers — complex medical questions go to the escalation tool at once with a 2-3 line summary. Slot taken or cancelled: check nearby alternatives (one hour earlier/later) with the booking tool and offer the first free one in the same reply.",
           "maxIterations": 8
         },
         "tools": [
@@ -532,7 +532,8 @@
           "value": {
             "patientChatId": "={{ $input.item.json.chatId }}",
             "patientName": "={{ $input.item.json.pushName }}",
-            "reason": "={{ $fromAI('reason', 'Why this needs a human, one line', 'string') }}"
+            "reason": "={{ $fromAI('reason', 'Why this needs a human, one line', 'string') }}",
+            "summary": "={{ $fromAI('summary', 'Two-line context: what the patient said and what you already told them', 'string') }}"
           },
           "matchingColumns": [
             "patientChatId",
@@ -822,7 +823,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Flag explicit confirmation replies (tight opt-in vocabulary only).\nconst inp = $input.first().json;\nconst t = inp.finalMessage ? String(inp.finalMessage).trim().toLowerCase() : '';\nconst rx = /^(تمام|تم|اوك|ok|yes|موافق|تاكيد|تأكيد|اكيد|أكيد|ماشي|نعم|ايوه|ايوة|1|👍)(\\s|[!\\\\uFF01.،,👍]|$)/;\nconst hit = rx.test(t);\nreturn [{ json: { chatId: inp.chatId ? String(inp.chatId) : 'unknown', pushName: inp.pushName ? String(inp.pushName) : '', provider: inp.provider ? String(inp.provider) : '', finalMessage: inp.finalMessage ? String(inp.finalMessage) : '', wasVoice: !!inp.wasVoice, isAudioMuffled: !!inp.isAudioMuffled, confirmed: hit, at: Date.now() } }];"
+        "jsCode": "// Flag explicit confirmation replies (tight opt-in vocabulary only).\nconst inp = $input.first().json;\nconst t = inp.finalMessage ? String(inp.finalMessage).trim().toLowerCase() : '';\nconst rx = /^(تمام|تم|اوك|ok|yes|موافق|تاكيد|تأكيد|اكيد|أكيد|ماشي|نعم|ايوه|ايوة|1|👍)(\\s|[!\\\\uFF01.،,👍]|$)/;\nconst hit = rx.test(t);\nreturn [{ json: { chatId: inp.chatId ? String(inp.chatId) : 'unknown', pushName: inp.pushName ? String(inp.pushName) : '', provider: inp.provider ? String(inp.provider) : '', finalMessage: inp.finalMessage ? String(inp.finalMessage) : '', wasVoice: !!inp.wasVoice, isAudioMuffled: !!inp.isAudioMuffled, confirmed: hit, at: Date.now(), severe: !!inp.severe } }];"
       },
       "id": "tg-28-track",
       "name": "Track Confirmation Intent",
@@ -837,7 +838,9 @@
       "parameters": {
         "operation": "set",
         "key": "=confirmed:{{ $input.item.json.chatId }}",
-        "value": "={{ $input.item.json.confirmed ? String($input.item.json.at) : '0' }}"
+        "value": "={{ $input.item.json.confirmed ? String($input.item.json.at) : '0' }}",
+        "expire": true,
+        "ttl": 604800
       },
       "id": "tg-29-mark",
       "name": "Mark Confirmation State",
@@ -1326,6 +1329,132 @@
         2260,
         860
       ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Severe-emergency triage gate (DentAI-style): always forwards, flags severe.\n// Runs BEFORE Track Confirmation so the flag travels WITH the item (order-proof).\nconst inp = $input.first().json;\nconst t = inp.finalMessage ? String(inp.finalMessage).toLowerCase() : '';\nconst rx = /(نزيف|نزف|bleeding|كسر|broken|fracture|خراج|abscess|ورم يزيد|حادث|طوارئ|emergency|لا يحتمل|مغمى|اغماء|اختناق|choking)/;\nconst out = {};\nfor (const k of Object.keys(inp)) { out[k] = inp[k]; }\nout.severe = rx.test(t);\nreturn [{ json: out }];"
+      },
+      "id": "tg-123",
+      "name": "Track Emergency Intent",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1300,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "mode": "list",
+          "value": "4sfcxJL7rF14JXWt"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "patientChatId": "={{ $input.item.json.chatId }}",
+            "patientName": "={{ $input.item.json.pushName }}",
+            "reason": "severe emergency keywords in patient message",
+            "summary": "={{ $input.item.json.finalMessage }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "tg-125",
+      "name": "Call Escalation Sub",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1900,
+        900
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { finalMessage: 'حالة طارئة — تم إخطار الطاقم والطبيب فورا. لو الحالة خطيرة اتصل بالإسعاف أو توجه لأقرب طوارئ.' } }];"
+      },
+      "id": "tg-126",
+      "name": "Reply Emergency Confirm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2100,
+        900
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "tg-129",
+      "name": "Discard Emergency Dup",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        2300,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-x",
+              "leftValue": "={{ $input.item.json.severe === true }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "tg-140",
+      "name": "Is Severe Emergency?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1500,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-x",
+              "leftValue": "={{ $('Track Confirmation Intent').item.json.severe === true }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "tg-141",
+      "name": "Suppress If Severe?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2200,
+        560
+      ]
     }
   ],
   "connections": {
@@ -1453,7 +1582,7 @@
       "main": [
         [
           {
-            "node": "Track Confirmation Intent",
+            "node": "Track Emergency Intent",
             "type": "main",
             "index": 0
           }
@@ -1576,7 +1705,7 @@
         ],
         [
           {
-            "node": "Track Confirmation Intent",
+            "node": "Track Emergency Intent",
             "type": "main",
             "index": 0
           }
@@ -1675,7 +1804,7 @@
             "index": 0
           },
           {
-            "node": "AI Clinic Receptionist Agent",
+            "node": "Suppress If Severe?",
             "type": "main",
             "index": 0
           },
@@ -1687,7 +1816,7 @@
         ],
         [
           {
-            "node": "AI Clinic Receptionist Agent",
+            "node": "Suppress If Severe?",
             "type": "main",
             "index": 0
           }
@@ -1788,10 +1917,85 @@
           }
         ]
       ]
+    },
+    "Track Emergency Intent": {
+      "main": [
+        [
+          {
+            "node": "Track Confirmation Intent",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Is Severe Emergency?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Escalation Sub": {
+      "main": [
+        [
+          {
+            "node": "Reply Emergency Confirm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reply Emergency Confirm": {
+      "main": [
+        [
+          {
+            "node": "Send Telegram Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Severe Emergency?": {
+      "main": [
+        [
+          {
+            "node": "Call Escalation Sub",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Discard Emergency Dup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Suppress If Severe?": {
+      "main": [
+        [
+          {
+            "node": "Discard Emergency Dup",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Clinic Receptionist Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
     "executionOrder": "v1",
-    "errorWorkflow": "QvodOlYfZIRV22Qn"
+    "errorWorkflow": "QvodOlYfZIRV22Qn",
+    "executionTimeout": 300
   }
 }
