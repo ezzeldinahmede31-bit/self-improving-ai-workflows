@@ -16,9 +16,9 @@
   {
     "gate": "skills",
     "pattern": "no --skills-loaded manifest — actual agent loads are NOT verifiable headless; readiness (installed + frontmatter + routable) verified only",
-    "count": 32,
+    "count": 34,
     "first_seen": "2026-08-24T13:18:28.258531+00:00",
-    "last_seen": "2026-09-14T12:29:40.895861+00:00"
+    "last_seen": "2026-09-14T13:28:41.944242+00:00"
   },
   {
     "gate": "dry_run",
@@ -642,5 +642,26 @@
     "count": 1,
     "first_seen": "2026-09-14T12:29:40.888112+00:00",
     "last_seen": "2026-09-14T12:29:40.888117+00:00"
+  },
+  {
+    "gate": "quality",
+    "pattern": "Workflow has 51 nodes — recommend sub-workflow split",
+    "count": 1,
+    "first_seen": "2026-09-14T13:28:41.089768+00:00",
+    "last_seen": "2026-09-14T13:28:41.089781+00:00"
+  },
+  {
+    "gate": "integrity",
+    "pattern": "connection source 'Archive Last Visit' is not a node",
+    "count": 1,
+    "first_seen": "2026-09-14T13:28:41.090554+00:00",
+    "last_seen": "2026-09-14T13:28:41.090560+00:00"
+  },
+  {
+    "gate": "integrity",
+    "pattern": "connection source 'List Last Visits' is not a node",
+    "count": 1,
+    "first_seen": "2026-09-14T13:28:41.943423+00:00",
+    "last_seen": "2026-09-14T13:28:41.943436+00:00"
   }
 ]

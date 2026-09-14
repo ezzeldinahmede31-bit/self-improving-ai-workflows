@@ -974,31 +974,6 @@
     },
     {
       "parameters": {
-        "operation": "set",
-        "key": "=lastvisit:{{ $('Tally No-Show + Archive').item.json.record.chatId }}",
-        "value": "={{ String(Date.now()) }}",
-        "expire": true,
-        "ttl": 17280000
-      },
-      "id": "eng-240",
-      "name": "Archive Last Visit",
-      "type": "n8n-nodes-base.redis",
-      "typeVersion": 1,
-      "position": [
-        1140,
-        1080
-      ],
-      "credentials": {
-        "redis": {
-          "id": "dVToMpaQ33TGQdX3",
-          "name": "Redis account"
-        }
-      },
-      "retryOnFail": true,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
         "operation": "get",
         "key": "=noshow:{{ $input.item.json.record.chatId }}"
       },
@@ -1209,6 +1184,67 @@
       },
       "retryOnFail": true,
       "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://ezzeldin8n.ezzeldin8n.cfd/api/v1/data-tables/MuP3xIno5NkLoAyk/rows",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ data: [{ kind: 'visit', chatId: $('Tally No-Show + Archive').item.json.record.chatId, patientName: $('Tally No-Show + Archive').item.json.record.patientName, visitISO: $('Tally No-Show + Archive').item.json.record.appointmentISO, service: $('Tally No-Show + Archive').item.json.record.service, doctor: $('Tally No-Show + Archive').item.json.record.doctor }]}) }}",
+        "options": {
+          "timeout": 20000
+        }
+      },
+      "id": "eng-600-log",
+      "name": "Log Visit Durably",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1140,
+        1080
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "UPbxJH6WuwWmlLb9",
+          "name": "n8n Local API"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-logged",
+              "leftValue": "={{ $input.item.json.error !== undefined }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "eng-601-gate",
+      "name": "Visit Logged?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1250,
+        1080
+      ]
     }
   ],
   "connections": {
@@ -1601,7 +1637,7 @@
         ],
         [
           {
-            "node": "Archive Last Visit",
+            "node": "Log Visit Durably",
             "type": "main",
             "index": 0
           }
@@ -1628,18 +1664,7 @@
             "index": 0
           },
           {
-            "node": "Archive Last Visit",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Archive Last Visit": {
-      "main": [
-        [
-          {
-            "node": "Delete Reminder Record",
+            "node": "Log Visit Durably",
             "type": "main",
             "index": 0
           }
@@ -1732,7 +1757,36 @@
       "main": [
         [
           {
-            "node": "Archive Last Visit",
+            "node": "Log Visit Durably",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Visit Durably": {
+      "main": [
+        [
+          {
+            "node": "Visit Logged?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Visit Logged?": {
+      "main": [
+        [
+          {
+            "node": "No Action Due",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Delete Reminder Record",
             "type": "main",
             "index": 0
           }

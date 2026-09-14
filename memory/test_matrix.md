@@ -45,7 +45,7 @@ Every production bug gets a row here. Status: PASS / FAIL / UNPROVEN.
 | C4 | no-show follow-up | sent + record cleaned, one-shot | PASS (synthetic lifecycle) |
 | C5 | post-visit thanks + form link + stars | sent | PASS (1314/15) |
 | C6 | review form render+submit | digest exact | PASS (1250) |
-| C7 | recall due filter + error-skip | due only, no junk stamp | PASS (1252+fix) |
+| C7 | recall from DURABLE visits log (180d + invite-once) | table-driven, Redis-free | PASS (720 invited w/ correct chatId; 721 ignored; invite-once verified; limit250 cap found) |
 | C8 | waitlist join (LPUSH) | LLEN=1 | PASS (1310) |
 | C9 | waitlist offer on cancel | merged+sent+consumed (propertyName unwrap fix) | PASS (1640) |
 | C10 | /stats real numbers | correct tallies | PASS (1318) |
