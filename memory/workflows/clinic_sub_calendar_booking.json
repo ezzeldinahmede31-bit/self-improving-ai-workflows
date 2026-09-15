@@ -308,6 +308,70 @@
         -320,
         -220
       ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-co",
+              "leftValue": "={{ ($input.item.json.action || '') }}",
+              "rightValue": "check",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "cal-r-co",
+      "name": "Route Check Or Resched",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        300,
+        780
+      ]
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "mode": "list",
+          "value": "vNs81YmYZfUxjbqv"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "patientChatId": "={{ $('Receive Booking Request').item.json.patientChatId }}",
+            "patientName": "={{ $('Receive Booking Request').item.json.patientName }}",
+            "doctorName": "={{ $('Receive Booking Request').item.json.doctorName }}",
+            "date": "={{ $('Receive Booking Request').item.json.date }}",
+            "time": "={{ $('Receive Booking Request').item.json.time }}",
+            "serviceName": "={{ $('Receive Booking Request').item.json.serviceName }}",
+            "eventId": "={{ $('Receive Booking Request').item.json.eventId }}",
+            "action": "={{ $('Receive Booking Request').item.json.action }}",
+            "newDate": "={{ $('Receive Booking Request').item.json.newDate }}",
+            "newTime": "={{ $('Receive Booking Request').item.json.newTime }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "cal-r-exec5",
+      "name": "Call Check Lane",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        500,
+        780
+      ]
     }
   ],
   "connections": {
@@ -363,6 +427,24 @@
         [
           {
             "node": "Call Cancel Lane",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Route Check Or Resched",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Check Or Resched": {
+      "main": [
+        [
+          {
+            "node": "Call Check Lane",
             "type": "main",
             "index": 0
           }

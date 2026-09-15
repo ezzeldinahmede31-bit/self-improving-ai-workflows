@@ -760,7 +760,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Durations single-source: KB Data Table (staff-editable), baked mirror fallback.\nconst inp = $input.first().json;\nconst rows = (inp.error === undefined && Array.isArray(inp.data)) ? inp.data : [];\nconst map = {};\nrows.filter((r) => r && r.kind === 'service').forEach((r) => {\n  if (r.name && Number(r.minutes) > 0) { map[r.name] = Number(r.minutes); } });\nreturn [{ json: { minutesMap: map } }];"
+        "jsCode": "// Durations single-source: KB Data Table (staff-editable), baked mirror fallback.\nconst inp = $input.first().json;\nconst rows = (inp.error === undefined && Array.isArray(inp.data)) ? inp.data : [];\nconst map = {};\nrows.filter((r) => r && r.kind === 'service').forEach((r) => {\n  if (r.name && Number(r.minutes) > 0) { map[r.name] = Number(r.minutes); } });\nreturn [{ json: { ...$('Receive Booking Request').item.json, minutesMap: map } }];"
       },
       "id": "cal-dur-map",
       "name": "Build Durations Map",

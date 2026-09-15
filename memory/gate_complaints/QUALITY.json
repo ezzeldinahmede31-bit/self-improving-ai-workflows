@@ -1,149 +1,5 @@
 [
   {
-    "id": "quality-1787110955941",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-08-19T03:42:35.941669+00:00",
-    "resolved_at": "2026-08-19T03:42:38.518620+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1787110959332",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-08-19T03:42:39.332292+00:00",
-    "resolved_at": "2026-08-19T03:42:41.965439+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1787110962676",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-08-19T03:42:42.676755+00:00",
-    "resolved_at": "2026-08-19T03:42:45.255926+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1787110966051",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-08-19T03:42:46.051307+00:00",
-    "resolved_at": "2026-08-19T03:42:49.724515+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1787110971032",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-08-19T03:42:51.032989+00:00",
-    "resolved_at": "2026-08-19T03:42:53.637380+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1787110974513",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-08-19T03:42:54.513728+00:00",
-    "resolved_at": "2026-08-19T03:42:57.556140+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1787110978310",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-08-19T03:42:58.310363+00:00",
-    "resolved_at": "2026-08-19T03:43:04.729124+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1787110986100",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-08-19T03:43:06.100384+00:00",
-    "resolved_at": "2026-08-19T03:43:09.732552+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
     "id": "quality-1787110991160",
     "gate": "QUALITY",
     "kind": "SKILL_GAP",
@@ -3600,6 +3456,150 @@
     "status": "NO_SOLUTION",
     "created_at": "2026-09-14T14:59:44.616958+00:00",
     "resolved_at": "2026-09-14T14:59:49.834596+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1789452827220",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Isolated/unreachable nodes: ['Lane Docs']",
+    "keywords": [
+      "isolated",
+      "unreachable",
+      "lane",
+      "docs"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-09-15T06:13:47.220230+00:00",
+    "resolved_at": "2026-09-15T06:13:51.687450+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1789453007478",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Isolated/unreachable nodes: ['Lane Docs']",
+    "keywords": [
+      "isolated",
+      "unreachable",
+      "lane",
+      "docs"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-09-15T06:16:47.478958+00:00",
+    "resolved_at": "2026-09-15T06:16:50.955585+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1789459230484",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Isolated/unreachable nodes: ['Lane Docs']",
+    "keywords": [
+      "isolated",
+      "unreachable",
+      "lane",
+      "docs"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-09-15T08:00:30.484302+00:00",
+    "resolved_at": "2026-09-15T08:00:35.762617+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1789459489045",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Isolated/unreachable nodes: ['Lane Docs']",
+    "keywords": [
+      "isolated",
+      "unreachable",
+      "lane",
+      "docs"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-09-15T08:04:49.045186+00:00",
+    "resolved_at": "2026-09-15T08:04:52.781928+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1789460240246",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
+    "keywords": [
+      "pinneddata",
+      "primary",
+      "unit-test",
+      "instantly"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-09-15T08:17:20.246295+00:00",
+    "resolved_at": "2026-09-15T08:17:25.863342+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1789460245999",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
+    "keywords": [
+      "pinneddata",
+      "primary",
+      "unit-test",
+      "instantly"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-09-15T08:17:25.999849+00:00",
+    "resolved_at": "2026-09-15T08:17:30.043842+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1789460251459",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Isolated/unreachable nodes: ['Lane Docs']",
+    "keywords": [
+      "isolated",
+      "unreachable",
+      "lane",
+      "docs"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-09-15T08:17:31.459113+00:00",
+    "resolved_at": "2026-09-15T08:17:35.798729+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1789460305477",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Isolated/unreachable nodes: ['Lane Docs']",
+    "keywords": [
+      "isolated",
+      "unreachable",
+      "lane",
+      "docs"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-09-15T08:18:25.477191+00:00",
+    "resolved_at": "2026-09-15T08:19:55.977577+00:00",
     "resolution": "no skill found by find-skills",
     "search_hits": []
   }
