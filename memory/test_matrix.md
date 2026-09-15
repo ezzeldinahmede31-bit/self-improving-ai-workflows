@@ -23,7 +23,7 @@ Every production bug gets a row here. Status: PASS / FAIL / UNPROVEN.
 | B3 | correction (لا قصدي الحشو) | corrected entity + exact price | PASS (800→1200 both exact) |
 | B4 | conflicting (احجز والغي) | clarify, no destructive act | NEW |
 | B5 | past date booking | past-date refusal | PASS (tool path) |
-| B6 | taken slot + verified alternatives | tool returns 2 verified alts + relay rule + VALIDATOR substitution (propertyName fix) | PASS (1733: الحلول المتاحة 11:00 أو 13:00، هل تفضل 11:00؟) |
+| B6 | taken slot + verified alternatives | check-tool discipline (booking never used to check) + VALIDATOR live substitution | PASS (2389: validator replaced deliberation with deterministic offer, validated:true) |
 | B7 | cutoff <24h cancel | staffOnly Arabic | PASS (1333) |
 | B8 | resched: new-taken / past-new / unknown / old<24h | graceful each | PASS (direct 1485/87/90) |
 | B9 | severe emergency keywords | deterministic ESC, agent suppressed | PASS (1491) |
