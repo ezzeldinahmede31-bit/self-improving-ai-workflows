@@ -7,7 +7,7 @@ for the full doc of the chosen skill. Grouping matches the router
 registry buckets (`compensatory-router/SKILL.md`), so new skills that were
 registered in the router appear under the same family here automatically.
 
-## Automation (per-tool) (303)
+## Automation (per-tool) (306)
 
 - **abstraction-quality-gate** — Enforces A Philosophy of Software Design's core principle: complexity management through deep modules and shallow interfaces.
 - **access-control-least-privilege-agents-v2** — Applies Access Control, Role-Based Permissions, and Least Privilege for AI Agents to production: distilled patterns, anti-patterns, and checklists for building…
@@ -128,6 +128,7 @@ registered in the router appear under the same family here automatically.
 - **gaussian-processes-machine-learning** — Applies Rasmussen & Williams' Gaussian Processes for Machine Learning to build probabilistic regression and classification with GPs: covariance functions, exact…
 - **government-public-sector-automation-v2** — Applies Government and Public Sector Process Automation to production: distilled patterns, anti-patterns, and checklists for building reliable government and pu…
 - **graphrag-knowledge-graphs-vector-v2** — Applies GraphRAG: Combining Knowledge Graphs and Vector Search for Deep Context to production: distilled patterns, anti-patterns, and checklists for building re…
+- **grilling** — Grill the user relentlessly about a plan, decision, or idea.
 - **guardrails-alignment-runtime-safety-v2** — Applies Guardrails, Alignment, and Runtime Safety Filters in AI Automation to production: distilled patterns, anti-patterns, and checklists for building reliabl…
 - **handling-captchas-antibot-logins-v2** — Applies Handling CAPTCHAs, Anti-Bot Systems, and Secure Logins in Automation to production: distilled patterns, anti-patterns, and checklists for building relia…
 - **handling-context-window-limits-v2** — Applies Handling Context Window Limits: Summarization, Memory, and Compaction Techniques to production: distilled patterns, anti-patterns, and checklists for bu…
@@ -143,6 +144,7 @@ registered in the router appear under the same family here automatically.
 - **human-oversight-circuit-breaker-v2** — Applies Human Oversight, Intervention, and Circuit Breaker Design for Autonomous Agents to production: distilled patterns, anti-patterns, and checklists for bui…
 - **hybrid-search-keyword-vector-v2** — Applies Hybrid Search: Combining Keyword and Vector Search for Precision to production: distilled patterns, anti-patterns, and checklists for building reliable…
 - **idempotency-state-consistency-distributed** — Applies Idempotency and State Consistency in Distributed Automation Pipelines to production: distilled patterns, anti-patterns, and checklists for building reli…
+- **improve-codebase-architecture** — Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.
 - **incident-response-ai-failures-hallucinations** — Applies Incident Response Playbooks for AI Automation Failures and Hallucinations to production: distilled patterns, anti-patterns, and checklists for building…
 - **integrating-legacy-modern-cloud-ai** — Applies Integrating Legacy Systems with Modern Cloud APIs and AI Workflows to production: distilled patterns, anti-patterns, and checklists for building reliabl…
 - **integrating-vector-search-relational-v2** — Applies Integrating Vector Search with Relational Databases to production: distilled patterns, anti-patterns, and checklists for building reliable integrating v…
@@ -292,6 +294,7 @@ registered in the router appear under the same family here automatically.
 - **transcription-automation** — Automate audio/video transcription, meeting notes, subtitle generation, and content processing
 - **tree-graph-of-thoughts-reasoning** — Applies Tree of Thoughts and Graph of Thoughts: Advanced Reasoning Architectures to production: distilled patterns, anti-patterns, and checklists for building r…
 - **trello-automation** — Automate Trello board management, card workflows, power-ups, and team collaboration
+- **triage** — Move issues and external PRs through a state machine of triage roles, categorise, verify, grill if needed, and write agent-ready briefs.
 - **trigger-design-selection** — Picks trigger type by freshness, cost, reliability: webhook, schedule, poll, queue, manual.
 - **twilio-sms-automation** — Automate SMS communications, two-way messaging, notifications, and voice workflows with Twilio
 - **twitter-x-automation** — Automate Twitter/X social media workflows including posting, engagement, analytics, and audience growth
@@ -635,7 +638,7 @@ registered in the router appear under the same family here automatically.
 - **web-security-browser-internals** — Applies Michal Zalewski's The Tangled Web to secure modern web applications: how browsers and HTTP actually behave (parsing, encoding, navigation, the same-orig…
 - **zero-to-one-thiel** — Applies Thiel monopoly, secrets, power law to strategy.
 
-## Coding/SWE (60)
+## Coding/SWE (61)
 
 - **agile-principles-patterns-practices** — Applies Robert C.
 - **algorithm-design** — Design algorithms with LaTeX pseudocode and UML diagrams.
@@ -655,6 +658,7 @@ registered in the router appear under the same family here automatically.
 - **code-debugging** — Debug experiment code with structured error analysis.
 - **code-execution-guided-swemaster** — Closes the last measured gap vs frontier coding models: instead of plan-once-patch-once, we drive large code fixes with EXECUTION evidence and MEASURED results.
 - **code-linter-python-js** — Deterministically lint and structurally check any JavaScript or Python written for n8n Code nodes before delivery.
+- **codebase-design** — Shared vocabulary for designing deep modules.
 - **codebase-mind-persistence** — Persistent on-disk codebase mind map (approximate 1M-token context emulation) built ONCE per codebase — symbol index, module-level summaries, dependency graph,…
 - **crafting-interpreters** — Applies Robert Nystrom's Crafting Interpreters to build a complete, correct language interpreter end to end: two working interpreters (jlox in Java, clox in C)…
 - **ctm-concepts-techniques-models** — Applies Van Roy & Haridi's CTM to program in the right computation model for the job: the kernel-language approach where declarative, concurrent, message-passin…
@@ -726,7 +730,7 @@ registered in the router appear under the same family here automatically.
 - **six-hats** — Parallel thinking with six enforced perspectives, based on Edward de Bono's Six Thinking Hats® method - examine one decision through sequential passes for facts…
 - **worst-idea** — Worst Possible Idea (reverse brainstorming) — deliberately design the most terrible solutions to the problem, name the mechanism that makes each one bad, then i…
 
-## Delivery/Gates (20)
+## Delivery/Gates (21)
 
 - **adversarial-self-falsifier** — Actively attacks and attempts to break generated code, math, or logic before finalizing the response.
 - **best-practice-first-designer** — MANDATORY research-first gate before designing or building ANY n8n workflow or AI agent.
@@ -747,6 +751,7 @@ registered in the router appear under the same family here automatically.
 - **omni-request-orchestrator** — MANDATORY skill-synthesis orchestrator for EVERY user request, no exceptions.
 - **proactive-spec-expander** — Automatically expands simple user prompts into enterprise-grade PRDs with implicit security, lockdown modes, rate limits, and edge-case requirements BEFORE writ…
 - **reflection-and-audit-loop** — Impose a mandatory 4-stage structured workflow before delivering any n8n workflow JSON or Code-node script: plan the path, draft, structural self-critique, then…
+- **to-spec** — Turn the current conversation into a spec and publish it to the project issue tracker: no interview, just synthesis of what you've already discussed.
 - **tradeoff-and-postmortem-documenter** — Auto-generates production-ready documentation, architecture rationale, design trade-offs, and an explicit KNOWN_ISSUES.md for every implementation.
 
 ## Dev utilities (2)
@@ -754,12 +759,13 @@ registered in the router appear under the same family here automatically.
 - **expression-template-injection-safety** — Delimits external data before templates/prompts/queries/commands.
 - **llmops-production** — Applies LLMOps practices (LLMOps: Managing Large Language Models in Production) to operating LLM features at scale: prompt and model versioning, evals in CI, co…
 
-## Superpowers pack — obra (14)
+## Superpowers pack — obra (15)
 
 - **brainstorming** — You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior.
 - **dispatching-parallel-agents** — Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies
 - **executing-plans** — Use when you have a written implementation plan to execute in a separate session with review checkpoints
 - **finishing-a-development-branch** — Use when implementation is complete, all tests pass, and you need to decide how to integrate the work
+- **grill-me** — A relentless interview to sharpen a plan or design.
 - **receiving-code-review** — Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical…
 - **requesting-code-review** — Use when completing tasks, implementing major features, or before merging to verify work meets requirements
 - **subagent-driven-development** — Use when executing implementation plans with independent tasks in the current session
@@ -898,4 +904,4 @@ registered in the router appear under the same family here automatically.
 - **speech-language-processing** — Applies Jurafsky & Martin's Speech and Language Processing (SLP) to build NLP systems on textbook foundations: regular expressions and text normalization, n-gra…
 
 ---
-*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-15 12:04 — 818 skills, 24 families*
+*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-16 03:38 — 824 skills, 24 families*

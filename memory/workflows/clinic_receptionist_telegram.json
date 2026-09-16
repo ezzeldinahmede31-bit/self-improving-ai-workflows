@@ -703,21 +703,21 @@
               }
             },
             {
-              "id": "c-norep",
-              "leftValue": "={{ $input.item.json.output || '' }}",
-              "rightValue": "(\\b\\w+\\b)(?:\\s+\\1){4,}",
+              "id": "c-no-repeat",
+              "leftValue": "={{ !/(?:\\b\\w+\\b)(?:\\s+\\1){4,}/.test($input.item.json.output || '') }}",
+              "rightValue": true,
               "operator": {
-                "type": "string",
-                "operation": "notMatchesRegex"
+                "type": "boolean",
+                "operation": "equals"
               }
             },
             {
-              "id": "c-toolleak",
-              "leftValue": "={{ $input.item.json.output }}",
-              "rightValue": "tool (returned|call|result|error)",
+              "id": "c-no-tool-leak",
+              "leftValue": "={{ !/(tool (returned|call|result|error))/i.test($input.item.json.output || '') }}",
+              "rightValue": true,
               "operator": {
-                "type": "string",
-                "operation": "notMatchesRegex"
+                "type": "boolean",
+                "operation": "equals"
               }
             }
           ],
