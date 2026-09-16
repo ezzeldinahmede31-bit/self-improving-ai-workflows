@@ -1537,3 +1537,9 @@ Both added to `compensatory-router` stacks.
 - User picked: clinic booking UI, same screen 3x (one per skill). Built /tmp/opencode/design_compare/design-{a,b,c}.html + shots/. Viewport 430px, real Chrome headless screenshots, all 3 READ before reporting.
 - A frontend-design: ink/mint clinical-calm, oversized queue ٩, quiet disciplined. B high-end (Soft Structuralism + Bento): massive type + double-bezel shells, but mobile fallback stacked the bento (per its own <768px rule) and the fixed CTA pill overlaps card content — honest flaw. C liquid-glass: glass ONLY on nav layer (toolbar + tab bar), solid content cards, gradient backdrop — closest to iPhone.
 - Pending: user picks winner to develop further.
+
+## Design D review: booking-D-quiet-luxury (Sep 16)
+- File user downloaded: ~/Downloads/booking-D-quiet-luxury.html (158 lines, single file). Concept: luxury-hotel reservation TICKET (perforation notches, dashed dividers, grain, gold seal, Aref Ruqaa + IBM Plex Sans Arabic, concierge tone "نتشرف باستقبالكم").
+- Visual-verifier lesson: first full_page screenshot LOOKED like the dark room bg was missing (white margins) — pixel sampling proved margins ARE dark (#192720/#101a14), ticket #f2e8d3. My eyes misread the small preview; pixels over impressions, always.
+- Verdict: highest craft of the four (focus-visible, reduced-motion, real content, correct prices). BUT different flow stage: D is a CONFIRMATION summary (one pre-set slot + "change" link), A/B/C are SELECTION screens (pick doctor/slot). Not rivals — complements. Recommendation: A or C for selection + D for confirm. Webfont-dependent (falls back to Tahoma offline — note for spotty networks).
+- Shot copied to ~/Desktop/booking-D.png.
