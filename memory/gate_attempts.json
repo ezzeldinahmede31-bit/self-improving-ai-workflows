@@ -18,5 +18,15 @@
   "whop_campaign_monitor.py": {
     "QUALITY_BELOW_THRESHOLD::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 2,
     "REASONING_REVIEW_REQUIRED::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 1
+  },
+  "sched-today-api.json": {
+    "SECURITY_VIOLATION_REQUIRES_HUMAN::[WEBHOOK_NO_AUTH] Webhook trigger 'Respond Schedule Payload' has no authentication configured": 1,
+    "REASONING_REVIEW_REQUIRED::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 2
+  },
+  "sched-book-api.json": {
+    "SECURITY_VIOLATION_REQUIRES_HUMAN::[WEBHOOK_NO_AUTH] Webhook trigger 'Respond Booking Result' has no authentication configured": 1
+  },
+  "sched-stats-api.json": {
+    "SECURITY_VIOLATION_REQUIRES_HUMAN::[WEBHOOK_NO_AUTH] Webhook trigger 'Respond Tally Payload' has no authentication configured": 2
   }
 }
