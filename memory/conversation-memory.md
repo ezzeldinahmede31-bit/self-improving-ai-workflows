@@ -1532,3 +1532,8 @@ Both added to `compensatory-router` stacks.
 - Gotcha repeated: catalogue STUB (das: block) for liquid-glass-skill → real dir is `liquid-glass`.
 - Router churn this turn (honest): auto-classifier scattered them; my rebucket regexes ate the `### Zapier (9)` header line (tokens intact) + one bad lambda zeroed ALL header counts (`\\(` in raw string = literal backslash). Fixed with proper per-bucket split + TOKEN regex; final: 19 buckets sum 903 = tokens 903 = unique 903 = header 903, 0 mismatches, Design/UI (18). Lesson: never recount with an inline-lambda regex — use a compiled TOKEN pattern + verify loop every time.
 - Library auto-refreshed (both present). test_router_register.py green. Memory re-encoded below.
+
+## Design showdown: 3 versions of clinic booking screen (Sep 16)
+- User picked: clinic booking UI, same screen 3x (one per skill). Built /tmp/opencode/design_compare/design-{a,b,c}.html + shots/. Viewport 430px, real Chrome headless screenshots, all 3 READ before reporting.
+- A frontend-design: ink/mint clinical-calm, oversized queue ٩, quiet disciplined. B high-end (Soft Structuralism + Bento): massive type + double-bezel shells, but mobile fallback stacked the bento (per its own <768px rule) and the fixed CTA pill overlaps card content — honest flaw. C liquid-glass: glass ONLY on nav layer (toolbar + tab bar), solid content cards, gradient backdrop — closest to iPhone.
+- Pending: user picks winner to develop further.
