@@ -1547,3 +1547,8 @@ Both added to `compensatory-router` stacks.
 ## Quiet-luxury SYSTEM look: full booking flow, D architecture (Sep 16)
 - User: "حاجة زي كده لشكل النظام بنفس المعمارية". Built design-system-quiet-luxury.html: TWO tickets in the dark room — Ticket 1 SELECTION (doctor radio-opts, slot grid, service pickers, CTA "متابعة إلى التأكيد") + Ticket 2 CONFIRMATION (stamp, queue ٩ as the bold moment, confirm). Same tokens/grain/notches/Ruqaa/concierge tone, selected states in gold, focus-visible + reduced-motion kept.
 - Screenshot READ: both tickets render correct, dark room visible between them, selected states (11:00, تنظيف, د. سامر) all show. Files on Desktop: booking-system-quiet-luxury.html + booking-system.png.
+
+## Shifa reception dashboard (Bawwab clone, renamed) (Sep 16)
+- User sent screenshots of "Bawwab — Reception Dashboard" (Claude artifact for Layan Beauty Studio) and asked for the EXACT same design with Bawwab replaced by any clinic name. Chose **Shifa / Shifa Clinic** (user said "any name").
+- Built /tmp/opencode/design_compare/shifa-dashboard.html: single file, 6 switchable views (Overview/Conversations/Appointments/Reminders/Manual Booking/Settings), same tokens (dark green sidebar, cream, gold, serif numerals), same sample data, Layan→Shifa Clinic. All 6 views screenshotted in real Chrome and READ (overview/settings/manual/conversations shown; appointments/reminders same components).
+- On Desktop: shifa-dashboard.html + shifa-overview.png.
