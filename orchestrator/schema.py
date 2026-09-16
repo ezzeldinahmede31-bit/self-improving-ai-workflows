@@ -26,6 +26,7 @@ DEFAULTS = {
     "allow_limited": False,
     "estimate_s": 60,
     "file_groups": [],
+    "execution_mode": "llm",
 }
 
 
