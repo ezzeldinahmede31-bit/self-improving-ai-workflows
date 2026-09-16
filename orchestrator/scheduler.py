@@ -18,6 +18,7 @@ from . import gates_qa as gates_qa_mod
 from . import models as models_mod
 from . import dag as dag_mod
 from . import opencode_worker as ocw_mod
+from . import local_workers as lw_mod
 from .schema import validate, with_defaults
 from .state import StateStore
 from .tasklog import TaskLog
@@ -172,7 +173,21 @@ class Orchestrator:
                        "fallback_used": bool(sel.get("fallback_used"))}
         try:
             provided = self._gather_inputs(project_id, contract)
-            if contract.get("kind") == "opencode":
+            exec_mode = contract.get("execution_mode", "llm")
+            if exec_mode == "local" and contract.get("kind") == "opencode":
+                # Execute with local worker pool (fast, deterministic)
+                local_worker = lw_mod.LocalWorker(os.path.join(self.work_root, f"lw-{task_id}"))
+                lw_res = local_worker.execute(contract, provided)
+                # Normalize to dict format expected by rest of code
+                res = {
+                    "ok": lw_res.ok,
+                    "reason": lw_res.reason,
+                    "detail": lw_res.detail,
+                    "changed": lw_res.changed_files,
+                    "outputs": lw_res.outputs,
+                    "session_id": lw_res.session_id,
+                }
+            elif contract.get("kind") == "opencode":
                 res = ocw_mod.execute_opencode_task(contract, work_dir, provided,
                                                     model=model,
                                                     spawn_hook=self.spawn_hook)
