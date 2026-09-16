@@ -41,3 +41,23 @@
 - **Discipline check passed:** YOURLS-dated-UI (1 qualifying source) and
   Kutt-slowdown (single opinion) were correctly NOT promoted to repeated;
   only Shlink-analytics x2 qualified. Dub AGPL reuse correctly REVIEW-blocked.
+
+## 2026-09-16 — E2E gap closure: research->synthesis->build on real workers
+- **BUG-4 (test design, caught live):** "impossible" trap used a forbidden
+  STRING visible in the worker prompt (acceptance text is shown to workers by
+  design) — the agent smartly wrote it and passed. Fixed trap to structural
+  impossibility (acceptance demands a file outside allowed_files).
+- **BUG-5 (mine, router):** capability-fallback to primary didn't set
+  fallback_used when primary headed the candidate list. Fixed with
+  limited_skipped tracking.
+- **BUG-6 (mine, router):** model_type() disagreed with select() in
+  passthrough mode (limited vs unlimited) -> global limited cap serialized
+  everything. Fixed: passthrough reports unlimited consistently.
+- **BUG-7 (test naming):** order tracker keyed by worker name but asserted by
+  task id (KeyError). Fixed to record task ids.
+- **BUG-8 (mine, real):** two syntax errors from fast edits (scheduler
+  paren, state.py merged lines). Fixed, suite green.
+- **Live finding:** primary resolved BY RULE to muse-spark-1.2-
+  contributor-free (not 1.3) — zero-cost + toolcall + largest context. All 6
+  live attempts default-primary, 0 fallbacks, 0 limit-hits. Rule-based
+  discovery vindicated (no hardcoded name would have picked this).
