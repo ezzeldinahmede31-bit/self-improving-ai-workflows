@@ -1512,3 +1512,9 @@ Both added to `compensatory-router` stacks.
 - Only `wizard` existed locally; INSTALLED 6 via git clone + copy (whole dirs incl. agents/ + refs): `grill-me` (+`grilling` engine), `triage`, `to-spec`, `codebase-design`, `improve-codebase-architecture` (= the "Architecture" one: scans codebase + visual HTML report).
 - Frontmatter 6/6 OK. Registered via router_register.py (+6), then rebucketed (auto-classifier wrong): grill-me/grilling → Thinking frames, triage/to-spec → Delivery/Gates, improve-codebase-architecture → Agents/Architecture, codebase-design → Coding/SWE (was already correct).
 - Router recount fix: headers were stale (Automation 299→296, Delivery/Gates 22→33, Superpowers 15→17) → now header 884 = unique 884 = tokens 884, 0 dups. Library regenerated (824 entries). `grilling` loaded live to prove it works.
+
+## i-have-adhd skill installed (Sep 16)
+- User asked for the i-have-adhd skill (stop AI burying the answer, ADHD-friendly output). Origin verified: `ayghri/i-have-adhd` (46K stars, MIT, "A skill to stop your coding agent from burying the answer").
+- INSTALLED via git clone + copy (whole dir incl. agents/): `.opencode/skills/i-have-adhd/` (SKILL.md 142 lines, byte-identical to origin `skills/i-have-adhd/`; `.cursor/` copy identical, skipped).
+- Frontmatter OK (name + description + MIT license). Registered via router_register.py (+1), then rebucketed Marketing/SEO/Growth → Delivery/Gates (output-behavior discipline, same bucket as fable-5-playbook).
+- Router 885 = 885 unique, 0 dups. Library regenerated. Skill-tool registry snapshot doesn't list it yet (session-start list) — same as last turn's 6 Matt Pocock skills; disk+router+library state is the source of truth.
