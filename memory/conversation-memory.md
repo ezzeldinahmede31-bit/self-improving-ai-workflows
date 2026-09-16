@@ -1526,3 +1526,9 @@ Both added to `compensatory-router` stacks.
 - Security: all markdown-only, danger-scan CLEAN (only "CSS tokens" false positives). Frontmatter 16/16 OK.
 - Router: +16 → 901 total, NEW bucket `### Design/UI (16)` (auto-classifier had scattered them: Browser/Device, Marketing, Auto-installed). Rebucket script bug: body regex without blank-line guard inflated Automation header to 883 — fixed with proper per-bucket split; verified 19 buckets sum 901 = tokens 901 = unique 901.
 - Library auto-refreshed. test_router_register.py green.
+
+## 2 more design skills: liquid-glass + high-end-visual-design (Sep 16)
+- User: "حملهم كلهم" (the 2 bonus finds). `liquid-glass` FULL (215 lines + examples + references, haider-nawaz mirror of Apple Liquid Glass iOS26/Tahoe: .glassEffect/.buttonStyle(.glass)/GlassEffectContainer); `high-end-visual-design` FULL (Awwwards-tier agency discipline).
+- Gotcha repeated: catalogue STUB (das: block) for liquid-glass-skill → real dir is `liquid-glass`.
+- Router churn this turn (honest): auto-classifier scattered them; my rebucket regexes ate the `### Zapier (9)` header line (tokens intact) + one bad lambda zeroed ALL header counts (`\\(` in raw string = literal backslash). Fixed with proper per-bucket split + TOKEN regex; final: 19 buckets sum 903 = tokens 903 = unique 903 = header 903, 0 mismatches, Design/UI (18). Lesson: never recount with an inline-lambda regex — use a compiled TOKEN pattern + verify loop every time.
+- Library auto-refreshed (both present). test_router_register.py green. Memory re-encoded below.
