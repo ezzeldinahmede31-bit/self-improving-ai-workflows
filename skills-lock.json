@@ -427,6 +427,12 @@
       "skillPath": "skills/apify-ultimate-scraper/SKILL.md",
       "computedHash": "04248bcb9227819a38d95a348d9ca550fc1ae087d9a1e666930b3a3499db317a"
     },
+    "apple-ui-designer": {
+      "source": "heyman333/atelier-ui",
+      "sourceType": "github",
+      "skillPath": "skills/apple-ui-designer/SKILL.md",
+      "computedHash": "26d43c0a38e7a0ad8cf2cd5418d48ca7525873cc60f203ac67fcf024ce577eb3"
+    },
     "aso": {
       "source": "coreyhaines31/marketingskills",
       "sourceType": "github",
@@ -936,6 +942,18 @@
       "sourceType": "github",
       "skillPath": "invoice-template/SKILL.md",
       "computedHash": "8752d9c1eabcd22eaf1ed7bbd1130d23c161bbad18c10afd32f7594988460af8"
+    },
+    "ios-design-guidelines": {
+      "source": "ehmo/platform-design-skills",
+      "sourceType": "github",
+      "skillPath": "skills/ios/SKILL.md",
+      "computedHash": "4e61d1d5668179860746145d26b9e17179b4822e012a480d6c077656d0f9d324"
+    },
+    "ios-glass-ui-designer": {
+      "source": "heyman333/atelier-ui",
+      "sourceType": "github",
+      "skillPath": "skills/ios-glass-ui-designer/SKILL.md",
+      "computedHash": "d39bbf9ae26d2fb7e3a6c372c53b8723bf80e9f6b7392624693627801b536a8b"
     },
     "latex-formatting": {
       "source": "lingzhi227/agent-research-skills",

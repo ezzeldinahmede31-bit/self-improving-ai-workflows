@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="عيادة النور">
+  <meta name="theme-color" content="#007AFF">
+  <meta name="description" content="لوحة تحكم عيادة النور - نظام إدارة المرضى والمواعيد">
+  <title>عيادة النور | السكرتيرة</title>
+  
+  <!-- PWA Icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png">
+  <link rel="manifest" href="manifest.json">
+  
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- SF Pro Display via system font stack -->
+  <link rel="preload" as="style" href="css/main.css">
+  <link rel="stylesheet" href="css/main.css">
+  
+  <!-- Preload critical JS -->
+  <link rel="modulepreload" href="js/app.js">
+  <link rel="modulepreload" href="js/api.js">
+  <link rel="modulepreload" href="js/store.js">
+  <link rel="modulepreload" href="js/ui.js">
+</head>
+<body>
+  <!-- Skip link for accessibility -->
+  <a href="#main" class="skip-link">الانتقال للمحتوى الرئيسي</a>
+  
+  <!-- App Shell -->
+  <div class="app-shell">
+    <!-- Status Bar Area (iOS Safe Area) -->
+    <div class="status-bar" aria-hidden="true"></div>
+    
+    <!-- Navigation Bar -->
+    <header class="nav-bar" role="banner">
+      <div class="nav-content">
+        <div class="nav-left">
+          <button class="icon-btn back-btn" id="backBtn" aria-label="رجوع" hidden>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <h1 class="nav-title" id="navTitle">عيادة النور</h1>
+        </div>
+        <div class="nav-center">
+          <div class="status-indicator" id="systemStatus" aria-live="polite">
+            <span class="status-dot" id="statusDot"></span>
+            <span class="status-text" id="statusText">جاري التحقق...</span>
+          </div>
+        </div>
+        <div class="nav-right">
+          <button class="icon-btn" id="notificationsBtn" aria-label="الإشعارات">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="badge" id="notifBadge" hidden>0</span>
+          </button>
+          <button class="icon-btn" id="settingsBtn" aria-label="الإعدادات">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-1.82 1.82l-.06.06a1.65 1.65 0 0 0-.33 1.82" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main id="main" class="main-content" role="main">
+      <!-- Dashboard View (Default) -->
+      <section id="dashboardView" class="view active" aria-label="لوحة التحكم">
+        <!-- System Status Card -->
+        <article class="glass-card status-card" id="systemStatusCard">
+          <header class="card-header">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                <path d="M8 21h8M12 17v4"/>
+              </svg>
+            </div>
+            <div>
+              <h2>حالة النظام</h2>
+              <p class="subtitle">مراقبة فورية لجميع الخدمات</p>
+            </div>
+          </header>
+          <div class="card-content">
+            <div class="status-grid" id="statusGrid">
+              <div class="status-item" data-service="api">
+                <div class="service-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <rect x="2" y="3" width="20" height="14" rx="2"/>
+                    <path d="M8 21h8M12 17v4"/>
+                  </svg>
+                </div>
+                <div class="service-info">
+                  <span class="service-name">API العيادة</span>
+                  <span class="service-status checking">جاري التحقق...</span>
+                </div>
+                <div class="status-badge" id="apiStatus">⋯</div>
+              </div>
+              <div class="status-item" data-service="database">
+                <div class="service-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                    <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+                    <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3"/>
+                  </svg>
+                </div>
+                <div class="service-info">
+                  <span class="service-name">قاعدة البيانات</span>
+                  <span class="service-status checking">جاري التحقق...</span>
+                </div>
+                <div class="status-badge" id="dbStatus">⋯</div>
+              </div>
+              <div class="status-item" data-service="redis">
+                <div class="service-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M4 7V4h16v3M9 18h6M4 14h16v-3M4 10h16v-3"/>
+                  </svg>
+                </div>
+                <div class="service-info">
+                  <span class="service-name">Redis Cache</span>
+                  <span class="service-status checking">جاري التحقق...</span>
+                </div>
+                <div class="status-badge" id="redisStatus">⋯</div>
+              </div>
+              <div class="status-item" data-service="n8n">
+                <div class="service-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                  </svg>
+                </div>
+                <div class="service-info">
+                  <span class="service-name">n8n Workflows</span>
+                  <span class="service-status checking">جاري التحقق...</span>
+                </div>
+                <div class="status-badge" id="n8nStatus">⋯</div>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-secondary" id="refreshStatusBtn" aria-label="تحديث الحالة">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <path d="M23 4v6h-6M1 20v-6h6"/>
+                  <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36 2.82-2.82"/>
+                </svg>
+                تحديث
+              </button>
+              <span class="last-updated" id="lastUpdated">آخر تحديث: -</span>
+            </div>
+          </div>
+        </article>
+        
+        <!-- Quick Actions -->
+        <section class="section" aria-labelledby="quickActionsTitle">
+          <header class="section-header">
+            <h2 id="quickActionsTitle">إجراءات سريعة</h2>
+          </header>
+          <div class="action-grid" id="quickActions">
+            <button class="glass-btn action-btn primary" data-action="book" aria-label="حجز موعد جديد">
+              <div class="action-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <rect x="3" y="4" width="18" height="18" rx="2"/>
+                  <path d="M9 8h6M12 5v6M16 11h-6M8 17h8"/>
+                </svg>
+              </div>
+              <span class="action-label">حجز موعد</span>
+              <span class="action-desc">حجز موعد جديد للمريض</span>
+            </button>
+            <button class="glass-btn action-btn" data-action="cancel" aria-label="إلغاء موعد">
+              <div class="action-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+                  <line x1="19.07" y1="4.93" x2="4.93" y2="19.07"/>
+                </svg>
+              </div>
+              <span class="action-label">إلغاء موعد</span>
+              <span class="action-desc">إلغاء موعد موجود</span>
+            </button>
+            <button class="glass-btn action-btn" data-action="reschedule" aria-label="تعديل موعد">
+              <div class="action-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M12 19v-6M22 12H4M10 12h4M14 12h4M12 4v4M12 16v4M4 12l4 4 4-4M20 12l-4 4-4-4"/>
+                </svg>
+              </div>
+              <span class="action-label">تعديل موعد</span>
+              <span class="action-desc">تغيير وقت الموعد</span>
+            </button>
+            <button class="glass-btn action-btn" data-action="search" aria-label="البحث عن مريض">
+              <div class="action-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <circle cx="11" cy="11" r="8"/>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+              </div>
+              <span class="action-label">بحث مريض</span>
+              <span class="action-desc">البحث عن بيانات مريض</span>
+            </button>
+            <button class="glass-btn action-btn" data-action="report" aria-label="التقارير">
+              <div class="action-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                  <line x1="16" y1="13" x2="8" y2="13"/>
+                  <line x1="16" y1="17" x2="8" y2="17"/>
+                  <polyline points="10 9 9 9 8 9"/>
+                </svg>
+              </div>
+              <span class="action-label">التقارير</span>
+              <span class="action-desc">إحصائيات وتقارير العيادة</span>
+            </button>
+            <button class="glass-btn action-btn" data-action="settings" aria-label="الإعدادات">
+              <div class="action-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <circle cx="12" cy="12" r="3"/>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-1.82 1.82l-.06.06a1.65 1.65 0 0 0-.33 1.82"/>
+                </svg>
+              </div>
+              <span class="action-label">الإعدادات</span>
+              <span class="action-desc">إعدادات النظام</span>
+            </button>
+          </div>
+        </section>
+        
+        <!-- Recent Activity -->
+        <section class="section" aria-labelledby="recentTitle">
+          <header class="section-header">
+            <h2 id="recentTitle">نشاط حديث</h2>
+            <button class="btn btn-ghost" id="viewAllActivityBtn">عرض الكل</button>
+          </header>
+          <div class="activity-list" id="activityList">
+            <div class="activity-item loading" aria-hidden="true">
+              <div class="activity-skeleton"></div>
+              <div class="activity-skeleton"></div>
+              <div class="activity-skeleton"></div>
+            </div>
+          </div>
+        </section>
+      </section>
+      
+      <!-- Issues/Reports View -->
+      <section id="issuesView" class="view" aria-label="المشاكل والتقارير" hidden>
+        <header class="view-header">
+          <button class="icon-btn back-btn" id="issuesBackBtn" aria-label="رجوع">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M15 18l-6-6 6-6"/>
+            </svg>
+          </button>
+          <h1 class="view-title">المشاكل والتقارير</h1>
+        </header>
+        <div class="view-content">
+          <form class="glass-card report-form" id="reportForm" aria-label="تقرير مشكلة جديد">
+            <div class="form-group">
+              <label for="issueType">نوع المشكلة</label>
+              <select id="issueType" name="issueType" required>
+                <option value="">اختر نوع المشكلة</option>
+                <option value="technical">مشكلة تقنية</option>
+                <option value="booking">خطأ في الحجز</option>
+                <option value="patient">بيانات مريض</option>
+                <option value="system">خطأ نظام</option>
+                <option value="other">أخرى</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="issueTitle">عنوان المشكلة</label>
+              <input type="text" id="issueTitle" name="issueTitle" placeholder="عنوان مختصر للمشكلة" required maxlength="100">
+            </div>
+            <div class="form-group">
+              <label for="issueDescription">وصف المشكلة</label>
+              <textarea id="issueDescription" name="issueDescription" placeholder="وصف تفصيلي للمشكلة..." required maxlength="1000" rows="4"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="patientPhone">رقم المريض (اختياري)</label>
+              <input type="tel" id="patientPhone" name="patientPhone" placeholder="+20xxxxxxxxxx" pattern="^\+?2?0?1[0-9]{9}$">
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="22" y1="2" x2="11" y2="13"/>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                </svg>
+                إرسال التقرير
+              </button>
+              <button type="button" class="btn btn-secondary" id="cancelReportBtn">إلغاء</button>
+            </div>
+          </form>
+          <section class="section" aria-labelledby="reportsTitle">
+            <h2 id="reportsTitle">التقارير السابقة</h2>
+            <div class="reports-list" id="reportsList">
+              <div class="report-item loading" aria-hidden="true">
+                <div class="report-skeleton"></div>
+                <div class="report-skeleton"></div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+      
+      <!-- System Monitor View -->
+      <section id="monitorView" class="view" aria-label="مراقبة النظام" hidden>
+        <header class="view-header">
+          <button class="icon-btn back-btn" id="monitorBackBtn" aria-label="رجوع">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M15 18l-6-6 6-6"/>
+            </svg>
+          </button>
+          <h1 class="view-title">مراقبة النظام</h1>
+        </header>
+        <div class="view-content">
+          <article class="glass-card" id="detailedStatusCard">
+            <header class="card-header">
+              <div class="card-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 6v6l4 2"/>
+                </svg>
+              </div>
+              <div>
+                <h2>تفاصيل حالة النظام</h2>
+                <p class="subtitle">معلومات تفصيلية لكل خدمة</p>
+              </div>
+            </header>
+            <div class="card-content">
+              <div class="detail-grid" id="detailedStatusGrid">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-secondary" id="refreshDetailedBtn">تحديث التفاصيل</button>
+            </div>
+          </article>
+          <article class="glass-card" id="logsCard">
+            <header class="card-header">
+              <div class="card-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M4 19.5A2 2 0 0 1 2 17v-9a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-8"/>
+                  <path d="M12 14v4M12 9v3"/>
+                </svg>
+              </div>
+              <div>
+                <h2>سجلات النظام</h2>
+                <p class="subtitle">آخر 50 عملية</p>
+              </div>
+            </header>
+            <div class="card-content">
+              <div class="logs-list" id="logsList">
+                <div class="log-item loading" aria-hidden="true">
+                  <div class="log-skeleton"></div>
+                  <div class="log-skeleton"></div>
+                  <div class="log-skeleton"></div>
+                </div>
+              </div>
+              <div class="card-actions">
+                <button class="btn btn-secondary" id="refreshLogsBtn">تحديث السجلات</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+    
+    <!-- Tab Bar (iOS Style) -->
+    <nav class="tab-bar" role="tablist" aria-label="التنقل الرئيسي">
+      <button class="tab-btn active" role="tab" aria-selected="true" aria-label="الرئيسية" data-view="dashboard">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <span class="tab-label">الرئيسية</span>
+      </button>
+      <button class="tab-btn" role="tab" aria-selected="false" aria-label="المشاكل" data-view="issues">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="16"/>
+          <line x1="8" y1="12" x2="16" y2="12"/>
+        </svg>
+        <span class="tab-label">المشاكل</span>
+      </button>
+      <button class="tab-btn" role="tab" aria-selected="false" aria-label="المراقبة" data-view="monitor">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <rect x="2" y="3" width="20" height="14" rx="2"/>
+          <path d="M12 8v4M8 14h8M8 18h8"/>
+        </svg>
+        <span class="tab-label">المراقبة</span>
+      </button>
+      <button class="tab-btn" role="tab" aria-selected="false" aria-label="الإعدادات" data-view="settings">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-1.82 1.82l-.06.06a1.65 1.65 0 0 0-.33 1.82"/>
+        </svg>
+        <span class="tab-label">الإعدادات</span>
+      </button>
+    </nav>
+    
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+    
+    <!-- Modal Container -->
+    <div class="modal-overlay" id="modalOverlay" hidden></div>
+    <div class="modal-container" id="modalContainer" hidden role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-content">
+        <header class="modal-header">
+          <h2 id="modalTitle"></h2>
+          <button class="icon-btn modal-close" id="modalCloseBtn" aria-label="إغلاق">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </header>
+        <div class="modal-body" id="modalBody"></div>
+        <footer class="modal-footer" id="modalFooter"></footer>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Install Prompt -->
+  <div class="install-banner" id="installBanner" hidden>
+    <div class="install-content">
+      <div class="install-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+      </div>
+      <div>
+        <strong>تثبيت التطبيق</strong>
+        <p>أضف عيادة النور للشاشة الرئيسية للوصول السريع</p>
+      </div>
+    </div>
+    <div class="install-actions">
+      <button class="btn btn-secondary" id="dismissInstallBtn">لاحقاً</button>
+      <button class="btn btn-primary" id="installAppBtn">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+        تثبيت
+      </button>
+    </div>
+  </div>
+  
+  <!-- Scripts -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
