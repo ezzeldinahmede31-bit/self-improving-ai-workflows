@@ -33,3 +33,11 @@
   (13-14s each, distinct sessions); lf QA_FAIL->retry (new session)->
   QA_FAIL->ESCALATED; lr DONE 16s after lease-expiry recovery. Tasklogs kept
   under /tmp/pytest-of-ezzeldin/pytest-21 (evidence above).
+
+## 2026-09-16 — Research capability (permanent stage)
+- **BUG-3 (real, found by live demo):** generate_report crashed when the
+  research/ dir didn't exist (FileNotFoundError). Fix: makedirs in the
+  generator. Locked by test_report_creates_missing_dirs.
+- **Discipline check passed:** YOURLS-dated-UI (1 qualifying source) and
+  Kutt-slowdown (single opinion) were correctly NOT promoted to repeated;
+  only Shlink-analytics x2 qualified. Dub AGPL reuse correctly REVIEW-blocked.
