@@ -1,0 +1,174 @@
+- generic [active] [ref=f11e1]:
+  - generic [ref=f11e262]:
+    - generic [ref=f11e263]:
+      - generic [aria-hidden] [ref=f11e264]: error
+      - generic [ref=f11e265]: Failed to generate API key, The request is suspicious. Please try again.
+    - button "Dismiss" [ref=f11e268] [cursor=pointer]:
+      - generic [aria-hidden] [ref=f11e269]: close
+  - generic [ref=f11e4]:
+    - button "Skip to main content" [ref=f11e270]
+    - generic [ref=f11e6]:
+      - generic:
+        - button "Open navigation menu" [ref=f11e271] [cursor=pointer]:
+          - generic [aria-hidden] [ref=f11e8]: menu
+        - generic [ref=f11e9]:
+          - link "Google AI Studio" [ref=f11e272] [cursor=pointer]:
+            - /url: /prompts/new_chat
+          - navigation [ref=f11e13]:
+            - generic [ref=f11e14]:
+              - link "Dashboard" [ref=f11e273] [cursor=pointer]:
+                - /url: /prompts/new_chat
+                - generic [aria-hidden] [ref=f11e17]: chevron_left
+                - text: Dashboard
+              - generic [ref=f11e18]:
+                - generic [ref=f11e19]: Project
+                - list [ref=f11e20]:
+                  - listitem [ref=f11e21]:
+                    - link "API Keys" [ref=f11e274] [cursor=pointer]:
+                      - /url: /api-keys
+                      - generic [aria-hidden] [ref=f11e23]: key
+                      - text: API Keys
+                  - listitem [ref=f11e24]:
+                    - link "Projects" [ref=f11e275] [cursor=pointer]:
+                      - /url: /projects
+                      - generic [aria-hidden] [ref=f11e26]: folder
+                      - text: Projects
+                - generic [ref=f11e27]: Usage & Billing
+                - list [ref=f11e28]:
+                  - listitem [ref=f11e29]:
+                    - link "Usage" [ref=f11e276] [cursor=pointer]:
+                      - /url: /usage
+                      - generic [aria-hidden] [ref=f11e31]: bar_chart
+                      - text: Usage
+                  - listitem [ref=f11e32]:
+                    - link "Rate Limit" [ref=f11e277] [cursor=pointer]:
+                      - /url: /rate-limit
+                      - generic [aria-hidden] [ref=f11e34]: speed
+                      - text: Rate Limit
+                  - listitem [ref=f11e35]:
+                    - link "Spend" [ref=f11e278] [cursor=pointer]:
+                      - /url: /spend
+                      - generic [aria-hidden] [ref=f11e37]: paid
+                      - text: Spend
+                  - listitem [ref=f11e38]:
+                    - link "Billing" [ref=f11e279] [cursor=pointer]:
+                      - /url: /billing
+                      - generic [aria-hidden] [ref=f11e40]: receipt_long
+                      - text: Billing
+                - generic [ref=f11e41]: Observe
+                - list [ref=f11e42]:
+                  - listitem [ref=f11e43]:
+                    - link "Logs and Datasets" [ref=f11e280] [cursor=pointer]:
+                      - /url: /logs
+                      - generic [aria-hidden] [ref=f11e45]: database
+                      - text: Logs and Datasets
+                - list [ref=f11e46]:
+                  - listitem [ref=f11e47]:
+                    - link "Changelog" [ref=f11e281] [cursor=pointer]:
+                      - /url: /docs/changelog
+                      - text: Changelog
+                      - generic [aria-hidden] [ref=f11e49]: arrow_outward
+            - generic [ref=f11e51]:
+              - generic [ref=f11e52]:
+                - button "What's new" [ref=f11e282] [cursor=pointer]:
+                  - generic [aria-hidden] [ref=f11e56]: notifications
+                - button "Settings" [ref=f11e283] [cursor=pointer]:
+                  - generic [aria-hidden] [ref=f11e60]: settings
+                - button "Search (Ctrl /)" [ref=f11e284] [cursor=pointer]:
+                  - generic [aria-hidden] [ref=f11e63]: search
+                - button "Get API key" [ref=f11e285] [cursor=pointer]:
+                  - generic [aria-hidden] [ref=f11e67]: key
+              - generic [ref=f11e68]:
+                - button "ezzeldina738@gmail.com" [ref=f11e286] [cursor=pointer]
+                - 'button "Google Account: Ezzeldin Ali (ezzeldina738@gmail.com)" [ref=f11e287] [cursor=pointer]':
+                  - img "Ezzeldin Ali" [ref=f11e288]
+      - main [ref=f11e77]:
+        - generic [ref=f11e82]:
+          - generic [ref=f11e84]:
+            - heading "API Keys" [level=2] [ref=f11e289]
+            - generic [ref=f11e86]:
+              - link "API quickstart" [ref=f11e290] [cursor=pointer]:
+                - /url: /docs/get-started
+                - generic [aria-hidden] [ref=f11e88]: docs
+                - text: API quickstart
+              - button "Create API key" [ref=f11e291] [cursor=pointer]:
+                - generic [aria-hidden] [ref=f11e90]: key
+                - text: Create API key
+          - generic [ref=f11e91]:
+            - generic [ref=f11e92]:
+              - generic [ref=f11e93]: Group by
+              - generic [ref=f11e94]:
+                - button "API Key" [ref=f11e292] [cursor=pointer]
+                - button "Project" [ref=f11e293] [cursor=pointer]
+            - generic [ref=f11e98]:
+              - generic [ref=f11e99]: Filter by
+              - combobox "Filter by" [ref=f11e294] [cursor=pointer]:
+                - generic [ref=f11e105]:
+                  - generic [ref=f11e106]: All projects
+                  - generic [ref=f11e108]: expand_more
+          - table [ref=f11e177]:
+            - rowgroup [ref=f11e178]:
+              - row [ref=f11e295]:
+                - columnheader "Key" [ref=f11e296]
+                - columnheader "Project" [ref=f11e297]
+                - columnheader [ref=f11e298] [cursor=pointer]:
+                  - button "Created" [ref=f11e299]
+                - columnheader "Billing Tier" [ref=f11e300]
+                - columnheader [ref=f11e189]
+            - rowgroup [ref=f11e190]:
+              - row [ref=f11e301]:
+                - cell "...VT3Q Gemini API Key 2" [ref=f11e302]:
+                  - button "...VT3Q" [ref=f11e303] [cursor=pointer]
+                  - generic [ref=f11e196]: Gemini API Key 2
+                - cell "Default Gemini Project gen-lang-client-0598265907" [ref=f11e304]:
+                  - generic [ref=f11e198]:
+                    - button "Default Gemini Project" [ref=f11e305] [cursor=pointer]
+                    - generic [ref=f11e200]: gen-lang-client-0598265907
+                - cell "Aug 19, 2026" [ref=f11e306]
+                - cell "Set up billing Free tier" [ref=f11e307]:
+                  - generic [ref=f11e203]:
+                    - button "Set up billing" [ref=f11e308] [cursor=pointer]
+                    - generic [ref=f11e205]: Free tier
+                - cell [ref=f11e309]:
+                  - generic [ref=f11e207]:
+                    - button "Copy API key" [ref=f11e310] [cursor=pointer]:
+                      - generic [aria-hidden] [ref=f11e210]: content_copy
+                    - button "View spend" [ref=f11e311] [cursor=pointer]:
+                      - generic [aria-hidden] [ref=f11e213]: paid
+                    - button "View usage" [ref=f11e312] [cursor=pointer]:
+                      - generic [aria-hidden] [ref=f11e216]: bar_chart
+                    - button "View more actions" [ref=f11e313] [cursor=pointer]:
+                      - generic [aria-hidden] [ref=f11e218]: more_vert
+              - row [ref=f11e314]:
+                - cell "...0TSQ Gemini API Key" [ref=f11e315]:
+                  - button "...0TSQ" [ref=f11e316] [cursor=pointer]
+                  - generic [ref=f11e224]: Gemini API Key
+                - cell "Default Gemini Project gen-lang-client-0598265907" [ref=f11e317]:
+                  - generic [ref=f11e226]:
+                    - button "Default Gemini Project" [ref=f11e318] [cursor=pointer]
+                    - generic [ref=f11e228]: gen-lang-client-0598265907
+                - cell "Aug 19, 2026" [ref=f11e319]
+                - cell "Set up billing Free tier" [ref=f11e320]:
+                  - generic [ref=f11e231]:
+                    - button "Set up billing" [ref=f11e321] [cursor=pointer]
+                    - generic [ref=f11e233]: Free tier
+                - cell [ref=f11e322]:
+                  - generic [ref=f11e235]:
+                    - button "Copy API key" [ref=f11e323] [cursor=pointer]:
+                      - generic [aria-hidden] [ref=f11e238]: content_copy
+                    - button "View spend" [ref=f11e324] [cursor=pointer]:
+                      - generic [aria-hidden] [ref=f11e241]: paid
+                    - button "View usage" [ref=f11e325] [cursor=pointer]:
+                      - generic [aria-hidden] [ref=f11e244]: bar_chart
+                    - button "View more actions" [ref=f11e326] [cursor=pointer]:
+                      - generic [aria-hidden] [ref=f11e246]: more_vert
+          - generic [ref=f11e247]:
+            - generic [ref=f11e248]:
+              - paragraph [ref=f11e249]: Can't find your API keys here?
+              - paragraph [ref=f11e250]:
+                - text: This list only shows API keys for projects imported into Google AI Studio. Import other projects to manage their associated API Keys. You can also create a new API Key above.
+                - link "Learn more" [ref=f11e327] [cursor=pointer]:
+                  - /url: /docs/api-key#import-projects
+              - button "Import projects" [ref=f11e328] [cursor=pointer]
+            - generic:
+              - generic "Import projects"

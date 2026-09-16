@@ -45,6 +45,7 @@ class Orchestrator:
         self.router = router or models_mod.ModelRouter(
             models_registry, models_catalog, store)
         self.spawn_hook = spawn_hook  # operability hook: called with Popen
+        self._merge_lock = threading.Lock()  # merges into one repo are serial
         self._selections: dict[str, dict] = {}
         os.makedirs(work_root, exist_ok=True)
 
@@ -197,10 +198,13 @@ class Orchestrator:
             checks = qa_mod.run_acceptance(work_dir, contract.get("acceptance", []))
             passed, failed = qa_mod.verdict(checks)
             gate_report: dict | None = None
+            qa_s = 0.0
             if passed and contract.get("gates", True):
+                q0 = time.time()
                 gate_report = gates_qa_mod.gate_changed_files(
                     work_dir, res.get("changed", []), self.repo_root,
                     int(contract.get("gate_timeout_s", 180)))
+                qa_s = round(time.time() - q0, 2)
                 if not gate_report["passed"]:
                     self._fail(
                         project_id, task_id, "GATES_REJECTED",
@@ -224,24 +228,30 @@ class Orchestrator:
                                res.get("session_id"),
                                extra={"summary": res["summary"]})
                     return
-                mg = self._merge_workdir(project_id, task_id, work_dir, wt)
+                m0 = time.time()
+                with self._merge_lock:
+                    mg = self._merge_workdir(project_id, task_id, work_dir, wt)
+                merge_s = round(time.time() - m0, 2)
                 if not mg["ok"]:
                     self._fail(project_id, task_id, "INTEGRATION_CONFLICT",
                                mg.get("detail", ""), t0, worker_id,
                                res.get("session_id"),
                                extra={"summary": res["summary"]})
                     return
+            else:
+                merge_s = 0.0
             self.store.set_status(
                 task_id, "DONE", summary=res["summary"],
                 details={"outputs": res["outputs"], "changed": res["changed"],
                          "checks": checks, "gates": gate_report,
-                         "worker": worker_id,
+                         "worker": worker_id, "qa_s": qa_s, "merge_s": merge_s,
                          "session_id": res.get("session_id")},
                 event_kind="task_done",
                 event_payload={"role": contract.get("role"),
                                "changed": res["changed"],
                                "session_id": res.get("session_id"),
-                               "model": model})
+                               "model": model, "qa_s": qa_s,
+                               "merge_s": merge_s})
             attempt_rec["result"] = "DONE"
             self.store.append_attempt(task_id, attempt_rec)
             self.tasklog.emit({
@@ -252,7 +262,8 @@ class Orchestrator:
                 "quota_status": sel.get("quota_status"),
                 "fallback_used": bool(sel.get("fallback_used")),
                 "started": _iso(t0), "ended": _iso(time.time()),
-                "result": "DONE", "reason": None,
+                "result": "DONE", "reason": None, "qa_s": qa_s,
+                "merge_s": merge_s if wt else 0.0,
                 "qa": {"acceptance": "PASS",
                        "gates": (gate_report["verdicts"]
                                  if gate_report else "SKIPPED_NO_CHANGES")},

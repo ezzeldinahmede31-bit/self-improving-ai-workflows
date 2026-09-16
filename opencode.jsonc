@@ -1,76 +1,106 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "instructions": ["memory/conversation-memory.md"],
-  "skills": {
-    "paths": ["~/.claude/skills"]
-  },
-  "compaction": {
-    "auto": true,
-    "prune": true,
-    "preserve_recent_tokens": 60000,
-    "reserved": 8000
-  },
-  "tool_output": {
-    "max_lines": 500,
-    "max_bytes": 20000
-  },
-  "mcp": {
-    "n8n": {
-      "type": "local",
-      "command": ["npx", "-y", "n8n-mcp"],
-      "enabled": true,
-      "environment": {
-        "MCP_MODE": "stdio",
-        "LOG_LEVEL": "error",
-        "DISABLE_CONSOLE_OUTPUT": "true",
-        "N8N_API_URL": "https://ezzeldin8n.ezzeldin8n.cfd",
-        "N8N_API_KEY": "{file:/home/ezzeldin/.n8n_api_key.txt}"
+  "disabled_providers": [],
+  "provider": {
+    "deepseek_v3": {
+      "name": "DeepSeek",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "https://api.deepseek.com"
+      },
+      "models": {
+        "deepseek-chat": {
+          "name": "DeepSeek V3"
+        }
       }
     },
-    "youtube-transcript": {
-      "type": "local",
-      "command": ["npx", "-y", "@kimtaeyoon83/mcp-server-youtube-transcript"],
-      "enabled": true
+    "deepseek_official": {
+      "name": "DeepSeek Official",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "https://api.deepseek.com"
+      },
+      "models": {
+        "deepseek-v4-flash": {
+          "name": "DeepSeek V4 Flash"
+        },
+        "deepseek-v4-pro": {
+          "name": "DeepSeek V4 Pro"
+        }
+      }
     },
-    "yt-transcript": {
-      "type": "local",
-      "command": ["npx", "-y", "yt-transcript-mcp"],
-      "enabled": true
+    "cerebras_cloud": {
+      "name": "Cerebras Free Cloud",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "https://api.cerebras.ai/v1"
+      },
+      "models": {
+        "Llama 3.3 70B": {
+          "name": "llama3.3-70b"
+        },
+        "Llama 3.1 8B": {
+          "name": "llama-3.1-8b"
+        }
+      }
     },
-    "apify": {
-      "type": "remote",
-      "url": "https://mcp.apify.com",
-      "enabled": true
+    "deepseek-api": {
+      "name": "DeepSeek",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "https://api.deepseek.com/v1"
+      },
+      "models": {
+        "deepseek-chat": {
+          "name": "DeepSeek Chat"
+        },
+        "deepseek-reasoner": {
+          "name": "DeepSeek Reasoner"
+        }
+      }
     },
-    "context7": {
-      "type": "remote",
-      "url": "https://mcp.context7.com/mcp",
-      "enabled": true
-    },
-    "gh_grep": {
-      "type": "remote",
-      "url": "https://mcp.grep.app",
-      "enabled": true
-    },
-    "firecrawl": {
-      "type": "remote",
-      "url": "https://mcp.firecrawl.dev/v2/mcp",
-      "enabled": true
-    },
-    "github": {
-      "type": "remote",
-      "url": "https://api.githubcopilot.com/mcp/",
-      "enabled": false
-    },
-    "playwright": {
-      "type": "local",
-      "command": ["npx", "-y", "@playwright/mcp@latest", "--user-data-dir", "/home/ezzeldin/Documents/Default Project/memory/.sessions/playwright_persistent", "--browser=chromium"],
-      "enabled": true
-    },
-    "browser-mcp": {
-      "type": "local",
-      "command": ["npx", "-y", "@agent360/browser-mcp"],
-      "enabled": false
+    "free-llm-gateway": {
+      "name": "Free LLM Gateway (Local)",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://localhost:8080/v1",
+        "apiKey": "opencode-local-key-2026"
+      },
+      "models": {
+        "nvidia/nemotron-3-ultra": {
+          "name": "Nemotron 3 Ultra (NVIDIA)"
+        },
+        "nvidia/nemotron-3.5-lightning": {
+          "name": "Nemotron 3.5 Lightning (NVIDIA)"
+        },
+        "nvidia/llama-3.3-70b": {
+          "name": "Llama 3.3 70B (NVIDIA)"
+        },
+        "gpt-4": {
+          "name": "Best Available (Auto-routed)"
+        },
+        "gpt-4o": {
+          "name": "GPT-4o via Gateway"
+        },
+        "claude-3.5-sonnet": {
+          "name": "Claude via Gateway"
+        },
+        "gemini-2.5-flash": {
+          "name": "Gemini 2.5 Flash"
+        },
+        "llama-3.3-70b": {
+          "name": "Llama 3.3 70B"
+        },
+        "deepseek-v4-flash": {
+          "name": "DeepSeek V4 Flash"
+        },
+        "kimi-k2": {
+          "name": "Kimi K2"
+        },
+        "glm-4.5": {
+          "name": "GLM-4.5"
+        }
+      }
     }
   }
 }

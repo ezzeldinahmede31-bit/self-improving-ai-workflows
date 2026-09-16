@@ -44,12 +44,22 @@ def build_worker_context(contract: dict, provided: dict) -> tuple[dict, int]:
     return ctx, size
 
 
+# Regenerable interpreter/test artifacts: never source, never violations.
+IGNORED_DIRS = {"__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache"}
+IGNORED_SUFFIXES = (".pyc", ".pyo")
+
+
 def snapshot_files(root: str) -> dict[str, str]:
     out: dict[str, str] = {}
     for base, dirs, files in os.walk(root):
         if ".git" in dirs:
             dirs.remove(".git")
+        for ign in list(dirs):
+            if ign in IGNORED_DIRS:
+                dirs.remove(ign)
         for f in files:
+            if f.endswith(IGNORED_SUFFIXES):
+                continue
             p = os.path.join(base, f)
             rel = os.path.relpath(p, root)
             try:

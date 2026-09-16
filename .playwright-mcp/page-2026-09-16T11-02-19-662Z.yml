@@ -1,0 +1,101 @@
+- generic [ref=f11e4]:
+  - button "Skip to main content" [ref=f11e5]
+  - generic [ref=f11e6]:
+    - generic:
+      - button "Open navigation menu" [ref=f11e7] [cursor=pointer]:
+        - generic [aria-hidden] [ref=f11e8]: menu
+      - generic [ref=f11e9]:
+        - link "Google AI Studio" [ref=f11e11] [cursor=pointer]:
+          - /url: /prompts/new_chat
+        - navigation [ref=f11e13]:
+          - generic [ref=f11e14]:
+            - link "Dashboard" [ref=f11e16] [cursor=pointer]:
+              - /url: /prompts/new_chat
+              - generic [aria-hidden] [ref=f11e17]: chevron_left
+              - text: Dashboard
+            - generic [ref=f11e18]:
+              - generic [ref=f11e19]: Project
+              - list [ref=f11e20]:
+                - listitem [ref=f11e21]:
+                  - link "API Keys" [ref=f11e22] [cursor=pointer]:
+                    - /url: /api-keys
+                    - generic [aria-hidden] [ref=f11e23]: key
+                    - text: API Keys
+                - listitem [ref=f11e24]:
+                  - link "Projects" [ref=f11e25] [cursor=pointer]:
+                    - /url: /projects
+                    - generic [aria-hidden] [ref=f11e26]: folder
+                    - text: Projects
+              - generic [ref=f11e27]: Usage & Billing
+              - list [ref=f11e28]:
+                - listitem [ref=f11e29]:
+                  - link "Usage" [ref=f11e30] [cursor=pointer]:
+                    - /url: /usage
+                    - generic [aria-hidden] [ref=f11e31]: bar_chart
+                    - text: Usage
+                - listitem [ref=f11e32]:
+                  - link "Rate Limit" [ref=f11e33] [cursor=pointer]:
+                    - /url: /rate-limit
+                    - generic [aria-hidden] [ref=f11e34]: speed
+                    - text: Rate Limit
+                - listitem [ref=f11e35]:
+                  - link "Spend" [ref=f11e36] [cursor=pointer]:
+                    - /url: /spend
+                    - generic [aria-hidden] [ref=f11e37]: paid
+                    - text: Spend
+                - listitem [ref=f11e38]:
+                  - link "Billing" [ref=f11e39] [cursor=pointer]:
+                    - /url: /billing
+                    - generic [aria-hidden] [ref=f11e40]: receipt_long
+                    - text: Billing
+              - generic [ref=f11e41]: Observe
+              - list [ref=f11e42]:
+                - listitem [ref=f11e43]:
+                  - link "Logs and Datasets" [ref=f11e44] [cursor=pointer]:
+                    - /url: /logs
+                    - generic [aria-hidden] [ref=f11e45]: database
+                    - text: Logs and Datasets
+              - list [ref=f11e46]:
+                - listitem [ref=f11e47]:
+                  - link "Changelog" [ref=f11e48] [cursor=pointer]:
+                    - /url: /docs/changelog
+                    - text: Changelog
+                    - generic [aria-hidden] [ref=f11e49]: arrow_outward
+          - generic [ref=f11e51]:
+            - generic [ref=f11e52]:
+              - button "What's new" [ref=f11e55] [cursor=pointer]:
+                - generic [aria-hidden] [ref=f11e56]: notifications
+              - button "Settings" [ref=f11e59] [cursor=pointer]:
+                - generic [aria-hidden] [ref=f11e60]: settings
+              - button "Search (Ctrl /)" [ref=f11e62] [cursor=pointer]:
+                - generic [aria-hidden] [ref=f11e63]: search
+              - button "Get API key" [ref=f11e66] [cursor=pointer]:
+                - generic [aria-hidden] [ref=f11e67]: key
+            - generic [ref=f11e68]:
+              - button "ezzeldina738@gmail.com" [ref=f11e69] [cursor=pointer]
+              - 'button "Google Account: Ezzeldin Ali (ezzeldina738@gmail.com)" [ref=f11e73] [cursor=pointer]':
+                - img "Ezzeldin Ali" [ref=f11e76]
+    - main [ref=f11e77]:
+      - generic [ref=f11e82]:
+        - generic [ref=f11e84]:
+          - heading "API Keys" [level=2] [ref=f11e85]
+          - generic [ref=f11e86]:
+            - link "API quickstart" [ref=f11e87] [cursor=pointer]:
+              - /url: /docs/get-started
+              - generic [aria-hidden] [ref=f11e88]: docs
+              - text: API quickstart
+            - button "Create API key" [ref=f11e89] [cursor=pointer]:
+              - generic [aria-hidden] [ref=f11e90]: key
+              - text: Create API key
+        - generic [ref=f11e91]:
+          - generic [ref=f11e92]:
+            - generic [ref=f11e93]: Group by
+            - generic [ref=f11e94]:
+              - button "API Key" [ref=f11e95] [cursor=pointer]
+              - button "Project" [ref=f11e96] [cursor=pointer]
+          - generic [ref=f11e98]:
+            - generic [ref=f11e99]: Filter by
+            - combobox "Filter by" [ref=f11e104] [cursor=pointer]:
+              - generic [ref=f11e105]:
+                - generic [ref=f11e106]: All projects
+                - generic [ref=f11e108]: expand_more
