@@ -1518,3 +1518,11 @@ Both added to `compensatory-router` stacks.
 - INSTALLED via git clone + copy (whole dir incl. agents/): `.opencode/skills/i-have-adhd/` (SKILL.md 142 lines, byte-identical to origin `skills/i-have-adhd/`; `.cursor/` copy identical, skipped).
 - Frontmatter OK (name + description + MIT license). Registered via router_register.py (+1), then rebucketed Marketing/SEO/Growth → Delivery/Gates (output-behavior discipline, same bucket as fable-5-playbook).
 - Router 885 = 885 unique, 0 dups. Library regenerated. Skill-tool registry snapshot doesn't list it yet (session-start list) — same as last turn's 6 Matt Pocock skills; disk+router+library state is the source of truth.
+
+## iPhone-luxury design skills — 16 installed (Sep 16)
+- User: skill someone made for iPhone-level luxury/quality design without copying the shape. Searched skills.sh: sosumi (docs fetcher only, rejected), ehmo ios-guidelines (already installed).
+- INSTALLED (user: "حملهم كلهم"): `frontend-design` (distinctive/intentional visual design, no templated defaults — stub resolved to full via Ilm-Alan/frontend-design), `design-router` (payoss dispatcher), full Apple HIG pack (raintree-technology/apple-hig-skills = 14 `hig-*`: foundations/platforms/technologies/project-context/patterns/inputs/layout/controls/content/dialogs/menus/search/status/system).
+- Gotchas: npx per-skill names resolve to catalogue STUBS (das: block) — must install the upstream repo for the full skill; whole-repo installs pull dozens of extras (installed 100+ dirs in tmp, copied only the 16 needed).
+- Security: all markdown-only, danger-scan CLEAN (only "CSS tokens" false positives). Frontmatter 16/16 OK.
+- Router: +16 → 901 total, NEW bucket `### Design/UI (16)` (auto-classifier had scattered them: Browser/Device, Marketing, Auto-installed). Rebucket script bug: body regex without blank-line guard inflated Automation header to 883 — fixed with proper per-bucket split; verified 19 buckets sum 901 = tokens 901 = unique 901.
+- Library auto-refreshed. test_router_register.py green.
