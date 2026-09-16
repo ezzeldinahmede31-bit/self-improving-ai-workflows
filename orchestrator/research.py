@@ -16,6 +16,7 @@ Rules enforced here (not by LLM):
 from __future__ import annotations
 import json
 import os
+import re
 import time
 
 LICENSE_ALLOW = {"MIT", "Apache-2.0", "BSD-2-Clause", "BSD-3-Clause", "ISC"}
@@ -423,13 +424,51 @@ def kb_save(store, topic: str, findings: dict, sources: list[str],
     store.kb_put(topic.lower().strip(), findings, sources, project_id)
 
 
-def kb_lookup(store, topic: str, max_age_days: float = 90) -> dict | None:
+def _tokens(text: str) -> set[str]:
+    toks = {t for t in re.sub(r"[^a-z0-9]+", " ", text.lower()).split()
+            if len(t) > 2}
+    stems = {t[:-1] for t in toks if len(t) > 4 and t.endswith("s")}
+    return toks | stems
+
+
+def kb_lookup(store, topic: str, max_age_days: float = 90,
+              fuzzy_threshold: float = 0.35) -> dict | None:
+    """Exact match first, else best token-overlap (Jaccard) match.
+
+    No embeddings, no deps: ranked keyword overlap. Returns None below
+    threshold. Result carries match=exact|fuzzy and score for honesty.
+    """
     row = store.kb_get(topic.lower().strip())
-    if not row:
+    if row:
+        age_days = (time.time() - row["updated_at"]) / 86400.0
+        row["stale"] = age_days > max_age_days
+        row["match"] = "exact"
+        row["score"] = 1.0
+        return row
+    want = _tokens(topic)
+    if not want:
         return None
-    age_days = (time.time() - row["updated_at"]) / 86400.0
-    row["stale"] = age_days > max_age_days
-    return row
+    best, best_score = None, 0.0
+    with store._lock:
+        rows = store._db.execute(
+            "SELECT topic,findings,sources,project_id,updated_at "
+            "FROM research_kb").fetchall()
+    for t, f, s, p, u in rows:
+        got = _tokens(t)
+        if not got:
+            continue
+        score = len(want & got) / len(want | got)
+        if score > best_score:
+            best, best_score = ({"topic": t,
+                                 "findings": json.loads(f),
+                                 "sources": json.loads(s),
+                                 "project_id": p, "updated_at": u}, score)
+    if best is None or best_score < fuzzy_threshold:
+        return None
+    best["stale"] = (time.time() - best["updated_at"]) / 86400.0 > max_age_days
+    best["match"] = "fuzzy"
+    best["score"] = round(best_score, 3)
+    return best
 
 
 def _json(obj) -> str:

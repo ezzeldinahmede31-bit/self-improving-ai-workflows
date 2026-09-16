@@ -32,7 +32,8 @@ class Orchestrator:
                  max_workers: int = 4, worktree_provider=None,
                  repo_root: str | None = None, tasklog_path: str | None = None,
                  router=None, models_registry: dict | None = None,
-                 models_catalog: list | None = None):
+                 models_catalog: list | None = None,
+                 spawn_hook=None):
         self.store = store
         self.work_root = work_root
         self.registry = registry
@@ -43,6 +44,7 @@ class Orchestrator:
             work_root, "tasklog.jsonl"))
         self.router = router or models_mod.ModelRouter(
             models_registry, models_catalog, store)
+        self.spawn_hook = spawn_hook  # operability hook: called with Popen
         self._selections: dict[str, dict] = {}
         os.makedirs(work_root, exist_ok=True)
 
@@ -171,7 +173,8 @@ class Orchestrator:
             provided = self._gather_inputs(project_id, contract)
             if contract.get("kind") == "opencode":
                 res = ocw_mod.execute_opencode_task(contract, work_dir, provided,
-                                                    model=model)
+                                                    model=model,
+                                                    spawn_hook=self.spawn_hook)
             else:
                 fn = self.registry.get(contract.get("kind", "generic"))
                 if fn is None:

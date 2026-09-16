@@ -100,11 +100,13 @@ def read_result_file(work_dir: str) -> dict:
 
 def run_opencode_task(contract: dict, work_dir: str, provided: dict,
                       model: str | None = None,
-                      _argv_override: list[str] | None = None) -> dict:
+                      _argv_override: list[str] | None = None,
+                      spawn_hook=None) -> dict:
     """Spawn one disposable opencode session for this attempt.
 
     Returns a process-level report; file/contract enforcement happens in
-    execute_opencode_task below.
+    execute_opencode_task below. spawn_hook(proc) is an operability hook
+    (monitoring, tests) called right after spawn with the Popen object.
     """
     tid = contract["task_id"]
     timeout_s = int(contract.get("timeout_s", 120))
@@ -129,49 +131,65 @@ def run_opencode_task(contract: dict, work_dir: str, provided: dict,
                 "--format", "json", "--title", title, prompt]
     t0 = time.time()
     try:
-        proc = subprocess.run(argv, capture_output=True, text=True,
-                              timeout=timeout_s)
+        proc = subprocess.Popen(argv, stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE, text=True)
+        if spawn_hook is not None:
+            try:
+                spawn_hook(proc)
+            except Exception:  # noqa: BLE001 - hook must never break runs
+                pass
+        try:
+            out, err = proc.communicate(timeout=timeout_s)
+            rc = proc.returncode
+        except subprocess.TimeoutExpired:
+            proc.kill()
+            out, err = proc.communicate()
+            parsed = parse_run_output(out or "")
+            return {"ok": False, "stage": "run", "task_id": tid,
+                    "reason": "WORKER_TIMEOUT",
+                    "detail": f"killed after {timeout_s}s",
+                    "session_id": parsed.get("session_id"),
+                    "wall_s": round(time.time() - t0, 2),
+                    "prompt_bytes": prompt_bytes, "context_bytes": ctx_size}
         wall = time.time() - t0
-        parsed = parse_run_output(proc.stdout or "")
-        return {"ok": proc.returncode == 0, "stage": "run", "task_id": tid,
-                "reason": "OK" if proc.returncode == 0 else "WORKER_NONZERO",
-                "detail": (proc.stderr or "")[-1000:],
+        parsed = parse_run_output(out or "")
+        if rc != 0 and rc < 0:
+            reason = "WORKER_KILLED"
+        else:
+            reason = "OK" if rc == 0 else "WORKER_NONZERO"
+        return {"ok": rc == 0, "stage": "run", "task_id": tid,
+                "reason": reason,
+                "detail": (err or "")[-1000:],
                 "session_id": parsed["session_id"], "wall_s": round(wall, 2),
                 "texts": parsed["texts"][-3:], "tool_uses": parsed["tool_uses"],
                 "prompt_bytes": prompt_bytes, "context_bytes": ctx_size,
-                "pid": None}
-    except subprocess.TimeoutExpired as e:
-        out = ""
-        try:
-            out = (e.stdout or b"").decode(errors="ignore") if isinstance(
-                e.stdout, bytes) else (e.stdout or "")
-        except Exception:  # noqa: BLE001
-            pass
-        parsed = parse_run_output(out)
+                "pid": proc.pid}
+    except OSError as e:
         return {"ok": False, "stage": "run", "task_id": tid,
-                "reason": "WORKER_TIMEOUT",
-                "detail": f"killed after {timeout_s}s",
-                "session_id": parsed.get("session_id"),
-                "wall_s": round(time.time() - t0, 2),
+                "reason": "SPAWN_FAILED", "detail": str(e)[:500],
+                "session_id": None, "wall_s": round(time.time() - t0, 2),
                 "prompt_bytes": prompt_bytes, "context_bytes": ctx_size}
 
 
 def execute_opencode_task(contract: dict, work_dir: str, provided: dict,
                           model: str | None = None,
-                          _argv_override: list[str] | None = None) -> dict:
+                          _argv_override: list[str] | None = None,
+                          spawn_hook=None) -> dict:
     """Full attempt: spawn + enforce contract. Same result shape as MVP worker."""
     tid = contract["task_id"]
     before = worker_mod.snapshot_files(work_dir)
     # RESULT.json itself is harness-owned, not agent output: hide it from diff
     before.pop(RESULT_FILE, None)
     rep = run_opencode_task(contract, work_dir, provided, model,
-                            _argv_override=_argv_override)
+                            _argv_override=_argv_override,
+                            spawn_hook=spawn_hook)
     if not rep["ok"] and rep.get("stage") == "context":
         return {"ok": False, "reason": rep["reason"], "task_id": tid,
                 "detail": rep.get("detail", "")}
     if not rep["ok"]:
-        reason = {"WORKER_TIMEOUT": "WORKER_TIMEOUT"}.get(
-            rep.get("reason", ""), "WORKER_ERROR")
+        reason = rep.get("reason", "")
+        if reason not in ("WORKER_TIMEOUT", "WORKER_KILLED"):
+            reason = "WORKER_ERROR"
         return {"ok": False, "reason": reason, "task_id": tid,
                 "detail": rep.get("detail", ""),
                 "session_id": rep.get("session_id")}

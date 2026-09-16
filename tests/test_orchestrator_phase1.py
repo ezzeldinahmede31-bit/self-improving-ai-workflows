@@ -81,7 +81,7 @@ def test_runner_crash_is_worker_error(tmp_path):
     c = with_defaults(_contract("t1"))
     rep = ocw.run_opencode_task(c, str(tmp_path), {},
                                 _argv_override=["sh", "-c", "kill -9 $$"])
-    assert rep["ok"] is False and rep["reason"] == "WORKER_NONZERO"
+    assert rep["ok"] is False and rep["reason"] == "WORKER_KILLED"
 
 
 def _audit_files():
