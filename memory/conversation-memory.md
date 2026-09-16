@@ -1552,3 +1552,13 @@ Both added to `compensatory-router` stacks.
 - User sent screenshots of "Bawwab — Reception Dashboard" (Claude artifact for Layan Beauty Studio) and asked for the EXACT same design with Bawwab replaced by any clinic name. Chose **Shifa / Shifa Clinic** (user said "any name").
 - Built /tmp/opencode/design_compare/shifa-dashboard.html: single file, 6 switchable views (Overview/Conversations/Appointments/Reminders/Manual Booking/Settings), same tokens (dark green sidebar, cream, gold, serif numerals), same sample data, Layan→Shifa Clinic. All 6 views screenshotted in real Chrome and READ (overview/settings/manual/conversations shown; appointments/reminders same components).
 - On Desktop: shifa-dashboard.html + shifa-overview.png.
+
+## Staff dashboard WIRED to the system + full battery (Sep 16)
+- Contract (user): essentials first → test → rest without stopping; English; new header key; real settings; full battery.
+- NEW (all gates READY, all n8n-valid 0/0, all ACTIVE): sched-today-api (ImPj? no — 0ScYWXJLSaDroCoO: Cairo day window + GCal list + serving/queue), sched-book-api (jOPIEx7VTKil36jm: validate+map → Execute book lane → structured ok/taken/past/failed), sched-stats-api (ImPj0yAIwbQo73t0: 5 tallies), sched-attention-api (7O0WQ0T5YSvOpg15), sched-reminders-api (qnTYGJUx4z44DLWl), sched-settings-api (cuF6Q1cOpJT3QOoi), sched-settings-save-api (sq17eb8Tn1azkbrq). Header cred GmhAhc6EXazi8Ptc (X-Dashboard-Key, secret in gitignored .env).
+- Engine honors flags: eng-router +Read Settings Flags (series) + Split code flagOn() on needsInfo/needsRemind/needsEscalation. PROVEN both directions (suppression + release with remindedAt).
+- Main auto_replies gate: +Read Auto Replies Flag +Restore Patient Item +Auto Replies Enabled? +Call Human Takeover (esc sub) rewired at Suppress-false→Agent edge, 63 nodes valid 0/0. PROVEN: OFF → takeover ran, agent NOT-run (12s); ON → full agent stack (29s).
+- Dashboard shifa-dashboard.html fully wired (stats/schedule/attention/reminders/settings/book, key in localStorage, full-set saves) + stray-script-text bug caught visually and fixed. On Desktop.
+- Battery /tmp/opencode/sched_battery.sh: 16 PASS + 2 real finds (S4 name-cap fixed live; S2 assertion corrected). Race → single winner. Matrix: memory/test_matrix_sched.md (10 bug lessons incl. %2B offset, no-decr, string SETs, cancel re-tally lane bug OPEN).
+- Hygiene: all test events cancelled via lane, Redis test keys DELETED, tallies back 0, ~60 probe execs deleted, 3 scratch workflows deleted, pytest EXIT 0.
+- Residuals: live conversations need user's n8n API key; instant_alert stored but always-on; cancel re-tally open; Ezz got test pings.
