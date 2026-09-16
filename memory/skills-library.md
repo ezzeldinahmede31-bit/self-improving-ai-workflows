@@ -325,7 +325,7 @@ registered in the router appear under the same family here automatically.
 - **zapier-sdk** — Zapier SDK for TypeScript.
 - **zapier-system-cloner** — Replicates any Zapier (Zap) system — especially premium/expensive ones — with identical outputs and quality on n8n or code, using different (free/local) tools w…
 
-## Marketing/SEO/Growth (37)
+## Marketing/SEO/Growth (43)
 
 - **apify-audience-analysis** — Understand audience demographics, preferences, behavior patterns, and engagement quality across Facebook, Instagram, YouTube, and TikTok.
 - **audience-psychology-analyst** — Build a psychological profile of any target audience and translate it into marketing AND video-editing decisions.
@@ -347,7 +347,6 @@ registered in the router appear under the same family here automatically.
 - **generative-ai-design-patterns** — Applies Generative AI Design Patterns for cloud AI engineering to architect production generative systems: the request-response pattern, caching and deduplicati…
 - **hands-on-ml-sklearn-keras-tensorflow** — Applies Aurelien Geron's Hands-On Machine Learning with Scikit-Learn, Keras and TensorFlow to build ML systems end to end: the full project lifecycle (frame, ge…
 - **hooked-nir-eyal** — Applies Eyal hook model: trigger, action, variable reward, investment.
-- **i-have-adhd** — Shape output for a reader with ADHD: lead with the next action, number multi-step work, restate state across turns, suppress tangents, give specific time estima…
 - **influence-psychology** — Apply the seven principles of ethical persuasion (reciprocity, commitment, social proof, authority, liking, scarcity, unity) to product design, copy, and sales.
 - **influencer-marketing** — When the user wants to run influencer, creator, or ambassador partnerships to promote their product — finding and vetting partners, structuring deals, briefing…
 - **integration-architecture-frameworks** — Applies the standard integration-architecture frameworks (SOA Reference Architecture, TOGAF-style integration, EAI/ESB patterns, and the integration capability…
@@ -363,10 +362,6 @@ registered in the router appear under the same family here automatically.
 - **programming-collective-intelligence** — Applies Toby Segaran's Programming Collective Intelligence to build recommendation and prediction systems from user data: collaborative filtering and item/item…
 - **rework-range-lean** — Applies the counter-conventional product and business principles from Rework (Fried & Hansson): small is a feature not a stage, constraints are an advantage, sc…
 - **saga-compensation-flows** — Coordinates multi-step distributed actions with forward steps plus compensating undos.
-- **viral-hooks** — Expert in creating opening lines, thumbnails, and hooks that stop the scroll.
-
-## Social media (7)
-
 - **social** — When the user wants help creating, scheduling, or optimizing social media content for LinkedIn, Twitter/X, Instagram, TikTok, Facebook, or other platforms, or w…
 - **social-media** — Drafts engaging social media posts, writes hooks, suggests hashtags, creates thread structures, and generates companion images.
 - **social-media-analyzer** — Social media campaign analysis and performance tracking.
@@ -374,6 +369,7 @@ registered in the router appear under the same family here automatically.
 - **social-media-image-sizes** — Check and resize images for social media platforms.
 - **social-publisher** — Multi-platform social media publishing automation - schedule, post, and track content across TikTok, Instagram, YouTube, LinkedIn, and more
 - **tiktok-marketing** — TikTok content strategy, video creation workflows, posting optimization, and analytics.
+- **viral-hooks** — Expert in creating opening lines, thumbnails, and hooks that stop the scroll.
 
 ## Video/Media (8)
 
@@ -731,7 +727,7 @@ registered in the router appear under the same family here automatically.
 - **six-hats** — Parallel thinking with six enforced perspectives, based on Edward de Bono's Six Thinking Hats® method - examine one decision through sequential passes for facts…
 - **worst-idea** — Worst Possible Idea (reverse brainstorming) — deliberately design the most terrible solutions to the problem, name the mechanism that makes each one bad, then i…
 
-## Delivery/Gates (24)
+## Delivery/Gates (25)
 
 - **adversarial-self-falsifier** — Actively attacks and attempts to break generated code, math, or logic before finalizing the response.
 - **best-practice-first-designer** — MANDATORY research-first gate before designing or building ANY n8n workflow or AI agent.
@@ -744,6 +740,7 @@ registered in the router appear under the same family here automatically.
 - **fable-5-playbook** — Applies the operational techniques from Anthropic's leaked Claude Fable 5 system prompt (120,000 chars, 1,580+ lines) to cheaper/flash-tier models so they behav…
 - **find-skills** — Helps discover and install agent skills.
 - **fitness-function-engineering** — Applies the fitness function practice from Building Evolutionary Architectures (Ford, Parsons, Kua): encode architectural characteristics as automated tests tha…
+- **i-have-adhd** — Shape output for a reader with ADHD: lead with the next action, number multi-step work, restate state across turns, suppress tangents, give specific time estima…
 - **incremental-generation** — Build n8n workflows incrementally — one node (or one small chain) at a time, validating EACH node against the live schema cache and the installed node registry…
 - **jit-pragmatic-architect** — World-class AI Automation System Architect.
 - **litellm-tier-router** — Dynamic SLA-aware model routing and multi-provider failover engine.
@@ -899,4 +896,4 @@ registered in the router appear under the same family here automatically.
 - **speech-language-processing** — Applies Jurafsky & Martin's Speech and Language Processing (SLP) to build NLP systems on textbook foundations: regular expressions and text normalization, n-gra…
 
 ---
-*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-16 03:42 — 825 skills, 22 families*
+*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-16 03:43 — 825 skills, 21 families*
