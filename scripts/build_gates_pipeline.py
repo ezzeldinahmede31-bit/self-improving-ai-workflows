@@ -586,7 +586,14 @@ class DeepReasoningGate:
         findings = []
         for pat in (known_patterns or [])[:8]:
             findings.append(f"AVOID previous rejection: {pat}")
-        counting_flagged = bool(COUNTING_KEYWORDS.search(full_text))
+        # JSON object keys ("count":, "between": ...) are field names, not
+        # prose — strip them before the keyword scan so a key named `count`
+        # cannot trip the boundary detector (S5 lesson). Single-token quoted
+        # values ("count", "between_days") are enum/key-like labels too; real
+        # counting prose always carries spaces ("how many roots ...").
+        scan_text = re.sub(r'"[^"\n]{1,64}"\s*:', ' ', full_text or "")
+        scan_text = re.sub(r'"[^"\n\s]{1,32}"', ' ', scan_text)
+        counting_flagged = bool(COUNTING_KEYWORDS.search(scan_text))
         has_candidates = bool(gates.get("vote"))
         has_expected = bool(gates.get("math") or gates.get("counting", {}).get("expected"))
 
@@ -740,6 +747,7 @@ class AutoFixEngine:
         self._fix_precision_a1_orphaned_nodes()
         self._fix_precision_a2_dangling_branches()
         self._fix_precision_a3_respond_without_webhook()
+        self._fix_precision_h4_approval_placement()
         self._fix_rag_r1_missing_embeddings()
         self._fix_rag_r2_placeholder_collection()
         self._fix_rag_r3_dangling_retriever()
@@ -925,6 +933,19 @@ class AutoFixEngine:
         if has_respond and not has_webhook:
             self.workflow["nodes"] = [n for n in nodes if (n.get("type") or "") != "n8n-nodes-base.respondToWebhook"]
             self._add_fix("PRECISION", "Removed 'Respond to Webhook' node (no Webhook trigger present)")
+
+    def _fix_precision_h4_approval_placement(self):
+        """H4: Move node-level requiresHumanApproval into parameters (the only
+        level n8n reads)."""
+        for n in self.workflow.get("nodes", []):
+            if "requiresHumanApproval" in n:
+                val = n.pop("requiresHumanApproval")
+                params = n.get("parameters")
+                if not isinstance(params, dict):
+                    params = {}
+                    n["parameters"] = params
+                params.setdefault("requiresHumanApproval", val)
+                self._add_fix("PRECISION", f"Moved requiresHumanApproval into parameters of '{n.get('name')}'")
 
     def _fix_rag_r1_missing_embeddings(self):
         """R1: Add a dummy embeddings node if vector store has none."""
@@ -1135,6 +1156,30 @@ class N8nPrecisionGate:
           logic shipped into a deployable workflow
       F5  WARNING — a node using an insecure http:// (non-TLS) URL literal —
           credentials/data ride plaintext if this is ever reached
+
+    Package H (n8n runtime semantics — booking-campaign lessons):
+      H1  FAIL — two nodes sharing one node id (duplicate ids corrupt
+          patches and execution refs)
+      H2  FAIL — Python literals True/False/None inside a Code node (the
+          Code node runs JavaScript: true/false/null)
+      H3  FAIL — a parameter mixing a literal prefix with an expression
+          (=text{{...}} — n8n expressions must be the whole value ={{...}})
+      H4  FAIL — requiresHumanApproval set at node level (n8n only reads
+          it inside parameters; auto-fixed by moving it under parameters)
+      H5  FAIL — settings.errorWorkflow that is not a plain workflow-ID
+          string (expression/$env/blank never resolves at runtime)
+      H6  FAIL — Redis operation 'decr' (the n8n Redis node has no decr;
+          use incr with a negative amount or SET)
+      H7  WARNING — $env use with no '||' fallback (blocked-env instances
+          fail closed)
+      H8  WARNING — literal +HH:MM offset inside a URL/query (decodes to a
+          space; use %2B or Zulu 'Z')
+      H9  WARNING — reliance on alwaysOutputData (proven inert on n8n 2.30.x
+          empty branches; use an always-one-item envelope instead)
+      H10 WARNING — dedup/lock key carrying a message id with no chat scope
+          (cross-chat collisions discard real items)
+      H11 WARNING — calendar flow with no Africa/Cairo (or timeZone) signal
+          (UTC-hour replies slip a whole wall-clock day)
 
     Verdicts: PASS / FAIL / SKIP (empty workflow). Structural, never
     overridable — mirrors INTEGRITY (automation-known-issues-compass,
@@ -1434,6 +1479,144 @@ class N8nPrecisionGate:
                     f"F5: node '{nm}' ({ntype}) contains an insecure http:// "
                     f"(non-TLS) URL literal — credentials/data ride plaintext "
                     f"if this is ever reached"
+                )
+
+        # ---- Package H: n8n runtime semantics (booking-campaign lessons) ----
+        # H1-H6 FAIL (the runtime/Redis/JS engine enforces them); H7-H11 warn
+        # (traps that caused real production incidents).
+        def _iter_param_strings(obj):
+            if isinstance(obj, str):
+                yield obj
+            elif isinstance(obj, dict):
+                for v in obj.values():
+                    yield from _iter_param_strings(v)
+            elif isinstance(obj, list):
+                for v in obj:
+                    yield from _iter_param_strings(v)
+
+        seen_ids: dict = {}
+        for n in nodes:
+            nm = n.get("name")
+            nid = n.get("id")
+            if nid is not None and nid != "" and nid in seen_ids:
+                violations.append(
+                    f"H1: nodes '{seen_ids[nid]}' and '{nm}' share id '{nid}' — "
+                    f"duplicate node ids corrupt patches and execution refs; "
+                    f"keep ids unique"
+                )
+            elif nid is not None and nid != "":
+                seen_ids[nid] = nm
+
+        for n in nodes:
+            nm = n.get("name")
+            ntype = n.get("type") or ""
+            params = n.get("parameters") or {}
+
+            # H2 — Python literals inside a JavaScript Code node.
+            if ntype in {"n8n-nodes-base.code", "n8n-nodes-base.function"}:
+                js = params.get("jsCode") or params.get("functionCode") or ""
+                if isinstance(js, str) and js:
+                    dequoted = re.sub(
+                        r"'(?:[^'\\]|\\.)*'|\"(?:[^\"\\]|\\.)*\"|`(?:[^`\\]|\\.)*`",
+                        "''", js)
+                    py_hit = re.search(r"\b(True|False|None)\b", dequoted)
+                    if py_hit:
+                        violations.append(
+                            f"H2: Code node '{nm}' uses Python literal "
+                            f"'{py_hit.group(1)}' — the Code node runs JavaScript "
+                            f"(true/false/null); Python literals throw at runtime"
+                        )
+
+            # H4 — approval flag at the wrong level.
+            if "requiresHumanApproval" in n:
+                violations.append(
+                    f"H4: node '{nm}' sets requiresHumanApproval at node level — "
+                    f"n8n only reads it inside parameters; move it under parameters"
+                )
+
+            # H6 — Redis operation that does not exist.
+            if "redis" in ntype.lower():
+                op = str(params.get("operation") or "").lower()
+                if op == "decr":
+                    violations.append(
+                        f"H6: Redis node '{nm}' uses operation 'decr' — the n8n "
+                        f"Redis node has no decr; use incr with a negative "
+                        f"amount or SET"
+                    )
+
+            # H3 — literal prefix mixed with an expression.
+            for s in _iter_param_strings(params):
+                if isinstance(s, str) and s.startswith("=") and "{{" in s:
+                    prefix = s[1:].split("{{", 1)[0]
+                    if prefix.strip():
+                        violations.append(
+                            f"H3: node '{nm}' mixes a literal prefix with an "
+                            f"expression ({s[:64]!r}) — n8n expressions must be "
+                            f"the whole value (=`{{{{...}}}}`); literal-then-expression "
+                            f"evaluates wrong"
+                        )
+                        break
+
+            # H7 — $env with no fallback.
+            for s in _iter_param_strings(params):
+                if isinstance(s, str) and "$env." in s and "||" not in s:
+                    warnings.append(
+                        f"H7: node '{nm}' reads $env with no '||' fallback — "
+                        f"instances with blocked env access fail closed; add a "
+                        f"default (or a credential) so the node survives"
+                    )
+                    break
+
+            # H8 — literal +HH:MM offset inside a URL/query string.
+            for s in _iter_param_strings(params):
+                if isinstance(s, str) and re.search(r"\+\d{2}:\d{2}", s):
+                    warnings.append(
+                        f"H8: node '{nm}' embeds a literal +HH:MM offset in a "
+                        f"URL/query — the '+' decodes to a space (400 from "
+                        f"Google); use %2B or Zulu 'Z'"
+                    )
+                    break
+
+            # H9 — reliance on alwaysOutputData.
+            if params.get("alwaysOutputData") is True:
+                warnings.append(
+                    f"H9: node '{nm}' relies on alwaysOutputData — proven inert "
+                    f"on n8n 2.30.x empty branches; verify the empty path with "
+                    f"an always-one-item envelope (HTTP node) instead"
+                )
+
+            # H10 — message-scoped key with no chat scope.
+            key_text = json.dumps(
+                {k: v for k, v in params.items() if "key" in k.lower()},
+                default=str)
+            if re.search(r"(?i)(?<![a-z])(mid|message_id|messageid)(?![a-z])", key_text) \
+                    and "chat" not in key_text.lower():
+                warnings.append(
+                    f"H10: node '{nm}' dedup/lock key carries a message id with "
+                    f"no chat scope — cross-chat message_id collisions discard "
+                    f"real items; key on <chat>:<mid>"
+                )
+
+        # H5 — errorWorkflow must be a plain workflow-ID string.
+        settings = workflow.get("settings") or {}
+        ew = settings.get("errorWorkflow")
+        if ew is not None and (
+                not isinstance(ew, str) or not ew.strip()
+                or "{{" in ew or "$" in ew or re.search(r"\s", ew)):
+            violations.append(
+                f"H5: settings.errorWorkflow must be a plain workflow-ID string — "
+                f"{ew!r} is an expression/literal that never resolves at runtime "
+                f"(attach a real error workflow instead)"
+            )
+
+        # H11 — calendar flow with no explicit wall-clock time zone.
+        if any("googlecalendar" in (n.get("type") or "").lower() for n in nodes):
+            if not re.search(r"Africa/Cairo|timeZone|timezone", full_text,
+                             re.IGNORECASE):
+                warnings.append(
+                    "H11: calendar flow with no Africa/Cairo (or timeZone) signal — "
+                    "UTC-hour replies slip a whole wall-clock day; format event "
+                    "times with an explicit time-zone conversion"
                 )
 
         return {"status": "FAIL" if violations else "PASS",

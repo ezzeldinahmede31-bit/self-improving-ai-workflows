@@ -401,8 +401,13 @@ class SecurityGate:
                 reversible_streak = []
 
         # --- R5: Webhook/Trigger Auth Enforcement ---
+        # Responders answer; authentication belongs to the trigger that
+        # opened the exchange — never flag respondToWebhook (S2 lesson).
         for node in nodes:
-            if "webhook" not in node.get("type", "").lower():
+            ntype = node.get("type", "")
+            if "webhook" not in ntype.lower():
+                continue
+            if "respond" in ntype.lower():
                 continue
             auth = node.get("parameters", {}).get("authentication", "none")
             if auth in ("none", None, ""):

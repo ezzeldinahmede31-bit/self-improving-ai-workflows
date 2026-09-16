@@ -67,6 +67,18 @@ Run these gates before ANY n8n build:
 | Retrieval returns 0 hits / agent answers from general knowledge | collection name mismatch OR dim mismatch OR doc not ingested | rag_query first, check qdrantCollection + 1024-dim + points_count (qdrant-ops) |
 | Store reads garbage in n8n | payload keys not `content`/`metadata` | @langchain/qdrant payload shape (rag_ingest.py) |
 | RAG gate verdict `RAG_STRUCTURAL_VIOLATION` | store w/o embeddings (R1) or dangling ai_vectorStore/ai_retriever (R3) | fix wiring, re-run build_gates_pipeline Stage 3.45 (n8n-rag-vector-qa) |
+| Redis GET returns `{propertyName: value}`, KEYS returns `{key: value}` map | reader assumes one shape → `undefined` | unwrap tolerantly; paired `$('Node')` refs, never `$input` passthrough after a reorder (n8n-runtime-semantics-guard) |
+| Merge nodes inside split loops mis-pair items across iterations | loop + merge iteration crossing | no merges inside loops; fan-out items flow independently (n8n-runtime-semantics-guard) |
+| PUT on active workflow → 200 `started`, zero executions | draft/published two-state; stale dispatch registration | deactivate→activate after every PUT, then re-probe (n8n-deployment-ops-guard) |
+| All workflows inactive after host reboot | n8n never reactivates on boot | reactivate script + `@reboot` cron, verify per workflow (n8n-deployment-ops-guard) |
+| `$env` reads fail closed on the instance | blocked env access | `||` fallback or credential on every `$env` read (gate H7) |
+| `+HH:MM` offset inside a URL/query → 400 | `+` decodes to a space | `%2B` or Zulu `Z` (gate H8) |
+| `alwaysOutputData` relied upon, empty branch dead | proven inert on n8n 2.30.x | always-one-item envelope, e.g. HTTP node (gate H9) |
+| Dedup/lock key on a bare message id | cross-chat `message_id` collision discards real items | key on `<chat>:<mid>` (gate H10) |
+| Google delete answers `status=cancelled` tombstone, not 404 | re-delete takes the success path and double-tallies | Already-Cancelled branch with frozen tallies (n8n-deployment-ops-guard) |
+| Cleanup deletes a record before its durable write is proven | data-loss direction on write failure | Visit-Logged gate; park failures for retry, never for loss (n8n-deployment-ops-guard) |
+| Unquoted heredoc eats `$input` in patch scripts | shell expansion of `$` | ALWAYS quoted heredocs in scripts touching n8n JSON |
+| Probe pings reach real users | synthetic and production chats mixed | synthetic chats only, fresh ids per tap test, delete by chat attribution |
 
 ## 3 — Zapier limits & pitfalls catalog (for cloning decisions)
 
@@ -97,7 +109,7 @@ Run these gates before ANY n8n build:
 
 ## 5 — Skill map (who owns what)
 
-- Build lifecycle: using-n8n-mcp-skills → n8n-mcp-workflow-builder → n8n-schema-guardrail → n8n-syntax-v2-enforcer
+- Build lifecycle: using-n8n-mcp-skills → n8n-mcp-workflow-builder → n8n-schema-guardrail → n8n-syntax-v2-enforcer → n8n-runtime-semantics-guard → n8n-deployment-ops-guard
 - Failure handling: n8n-error-handling, n8n-error-boundary-architect, n8n-debugging-official
 - Data: n8n-binary-and-data, n8n-code-javascript / -python / -tool
 - Instances/creds: n8n-multi-instance, n8n-credential-security-guard, n8n-self-hosting

@@ -120,6 +120,26 @@ what each connection conveys, aiding future code reading.
   productivity and happiness of your team"). Before building, explicitly answer:
   "What problem does this workflow solve? Who uses it? What 'done' means?"
 
+### Runtime semantics (Package H — FAIL unless listed)
+- Unique node `id` values; JavaScript literals only in Code (`true`/`false`/`null`);
+  expressions span the whole value (`={{ ... }}`); `requiresHumanApproval`
+  inside `parameters`; plain-ID `settings.errorWorkflow`; no Redis `decr`.
+- Unwrap store outputs tolerantly (propertyName / map / raw); paired `$('Node')`
+  refs after any reorder; per-item-safe Code; no merges inside split loops;
+  single-group fan-outs on single-output nodes; data flags, never branch timing.
+- Full checklist lives in `n8n-runtime-semantics-guard` — load it before the build.
+
+### Deployment ops (after READY, before live traffic)
+- Publish after every PUT (deactivate→activate, then re-probe); reactivate
+  script plus `@reboot` cron; verify network membership, env flags, and the
+  real instance version; OAuth health probe before races; error workflow
+  attached AND active; synthetic-chat probe hygiene with full cleanup.
+- Latency contract (ack under two seconds, edit-in-place, fallback chain),
+  usability gate on agent terminals, target-language contracts at the source,
+  footers off, durability-before-delete, tombstone branch on delete lanes.
+- Full checklist lives in `n8n-deployment-ops-guard` — walk it live before
+  declaring production.
+
 ### Dry-run
 - Before delivery the workflow must have run with real evidence: pinned data
   AND an expected result — either pinned on the trigger (when a trigger
