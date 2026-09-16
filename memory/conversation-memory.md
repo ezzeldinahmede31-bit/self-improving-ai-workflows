@@ -1506,3 +1506,9 @@ Both added to `compensatory-router` stacks.
 - ROOT FIX for agent booking-to-check: new CAL check lane (vNs81YmYZfUxjbqv: window+list+verdict, zero side effects) + router Route Check Or Resched + MAIN Check_Slot_Availability tool + prompt rule (booking tool CREATES — never call it to check). Live proof: agent checked taken slot with exactly ONE book-lane run (no triple-booking).
 - VALIDATOR live substitution (exec 2389): agent deliberated over verified alts → Validate Alternatives Relay replaced it with «الميعاد 12:00 غير متاح. متاح 2026-10-14 الساعة 11:00 أو 2026-10-14 الساعة 13:00، أيهما يناسبك؟» (validated:true) → usability passed → send attempted. propertyName-unwrap fix included (GET shape).
 - Hygiene: occupied event deleted, all scratches deleted (incl. check-test + seeds), 29 probe execs deleted, Redis clean, stats reset, pytest EXIT 0.
+
+## Matt Pocock skills pack installed (Sep 16)
+- User asked for Matt Pocock's agent skills (Grill Me, Architecture, Triage, To-Spec). Repo `mattpocock/skills` verified via GitHub API (engineering/productivity/misc/in-progress dirs).
+- Only `wizard` existed locally; INSTALLED 6 via git clone + copy (whole dirs incl. agents/ + refs): `grill-me` (+`grilling` engine), `triage`, `to-spec`, `codebase-design`, `improve-codebase-architecture` (= the "Architecture" one: scans codebase + visual HTML report).
+- Frontmatter 6/6 OK. Registered via router_register.py (+6), then rebucketed (auto-classifier wrong): grill-me/grilling → Thinking frames, triage/to-spec → Delivery/Gates, improve-codebase-architecture → Agents/Architecture, codebase-design → Coding/SWE (was already correct).
+- Router recount fix: headers were stale (Automation 299→296, Delivery/Gates 22→33, Superpowers 15→17) → now header 884 = unique 884 = tokens 884, 0 dups. Library regenerated (824 entries). `grilling` loaded live to prove it works.
