@@ -29,6 +29,16 @@ CREATE TABLE IF NOT EXISTS model_usage(
   model TEXT PRIMARY KEY, attempts INTEGER DEFAULT 0, fallbacks INTEGER DEFAULT 0,
   limit_hits INTEGER DEFAULT 0, updated_at REAL);
 CREATE TABLE IF NOT EXISTS model_cooldowns(model TEXT PRIMARY KEY, until REAL);
+CREATE TABLE IF NOT EXISTS research(
+  id INTEGER PRIMARY KEY AUTOINCREMENT, project_id TEXT, kind TEXT,
+  topic TEXT, payload TEXT, created_at REAL);
+CREATE TABLE IF NOT EXISTS arch_decisions(
+  id TEXT PRIMARY KEY, project_id TEXT, decision TEXT, reason TEXT,
+  evidence TEXT, effects TEXT, comparison TEXT, status TEXT, created_at REAL);
+CREATE TABLE IF NOT EXISTS research_kb(
+  topic TEXT PRIMARY KEY, findings TEXT, sources TEXT, project_id TEXT,
+  updated_at REAL);
+CREATE INDEX IF NOT EXISTS idx_research_proj ON research(project_id, kind);
 """
 
 
@@ -231,6 +241,103 @@ class StateStore:
                 "SELECT until FROM model_cooldowns WHERE model=?",
                 (model,)).fetchone()
         return bool(row and row[0] > now)
+
+    # -- research ------------------------------------------------------
+    def add_finding(self, project_id: str, kind: str, topic: str,
+                    payload: dict) -> int:
+        with self._lock:
+            cur = self._db.execute(
+                "INSERT INTO research(project_id,kind,topic,payload,created_at)"
+                " VALUES(?,?,?,?,?)",
+                (project_id, kind, topic, json.dumps(payload), _now()))
+            self._db.commit()
+            rid = cur.lastrowid
+        self.record_event(project_id, "research_finding",
+                          {"kind": kind, "topic": topic})
+        return rid
+
+    def list_findings(self, project_id: str,
+                      kind: str | None = None) -> list[dict]:
+        with self._lock:
+            if kind:
+                rows = self._db.execute(
+                    "SELECT id,kind,topic,payload,created_at FROM research "
+                    "WHERE project_id=? AND kind=? ORDER BY id",
+                    (project_id, kind)).fetchall()
+            else:
+                rows = self._db.execute(
+                    "SELECT id,kind,topic,payload,created_at FROM research "
+                    "WHERE project_id=? ORDER BY id", (project_id,)).fetchall()
+        return [{"id": r[0], "kind": r[1], "topic": r[2],
+                 "payload": json.loads(r[3]), "created_at": r[4]} for r in rows]
+
+    def add_decision(self, project_id: str, decision: str, reason: str,
+                     evidence: list[str], effects: dict,
+                     comparison: dict) -> str:
+        did = "d_" + uuid.uuid4().hex[:12]
+        with self._lock:
+            self._db.execute(
+                "INSERT INTO arch_decisions(id,project_id,decision,reason,"
+                "evidence,effects,comparison,status,created_at)"
+                " VALUES(?,?,?,?,?,?,?,?,?)",
+                (did, project_id, decision, reason, json.dumps(evidence),
+                 json.dumps(effects), json.dumps(comparison), "proposed",
+                 _now()))
+            self._db.commit()
+        self.record_event(project_id, "arch_decision_proposed",
+                          {"decision": decision})
+        return did
+
+    def set_decision_status(self, project_id: str, did: str,
+                            status: str) -> None:
+        assert status in ("proposed", "approved", "rejected")
+        with self._lock:
+            self._db.execute("UPDATE arch_decisions SET status=? WHERE id=?",
+                             (status, did))
+            self._db.commit()
+        self.record_event(project_id, "arch_decision_" + status, {"id": did})
+
+    def list_decisions(self, project_id: str,
+                       status: str | None = None) -> list[dict]:
+        with self._lock:
+            if status:
+                rows = self._db.execute(
+                    "SELECT id,decision,reason,evidence,effects,comparison,"
+                    "status,created_at FROM arch_decisions "
+                    "WHERE project_id=? AND status=? ORDER BY created_at",
+                    (project_id, status)).fetchall()
+            else:
+                rows = self._db.execute(
+                    "SELECT id,decision,reason,evidence,effects,comparison,"
+                    "status,created_at FROM arch_decisions WHERE project_id=? "
+                    "ORDER BY created_at", (project_id,)).fetchall()
+        return [{"id": r[0], "decision": r[1], "reason": r[2],
+                 "evidence": json.loads(r[3]), "effects": json.loads(r[4]),
+                 "comparison": json.loads(r[5]), "status": r[6],
+                 "created_at": r[7]} for r in rows]
+
+    def kb_put(self, topic: str, findings: dict, sources: list[str],
+               project_id: str) -> None:
+        with self._lock:
+            self._db.execute(
+                "INSERT INTO research_kb(topic,findings,sources,project_id,"
+                "updated_at) VALUES(?,?,?,?,?) "
+                "ON CONFLICT(topic) DO UPDATE SET findings=excluded.findings,"
+                "sources=excluded.sources,project_id=excluded.project_id,"
+                "updated_at=excluded.updated_at",
+                (topic, json.dumps(findings), json.dumps(sources),
+                 project_id, _now()))
+            self._db.commit()
+
+    def kb_get(self, topic: str) -> dict | None:
+        with self._lock:
+            row = self._db.execute(
+                "SELECT findings,sources,project_id,updated_at FROM research_kb"
+                " WHERE topic=?", (topic,)).fetchone()
+        if not row:
+            return None
+        return {"findings": json.loads(row[0]), "sources": json.loads(row[1]),
+                "project_id": row[2], "updated_at": row[3]}
 
     def append_attempt(self, task_id: str, entry: dict) -> None:
         """Append a per-attempt record (model, reason, quota, result)."""
