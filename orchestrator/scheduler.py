@@ -6,6 +6,7 @@ Pure control loop, no LLM. Failure policy per task:
 """
 from __future__ import annotations
 import concurrent.futures as cf
+import datetime
 import os
 import threading
 import time
@@ -13,18 +14,29 @@ import uuid
 
 from . import qa as qa_mod
 from . import worker as worker_mod
+from . import gates_qa as gates_qa_mod
+from . import opencode_worker as ocw_mod
 from .schema import validate, with_defaults
 from .state import StateStore
+from .tasklog import TaskLog
+
+
+def _iso(ts: float) -> str:
+    return datetime.datetime.fromtimestamp(ts).isoformat(timespec="seconds")
 
 
 class Orchestrator:
     def __init__(self, store: StateStore, work_root: str, registry: dict,
-                 max_workers: int = 4, worktree_provider=None):
+                 max_workers: int = 4, worktree_provider=None,
+                 repo_root: str | None = None, tasklog_path: str | None = None):
         self.store = store
         self.work_root = work_root
         self.registry = registry
         self.max_workers = max(1, max_workers)
         self.worktree_provider = worktree_provider  # optional gitiso hooks
+        self.repo_root = repo_root or os.getcwd()
+        self.tasklog = TaskLog(tasklog_path or os.path.join(
+            work_root, "tasklog.jsonl"))
         os.makedirs(work_root, exist_ok=True)
 
     # -- project setup -------------------------------------------------
@@ -82,50 +94,88 @@ class Orchestrator:
         worker_id = "w_" + uuid.uuid4().hex[:8]
         task = self.store.get_task(task_id)
         contract = task["contract"]
+        attempt_no = task["attempts"] + 1
         lease_s = float(contract.get("timeout_s", 120)) + 30.0
         if not self.store.claim_task(task_id, worker_id, lease_s):
             return
+        t0 = time.time()
         self.store.record_event(project_id, "task_started",
                                 {"task_id": task_id, "worker": worker_id,
-                                 "role": contract.get("role")})
+                                 "role": contract.get("role"),
+                                 "attempt": attempt_no})
         work_dir, wt = self._prepare_workdir(project_id, task_id)
         try:
             provided = self._gather_inputs(project_id, contract)
-            fn = self.registry.get(contract.get("kind", "generic"))
-            if fn is None:
-                self._fail(project_id, task_id, "NO_HANDLER",
-                           f"no worker for kind={contract.get('kind')}")
-                return
-            res = worker_mod.execute_task(contract, work_dir, provided, fn)
+            if contract.get("kind") == "opencode":
+                res = ocw_mod.execute_opencode_task(contract, work_dir, provided)
+            else:
+                fn = self.registry.get(contract.get("kind", "generic"))
+                if fn is None:
+                    self._fail(project_id, task_id, "NO_HANDLER",
+                               f"no worker for kind={contract.get('kind')}",
+                               t0, worker_id, None)
+                    return
+                res = worker_mod.execute_task(contract, work_dir, provided, fn)
             if not res["ok"]:
                 self._fail(project_id, task_id, res["reason"],
-                           res.get("detail", ""), extra=res)
+                           res.get("detail", ""), t0, worker_id,
+                           res.get("session_id"), extra=res)
                 return
             checks = qa_mod.run_acceptance(work_dir, contract.get("acceptance", []))
             passed, failed = qa_mod.verdict(checks)
+            gate_report: dict | None = None
+            if passed and contract.get("gates", True):
+                gate_report = gates_qa_mod.gate_changed_files(
+                    work_dir, res.get("changed", []), self.repo_root,
+                    int(contract.get("gate_timeout_s", 180)))
+                if not gate_report["passed"]:
+                    self._fail(
+                        project_id, task_id, "GATES_REJECTED",
+                        f"gates failed: {[v['path'] for v in gate_report['failed']]}",
+                        t0, worker_id, res.get("session_id"),
+                        extra={"checks": checks, "gates": gate_report,
+                               "summary": res["summary"]})
+                    return
             if not passed:
                 self._fail(project_id, task_id, "QA_FAIL",
-                           f"failed checks: {failed}",
+                           f"failed checks: {failed}", t0, worker_id,
+                           res.get("session_id"),
                            extra={"checks": checks, "summary": res["summary"]})
                 return
             if wt:
                 mg = self._merge_workdir(project_id, task_id, work_dir, wt)
                 if not mg["ok"]:
                     self._fail(project_id, task_id, "INTEGRATION_CONFLICT",
-                               mg.get("detail", ""), extra={"summary": res["summary"]})
+                               mg.get("detail", ""), t0, worker_id,
+                               res.get("session_id"),
+                               extra={"summary": res["summary"]})
                     return
             self.store.set_status(
                 task_id, "DONE", summary=res["summary"],
                 details={"outputs": res["outputs"], "changed": res["changed"],
-                         "checks": checks, "worker": worker_id},
+                         "checks": checks, "gates": gate_report,
+                         "worker": worker_id,
+                         "session_id": res.get("session_id")},
                 event_kind="task_done",
                 event_payload={"role": contract.get("role"),
-                               "changed": res["changed"]})
+                               "changed": res["changed"],
+                               "session_id": res.get("session_id")})
+            self.tasklog.emit({
+                "task_id": task_id, "worker": worker_id,
+                "session_id": res.get("session_id"), "attempt": attempt_no,
+                "started": _iso(t0), "ended": _iso(time.time()),
+                "result": "DONE", "reason": None,
+                "qa": {"acceptance": "PASS",
+                       "gates": (gate_report["verdicts"]
+                                 if gate_report else "SKIPPED_NO_CHANGES")},
+                "files": res.get("changed", [])})
         finally:
             self._cleanup_workdir(wt)
 
     def _fail(self, project_id: str, task_id: str, reason: str,
-              detail: str = "", extra: dict | None = None) -> None:
+              detail: str = "", t0: float | None = None,
+              worker_id: str | None = None, session_id: str | None = None,
+              extra: dict | None = None) -> None:
         task = self.store.get_task(task_id)
         contract = task["contract"]
         attempts = task["attempts"]
@@ -133,20 +183,35 @@ class Orchestrator:
         payload = {"reason": reason, "detail": detail[:1000], "attempts": attempts}
         if extra and isinstance(extra.get("summary"), dict):
             payload["summary"] = extra["summary"]
+        if session_id:
+            payload["session_id"] = session_id
+        outcome = ""
         if attempts < max_attempts:
             self.store.requeue(task_id, f"{reason}:attempt_{attempts}")
             self.store.record_event(project_id, "task_retry", payload)
+            outcome = "RETRY_QUEUED"
         elif contract.get("fallback_role") and contract.get("role") != contract["fallback_role"]:
             self.store.requeue(task_id, f"{reason}:reassign", new_role=contract["fallback_role"])
             self.store.record_event(project_id, "task_reassigned", payload)
+            outcome = "REASSIGNED"
         elif contract.get("splittable"):
             self.store.set_status(task_id, "NEEDS_SPLIT", summary=None,
                                  details=payload, event_kind="task_needs_split",
                                  event_payload=payload)
+            outcome = "NEEDS_SPLIT"
         else:
             self.store.set_status(task_id, "ESCALATED", summary=None,
                                  details=payload, event_kind="task_escalated",
                                  event_payload=payload)
+            outcome = "ESCALATED"
+        self.tasklog.emit({
+            "task_id": task_id, "worker": worker_id, "session_id": session_id,
+            "attempt": attempts,
+            "started": _iso(t0) if t0 else None, "ended": _iso(time.time()),
+            "result": outcome, "reason": reason, "reason_detail": detail[:500],
+            "qa": {"checks": (extra or {}).get("checks"),
+                   "gates": ((extra or {}).get("gates") or {}).get("verdicts")},
+            "files": (extra or {}).get("changed", [])})
 
     # -- workdirs / inputs ---------------------------------------------
     def _prepare_workdir(self, project_id: str, task_id: str):

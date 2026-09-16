@@ -28,6 +28,7 @@ def _contract(tid, kind="k", role="R", files=None, deps=None, acc=None, **kw):
          "acceptance": acc if acc is not None else [
              {"id": "a", "kind": "file_exists", "path": f"{tid}.txt"}]}
     c.update(kw)
+    c.setdefault("gates", False)  # MVP scope: gates covered in Phase-1 tests
     return c
 
 
@@ -94,9 +95,9 @@ def test_parallel_execution(tmp_path):
     orch = Orchestrator(store, str(tmp_path / "w"),
                         {"s1": slow("s1"), "s2": slow("s2")}, max_workers=2)
     pid = orch.submit_project("par", [
-        _contract("t1", kind="s1", files=["s1.txt"],
+        _contract("t1", kind="s1", files=["s1.txt"], gates=False,
                   acc=[{"id": "a", "kind": "file_exists", "path": "s1.txt"}]),
-        _contract("t2", kind="s2", files=["s2.txt"],
+        _contract("t2", kind="s2", files=["s2.txt"], gates=False,
                   acc=[{"id": "a", "kind": "file_exists", "path": "s2.txt"}]),
     ])
     t0 = time.time()

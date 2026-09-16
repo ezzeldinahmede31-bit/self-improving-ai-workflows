@@ -14,10 +14,14 @@ DEFAULTS = {
     "max_attempts": 3,
     "timeout_s": 120,
     "context_limit_bytes": 8192,
+    "prompt_limit_bytes": 6144,
     "max_output_bytes": 4096,
     "fallback_role": None,
     "splittable": False,
     "kind": "generic",
+    "gates": True,
+    "gate_timeout_s": 180,
+    "model": "opencode/muse-spark-1.3-contributor-free",
 }
 
 
