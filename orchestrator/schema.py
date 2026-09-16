@@ -22,6 +22,10 @@ DEFAULTS = {
     "gates": True,
     "gate_timeout_s": 180,
     "model": "opencode/muse-spark-1.3-contributor-free",
+    "model_policy": "primary-only",
+    "allow_limited": False,
+    "estimate_s": 60,
+    "file_groups": [],
 }
 
 
@@ -71,4 +75,16 @@ def validate(raw: dict) -> list[str]:
         v = raw.get(f, DEFAULTS[f])
         if not isinstance(v, int) or v <= 0:
             errors.append(f"{f} must be a positive int")
+    for f in ("prompt_limit_bytes", "gate_timeout_s", "estimate_s"):
+        v = raw.get(f, DEFAULTS[f])
+        if not isinstance(v, int) or v <= 0:
+            errors.append(f"{f} must be a positive int")
+    pol = raw.get("model_policy", DEFAULTS["model_policy"])
+    if not (pol in ("primary-only", "auto")
+            or (isinstance(pol, str) and pol.startswith("capability:"))):
+        errors.append("model_policy must be primary-only, auto, or capability:<name>")
+    if not isinstance(raw.get("allow_limited", False), bool):
+        errors.append("allow_limited must be a bool")
+    if not isinstance(raw.get("file_groups", []), list):
+        errors.append("file_groups must be a list")
     return errors

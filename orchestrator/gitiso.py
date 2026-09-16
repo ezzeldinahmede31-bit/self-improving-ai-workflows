@@ -71,3 +71,45 @@ def merge_branch(repo: str, branch: str, target: str = "main") -> dict:
 def remove_worktree(repo: str, wt_path: str, branch: str) -> None:
     _git(["worktree", "remove", "--force", wt_path], repo)
     _git(["branch", "-D", branch], repo)
+
+
+def list_worktrees(repo: str) -> list[dict]:
+    rc, out = _git(["worktree", "list", "--porcelain"], repo)
+    if rc != 0:
+        return []
+    items, cur = [], {}
+    for line in out.splitlines():
+        if line.startswith("worktree "):
+            if cur:
+                items.append(cur)
+            cur = {"path": line[len("worktree "):]}
+        elif line.startswith("branch "):
+            cur["branch"] = line[len("branch "):].split("/")[-1]
+    if cur:
+        items.append(cur)
+    return items
+
+
+def reap_stale(repo: str, work_root: str, active_paths: set[str],
+               branch_prefix: str = "wt/") -> dict:
+    """Remove leaked worktrees/branches from crashed runs.
+
+    Only touches: worktree dirs under work_root not in active_paths, and
+    branches starting with branch_prefix not backing a live worktree.
+    Never touches user branches or main. Returns a report.
+    """
+    report: dict[str, list[str]] = {"removed_worktrees": [],
+                                    "deleted_branches": [], "kept": []}
+    live_branches = {w.get("branch", "") for w in list_worktrees(repo)}
+    for w in list_worktrees(repo):
+        p = w.get("path", "")
+        if work_root in p and p not in active_paths:
+            _git(["worktree", "remove", "--force", p], repo)
+            report["removed_worktrees"].append(p)
+    rc, out = _git(["branch", "--list", f"{branch_prefix}*"], repo)
+    if rc == 0:
+        for b in [x.strip().lstrip("* ") for x in out.splitlines() if x.strip()]:
+            if b not in live_branches:
+                _git(["branch", "-D", b], repo)
+                report["deleted_branches"].append(b)
+    return report

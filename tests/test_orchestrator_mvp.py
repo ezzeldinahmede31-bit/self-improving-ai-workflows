@@ -307,3 +307,63 @@ def test_dashboard_snapshot(tmp_path):
     assert snap["counts"].get("DONE") == 1
     assert snap["tasks"][0]["task_id"] == "t1"
     store.close()
+
+
+# -- selective integration: stale worktree reaper -------------------------
+def test_reap_stale_removes_only_inactive(tmp_path):
+    from orchestrator import gitiso as g2
+    repo = str(tmp_path / "repo")
+    g2.init_repo(repo)
+    wt1 = g2.create_worktree(repo, "keep", str(tmp_path / "wt"))
+    wt2 = g2.create_worktree(repo, "stale", str(tmp_path / "wt"))
+    assert os.path.isdir(wt1["path"]) and os.path.isdir(wt2["path"])
+    rep = g2.reap_stale(repo, str(tmp_path / "wt"), {wt1["path"]})
+    assert rep["removed_worktrees"] == [wt2["path"]]
+    assert "wt/stale" in rep["deleted_branches"]
+    assert os.path.isdir(wt1["path"]) and not os.path.exists(wt2["path"])
+    # main branch untouched
+    rc, out = g2._git(["branch", "--list", "main"], repo)
+    assert rc == 0 and "main" in out
+
+
+# -- selective integration: merge-time live-overlap assert ------------------
+def test_live_overlap_helper(tmp_path):
+    from orchestrator.scheduler import Orchestrator as O2
+    store = _store(tmp_path)
+    pid = store.create_project("ov")
+    store.add_task(pid, with_defaults(_contract("ta", files=["shared.txt"])))
+    store.add_task(pid, with_defaults(_contract("tb", files=["shared.txt"])))
+    assert store.claim_task("ta", "ext", lease_s=600)
+    orch = O2(store, str(tmp_path / "w"), {}, max_workers=1)
+    assert orch._live_overlap(pid, "tb", ["shared.txt"]) == ["ta:['shared.txt']"]
+    assert orch._live_overlap(pid, "tb", ["other.txt"]) == []
+    store.close()
+
+
+def test_live_overlap_blocks_merge(tmp_path):
+    from orchestrator import gitiso as g2
+    from orchestrator.scheduler import Orchestrator as O2
+    from orchestrator.scheduler import git_worktree_provider as gwp
+    repo = str(tmp_path / "repo")
+    g2.init_repo(repo)
+
+    def writer(ctx, work_dir):
+        with open(os.path.join(work_dir, "shared.txt"), "w") as fh:
+            fh.write("b")
+        return {"notes": "b"}
+
+    store = _store(tmp_path)
+    pid = store.create_project("ovm")
+    store.add_task(pid, with_defaults(_contract("ta", files=["shared.txt"])))
+    assert store.claim_task("ta", "external-slow-worker", lease_s=600)
+    store.add_task(pid, with_defaults(_contract(
+        "tb", kind="k", files=["shared.txt"], max_attempts=1,
+        acc=[{"id": "a", "kind": "file_contains", "path": "shared.txt",
+              "text": "b"}])))
+    orch = O2(store, str(tmp_path / "w"), {"k": writer}, max_workers=1,
+              worktree_provider=gwp(repo, str(tmp_path / "wt")))
+    orch.run(pid)
+    tb = store.get_task("tb")
+    assert tb["status"] == "ESCALATED"
+    assert tb["details"]["reason"] == "INTEGRATION_CONFLICT"
+    store.close()

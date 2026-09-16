@@ -11,7 +11,8 @@ import threading
 import time
 import uuid
 
-STATUSES = ("PENDING", "RUNNING", "DONE", "FAILED", "NEEDS_SPLIT", "ESCALATED")
+STATUSES = ("PENDING", "RUNNING", "DONE", "FAILED", "NEEDS_SPLIT",
+            "ESCALATED", "DEFERRED")
 TERMINAL = ("DONE", "NEEDS_SPLIT", "ESCALATED")
 
 _SCHEMA = """
@@ -24,6 +25,10 @@ CREATE TABLE IF NOT EXISTS events(
   id INTEGER PRIMARY KEY AUTOINCREMENT, project_id TEXT, ts REAL, kind TEXT, payload TEXT);
 CREATE INDEX IF NOT EXISTS idx_tasks_proj ON tasks(project_id, status);
 CREATE INDEX IF NOT EXISTS idx_events_proj ON events(project_id, id);
+CREATE TABLE IF NOT EXISTS model_usage(
+  model TEXT PRIMARY KEY, attempts INTEGER DEFAULT 0, fallbacks INTEGER DEFAULT 0,
+  limit_hits INTEGER DEFAULT 0, updated_at REAL);
+CREATE TABLE IF NOT EXISTS model_cooldowns(model TEXT PRIMARY KEY, until REAL);
 """
 
 
@@ -167,6 +172,79 @@ class StateStore:
                 self.requeue(t["task_id"], "lease_expired_recovery")
                 reset.append(t["task_id"])
         return reset
+
+    def defer_task(self, task_id: str, reason: str,
+                   selection: dict | None = None) -> None:
+        task = self.get_task(task_id)
+        with self._lock:
+            self._db.execute(
+                "UPDATE tasks SET status='DEFERRED',lease_until=0,"
+                "worker_id=NULL,updated_at=? WHERE id=?", (_now(), task_id))
+            self._db.commit()
+        if task:
+            p = {"task_id": task_id, "reason": reason}
+            if selection:
+                p["selection"] = selection
+            self.record_event(task["project_id"], "task_deferred", p)
+
+    def release_deferred(self, project_id: str, reason: str = "manual") -> list[str]:
+        out = []
+        for t in self.list_tasks(project_id):
+            if t["status"] == "DEFERRED":
+                self.requeue(t["task_id"], f"deferred_released:{reason}")
+                out.append(t["task_id"])
+        return sorted(out)
+
+    # -- model routing ledger ------------------------------------------
+    def bump_model_usage(self, model: str, field: str) -> None:
+        assert field in ("attempts", "fallbacks", "limit_hits")
+        with self._lock:
+            self._db.execute(
+                "INSERT INTO model_usage(model,attempts,fallbacks,limit_hits,"
+                "updated_at) VALUES(?,0,0,0,?) "
+                "ON CONFLICT(model) DO NOTHING", (model, _now()))
+            self._db.execute(
+                f"UPDATE model_usage SET {field}={field}+1,updated_at=? "
+                "WHERE model=?", (_now(), model))
+            self._db.commit()
+
+    def model_usage_summary(self) -> dict:
+        with self._lock:
+            rows = self._db.execute(
+                "SELECT model,attempts,fallbacks,limit_hits FROM model_usage"
+            ).fetchall()
+        return {m: {"attempts": a, "fallbacks": f, "limit_hits": h}
+                for m, a, f, h in rows}
+
+    def set_model_cooldown(self, model: str, until: float) -> None:
+        with self._lock:
+            self._db.execute(
+                "INSERT INTO model_cooldowns(model,until) VALUES(?,?) "
+                "ON CONFLICT(model) DO UPDATE SET until=excluded.until",
+                (model, until))
+            self._db.commit()
+
+    def model_cooldown_active(self, model: str, now: float | None = None) -> bool:
+        now = now if now is not None else _now()
+        with self._lock:
+            row = self._db.execute(
+                "SELECT until FROM model_cooldowns WHERE model=?",
+                (model,)).fetchone()
+        return bool(row and row[0] > now)
+
+    def append_attempt(self, task_id: str, entry: dict) -> None:
+        """Append a per-attempt record (model, reason, quota, result)."""
+        task = self.get_task(task_id)
+        if not task:
+            return
+        details = task["details"] or {}
+        log = details.get("attempts_log", [])
+        log.append(entry)
+        details["attempts_log"] = log
+        with self._lock:
+            self._db.execute("UPDATE tasks SET details=?,updated_at=? WHERE id=?",
+                             (json.dumps(details), _now(), task_id))
+            self._db.commit()
 
     # -- events / summaries / archive ----------------------------------
     def record_event(self, project_id: str, kind: str, payload: dict) -> None:

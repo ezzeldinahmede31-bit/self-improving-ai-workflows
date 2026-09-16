@@ -143,6 +143,14 @@ class Orchestrator:
                            extra={"checks": checks, "summary": res["summary"]})
                 return
             if wt:
+                offenders = self._live_overlap(project_id, task_id,
+                                               res.get("changed", []))
+                if offenders:
+                    self._fail(project_id, task_id, "INTEGRATION_CONFLICT",
+                               f"live overlap with: {offenders}", t0, worker_id,
+                               res.get("session_id"),
+                               extra={"summary": res["summary"]})
+                    return
                 mg = self._merge_workdir(project_id, task_id, work_dir, wt)
                 if not mg["ok"]:
                     self._fail(project_id, task_id, "INTEGRATION_CONFLICT",
@@ -221,6 +229,19 @@ class Orchestrator:
         d = os.path.join(self.work_root, f"plain-{task_id}")
         os.makedirs(d, exist_ok=True)
         return d, None
+
+    def _live_overlap(self, project_id: str, task_id: str,
+                        changed: list[str]) -> list[str]:
+        """Defense-in-depth: refuse merge if a RUNNING task may touch the
+        same files (mirrors openorchestrator's runtime overlap check)."""
+        offenders = []
+        for t in self.store.list_tasks(project_id):
+            if t["task_id"] == task_id or t["status"] != "RUNNING":
+                continue
+            overlap = set(changed) & set(t["contract"].get("allowed_files", []))
+            if overlap:
+                offenders.append(f"{t['task_id']}:{sorted(overlap)}")
+        return sorted(offenders)
 
     def _merge_workdir(self, project_id: str, task_id: str, work_dir: str, wt: dict) -> dict:
         if not self.worktree_provider:
