@@ -61,3 +61,16 @@
   contributor-free (not 1.3) — zero-cost + toolcall + largest context. All 6
   live attempts default-primary, 0 fallbacks, 0 limit-hits. Rule-based
   discovery vindicated (no hardcoded name would have picked this).
+
+## 2026-09-16 — Safe-Split Optimizer + gap closures (timeout/kill/KB)
+- **BUG-9 (mine):** apply_split emitted float estimate_s (round(x,1)) but
+  schema requires int -> live submit crashed. Fixed: int(round()).
+- **Test-scenario fix (mine):** makespan-gain test put the split task OFF the
+  critical path (gain math correctly 0). Fixed scenario: big task ON the
+  critical path (gain 120s in fixture).
+- **KB improvement:** naive tokens missed plurals ("shorteners" vs
+  "shortener", Jaccard 0.2). Added len>4 trailing-s stemming (0.4, over
+  0.35 threshold); far topics still None.
+- **Runner refactor:** subprocess.run -> Popen + spawn_hook operability hook;
+  new WORKER_KILLED reason (rc<0) and SPAWN_FAILED; execute_ maps through.
+  Existing crash test updated to the sharper reason (improvement, not regress).
