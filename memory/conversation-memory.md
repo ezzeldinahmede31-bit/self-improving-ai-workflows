@@ -1543,3 +1543,7 @@ Both added to `compensatory-router` stacks.
 - Visual-verifier lesson: first full_page screenshot LOOKED like the dark room bg was missing (white margins) — pixel sampling proved margins ARE dark (#192720/#101a14), ticket #f2e8d3. My eyes misread the small preview; pixels over impressions, always.
 - Verdict: highest craft of the four (focus-visible, reduced-motion, real content, correct prices). BUT different flow stage: D is a CONFIRMATION summary (one pre-set slot + "change" link), A/B/C are SELECTION screens (pick doctor/slot). Not rivals — complements. Recommendation: A or C for selection + D for confirm. Webfont-dependent (falls back to Tahoma offline — note for spotty networks).
 - Shot copied to ~/Desktop/booking-D.png.
+
+## Quiet-luxury SYSTEM look: full booking flow, D architecture (Sep 16)
+- User: "حاجة زي كده لشكل النظام بنفس المعمارية". Built design-system-quiet-luxury.html: TWO tickets in the dark room — Ticket 1 SELECTION (doctor radio-opts, slot grid, service pickers, CTA "متابعة إلى التأكيد") + Ticket 2 CONFIRMATION (stamp, queue ٩ as the bold moment, confirm). Same tokens/grain/notches/Ruqaa/concierge tone, selected states in gold, focus-visible + reduced-motion kept.
+- Screenshot READ: both tickets render correct, dark room visible between them, selected states (11:00, تنظيف, د. سامر) all show. Files on Desktop: booking-system-quiet-luxury.html + booking-system.png.
