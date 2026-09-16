@@ -59,10 +59,8 @@ def test_local_worker_creates_file(tmp_path):
     worker = LocalWorker(str(tmp_path))
     result = worker.execute(c, {})
     assert result.ok
-    # File is created in worker's work_dir under tmp_path
-    work_dirs = list(tmp_path.glob("lw-*"))
-    assert len(work_dirs) == 1
-    assert (work_dirs[0] / "x.txt").exists()
+    # File is created directly in tmp_path (no nested lw-* dir anymore)
+    assert (tmp_path / "x.txt").exists()
 
 
 def test_local_worker_writes_content(tmp_path):
