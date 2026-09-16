@@ -1574,3 +1574,10 @@ Both added to `compensatory-router` stacks.
 - U1 settings merge FIXED (user-flagged): sched-settings-save-api +Read Current Flags (keys) +Merge Settings Input (code: explicit fields win, missing inherit current, absent→1). 10 nodes, gates READY, valid 0/0. Proven: partial {remind2h:0} → rest stay 1; stacked partial {auto_escalate:0} → remind2h stays 0; restored all-1. Battery S5 assertion updated.
 - U2 audit: 44 workflows listed — zero scratch/test/probe names (probe-debug inactive pre-existing); ACTIVE = clinic lanes + 8 sched APIs only. Redis re-swept (DEL 991002/992001/confirmed:992001 session leftovers). Staff pings = only documented live book/cancel side effects, nothing scheduled/pending.
 - pytest EXIT 0. Matrix round 3 appended. Flags all-1 production state verified.
+
+## Session closeout (Sep 16) — conversation saved on user request
+- State: sched APIs 8/8 ACTIVE (today/book/stats/attention/reminders/settings/save/conversations); eng-router 32 nodes (flags + instant_alert gate); main 65 nodes (auto_replies gate + convlog); cancel lane 16 nodes (tombstone gate). All gates READY, all n8n-valid 0/0, pytest EXIT 0.
+- Dashboard (~/Desktop/shifa-dashboard.html) fully wired to live endpoints; key in browser localStorage only.
+- Flags all-1, tallies 0, calendar empty, Redis clean of test keys, zero scratch workflows, probe execs deleted.
+- Docs: memory/test_matrix_sched.md (rounds 1-3), battery /tmp/opencode/sched_battery.sh (S2/S4/S5 assertions current).
+- Honest residuals: partial-settings now merges (fixed); Ezz test pings only from documented runs; cancel tombstone gate shipped.
