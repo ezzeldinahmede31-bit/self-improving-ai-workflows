@@ -325,7 +325,7 @@ registered in the router appear under the same family here automatically.
 - **zapier-sdk** — Zapier SDK for TypeScript.
 - **zapier-system-cloner** — Replicates any Zapier (Zap) system — especially premium/expensive ones — with identical outputs and quality on n8n or code, using different (free/local) tools w…
 
-## Marketing/SEO/Growth (43)
+## Marketing/SEO/Growth (44)
 
 - **apify-audience-analysis** — Understand audience demographics, preferences, behavior patterns, and engagement quality across Facebook, Instagram, YouTube, and TikTok.
 - **audience-psychology-analyst** — Build a psychological profile of any target audience and translate it into marketing AND video-editing decisions.
@@ -341,6 +341,7 @@ registered in the router appear under the same family here automatically.
 - **data-mapping-transformation-nodes** — Transforms payloads with explicit declarative mappings, tests.
 - **data-mining-concepts-techniques** — Applies Han, Kamber & Pei's Data Mining: Concepts and Techniques to the complete data-mining process: data preprocessing and warehouse design, mining frequent p…
 - **deep-learning-cookbook** — Applies Douwe Osinga's Deep Learning Cookbook to solve real problems with ready-to-adapt recipes in Keras: working with images, text, sound, and structured data…
+- **design-router** — Automatically routes to the best UI/UX design skills based on project type, industry, and aesthetic requirements.
 - **dont-make-me-think** — Applies Steve Krug's Don't Make Me Think to web usability: a page is good if a user can say 'of course' — self-evident design, no thinking required.
 - **environment-promotion-config** — Moves workflows across dev/stage/prod with scoped config, never copy-paste.
 - **firecrawl-scraper** — Web scraping skill using Firecrawl API for deep content extraction, format conversion, and page interaction.
@@ -700,11 +701,12 @@ registered in the router appear under the same family here automatically.
 - **xunit-test-patterns** — Applies Gerard Meszaros' XUnit Test Patterns to write clean, maintainable test suites: the Four-Phase test structure, the Test Double taxonomy (dummy, stub, fak…
 - **zero-trust-modular-decomposer** — Enforces strict modular architecture, breaking implementations into single-responsibility files (7-10 modules) with zero-trust isolation boundaries.
 
-## Browser/Device (8)
+## Browser/Device (9)
 
 - **apple-ui-designer** — Redesign mobile app UI to feel unmistakably Apple-like, iOS-forward, and native.
 - **claude-code-style-web-login** — Brows the web and logs into websites with the USER'S OWN accounts on THEIR device, replicating exactly how Claude Code does it — a visible local browser (Playwr…
 - **desktop-gui-controller** — Controls the user's real X11 desktop session (DISPLAY=:0) like a human coworker: list/focus/resize windows with wmctrl, send keyboard and mouse events, capture…
+- **frontend-design** — Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one.
 - **hitl-captcha-auth-handler** — Detects CAPTCHAs, Cloudflare Turnstile, and 2FA SMS/Email verification prompts during browser automation, triggers a Human-in-the-Loop (HITL) pause, then resume…
 - **persistent-browser-automation** — Drives a real Chromium browser (playwright or browser-use) so the agent can click, type, scroll, upload files, and extract pages exactly like a human — while re…
 - **site-login-session-registry** — Logs into websites ONCE, persists the authenticated browser session as a named profile in a registry, and reuses it on later runs so the user is not asked for c…
@@ -869,12 +871,26 @@ registered in the router appear under the same family here automatically.
 - **staff-engineer-leadership** — Applies Will Larson's Staff Engineer to operate at Staff/Principal level without a management title: find the leverage point (work where the multiplier is large…
 - **the-goal-constraints** — Applies Eliyahu Goldratt's The Goal and the Theory of Constraints to operations, processes, and any flow you are responsible for: the goal is making money (for…
 
-## Auto-installed (find-skills) (18)
+## Auto-installed (find-skills) (32)
 
 - **audit-trail-compliance** — Records actor, action, target, hashes, outcome in append-only logs for compliance.
 - **ecommerce-order-processing-flows** — Automates order lifecycles with idempotent steps + reconciliation.
 - **fan-out-fan-in-merge** — Splits work parallel then rejoins by key, handling partial failures.
 - **feature-engineering-machine-learning** — Applies Alice Zheng and Amanda Casari's Feature Engineering for Machine Learning to turn raw data into features that make models work: numeric features (scaling…
+- **hig-components-content** — Apple Human Interface Guidelines for content display components.
+- **hig-components-controls** — Apple HIG guidance for selection and input controls including pickers, toggles, sliders, steppers, segmented controls, combo boxes, text fields, text views, lab…
+- **hig-components-dialogs** — Apple HIG guidance for presentation components including alerts, action sheets, popovers, sheets, and digit entry views.
+- **hig-components-layout** — Apple Human Interface Guidelines for layout and navigation components.
+- **hig-components-menus** — Apple HIG guidance for menu and button components including menus, context menus, dock menus, edit menus, the menu bar, toolbars, action buttons, pop-up buttons…
+- **hig-components-search** — Apple HIG guidance for navigation-related components including search fields, page controls, and path controls.
+- **hig-components-status** — Apple HIG guidance for status and progress UI components including progress indicators, status bars, and activity rings.
+- **hig-components-system** — Apple HIG guidance for system experience components: widgets, live activities, notifications, complications, home screen quick actions, top shelf, watch faces,…
+- **hig-foundations** — Apple Human Interface Guidelines design foundations.
+- **hig-inputs** — Apple HIG guidance for input methods and interaction patterns: gestures, Apple Pencil, keyboards, game controllers, pointers, Digital Crown, eye tracking, focus…
+- **hig-patterns** — Apple Human Interface Guidelines interaction and UX patterns.
+- **hig-platforms** — Apple Human Interface Guidelines for platform-specific design.
+- **hig-project-context** — Create or update a shared Apple design context document that other HIG skills use to tailor guidance.
+- **hig-technologies** — Apple HIG guidance for Apple technology integrations: Siri, Apple Pay, HealthKit, HomeKit, ARKit, machine learning, generative AI, iCloud, Sign in with Apple, S…
 - **idempotency-key-design** — Makes writes safe to repeat via natural or synthetic keys enforced at store.
 - **lean-startup-ries** — Applies Ries build-measure-learn, MVP, validated learning.
 - **long-running-operations-tracking** — Models multi-minute/day jobs as operation resources with status/progress/resume.
@@ -899,4 +915,4 @@ registered in the router appear under the same family here automatically.
 - **speech-language-processing** — Applies Jurafsky & Martin's Speech and Language Processing (SLP) to build NLP systems on textbook foundations: regular expressions and text normalization, n-gra…
 
 ---
-*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-16 06:11 — 828 skills, 21 families*
+*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-16 06:44 — 844 skills, 21 families*
