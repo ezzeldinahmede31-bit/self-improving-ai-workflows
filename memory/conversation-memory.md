@@ -1562,3 +1562,10 @@ Both added to `compensatory-router` stacks.
 - Battery /tmp/opencode/sched_battery.sh: 16 PASS + 2 real finds (S4 name-cap fixed live; S2 assertion corrected). Race → single winner. Matrix: memory/test_matrix_sched.md (10 bug lessons incl. %2B offset, no-decr, string SETs, cancel re-tally lane bug OPEN).
 - Hygiene: all test events cancelled via lane, Redis test keys DELETED, tallies back 0, ~60 probe execs deleted, 3 scratch workflows deleted, pytest EXIT 0.
 - Residuals: live conversations need user's n8n API key; instant_alert stored but always-on; cancel re-tally open; Ezz got test pings.
+
+## Residuals SOLVED smartly + re-verified (Sep 16)
+- Conversations WITHOUT api key: main +Log Inbound/Outbound Turn (redis SET convmsg:<iso>[:out:]<chat>, TTL 7d, series-safe fan-out terminals) + sched-conversations-api (hMewd1vt20QoI7m4, gates READY, valid 0/0) + dashboard view wired. Live proof: probe → in-turn + agent Arabic hours reply out-turn both returned. Fixed along the way: outbound key missing chatId (derived from key name), my own shell mangling of monster key names (verify via file-driven loops).
+- instant_alert honored: eng-router +Instant Alerts Enabled? IF (flag read with default-ON-safe) between Is Alert Needed? and Alert Owner Health, false → No Action Due. Valid 0/0. Live trigger (killing Redis) unsafe → statically verified, documented.
+- Cancel re-tally CLOSED: reproduced (0→1 on tombstone), root cause = Google returns deleted events as 200 + status=cancelled (tombstone, not 404) so the lane took the full success path. Fix = +Already Cancelled? IF +Reply Already Cancelled terminal in cancel lane (16 nodes, valid 0/0). Verified: re-cancel → alreadyCancelled, tally frozen; normal cancel still works E2E (book Oct-24 → cancel → tallies 1/1 → zeroed).
+- Final sweep 10/10, pytest EXIT 0, all test events/keys/execs/scratches deleted (3 temp workflows gone), tallies 0, calendar empty.
+- Honest remaining: partial settings POST resets missing flags (dashboard always sends full set — documented); Ezz got a few staff pings from live tests.

@@ -50,3 +50,12 @@ Endpoints: sched-today / sched-book / sched-stats / sched-attention / sched-remi
 - instant_alert toggle stored but engine health alerts stay always-on (safety default, documented).
 - Cancel double-tally on missing event (item 7) open.
 - Ezz got a few staff-bot pings from live booking/cancel tests (expected side effects).
+
+## Round 2 (residual fixes, Sep 16)
+| ID | Check | Result |
+|----|-------|--------|
+| R1 | Live conversations without API key (convmsg log + endpoint) | PASS — in+out turns, correct Arabic reply |
+| R2 | instant_alert honored (static verify, default-ON-safe) | PASS (validate 0/0; live trigger unsafe to simulate) |
+| R3 | Cancel re-tally: reproduced → root cause (GCal tombstone status=cancelled) → Already Cancelled? gate → re-cancel no-tally | PASS, verified + normal cancel still works |
+| R4 | Post-fix sweep (auth×6 + 4 reads) | 10/10 PASS |
+| R5 | Full pytest | EXIT 0 |
