@@ -354,8 +354,13 @@ def test_live_overlap_blocks_merge(tmp_path):
 
     store = _store(tmp_path)
     pid = store.create_project("ovm")
-    store.add_task(pid, with_defaults(_contract("ta", files=["shared.txt"])))
-    assert store.claim_task("ta", "external-slow-worker", lease_s=600)
+    store.add_task(pid, with_defaults(_contract("ta", files=["other.txt"])))
+    store.add_task(pid, with_defaults(_contract("tc", files=["shared.txt"])))
+    assert store.claim_task("tc", "external-slow-worker", lease_s=600)
+    # ta DONE so tb is ready; tc stays RUNNING with overlapping allowed_files
+    store.set_status("ta", "DONE", summary={"task_id": "ta"},
+                     details={"outputs": {}, "changed": [], "checks": []},
+                     event_kind="task_done", event_payload={})
     store.add_task(pid, with_defaults(_contract(
         "tb", kind="k", files=["shared.txt"], max_attempts=1,
         acc=[{"id": "a", "kind": "file_contains", "path": "shared.txt",

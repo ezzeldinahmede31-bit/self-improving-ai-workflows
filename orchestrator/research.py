@@ -15,6 +15,7 @@ Rules enforced here (not by LLM):
 """
 from __future__ import annotations
 import json
+import os
 import time
 
 LICENSE_ALLOW = {"MIT", "Apache-2.0", "BSD-2-Clause", "BSD-3-Clause", "ISC"}
@@ -189,6 +190,162 @@ def build_research_prompt(topic: str, project_goal: str, depth: str) -> str:
         "Write findings/<topic>.json with fields matching the finding schema",
         "and reply DONE. Small focused output only; no secrets.",
     ])
+
+
+def build_research_goal(topic: str, repos: list[str]) -> str:
+    lines = [
+        f"Research OSS candidates for topic '{topic}'.",
+        "For EACH repo below, call the public GitHub API with curl:",
+    ]
+    for r in repos:
+        lines.append(f"  curl -s https://api.github.com/repos/{r}")
+    lines += [
+        f"Write findings/{topic}.json as a JSON object with keys:",
+        '{"candidates": [{"name":..., "url":..., "arch":... (1 line guess allowed),',
+        ' "license": <exact SPDX from API>, "activity": <pushed_at + stars from API>,',
+        ' "maintained": true/false, "tests": true/false,',
+        ' "sources": ["https://api.github.com/repos/<org>/<repo>", ...]}]}',
+        "Rules: license/activity/stars MUST come from the API output you saw.",
+        "sources MUST be only URLs you actually called. No invented numbers.",
+    ]
+    return "\n".join(lines)
+
+
+def research_task_contracts(topics: list[dict]) -> list[dict]:
+    """Build bounded research contracts. topics=[{topic, repos, deps}]."""
+    out = []
+    for t in topics:
+        tid = f"research-{t['topic']}"
+        path = f"findings/{t['topic']}.json"
+        out.append({
+            "task_id": tid, "kind": "opencode", "role": "Research Agent",
+            "goal": build_research_goal(t["topic"], t.get("repos", [])),
+            "outputs": [], "allowed_files": [path],
+            "dependencies": t.get("deps", []),
+            "acceptance": [
+                {"id": "exists", "kind": "file_exists", "path": path},
+                {"id": "sourced", "kind": "file_contains", "path": path,
+                 "text": "api.github.com"}],
+            "model_policy": "primary-only", "gates": False,
+            "timeout_s": 240, "max_attempts": 2, "estimate_s": 60,
+        })
+    return out
+
+
+def verify_license_live(github_url: str, timeout_s: int = 20) -> str | None:
+    """Deterministic re-check of a repo license via public GitHub API."""
+    import urllib.request
+    m = github_url.startswith("https://github.com/")
+    if not m:
+        return None
+    repo = github_url[len("https://github.com/"):].strip("/")
+    if repo.count("/") != 1:
+        return None
+    try:
+        req = urllib.request.Request(
+            f"https://api.github.com/repos/{repo}",
+            headers={"User-Agent": "orchestrator-verify",
+                     "Accept": "application/vnd.github+json"})
+        with urllib.request.urlopen(req, timeout=timeout_s) as r:
+            doc = json.loads(r.read().decode())
+        return ((doc.get("license") or {}).get("spdx_id"))
+    except Exception:  # noqa: BLE001 - unverifiable means unverified
+        return None
+
+
+def run_synthesis(store, project_id: str, work_root: str,
+                  verify_licenses: bool = False) -> dict:
+    """Deterministic synthesis: validate -> record -> mine -> propose.
+
+    Returns {ok, recorded, decisions, errors}. Invalid evidence fails the
+    synthesis task (retry policy applies) — decisions never come from thin air.
+    """
+    errors: list[str] = []
+    recorded = 0
+    for t in store.list_tasks(project_id):
+        if t["status"] != "DONE" or not t["task_id"].startswith("research-"):
+            continue
+        fdir = os.path.join(work_root, f"plain-{t['task_id']}", "findings")
+        if not os.path.isdir(fdir):
+            errors.append(f"{t['task_id']}: no findings dir")
+            continue
+        for fn in sorted(os.listdir(fdir)):
+            if not fn.endswith(".json"):
+                continue
+            try:
+                with open(os.path.join(fdir, fn), encoding="utf-8") as fh:
+                    doc = json.load(fh)
+            except (OSError, ValueError) as e:
+                errors.append(f"{t['task_id']}/{fn}: bad JSON ({e})")
+                continue
+            for cand in doc.get("candidates", []):
+                payload = {"name": cand.get("name"), "url": cand.get("url"),
+                           "arch": cand.get("arch", "?"),
+                           "license": cand.get("license"),
+                           "activity": cand.get("activity", "?"),
+                           "maintained": bool(cand.get("maintained")),
+                           "tests": bool(cand.get("tests")),
+                           "sources": cand.get("sources", [])}
+                errs = validate_finding("oss-candidate", payload)
+                if errs:
+                    errors.append(f"{t['task_id']}/{fn}: {errs}")
+                    continue
+                if verify_licenses and payload.get("url", "").startswith(
+                        "https://github.com/"):
+                    live = verify_license_live(payload["url"])
+                    if live is not None and live != payload["license"]:
+                        errors.append(
+                            f"{t['task_id']}/{fn}: license mismatch "
+                            f"(claimed {payload['license']}, live {live})")
+                        continue
+                store.add_finding(project_id, "oss-candidate",
+                                  t["task_id"], payload)
+                recorded += 1
+    if errors:
+        return {"ok": False, "recorded": recorded, "decisions": [],
+                "errors": errors}
+    if recorded == 0:
+        return {"ok": False, "recorded": 0, "decisions": [],
+                "errors": ["no research evidence recorded"]}
+    decisions = []
+    for f in store.list_findings(project_id, "oss-candidate"):
+        p = f["payload"]
+        v, _ = license_verdict(p.get("license"))
+        if v != "ALLOW" or not p.get("maintained") or not p.get("tests"):
+            continue
+        ok, did = propose_decision(
+            store, project_id, f"Reuse pattern from {p['name']}",
+            f"{p['license']} + maintained + tests per {p['url']}",
+            p.get("sources", []), {"reuse": [p["name"]]})
+        if ok:
+            decisions.append(did)
+    return {"ok": True, "recorded": recorded, "decisions": decisions,
+            "errors": []}
+
+
+def make_synthesis_fn(store, project_id: str, work_root: str,
+                      verify_licenses: bool = False):
+    def fn(ctx, work_dir):
+        res = run_synthesis(store, project_id, work_root, verify_licenses)
+        if not res["ok"]:
+            raise RuntimeError(f"synthesis failed: {res['errors']}")
+        with open(os.path.join(work_dir, "synthesis.json"), "w",
+                  encoding="utf-8") as fh:
+            json.dump(res, fh, ensure_ascii=False)
+        return {"notes": f"recorded={res['recorded']} "
+                         f"decisions={len(res['decisions'])}",
+                "outputs": {"recorded": res["recorded"],
+                            "decisions": res["decisions"]}}
+    return fn
+
+
+def approve_proposed(store, project_id: str) -> list[str]:
+    """Operator step: approve all proposed decisions (recorded in events)."""
+    out = []
+    for d in store.list_decisions(project_id, status="proposed"):
+        store.set_decision_status(project_id, d["id"], "approved")
+        out.append(d["id"])
+    return out
 
 
 REPORT_SECTIONS = ["Project Goal", "Open Source Candidates",

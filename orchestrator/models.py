@@ -1,9 +1,11 @@
 """Model Router: Scheduler -> Router -> Worker. Per-task model decisions.
 
+Design (MODEL_ROUTING.md, approved as-is):
 - Catalog DISCOVERED live from `opencode models --verbose` (never hardcoded).
-- Quotas/limits USER-CONFIGURED in models.json (no quota API exists).
-- Limit-hits RUNTIME-DETECTED from worker stderr patterns -> cooldown.
-- Unknown models are fail-closed: never selected unless explicitly listed.
+- Quotas USER-CONFIGURED (models.json); no quota API exists in OpenCode.
+- Limit-hits RUNTIME-DETECTED from worker stderr -> cooldown -> fallback.
+- Unknown models fail-closed: never selected unless explicitly listed.
+- Default policy primary-only: Unlimited Primary takes everything.
 """
 from __future__ import annotations
 import json
@@ -76,8 +78,7 @@ class ModelRouter:
     """Quota-aware per-task model selection with semaphores + cooldowns."""
 
     def __init__(self, registry: dict | None = None,
-                 catalog: list[dict] | None = None,
-                 store=None):
+                 catalog: list[dict] | None = None, store=None):
         reg = registry or {}
         self.models_cfg = reg.get("models", {})
         self.primary_override = reg.get("primary_override")
@@ -93,41 +94,51 @@ class ModelRouter:
         self._limited_inflight = 0
         self._forced_primary: set[str] = set()
 
-    # -- config ------------------------------------------------------
     def model_type(self, model_id: str) -> str:
         cfg = self.models_cfg.get(model_id)
         if cfg:
             return cfg.get("type", "limited")
         if model_id == self.primary:
             return "unlimited"
+        if not self.catalog and not self.models_cfg:
+            return "unlimited"  # passthrough: no quota info, no caps
         return "limited"
 
     def max_parallel(self, model_id: str) -> int:
-        cfg = self.models_cfg.get(model_id, {})
-        return int(cfg.get("max_parallel", 1))
+        if model_id in self.models_cfg:
+            return int(self.models_cfg[model_id].get("max_parallel", 1))
+        if self.catalog or self.models_cfg:
+            return 1  # managed mode: unknown models fail-closed to serial
+        return 10 ** 6  # passthrough mode: no quota info, no artificial cap
 
     def is_known(self, model_id: str) -> bool:
         return model_id in self.models_cfg or model_id == self.primary
 
     def cooldown_active(self, model_id: str, now: float | None = None) -> bool:
-        if self.store is None:
+        if self.store is None or not model_id:
             return False
         return self.store.model_cooldown_active(
             model_id, now if now is not None else time.time())
 
-    # -- selection ---------------------------------------------------
     def select(self, contract: dict, task_id: str) -> dict:
-        """Return {model, model_type, reason, quota_status, fallback_used,
-        deferred}."""
         policy = contract.get("model_policy", "primary-only")
+        if not self.catalog and not self.models_cfg:
+            # Passthrough mode (no catalog configured): honor the explicit
+            # contract model. Production should call load_live_catalog();
+            # without discovery the router cannot route, only pass through.
+            model = contract.get("model")
+            return {"model": model, "model_type": "unlimited",
+                    "reason": "passthrough-no-catalog",
+                    "quota_status": "ok", "fallback_used": False,
+                    "deferred": False}
         if task_id in self._forced_primary:
             return self._pick(self.primary, "forced-primary-after-limit-hit",
                               fallback_used=True)
         if policy in ("primary-only", "auto"):
             return self._pick(self.primary, "default-primary")
-        if policy.startswith("capability:"):
-            need = policy.split(":", 1)[1]
-            return self._select_capability(contract, task_id, need)
+        if isinstance(policy, str) and policy.startswith("capability:"):
+            return self._select_capability(
+                contract, task_id, policy.split(":", 1)[1])
         return self._pick(self.primary, f"unknown-policy-fallback:{policy}",
                           fallback_used=True)
 
@@ -159,7 +170,7 @@ class ModelRouter:
             if need not in (e.get("capabilities") or []):
                 continue
             if not self.is_known(mid):
-                continue  # fail-closed: unlisted models never selected
+                continue
             cands.append(mid)
         cands.sort(key=lambda m: (0 if m == self.primary else 1, m))
         if not cands:
@@ -167,36 +178,35 @@ class ModelRouter:
                     "reason": f"no-model-has-capability:{need}",
                     "quota_status": "deferred", "fallback_used": False,
                     "deferred": True}
+        limited_skipped = any(
+            mid != self.primary and self.cooldown_active(mid) for mid in cands)
         for mid in cands:
             if mid == self.primary:
-                return self._pick(mid, f"capability-need:{need}-via-primary")
+                return self._pick(
+                    mid, f"capability-need:{need}-via-primary",
+                    fallback_used=limited_skipped)
             if contract.get("allow_limited"):
                 if self.cooldown_active(mid):
                     continue
-                return self._pick(mid, f"capability-need:{need}",
-                                  fallback_used=False)
-        # limited-only candidates but no allowance -> defer (never burn silently)
+                return self._pick(mid, f"capability-need:{need}")
         prim = self.by_id.get(self.primary or "")
         if prim and need in (prim.get("capabilities") or []):
-            return self._pick(self.primary, f"capability-need:{need}-via-primary")
+            return self._pick(self.primary, f"capability-need:{need}-via-primary",
+                              fallback_used=True)
         return {"model": None, "model_type": "unknown",
                 "reason": f"capability-need:{need}-limited-only-no-allowance",
                 "quota_status": "deferred", "fallback_used": False,
                 "deferred": True}
 
-    # -- quota guards --------------------------------------------------
     def headroom(self, model: str) -> int:
         with self._lock:
-            if model is None or self.cooldown_active(model):
+            if not model or self.cooldown_active(model):
                 return 0
             return max(0, self.max_parallel(model) - self._inflight.get(model, 0))
 
     def try_acquire(self, model: str) -> bool:
-        """Non-blocking acquire respecting per-model + limited-global caps."""
         with self._lock:
-            if model is None:
-                return False
-            if self.cooldown_active(model):
+            if not model or self.cooldown_active(model):
                 return False
             if self._inflight.get(model, 0) >= self.max_parallel(model):
                 return False
@@ -209,7 +219,7 @@ class ModelRouter:
 
     def release(self, model: str) -> None:
         with self._lock:
-            if model is None:
+            if not model:
                 return
             self._inflight[model] = max(0, self._inflight.get(model, 0) - 1)
             if self.model_type(model) == "limited":
@@ -221,8 +231,8 @@ class ModelRouter:
 
     def report_limit_hit(self, model: str, project_id: str | None = None,
                          task_id: str | None = None) -> None:
+        until = time.time() + self.cooldown_s
         with self._lock:
-            until = time.time() + self.cooldown_s
             if self.store is not None:
                 self.store.set_model_cooldown(model, until)
                 self.store.bump_model_usage(model, "limit_hits")

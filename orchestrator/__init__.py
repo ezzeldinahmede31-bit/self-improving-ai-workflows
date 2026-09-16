@@ -8,8 +8,8 @@ from .scheduler import Orchestrator
 from .state import StateStore
 from .tasklog import TaskLog
 from . import dag, schema, worker, qa, gitiso, dashboard, opencode_worker, \
-    gates_qa, research
+    gates_qa, research, models
 
 __all__ = ["Orchestrator", "StateStore", "TaskLog", "dag", "schema",
            "worker", "qa", "gitiso", "dashboard", "opencode_worker",
-           "gates_qa", "research"]
+           "gates_qa", "research", "models"]

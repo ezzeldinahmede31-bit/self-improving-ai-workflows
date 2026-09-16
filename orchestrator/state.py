@@ -368,6 +368,14 @@ class StateStore:
                 "ORDER BY id DESC LIMIT ?", (project_id, limit)).fetchall()
         return [{"ts": ts, "kind": k, "payload": json.loads(p)} for ts, k, p in rows]
 
+    def project_events(self, project_id: str) -> list[dict]:
+        """Full ordered event stream (for reports/metrics)."""
+        with self._lock:
+            rows = self._db.execute(
+                "SELECT ts,kind,payload FROM events WHERE project_id=? "
+                "ORDER BY id", (project_id,)).fetchall()
+        return [{"ts": ts, "kind": k, "payload": json.loads(p)} for ts, k, p in rows]
+
     def archive_task(self, task_id: str) -> bool:
         """Drop bulky details, keep the summary. Anti-bloat primitive."""
         task = self.get_task(task_id)
