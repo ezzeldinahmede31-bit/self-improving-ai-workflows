@@ -108,7 +108,7 @@ class LocalWorker:
         start = time.perf_counter()
         task_id = contract.get("task_id", "unknown")
         timeout_s = contract.get("timeout_s", 120)
-        work_dir = os.path.join(self.work_root, f"lw-{task_id}")
+        work_dir = self.work_root
         os.makedirs(work_dir, exist_ok=True)
 
         try:
@@ -172,7 +172,7 @@ class LocalWorker:
         # Parse the goal to determine what to create
         if "create" in goal and ("file" in goal or "pyproject.toml" in goal or "readme" in goal):
             changed.extend(self._create_files_from_goal(goal, work_dir, allowed))
-        elif "create" in goal and ("core" in goal or "calc" in goal or "init" in goal):
+        elif "create" in goal and ("core" in goal or "calc" in goal or "init" in goal or "analyze" in goal):
             changed.extend(self._create_core_files(work_dir, allowed))
         elif "cli" in goal and ("main" in goal or "print" in goal):
             changed.extend(self._create_cli_file(work_dir, allowed))

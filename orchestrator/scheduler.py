@@ -176,9 +176,18 @@ class Orchestrator:
             exec_mode = contract.get("execution_mode", "llm")
             if exec_mode == "local" and contract.get("kind") == "opencode":
                 # Execute with local worker pool (fast, deterministic)
-                local_worker = lw_mod.LocalWorker(os.path.join(self.work_root, f"lw-{task_id}"))
+                local_worker = lw_mod.LocalWorker(work_dir)
                 lw_res = local_worker.execute(contract, provided)
                 # Normalize to dict format expected by rest of code
+                # Build summary similar to opencode worker
+                lw_summary = {
+                    "task_id": task_id,
+                    "role": contract.get("role"),
+                    "changed": lw_res.changed_files,
+                    "outputs": lw_res.outputs,
+                    "notes": lw_res.detail or "",
+                    "context_bytes": lw_res.execution_time,
+                }
                 res = {
                     "ok": lw_res.ok,
                     "reason": lw_res.reason,
@@ -186,6 +195,7 @@ class Orchestrator:
                     "changed": lw_res.changed_files,
                     "outputs": lw_res.outputs,
                     "session_id": lw_res.session_id,
+                    "summary": lw_summary,
                 }
             elif contract.get("kind") == "opencode":
                 res = ocw_mod.execute_opencode_task(contract, work_dir, provided,
