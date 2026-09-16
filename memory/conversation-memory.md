@@ -1569,3 +1569,8 @@ Both added to `compensatory-router` stacks.
 - Cancel re-tally CLOSED: reproduced (0→1 on tombstone), root cause = Google returns deleted events as 200 + status=cancelled (tombstone, not 404) so the lane took the full success path. Fix = +Already Cancelled? IF +Reply Already Cancelled terminal in cancel lane (16 nodes, valid 0/0). Verified: re-cancel → alreadyCancelled, tally frozen; normal cancel still works E2E (book Oct-24 → cancel → tallies 1/1 → zeroed).
 - Final sweep 10/10, pytest EXIT 0, all test events/keys/execs/scratches deleted (3 temp workflows gone), tallies 0, calendar empty.
 - Honest remaining: partial settings POST resets missing flags (dashboard always sends full set — documented); Ezz got a few staff pings from live tests.
+
+## Residuals round 3: settings merge + no-test-automation audit (Sep 16)
+- U1 settings merge FIXED (user-flagged): sched-settings-save-api +Read Current Flags (keys) +Merge Settings Input (code: explicit fields win, missing inherit current, absent→1). 10 nodes, gates READY, valid 0/0. Proven: partial {remind2h:0} → rest stay 1; stacked partial {auto_escalate:0} → remind2h stays 0; restored all-1. Battery S5 assertion updated.
+- U2 audit: 44 workflows listed — zero scratch/test/probe names (probe-debug inactive pre-existing); ACTIVE = clinic lanes + 8 sched APIs only. Redis re-swept (DEL 991002/992001/confirmed:992001 session leftovers). Staff pings = only documented live book/cancel side effects, nothing scheduled/pending.
+- pytest EXIT 0. Matrix round 3 appended. Flags all-1 production state verified.

@@ -59,3 +59,10 @@ Endpoints: sched-today / sched-book / sched-stats / sched-attention / sched-remi
 | R3 | Cancel re-tally: reproduced → root cause (GCal tombstone status=cancelled) → Already Cancelled? gate → re-cancel no-tally | PASS, verified + normal cancel still works |
 | R4 | Post-fix sweep (auth×6 + 4 reads) | 10/10 PASS |
 | R5 | Full pytest | EXIT 0 |
+
+## Round 3 (user-flagged residuals, Sep 16)
+| ID | Check | Result |
+|----|-------|--------|
+| U1 | Settings partial-save merge (was reset bug) | FIXED: +Read Current Flags +Merge (10 nodes, gates READY, valid 0/0). Proven: partial {remind2h:0} keeps rest; stacked partials merge; restore all-1 verified |
+| U2 | No test automations running | VERIFIED: 44 workflows listed, zero scratch/test/probe names; all ACTIVE = production lanes + 8 sched APIs; Redis test keys re-swept (3 more DEL: 991002/992001/confirmed:992001); Ezz pings only from documented live book/cancel runs, nothing pending |
+| U3 | Full pytest | EXIT 0 |
