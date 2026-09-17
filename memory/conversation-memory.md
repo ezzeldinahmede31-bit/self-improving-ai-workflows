@@ -1665,3 +1665,9 @@ Both added to `compensatory-router` stacks.
 - Hard-won lessons: (1) Code-node $helpers NOT available on this n8n (use plain HTTP nodes); (2) reasoning model dumps thinking — needs max_tokens headroom (2500) + 300s HTTP timeout + last/scoring JSON extractor; (3) pretty-printed JSON has `{ "angles"` with space — brace-scan extractor; (4) Telegram "chat not found" until user presses START; (5) meta/llama-3.3-70b-instruct EOL 2026-08-26, other NIM models 404 for this account.
 - Baselines reused (best-practice-first): n8n template 13528 (research→approve→publish), 17021 (scheduled publisher), 16495 (Meta+Buffer), GitHub abuzar561 trend pipeline (direction-only, no repost), BibiGPT no-name-hit method, Stormy/Larry drafts-over-API (TikTok manual post).
 - Next phases: P2 script generator (pillar → full 60s script), P3 approval+publish (FB/IG/YT auto, TikTok draft+notify), P4 analytics loop.
+
+## Trend radar v2 — LinkedIn lane added + determinism fixes (Sep 17 2026)
+- User: "نسيت linkedin". Added deterministic LinkedIn lane: NO extra LLM call (reasoning model kept dumping thinking into the post) — `Compose LinkedIn Post` Code node builds the post from angle data (hook + top-3 topics + fixed discussion Q + WhatsApp CTA + hashtags). Final workflow = 16 nodes, redeployed + ACTIVE (p09lXYT1Ul6wFqkk).
+- Live proof exec 4207 success: rich 5-angle digest + copy-paste LinkedIn post from @Manger_social_media_bot.
+- Determinism design: two-call (analyze → transcribe) + scoring brace extractor + Angle-line fallback (marked مسودة سريعة) + entity sanitizer (Telegram 400 fix). Daily report ALWAYS arrives; rich when model cooperates.
+- Lessons: (1) never string-splice expressions — rebuild + node --check every expression; (2) aggressive sanitizer ate template punctuation — sanitize VALUES only; (3) stale final deploy caught by node-count check (14 vs 16) — always re-PUT after changes.
