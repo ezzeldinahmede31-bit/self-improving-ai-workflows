@@ -364,6 +364,33 @@ def _extract_node_refs(text: str) -> list[str]:
     return [r for r in refs if r]
 
 
+def _is_tool_wired(connections, node_name: str) -> bool:
+    """Is this node wired through an agent-tool channel (ai_tool output, in
+    either direction)? $fromAI(...) only resolves inside such tool context —
+    anywhere else it is a guaranteed runtime error (workflow-sdk
+    FROM_AI_IN_NON_TOOL)."""
+    if not isinstance(connections, dict):
+        return False
+    for src, groups in connections.items():
+        if not isinstance(groups, dict):
+            continue
+        for out_key, targets in groups.items():
+            if "tool" not in (out_key or "").lower():
+                continue
+            if src == node_name:
+                return True
+            flat = targets if isinstance(targets, list) else [targets]
+            stack = list(flat)
+            while stack:
+                t = stack.pop()
+                if isinstance(t, dict):
+                    if t.get("node") == node_name:
+                        return True
+                elif isinstance(t, list):
+                    stack.extend(t)
+    return False
+
+
 def _is_agent_node(node_type: str) -> bool:
     """LLM-agent-maturity target (Package E): the AGENT CONTAINER node that
     orchestrates a model + tools + memory (n8n-nodes-langchain.agent and
@@ -607,6 +634,25 @@ class DeepReasoningGate:
                 findings.append("NEEDS_REVIEW: counting problem without independent verification")
         else:
             findings.append("no counting/boundary trigger — off-by-one class not flagged")
+
+        # n8n branch-logic review (business-logic flaws no scanner catches —
+        # AppSecure 2026: approval steps that can be skipped, branches that
+        # default to ALLOW on error). Notes only; PRECISION A2/C1 own the
+        # blocking verdicts.
+        artifact_nodes = []
+        if isinstance(artifact, dict):
+            artifact_nodes = artifact.get("nodes", []) or []
+        if artifact_nodes:
+            findings.append("n8n workflow artifact — branch/error-path review applied")
+            for _n in artifact_nodes:
+                _seg = str(_n.get("type", "")).lower().rsplit(".", 1)[-1]
+                if _seg in ("if", "switch", "switchv3"):
+                    if _n.get("continueOnFail") or _n.get("onError") == "continueRegularOutput":
+                        findings.append(
+                            f"branch node '{_n.get('name')}' continues on error — "
+                            f"failure defaults to ALLOW; halt or route to an "
+                            f"error path instead")
+                        break
 
         if math_status == "FAIL":
             findings.append("math gate failed — artifact must not ship")
@@ -1068,16 +1114,29 @@ class DryRunGate:
         full_text = json.dumps(workflow, default=str)
         has_expected_parity = bool(expected) and str(expected) in full_text
 
+        def _node_has_pinned(n: dict) -> bool:
+            # n8n stores pinned data in THREE shapes across versions: inside
+            # parameters (classic), as a node-level field, and as a
+            # workflow-root {nodeName: [...]} map. Accept any of them —
+            # rejecting a real trial run over a storage-shape technicality
+            # is a false FAIL.
+            if (n.get("parameters") or {}).get("pinnedData"):
+                return True
+            if n.get("pinnedData"):
+                return True
+            root_pinned = workflow.get("pinnedData") or {}
+            if isinstance(root_pinned, dict) and root_pinned.get(n.get("name")):
+                return True
+            return False
+
         triggers = [n for n in nodes if _is_trigger_node(n.get("type") or "")]
         if triggers:
             # Trial evidence must sit on the TRIGGER (the node that actually
             # starts the run) — pinned data buried mid-graph proves nothing.
-            has_pinned = any((n.get("parameters") or {}).get("pinnedData")
-                             for n in triggers)
+            has_pinned = any(_node_has_pinned(n) for n in triggers)
         else:
             # No trigger (offline mock / subworkflow): any pinned node counts.
-            has_pinned = any((n.get("parameters") or {}).get("pinnedData")
-                             for n in nodes)
+            has_pinned = any(_node_has_pinned(n) for n in nodes)
 
         if not has_pinned and not has_expected_parity:
             violations.append("no dry-run evidence: nodes carry no pinned data and no "
@@ -1156,6 +1215,27 @@ class N8nPrecisionGate:
           logic shipped into a deployable workflow
       F5  WARNING — a node using an insecure http:// (non-TLS) URL literal —
           credentials/data ride plaintext if this is ever reached
+
+    Package I (secret / SSRF / tool-context parity — FAIL):
+      I1  FAIL — a secret literal embedded in node parameters or a URL
+          (Bearer/Basic literal, ?api_key/?token= query, secret-named field
+          with a long literal, high-entropy key assignment in Code). Mirrors
+          SecurityGate natively so a --no-complaints / security-disabled run
+          still blocks active exposure.
+      I2  FAIL — a static httpRequest URL targeting a private/loopback host
+          (localhost, 127.x, RFC-1918, link-local, file://...). Mirrors the
+          ssrf_internal_egress probe natively.
+      I3  FAIL — a $fromAI(...) placeholder inside a node that is NOT wired
+          as an agent tool (ai_tool) — runtime error outside tool context.
+
+    Package J (expression / wiring hygiene — WARNING):
+      J1  WARNING — bare $json/$node/$input/... value without the ={{...}}
+          wrapper (evaluates as literal text — the #1 AI-generation mistake).
+      J2  WARNING — {{...}} expression missing the `=` prefix.
+      J3  WARNING — a Merge node with a single wired input (waits for inputs
+          that never arrive / misbehaves).
+      J4  WARNING — a scheduleTrigger flow with no settings.timezone (cron
+          silently runs in UTC, not wall-clock time).
 
     Package H (n8n runtime semantics — booking-campaign lessons):
       H1  FAIL — two nodes sharing one node id (duplicate ids corrupt
@@ -1597,6 +1677,155 @@ class N8nPrecisionGate:
                     f"real items; key on <chat>:<mid>"
                 )
 
+        # ---- Package I: secret / SSRF / tool-context parity (FAIL) ----
+        # Structural mirror of the SecurityGate n8n-native scans: a workflow
+        # that leaks a secret or reaches the private network must not depend
+        # on which gate ran first — it fails here too.
+        _SECRET_FIELD_NAMES = (
+            "api_key", "apikey", "apikey_", "apiKey", "token", "password",
+            "secret", "access_token", "accesstoken", "client_secret",
+            "clientsecret", "authorization", "auth_token", "private_key",
+            "privatekey",
+        )
+        for n in nodes:
+            nm = n.get("name")
+            params = n.get("parameters") or {}
+
+            def _walk_params(obj, key=""):
+                if isinstance(obj, dict):
+                    for k, v in obj.items():
+                        _walk_params(v, k)
+                elif isinstance(obj, list):
+                    for v in obj:
+                        _walk_params(v, key)
+                elif isinstance(obj, str):
+                    if not obj.strip() or "{{" in obj:
+                        return
+                    leaf = str(key).lower()
+                    s = obj.strip()
+                    # I1a — secret-named field with a real-length literal.
+                    if leaf in _SECRET_FIELD_NAMES and len(s) >= 12:
+                        violations.append(
+                            f"I1: node '{nm}' field '{key}' embeds a secret "
+                            f"literal — move it to the credential store "
+                            f"(exports leak literals)")
+                    # I1b — auth material in a URL query string.
+                    if ("http" in s or "://" in s) and re.search(
+                            r"[?&](?:api[_-]?key|token|access[_-]?token|auth|"
+                            r"secret|password)=", s, re.IGNORECASE):
+                        violations.append(
+                            f"I1: node '{nm}' field '{key}' carries auth "
+                            f"material in a URL query string — logged by "
+                            f"proxies/history; use header auth via the "
+                            f"credential store")
+                    # I1c — Bearer/Basic literal in any parameter.
+                    if re.search(r"Bearer\s+[A-Za-z0-9\-._~+/]{12,}=*",
+                                 s) or re.search(
+                            r"Basic\s+[A-Za-z0-9+/]{12,}={0,2}", s):
+                        violations.append(
+                            f"I1: node '{nm}' field '{key}' embeds an "
+                            f"Authorization literal — bind a credential "
+                            f"instead of hardcoding it")
+
+            _walk_params(params)
+
+            # I2 — static URL to a private/loopback host.
+            for field in ("url", "webhookUrl", "host", "server"):
+                val = params.get(field)
+                if not isinstance(val, str) or not val.strip():
+                    continue
+                if "{{" in val:
+                    continue
+                for pat in (r"127\.0\.0\.1", r"\blocalhost\b", r"0\.0\.0\.0",
+                            r"::1", r"192\.168\.", r"10\.\d+\.",
+                            r"172\.(1[6-9]|2\d|3[01])\.", r"169\.254\.",
+                            r"\bfile://", r"\bgopher://", r"\bdict://"):
+                    if re.search(pat, val, re.IGNORECASE):
+                        violations.append(
+                            f"I2: node '{nm}' URL targets an internal host "
+                            f"(`{pat}` in '{val[:72]}') — SSRF / "
+                            f"lateral-movement vector; use a public endpoint "
+                            f"or an explicit allowlist")
+                        break
+
+            # I3 — $fromAI outside an agent-tool context.
+            ntype = n.get("type") or ""
+            param_text = json.dumps(params, default=str)
+            if "$fromAI" in param_text or "$fromAi" in param_text:
+                is_tool = _is_tool_wired(connections, nm)
+                if not is_tool:
+                    violations.append(
+                        f"I3: node '{nm}' uses $fromAI(...) but is not wired "
+                        f"as an agent tool (ai_tool) — $fromAI only resolves "
+                        f"inside tool context; runtime error otherwise")
+
+        # ---- Package J: expression / wiring hygiene (WARNING) ----
+        for n in nodes:
+            nm = n.get("name")
+            ntype = n.get("type") or ""
+            params = n.get("parameters") or {}
+
+            def _walk_expr(obj, key=""):
+                if isinstance(obj, dict):
+                    for k, v in obj.items():
+                        _walk_expr(v, k)
+                elif isinstance(obj, list):
+                    for v in obj:
+                        _walk_expr(v, key)
+                elif isinstance(obj, str):
+                    if key in {"jsCode", "functionCode", "pythonCode"}:
+                        return
+                    s = obj.strip()
+                    if not s:
+                        return
+                    if s.startswith("=") or not s:
+                        return
+                    if s.startswith("{{"):
+                        warnings.append(
+                            f"J2: node '{nm}' field '{key}' is {{{{...}}}} "
+                            f"without the `=` prefix — n8n treats it as "
+                            f"literal text; write ={{{{...}}}}")
+                        return
+                    for pat in (r"^\$json[.\[]", r"^\$node\[", r"^\$input\.",
+                                r"^\$execution\.", r"^\$workflow\.",
+                                r"^\$prevNode\.", r"^\$env\.",
+                                r"^\$(now|today|itemIndex|runIndex)$"):
+                        if re.search(pat, s):
+                            warnings.append(
+                                f"J1: node '{nm}' field '{key}' looks like an "
+                                f"unwrapped expression ({s[:48]!r}) — n8n "
+                                f"evaluates it as literal text; wrap as "
+                                f"={{{{...}}}}")
+                            break
+
+            _walk_expr(params)
+
+            # J3 — Merge node with a single wired input.
+            if _normalize_node_type(ntype) == "n8n-nodes-base.merge":
+                in_count = sum(
+                    1 for src, groups in (connections or {}).items()
+                    if isinstance(groups, dict)
+                    for edges in [groups.get("main")]
+                    if isinstance(edges, list)
+                    for grp in (edges if all(isinstance(x, list) for x in edges)
+                                else [edges])
+                    for e in (grp if isinstance(grp, list) else [grp])
+                    if isinstance(e, dict) and e.get("node") == nm)
+                if in_count < 2:
+                    warnings.append(
+                        f"J3: Merge node '{nm}' has {in_count} wired input(s) "
+                        f"— Merge waits for multiple inputs; a single input "
+                        f"hangs or misbehaves (use it only to join branches)")
+
+        # J4 — scheduleTrigger flow with no explicit time zone.
+        if any("scheduletrigger" in (n.get("type") or "").lower() for n in nodes):
+            settings_j = workflow.get("settings") or {}
+            if not settings_j.get("timezone") and "timezone" not in full_text.lower():
+                warnings.append(
+                    "J4: scheduleTrigger flow with no settings.timezone — "
+                    "cron silently runs in UTC; set the wall-clock zone "
+                    "(e.g. Africa/Cairo) explicitly")
+
         # H5 — errorWorkflow must be a plain workflow-ID string.
         settings = workflow.get("settings") or {}
         ew = settings.get("errorWorkflow")
@@ -1640,9 +1869,10 @@ class RagVectorGate:
       R3  FAIL — a tool/retriever connection (ai_vectorStore / ai_retriever)
           wires a target node that does not exist in the workflow — dangling
           retriever ref = runtime error.
-      R4  WARNING — an HTTP Request node calls a Qdrant REST /points path
-          with method POST (upsert must be PUT; POST is the RETRIEVE
-          endpoint and errors 'missing field `ids`' at runtime).
+      R4  FAIL — an HTTP Request node calls a Qdrant REST /points upsert
+          path with method POST (upsert must be PUT; POST on the bare
+          /points path deterministically errors 'missing field `ids`' at
+          runtime — certain breakage, never a warning).
       R5  WARNING — an HTTP Request node calls the NVIDIA embeddings endpoint
           without an `input_type` (passage/query) body field — NVIDIA
           mis-embeds / rejects with 4xx.
@@ -1724,7 +1954,7 @@ class RagVectorGate:
             path = url.split("?", 1)[0].rstrip("/")
             if method == "POST" and path.endswith("/points") and "search" not in path \
                     and "delete" not in path:
-                warnings.append(
+                violations.append(
                     f"R4: node '{n.get('name')}' calls Qdrant with POST on "
                     f"{path} — upsert must be PUT; POST is the RETRIEVE "
                     f"endpoint and errors 'missing field `ids`' at runtime"

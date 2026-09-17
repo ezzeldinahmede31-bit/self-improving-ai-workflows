@@ -198,14 +198,15 @@ def test_r3_valid_wiring_no_violation():
 
 
 # ---------------------------------------------------------------------------
-# R4 — Qdrant upsert must be PUT, not POST (WARNING)
+# R4 — Qdrant upsert must be PUT, not POST (FAIL: certain runtime 400)
 # ---------------------------------------------------------------------------
 
-def test_r4_qdrant_post_upsert_warns():
+def test_r4_qdrant_post_upsert_fails():
     n = _node("Q HTTP", "n8n-nodes-base.httpRequest", method="POST",
               url="https://x.qdrant.io/collections/docs/points")
     r = RagVectorGate().run(_wf([n]))
-    assert any("R4" in w for w in r["warnings"])
+    assert r["status"] == "FAIL"
+    assert any("R4" in v for v in r["violations"])
 
 
 def test_r4_qdrant_put_upsert_no_warning():

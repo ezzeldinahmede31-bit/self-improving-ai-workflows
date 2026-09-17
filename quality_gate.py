@@ -2,6 +2,12 @@
 
 Deterministic quality scoring of n8n workflow JSON against Schema V2 syntax,
 graph integrity, and reliability requirements. Score below 80 = FAIL.
+
+n8n-native parity (baked in — same grade as code): bare unwrapped
+expressions ($json... without ={{...}}), missing `=` prefixes, deprecated
+Function nodes, and empty node names are scored; node-name *style*
+(verb-prefix) is a non-blocking note, never a deduction — idiomatic n8n
+names like "Webhook" must not lose points.
 """
 
 import re
@@ -13,6 +19,21 @@ QUALITY_THRESHOLD = 80
 MAX_ATTEMPTS = 3
 MAX_CYCLOMATIC = 10
 MAX_NODES_SINGLE_WORKFLOW = 10
+
+# Bare n8n variable references used as plain string values WITHOUT the
+# ={{...}} expression wrapper — n8n evaluates them as literal text, so the
+# node silently receives the wrong value. The most common AI-generation
+# mistake (n8n-mcp #677). Anchored (^) to avoid flagging prose/SQL/comments.
+# NOTE: Code-node sources (jsCode/functionCode/pythonCode) are JS, not
+# expression strings — excluded from this scan (syntax gate owns them).
+BARE_EXPRESSION_RES = [
+    r"^\$json[.\[]", r"^\$node\[", r"^\$input\.", r"^\$execution\.",
+    r"^\$workflow\.", r"^\$prevNode\.", r"^\$env\.",
+    r"^\$(now|today|itemIndex|runIndex|executionId)$",
+]
+
+# Code-bearing parameter keys: JavaScript/Python source, never expressions.
+CODE_PARAM_KEYS = {"jsCode", "functionCode", "pythonCode"}
 
 
 # Deprecated syntax (banned)
@@ -53,13 +74,68 @@ class QualityGate:
                 findings.append("Code-node uses bare $json without $input accessor")
         return findings
 
-    def _scan_graph(self, nodes: list[dict]) -> list[str]:
-        findings = []
-        # Node names
+    def _scan_graph(self, nodes: list[dict]) -> tuple[list[str], list[str]]:
+        """Returns (deductions, style_notes).
+
+        Only EMPTY/missing names deduct score. Verb-prefix style is a
+        non-blocking note — n8n-native names ('Webhook', 'HTTP Request',
+        'Set1') are idiomatic and must not lose points the way a code
+        lint would penalize them."""
+        deductions = []
+        style_notes = []
         for n in nodes:
             name = n.get('name', '')
-            if not re.match(r'^[A-Z][a-zA-Z]+\s[A-Z][a-zA-Z]+', name):
-                findings.append(f"Node name not verb-prefixed/discoverable: `{name}`")
+            if not name or not str(name).strip():
+                deductions.append("Node with empty/missing name — nodes must be named")
+            elif not re.match(r'^[A-Z][a-zA-Z]+\s[A-Z][a-zA-Z]+', str(name)):
+                style_notes.append(
+                    f"Style (non-blocking): node name `{name}` is not "
+                    f"verb-prefixed/discoverable (e.g. 'Send Email')")
+        return deductions, style_notes
+
+    def _scan_expressions(self, workflow: dict) -> list[str]:
+        """Bare / malformed n8n expressions in plain string parameters."""
+        findings = []
+        for n in workflow.get('nodes', []):
+            params = n.get('parameters', {}) or {}
+            bad_hits: list[str] = []
+
+            def _walk(obj, key=""):
+                if isinstance(obj, dict):
+                    for k, v in obj.items():
+                        _walk(v, k)
+                elif isinstance(obj, list):
+                    for v in obj:
+                        _walk(v, key)
+                elif isinstance(obj, str):
+                    if key in CODE_PARAM_KEYS or not obj.strip():
+                        return
+                    s = obj.strip()
+                    if s.startswith("=") or "{{" in s and s.startswith("{{"):
+                        # {{...}} without the `=` prefix — n8n treats it as
+                        # literal text, not an expression.
+                        if s.startswith("{{"):
+                            bad_hits.append(f"{key}={s[:48]!r} (missing `=` prefix)")
+                        return
+                    for pat in BARE_EXPRESSION_RES:
+                        if re.search(pat, s):
+                            bad_hits.append(f"{key}={s[:48]!r} (bare, unwrapped)")
+                            break
+
+            _walk(params)
+            if bad_hits:
+                findings.append(
+                    f"Node `{n.get('name')}` has {len(bad_hits)} bare/malformed "
+                    f"expression(s) — wrap as ={{{{...}}}}: {bad_hits[0]}")
+        return findings
+
+    def _scan_deprecated_nodes(self, nodes: list[dict]) -> list[str]:
+        findings = []
+        for n in nodes:
+            if str(n.get('type', '')) == "n8n-nodes-base.function":
+                findings.append(
+                    f"Node `{n.get('name')}` uses deprecated Function node — "
+                    f"use the Code node (n8n-nodes-base.code) instead")
         return findings
 
     def _scan_complexity(self, js: str) -> int:
@@ -142,11 +218,24 @@ class QualityGate:
             score -= 15 * len(syntax)
             violations += syntax
 
-        # 2. Graph integrity (-10 each)
-        graph = self._scan_graph(nodes)
-        if graph:
+        # 2. Graph integrity (-10 for empty names; style is non-blocking)
+        graph_deductions, graph_style = self._scan_graph(nodes)
+        if graph_deductions:
             score -= 10
-            violations += graph[:1]  # one message for naming
+            violations += graph_deductions[:1]
+        violations += graph_style[:3]  # style notes: visible, never scored
+
+        # 2b. n8n expression format (-5 per affected node, max -15)
+        expr = self._scan_expressions(workflow)
+        if expr:
+            score -= 5 * min(len(expr), 3)
+            violations += expr
+
+        # 2c. Deprecated node types (-5 each)
+        dep_nodes = self._scan_deprecated_nodes(nodes)
+        if dep_nodes:
+            score -= 5 * len(dep_nodes)
+            violations += dep_nodes
 
         # 3. Size / maintainability (-10 if oversized)
         if len(nodes) > MAX_NODES_SINGLE_WORKFLOW:

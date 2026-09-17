@@ -53,8 +53,15 @@ def _gate(tmp_path, key):
 
 
 def _bad_wf():
-    return {"nodes": [{"type": "n8n-nodes-base.httpRequest",
-                       "parameters": {"url": "http://192.168.1.5/x"}}]}
+    # Canary vehicle for rule-store TRUST tests (tamper/rotation/permission):
+    # the token `localhost` sits in a Code comment — no egress, no URL — so
+    # the BASE gate (native SSRF scan covers real URL fields only) approves
+    # it, while the promoted `ssrf_internal_egress` guard (whole-text regex)
+    # rejects it. This isolates "was the promoted rule enforced?" from the
+    # native SSRF scan, which now blocks real private-network URLs by itself
+    # (code-grade parity for n8n workflows).
+    return {"nodes": [{"type": "n8n-nodes-base.code",
+                       "parameters": {"jsCode": "// probe canary: localhost"}}]}
 
 
 def _raw_key(key_path):

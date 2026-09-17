@@ -44,13 +44,61 @@ METADATA_ENDPOINTS = [
     '169.254.169.254/metadata',                     # Azure
 ]
 
+# ---------------------------------------------------------------------------
+# n8n-native security surface (baked in — same protection grade as code).
+# Previously these threats only fired when a matching auto-rule had been
+# promoted (ssrf_internal_egress / secret_hardcoded probes); a fresh install
+# APPROVED them silently. They are now native checks so every n8n workflow
+# gets code-grade scrutiny on the first run.
+# ---------------------------------------------------------------------------
+# Private / loopback / link-local egress (mirrors the ssrf_internal_egress
+# canonical probe deny_patterns, plus scheme-level vectors).
+INTERNAL_SSRF_RES = [
+    r"127\.0\.0\.1", r"\blocalhost\b", r"0\.0\.0\.0", r"::1",
+    r"192\.168\.", r"10\.\d+\.", r"172\.(1[6-9]|2\d|3[01])\.",
+    r"169\.254\.", r"\bfile://", r"\bgopher://", r"\bdict://",
+]
+
+# Node types that read/write sensitive stores (least-privilege mapping basis).
+SENSITIVE_SINK_TYPES = (
+    "postgres", "mysql", "mssql", "mongodb", "redis", "ssh",
+    "executecommand", "ftp", "awss3", "googlecloudstorage",
+)
+
+# Nodes whose `query`/`sql` parameter is SQL text (injection surface).
+DB_QUERY_NODE_TYPES = ("postgres", "mysql", "mssql", "timescale")
+
+# Parameter field names that must NEVER carry a long literal value —
+# such values belong in the n8n credential store, never in workflow JSON.
+SECRET_FIELD_NAMES = (
+    "api_key", "apikey", "apiKey", "token", "password", "secret",
+    "access_token", "accesstoken", "client_secret", "clientsecret",
+    "authorization", "auth_token", "private_key", "privatekey",
+)
+
+# Auth material smuggled in a URL query string (logged in proxies/history).
+URL_TOKEN_RE = re.compile(
+    r"[?&](?:api[_-]?key|token|access[_-]?token|auth|secret|password)=", re.IGNORECASE)
+
+# High-entropy assignment inside a Code node: const X = '<20+ char literal>'.
+# Catches `const API_KEY = '...'` that no fixed-prefix regex knows.
+HIGH_ENTROPY_ASSIGN_RE = re.compile(
+    r"(?:const|let|var)\s+\w*(?:key|token|secret|password|auth)\w*\s*=\s*"
+    r"['\"][A-Za-z0-9\-_+/=]{20,}['\"]", re.IGNORECASE)
+
 # Risk score weights
 _SCORES = {
     'hardcoded_secret': 35,
+    'inline_secret': 35,                # HIGH — n8n-native: secret literal in node params/URL/Code
     'banned_module': 25,
     'ssrf_endpoint': 20,
+    'ssrf_internal': 30,                # HIGH — n8n-native: egress to private/loopback hosts
+    'sql_injection': 25,                # HIGH — n8n-native: concatenated SQL with template input
     'privileged_container': 15,
     'missing_error_handling': 10,
+    'metadata_leak': 10,                # MEDIUM — n8n-native: instanceId / root id in export
+    'verbose_error': 10,                # MEDIUM — n8n-native: full error/stack to external caller
+    'community_node': 10,               # MEDIUM — n8n-native: unpinned community node supply chain
     'no_human_review_note': 5,
     # --- AI-automation security (tool over-permissioning / prompt injection) ---
     'agent_tool_scope_lock': 40,          # CRITICAL — wildcard/all tool access
@@ -169,6 +217,174 @@ class SecurityGate:
             if ep in text:
                 findings.append(f"Metadata/SSRF target `{ep}` in flow")
         return findings
+
+    # ------------------------------------------------------------------
+    # n8n-native scans (workflow-JSON aware, not plain-text regex)
+    # ------------------------------------------------------------------
+    def _scan_ssrf_internal(self, workflow_json: dict) -> list[str]:
+        """Egress to private/loopback hosts from any URL-bearing parameter.
+
+        Mirrors the ssrf_internal_egress canonical probe so the base gate
+        rejects it even with zero promoted rules. Expression-built URLs
+        ({{...}}) are skipped — the LLM_CONTROLLED_DESTINATION check owns
+        those; only static literals are provably malicious here."""
+        findings = []
+        for node in workflow_json.get("nodes", []):
+            params = node.get("parameters", {}) or {}
+            for field in ("url", "webhookUrl", "host", "server", "connectionString"):
+                val = params.get(field)
+                if not isinstance(val, str) or not val.strip():
+                    continue
+                if "{{" in val or "$" in val.split("://")[0]:
+                    continue
+                for pat in INTERNAL_SSRF_RES:
+                    if re.search(pat, val, re.IGNORECASE):
+                        findings.append(
+                            f"[SSRF_INTERNAL_EGRESS] Node "
+                            f"'{node.get('name', 'unnamed')}' URL targets "
+                            f"internal host (`{pat}` in '{val[:80]}') — "
+                            f"credential-theft / lateral-movement vector")
+                        break
+        seen, unique = set(), []
+        for v in findings:
+            if v not in seen:
+                seen.add(v)
+                unique.append(v)
+        return unique
+
+    def _scan_n8n_inline_secrets(self, workflow_json: dict) -> list[str]:
+        """Secrets embedded as literals in node parameters / URLs / Code.
+
+        n8n's credential store keeps secrets OUT of workflow JSON; a literal
+        rides along in every export, backup, and git commit. Three shapes:
+        (1) secret-named parameter fields with long literal values,
+        (2) auth material in a URL query string, (3) high-entropy key
+        assignments inside Code nodes. Expression values ({{...}}) and short
+        placeholders ('x', 'test') are never flagged."""
+        findings = []
+        for node in workflow_json.get("nodes", []):
+            nname = node.get("name", "unnamed")
+            params = node.get("parameters", {}) or {}
+
+            def _walk(obj, path=""):
+                if isinstance(obj, dict):
+                    for k, v in obj.items():
+                        _walk(v, f"{path}.{k}" if path else str(k))
+                elif isinstance(obj, list):
+                    for i, v in enumerate(obj):
+                        _walk(v, f"{path}[{i}]")
+                elif isinstance(obj, str):
+                    if not obj.strip() or "{{" in obj:
+                        return
+                    leaf = path.split(".")[-1].lower() if path else ""
+                    # (1) secret-named field with a real-length literal
+                    if leaf in SECRET_FIELD_NAMES and len(obj.strip()) >= 12:
+                        findings.append(
+                            f"[INLINE_SECRET] Node '{nname}' field '{path}' "
+                            f"embeds a secret literal — move it to the n8n "
+                            f"credential store (exports leak literals)")
+                    # (2) auth material in a URL query string
+                    if ("http" in obj or "://" in obj) and URL_TOKEN_RE.search(obj):
+                        findings.append(
+                            f"[URL_TOKEN_LEAK] Node '{nname}' field '{path}' "
+                            f"carries auth material in a URL query string — "
+                            f"logged by proxies/history; use header auth via "
+                            f"the credential store")
+                    # (3) high-entropy key assignment in Code text
+                    if HIGH_ENTROPY_ASSIGN_RE.search(obj):
+                        findings.append(
+                            f"[INLINE_SECRET] Node '{nname}' Code assigns a "
+                            f"high-entropy key/secret literal — move it to "
+                            f"the credential store or $env with fallback")
+
+            _walk(params)
+        seen, unique = set(), []
+        for v in findings:
+            if v not in seen:
+                seen.add(v)
+                unique.append(v)
+        return unique
+
+    def _scan_sql_injection(self, workflow_json: dict) -> list[str]:
+        """Template-built SQL ({{ $json... }}) concatenated into a query
+        without parameterized-query signals. Mirrors the audit lesson: use
+        the node's built-in query parameters, never string concatenation."""
+        findings = []
+        for node in workflow_json.get("nodes", []):
+            ntype = str(node.get("type", "")).lower()
+            if not any(db in ntype for db in DB_QUERY_NODE_TYPES):
+                continue
+            params = node.get("parameters", {}) or {}
+            query = params.get("query") or params.get("sql") or ""
+            if not isinstance(query, str) or "{{" not in query:
+                continue
+            body = json.dumps(params, default=str).lower()
+            parameterized = any(s in body for s in (
+                "queryparameters", "query_params", "parametersvalues",
+                "additionalfields", "$1", "?", ":named"))
+            if not parameterized:
+                findings.append(
+                    f"[SQL_INJECTION] Node '{node.get('name', 'unnamed')}' "
+                    f"concatenates template input into SQL without "
+                    f"parameterized-query signals — use the node's query "
+                    f"parameters instead of string concatenation")
+        return findings
+
+    def _scan_metadata_leak(self, workflow_json: dict, full_text: str) -> list[str]:
+        """Instance-identity material that breaks portability and leaks
+        server identity when the export is shared (n8n-lint SEC-02/SEC-03)."""
+        findings = []
+        meta = workflow_json.get("meta") or {}
+        if isinstance(meta, dict) and meta.get("instanceId"):
+            findings.append(
+                "[METADATA_LEAK] workflow `meta.instanceId` present — leaks "
+                "server identity; strip before sharing (n8n-lint --fix)")
+        if workflow_json.get("id"):
+            findings.append(
+                "[METADATA_LEAK] root-level workflow `id` present — "
+                "instance-specific, not portable; strip before sharing")
+        return findings
+
+    def _scan_verbose_errors(self, workflow_json: dict) -> list[str]:
+        """Respond-to-external nodes echoing raw errors/stacks to the caller
+        (information disclosure —584218; callers get 'Request failed')."""
+        findings = []
+        for node in workflow_json.get("nodes", []):
+            ntype = str(node.get("type", "")).lower()
+            if "respond" not in ntype and "webhook" not in ntype:
+                continue
+            text = json.dumps(node.get("parameters", {}), default=str)
+            if re.search(r"\{\{\s*\$json\s*\}\}|\berror\.stack\b|\bstack trace\b",
+                         text, re.IGNORECASE):
+                findings.append(
+                    f"[VERBOSE_ERROR] Node '{node.get('name', 'unnamed')}' "
+                    f"echoes raw error/stack to the external caller — return "
+                    f"a generic message and log details internally")
+        return findings
+
+    def _scan_community_nodes(self, workflow_json: dict) -> list[str]:
+        """Third-party nodes run with core permissions: inventory + pin them."""
+        findings = []
+        for node in workflow_json.get("nodes", []):
+            ntype = str(node.get("type", "") or "")
+            if not ntype:
+                continue
+            nl = ntype.lower()
+            is_core = (nl.startswith("n8n-nodes-base.")
+                       or nl.startswith("n8n-nodes-langchain.")
+                       or nl.startswith("@n8n/"))
+            if not is_core:
+                findings.append(
+                    f"[COMMUNITY_NODE] Node '{node.get('name', 'unnamed')}' "
+                    f"uses third-party type '{ntype}' — runs with core "
+                    f"permissions; pin the version and review its source "
+                    f"before production")
+        seen, unique = set(), []
+        for v in findings:
+            if v not in seen:
+                seen.add(v)
+                unique.append(v)
+        return unique
 
     def _scan_container(self, node: dict) -> list[str]:
         findings = []
@@ -502,6 +718,13 @@ class SecurityGate:
         # Whole-artifact scans
         all_violations += self._scan_secrets(full_text)
         all_violations += self._scan_ssrf(full_text)
+        # n8n-native scans (workflow-JSON aware — code-grade for n8n)
+        all_violations += self._scan_ssrf_internal(workflow_json)
+        all_violations += self._scan_n8n_inline_secrets(workflow_json)
+        all_violations += self._scan_sql_injection(workflow_json)
+        all_violations += self._scan_metadata_leak(workflow_json, full_text)
+        all_violations += self._scan_verbose_errors(workflow_json)
+        all_violations += self._scan_community_nodes(workflow_json)
         promoted_hits = self._apply_promoted_rules(full_text)
         auto_fatal = any(h["fatal"] for h in promoted_hits)
         all_violations += [h["message"] for h in promoted_hits]
@@ -523,6 +746,18 @@ class SecurityGate:
             if v.startswith("["):
                 # AI-automation rules are weighted inside ai_risk already — do not
                 # double-count them with the generic +10 below.
+                if v.startswith("[SSRF_INTERNAL_EGRESS]"):
+                    risk += _SCORES['ssrf_internal']
+                elif v.startswith(("[INLINE_SECRET]", "[URL_TOKEN_LEAK]")):
+                    risk += _SCORES['inline_secret']
+                elif v.startswith("[SQL_INJECTION]"):
+                    risk += _SCORES['sql_injection']
+                elif v.startswith("[METADATA_LEAK]"):
+                    risk += _SCORES['metadata_leak']
+                elif v.startswith("[VERBOSE_ERROR]"):
+                    risk += _SCORES['verbose_error']
+                elif v.startswith("[COMMUNITY_NODE]"):
+                    risk += _SCORES['community_node']
                 continue
             if 'secret' in v or 'Hardcoded' in v:
                 risk += _SCORES['hardcoded_secret']
@@ -552,6 +787,18 @@ class SecurityGate:
         # Metadata / cloud egress endpoints are ALWAYS fatal — a single hit
         # means potential credential theft via SSRF. No accumulation needed.
         if any('SSRF' in v or 'Metadata' in v for v in unique):
+            risk = max(risk, 45)
+
+        # Internal-network egress is equally fatal: a workflow reaching
+        # localhost / RFC-1918 / link-local can pivot into the host or the
+        # cloud metadata service through the private network.
+        if any(v.startswith("[SSRF_INTERNAL_EGRESS]") for v in unique):
+            risk = max(risk, 45)
+
+        # An embedded secret literal is active exposure (exports, backups,
+        # git) — fatal on its own, same as a hardcoded code secret.
+        if any(v.startswith(("[INLINE_SECRET]", "[URL_TOKEN_LEAK]"))
+               for v in unique):
             risk = max(risk, 45)
 
         # Auto-learned fatal rules (e.g. promoted SSRF guards) are fatal too.
