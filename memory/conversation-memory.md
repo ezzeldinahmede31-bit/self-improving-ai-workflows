@@ -1671,3 +1671,10 @@ Both added to `compensatory-router` stacks.
 - Live proof exec 4207 success: rich 5-angle digest + copy-paste LinkedIn post from @Manger_social_media_bot.
 - Determinism design: two-call (analyze → transcribe) + scoring brace extractor + Angle-line fallback (marked مسودة سريعة) + entity sanitizer (Telegram 400 fix). Daily report ALWAYS arrives; rich when model cooperates.
 - Lessons: (1) never string-splice expressions — rebuild + node --check every expression; (2) aggressive sanitizer ate template punctuation — sanitize VALUES only; (3) stale final deploy caught by node-count check (14 vs 16) — always re-PUT after changes.
+
+## Psychology library — 1000 books + 6 schools (Sep 17 2026)
+- User demanded ~1000 psychology books (old+new) as skills, strictly verified, auto-linked to content system.
+- Honest architecture (1000 skills impossible per authoring standards): `memory/psychology-books-index.json` = 1000 REAL books pulled from Open Library API (16 subjects, 13,839 unique works → actionable filter → full-record fetch for 1700 → fiction blocklist → top 1000 by editions×subjects). Fields per row: rank/title/authors/year/editions/OL key/school/subjects/thesis/provenance. 174 theses = real OL publisher descriptions; 826 = labeled school-template (never presented as book text).
+- 6 school skills (gates READY_FOR_DEPLOYMENT + router-registered): psych-school-persuasion/decision/attention/social/emotion/foundations — canon cites verified index ranks only (e.g. Kahneman #14, Bernays #32, Packard #5, Fromm #8/#10, Festinger #280, Ogilvy #447).
+- AUTO-CONSULT contract: Phase-2 script generator MUST load ≥2 school skills per piece (written in each skill).
+- Baselines checked first: alexanderSolod/skill-library (1 star, 2 books — rejected as baseline); MIT 14.13 syllabus + OCW confirmed canon; Guardian/Iyengar + Routledge ABC confirmed marketer framing.
