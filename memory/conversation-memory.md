@@ -1684,3 +1684,10 @@ Both added to `compensatory-router` stacks.
 - Method: 80 author searches (+5,168 works) + 17 new subjects (+11,580) → pool 30,587 → relevance floor → detail fetch for ALL top rows (5,097 cached) → fiction blocklist + author-collision filter + title dedupe → 2,000 unique nonfiction.
 - `memory/psychology-books-index.json` = 2000 rows with tier (high/standard) + thesis provenance (OL-description vs school-template, always labeled).
 - 7th skill `psych-school-power` (Machiavelli/Greene/Musashi/Kautilya/Gracián/Schopenhauer/Alinsky/Chomsky/Le Bon/Freud — ranks verified) passed gates + registered, with defensive ethic (daylight test).
+
+## 6000-book library COMPLETE (Sep 17-18 2026)
+- User: top 3000 marketing/sales books + total 6000.
+- `memory/marketing-books-index.json` = 3000 rows: 22 subjects + ~140 guru author searches (pool 50,817) → relevance floor → fiction/institutional/collision filters → title dedupe → tight marketing rank → schools/thesis/tier. Top: Cialdini Pre-Suasion #1, Kotler #2-3, Wheeler #5, Nagle #7, Ries #9, Handley #10, Hopkins #29, Schwartz #33, Ogilvy #27, SPIN #78.
+- Psych index expanded 2000→3000 (+1000, landmark-author floor restored Kahneman TFS #2009) with attention school seeded (James→attention).
+- TOTAL verified: 6000 = 3000 psych + 3000 marketing. Every row: OL key/school/tier/provenance.
+- `scripts/psych_lookup.py` now spans both libs (--lib psych|marketing|all, lib-tagged output).

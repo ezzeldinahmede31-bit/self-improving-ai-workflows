@@ -1,28 +1,28 @@
-"""Query the 2000-book psychology index. Read-only lookup for the audience OS.
+"""Query the book indexes (psychology 3000 + marketing 3000). Read-only lookup.
 
 Usage:
-  psych_lookup.py --school persuasion-influence --top 5
-  psych_lookup.py --query "no-show"
-  psych_lookup.py --query "price" --school decision-behavior --top 3
+  psych_lookup.py --school persuasion-influence --top 5 [--lib psych|marketing|all]
+  psych_lookup.py --query "price" [--lib all]
 """
 import argparse
 import json
 import os
 import sys
 
-INDEX = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                     'memory', 'psychology-books-index.json')
+BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+LIBS = {'psych': 'memory/psychology-books-index.json',
+        'marketing': 'memory/marketing-books-index.json'}
 
 
-def load():
-    with open(INDEX, encoding='utf-8') as f:
+def load(lib):
+    with open(os.path.join(BASE, LIBS[lib]), encoding='utf-8') as f:
         return json.load(f)
 
 
 def show(r):
     au = ', '.join(r.get('authors', [])[:2])
     print(f"#{r['rank']} {r['title'][:75]}")
-    print(f"   {au[:50]} ({r.get('year')}) [{r['school']}/{r.get('tier')}]")
+    print(f"   {au[:50]} ({r.get('year')}) [{r.get('_lib', '?')}/{r['school']}/{r.get('tier')}]")
     print(f"   thesis({r['thesis_provenance']}): {r['thesis'][:220]}")
 
 
@@ -31,8 +31,15 @@ def main():
     ap.add_argument('--school', default='')
     ap.add_argument('--query', default='')
     ap.add_argument('--top', type=int, default=5)
+    ap.add_argument('--lib', default='all', choices=['psych', 'marketing', 'all'])
     a = ap.parse_args()
-    idx = load()
+    libs = ['psych', 'marketing'] if a.lib == 'all' else [a.lib]
+    idx = []
+    for lib in libs:
+        for r in load(lib):
+            r = dict(r)
+            r['_lib'] = lib
+            idx.append(r)
     rows = idx
     if a.school:
         rows = [r for r in rows if r['school'] == a.school]
