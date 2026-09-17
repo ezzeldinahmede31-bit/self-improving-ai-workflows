@@ -28,5 +28,8 @@
   },
   "sched-stats-api.json": {
     "SECURITY_VIOLATION_REQUIRES_HUMAN::[WEBHOOK_NO_AUTH] Webhook trigger 'Respond Tally Payload' has no authentication configured": 2
+  },
+  "sneaky_wf.json": {
+    "SECURITY_VIOLATION_REQUIRES_HUMAN::[SSRF_INTERNAL_EGRESS] Node 'Fetch' URL targets internal host (`192\\.168\\.` in 'http://192.168.1.10/api?api_key=SECRET12": 1
   }
 }

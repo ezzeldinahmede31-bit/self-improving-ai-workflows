@@ -1637,3 +1637,12 @@ Both added to `compensatory-router` stacks.
 - LIVE PROOFS: split E2E (big -> big#1/big#2 parallel 15s overlap, distinct sessions, gates READY on both, DONE); real 5s timeout -> WORKER_TIMEOUT -> ESCALATED; real SIGKILL at 6s -> WORKER_KILLED -> ESCALATED. Primary 1.2-free on all.
 - TESTS `tests/test_safe_split.py`: 13 local + 3 live green. FULL SUITE 660 passed, 8 deselected, EXIT=0.
 - HONEST GAPS left: cross-repo import analysis (single-repo ast only); KB still keyword-based (no embeddings); live tests excluded by default (API+minutes).
+
+## n8n/code gates parity fix (Sep 17 2026 — user's complaint: gates built for code pass n8n silently)
+- Contract confirmed via clarify (all 12 gates; severity/language/test policy: agent's choice).
+- Research baseline: n8n-lint (16 rules), n8n-workflow-validator (NodeHelpers), workflow-guard (SARIF, trigger→sink paths), n8n workflow-sdk validation codes, n8n-mcp #677 (bare $json without ={{}} is #1 AI mistake), WotAI audit checklist, AppSecure 2026 (webhook auth, credential scope, community nodes, logic flaws).
+- `security_gate.py`: +6 native n8n scans (SSRF-internal egress FATAL45, inline-secret/URL-token FATAL45, SQL-concat 25, metadata-leak 10, verbose-error 10, community-node 10). Internal-SSRF was previously promoted-rule-only (fresh installs APPROVED http://192.168.x).
+- `quality_gate.py`: verb-prefix naming demoted to non-blocking style note (idiomatic "Webhook" no longer -10); +bare/malformed-expression scan (-5/node), +deprecated-Function-node check (-5).
+- `scripts/build_gates_pipeline.py`: Precision +Package I FAIL (I1 secret literal, I2 internal URL, I3 $fromAI outside tool) +Package J warnings (J1 bare expr, J2 missing `=`, J3 single-input Merge, J4 schedule w/o timezone); RAG R4 POST-on-/points promoted WARNING→FAIL (+safe auto-fix POST→PUT); DryRun accepts all 3 pinnedData shapes (params/node-level/root map); DeepReasoning adds n8n branch/error-path notes (IF/Switch continue-on-error).
+- Tests: `tests/test_n8n_gates_parity.py` NEW (23 tests); `test_rag_vector_gate` R4 updated to FAIL; `test_promoted_rules_security` `_bad_wf` canary reworked to Code-comment `localhost` (isolates rule-trust from native SSRF; enforced-tests still assert Auto-rule message).
+- Proof: sneaky WF (192.168 + ?api_key + bare $json) → SECURITY REJECTED 65 + QUALITY REJECTED + PRECISION FAIL; clean WF → READY_FOR_DEPLOYMENT. FULL SUITE: 708 passed, 7 skipped, 1 deselected.
