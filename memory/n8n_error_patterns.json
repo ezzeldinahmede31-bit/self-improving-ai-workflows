@@ -9,9 +9,9 @@
   {
     "gate": "skills",
     "pattern": "no --skills-loaded manifest — actual agent loads are NOT verifiable headless; readiness (installed + frontmatter + routable) verified only",
-    "count": 75,
+    "count": 77,
     "first_seen": "2026-08-24T13:18:28.258531+00:00",
-    "last_seen": "2026-09-17T18:24:11.259812+00:00"
+    "last_seen": "2026-09-17T20:50:08.952605+00:00"
   },
   {
     "gate": "quality",

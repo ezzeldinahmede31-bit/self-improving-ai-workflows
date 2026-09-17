@@ -1698,3 +1698,10 @@ Both added to `compensatory-router` stacks.
 - `memory/business-books-index.json` = 2241 rows (2000 + 241 landmarks), year>=1980 enforced, military studies + grey literature + fiction excluded, non-duplicate vs psych/marketing by key+title. Landmarks verified: Horowitz, Doerr, Grove x2, Collins, Kim, Gerber, Brown, Dunford, Gil, Senge, Womack, Liker, Imai, Moore x2, Hastings, Hoffman, Ramadan, Goldratt(La meta), Sinek, Covey, Maxwell, Blanchard.
 - 2 skills (gates READY + registered): `biz-school-strategy` (positioning/moat/OKRs, canon ranks cited) + `biz-school-growth` (cadence/metrics/templates).
 - Lookup spans 3 libs with lib tags. TOTAL = 6000 + 3000 + 2241 = 11,241 verified books.
+
+## Audience pulse + competitor radar LIVE (Sep 18 2026)
+- User: know audience STATE in Egypt + always monitor social for wanted content + problems; imitate LEADERS not followers.
+- `clinic_audience_pulse` (10 nodes, READY, ACTIVE): weekly Sat 20:00 Cairo + headerAuth webhook. Google News RSS (EG dentistry) + owner-side YT suggest → Nemotron pains → block-parser (Item/N./bullets + Arabic filter + echo/bracket sanitize) → Telegram digest. Live proof delivered real pains: 60k dentist surplus (competition), dancing-doctor scandals (reputation fear), X-ray licensing change, clinic thefts, FREE software demand (pricing wedge!).
+- `clinic-competitor-radar` skill (gates+registered): leaders watchlist (Adit 10k+, PbN 5k+, Solutionreach benchmarks, Clinit EG, top creators w/ ER numbers) + leaders-only structure-imitation protocol + trend memory rules.
+- `clinic-audience-os` updated: 3 libs + radar + pulse + competitor refs.
+- Trend radar gained Archive node (Redis digest:<date>, 30d TTL) for old-trend analysis.

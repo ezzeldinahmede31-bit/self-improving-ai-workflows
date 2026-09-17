@@ -7,17 +7,25 @@ description: Master operating system binding all psychology schools, the 2000-bo
 
 ## Purpose
 
-One pipeline that binds EVERYTHING built so far — 7 psych schools, the
-2000-book index (`memory/psychology-books-index.json`), Machiavelli file,
-`clinic-buyer-psychology`, `clinic-organic-sales-content` — into answers for:
-who is the client, what content, when to post, how to market, how to sell,
-what to say. Single purpose: ORCHESTRATE the binding.
+One pipeline that binds EVERYTHING built so far — 9 psych/business schools,
+three book indexes (`memory/psychology-books-index.json` 6000 +
+`memory/marketing-books-index.json` 3000 + `memory/business-books-index.json`
+2200+, queried via `scripts/psych_lookup.py --lib psych|marketing|business|all`),
+Machiavelli file, `clinic-buyer-psychology`, `clinic-organic-sales-content`,
+`clinic-competitor-radar` (leaders watchlist + leaders-only imitation),
+live `clinic_trend_radar` (daily angles, archived 30d) and `clinic_audience_pulse`
+(weekly Egypt owner pains) — into answers for: who is the client, what content,
+when to post, how to market, how to sell, what to say. Single purpose:
+ORCHESTRATE the binding.
 
 ## The 7-step run (never skip order)
 
-1. **LOAD the client** → `clinic-buyer-psychology` (motivations/fears/objections).
-2. **CONSULT the books** → `scripts/psych_lookup.py --school <relevant> --top 5`
-   (or `--query <objection keyword>`). Cite rank + title in the reasoning.
+1. **LOAD the client** → `clinic-buyer-psychology` (motivations/fears/objections)
+   + weekly `clinic_audience_pulse` digest (live Egypt owner pains).
+2. **CONSULT the books** → `scripts/psych_lookup.py --lib all --school <relevant> --top 5`
+   (or `--query <objection keyword>`). Cite lib + rank + title in the reasoning.
+3. **CHECK leaders** → `clinic-competitor-radar` (imitate structure of proven
+   winners only) + trend memory (repeat winners become templates).
 3. **CHOOSE content** → pillar from `clinic-organic-sales-content`
    (pain/proof/objection/authority) matched to the objection.
 4. **TIME it** → Cairo slots 1pm (break) / 9-11pm (after clinic); LinkedIn
