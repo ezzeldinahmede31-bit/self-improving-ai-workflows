@@ -1,7 +1,7 @@
-"""Query the book indexes (psychology 3000 + marketing 3000). Read-only lookup.
+"""Query the book indexes (psychology 6000 + marketing 3000 + business 2000+). Read-only lookup.
 
 Usage:
-  psych_lookup.py --school persuasion-influence --top 5 [--lib psych|marketing|all]
+  psych_lookup.py --school persuasion-influence --top 5 [--lib psych|marketing|business|all]
   psych_lookup.py --query "price" [--lib all]
 """
 import argparse
@@ -11,7 +11,8 @@ import sys
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LIBS = {'psych': 'memory/psychology-books-index.json',
-        'marketing': 'memory/marketing-books-index.json'}
+        'marketing': 'memory/marketing-books-index.json',
+        'business': 'memory/business-books-index.json'}
 
 
 def load(lib):
@@ -31,9 +32,9 @@ def main():
     ap.add_argument('--school', default='')
     ap.add_argument('--query', default='')
     ap.add_argument('--top', type=int, default=5)
-    ap.add_argument('--lib', default='all', choices=['psych', 'marketing', 'all'])
+    ap.add_argument('--lib', default='all', choices=['psych', 'marketing', 'business', 'all'])
     a = ap.parse_args()
-    libs = ['psych', 'marketing'] if a.lib == 'all' else [a.lib]
+    libs = ['psych', 'marketing', 'business'] if a.lib == 'all' else [a.lib]
     idx = []
     for lib in libs:
         for r in load(lib):

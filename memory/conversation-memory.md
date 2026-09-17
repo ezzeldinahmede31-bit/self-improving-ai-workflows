@@ -1691,3 +1691,10 @@ Both added to `compensatory-router` stacks.
 - Psych index expanded 2000→3000 (+1000, landmark-author floor restored Kahneman TFS #2009) with attention school seeded (James→attention).
 - TOTAL verified: 6000 = 3000 psych + 3000 marketing. Every row: OL key/school/tier/provenance.
 - `scripts/psych_lookup.py` now spans both libs (--lib psych|marketing|all, lib-tagged output).
+
+## 11,241-book library COMPLETE (Sep 18 2026)
+- User: +3000 psych (to 6000) + top 2000 MODERN business with summaries + skills from them.
+- Psych 6000: extension tiers fetched with details, attention school seeded to 240 rows, landmark floor restored TFS.
+- `memory/business-books-index.json` = 2241 rows (2000 + 241 landmarks), year>=1980 enforced, military studies + grey literature + fiction excluded, non-duplicate vs psych/marketing by key+title. Landmarks verified: Horowitz, Doerr, Grove x2, Collins, Kim, Gerber, Brown, Dunford, Gil, Senge, Womack, Liker, Imai, Moore x2, Hastings, Hoffman, Ramadan, Goldratt(La meta), Sinek, Covey, Maxwell, Blanchard.
+- 2 skills (gates READY + registered): `biz-school-strategy` (positioning/moat/OKRs, canon ranks cited) + `biz-school-growth` (cadence/metrics/templates).
+- Lookup spans 3 libs with lib tags. TOTAL = 6000 + 3000 + 2241 = 11,241 verified books.
