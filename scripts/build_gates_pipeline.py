@@ -797,6 +797,7 @@ class AutoFixEngine:
         self._fix_rag_r1_missing_embeddings()
         self._fix_rag_r2_placeholder_collection()
         self._fix_rag_r3_dangling_retriever()
+        self._fix_rag_r4_post_to_put()
         self._fix_quality_bare_json()
         self._fix_math_missing_expected()
         return self.workflow, self.fixes_applied
@@ -1037,6 +1038,25 @@ class AutoFixEngine:
                 if not col or PLACEHOLDER_CRED_RE.search(str(col)):
                     params["qdrantCollection"] = {"value": "auto_collection"}
                     self._add_fix("RAG", f"Set default collection name 'auto_collection' on '{n.get('name')}'")
+
+    def _fix_rag_r4_post_to_put(self):
+        """R4: Qdrant upsert with POST is a certain runtime 400 — switching
+        the method to PUT is safe and deterministic (search/delete paths are
+        never touched: the gate only flags the bare /points upsert path)."""
+        for n in self.workflow.get("nodes", []):
+            ntype = _normalize_node_type(n.get("type") or "").lower()
+            if "httprequest" not in ntype:
+                continue
+            params = n.get("parameters") or {}
+            url = str(params.get("url") or params.get("urlParameters") or "")
+            if "qdrant" not in url.lower():
+                continue
+            method = str(params.get("method") or "GET").upper()
+            path = url.split("?", 1)[0].rstrip("/")
+            if method == "POST" and path.endswith("/points") and "search" not in path \
+                    and "delete" not in path:
+                params["method"] = "PUT"
+                self._add_fix("RAG", f"Switched '{n.get('name')}' Qdrant upsert POST→PUT")
 
     def _fix_rag_r3_dangling_retriever(self):
         """R3: Remove dangling ai_vectorStore/ai_retriever references."""
