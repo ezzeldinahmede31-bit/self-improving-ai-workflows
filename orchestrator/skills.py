@@ -236,9 +236,15 @@ def render_for_prompt(selected: list[SkillRecord]) -> str:
     return "\n".join(lines)
 
 
-def write_manifest(work_dir: str, selected: list[SkillRecord]) -> str:
-    """Write the `--skills-loaded` manifest the gates SKILLS stage enforces."""
-    path = os.path.join(work_dir, MANIFEST_FILE)
+def write_manifest(harness_dir: str, selected: list[SkillRecord],
+                   filename: str = MANIFEST_FILE) -> str:
+    """Write the `--skills-loaded` manifest the gates SKILLS stage enforces.
+
+    MUST live in a harness-owned directory (scheduler work_root), NEVER in a
+    task worktree: a fixed filename inside merged worktrees causes add/add
+    merge conflicts across parallel tasks writing different skill sets.
+    """
+    path = os.path.join(harness_dir, filename)
     try:
         with open(path, "w", encoding="utf-8") as fh:
             json.dump({"skills_loaded": [s.name for s in selected]}, fh)

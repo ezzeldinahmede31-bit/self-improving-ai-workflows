@@ -34,7 +34,7 @@
   },
   "skills.py": {
     "QUALITY_BELOW_THRESHOLD::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 2,
-    "REASONING_REVIEW_REQUIRED::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 2
+    "REASONING_REVIEW_REQUIRED::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 3
   },
   "schema.py": {
     "QUALITY_BELOW_THRESHOLD::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 1
@@ -53,5 +53,8 @@
   },
   "worker.py": {
     "QUALITY_BELOW_THRESHOLD::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 1
+  },
+  "build_gates_pipeline.py": {
+    "REASONING_REVIEW_REQUIRED::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 1
   }
 }

@@ -148,6 +148,18 @@ def test_manifest_written_and_valid(tmp_path):
     assert json.load(open(path)) == {"skills_loaded": ["a", "b"]}
 
 
+def test_manifest_per_task_filename_no_merge_collision(tmp_path):
+    # Parallel tasks must never share one manifest path: same fixed name in
+    # two worktrees = add/add merge conflict (regression).
+    recs = [skills_mod.SkillRecord(name="a")]
+    p1 = skills_mod.write_manifest(str(tmp_path), recs,
+                                   filename="skills_manifest_t1.json")
+    p2 = skills_mod.write_manifest(str(tmp_path), recs,
+                                   filename="skills_manifest_t2.json")
+    assert p1 != p2
+    assert os.path.isfile(p1) and os.path.isfile(p2)
+
+
 # ---------------------------------------------------------------------------
 # schema: new fields validated
 # ---------------------------------------------------------------------------

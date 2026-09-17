@@ -183,7 +183,11 @@ class Orchestrator:
             except Exception:  # noqa: BLE001 - skills never break execution
                 _sel, _rep = [], {"selected": [], "notes": ["resolver failed"],
                                   "surfaces": {}}
-            skills_manifest = skills_mod.write_manifest(work_dir, _sel)
+            # Harness-owned dir, NOT the worktree: a fixed manifest name
+            # inside merged worktrees collides across parallel tasks.
+            skills_manifest = skills_mod.write_manifest(
+                self.work_root, _sel,
+                filename=f"skills_manifest_{task_id}.json")
             skills_block = skills_mod.render_for_prompt(_sel)
             _skill_names = [s.name for s in _sel]
             _schema_cache = os.path.join(self.repo_root, "memory",
