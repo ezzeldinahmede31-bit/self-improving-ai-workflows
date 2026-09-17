@@ -1678,3 +1678,9 @@ Both added to `compensatory-router` stacks.
 - 6 school skills (gates READY_FOR_DEPLOYMENT + router-registered): psych-school-persuasion/decision/attention/social/emotion/foundations — canon cites verified index ranks only (e.g. Kahneman #14, Bernays #32, Packard #5, Fromm #8/#10, Festinger #280, Ogilvy #447).
 - AUTO-CONSULT contract: Phase-2 script generator MUST load ≥2 school skills per piece (written in each skill).
 - Baselines checked first: alexanderSolod/skill-library (1 star, 2 books — rejected as baseline); MIT 14.13 syllabus + OCW confirmed canon; Guardian/Iyengar + Routledge ABC confirmed marketer framing.
+
+## Psychology expansion — 2000 books + power school (Sep 17 2026)
+- User: continue to ALL psychology books + ALL Machiavelli + political maneuver arts + psychological-tricks books.
+- Method: 80 author searches (+5,168 works) + 17 new subjects (+11,580) → pool 30,587 → relevance floor → detail fetch for ALL top rows (5,097 cached) → fiction blocklist + author-collision filter + title dedupe → 2,000 unique nonfiction.
+- `memory/psychology-books-index.json` = 2000 rows with tier (high/standard) + thesis provenance (OL-description vs school-template, always labeled).
+- 7th skill `psych-school-power` (Machiavelli/Greene/Musashi/Kautilya/Gracián/Schopenhauer/Alinsky/Chomsky/Le Bon/Freud — ranks verified) passed gates + registered, with defensive ethic (daylight test).
