@@ -2,30 +2,30 @@
   {
     "gate": "quality",
     "pattern": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "count": 64,
+    "count": 74,
     "first_seen": "2026-08-15T01:45:33.866641+00:00",
-    "last_seen": "2026-09-17T12:16:14.263102+00:00"
+    "last_seen": "2026-09-17T12:31:06.598690+00:00"
   },
   {
     "gate": "skills",
     "pattern": "no --skills-loaded manifest — actual agent loads are NOT verifiable headless; readiness (installed + frontmatter + routable) verified only",
-    "count": 57,
+    "count": 67,
     "first_seen": "2026-08-24T13:18:28.258531+00:00",
-    "last_seen": "2026-09-17T12:16:14.266276+00:00"
+    "last_seen": "2026-09-17T12:31:06.606154+00:00"
   },
   {
     "gate": "quality",
     "pattern": "No Error Trigger node and no continueOnFail on any node",
-    "count": 48,
+    "count": 58,
     "first_seen": "2026-08-15T01:45:33.866459+00:00",
-    "last_seen": "2026-09-17T12:16:14.262465+00:00"
+    "last_seen": "2026-09-17T12:31:06.597323+00:00"
   },
   {
     "gate": "dry_run",
     "pattern": "no dry-run evidence: nodes carry no pinned data and no expected_result from a trial run — run the workflow on the n8n instance (n8n-pinned-data-mocking) before delivery",
-    "count": 27,
+    "count": 35,
     "first_seen": "2026-08-17T06:06:55.931702+00:00",
-    "last_seen": "2026-09-17T12:16:14.266962+00:00"
+    "last_seen": "2026-09-17T12:29:56.160945+00:00"
   },
   {
     "gate": "preflight",
@@ -36,17 +36,17 @@
   },
   {
     "gate": "quality",
+    "pattern": "Isolated/unreachable nodes: ['Manual Trigger']",
+    "count": 15,
+    "first_seen": "2026-08-24T13:18:28.252049+00:00",
+    "last_seen": "2026-09-17T12:29:56.154462+00:00"
+  },
+  {
+    "gate": "quality",
     "pattern": "Deprecated syntax `\\$json\\b(?!\\.)` used",
     "count": 7,
     "first_seen": "2026-08-24T13:18:28.243630+00:00",
     "last_seen": "2026-09-10T04:58:32.106824+00:00"
-  },
-  {
-    "gate": "quality",
-    "pattern": "Isolated/unreachable nodes: ['Manual Trigger']",
-    "count": 7,
-    "first_seen": "2026-08-24T13:18:28.252049+00:00",
-    "last_seen": "2026-09-13T23:53:43.721998+00:00"
   },
   {
     "gate": "quality",

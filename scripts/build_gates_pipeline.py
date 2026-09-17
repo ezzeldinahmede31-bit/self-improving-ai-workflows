@@ -851,6 +851,12 @@ class AutoFixEngine:
     def _fix_precision_p2_missing_trigger(self):
         """P2: Add a Manual Trigger if no trigger exists (for subworkflows)."""
         nodes = self.workflow.get("nodes", [])
+        if not nodes:
+            # Node-less artifact (code file, empty doc): there is no workflow
+            # to trigger — injecting a phantom node only poisons downstream
+            # gates (phantom orphan). Real trigger-less workflows (nodes but
+            # no trigger) are still fixed below.
+            return
         if any(_is_trigger_node(n.get("type") or "") for n in nodes):
             return
         # Add Manual Trigger node

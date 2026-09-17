@@ -19,6 +19,7 @@ from . import models as models_mod
 from . import dag as dag_mod
 from . import opencode_worker as ocw_mod
 from . import local_workers as lw_mod
+from . import skills as skills_mod
 from .schema import validate, with_defaults
 from .state import StateStore
 from .tasklog import TaskLog
@@ -173,6 +174,22 @@ class Orchestrator:
                        "fallback_used": bool(sel.get("fallback_used"))}
         try:
             provided = self._gather_inputs(project_id, contract)
+            # Unified skill surface: explicit contract skills win, auto-fill
+            # covers the rest (project + global + library index). The manifest
+            # is what the gates SKILLS stage enforces at merge time.
+            try:
+                _sel, _rep = skills_mod.resolve_for_contract(
+                    contract, self.repo_root)
+            except Exception:  # noqa: BLE001 - skills never break execution
+                _sel, _rep = [], {"selected": [], "notes": ["resolver failed"],
+                                  "surfaces": {}}
+            skills_manifest = skills_mod.write_manifest(work_dir, _sel)
+            skills_block = skills_mod.render_for_prompt(_sel)
+            _skill_names = [s.name for s in _sel]
+            _schema_cache = os.path.join(self.repo_root, "memory",
+                                         "n8n_schema_cache.json")
+            if not os.path.isfile(_schema_cache):
+                _schema_cache = None
             exec_mode = contract.get("execution_mode", "llm")
             if exec_mode == "local" and contract.get("kind") == "opencode":
                 # Execute with local worker pool (fast, deterministic)
@@ -199,8 +216,9 @@ class Orchestrator:
                 }
             elif contract.get("kind") == "opencode":
                 res = ocw_mod.execute_opencode_task(contract, work_dir, provided,
-                                                    model=model,
-                                                    spawn_hook=self.spawn_hook)
+                                                     model=model,
+                                                     spawn_hook=self.spawn_hook,
+                                                     skills_block=skills_block)
             else:
                 fn = self.registry.get(contract.get("kind", "generic"))
                 if fn is None:
@@ -228,7 +246,9 @@ class Orchestrator:
                 q0 = time.time()
                 gate_report = gates_qa_mod.gate_changed_files(
                     work_dir, res.get("changed", []), self.repo_root,
-                    int(contract.get("gate_timeout_s", 180)))
+                    int(contract.get("gate_timeout_s", 180)),
+                    skills_manifest=skills_manifest,
+                    schema_cache=_schema_cache)
                 qa_s = round(time.time() - q0, 2)
                 if not gate_report["passed"]:
                     self._fail(
@@ -270,7 +290,10 @@ class Orchestrator:
                 details={"outputs": res["outputs"], "changed": res["changed"],
                          "checks": checks, "gates": gate_report,
                          "worker": worker_id, "qa_s": qa_s, "merge_s": merge_s,
-                         "session_id": res.get("session_id")},
+                         "session_id": res.get("session_id"),
+                         "skills": _skill_names,
+                         "skill_surfaces": _rep.get("surfaces", {}),
+                         "skill_notes": _rep.get("notes", [])},
                 event_kind="task_done",
                 event_payload={"role": contract.get("role"),
                                "changed": res["changed"],
@@ -292,6 +315,7 @@ class Orchestrator:
                 "qa": {"acceptance": "PASS",
                        "gates": (gate_report["verdicts"]
                                  if gate_report else "SKIPPED_NO_CHANGES")},
+                "skills": _skill_names,
                 "files": res.get("changed", [])})
         finally:
             self.router.release(model)

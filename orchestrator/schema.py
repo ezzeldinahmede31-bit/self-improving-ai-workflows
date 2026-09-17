@@ -27,6 +27,9 @@ DEFAULTS = {
     "estimate_s": 60,
     "file_groups": [],
     "execution_mode": "llm",
+    "skills": [],
+    "skills_auto": True,
+    "skill_budget": 6,
 }
 
 
@@ -88,4 +91,13 @@ def validate(raw: dict) -> list[str]:
         errors.append("allow_limited must be a bool")
     if not isinstance(raw.get("file_groups", []), list):
         errors.append("file_groups must be a list")
+    skills = raw.get("skills", [])
+    if not isinstance(skills, list) or any(
+            not isinstance(s, str) or not s.strip() for s in skills):
+        errors.append("skills must be a list of non-empty strings")
+    if not isinstance(raw.get("skills_auto", True), bool):
+        errors.append("skills_auto must be a bool")
+    sb = raw.get("skill_budget", 6)
+    if not isinstance(sb, int) or sb < 0 or sb > 20:
+        errors.append("skill_budget must be an int in [0, 20]")
     return errors

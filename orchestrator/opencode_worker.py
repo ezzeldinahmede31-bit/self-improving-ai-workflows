@@ -36,7 +36,8 @@ DEFAULT_MODEL = "opencode/muse-spark-1.3-contributor-free"
 RESULT_FILE = "RESULT.json"
 
 
-def build_task_prompt(contract: dict, ctx: dict, work_dir: str) -> str:
+def build_task_prompt(contract: dict, ctx: dict, work_dir: str,
+                      skills_block: str = "") -> str:
     allowed = "\n".join(f"- {f}" for f in contract.get("allowed_files", []))
     acceptance = "\n".join(
         f"- [{a.get('id')}] {a.get('kind')}: {a.get('path', '')} "
@@ -51,6 +52,10 @@ def build_task_prompt(contract: dict, ctx: dict, work_dir: str) -> str:
         allowed or "(none)",
         "ACCEPTANCE (a separate checker verifies these; meet every one):",
         acceptance or "(none)",
+    ]
+    if skills_block:
+        lines += [skills_block]
+    lines += [
         f"When done, write {RESULT_FILE} in the working directory as JSON "
         '{"notes": "<short summary>", "outputs": {<small JSON>}} and reply DONE.',
         "Rules: small focused changes only; no secrets/tokens in files; "
@@ -99,9 +104,9 @@ def read_result_file(work_dir: str) -> dict:
 
 
 def run_opencode_task(contract: dict, work_dir: str, provided: dict,
-                      model: str | None = None,
-                      _argv_override: list[str] | None = None,
-                      spawn_hook=None) -> dict:
+                       model: str | None = None,
+                       _argv_override: list[str] | None = None,
+                       spawn_hook=None, skills_block: str = "") -> dict:
     """Spawn one disposable opencode session for this attempt.
 
     Returns a process-level report; file/contract enforcement happens in
@@ -115,7 +120,8 @@ def run_opencode_task(contract: dict, work_dir: str, provided: dict,
     except worker_mod.ContextOverflow as e:
         return {"ok": False, "stage": "context", "task_id": tid,
                 "reason": "CONTEXT_OVERFLOW", "detail": str(e)}
-    prompt = build_task_prompt(contract, ctx, work_dir)
+    prompt = build_task_prompt(contract, ctx, work_dir,
+                               skills_block=skills_block or "")
     prompt_bytes = len(prompt.encode())
     prompt_limit = int(contract.get("prompt_limit_bytes", 6144))
     if prompt_bytes > prompt_limit:
@@ -172,17 +178,18 @@ def run_opencode_task(contract: dict, work_dir: str, provided: dict,
 
 
 def execute_opencode_task(contract: dict, work_dir: str, provided: dict,
-                          model: str | None = None,
-                          _argv_override: list[str] | None = None,
-                          spawn_hook=None) -> dict:
+                           model: str | None = None,
+                           _argv_override: list[str] | None = None,
+                           spawn_hook=None, skills_block: str = "") -> dict:
     """Full attempt: spawn + enforce contract. Same result shape as MVP worker."""
     tid = contract["task_id"]
     before = worker_mod.snapshot_files(work_dir)
     # RESULT.json itself is harness-owned, not agent output: hide it from diff
     before.pop(RESULT_FILE, None)
     rep = run_opencode_task(contract, work_dir, provided, model,
-                            _argv_override=_argv_override,
-                            spawn_hook=spawn_hook)
+                             _argv_override=_argv_override,
+                             spawn_hook=spawn_hook,
+                             skills_block=skills_block or "")
     if not rep["ok"] and rep.get("stage") == "context":
         return {"ok": False, "reason": rep["reason"], "task_id": tid,
                 "detail": rep.get("detail", "")}

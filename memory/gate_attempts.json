@@ -31,5 +31,27 @@
   },
   "sneaky_wf.json": {
     "SECURITY_VIOLATION_REQUIRES_HUMAN::[SSRF_INTERNAL_EGRESS] Node 'Fetch' URL targets internal host (`192\\.168\\.` in 'http://192.168.1.10/api?api_key=SECRET12": 1
+  },
+  "skills.py": {
+    "QUALITY_BELOW_THRESHOLD::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 2,
+    "REASONING_REVIEW_REQUIRED::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 2
+  },
+  "schema.py": {
+    "QUALITY_BELOW_THRESHOLD::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 1
+  },
+  "opencode_worker.py": {
+    "QUALITY_BELOW_THRESHOLD::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 1
+  },
+  "scheduler.py": {
+    "QUALITY_BELOW_THRESHOLD::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 1
+  },
+  "gates_qa.py": {
+    "QUALITY_BELOW_THRESHOLD::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 1
+  },
+  "test_orchestrator_skills.py": {
+    "QUALITY_BELOW_THRESHOLD::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 1
+  },
+  "worker.py": {
+    "QUALITY_BELOW_THRESHOLD::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 1
   }
 }
