@@ -56,5 +56,8 @@
   },
   "build_gates_pipeline.py": {
     "REASONING_REVIEW_REQUIRED::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 1
+  },
+  "clinic_trend_radar.json": {
+    "REASONING_REVIEW_REQUIRED::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 1
   }
 }

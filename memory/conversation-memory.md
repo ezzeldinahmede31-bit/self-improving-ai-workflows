@@ -1656,3 +1656,12 @@ Both added to `compensatory-router` stacks.
 - Also fixed: AutoFix P2 no longer injects phantom Manual Trigger into node-less artifacts (was failing ALL code files); reworded 2 counting-keyword false hits in comments ("at least"/"between").
 - Left deliberate: build_gates_pipeline.py self-gates HEURISTIC (its own COUNTING_KEYWORDS def + docstring; pre-existing, verified in HEAD~8).
 - Proof: 6/7 artifacts READY_FOR_DEPLOYMENT; FULL SUITE 723 passed (708+15 new), 7 skipped, 1 deselected. New `tests/test_orchestrator_skills.py` (15 tests).
+
+## Clinic content machine — Phase 1 DONE (Sep 17 2026, proven live)
+- User asked for an AI automation system that runs the whole clinic-sales content machine + never reinvent the wheel (copy IDEA not content, track trends).
+- Built `clinic_trend_radar` (14 nodes, READY_FOR_DEPLOYMENT, id p09lXYT1Ul6wFqkk, ACTIVE, schedule daily 08:00 Africa/Cairo + headerAuth webhook clinic-trend-radar-run).
+- Pipeline: 3x YouTube-suggest HTTP (free, no key) → normalize → NVIDIA Nemotron 3.5-lightning (free tier, only model on this account) → balanced-brace JSON extractor (scores blocks, drops empty example-schema) → Redis dedupe → IF → Telegram digest → save hash; Error Trigger → alert. Bot: user's own @Manger_social_media_bot (cred "Trend Radar Bot" vuzkztQVWMTEulc9), chat 7198289938 (user pressed START).
+- Proof: execution 4165 success, real Arabic 5-angle digest delivered from user's bot (twin deleted after).
+- Hard-won lessons: (1) Code-node $helpers NOT available on this n8n (use plain HTTP nodes); (2) reasoning model dumps thinking — needs max_tokens headroom (2500) + 300s HTTP timeout + last/scoring JSON extractor; (3) pretty-printed JSON has `{ "angles"` with space — brace-scan extractor; (4) Telegram "chat not found" until user presses START; (5) meta/llama-3.3-70b-instruct EOL 2026-08-26, other NIM models 404 for this account.
+- Baselines reused (best-practice-first): n8n template 13528 (research→approve→publish), 17021 (scheduled publisher), 16495 (Meta+Buffer), GitHub abuzar561 trend pipeline (direction-only, no repost), BibiGPT no-name-hit method, Stormy/Larry drafts-over-API (TikTok manual post).
+- Next phases: P2 script generator (pillar → full 60s script), P3 approval+publish (FB/IG/YT auto, TikTok draft+notify), P4 analytics loop.
