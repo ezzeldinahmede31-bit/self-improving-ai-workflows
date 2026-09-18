@@ -30,10 +30,15 @@ of old trends so patterns compound. Single purpose: COMPETITIVE INTELLIGENCE.
 4. Originality gate: if >30% textual overlap with source → rewrite.
 5. Log: source URL + structure + our adaptation in the trend memory.
 
-## Trend memory (old trends)
+## Trend memory (old trends) + live watch
 
 - Every radar digest is archived: Redis `trend-radar:digest:<YYYY-MM-DD>`
   (30-day TTL) by the `Archive Daily Digest` node in `clinic_trend_radar`.
+- `clinic_competitor_watch` runs weekly (Sunday 18:00 Cairo + headerAuth
+  webhook): Google News multi-OR feed (Adit, PbN, Solutionreach, Clinit,
+  NexHealth, AY Automate, NextAutomation, Flowlyn, Goodspeed, Lindy) →
+  top moves + imitable formats → Telegram digest. YouTube/LinkedIn/TikTok
+  surfaces have no free server API — covered by monthly manual review below.
 - Weekly review (Sunday): which angles repeated? Which pillars converted to
   WhatsApp starts? Promote repeat winners to evergreen; retire losers.
 - Rule: a format that worked twice becomes a template; a topic that failed

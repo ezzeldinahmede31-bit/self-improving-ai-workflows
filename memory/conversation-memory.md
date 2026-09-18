@@ -1716,3 +1716,9 @@ Both added to `compensatory-router` stacks.
 ## Daily processing layer (Sep 18 2026)
 - User: daily PROCESSING required (not just monitoring).
 - Pulse Parse gained plays-mapping (pain keyword → sales play, 6 rules + default) + daily rename. Proof exec success with HAS_PLAYS. Final deployed+active.
+
+## Competitor watch LIVE (Sep 18 2026)
+- User: monitor ALL competitors + AI automation agencies worldwide (big+small), all their social + LinkedIn, imitate winners.
+- `clinic_competitor_watch` (9 nodes, READY, ACTIVE Sundays 18:00 + webhook): Google News OR-feed over 10 vendors/agencies → moves + imitable formats → Telegram. Proof exec success with real intel (NexHealth $125M unicorn, PbN OTT platform + sponsorships, Lindy funding, Weave-vs-Solutionreach comparisons).
+- Honest limit documented: no free server-side API for YT/LinkedIn/TikTok competitor feeds (channel pages block scraping; keyless tiers are MCP-only) → monthly manual review protocol in skill.
+- Model flakiness seen live: reasoning dump of repeated tokens ("ellsell...") → Parse honestly threw → error alert; refire succeeded. Degenerate outputs are rejected, never delivered.

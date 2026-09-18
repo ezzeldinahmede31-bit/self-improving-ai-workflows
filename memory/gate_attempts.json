@@ -63,5 +63,8 @@
   },
   "clinic_audience_pulse.json": {
     "DAG_STRUCTURAL_VIOLATION::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 1
+  },
+  "clinic_competitor_watch.json": {
+    "REASONING_REVIEW_REQUIRED::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 2
   }
 }
