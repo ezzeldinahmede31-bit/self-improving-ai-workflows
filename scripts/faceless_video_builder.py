@@ -131,7 +131,7 @@ def gemini_voice(text, mp3, voice=None, direction=None):
     spoken = (direction or GEMINI_DIRECTION) + text
     body = json.dumps({'contents': [{'parts': [{'text': spoken}]}],
                        'generationConfig': {'responseModalities': ['AUDIO'],
-                                            'speechConfig': {'voiceConfig': {'prebuiltVoiceConfig': {'voiceName': voice or GEMINI_VOICE}}}}}}]).encode()
+                                             'speechConfig': {'voiceConfig': {'prebuiltVoiceConfig': {'voiceName': voice or GEMINI_VOICE}}}}}).encode()
     req = urllib.request.Request(
         'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=' + key,
         data=body, headers={'Content-Type': 'application/json'})

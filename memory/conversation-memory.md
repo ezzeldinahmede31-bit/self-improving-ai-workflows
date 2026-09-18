@@ -1789,3 +1789,7 @@ Both added to `compensatory-router` stacks.
 - User sent TikTok ZSqt4Vc18 (oEmbed title verified): secret = feelings described INSIDE the prompt + ElevenLabs audio tags + Egyptian text; tools: ElevenLabs + Google AI Studio.
 - Tried hard to capture full 8:35 video (share-param bypass worked for page, stream capture got tails, page-record muted, range assembly crashed) — method confirmed from verified caption instead.
 - Builder EMOTION_ARC upgraded to feeling-descriptions. Pending: Egyptian voice ID (ElevenLabs) and/or free GEMINI_API_KEY for Studio TTS test.
+
+## Gemini calm voice engine (Sep 18 2026)
+- User: dialect good, emotions too exaggerated. Fix: calm direction (natural phone-chat, no overacting) → sample sent.
+- Builder gained --engine gemini (Kore + calm direction + scene-timed SRT), proven end-to-end. Munsit tested honestly: no Egyptian-tagged voice in 177; fusha-voice + Egyptian text still non-Egyptian per user — rejected.
