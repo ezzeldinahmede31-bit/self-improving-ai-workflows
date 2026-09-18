@@ -1765,3 +1765,9 @@ Both added to `compensatory-router` stacks.
 - Competitor analysis used: Meet Daryl 273k (named character/problem-solution/series), labtechlee 10.2M (POV process + trending sound + Part1/2), jerry 4M (1s humor hook).
 - Fixes: detailed photoreal prompts + fixed seed (visual coherence), pure-Egyptian VO, POV proof scene, single WhatsApp CTA.
 - Builder upgrades: SEED + image_file bypass (future real footage). Proof frames verified, v2 sent to owner Telegram.
+
+## Demo v3 kinetic + dialect fix (Sep 18 2026)
+- User: v2 images ugly + voice Gulf not Egyptian + copy top foreign competitors, fix small mistakes to beat them.
+- Winners DNA (from live watch data): POV process+serialization 10.2M, 1s humor hook 4M, named character 273k, before/after contrast, myth-bust.
+- New --style kinetic: PIL gradient bg + big Arabic titles + progress bar + captions, zero AI images (kills ugly-image class). Proven with frames.
+- Voice: v3 rendered with default ElevenLabs voice (Gulf-leaning) as structure proof; Egyptian voice ID needed from user (ElevenLabs library Arabic filter).

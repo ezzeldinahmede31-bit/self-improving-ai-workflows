@@ -127,6 +127,60 @@ def duration_of(path):
     return max(1.0, h * 3600 + mnt * 60 + s)
 
 
+
+def kinetic_title_card(text, out, fontsize=64):
+    """Big multi-line Arabic title PNG (transparent) for kinetic overlay."""
+    import arabic_reshaper
+    from bidi.algorithm import get_display
+    from PIL import Image, ImageDraw, ImageFont
+    words, lines, cur = text.split(), [], ''
+    for w_ in words:
+        if len(cur) + len(w_) + 1 <= 16:
+            cur = (cur + ' ' + w_).strip()
+        else:
+            lines.append(cur); cur = w_
+    if cur:
+        lines.append(cur)
+    lines = lines[:4]
+    f = ImageFont.truetype('/usr/share/fonts/truetype/noto/NotoKufiArabic-Regular.ttf', fontsize)
+    img = Image.new('RGBA', (W, 500), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    y = 20
+    for ln in lines:
+        t = get_display(arabic_reshaper.reshape(ln))
+        d.text((W // 2, y), t, font=f, fill=(255, 255, 255, 255),
+               anchor='ma', stroke_width=2, stroke_fill=(0, 0, 0, 220))
+        y += fontsize + 18
+    img.save(out)
+
+
+def kinetic_bg(out, seed_color=(18, 22, 38)):
+    from PIL import Image, ImageDraw
+    img = Image.new('RGB', (W, H), seed_color)
+    d = ImageDraw.Draw(img)
+    for i in range(0, H, 4):
+        shade = max(0, 26 - i // 90)
+        d.line([(0, i), (W, i)], fill=(seed_color[0] + shade, seed_color[1] + shade, seed_color[2] + shade + 6))
+    img.save(out)
+
+
+def scene_clip_kinetic(bg, title_png, mp3, srt, out):
+    dur = duration_of(mp3) + 0.4
+    frames = int(dur * FPS)
+    fc = ("crop=iw:ih-120:0:0,scale=1440:2560,zoompan=z='min(zoom+0.0008,1.15)':d=%d:"
+          "x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s=720x1280:fps=%d" % (frames, FPS))
+    vf = ('%s,subtitles=%s:fontsdir=/usr/share/fonts:force_style=\'FontName="Noto Kufi Arabic",'
+          'FontSize=22,PrimaryColour=&HFFFFFF,OutlineColour=&H80000000,BorderStyle=1,MarginV=120\'' % (fc, srt.replace(':', '\\:').replace("'", '')))
+    # title overlay (static) + progress bar
+    vf += (",movie=%s,format=rgba[o];[v][o]overlay=(W-w)/2:300,"
+           "drawbox=x=60:y=1190:w='(720-120)*t/%s':h=8:c=yellow:t=fill" % (title_png, dur))
+    subprocess.run([FFMPEG, '-y', '-loop', '1', '-i', bg, '-i', mp3,
+                    '-filter_complex', vf.replace('[v]', '[0:v]'),
+                    '-c:v', 'libx264', '-pix_fmt', 'yuv420p',
+                    '-c:a', 'aac', '-shortest', out],
+                   check=True, timeout=300, capture_output=True)
+
+
 def scene_clip(img, mp3, srt, out, idx):
     dur = duration_of(mp3) + 0.4
     frames = int(dur * FPS)
@@ -145,6 +199,7 @@ def main():
     ap.add_argument('--provider', default='pollinations', choices=['pollinations', 'gemini'])
     ap.add_argument('--no-voice', action='store_true')
     ap.add_argument('--engine', default='edge', choices=['edge', 'elevenlabs'])
+    ap.add_argument('--style', default='cinema', choices=['cinema', 'kinetic'])
     ap.add_argument('--eleven-voice', default='JBFqnCBsd6RMkjVDRZzb')
     ap.add_argument('--outdir', default=os.path.join(BASE, 'output'))
     a = ap.parse_args()
@@ -159,7 +214,12 @@ def main():
         img = os.path.join(work, 's%d.jpg' % i)
         mp3 = os.path.join(work, 's%d.mp3' % i)
         srt = os.path.join(work, 's%d.srt' % i)
-        if sc.get('image_file'):
+        if a.style == 'kinetic':
+            print('scene %d/%d kinetic...' % (i + 1, len(scenes)), flush=True)
+            kinetic_bg(img)
+            kinetic_title_card(sc.get('title') or sc['voice'][:60],
+                               os.path.join(work, 't%d.png' % i))
+        elif sc.get('image_file'):
             print('scene %d/%d real footage...' % (i + 1, len(scenes)), flush=True)
             import shutil as _sh
             _sh.copy(sc['image_file'], img)
@@ -180,7 +240,10 @@ def main():
             open(srt, 'w').write('1\n00:00:00,000 --> 00:00:03,000\n%s\n' % sc['voice'])
         clip = os.path.join(work, 'c%d.mp4' % i)
         print('scene %d/%d render...' % (i + 1, len(scenes)), flush=True)
-        scene_clip(img, mp3, srt, clip, i)
+        if a.style == 'kinetic':
+            scene_clip_kinetic(img, os.path.join(work, 't%d.png' % i), mp3, srt, clip)
+        else:
+            scene_clip(img, mp3, srt, clip, i)
         clips.append(clip)
     lst = os.path.join(work, 'list.txt')
     open(lst, 'w').write(''.join("file '%s'\n" % c for c in clips))
