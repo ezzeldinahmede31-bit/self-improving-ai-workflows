@@ -1705,3 +1705,10 @@ Both added to `compensatory-router` stacks.
 - `clinic-competitor-radar` skill (gates+registered): leaders watchlist (Adit 10k+, PbN 5k+, Solutionreach benchmarks, Clinit EG, top creators w/ ER numbers) + leaders-only structure-imitation protocol + trend memory rules.
 - `clinic-audience-os` updated: 3 libs + radar + pulse + competitor refs.
 - Trend radar gained Archive node (Redis digest:<date>, 30d TTL) for old-trend analysis.
+
+## Daily monitoring + platform map (Sep 18 2026)
+- User: daily (not weekly) monitoring + which platforms per segment/age/country.
+- Pulse → daily 07:00 Cairo (renamed node broke a connection once — caught by INTEGRITY gate, fixed).
+- `memory/audience-platforms-eg.md`: 25-34 dominates every platform (TikTok EG 47% = 22.3M per Affect/TikTok Ads Manager Mar 2026; FB 51.6M per DataReportal 2026; IG 24.4M; YT 49.3M per CAPMAS; LinkedIn 18M ~50% 25-34 per Statista May 2026). Segment map + real EG watchlist accounts + daily ops.
+- Hygiene: deleted stale open proof twin (auth-none webhook left active) — twins must die after proof, always.
+- Both finals current+active: trend 17 nodes (with Archive), pulse 10 nodes (daily).

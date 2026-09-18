@@ -14,9 +14,10 @@ three book indexes (`memory/psychology-books-index.json` 6000 +
 Machiavelli file, `clinic-buyer-psychology`, `clinic-organic-sales-content`,
 `clinic-competitor-radar` (leaders watchlist + leaders-only imitation),
 live `clinic_trend_radar` (daily angles, archived 30d) and `clinic_audience_pulse`
-(weekly Egypt owner pains) — into answers for: who is the client, what content,
-when to post, how to market, how to sell, what to say. Single purpose:
-ORCHESTRATE the binding.
+(daily 07:00 Cairo owner pains) + platform map `memory/audience-platforms-eg.md`
+(platform × age × country with 2026 sources + watchlist) — into answers for:
+who is the client, what content, when to post, how to market, how to sell,
+what to say. Single purpose: ORCHESTRATE the binding.
 
 ## The 7-step run (never skip order)
 

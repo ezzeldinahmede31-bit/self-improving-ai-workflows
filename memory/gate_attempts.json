@@ -60,5 +60,8 @@
   "clinic_trend_radar.json": {
     "REASONING_REVIEW_REQUIRED::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 1,
     "RUNTIME_STRUCTURAL_INCONSISTENCY::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 2
+  },
+  "clinic_audience_pulse.json": {
+    "DAG_STRUCTURAL_VIOLATION::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 1
   }
 }
