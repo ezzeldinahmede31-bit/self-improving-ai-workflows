@@ -117,6 +117,32 @@ def scene_srt_from_text(text, dur, srt):
             f.write('%d\n%s --> %s\n%s\n\n' % (i + 1, ts(a).replace('.', ','), ts(b).replace('.', ','), part))
 
 
+
+GEMINI_VOICE = 'Kore'
+GEMINI_DIRECTION = ('اتكلم باللهجة المصرية العامية بصوت طبيعي وهادي تماما زي ما بتتكلم مع صاحبك '
+                    'في التليفون، بدون أي مبالغة في المشاعر، بهدوء وثقة: ')
+
+
+def gemini_voice(text, mp3, voice=None, direction=None):
+    import base64
+    key = getenv('GEMINI_API_KEY')
+    if not key:
+        raise RuntimeError('gemini engine needs GEMINI_API_KEY in .env')
+    spoken = (direction or GEMINI_DIRECTION) + text
+    body = json.dumps({'contents': [{'parts': [{'text': spoken}]}],
+                       'generationConfig': {'responseModalities': ['AUDIO'],
+                                            'speechConfig': {'voiceConfig': {'prebuiltVoiceConfig': {'voiceName': voice or GEMINI_VOICE}}}}}}]).encode()
+    req = urllib.request.Request(
+        'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=' + key,
+        data=body, headers={'Content-Type': 'application/json'})
+    b64 = json.load(urllib.request.urlopen(req, timeout=180))['candidates'][0]['content']['parts'][0]['inlineData']['data']
+    pcm = os.path.join(os.path.dirname(mp3), 'g.pcm')
+    open(pcm, 'wb').write(base64.b64decode(b64))
+    subprocess.run([FFMPEG, '-y', '-v', 'error', '-f', 's16le', '-ar', '24000', '-ac', '1',
+                    '-i', pcm, '-c:a', 'libmp3lame', '-b:a', '64k', mp3],
+                   check=True, timeout=120, capture_output=True)
+
+
 def gen_voice(text, mp3, srt, voice='ar-EG-SalmaNeural'):
     subprocess.run([EDGE, '--voice', voice, '--text', text,
                     '--write-media', mp3, '--write-subtitles', srt],
@@ -201,7 +227,7 @@ def main():
     ap.add_argument('--scenes', default='')
     ap.add_argument('--provider', default='pollinations', choices=['pollinations', 'gemini'])
     ap.add_argument('--no-voice', action='store_true')
-    ap.add_argument('--engine', default='edge', choices=['edge', 'elevenlabs'])
+    ap.add_argument('--engine', default='edge', choices=['edge', 'elevenlabs', 'gemini'])
     ap.add_argument('--style', default='cinema', choices=['cinema', 'kinetic'])
     ap.add_argument('--eleven-voice', default='JBFqnCBsd6RMkjVDRZzb')
     ap.add_argument('--outdir', default=os.path.join(BASE, 'output'))
@@ -231,7 +257,11 @@ def main():
             gen_img(sc['image'], img)
         if not a.no_voice:
             print('scene %d/%d voice...' % (i + 1, len(scenes)), flush=True)
-            if a.engine == 'elevenlabs':
+            if a.engine == 'gemini':
+                print('scene %d/%d voice (gemini)...' % (i + 1, len(scenes)), flush=True)
+                gemini_voice(sc['voice'], mp3)
+                scene_srt_from_text(sc['voice'], duration_of(mp3), srt)
+            elif a.engine == 'elevenlabs':
                 emo = EMOTION_ARC[min(i, len(EMOTION_ARC) - 1)]
                 elevenlabs_voice(sc['voice'], mp3, a.eleven_voice, getenv('ELEVENLABS_API_KEY'), emo)
                 scene_srt_from_text(sc['voice'], duration_of(mp3), srt)
