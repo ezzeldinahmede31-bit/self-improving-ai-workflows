@@ -1745,3 +1745,9 @@ Both added to `compensatory-router` stacks.
 - `scripts/fb_watch.py`: headed Chromium + owner session reads EG Page timelines (3 verified). Cron Wed+Sun 15:00. Live proof sent.
 - `scripts/ig_watch.py`: reels grids + captions (jerry/dentalchick/meshia verified; cooper/dentalart dead). Cron Wed+Sun 16:00. Live proof sent (14.9M reels).
 - Full social stack: YT 12:00 + TikTok 13:00 + LinkedIn 14:00 + FB 15:00 + IG 16:00 Wed+Sun. X still needs login (next).
+
+## Faceless video builder LIVE, all-free (Sep 18 2026)
+- User: free demo/regular videos from best sites + Nano Banana one-image-per-scene then assemble.
+- Honest findings: Nano Banana = Gemini image models; API has NO free tier (limit 0, Google staff) — free route is Gemini APP manual (~20/day). Auto free stack: Pollinations flux (keyless) + edge-tts ar-EG + imageio-ffmpeg + Noto Kufi.
+- `scripts/faceless_video_builder.py`: scenes JSON → per-scene image+VO+SRT → Ken Burns + burned Arabic captions + concat → 720x1280 MP4. Proof: 5-scene 37s demo rendered, frames eyeballed (Arabic OK, watermark cropped).
+- Skill `faceless-video-builder` gates+registered. X login window still open (user pivoted) — X lane pending.
