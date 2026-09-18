@@ -1755,3 +1755,7 @@ Both added to `compensatory-router` stacks.
 ## Emotional voice engine (Sep 18 2026)
 - User: voice with real (not exaggerated) feelings.
 - Verified: all 32 Arabic edge-tts voices = zero style support (flat). ElevenLabs v3 = Arabic + emotion tags; wired as --engine elevenlabs with subtle per-scene arc (concern/serious/relief/confident/warm) + scene-timed caption fallback (no word timings from API). Guard proven (401 without key). Awaiting user's free ELEVENLABS_API_KEY for live test.
+
+## ElevenLabs emotional voice LIVE (Sep 18 2026)
+- First key had zero permissions (401 missing_permissions on all endpoints) → user enabled perms → sent NEW key (stored, old replaced).
+- New key works: Arabic v3 TTS with emotion tags verified. Full 5-scene demo rendered with --engine elevenlabs (31s, 44.1kHz) + Arabic captions verified by frame. Video delivered to owner Telegram via bot sendVideo.
