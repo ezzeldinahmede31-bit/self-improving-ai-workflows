@@ -1,13 +1,13 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "mcp": {
-    "wrapflow": {
-      "type": "local",
-      "command": ["node", "/home/ezzeldin/.local/node_modules/wrapflow/wf.mjs", "mcp"],
+    "workflowhub": {
+      "type": "remote",
+      "url": "https://mcp.workflowhub.work/mcp",
       "enabled": true,
-      "environment": {
-        "WRAPFLOW_URL": "{env:WRAPFLOW_URL}",
-        "WRAPFLOW_TOKEN": "{env:WRAPFLOW_TOKEN}"
+      "oauth": false,
+      "headers": {
+        "X-Api-Key": "{env:WORKFLOWHUB_API_KEY}"
       }
     }
   },
