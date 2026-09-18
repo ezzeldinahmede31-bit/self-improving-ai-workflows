@@ -1722,3 +1722,9 @@ Both added to `compensatory-router` stacks.
 - `clinic_competitor_watch` (9 nodes, READY, ACTIVE Sundays 18:00 + webhook): Google News OR-feed over 10 vendors/agencies → moves + imitable formats → Telegram. Proof exec success with real intel (NexHealth $125M unicorn, PbN OTT platform + sponsorships, Lindy funding, Weave-vs-Solutionreach comparisons).
 - Honest limit documented: no free server-side API for YT/LinkedIn/TikTok competitor feeds (channel pages block scraping; keyless tiers are MCP-only) → monthly manual review protocol in skill.
 - Model flakiness seen live: reasoning dump of repeated tokens ("ellsell...") → Parse honestly threw → error alert; refire succeeded. Degenerate outputs are rejected, never delivered.
+
+## Social competitor lane LIVE (Sep 18 2026)
+- User challenged the "no free YT API" limit: "can't you make skills/scripts?" — correct, yt-dlp works server-side.
+- `scripts/comp_social_watch.py` + `competitor-social-fetcher` skill (gates+registered): 6 verified channels (Solutionreach/Adit/PbN/NexHealth/Gumloop/Lindy by channel ID), view-ranked, Nemotron formats digest → owner Telegram. Live proof: 6/6 sent:True. Cron Wed+Sun 12:00 Cairo.
+- Proven: Solutionreach "Meet Daryl" 150-273k views (character-led format to imitate structurally). Rejected: @LindyAI hijack, @GumloopAI 404, @Zapier/@Make flaky, TikTok anon (impersonation error).
+- TikTok/LinkedIn unlock = free Apify token (user one-time step), documented in skill; manual monthly until then.
