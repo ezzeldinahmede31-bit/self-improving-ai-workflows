@@ -82,8 +82,11 @@ def gen_image_gemini(prompt, out):
 
 # Emotion direction per scene position: subtle, never exaggerated (user rule:
 # real feelings, no overacting). Tags follow ElevenLabs v3 audio-tag style.
-EMOTION_ARC = ['[softly, with concern]', '[seriously]', '[warmly, with relief]',
-               '[confidently]', '[warmly, inviting]']
+EMOTION_ARC = ['[softly, with genuine concern, like a friend warning you about losing money]',
+               '[seriously, with urgency, speaking fast and direct]',
+               '[warmly, with relief, like good news after worry]',
+               '[confidently, like proof that cannot be argued with]',
+               '[warmly, inviting, like a personal invitation]']
 
 
 def elevenlabs_voice(text, mp3, voice_id, api_key, emotion=''):
