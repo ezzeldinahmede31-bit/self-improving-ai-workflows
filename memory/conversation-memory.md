@@ -1793,3 +1793,6 @@ Both added to `compensatory-router` stacks.
 ## Gemini calm voice engine (Sep 18 2026)
 - User: dialect good, emotions too exaggerated. Fix: calm direction (natural phone-chat, no overacting) → sample sent.
 - Builder gained --engine gemini (Kore + calm direction + scene-timed SRT), proven end-to-end. Munsit tested honestly: no Egyptian-tagged voice in 177; fusha-voice + Egyptian text still non-Egyptian per user — rejected.
+
+## Final demo = all voice fixes combined (Sep 18 2026)
+- User: last sample forgot previous fixes. Consolidated: Egyptian dialect + confident expert + light joy + human copy (pauses/questions/fillers) into GEMINI_DIRECTION + humanized DEMO_SCENES. Full demo rendered (gemini engine) and sent to Telegram.

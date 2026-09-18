@@ -34,15 +34,15 @@ SEED = 11
 
 DEMO_SCENES = [
     {'image': 'ultra photorealistic close-up of vintage telephone ringing on empty elegant dental reception desk, shallow depth of field, warm evening light Cairo clinic, 9:16 vertical composition, professional photography, sharp focus, no people, no text, no watermark',
-     'voice': 'تليفون العيادة بيرن ومحدش بيرد. كل مكالمة بتضيع، عيان بيروح يحجز عند الدكتور اللي جنبك.'},
+     'voice': 'بص... تليفون العيادة بيرن، ومحدش بيرد. عارف ده معناه ايه؟ كل مكالمة بتضيع... عيان بيروح يحجز عند الدكتور اللي جنبك.'},
     {'image': 'ultra photorealistic empty luxury dental chair in dark modern Cairo clinic at night, single spotlight from above, dramatic shadows, cinematic mood, 9:16 vertical composition, professional photography, no people, no text, no watermark',
-     'voice': 'ستين الف دكتور سنان في مصر. الكرسي الفاضي بياكل فلوسك كل يوم وانت بتتفرج.'},
+     'voice': 'عارف في كام دكتور سنان في مصر؟ ستين الف. متخيل؟ والكرسي الفاضي بتاعك... بياكل فلوسك كل يوم، وانت بتتفرج.'},
     {'image': 'ultra photorealistic POV over shoulder, hand holding smartphone showing green chat bubbles booking a dental appointment, bright modern clinic blurred background, daylight, 9:16 vertical composition, sharp focus on phone, no readable text, no watermark',
-     'voice': 'النظام بتاعنا بيرد على الواتساب في ثانية. يحجز ويأكد ويبعت التذكير. وانت نايم بالليل.'},
+     'voice': 'طب والحل؟ بص بقى... النظام بتاعنا بيرد على الواتساب في ثانية واحدة. يحجز، ويأكد، ويبعت التذكير. وانت نايم بالليل ومرتاح.'},
     {'image': 'ultra photorealistic happy Egyptian family leaving bright modern dental clinic, mother and child smiling at reception, morning sunlight, 9:16 vertical composition, professional lifestyle photography, no text, no watermark',
-     'voice': 'عيادات شبه عيادتك بالظبط زودت الحجوزات من اول شهر. من غير ما تشغل سكرتيرة زيادة.'},
+     'voice': 'وعلى فكرة... عيادات شبه عيادتك بالظبط، زودت الحجوزات من اول شهر. من غير ما تشغل سكرتيرة زيادة، ومن غير وجع دماغ.'},
     {'image': 'ultra photorealistic smartphone on marble counter showing chat app with big green button, dental clinic blurred background, bright inviting light, 9:16 vertical composition, product photography style, no readable text, no watermark',
-     'voice': 'ابعت كلمة ديمو على الواتساب دلوقتي. وشوف بعنيك النظام شغال على عيادتك.'},
+     'voice': 'مستني ايه؟ ابعت كلمة ديمو على الواتساب دلوقتي... وشوف بعنيك النظام وهو شغال على عيادتك. يلا!'},
 ]
 
 
@@ -119,8 +119,11 @@ def scene_srt_from_text(text, dur, srt):
 
 
 GEMINI_VOICE = 'Kore'
-GEMINI_DIRECTION = ('اتكلم باللهجة المصرية العامية بصوت طبيعي وهادي تماما زي ما بتتكلم مع صاحبك '
-                    'في التليفون، بدون أي مبالغة في المشاعر، بهدوء وثقة: ')
+GEMINI_DIRECTION = ('اتكلم باللهجة المصرية العامية، بصوت دكتور خبير واثق من كل كلمة بيقولها، '
+                    'وفي صوته بهجة خفيفة وابتسامة صغيرة زي حد مبسوط بشغله ومتفائل، '
+                    'هادي ومتمكن زي اللي جرب الحاجة دي مية مرة قبل كده، '
+                    'بيحكي لصاحبه كلام طبيعي فيه وقفات وتنفس وأسئلة بلاغية، '
+                    'بدون أي مبالغة خالص: ')
 
 
 def gemini_voice(text, mp3, voice=None, direction=None):
