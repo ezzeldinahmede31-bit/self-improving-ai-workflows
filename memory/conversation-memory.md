@@ -1712,3 +1712,7 @@ Both added to `compensatory-router` stacks.
 - `memory/audience-platforms-eg.md`: 25-34 dominates every platform (TikTok EG 47% = 22.3M per Affect/TikTok Ads Manager Mar 2026; FB 51.6M per DataReportal 2026; IG 24.4M; YT 49.3M per CAPMAS; LinkedIn 18M ~50% 25-34 per Statista May 2026). Segment map + real EG watchlist accounts + daily ops.
 - Hygiene: deleted stale open proof twin (auth-none webhook left active) — twins must die after proof, always.
 - Both finals current+active: trend 17 nodes (with Archive), pulse 10 nodes (daily).
+
+## Daily processing layer (Sep 18 2026)
+- User: daily PROCESSING required (not just monitoring).
+- Pulse Parse gained plays-mapping (pain keyword → sales play, 6 rules + default) + daily rename. Proof exec success with HAS_PLAYS. Final deployed+active.
