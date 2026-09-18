@@ -30,18 +30,19 @@ FFMPEG = subprocess.run(
 EDGE = os.path.join(VENV, 'edge-tts')
 FONT = '/usr/share/fonts/truetype/noto/NotoKufiArabic-Regular.ttf'
 W, H, FPS = 720, 1280, 30
+SEED = 11
 
 DEMO_SCENES = [
-    {'image': 'dental clinic phone ringing at empty reception desk, Cairo, cinematic, vertical',
-     'voice': 'تليفون العيادة بيرن ومحدش بيرد. كل مكالمة ضايعة مريض راح للمنافس.'},
-    {'image': 'angry dentist calculator money loss empty dental chair, dramatic light, vertical',
-     'voice': 'في سوق فيه ستين الف دكتور اسنان، الكرسي الفاضي بياكل مكسبك كل يوم.'},
-    {'image': 'smartphone whatsapp chat booking dental appointment automatically, glowing, vertical',
-     'voice': 'نظامنا بيرد واتساب فورا، يحجز ويذكر ويرقم الدور. وانت نايم.'},
-    {'image': 'happy egyptian dentist modern clinic patients smiling, bright, vertical',
-     'voice': 'عيادات زي عيادتك زودت حجوزاتها من اول شهر. بدون سكرتيرة زيادة.'},
-    {'image': 'phone whatsapp message demo button press, call to action style, vertical',
-     'voice': 'ابعت كلمة ديمو على واتساب وشوف النظام شغال على عيادتك بنفسك.'},
+    {'image': 'ultra photorealistic close-up of vintage telephone ringing on empty elegant dental reception desk, shallow depth of field, warm evening light Cairo clinic, 9:16 vertical composition, professional photography, sharp focus, no people, no text, no watermark',
+     'voice': 'تليفون العيادة بيرن ومحدش بيرد. كل مكالمة بتضيع، عيان بيروح يحجز عند الدكتور اللي جنبك.'},
+    {'image': 'ultra photorealistic empty luxury dental chair in dark modern Cairo clinic at night, single spotlight from above, dramatic shadows, cinematic mood, 9:16 vertical composition, professional photography, no people, no text, no watermark',
+     'voice': 'ستين الف دكتور سنان في مصر. الكرسي الفاضي بياكل فلوسك كل يوم وانت بتتفرج.'},
+    {'image': 'ultra photorealistic POV over shoulder, hand holding smartphone showing green chat bubbles booking a dental appointment, bright modern clinic blurred background, daylight, 9:16 vertical composition, sharp focus on phone, no readable text, no watermark',
+     'voice': 'النظام بتاعنا بيرد على الواتساب في ثانية. يحجز ويأكد ويبعت التذكير. وانت نايم بالليل.'},
+    {'image': 'ultra photorealistic happy Egyptian family leaving bright modern dental clinic, mother and child smiling at reception, morning sunlight, 9:16 vertical composition, professional lifestyle photography, no text, no watermark',
+     'voice': 'عيادات شبه عيادتك بالظبط زودت الحجوزات من اول شهر. من غير ما تشغل سكرتيرة زيادة.'},
+    {'image': 'ultra photorealistic smartphone on marble counter showing chat app with big green button, dental clinic blurred background, bright inviting light, 9:16 vertical composition, product photography style, no readable text, no watermark',
+     'voice': 'ابعت كلمة ديمو على الواتساب دلوقتي. وشوف بعنيك النظام شغال على عيادتك.'},
 ]
 
 
@@ -53,8 +54,8 @@ def getenv(name, default=''):
 
 
 def gen_image_pollinations(prompt, out):
-    url = ('https://image.pollinations.ai/prompt/%s?width=720&height=1280&nologo=true&model=flux'
-           % urllib.parse.quote(prompt[:400]))
+    url = ('https://image.pollinations.ai/prompt/%s?width=720&height=1280&nologo=true&model=flux&seed=%d'
+           % (urllib.parse.quote(prompt[:400]), SEED))
     req = urllib.request.Request(url, headers={'User-Agent': 'clinic-builder/1.0'})
     data = urllib.request.urlopen(req, timeout=180).read()
     assert data[:4] != b'<htm' and len(data) > 10000, 'pollinations failed'
@@ -158,8 +159,13 @@ def main():
         img = os.path.join(work, 's%d.jpg' % i)
         mp3 = os.path.join(work, 's%d.mp3' % i)
         srt = os.path.join(work, 's%d.srt' % i)
-        print('scene %d/%d img...' % (i + 1, len(scenes)), flush=True)
-        gen_img(sc['image'], img)
+        if sc.get('image_file'):
+            print('scene %d/%d real footage...' % (i + 1, len(scenes)), flush=True)
+            import shutil as _sh
+            _sh.copy(sc['image_file'], img)
+        else:
+            print('scene %d/%d img...' % (i + 1, len(scenes)), flush=True)
+            gen_img(sc['image'], img)
         if not a.no_voice:
             print('scene %d/%d voice...' % (i + 1, len(scenes)), flush=True)
             if a.engine == 'elevenlabs':

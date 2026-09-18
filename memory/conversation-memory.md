@@ -1759,3 +1759,9 @@ Both added to `compensatory-router` stacks.
 ## ElevenLabs emotional voice LIVE (Sep 18 2026)
 - First key had zero permissions (401 missing_permissions on all endpoints) → user enabled perms → sent NEW key (stored, old replaced).
 - New key works: Arabic v3 TTS with emotion tags verified. Full 5-scene demo rendered with --engine elevenlabs (31s, 44.1kHz) + Arabic captions verified by frame. Video delivered to owner Telegram via bot sendVideo.
+
+## Demo v2 — dialect + cinema + competitor structure (Sep 18 2026)
+- User: v1 images ugly + voice must be pure Egyptian dialect + copy BEST competitors' structures, fix small mistakes.
+- Competitor analysis used: Meet Daryl 273k (named character/problem-solution/series), labtechlee 10.2M (POV process + trending sound + Part1/2), jerry 4M (1s humor hook).
+- Fixes: detailed photoreal prompts + fixed seed (visual coherence), pure-Egyptian VO, POV proof scene, single WhatsApp CTA.
+- Builder upgrades: SEED + image_file bypass (future real footage). Proof frames verified, v2 sent to owner Telegram.
