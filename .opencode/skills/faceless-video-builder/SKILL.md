@@ -17,6 +17,7 @@ RENDER video from scenes.
 |---|---|---|---|
 | Scene images | Pollinations flux, 720x1280, keyless | $0 | live JPEGs |
 | Voice + SRT | edge-tts ar-EG-SalmaNeural | $0 | live MP3 + timed SRT |
+| Emotion voice | ElevenLabs v3 (audio tags, Arabic) | free tier key | wired, needs key |
 | Assembly | imageio-ffmpeg (Ken Burns zoompan, concat, libass) | $0 | 37s 720x1280 MP4 |
 | Fonts | Noto Kufi Arabic (system) | $0 | verified rendered Arabic |
 
@@ -32,6 +33,18 @@ Watermark note: pollinations stamps its logo despite nologo → cropped in-chain
 - `... --scenes scenes.json` where scenes = `[{image, voice}, ...]` (Phase-2
   generator emits exactly this shape, one image prompt per scene).
 - `... --demo --no-voice` for fast silent previews. Output: `output/faceless_<ts>.mp4`.
+- `--engine elevenlabs --eleven-voice <ID>` for emotional voice (needs free
+  `ELEVENLABS_API_KEY` in `.env`; default voice is a placeholder — pick an
+  Arabic voice from your ElevenLabs library). Emotion arc per scene (subtle,
+  never overacted): concern → seriousness → relief → confidence → warm CTA.
+  Captions fall back to scene-timed halves (ElevenLabs returns no word timings).
+
+## Voice finding (verified Sep 2026)
+
+- edge-tts: ALL 32 Arabic voices have zero style support (checked live) — flat
+  affect only. Use for drafts/speed.
+- ElevenLabs v3: 70+ languages incl. Arabic, inline emotion tags, API live.
+  Free signup key required for the live test.
 
 ## Hard rules
 

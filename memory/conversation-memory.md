@@ -1751,3 +1751,7 @@ Both added to `compensatory-router` stacks.
 - Honest findings: Nano Banana = Gemini image models; API has NO free tier (limit 0, Google staff) — free route is Gemini APP manual (~20/day). Auto free stack: Pollinations flux (keyless) + edge-tts ar-EG + imageio-ffmpeg + Noto Kufi.
 - `scripts/faceless_video_builder.py`: scenes JSON → per-scene image+VO+SRT → Ken Burns + burned Arabic captions + concat → 720x1280 MP4. Proof: 5-scene 37s demo rendered, frames eyeballed (Arabic OK, watermark cropped).
 - Skill `faceless-video-builder` gates+registered. X login window still open (user pivoted) — X lane pending.
+
+## Emotional voice engine (Sep 18 2026)
+- User: voice with real (not exaggerated) feelings.
+- Verified: all 32 Arabic edge-tts voices = zero style support (flat). ElevenLabs v3 = Arabic + emotion tags; wired as --engine elevenlabs with subtle per-scene arc (concern/serious/relief/confident/warm) + scene-timed caption fallback (no word timings from API). Guard proven (401 without key). Awaiting user's free ELEVENLABS_API_KEY for live test.

@@ -78,6 +78,41 @@ def gen_image_gemini(prompt, out):
     raise RuntimeError('gemini returned no image (quota? billing?)')
 
 
+
+# Emotion direction per scene position: subtle, never exaggerated (user rule:
+# real feelings, no overacting). Tags follow ElevenLabs v3 audio-tag style.
+EMOTION_ARC = ['[softly, with concern]', '[seriously]', '[warmly, with relief]',
+               '[confidently]', '[warmly, inviting]']
+
+
+def elevenlabs_voice(text, mp3, voice_id, api_key, emotion=''):
+    import urllib.request
+    spoken = (emotion + ' ' + text).strip() if emotion else text
+    body = json.dumps({'text': spoken, 'model_id': 'eleven_v3',
+                       'voice_settings': {'stability': 0.55, 'similarity_boost': 0.75}}).encode()
+    req = urllib.request.Request(
+        'https://api.elevenlabs.io/v1/text-to-speech/%s?output_format=mp3_44100_128' % voice_id,
+        data=body, headers={'xi-api-key': api_key, 'Content-Type': 'application/json',
+                            'Accept': 'audio/mpeg'})
+    audio = urllib.request.urlopen(req, timeout=180).read()
+    assert len(audio) > 5000, 'elevenlabs returned too little audio'
+    open(mp3, 'wb').write(audio)
+
+
+def scene_srt_from_text(text, dur, srt):
+    # Full-scene captions (no word timings from ElevenLabs): split in halves.
+    words = text.split()
+    mid = max(1, len(words) // 2)
+    parts = [' '.join(words[:mid]), ' '.join(words[mid:])]
+    def ts(s):
+        h, m, sec = int(s // 3600), int((s % 3600) // 60), s % 60
+        return '%02d:%02d:%06.3f' % (h, m, sec)
+    with open(srt, 'w', encoding='utf-8') as f:
+        for i, part in enumerate(parts):
+            a, b = dur * i / 2, dur * (i + 1) / 2
+            f.write('%d\n%s --> %s\n%s\n\n' % (i + 1, ts(a).replace('.', ','), ts(b).replace('.', ','), part))
+
+
 def gen_voice(text, mp3, srt, voice='ar-EG-SalmaNeural'):
     subprocess.run([EDGE, '--voice', voice, '--text', text,
                     '--write-media', mp3, '--write-subtitles', srt],
@@ -108,6 +143,8 @@ def main():
     ap.add_argument('--scenes', default='')
     ap.add_argument('--provider', default='pollinations', choices=['pollinations', 'gemini'])
     ap.add_argument('--no-voice', action='store_true')
+    ap.add_argument('--engine', default='edge', choices=['edge', 'elevenlabs'])
+    ap.add_argument('--eleven-voice', default='JBFqnCBsd6RMkjVDRZzb')
     ap.add_argument('--outdir', default=os.path.join(BASE, 'output'))
     a = ap.parse_args()
     scenes = list(DEMO_SCENES) if (a.demo or not a.scenes) else json.load(open(a.scenes, encoding='utf-8'))
@@ -125,7 +162,12 @@ def main():
         gen_img(sc['image'], img)
         if not a.no_voice:
             print('scene %d/%d voice...' % (i + 1, len(scenes)), flush=True)
-            gen_voice(sc['voice'], mp3, srt)
+            if a.engine == 'elevenlabs':
+                emo = EMOTION_ARC[min(i, len(EMOTION_ARC) - 1)]
+                elevenlabs_voice(sc['voice'], mp3, a.eleven_voice, getenv('ELEVENLABS_API_KEY'), emo)
+                scene_srt_from_text(sc['voice'], duration_of(mp3), srt)
+            else:
+                gen_voice(sc['voice'], mp3, srt)
         else:
             subprocess.run([FFMPEG, '-y', '-f', 'lavfi', '-i', 'anullsrc=r=44100:cl=mono',
                             '-t', '3', mp3], check=True, capture_output=True)
