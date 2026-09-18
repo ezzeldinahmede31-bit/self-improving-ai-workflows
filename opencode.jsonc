@@ -1,5 +1,16 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "wrapflow": {
+      "type": "local",
+      "command": ["node", "/home/ezzeldin/.local/node_modules/wrapflow/wf.mjs", "mcp"],
+      "enabled": true,
+      "environment": {
+        "WRAPFLOW_URL": "{env:WRAPFLOW_URL}",
+        "WRAPFLOW_TOKEN": "{env:WRAPFLOW_TOKEN}"
+      }
+    }
+  },
   "disabled_providers": [],
   "provider": {
     "deepseek_v3": {

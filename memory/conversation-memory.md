@@ -1771,3 +1771,10 @@ Both added to `compensatory-router` stacks.
 - Winners DNA (from live watch data): POV process+serialization 10.2M, 1s humor hook 4M, named character 273k, before/after contrast, myth-bust.
 - New --style kinetic: PIL gradient bg + big Arabic titles + progress bar + captions, zero AI images (kills ugly-image class). Proven with frames.
 - Voice: v3 rendered with default ElevenLabs voice (Gulf-leaning) as structure proof; Egyptian voice ID needed from user (ElevenLabs library Arabic filter).
+
+## Wrapflow Workflow Hub connection (Sep 18 2026)
+- User asked (Arabic) to connect the agent to "workflow hub", sent a `wfh_...` key.
+- Identified via web + package inspection: WrapFlow (`wrapflow` npm 0.1.0, MIT, homepage wrapflow.com). `wfh_` = stream/intake capability token (credential-in-URL); `wfs_` = read-only; full account ops need `wf_` API token. All API calls build as `{WRAPFLOW_URL}/api/stream/{token}` — URL is mandatory, token alone cannot resolve to a host.
+- Installed: `npm install --prefix ~/.local wrapflow` → `~/.local/node_modules/wrapflow/wf.mjs` (global -g failed on permissions; prefix install put it under node_modules not bin, referenced by absolute path).
+- Wired: `opencode.jsonc` gained `mcp.wrapflow` (local: `node .../wf.mjs mcp`, env passthrough WRAPFLOW_URL/WRAPFLOW_TOKEN). `opencode mcp list` → wrapflow connected.
+- Secrets: `WRAPFLOW_TOKEN` in project `.env` (0600, gitignored) + `~/.config/wrapflow/config.json` (0700/0600, vendor path). `WRAPFLOW_URL` still EMPTY — waiting on user to send the site base URL, then verify end-to-end (push/invoke test) before declaring connected.
