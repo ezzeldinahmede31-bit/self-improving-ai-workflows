@@ -1734,3 +1734,8 @@ Both added to `compensatory-router` stacks.
 - `scripts/tiktok_watch.py` (5 dental creators, captions+plays, Nemotron formats digest → Telegram). Live proof sent:True (4/5 creators; labtechlee 10.2M repair video). Cron Wed+Sun 13:00 Cairo under xvfb-run.
 - `competitor-social-fetcher` skill updated (both lanes live) + gates pass.
 - LinkedIn still needs login (Apify free token OR one-time visible login) — documented, monthly manual until then.
+
+## LinkedIn lane LIVE via owner session (Sep 18 2026)
+- User did one-time visible LinkedIn login; session verified by li_at cookie (values never read).
+- Company-posts pages render feed as text (no article DOM): inner_text split on "Feed post" works. 8 verified slugs (solutionreach, grow-with-adit, practice-by-numbers, nexhealth-inc, ay-automate, gumloop, zapier, make); clinit/lindy slugs dead-ends dropped honestly.
+- `scripts/linkedin_watch.py` live proof sent:True. Cron Wed+Sun 14:00. Full social stack now: YT 12:00 + TikTok 13:00 + LinkedIn 14:00, all reporting to owner bot.

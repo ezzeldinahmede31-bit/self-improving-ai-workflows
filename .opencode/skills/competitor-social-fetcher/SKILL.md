@@ -31,14 +31,17 @@ worth structure-level imitation. Single purpose: SOCIAL WINNERS.
    (seen live: @LindyAI hijack, @GumloopAI 404) are REJECTED, never added.
 3. Append `(Name, ID-or-verified-handle)` to CHANNELS, dry-run, then live.
 
-## TikTok / LinkedIn path (updated)
+## TikTok / LinkedIn lanes (BOTH LIVE)
 
-- TikTok user pages block headless + anonymous scraping (proven: captcha wall,
-  impersonation error, zero data) AND defeat TikTokApi parsing (KeyError on
-  current responses). What works: headed Chromium + fresh context per creator.
-- LinkedIn still needs login: EITHER free Apify token (`APIFY_TOKEN` in `.env`)
-  OR one-time visible login into the persistent Chrome profile (user types
-  credentials once, session reused). Until then: monthly manual review.
+- **TikTok** (`scripts/tiktok_watch.py`): headed Chromium + fresh context per
+  creator beats the captcha wall (headless/anon/API all failed with evidence).
+  Cron Wed+Sun 13:00. Proven: 10.2M denture repair, 4M humor.
+- **LinkedIn** (`scripts/linkedin_watch.py`): headed Chromium with the owner's
+  saved session (`memory/.sessions/linkedin_profile`, one-time visible login)
+  scrapes public company posts (8 verified slugs). Cron Wed+Sun 14:00.
+  Proven live: Solutionreach AI-Receptionist angles with hashtags.
+- Session care: never print cookie values; if LinkedIn forces re-login, redo
+  the one-time visible login and re-run `--dry-run`.
 
 ## Verification
 
