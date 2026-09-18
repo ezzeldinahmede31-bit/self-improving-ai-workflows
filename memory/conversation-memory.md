@@ -1739,3 +1739,9 @@ Both added to `compensatory-router` stacks.
 - User did one-time visible LinkedIn login; session verified by li_at cookie (values never read).
 - Company-posts pages render feed as text (no article DOM): inner_text split on "Feed post" works. 8 verified slugs (solutionreach, grow-with-adit, practice-by-numbers, nexhealth-inc, ay-automate, gumloop, zapier, make); clinit/lindy slugs dead-ends dropped honestly.
 - `scripts/linkedin_watch.py` live proof sent:True. Cron Wed+Sun 14:00. Full social stack now: YT 12:00 + TikTok 13:00 + LinkedIn 14:00, all reporting to owner bot.
+
+## IG + FB lanes LIVE (Sep 18 2026)
+- User did visible FB login (typed name not email first — corrected via screenshot) + IG login. Sessions verified by cookie names only (c_user/xs, sessionid).
+- `scripts/fb_watch.py`: headed Chromium + owner session reads EG Page timelines (3 verified). Cron Wed+Sun 15:00. Live proof sent.
+- `scripts/ig_watch.py`: reels grids + captions (jerry/dentalchick/meshia verified; cooper/dentalart dead). Cron Wed+Sun 16:00. Live proof sent (14.9M reels).
+- Full social stack: YT 12:00 + TikTok 13:00 + LinkedIn 14:00 + FB 15:00 + IG 16:00 Wed+Sun. X still needs login (next).

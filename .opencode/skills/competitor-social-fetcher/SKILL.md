@@ -40,6 +40,13 @@ worth structure-level imitation. Single purpose: SOCIAL WINNERS.
   saved session (`memory/.sessions/linkedin_profile`, one-time visible login)
   scrapes public company posts (8 verified slugs). Cron Wed+Sun 14:00.
   Proven live: Solutionreach AI-Receptionist angles with hashtags.
+- **Facebook** (`scripts/fb_watch.py`): headed Chromium with the owner's FB
+  session (`memory/.sessions/instagram_profile`) reads public Page timelines
+  (3 EG clinics verified). Cron Wed+Sun 15:00. Proven live: real dated posts
+  (veneers/crowns/implant stories).
+- **Instagram** (`scripts/ig_watch.py`): headed Chromium with the owner's IG
+  session reads reels grids + top captions (3 creators verified: jerry_rdh,
+  dentalchick_, meshia_d). Cron Wed+Sun 16:00. Proven live: 14.9M-view reels.
 - Session care: never print cookie values; if LinkedIn forces re-login, redo
   the one-time visible login and re-run `--dry-run`.
 
