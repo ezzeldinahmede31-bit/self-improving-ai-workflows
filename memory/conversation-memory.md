@@ -1796,3 +1796,29 @@ Both added to `compensatory-router` stacks.
 
 ## Final demo = all voice fixes combined (Sep 18 2026)
 - User: last sample forgot previous fixes. Consolidated: Egyptian dialect + confident expert + light joy + human copy (pauses/questions/fillers) into GEMINI_DIRECTION + humanized DEMO_SCENES. Full demo rendered (gemini engine) and sent to Telegram.
+
+## SESSION CONSOLIDATION (Sep 18 2026 evening — user demanded 3x to save everything)
+### Voice journey (final state)
+- edge-tts: all 32 Arabic voices zero styles (flat). ElevenLabs default voice = Gulf-leaning (user rejected).
+- Munsit (CNTXT): 177 voices, NO Egyptian tag; fusha-voice + Egyptian text still non-Egyptian per user. Lesson: truncated voice IDs (18 chars) caused 400s — use FULL IDs.
+- @algorithmy1 video method (verified caption): feelings-inside-prompt + audio tags + Egyptian text; tools ElevenLabs + Google AI Studio.
+- Gemini TTS (free key): Kore/Puck tested; dialect good; emotions too strong → calm direction → confidence (expert) → human copy (pauses/questions) → light joy. Samples sent each round. PENDING user approval of joy sample.
+- Builder: --engine edge|elevenlabs|gemini; GEMINI_DIRECTION consolidated (dialect+confidence+joy+human); DEMO_SCENES humanized; scene_srt_from_text fallback (no word timings from ElevenLabs/Gemini).
+### Video journey
+- v1 AI images (ugly per user) → v2 detailed prompts + seed + Egyptian VO → v3 kinetic typography (PIL gradient + big titles + progress bar, zero AI images).
+- Fixes: pollinations watermark cropped in-chain; FontName quoting for Arabic libass; drawbox numeric coords (H-90 invalid); Nano Banana API has NO free tier (limit 0).
+- Proofs: 37s edge demo + 31s elevenlabs demo + kinetic test, frames eyeballed, videos sent to owner Telegram.
+### Monitoring stack (all ACTIVE)
+- clinic_trend_radar (daily 08:00, 17 nodes, Archive node) + clinic_audience_pulse (daily 07:00, plays mapping) + clinic_competitor_watch (Sun 18:00).
+- Social lanes (cron Wed+Sun): YT 12:00 (yt-dlp, 6 channels), TikTok 13:00 (headed+Xvfb, 4/5 creators), LinkedIn 14:00 (owner session, 8 companies), FB 15:00 (owner session, 3 EG pages), IG 16:00 (owner session, 3 creators).
+- X login window OPEN (user pivoted to video); X lane pending.
+- Proven winners: Daryl 273k (character), labtechlee repair 10.2M (POV+sound+parts), jerry 4M/14.9M (humor).
+### Knowledge
+- 11,241 books: psych 6000 + marketing 3000 + business 2241 (+machiavelli-complete 101). Lookup --lib all.
+- Skills: 9 clinic/psych/biz/social/video (all READY_FOR_DEPLOYMENT + registered).
+### Hard lessons log
+- Twins (auth-none) must be deleted after proof (killed one left active). Schedule rename breaks connections (INTEGRITY caught it).
+- Code-node $helpers unavailable on this n8n; reasoning models dump thinking (need headroom + scoring extractor + fallback); Telegram entity errors from []()/_* (sanitize values); COUNTING_KEYWORDS false-positives (count, options-count) — reword.
+- TikTok: headless=captcha wall; headed+Xvfb+fresh-context works; search pages empty; yt-dlp needs cookies+impersonation (often fails); share-params (_r/_t) prevent profile redirect; oEmbed gives verified captions.
+- YouTube: channel pages scrape OK via yt-dlp; /watch kills automated pages; media download 403.
+- Secrets in .env only (600, gitignored): NVIDIA, Telegram bot+chat, ElevenLabs, Gemini, Munsit. Never print values.
