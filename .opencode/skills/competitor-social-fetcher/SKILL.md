@@ -12,13 +12,17 @@ worth structure-level imitation. Single purpose: SOCIAL WINNERS.
 
 ## How it works
 
-- `scripts/comp_social_watch.py` pulls latest videos per verified channel via
-  yt-dlp `--flat-playlist` (channel IDs, never guessable @handles), ranks by
-  views, Nemotron picks top-5 imitable formats, Telegram digest to the owner.
-- Schedule: cron Wed + Sun 12:00 Cairo (see Install). Manual run anytime:
-  `venv/bin/python scripts/comp_social_watch.py --dry-run` first.
+- **YouTube lane** — `scripts/comp_social_watch.py` pulls latest videos per
+  verified channel via yt-dlp `--flat-playlist` (channel IDs, never guessable
+  @handles), ranks by views, Nemotron picks top-5 imitable formats, Telegram
+  digest. Cron Wed+Sun 12:00 Cairo.
+- **TikTok lane (LIVE)** — `scripts/tiktok_watch.py` drives headed Chromium
+  (Xvfb-safe, fresh context per creator) over public creator pages, extracts
+  captions + play counts, same analyze→digest flow. Proven: 10.2M-view denture
+  repair, 4M-view humor. Cron Wed+Sun 13:00 Cairo. Manual run:
+  `xvfb-run -a venv/bin/python scripts/tiktok_watch.py --dry-run`.
 - Proven winners so far: Solutionreach "Meet Daryl" character series
-  (150k-273k views) — character-led AI-receptionist stories.
+  (150k-273k views); labtechlee repair-with-me (10.2M).
 
 ## Adding a channel (verification mandatory)
 
@@ -27,13 +31,14 @@ worth structure-level imitation. Single purpose: SOCIAL WINNERS.
    (seen live: @LindyAI hijack, @GumloopAI 404) are REJECTED, never added.
 3. Append `(Name, ID-or-verified-handle)` to CHANNELS, dry-run, then live.
 
-## TikTok / LinkedIn path (needs free Apify token)
+## TikTok / LinkedIn path (updated)
 
-- yt-dlp TikTok user pages fail anonymously (proven: impersonation error);
-  LinkedIn needs login. Both unlock with a free Apify token ($5/mo free):
-  user creates it once at console.apify.com, saves as `APIFY_TOKEN` in `.env`,
-  then this skill gains tiktok-scrape + linkedin scrapers. Until then: monthly
-  manual review (3 accounts, structure notes only).
+- TikTok user pages block headless + anonymous scraping (proven: captcha wall,
+  impersonation error, zero data) AND defeat TikTokApi parsing (KeyError on
+  current responses). What works: headed Chromium + fresh context per creator.
+- LinkedIn still needs login: EITHER free Apify token (`APIFY_TOKEN` in `.env`)
+  OR one-time visible login into the persistent Chrome profile (user types
+  credentials once, session reused). Until then: monthly manual review.
 
 ## Verification
 

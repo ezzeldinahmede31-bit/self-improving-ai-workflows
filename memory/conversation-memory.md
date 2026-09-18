@@ -1728,3 +1728,9 @@ Both added to `compensatory-router` stacks.
 - `scripts/comp_social_watch.py` + `competitor-social-fetcher` skill (gates+registered): 6 verified channels (Solutionreach/Adit/PbN/NexHealth/Gumloop/Lindy by channel ID), view-ranked, Nemotron formats digest → owner Telegram. Live proof: 6/6 sent:True. Cron Wed+Sun 12:00 Cairo.
 - Proven: Solutionreach "Meet Daryl" 150-273k views (character-led format to imitate structurally). Rejected: @LindyAI hijack, @GumloopAI 404, @Zapier/@Make flaky, TikTok anon (impersonation error).
 - TikTok/LinkedIn unlock = free Apify token (user one-time step), documented in skill; manual monthly until then.
+
+## TikTok lane LIVE via headed browser (Sep 18 2026)
+- User pushed back on "no free TikTok API" — correctly. Path found: headed Chromium (Xvfb-safe) + fresh context per creator beats the captcha wall (headless/anon/API all failed with evidence: 305 captcha refs, impersonation error, TikTokApi KeyError on current responses).
+- `scripts/tiktok_watch.py` (5 dental creators, captions+plays, Nemotron formats digest → Telegram). Live proof sent:True (4/5 creators; labtechlee 10.2M repair video). Cron Wed+Sun 13:00 Cairo under xvfb-run.
+- `competitor-social-fetcher` skill updated (both lanes live) + gates pass.
+- LinkedIn still needs login (Apify free token OR one-time visible login) — documented, monthly manual until then.
