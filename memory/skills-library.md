@@ -358,7 +358,7 @@ registered in the router appear under the same family here automatically.
 - **zapier-sdk** — Zapier SDK for TypeScript.
 - **zapier-system-cloner** — Replicates any Zapier (Zap) system — especially premium/expensive ones — with identical outputs and quality on n8n or code, using different (free/local) tools w…
 
-## Marketing/SEO/Growth (92)
+## Marketing/SEO/Growth (95)
 
 - **apify-audience-analysis** — Understand audience demographics, preferences, behavior patterns, and engagement quality across Facebook, Instagram, YouTube, and TikTok.
 - **architect-elevator-staff** — Lead architecture across all floors: executives, managers, engineers.
@@ -370,6 +370,7 @@ registered in the router appear under the same family here automatically.
 - **berkun-making-things-happen** — Leads projects to shipped: schedules, decision-making, and communication.
 - **biz-school-strategy** — Modern competitive strategy distilled for clinic wars: positioning, moats, OKRs, blitzscaling.
 - **bly-copywriters-handbook** — Writes B2B and direct copy hands-on: briefs, leads, and persuasion architecture.
+- **capacity-planning-slo** — Capacity planning with SLOs distilled.
 - **caples-tested-advertising** — Writes ads from tested methods: headline formulas and curiosity with payoff.
 - **clinic-audience-os** — Master operating system binding all psychology schools, the 2000-book index, and sales skills into one pipeline.
 - **clinic-buyer-psychology** — Psychographic profile of Egyptian private-clinic owners (dentists, dermatologists, clinic managers) for B2B selling.
@@ -431,11 +432,13 @@ registered in the router appear under the same family here automatically.
 - **psych-school-power** — Power and maneuver school for clinic selling: Machiavelli, Greene, war strategy, propaganda systems.
 - **psych-school-social** — Social psychology for clinic selling: norms, tribes, conformity.
 - **python-backend-architecture-review** — Comprehensive Python backend architecture review.
+- **resilience-circuit-testing** — Resilience and circuit breaker testing distilled.
 - **rework-range-lean** — Applies the counter-conventional product and business principles from Rework (Fried & Hansson): small is a feature not a stage, constraints are an advantage, sc…
 - **saga-compensation-flows** — Coordinates multi-step distributed actions with forward steps plus compensating undos.
 - **scalability-distributed-systems** — How to build systems that survive PRODUCTION.
 - **sheridan-they-ask** — Wins buyers by answering their questions honestly: buyer-driven content.
 - **single-variable-calculus** — Uses calculus where computer science actually needs it: growth, optimization, and series.
+- **soak-endurance-testing** — Soak and endurance testing distilled.
 - **social** — When the user wants help creating, scheduling, or optimizing social media content for LinkedIn, Twitter/X, Instagram, TikTok, Facebook, or other platforms, or w…
 - **social-media** — Drafts engaging social media posts, writes hooks, suggests hashtags, creates thread structures, and generates companion images.
 - **social-media-analyzer** — Social media campaign analysis and performance tracking.
@@ -782,7 +785,7 @@ registered in the router appear under the same family here automatically.
 - **web-security-browser-internals** — Applies Michal Zalewski's The Tangled Web to secure modern web applications: how browsers and HTTP actually behave (parsing, encoding, navigation, the same-orig…
 - **zero-to-one-thiel** — Applies Thiel monopoly, secrets, power law to strategy.
 
-## Coding/SWE (85)
+## Coding/SWE (86)
 
 - **agile-principles-patterns-practices** — Applies Robert C.
 - **algorithm-design** — Design algorithms with LaTeX pseudocode and UML diagrams.
@@ -797,6 +800,7 @@ registered in the router appear under the same family here automatically.
 - **atomic-decomposition** — Decompose research ideas into atomic, self-contained concepts with bidirectional math-code mapping.
 - **c-programming-language** — Applies Kernighan & Ritchie's The C Programming Language to write clear, portable C: types and operators, control flow, functions and the argument-passing model…
 - **chaos-resilience-practice** — Prove resilience by breaking things on purpose: game days, fault injection, blast-radius control.
+- **chaos-testing-patterns** — Chaos testing patterns distilled.
 - **clean-agile** — Applies Robert C.
 - **clean-code** — Applies Robert C.
 - **clean-code-classes-error-handling** — Applies the classes and error-handling chapters of Robert C.
@@ -902,7 +906,7 @@ registered in the router appear under the same family here automatically.
 - **worst-idea** — Worst Possible Idea (reverse brainstorming) — deliberately design the most terrible solutions to the problem, name the mechanism that makes each one bad, then i…
 - **zeller-fuzzing-book** — Fuzzes with structure: mutational, generational, and coverage-guided fuzzing.
 
-## Delivery/Gates (31)
+## Delivery/Gates (32)
 
 - **adversarial-self-falsifier** — Actively attacks and attempts to break generated code, math, or logic before finalizing the response.
 - **adzic-specification-by-example** — Gojko Adzic Specification by Example distilled.
@@ -924,6 +928,7 @@ registered in the router appear under the same family here automatically.
 - **jit-pragmatic-architect** — World-class AI Automation System Architect.
 - **litellm-tier-router** — Dynamic SLA-aware model routing and multi-provider failover engine.
 - **llmops-production** — Applies LLMOps practices (LLMOps: Managing Large Language Models in Production) to operating LLM features at scale: prompt and model versioning, evals in CI, co…
+- **message-queue-testing** — Message queue testing distilled.
 - **n8n-delivery-verification-gate** — MANDATORY gate before delivering ANY n8n workflow to the user.
 - **nvidia-nim-integrator** — Connects OpenCode to NVIDIA NIM API (Llama 3.3, Nemotron, DeepSeek) using the local NVIDIA_API_KEY environment variable.
 - **obsidian-second-brain-vault** — Routes downloaded media transcripts and extracted knowledge notes into a local Obsidian vault under the three-section structure (01_Raw_Inbox / 02_Structured_Kn…
@@ -936,10 +941,11 @@ registered in the router appear under the same family here automatically.
 - **triage** — Move issues and external PRs through a state machine of triage roles, categorise, verify, grill if needed, and write agent-ready briefs.
 - **wiegers-software-requirements** — Engineers requirements that survive contact with stakeholders: elicitation, specification, and change control.
 
-## Superpowers pack — obra (27)
+## Superpowers pack — obra (28)
 
 - **black-risk-based-testing** — Manages testing by risk: analysis, priorities, and process control.
 - **brainstorming** — You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior.
+- **database-performance-testing** — Database performance testing distilled.
 - **demarco-bears-risk** — Manages project risk explicitly: identification, quantification, and mitigation.
 - **dispatching-parallel-agents** — Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies
 - **executing-plans** — Use when you have a written implementation plan to execute in a separate session with review checkpoints
@@ -1078,7 +1084,7 @@ registered in the router appear under the same family here automatically.
 - **high-end-visual-design** — Teaches the AI to design like a high-end agency.
 - **liquid-glass** — Build and migrate iOS, macOS, iPadOS, watchOS, tvOS, and visionOS apps with Apple's Liquid Glass design system (iOS 26+, macOS 26 Tahoe+).
 
-## Auto-installed (find-skills) (53)
+## Auto-installed (find-skills) (56)
 
 - **agentic-eval** — Patterns and techniques for evaluating and improving AI agent outputs.
 - **api-testing-contract-patterns** — API testing patterns distilled.
@@ -1088,6 +1094,7 @@ registered in the router appear under the same family here automatically.
 - **bdd-cucumber-deep** — Deep BDD with Cucumber distilled.
 - **boyd-convex-optimization** — Solves optimization the Boyd way: convex formulation, duality, and first-order methods.
 - **candor-radical-feedback** — Gives feedback that works: care personally, challenge directly.
+- **cdn-cache-testing** — CDN and cache testing distilled.
 - **copeland-pairwise-testing** — Covers input combinations efficiently: pairwise and combinatorial design.
 - **cypress-component-patterns** — Cypress testing patterns distilled.
 - **decision-table-testing** — Decision table testing distilled.
@@ -1109,6 +1116,7 @@ registered in the router appear under the same family here automatically.
 - **mutation-testing-pit** — Mutation testing with PIT distilled.
 - **neon-postgres** — Guides and best practices for working with Lakebase Postgres on Neon: connections, pooled vs direct, schema migrations, branching, autoscaling, scale-to-zero, i…
 - **observability-execution-monitoring** — Watches health via metrics, structured logs, alerts on stall/failure.
+- **observability-test-telemetry** — Test telemetry and observability distilled.
 - **pairwise-advanced-constraints** — Advanced pairwise testing with constraints distilled.
 - **pearl-causal-inference** — Reasons from correlation to causation: graphs, interventions, and counterfactuals.
 - **perlman-interconnections** — Designs robust bridging and routing: spanning trees, link-state, and self-stabilization.
@@ -1120,6 +1128,7 @@ registered in the router appear under the same family here automatically.
 - **seven-databases-tour** — Chooses the right database paradigm: relational, KV, columnar, document, graph.
 - **shape-up-basecamp** — Ships in fixed cycles the Basecamp way: shaping, betting, building.
 - **shapiro-crdts** — Shares mutable state without coordination: convergent replicated data types.
+- **spike-breakpoint-testing** — Spike and breakpoint testing distilled.
 - **system-design** — Scalability, availability, and distributed systems design
 - **system-design-canon-index** — Index of 120+ system-design books mapped to skills: find which book covers what and which skill applies it.
 - **test-data-management** — Test data management distilled.
@@ -1140,10 +1149,11 @@ registered in the router appear under the same family here automatically.
 - **n8n-deployment-ops-guard** — Guards n8n deployment and production operations that gates cannot see.
 - **n8n-runtime-semantics-guard** — Guards n8n runtime semantics that schema checks miss.
 
-## Dev utilities (3)
+## Dev utilities (4)
 
 - **classification-tree-testing** — Classification tree testing distilled.
 - **fowler-analysis-patterns** — Reuses domain models that work: accountability, measurements, inventory, and planning patterns.
+- **frontend-perf-testing** — Frontend performance testing distilled.
 - **object-oriented-design** — Designs with objects: responsibilities, contracts, and composition over inheritance.
 
 ## Creative/Reasoning (2)
@@ -1160,4 +1170,4 @@ registered in the router appear under the same family here automatically.
 - **speech-language-processing** — Applies Jurafsky & Martin's Speech and Language Processing (SLP) to build NLP systems on textbook foundations: regular expressions and text normalization, n-gra…
 
 ---
-*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 20:41 — 1080 skills, 24 families*
+*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 20:42 — 1090 skills, 24 families*
