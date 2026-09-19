@@ -665,7 +665,7 @@ registered in the router appear under the same family here automatically.
 - **web-component-design** — Master React, Vue, and Svelte component patterns including CSS-in-JS, composition strategies, and reusable component architecture.
 - **windows-internals-russinovich** — Understands Windows from the kernel up: processes, memory, I/O, and security.
 
-## Agents/Architecture (50)
+## Agents/Architecture (49)
 
 - **agent-arch-system-design** — Expert system architecture design: patterns, scalability planning, ADRs, C4 diagrams, technology trade-offs, non-functional requirements.
 - **agent-reach** — Read and search external sources through the channels installed on this machine.
@@ -715,7 +715,6 @@ registered in the router appear under the same family here automatically.
 - **state-machine-workflow-modeling** — Represents workflows as explicit state machines with persisted state.
 - **streaming-systems-akidau** — Applies Tyler Akidau, Slava Chernyak, and Reuven Lax's Streaming Systems to build correct stream/batch data pipelines: the event-time vs processing-time distinc…
 - **terraform-up-and-running** — Applies Terraform: Up and Running (Yevgeniy Brikman) to infrastructure provisioning: treat every resource as code that is plan-able, reviewable, and reproducibl…
-- **web-design-reviewer** — This skill enables visual inspection of websites running locally or remotely to identify and fix design issues.
 - **webapp-testing** — Toolkit for interacting with and testing local web applications using Playwright.
 
 ## Security (19)
@@ -740,7 +739,7 @@ registered in the router appear under the same family here automatically.
 - **web-security-browser-internals** — Applies Michal Zalewski's The Tangled Web to secure modern web applications: how browsers and HTTP actually behave (parsing, encoding, navigation, the same-orig…
 - **zero-to-one-thiel** — Applies Thiel monopoly, secrets, power law to strategy.
 
-## Coding/SWE (72)
+## Coding/SWE (73)
 
 - **agile-principles-patterns-practices** — Applies Robert C.
 - **algorithm-design** — Design algorithms with LaTeX pseudocode and UML diagrams.
@@ -810,6 +809,7 @@ registered in the router appear under the same family here automatically.
 - **types-and-programming-languages** — Applies Benjamin C.
 - **varghese-network-algorithmics** — Implements packet processing at line rate: fast lookups, classification, and scheduling.
 - **web-design-guidelines** — Review UI code for Web Interface Guidelines compliance.
+- **web-design-reviewer** — This skill enables visual inspection of websites running locally or remotely to identify and fix design issues.
 - **weinberg-egoless-systems** — Runs software as a human system: egoless programming and technical leadership.
 - **xunit-test-patterns** — Applies Gerard Meszaros' XUnit Test Patterns to write clean, maintainable test suites: the Four-Phase test structure, the Test Double taxonomy (dummy, stub, fak…
 - **zeller-why-programs-fail** — Debugs systematically like a scientist: reproduce, hypothesize, predict, experiment.
