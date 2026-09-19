@@ -7,7 +7,7 @@ for the full doc of the chosen skill. Grouping matches the router
 registry buckets (`compensatory-router/SKILL.md`), so new skills that were
 registered in the router appear under the same family here automatically.
 
-## Automation (per-tool) (317)
+## Automation (per-tool) (318)
 
 - **abstraction-quality-gate** — Enforces A Philosophy of Software Design's core principle: complexity management through deep modules and shallow interfaces.
 - **access-control-least-privilege-agents-v2** — Applies Access Control, Role-Based Permissions, and Least Privilege for AI Agents to production: distilled patterns, anti-patterns, and checklists for building…
@@ -26,6 +26,7 @@ registered in the router appear under the same family here automatically.
 - **airflow-temporal-orchestration** — Applies Apache Airflow and Temporal: Orchestrating Complex Enterprise Workflows to production: distilled patterns, anti-patterns, and checklists for building re…
 - **airtable-automation** — Airtable database automation - views, automations, integrations, and workflow triggers
 - **akf-scalability-cube** — Scales systems along three axes: clone, split, and partition.
+- **alex-xu-system-design** — Designs internet-scale systems interview-style: estimation, bottlenecks, and evolution.
 - **algorithmic-accountability-liability-v2** — Applies Algorithmic Accountability and Liability in Autonomous Business Execution to production: distilled patterns, anti-patterns, and checklists for building…
 - **ansible-automation** — Infrastructure automation and configuration management using Ansible playbooks, roles, and inventory.
 - **api-gateway-rate-limiting-llm-services** — Applies API Gateway Design and Rate Limiting for LLM-Powered Services to production: distilled patterns, anti-patterns, and checklists for building reliable api…
@@ -580,11 +581,10 @@ registered in the router appear under the same family here automatically.
 - **thinking-triz** — When two design requirements seem mutually exclusive, name the contradiction, separate conflicting states, then invent a concrete no-compromise resolution.
 - **thinking-via-negativa** — Use when the reflex is to add a feature, layer, or process.
 
-## Context/Memory/System (60)
+## Context/Memory/System (59)
 
 - **advanced-evaluation** — This skill should be used for advanced LLM evaluation: LLM-as-judge systems, direct scoring, pairwise comparison, rubric calibration, evaluator bias mitigation,…
 - **alephone-binary-exploitation** — Understands memory-corruption attacks to defeat them: overflows, ROP, and modern mitigations.
-- **alex-xu-system-design** — Designs internet-scale systems interview-style: estimation, bottlenecks, and evolution.
 - **ambiguity-resolver** — Forced-explicit ambiguity gate for weak/free models.
 - **aumasson-serious-crypto** — Deploys cryptography correctly: modern primitives, key management, and failure modes.
 - **automation-known-issues-compass** — The known-issues catalog + design-time checklist for n8n and Zapier: every common failure mode, its symptom, root cause and fix, encoded so that ANY automation/…
