@@ -456,7 +456,7 @@ registered in the router appear under the same family here automatically.
 - **search-patterns** — Applies Peter Morville's Search Patterns to design search and discovery experiences that actually work: the search UX/IA anatomy (query box, results, faceted na…
 - **vector-databases-similarity-search** — Covers the fundamentals of vector databases and similarity search that any RAG or semantic-search build depends on: embedding representation, vector indexes (HN…
 
-## Reasoning/Math/Logic (66)
+## Reasoning/Math/Logic (65)
 
 - **algorithm-design-kleinberg-tardos** — Applies Kleinberg & Tardos' Algorithm Design to designing algorithms by stable problem families: greedy algorithms and exchange arguments, divide and conquer wi…
 - **algorithmic-math-reasoner** — Raises correctness on hard algorithmic and mathematical problems where a fast model tends to jump to plausible-but-wrong answers: forces formal restatement, inv…
@@ -481,7 +481,6 @@ registered in the router appear under the same family here automatically.
 - **execution-guided-tot-validator** — Validates Tree-of-Thought (ToT) reasoning branches using real execution feedback in a local Docker sandbox rather than relying on LLM self-judgment.
 - **forallx-formal-logic** — Proves with formal logic: propositional and first-order syntax, semantics, and deduction.
 - **formal-math-logic-verification-engine** — Deterministic, mechanical verification for math and logic answers using real solver tooling installed in this workspace's venv — math-verify (HuggingFace: parse…
-- **fowler-analysis-patterns** — Reuses domain models that work: accountability, measurements, inventory, and planning patterns.
 - **frontier-deep-reasoner** — Compensate for shallow/degraded multi-step reasoning by forcing an explicit decomposition ladder (Problem -> Constraints -> Steps -> Verify -> Output).
 - **generative-deep-learning** — Applies David Foster's Generative Deep Learning to design, train, and evaluate generative models — variational autoencoders (VAE), generative adversarial networ…
 - **grokking-deep-learning** — Applies Andrew Trask's Grokking Deep Learning to build neural networks from scratch with zero dependencies, gaining an intuition for every component: prediction…
@@ -984,8 +983,9 @@ registered in the router appear under the same family here automatically.
 - **n8n-deployment-ops-guard** — Guards n8n deployment and production operations that gates cannot see.
 - **n8n-runtime-semantics-guard** — Guards n8n runtime semantics that schema checks miss.
 
-## Dev utilities (1)
+## Dev utilities (2)
 
+- **fowler-analysis-patterns** — Reuses domain models that work: accountability, measurements, inventory, and planning patterns.
 - **object-oriented-design** — Designs with objects: responsibilities, contracts, and composition over inheritance.
 
 ## Creative/Reasoning (2)
