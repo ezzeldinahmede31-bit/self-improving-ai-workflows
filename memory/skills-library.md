@@ -695,7 +695,7 @@ registered in the router appear under the same family here automatically.
 - **tool-design** — This skill should be used for the tool-interface layer of an agent system specifically: writing tool descriptions agents can route on, designing tool schemas an…
 - **windows-internals-russinovich** — Understands Windows from the kernel up: processes, memory, I/O, and security.
 
-## Agents/Architecture (59)
+## Agents/Architecture (58)
 
 - **agent-arch-system-design** — Expert system architecture design: patterns, scalability planning, ADRs, C4 diagrams, technology trade-offs, non-functional requirements.
 - **agent-reach** — Read and search external sources through the channels installed on this machine.
@@ -754,7 +754,6 @@ registered in the router appear under the same family here automatically.
 - **systems-design-methodology** — Use when the /systems-design mode is active.
 - **terraform-up-and-running** — Applies Terraform: Up and Running (Yevgeniy Brikman) to infrastructure provisioning: treat every resource as code that is plan-able, reviewable, and reproducibl…
 - **web-component-design** — Master React, Vue, and Svelte component patterns including CSS-in-JS, composition strategies, and reusable component architecture.
-- **web-scalability-startup-playbook** — Scale a web product 0 to millions without rewrites: stateless app, read replicas, cache layers, CDN, async queues, sharding.
 - **webapp-testing** — Toolkit for interacting with and testing local web applications using Playwright.
 
 ## Security (19)
@@ -893,7 +892,7 @@ registered in the router appear under the same family here automatically.
 - **worst-idea** — Worst Possible Idea (reverse brainstorming) — deliberately design the most terrible solutions to the problem, name the mechanism that makes each one bad, then i…
 - **zeller-fuzzing-book** — Fuzzes with structure: mutational, generational, and coverage-guided fuzzing.
 
-## Delivery/Gates (32)
+## Delivery/Gates (31)
 
 - **adversarial-self-falsifier** — Actively attacks and attempts to break generated code, math, or logic before finalizing the response.
 - **adzic-specification-by-example** — Gojko Adzic Specification by Example distilled.
@@ -922,7 +921,6 @@ registered in the router appear under the same family here automatically.
 - **proactive-spec-expander** — Automatically expands simple user prompts into enterprise-grade PRDs with implicit security, lockdown modes, rate limits, and edge-case requirements BEFORE writ…
 - **reflection-and-audit-loop** — Impose a mandatory 4-stage structured workflow before delivering any n8n workflow JSON or Code-node script: plan the path, draft, structural self-critique, then…
 - **swebok-guide** — Maps any software engineering question to its SWEBOK knowledge area and the right specialist skill.
-- **system-design-canon-index** — Index of 120+ system-design books mapped to skills: find which book covers what and which skill applies it.
 - **to-spec** — Turn the current conversation into a spec and publish it to the project issue tracker: no interview, just synthesis of what you've already discussed.
 - **tradeoff-and-postmortem-documenter** — Auto-generates production-ready documentation, architecture rationale, design trade-offs, and an explicit KNOWN_ISSUES.md for every implementation.
 - **triage** — Move issues and external PRs through a state machine of triage roles, categorise, verify, grill if needed, and write agent-ready briefs.
@@ -1069,7 +1067,7 @@ registered in the router appear under the same family here automatically.
 - **high-end-visual-design** — Teaches the AI to design like a high-end agency.
 - **liquid-glass** — Build and migrate iOS, macOS, iPadOS, watchOS, tvOS, and visionOS apps with Apple's Liquid Glass design system (iOS 26+, macOS 26 Tahoe+).
 
-## Auto-installed (find-skills) (41)
+## Auto-installed (find-skills) (44)
 
 - **agentic-eval** — Patterns and techniques for evaluating and improving AI agent outputs.
 - **api-testing-contract-patterns** — API testing patterns distilled.
@@ -1079,6 +1077,7 @@ registered in the router appear under the same family here automatically.
 - **candor-radical-feedback** — Gives feedback that works: care personally, challenge directly.
 - **copeland-pairwise-testing** — Covers input combinations efficiently: pairwise and combinatorial design.
 - **decision-table-testing** — Decision table testing distilled.
+- **distributed-systems-field-manual** — Practical distributed-systems survival rules: timeouts, retries, clocks, quorums.
 - **ecommerce-order-processing-flows** — Automates order lifecycles with idempotent steps + reconciliation.
 - **fan-out-fan-in-merge** — Splits work parallel then rejoins by key, handling partial failures.
 - **feature-engineering-machine-learning** — Applies Alice Zheng and Amanda Casari's Feature Engineering for Machine Learning to turn raw data into features that make models work: numeric features (scaling…
@@ -1106,9 +1105,11 @@ registered in the router appear under the same family here automatically.
 - **shape-up-basecamp** — Ships in fixed cycles the Basecamp way: shaping, betting, building.
 - **shapiro-crdts** — Shares mutable state without coordination: convergent replicated data types.
 - **system-design** — Scalability, availability, and distributed systems design
+- **system-design-canon-index** — Index of 120+ system-design books mapped to skills: find which book covers what and which skill applies it.
 - **timeout-graceful-degradation** — Bounds calls with explicit timeouts, defines degraded modes.
 - **use-case-testing-patterns** — Use case testing distilled.
 - **validation-gate-data-quality** — Blocks bad data at entrances with schema/range checks + quarantine.
+- **web-scalability-startup-playbook** — Scale a web product 0 to millions without rewrites: stateless app, read replicas, cache layers, CDN, async queues, sharding.
 - **whitman-cashvertising** — Pulls buying triggers from the Life-Force 8 and 41 techniques.
 - **workflow-versioning-upgrades** — Versions artifacts, staged rollout, safe downgrade.
 - **zinsser-writing-well** — Writes nonfiction with style: clarity, brevity, and humanity.
@@ -1134,10 +1135,9 @@ registered in the router appear under the same family here automatically.
 
 - **shoham-multiagent-systems** — Designs strategic multi-agent systems: game forms, social choice, and protocols.
 
-## Other / custom (not yet in router registry) (2)
+## Other / custom (not yet in router registry) (1)
 
-- **distributed-systems-field-manual** — Practical distributed-systems survival rules: timeouts, retries, clocks, quorums.
 - **speech-language-processing** — Applies Jurafsky & Martin's Speech and Language Processing (SLP) to build NLP systems on textbook foundations: regular expressions and text normalization, n-gra…
 
 ---
-*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 20:36 — 1060 skills, 24 families*
+*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 20:37 — 1060 skills, 24 families*
