@@ -7,7 +7,7 @@ for the full doc of the chosen skill. Grouping matches the router
 registry buckets (`compensatory-router/SKILL.md`), so new skills that were
 registered in the router appear under the same family here automatically.
 
-## Automation (per-tool) (315)
+## Automation (per-tool) (314)
 
 - **abstraction-quality-gate** — Enforces A Philosophy of Software Design's core principle: complexity management through deep modules and shallow interfaces.
 - **access-control-least-privilege-agents-v2** — Applies Access Control, Role-Based Permissions, and Least Privilege for AI Agents to production: distilled patterns, anti-patterns, and checklists for building…
@@ -133,7 +133,6 @@ registered in the router appear under the same family here automatically.
 - **gaussian-processes-machine-learning** — Applies Rasmussen & Williams' Gaussian Processes for Machine Learning to build probabilistic regression and classification with GPs: covariance functions, exact…
 - **government-public-sector-automation-v2** — Applies Government and Public Sector Process Automation to production: distilled patterns, anti-patterns, and checklists for building reliable government and pu…
 - **graphrag-knowledge-graphs-vector-v2** — Applies GraphRAG: Combining Knowledge Graphs and Vector Search for Deep Context to production: distilled patterns, anti-patterns, and checklists for building re…
-- **gray-reuter-tp-processing** — Processes transactions at scale the Gray-Reuter way: TP monitors, workflows, and exactly-once effects.
 - **guardrails-alignment-runtime-safety-v2** — Applies Guardrails, Alignment, and Runtime Safety Filters in AI Automation to production: distilled patterns, anti-patterns, and checklists for building reliabl…
 - **handling-captchas-antibot-logins-v2** — Applies Handling CAPTCHAs, Anti-Bot Systems, and Secure Logins in Automation to production: distilled patterns, anti-patterns, and checklists for building relia…
 - **handling-context-window-limits-v2** — Applies Handling Context Window Limits: Summarization, Memory, and Compaction Techniques to production: distilled patterns, anti-patterns, and checklists for bu…
@@ -337,7 +336,7 @@ registered in the router appear under the same family here automatically.
 - **zapier-sdk** — Zapier SDK for TypeScript.
 - **zapier-system-cloner** — Replicates any Zapier (Zap) system — especially premium/expensive ones — with identical outputs and quality on n8n or code, using different (free/local) tools w…
 
-## Marketing/SEO/Growth (70)
+## Marketing/SEO/Growth (71)
 
 - **apify-audience-analysis** — Understand audience demographics, preferences, behavior patterns, and engagement quality across Facebook, Instagram, YouTube, and TikTok.
 - **audience-psychology-analyst** — Build a psychological profile of any target audience and translate it into marketing AND video-editing decisions.
@@ -368,6 +367,7 @@ registered in the router appear under the same family here automatically.
 - **foley-computer-graphics** — Builds correct rendering: transforms, viewing, rasterization, and shading.
 - **generative-ai-design-patterns** — Applies Generative AI Design Patterns for cloud AI engineering to architect production generative systems: the request-response pattern, caching and deduplicati…
 - **ghemawat-gfs-filesystems** — Stores exabytes across commodity machines: GFS/HDFS architecture and operations.
+- **gray-reuter-tp-processing** — Processes transactions at scale the Gray-Reuter way: TP monitors, workflows, and exactly-once effects.
 - **hands-on-ml-sklearn-keras-tensorflow** — Applies Aurelien Geron's Hands-On Machine Learning with Scikit-Learn, Keras and TensorFlow to build ML systems end to end: the full project lifecycle (frame, ge…
 - **hooked-nir-eyal** — Applies Eyal hook model: trigger, action, variable reward, investment.
 - **influence-psychology** — Apply the seven principles of ethical persuasion (reciprocity, commitment, social proof, authority, liking, scarcity, unity) to product design, copy, and sales.
