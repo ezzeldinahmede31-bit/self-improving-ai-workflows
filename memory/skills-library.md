@@ -7,7 +7,7 @@ for the full doc of the chosen skill. Grouping matches the router
 registry buckets (`compensatory-router/SKILL.md`), so new skills that were
 registered in the router appear under the same family here automatically.
 
-## Automation (per-tool) (340)
+## Automation (per-tool) (339)
 
 - **abstraction-quality-gate** — Enforces A Philosophy of Software Design's core principle: complexity management through deep modules and shallow interfaces.
 - **access-control-least-privilege-agents-v2** — Applies Access Control, Role-Based Permissions, and Least Privilege for AI Agents to production: distilled patterns, anti-patterns, and checklists for building…
@@ -101,7 +101,6 @@ registered in the router appear under the same family here automatically.
 - **deep-learning-with-python** — Applies Francois Chollet's Deep Learning with Python (Keras) to build, train, and ship deep learning models: the universal workflow of preparing data, choosing…
 - **deep-learning-with-r** — Applies Chollet & Allaire's Deep Learning with R to build and train deep learning models using R with the Keras interface: the deep learning workflow, convoluti…
 - **dependency-inversion-enforcer** — Enforces Clean Architecture's core principle: Dependency Rule - source code dependencies must point inward, never outward.
-- **deploy-signoff-governance** — Run the final human sign-off ceremony for financial or sensitive deploys: authorization tiers (what needs a human, what never auto-approves), the evidence packe…
 - **designing-ml-systems** — Applies Chip Huyen's Designing Machine Learning Systems to take ML models from notebooks to production: the ML system lifecycle (data collection, feature engine…
 - **devops-automation** — DevOps and IT Ops automation - CI/CD, monitoring, incident management, and infrastructure workflows
 - **distributed-training-foundation-models-v2** — Applies Distributed Training of Foundation Models: Frameworks and Hardware Optimization to production: distilled patterns, anti-patterns, and checklists for bui…
@@ -1193,8 +1192,9 @@ registered in the router appear under the same family here automatically.
 - **workflow-versioning-upgrades** — Versions artifacts, staged rollout, safe downgrade.
 - **zinsser-writing-well** — Writes nonfiction with style: clarity, brevity, and humanity.
 
-## n8n (4)
+## n8n (5)
 
+- **deploy-signoff-governance** — Run the final human sign-off ceremony for financial or sensitive deploys: authorization tiers (what needs a human, what never auto-approves), the evidence packe…
 - **ir-vector-space-ranking** — Applies the information-retrieval chapters of Jurafsky & Martin's Speech and Language Processing to rank documents for a query: the vector space model, TF-IDF w…
 - **n8n-deployment-ops-guard** — Guards n8n deployment and production operations that gates cannot see.
 - **n8n-runtime-semantics-guard** — Guards n8n runtime semantics that schema checks miss.
