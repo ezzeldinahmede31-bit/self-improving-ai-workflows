@@ -358,7 +358,7 @@ registered in the router appear under the same family here automatically.
 - **zapier-sdk** — Zapier SDK for TypeScript.
 - **zapier-system-cloner** — Replicates any Zapier (Zap) system — especially premium/expensive ones — with identical outputs and quality on n8n or code, using different (free/local) tools w…
 
-## Marketing/SEO/Growth (95)
+## Marketing/SEO/Growth (96)
 
 - **apify-audience-analysis** — Understand audience demographics, preferences, behavior patterns, and engagement quality across Facebook, Instagram, YouTube, and TikTok.
 - **architect-elevator-staff** — Lead architecture across all floors: executives, managers, engineers.
@@ -436,6 +436,7 @@ registered in the router appear under the same family here automatically.
 - **rework-range-lean** — Applies the counter-conventional product and business principles from Rework (Fried & Hansson): small is a feature not a stage, constraints are an advantage, sc…
 - **saga-compensation-flows** — Coordinates multi-step distributed actions with forward steps plus compensating undos.
 - **scalability-distributed-systems** — How to build systems that survive PRODUCTION.
+- **secrets-scan-testing** — Secrets scanning testing distilled.
 - **sheridan-they-ask** — Wins buyers by answering their questions honestly: buyer-driven content.
 - **single-variable-calculus** — Uses calculus where computer science actually needs it: growth, optimization, and series.
 - **soak-endurance-testing** — Soak and endurance testing distilled.
@@ -456,13 +457,14 @@ registered in the router appear under the same family here automatically.
 - **visual-regression-deep** — Visual regression testing deep distilled.
 - **winand-sql-indexing** — Indexes SQL correctly across vendors: B-trees, concatenation order, and execution plans.
 
-## Video/Media (11)
+## Video/Media (12)
 
 - **audio-whisper-transcriber** — Transcribes extracted audio files (mp3/wav) into text using local OpenAI Whisper / faster-whisper — no per-use API cost, no network upload, runs fully on-device…
 - **dicks-storyworthy** — Crafts true stories worth telling: homework for life and five-second moments.
 - **faceless-video-builder** — Free faceless video pipeline: 1 AI image per scene + Arabic voiceover + captions + assembly.
 - **fundamentals-speech-recognition** — Applies Rabiner & Juang's Fundamentals of Speech Recognition to build speech systems on the classic foundations: the speech signal and its representation, the h…
 - **media-downloader-extractor** — Downloads and extracts video/audio streams from social-media links (Facebook Reels, YouTube, TikTok, Instagram) using yt-dlp — bypassing browser scrapers, Cloud…
+- **penetration-test-planning** — Penetration test planning distilled.
 - **snyder-save-the-cat** — Structures screenplays and video scripts: beats, genres, and loglines.
 - **video** — When the user wants to create, generate, or produce video content using AI tools or programmatic frameworks.
 - **video-edit** — Edit existing video on RunComfy — this skill is a smart router that matches the user's intent to the right edit model in the RunComfy catalog.
@@ -635,7 +637,7 @@ registered in the router appear under the same family here automatically.
 - **thinking-via-negativa** — Use when the reflex is to add a feature, layer, or process.
 - **tradeoff-analysis** — Structured tradeoff analysis methodology — the 8-dimension comparison frame, tradeoff matrix template, and common tradeoff patterns.
 
-## Context/Memory/System (63)
+## Context/Memory/System (64)
 
 - **advanced-evaluation** — This skill should be used for advanced LLM evaluation: LLM-as-judge systems, direct scoring, pairwise comparison, rubric calibration, evaluator bias mitigation,…
 - **alephone-binary-exploitation** — Understands memory-corruption attacks to defeat them: overflows, ROP, and modern mitigations.
@@ -700,6 +702,7 @@ registered in the router appear under the same family here automatically.
 - **state-machine-persistence** — Design n8n automations as recoverable state machines: persist multi-turn or long-running state (conversation context, job progress, dedupe keys) to Supabase, Re…
 - **tool-design** — This skill should be used for the tool-interface layer of an agent system specifically: writing tool descriptions agents can route on, designing tool schemas an…
 - **windows-internals-russinovich** — Understands Windows from the kernel up: processes, memory, I/O, and security.
+- **xss-csrf-testing** — XSS and CSRF testing distilled.
 
 ## Agents/Architecture (58)
 
@@ -762,12 +765,15 @@ registered in the router appear under the same family here automatically.
 - **web-component-design** — Master React, Vue, and Svelte component patterns including CSS-in-JS, composition strategies, and reusable component architecture.
 - **webapp-testing** — Toolkit for interacting with and testing local web applications using Playwright.
 
-## Security (20)
+## Security (24)
 
+- **api-security-owasp-top10** — API security OWASP Top 10 testing distilled.
 - **applied-cryptography-engineering** — Applies the cryptography discipline of Security Engineering (Ross Anderson): use vetted schemes correctly — authenticated encryption, key generation and storage…
+- **auth-session-testing** — Auth and session testing distilled.
 - **better-auth-security-best-practices** — Configure rate limiting, manage auth secrets, set up CSRF protection, define trusted origins, secure sessions and cookies, encrypt OAuth tokens, track IP addres…
 - **clean-code-alignment-methodology** — Mandatory methodology for ALL new skills: ensures Clean Code principles are embedded from day 1.
 - **credential-secret-handling** — Stores secrets in vaults, references by ID, never in code/logs.
+- **dast-sast-integration** — DAST and SAST integration distilled.
 - **enterprise-quality-audit-loop** — Deterministic Quality & ISO/IEC 25010 compliance gate paired with an automated feedback and self-correction loop.
 - **enterprise-security-gate** — Autonomous Zero-Trust security enforcer complying with OWASP Top 10 for LLMs, NIST AI RMF, and SOC 2 Type II controls.
 - **firebase-security-rules-auditor** — Audits Firebase (Firestore, Cloud Storage) security rules for vulnerabilities, privilege escalation, role bypasses, create vs update inconsistencies, resource e…
@@ -782,6 +788,7 @@ registered in the router appear under the same family here automatically.
 - **security-engineering-platform-security** — Applies the platform-security chapters of Ross Anderson's Security Engineering to harden the environment around an application: privilege separation and least p…
 - **security-engineering-threat-modeling** — Applies Ross Anderson's Security Engineering to design systems that resist real adversaries: threat modeling (who attacks, why, with what resources), fail-safe…
 - **security-review** — Security code review for vulnerabilities.
+- **ssrf-ssti-testing** — SSRF and SSTI testing distilled.
 - **web-security-browser-internals** — Applies Michal Zalewski's The Tangled Web to secure modern web applications: how browsers and HTTP actually behave (parsing, encoding, navigation, the same-orig…
 - **zero-to-one-thiel** — Applies Thiel monopoly, secrets, power law to strategy.
 
@@ -906,7 +913,7 @@ registered in the router appear under the same family here automatically.
 - **worst-idea** — Worst Possible Idea (reverse brainstorming) — deliberately design the most terrible solutions to the problem, name the mechanism that makes each one bad, then i…
 - **zeller-fuzzing-book** — Fuzzes with structure: mutational, generational, and coverage-guided fuzzing.
 
-## Delivery/Gates (32)
+## Delivery/Gates (33)
 
 - **adversarial-self-falsifier** — Actively attacks and attempts to break generated code, math, or logic before finalizing the response.
 - **adzic-specification-by-example** — Gojko Adzic Specification by Example distilled.
@@ -914,6 +921,7 @@ registered in the router appear under the same family here automatically.
 - **build-gates-pipeline** — MANDATORY pre-build gate pipeline for EVERY n8n workflow, AI agent, or automation artifact this agent produces.
 - **clarify-before-execute** — The user's mandatory discovery loop: when they give a request, DO NOT start building.
 - **compensatory-router** — Meta-skill that routes any incoming task to the right compensatory skill pack (deep reasoning / context budget / verification / long-horizon execution) so a fla…
+- **dependency-supply-testing** — Dependency and supply chain testing distilled.
 - **dont-reinvent-the-wheel** — Research existing products, open-source projects, commercial script marketplaces such as CodeCanyon/Envato Market, SaaS tools, SDK features, APIs, webhooks, emb…
 - **elite-verifier-delegation** — When a fast model must reach frontier-level certainty, delegate VERIFICATION (not generation) to a stronger model: generate cheap here, then have the strongest…
 - **expression-template-injection-safety** — Delimits external data before templates/prompts/queries/commands.
@@ -1084,7 +1092,7 @@ registered in the router appear under the same family here automatically.
 - **high-end-visual-design** — Teaches the AI to design like a high-end agency.
 - **liquid-glass** — Build and migrate iOS, macOS, iPadOS, watchOS, tvOS, and visionOS apps with Apple's Liquid Glass design system (iOS 26+, macOS 26 Tahoe+).
 
-## Auto-installed (find-skills) (56)
+## Auto-installed (find-skills) (57)
 
 - **agentic-eval** — Patterns and techniques for evaluating and improving AI agent outputs.
 - **api-testing-contract-patterns** — API testing patterns distilled.
@@ -1107,6 +1115,7 @@ registered in the router appear under the same family here automatically.
 - **graph-databases-modeling** — Models and queries connected data: property graphs, traversals, and Cypher.
 - **graphql-advanced-testing** — Advanced GraphQL testing distilled.
 - **idempotency-key-design** — Makes writes safe to repeat via natural or synthetic keys enforced at store.
+- **injection-testing-patterns** — Injection testing patterns distilled.
 - **khorikov-unit-testing** — Writes unit tests worth keeping: the four pillars and London vs Detroit.
 - **lean-startup-ries** — Applies Ries build-measure-learn, MVP, validated learning.
 - **linux-device-drivers-ldd** — Writes Linux kernel drivers: modules, char/block devices, interrupts, and concurrency.
@@ -1149,9 +1158,10 @@ registered in the router appear under the same family here automatically.
 - **n8n-deployment-ops-guard** — Guards n8n deployment and production operations that gates cannot see.
 - **n8n-runtime-semantics-guard** — Guards n8n runtime semantics that schema checks miss.
 
-## Dev utilities (4)
+## Dev utilities (5)
 
 - **classification-tree-testing** — Classification tree testing distilled.
+- **container-image-testing** — Container image testing distilled.
 - **fowler-analysis-patterns** — Reuses domain models that work: accountability, measurements, inventory, and planning patterns.
 - **frontend-perf-testing** — Frontend performance testing distilled.
 - **object-oriented-design** — Designs with objects: responsibilities, contracts, and composition over inheritance.
@@ -1170,4 +1180,4 @@ registered in the router appear under the same family here automatically.
 - **speech-language-processing** — Applies Jurafsky & Martin's Speech and Language Processing (SLP) to build NLP systems on textbook foundations: regular expressions and text normalization, n-gra…
 
 ---
-*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 20:42 — 1090 skills, 24 families*
+*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 20:43 — 1100 skills, 24 families*
