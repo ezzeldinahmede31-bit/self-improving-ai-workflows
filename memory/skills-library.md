@@ -7,7 +7,7 @@ for the full doc of the chosen skill. Grouping matches the router
 registry buckets (`compensatory-router/SKILL.md`), so new skills that were
 registered in the router appear under the same family here automatically.
 
-## Automation (per-tool) (309)
+## Automation (per-tool) (310)
 
 - **abstraction-quality-gate** — Enforces A Philosophy of Software Design's core principle: complexity management through deep modules and shallow interfaces.
 - **access-control-least-privilege-agents-v2** — Applies Access Control, Role-Based Permissions, and Least Privilege for AI Agents to production: distilled patterns, anti-patterns, and checklists for building…
@@ -276,6 +276,7 @@ registered in the router appear under the same family here automatically.
 - **slp-dialogue-systems** — Applies the dialogue chapters of Jurafsky & Martin's Speech and Language Processing to design conversational systems: dialogue acts, dialogue state tracking, fr…
 - **slp-n-gram-language-models** — Applies the language-model chapters of Jurafsky & Martin's Speech and Language Processing to build and evaluate n-gram language models: n-gram probability estim…
 - **software-engineering-at-google** — Applies Winters, Manshreck, and Wright's Software Engineering at Google to sustain code at scale: software engineering is programming integrated over time by ma…
+- **spectre-side-channels** — Closes leaks through physics: timing, cache, speculation, and power.
 - **spotify-automation** — Automate Spotify music playback, playlist management, and audio analysis workflows
 - **sre-devops-automation** — Applies Google's Site Reliability Engineering (SRE) and The DevOps Handbook to automation and services: define SLIs (real measured indicators), set SLOs (target…
 - **sre-workbook-practices** — Applies The Site Reliability Workbook (Beyer et al.) to operating automation reliably: every service is defined by its SLIs and SLOs, governed by an error budge…
@@ -331,7 +332,7 @@ registered in the router appear under the same family here automatically.
 - **zapier-sdk** — Zapier SDK for TypeScript.
 - **zapier-system-cloner** — Replicates any Zapier (Zap) system — especially premium/expensive ones — with identical outputs and quality on n8n or code, using different (free/local) tools w…
 
-## Marketing/SEO/Growth (60)
+## Marketing/SEO/Growth (65)
 
 - **apify-audience-analysis** — Understand audience demographics, preferences, behavior patterns, and engagement quality across Facebook, Instagram, YouTube, and TikTok.
 - **audience-psychology-analyst** — Build a psychological profile of any target audience and translate it into marketing AND video-editing decisions.
@@ -357,6 +358,7 @@ registered in the router appear under the same family here automatically.
 - **firecrawl-scraper** — Web scraping skill using Firecrawl API for deep content extraction, format conversion, and page interaction.
 - **foley-computer-graphics** — Builds correct rendering: transforms, viewing, rasterization, and shading.
 - **generative-ai-design-patterns** — Applies Generative AI Design Patterns for cloud AI engineering to architect production generative systems: the request-response pattern, caching and deduplicati…
+- **ghemawat-gfs-filesystems** — Stores exabytes across commodity machines: GFS/HDFS architecture and operations.
 - **hands-on-ml-sklearn-keras-tensorflow** — Applies Aurelien Geron's Hands-On Machine Learning with Scikit-Learn, Keras and TensorFlow to build ML systems end to end: the full project lifecycle (frame, ge…
 - **hooked-nir-eyal** — Applies Eyal hook model: trigger, action, variable reward, investment.
 - **influence-psychology** — Apply the seven principles of ethical persuasion (reciprocity, commitment, social proof, authority, liking, scarcity, unity) to product design, copy, and sales.
@@ -371,6 +373,7 @@ registered in the router appear under the same family here automatically.
 - **microservices-up-and-running** — Applies Mitra and Nadareishvili's Microservices Up and Running to design small, independently deployable services: identify service boundaries by business capab…
 - **mit-intro-cs-python** — Teaches computation from zero the MIT 6.0001 way: state, control flow, decomposition, and growth rates.
 - **neural-networks-and-deep-learning** — Applies Michael Nielsen's free online book Neural Networks and Deep Learning to reason about neural networks from first principles: how backpropagation computes…
+- **olah-mechanistic-interpretability** — Reverse-engineers neural networks: features, circuits, and causal attribution.
 - **persuasion-principles** — Master Robert Cialdini's 6 (+1) Principles of Persuasion from "Influence: The Psychology of Persuasion" (1984).
 - **pro-git** — Operates Git at the object-model level: blobs, trees, commits, branching, rebasing, and recovery.
 - **programming-collective-intelligence** — Applies Toby Segaran's Programming Collective Intelligence to build recommendation and prediction systems from user data: collaborative filtering and item/item…
@@ -384,6 +387,7 @@ registered in the router appear under the same family here automatically.
 - **psych-school-social** — Social psychology for clinic selling: norms, tribes, conformity.
 - **rework-range-lean** — Applies the counter-conventional product and business principles from Rework (Fried & Hansson): small is a feature not a stage, constraints are an advantage, sc…
 - **saga-compensation-flows** — Coordinates multi-step distributed actions with forward steps plus compensating undos.
+- **shapiro-crdts** — Shares mutable state without coordination: convergent replicated data types.
 - **single-variable-calculus** — Uses calculus where computer science actually needs it: growth, optimization, and series.
 - **social** — When the user wants help creating, scheduling, or optimizing social media content for LinkedIn, Twitter/X, Instagram, TikTok, Facebook, or other platforms, or w…
 - **social-media** — Drafts engaging social media posts, writes hooks, suggests hashtags, creates thread structures, and generates companion images.
@@ -391,6 +395,8 @@ registered in the router appear under the same family here automatically.
 - **social-media-generator** — This skill should be used when the user requests social media content creation for Twitter, Instagram, LinkedIn, or Facebook.
 - **social-media-image-sizes** — Check and resize images for social media platforms.
 - **social-publisher** — Multi-platform social media publishing automation - schedule, post, and track content across TikTok, Instagram, YouTube, LinkedIn, and more
+- **spanner-calvin-commit** — Builds globally-consistent distributed transactions: TrueTime ordering and deterministic scheduling.
+- **swim-gossip-membership** — Spreads information and tracks membership epidemically: gossip, SWIM, and anti-entropy.
 - **tiktok-marketing** — TikTok content strategy, video creation workflows, posting optimization, and analytics.
 - **viral-hooks** — Expert in creating opening lines, thumbnails, and hooks that stop the scroll.
 
@@ -406,10 +412,11 @@ registered in the router appear under the same family here automatically.
 - **video-inpainting** — Region edits across video frames on RunComfy via the `runcomfy` CLI — remove an object that appears across many frames, clean up wires or watermarks, replace a…
 - **video-processing-editing** — FFmpeg automation for cutting, trimming, concatenating videos.
 
-## Research (29)
+## Research (30)
 
 - **academic-search** — Search and analyze academic literature.
 - **all-of-statistics** — Applies Larry Wasserman's All of Statistics to use probability and statistics in data work: probability theory, random variables and expectation, statistical in…
+- **chinchilla-scaling-laws** — Plans large-model training with scaling laws: compute-optimal size, data mix, and emergent behavior.
 - **chollet-cnn-computer-vision** — Deep dive into the convolutional-network and computer-vision chapters of Chollet's Deep Learning with Python: convolution filters, pooling, data augmentation, t…
 - **company-research** — Conduct comprehensive company research and due diligence.
 - **data-analysis** — Generate statistical analysis code with 4-round review.
@@ -446,7 +453,7 @@ registered in the router appear under the same family here automatically.
 - **search-patterns** — Applies Peter Morville's Search Patterns to design search and discovery experiences that actually work: the search UX/IA anatomy (query box, results, faceted na…
 - **vector-databases-similarity-search** — Covers the fundamentals of vector databases and similarity search that any RAG or semantic-search build depends on: embedding representation, vector indexes (HN…
 
-## Reasoning/Math/Logic (63)
+## Reasoning/Math/Logic (66)
 
 - **algorithm-design-kleinberg-tardos** — Applies Kleinberg & Tardos' Algorithm Design to designing algorithms by stable problem families: greedy algorithms and exchange arguments, divide and conquer wi…
 - **algorithmic-math-reasoner** — Raises correctness on hard algorithmic and mathematical problems where a fast model tends to jump to plausible-but-wrong answers: forces formal restatement, inv…
@@ -473,6 +480,7 @@ registered in the router appear under the same family here automatically.
 - **frontier-deep-reasoner** — Compensate for shallow/degraded multi-step reasoning by forcing an explicit decomposition ladder (Problem -> Constraints -> Steps -> Verify -> Output).
 - **generative-deep-learning** — Applies David Foster's Generative Deep Learning to design, train, and evaluate generative models — variational autoencoders (VAE), generative adversarial networ…
 - **grokking-deep-learning** — Applies Andrew Trask's Grokking Deep Learning to build neural networks from scratch with zero dependencies, gaining an intuition for every component: prediction…
+- **groth-zk-proofs** — Proves statements without revealing secrets: SNARKs, commitments, and circuits.
 - **heath-numerical-methods** — Computes with floating point honestly: conditioning, stability, and the right algorithm.
 - **high-performance-python** — Applies High Performance Python by Micha Gorelick and Ian Ozsvald to make Python fast with evidence, not guesses: profile first, choose the right algorithm and…
 - **information-theory-inference-learning** — Applies David MacKay's Information Theory, Inference, and Learning Algorithms to connect the mathematics of information to machine learning: entropy and coding,…
@@ -485,6 +493,7 @@ registered in the router appear under the same family here automatically.
 - **mit-computation-structures** — Builds computers from gates to operating systems the 6.004 way: logic, FSMs, ISAs, pipelines, caches.
 - **more-programming-pearls** — Applies Jon Bentley's More Programming Pearls to writing, verifying, and improving programs: an end-to-end case study of a real program, writing correct program…
 - **off-by-one-boundary-guard** — Destroys the off-by-one class of errors in counting problems (open vs closed intervals, fence-post counts, period-crossing counts, inclusive/exclusive ranges, e…
+- **pearl-causal-inference** — Reasons from correlation to causation: graphs, interventions, and counterfactuals.
 - **pgm-inference-variable-elimination** — Applies the inference chapters of Koller & Friedman's Probabilistic Graphical Models to answer queries from a graphical model: variable elimination and its comp…
 - **probabilistic-machine-learning-intro** — Applies Kevin Murphy's Probabilistic Machine Learning: An Introduction as the modern foundation for ML engineering: supervised and unsupervised learning framed…
 - **process-mining** — Applies Wil van der Aalst's Process Mining to extract real process behavior from event logs — discovery (automatically building the actual process model from ev…
@@ -497,6 +506,7 @@ registered in the router appear under the same family here automatically.
 - **sicp-interpreter-evaluator** — Applies the SICP (Structure and Interpretation of Computer Programs) evaluator chapter to building your own languages and tools: construct a metacircular evalua…
 - **sicp-streams-lazy-evaluation** — Applies the streams and lazy-evaluation chapter of SICP (Structure and Interpretation of Computer Programs) to process unbounded or on-demand data: streams as d…
 - **slp-pos-tagging-parsing** — Applies the sequence-labeling and parsing chapters of Jurafsky & Martin's Speech and Language Processing to tag and parse text: part-of-speech tagging with HMMs…
+- **sutton-barto-rl** — Designs reinforcement learning from MDPs to policy gradients: Bellman, TD, and actor-critic.
 - **symbolic-equation** — Discover scientific equations from data using LLM-guided evolutionary search (LLM-SR).
 - **taocp-backtracking-exact-cover** — Applies the combinatorial-search chapters of Knuth's TAOCP Volume 4A to exhaustive and backtracking algorithms: the general backtracking framework, the exact-co…
 - **taocp-hashing-techniques** — Applies the hashing section of Knuth's TAOCP Volume 3 to design correct, fast hash tables: the choice of hash functions and their statistical behavior, open add…
@@ -551,9 +561,10 @@ registered in the router appear under the same family here automatically.
 - **thinking-triz** — When two design requirements seem mutually exclusive, name the contradiction, separate conflicting states, then invent a concrete no-compromise resolution.
 - **thinking-via-negativa** — Use when the reflex is to add a feature, layer, or process.
 
-## Context/Memory/System (53)
+## Context/Memory/System (54)
 
 - **advanced-evaluation** — This skill should be used for advanced LLM evaluation: LLM-as-judge systems, direct scoring, pairwise comparison, rubric calibration, evaluator bias mitigation,…
+- **alephone-binary-exploitation** — Understands memory-corruption attacks to defeat them: overflows, ROP, and modern mitigations.
 - **ambiguity-resolver** — Forced-explicit ambiguity gate for weak/free models.
 - **aumasson-serious-crypto** — Deploys cryptography correctly: modern primitives, key management, and failure modes.
 - **automation-known-issues-compass** — The known-issues catalog + design-time checklist for n8n and Zapier: every common failure mode, its symptom, root cause and fix, encoded so that ANY automation/…
@@ -672,7 +683,7 @@ registered in the router appear under the same family here automatically.
 - **web-security-browser-internals** — Applies Michal Zalewski's The Tangled Web to secure modern web applications: how browsers and HTTP actually behave (parsing, encoding, navigation, the same-orig…
 - **zero-to-one-thiel** — Applies Thiel monopoly, secrets, power law to strategy.
 
-## Coding/SWE (63)
+## Coding/SWE (64)
 
 - **agile-principles-patterns-practices** — Applies Robert C.
 - **algorithm-design** — Design algorithms with LaTeX pseudocode and UML diagrams.
@@ -728,6 +739,7 @@ registered in the router appear under the same family here automatically.
 - **software-engineering-sommerville** — Applies Ian Sommerville's Software Engineering to the complete software process: software processes and models, agile and plan-driven development, requirements…
 - **subagent-task-delegator** — Decomposes large multi-part jobs into isolated sub-tasks executed by sub-agents, preserving the main conversation context budget.
 - **surgical-diff-patch-editor** — Enforces exact line-level search-and-replace block edits instead of rewriting whole files, preventing accidental code truncation.
+- **swc-smart-contract-security** — Audits smart contracts: reentrancy, access control, oracles, and upgrade safety.
 - **swe-workflow** — REQUIRED for every code-related task.
 - **tdd-sandbox-proof-engine** — Enforces Test-Driven Development (TDD) in a clean sandbox: code is only considered valid if companion unit tests pass 100% and the execution log is attached.
 - **terminal-bash-executor-governor** — Executes CLI commands, inspects exit codes, manages tailing log output, and enforces safety gates for destructive terminal operations.
@@ -927,9 +939,10 @@ registered in the router appear under the same family here automatically.
 - **high-end-visual-design** — Teaches the AI to design like a high-end agency.
 - **liquid-glass** — Build and migrate iOS, macOS, iPadOS, watchOS, tvOS, and visionOS apps with Apple's Liquid Glass design system (iOS 26+, macOS 26 Tahoe+).
 
-## Auto-installed (find-skills) (18)
+## Auto-installed (find-skills) (19)
 
 - **audit-trail-compliance** — Records actor, action, target, hashes, outcome in append-only logs for compliance.
+- **boyd-convex-optimization** — Solves optimization the Boyd way: convex formulation, duality, and first-order methods.
 - **ecommerce-order-processing-flows** — Automates order lifecycles with idempotent steps + reconciliation.
 - **fan-out-fan-in-merge** — Splits work parallel then rejoins by key, handling partial failures.
 - **feature-engineering-machine-learning** — Applies Alice Zheng and Amanda Casari's Feature Engineering for Machine Learning to turn raw data into features that make models work: numeric features (scaling…
@@ -958,9 +971,17 @@ registered in the router appear under the same family here automatically.
 
 - **object-oriented-design** — Designs with objects: responsibilities, contracts, and composition over inheritance.
 
+## Social media (1)
+
+- **noise-signal-protocol-security** — Designs and audits secure messaging: Noise handshakes, Double Ratchet, and formal verification.
+
 ## Other / custom (not yet in router registry) (1)
 
 - **speech-language-processing** — Applies Jurafsky & Martin's Speech and Language Processing (SLP) to build NLP systems on textbook foundations: regular expressions and text normalization, n-gra…
 
+## Creative/Reasoning (1)
+
+- **pbft-hotstuff-bft** — Reaches agreement with adversaries present: BFT protocols from PBFT to HotStuff.
+
 ---
-*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 15:24 — 889 skills, 22 families*
+*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 15:35 — 904 skills, 24 families*
