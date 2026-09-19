@@ -453,7 +453,7 @@ registered in the router appear under the same family here automatically.
 - **search-patterns** — Applies Peter Morville's Search Patterns to design search and discovery experiences that actually work: the search UX/IA anatomy (query box, results, faceted na…
 - **vector-databases-similarity-search** — Covers the fundamentals of vector databases and similarity search that any RAG or semantic-search build depends on: embedding representation, vector indexes (HN…
 
-## Reasoning/Math/Logic (66)
+## Reasoning/Math/Logic (65)
 
 - **algorithm-design-kleinberg-tardos** — Applies Kleinberg & Tardos' Algorithm Design to designing algorithms by stable problem families: greedy algorithms and exchange arguments, divide and conquer wi…
 - **algorithmic-math-reasoner** — Raises correctness on hard algorithmic and mathematical problems where a fast model tends to jump to plausible-but-wrong answers: forces formal restatement, inv…
@@ -493,7 +493,6 @@ registered in the router appear under the same family here automatically.
 - **mit-computation-structures** — Builds computers from gates to operating systems the 6.004 way: logic, FSMs, ISAs, pipelines, caches.
 - **more-programming-pearls** — Applies Jon Bentley's More Programming Pearls to writing, verifying, and improving programs: an end-to-end case study of a real program, writing correct program…
 - **off-by-one-boundary-guard** — Destroys the off-by-one class of errors in counting problems (open vs closed intervals, fence-post counts, period-crossing counts, inclusive/exclusive ranges, e…
-- **pearl-causal-inference** — Reasons from correlation to causation: graphs, interventions, and counterfactuals.
 - **pgm-inference-variable-elimination** — Applies the inference chapters of Koller & Friedman's Probabilistic Graphical Models to answer queries from a graphical model: variable elimination and its comp…
 - **probabilistic-machine-learning-intro** — Applies Kevin Murphy's Probabilistic Machine Learning: An Introduction as the modern foundation for ML engineering: supervised and unsupervised learning framed…
 - **process-mining** — Applies Wil van der Aalst's Process Mining to extract real process behavior from event logs — discovery (automatically building the actual process model from ev…
@@ -939,7 +938,7 @@ registered in the router appear under the same family here automatically.
 - **high-end-visual-design** — Teaches the AI to design like a high-end agency.
 - **liquid-glass** — Build and migrate iOS, macOS, iPadOS, watchOS, tvOS, and visionOS apps with Apple's Liquid Glass design system (iOS 26+, macOS 26 Tahoe+).
 
-## Auto-installed (find-skills) (19)
+## Auto-installed (find-skills) (20)
 
 - **audit-trail-compliance** — Records actor, action, target, hashes, outcome in append-only logs for compliance.
 - **boyd-convex-optimization** — Solves optimization the Boyd way: convex formulation, duality, and first-order methods.
@@ -952,6 +951,7 @@ registered in the router appear under the same family here automatically.
 - **loop-batch-pagination** — Processes large datasets via bounded loops, cursor pagination, sized batches.
 - **made-to-stick-heath** — Applies Heath SUCCESs: simple, unexpected, concrete, credible, emotional, stories.
 - **observability-execution-monitoring** — Watches health via metrics, structured logs, alerts on stall/failure.
+- **pearl-causal-inference** — Reasons from correlation to causation: graphs, interventions, and counterfactuals.
 - **philosophy-software-design-ousterhout** — Applies Ousterhout deep modules, shallow interfaces, complexity management.
 - **practice-of-programming-kernighan** — Applies Kernighan & Pike style, testing, performance, portability.
 - **queue-decoupled-workers** — Decouples producers/consumers via durable queues for independent scale/fail.
