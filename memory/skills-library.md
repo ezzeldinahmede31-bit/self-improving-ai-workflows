@@ -658,7 +658,7 @@ registered in the router appear under the same family here automatically.
 - **tool-design** — This skill should be used for the tool-interface layer of an agent system specifically: writing tool descriptions agents can route on, designing tool schemas an…
 - **windows-internals-russinovich** — Understands Windows from the kernel up: processes, memory, I/O, and security.
 
-## Agents/Architecture (50)
+## Agents/Architecture (49)
 
 - **agent-arch-system-design** — Expert system architecture design: patterns, scalability planning, ADRs, C4 diagrams, technology trade-offs, non-functional requirements.
 - **agent-reach** — Read and search external sources through the channels installed on this machine.
@@ -666,7 +666,6 @@ registered in the router appear under the same family here automatically.
 - **api-long-running-operations** — Applies the long-running operations chapter of API Design Patterns (Geewax): model asynchronous jobs correctly with a standard resource that starts, reports pro…
 - **api-versioning-compatibility** — Applies the versioning and backwards-compatibility chapter of API Design Patterns (Geewax): evolve an API without breaking existing clients — additive-only chan…
 - **architecture-tradeoff-analysis** — Applies the trade-off analysis method of Software Architecture: The Hard Parts (Ford, Richards, Sadalage) to decisions with no perfect answer: name the candidat…
-- **async-python-patterns** — Master Python asyncio, concurrent programming, and async/await patterns for high-performance applications.
 - **autonomous-git-coworker** — Manages Git workflows natively: checks status, creates feature branches, crafts atomic commits with descriptive logs, and prepares PRs.
 - **autonomous-model-self-evolver** — Autonomous meta-skill that MEASURES the current model against a live leader with real model calls on deterministic probes, pulls real weaknesses from the audit…
 - **aws-solutions-architect** — Applies the AWS Certified Solutions Architect Official Study Guide (Joe Baron et al.) to designing cloud infrastructure: compute, storage, database, and network…
@@ -733,7 +732,7 @@ registered in the router appear under the same family here automatically.
 - **web-security-browser-internals** — Applies Michal Zalewski's The Tangled Web to secure modern web applications: how browsers and HTTP actually behave (parsing, encoding, navigation, the same-orig…
 - **zero-to-one-thiel** — Applies Thiel monopoly, secrets, power law to strategy.
 
-## Coding/SWE (70)
+## Coding/SWE (71)
 
 - **agile-principles-patterns-practices** — Applies Robert C.
 - **algorithm-design** — Design algorithms with LaTeX pseudocode and UML diagrams.
@@ -743,6 +742,7 @@ registered in the router appear under the same family here automatically.
 - **apue-unix-programming** — Applies Stevens & Rago's APUE to real Unix/Linux system programming: file I/O and descriptors, files and directories, processes and environment, signals, termin…
 - **art-of-readable-code** — Applies The Art of Readable Code by Dustin Boswell and Trevor Foucher to write code that is easy to understand: pack meaning into names, reduce what a reader mu…
 - **ast-codebase-graph-navigator** — Navigates multi-file codebases using Abstract Syntax Trees (AST), import graphs, and caller-callee traces instead of brute-force full-file loading.
+- **async-python-patterns** — Master Python asyncio, concurrent programming, and async/await patterns for high-performance applications.
 - **atomic-decomposition** — Decompose research ideas into atomic, self-contained concepts with bidirectional math-code mapping.
 - **c-programming-language** — Applies Kernighan & Ritchie's The C Programming Language to write clear, portable C: types and operators, control flow, functions and the argument-passing model…
 - **clean-agile** — Applies Robert C.
