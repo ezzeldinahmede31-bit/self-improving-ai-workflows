@@ -977,7 +977,7 @@ registered in the router appear under the same family here automatically.
 - **high-end-visual-design** — Teaches the AI to design like a high-end agency.
 - **liquid-glass** — Build and migrate iOS, macOS, iPadOS, watchOS, tvOS, and visionOS apps with Apple's Liquid Glass design system (iOS 26+, macOS 26 Tahoe+).
 
-## Auto-installed (find-skills) (26)
+## Auto-installed (find-skills) (27)
 
 - **audit-trail-compliance** — Records actor, action, target, hashes, outcome in append-only logs for compliance.
 - **boyd-convex-optimization** — Solves optimization the Boyd way: convex formulation, duality, and first-order methods.
@@ -988,6 +988,7 @@ registered in the router appear under the same family here automatically.
 - **graph-databases-modeling** — Models and queries connected data: property graphs, traversals, and Cypher.
 - **idempotency-key-design** — Makes writes safe to repeat via natural or synthetic keys enforced at store.
 - **lean-startup-ries** — Applies Ries build-measure-learn, MVP, validated learning.
+- **linux-device-drivers-ldd** — Writes Linux kernel drivers: modules, char/block devices, interrupts, and concurrency.
 - **long-running-operations-tracking** — Models multi-minute/day jobs as operation resources with status/progress/resume.
 - **loop-batch-pagination** — Processes large datasets via bounded loops, cursor pagination, sized batches.
 - **made-to-stick-heath** — Applies Heath SUCCESs: simple, unexpected, concrete, credible, emotional, stories.
@@ -1022,9 +1023,8 @@ registered in the router appear under the same family here automatically.
 - **chinchilla-scaling-laws** — Plans large-model training with scaling laws: compute-optimal size, data mix, and emergent behavior.
 - **pbft-hotstuff-bft** — Reaches agreement with adversaries present: BFT protocols from PBFT to HotStuff.
 
-## Other / custom (not yet in router registry) (2)
+## Other / custom (not yet in router registry) (1)
 
-- **linux-device-drivers-ldd** — Writes Linux kernel drivers: modules, char/block devices, interrupts, and concurrency.
 - **speech-language-processing** — Applies Jurafsky & Martin's Speech and Language Processing (SLP) to build NLP systems on textbook foundations: regular expressions and text normalization, n-gra…
 
 ## Social media (1)
