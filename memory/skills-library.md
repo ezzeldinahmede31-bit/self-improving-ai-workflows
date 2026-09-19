@@ -359,7 +359,7 @@ registered in the router appear under the same family here automatically.
 - **zapier-sdk** — Zapier SDK for TypeScript.
 - **zapier-system-cloner** — Replicates any Zapier (Zap) system — especially premium/expensive ones — with identical outputs and quality on n8n or code, using different (free/local) tools w…
 
-## Marketing/SEO/Growth (98)
+## Marketing/SEO/Growth (100)
 
 - **agile-testing-quadrants-deep** — Agile testing quadrants deep distilled.
 - **apify-audience-analysis** — Understand audience demographics, preferences, behavior patterns, and engagement quality across Facebook, Instagram, YouTube, and TikTok.
@@ -380,6 +380,7 @@ registered in the router appear under the same family here automatically.
 - **co-marketing** — When the user wants to find co-marketing partners, plan joint campaigns, or brainstorm partnership opportunities.
 - **collective-intelligence-in-action** — Applies Satnam Alag's Collective Intelligence in Action to build commercial collective-intelligence systems on real infrastructure: the collective-intelligence…
 - **community-marketing** — Build and leverage online communities to drive product growth and brand loyalty.
+- **compatibility-cross-testing** — Compatibility and cross-platform testing distilled.
 - **computational-geometry** — Solves geometry algorithmically: hulls, intersections, triangulations, diagrams.
 - **computer-vision-multiview-stereo** — Applies the camera-geometry and stereo chapters of Richard Szeliski's Computer Vision: Algorithms and Applications: camera models and calibration, epipolar geom…
 - **content-research-writer** — Research topics and write content like blog posts, articles, and copy
@@ -418,6 +419,7 @@ registered in the router appear under the same family here automatically.
 - **masterson-great-leads** — Opens copy with the right lead type: offer, promise, secret, or story.
 - **microservices-up-and-running** — Applies Mitra and Nadareishvili's Microservices Up and Running to design small, independently deployable services: identify service boundaries by business capab…
 - **mit-intro-cs-python** — Teaches computation from zero the MIT 6.0001 way: state, control flow, decomposition, and growth rates.
+- **ml-model-testing** — ML model testing distilled.
 - **neural-networks-and-deep-learning** — Applies Michael Nielsen's free online book Neural Networks and Deep Learning to reason about neural networks from first principles: how backpropagation computes…
 - **ogilvy-on-advertising** — Advertises the Ogilvy way: research, headlines, and brand image.
 - **olah-mechanistic-interpretability** — Reverse-engineers neural networks: features, circuits, and causal attribution.
@@ -518,7 +520,7 @@ registered in the router appear under the same family here automatically.
 - **search-patterns** — Applies Peter Morville's Search Patterns to design search and discovery experiences that actually work: the search UX/IA anatomy (query box, results, faceted na…
 - **vector-databases-similarity-search** — Covers the fundamentals of vector databases and similarity search that any RAG or semantic-search build depends on: embedding representation, vector indexes (HN…
 
-## Reasoning/Math/Logic (77)
+## Reasoning/Math/Logic (78)
 
 - **acceptance-test-driven** — Acceptance test-driven development distilled.
 - **algorithm-design-kleinberg-tardos** — Applies Kleinberg & Tardos' Algorithm Design to designing algorithms by stable problem families: greedy algorithms and exchange arguments, divide and conquer wi…
@@ -544,6 +546,7 @@ registered in the router appear under the same family here automatically.
 - **deep-learning-vision-systems** — Applies Mohamed Elgendy's Deep Learning for Vision Systems to build computer vision systems end to end: how CNNs work under the hood, image preprocessing and au…
 - **deep-reinforcement-learning-hands-on** — Applies Maxim Lapan's Deep Reinforcement Learning Hands-On to build and train deep RL agents in practice: the RL framework (policies, value functions, returns),…
 - **esl-ensembles-boosting** — Applies the tree and ensemble chapters of Hastie, Tibshirani and Friedman's The Elements of Statistical Learning (ESL): bagging to reduce variance, random fores…
+- **etl-validation-patterns** — ETL validation patterns distilled.
 - **execution-guided-tot-validator** — Validates Tree-of-Thought (ToT) reasoning branches using real execution feedback in a local Docker sandbox rather than relying on LLM self-judgment.
 - **forallx-formal-logic** — Proves with formal logic: propositional and first-order syntax, semantics, and deduction.
 - **formal-math-logic-verification-engine** — Deterministic, mechanical verification for math and logic answers using real solver tooling installed in this workspace's venv — math-verify (HuggingFace: parse…
@@ -641,7 +644,7 @@ registered in the router appear under the same family here automatically.
 - **thinking-via-negativa** — Use when the reflex is to add a feature, layer, or process.
 - **tradeoff-analysis** — Structured tradeoff analysis methodology — the 8-dimension comparison frame, tradeoff matrix template, and common tradeoff patterns.
 
-## Context/Memory/System (64)
+## Context/Memory/System (66)
 
 - **advanced-evaluation** — This skill should be used for advanced LLM evaluation: LLM-as-judge systems, direct scoring, pairwise comparison, rubric calibration, evaluator bias mitigation,…
 - **alephone-binary-exploitation** — Understands memory-corruption attacks to defeat them: overflows, ROP, and modern mitigations.
@@ -682,6 +685,7 @@ registered in the router appear under the same family here automatically.
 - **kaner-lessons-testing** — Tests context-driven: adapt technique to mission, product, and constraints.
 - **latent-briefing** — This skill should be used when the user asks to "share memory between agents", "KV cache compaction for multi-agent", "orchestrator worker context", "latent bri…
 - **llm-deployment-optimization** — Optimizes production LLM serving: latency budgets, token metering, prompt compression, caching, model routing, batch inference, autoscaling, and cost-per-reques…
+- **llm-eval-harness** — LLM evaluation harness distilled.
 - **long-context-sharding-engine** — Prevents context degradation by sharding large documents into JIT task-scoped chunks and dynamically routing massive contexts to long-context frontier models.
 - **long-horizon-executor** — Survive long, many-step tasks without losing the thread or compounding errors: plan first, checkpoint state to disk, verify each step, and recover explicitly in…
 - **long-horizon-prompting** — This skill should be used when writing, enhancing, or evaluating the launch prompt for a long-running autonomous agent or a parallel multi-agent orchestration a…
@@ -698,6 +702,7 @@ registered in the router appear under the same family here automatically.
 - **progressive-context-compressor** — Survives long sessions without losing fidelity: instead of a single late collapse, maintains a rolling structured summary as the conversation grows, decides WHA…
 - **project-development** — This skill should be used for project-level decisions about LLM-powered systems: whether an LLM is the right primitive for the task at hand, the shape of a mult…
 - **python-performance-optimization** — Profile and optimize Python code using cProfile, memory profilers, and performance best practices.
+- **rag-eval-faithfulness** — RAG faithfulness evaluation distilled.
 - **rate-limit-and-cost-guard** — Calculate expected API cost and call volume for every n8n workflow, then add rate-control (Wait/Loop limits) so API keys are not banned and budgets are not blow…
 - **rl-autonomous-agents** — Applies reinforcement learning to autonomous agents: define the reward signal, the policy, exploration, and the safety constraints, and know when RL is worth th…
 - **seacord-secure-coding** — Writes C/C++ and systems code that resists exploitation: input validation, memory safety, and integer correctness.
@@ -799,8 +804,9 @@ registered in the router appear under the same family here automatically.
 - **web-security-browser-internals** — Applies Michal Zalewski's The Tangled Web to secure modern web applications: how browsers and HTTP actually behave (parsing, encoding, navigation, the same-orig…
 - **zero-to-one-thiel** — Applies Thiel monopoly, secrets, power law to strategy.
 
-## Coding/SWE (88)
+## Coding/SWE (90)
 
+- **accessibility-wcag-testing** — Accessibility WCAG testing distilled.
 - **agile-principles-patterns-practices** — Applies Robert C.
 - **algorithm-design** — Design algorithms with LaTeX pseudocode and UML diagrams.
 - **algorithm-design-manual-war-stories** — Applies Steven Skiena's Algorithm Design Manual 'war manual' to real-world problems: classify the problem type first, consult the problem catalog for the proven…
@@ -857,6 +863,7 @@ registered in the router appear under the same family here automatically.
 - **osherove-unit-testing** — Roy Osherove Art of Unit Testing distilled.
 - **paper-to-code** — Convert an ML research paper into a complete, runnable code repository.
 - **pragmatic-programmer** — Applies Hunt & Thomas' The Pragmatic Programmer to everyday engineering craft: DRY (every piece of knowledge has one authoritative expression), orthogonality (c…
+- **prompt-regression-testing** — Prompt regression testing distilled.
 - **python-cookbook** — Applies the Python Cookbook by David Beazley and Brian K.
 - **refactoring-catalog-recipes** — Applies the refactoring catalog of Martin Fowler's Refactoring as a recipe book: match the current code smell to a named refactoring, follow its mechanical step…
 - **refactoring-improving-design** — Applies Martin Fowler's Refactoring to improve existing code safely: the refactoring catalog (rename, extract, inline, move, replace), the discipline of behavio…
@@ -890,7 +897,7 @@ registered in the router appear under the same family here automatically.
 - **zeller-why-programs-fail** — Debugs systematically like a scientist: reproduce, hypothesize, predict, experiment.
 - **zero-trust-modular-decomposer** — Enforces strict modular architecture, breaking implementations into single-responsibility files (7-10 modules) with zero-trust isolation boundaries.
 
-## Browser/Device (29)
+## Browser/Device (30)
 
 - **ai-powered-testing-patterns** — AI-powered testing distilled.
 - **analogy** — Forced Analogy / Structural Transplant — map the problem onto a structurally similar system from a distant domain (immune system, air-traffic control, restauran…
@@ -918,6 +925,7 @@ registered in the router appear under the same family here automatically.
 - **site-login-session-registry** — Logs into websites ONCE, persists the authenticated browser session as a named profile in a registry, and reuses it on later runs so the user is not asked for c…
 - **six-hats** — Parallel thinking with six enforced perspectives, based on Edward de Bono's Six Thinking Hats® method - examine one decision through sequential passes for facts…
 - **stealth-browser-evasion** — Runs browser automation in stealth mode so WAF anti-bot systems (Cloudflare, Akamai, DataDome) do not flag the session: hardened Chromium launch flags, fingerpr…
+- **usability-testing-patterns** — Usability testing patterns distilled.
 - **visual-context-verifier** — Closes the 'blind spot' gap for a model that cannot see its own work: before anything visual is claimed, capture real pixels/HTML/DOM as evidence (screenshots r…
 - **worst-idea** — Worst Possible Idea (reverse brainstorming) — deliberately design the most terrible solutions to the problem, name the mechanism that makes each one bad, then i…
 - **zeller-fuzzing-book** — Fuzzes with structure: mutational, generational, and coverage-guided fuzzing.
@@ -1104,7 +1112,7 @@ registered in the router appear under the same family here automatically.
 - **high-end-visual-design** — Teaches the AI to design like a high-end agency.
 - **liquid-glass** — Build and migrate iOS, macOS, iPadOS, watchOS, tvOS, and visionOS apps with Apple's Liquid Glass design system (iOS 26+, macOS 26 Tahoe+).
 
-## Auto-installed (find-skills) (65)
+## Auto-installed (find-skills) (66)
 
 - **agentic-eval** — Patterns and techniques for evaluating and improving AI agent outputs.
 - **api-testing-contract-patterns** — API testing patterns distilled.
@@ -1117,6 +1125,7 @@ registered in the router appear under the same family here automatically.
 - **cdn-cache-testing** — CDN and cache testing distilled.
 - **copeland-pairwise-testing** — Covers input combinations efficiently: pairwise and combinatorial design.
 - **cypress-component-patterns** — Cypress testing patterns distilled.
+- **data-pipeline-testing** — Data pipeline testing distilled.
 - **decision-table-testing** — Decision table testing distilled.
 - **distributed-systems-field-manual** — Practical distributed-systems survival rules: timeouts, retries, clocks, quorums.
 - **ecommerce-order-processing-flows** — Automates order lifecycles with idempotent steps + reconciliation.
@@ -1178,12 +1187,13 @@ registered in the router appear under the same family here automatically.
 - **n8n-deployment-ops-guard** — Guards n8n deployment and production operations that gates cannot see.
 - **n8n-runtime-semantics-guard** — Guards n8n runtime semantics that schema checks miss.
 
-## Dev utilities (5)
+## Dev utilities (6)
 
 - **classification-tree-testing** — Classification tree testing distilled.
 - **container-image-testing** — Container image testing distilled.
 - **fowler-analysis-patterns** — Reuses domain models that work: accountability, measurements, inventory, and planning patterns.
 - **frontend-perf-testing** — Frontend performance testing distilled.
+- **localization-i18n-testing** — Localization and i18n testing distilled.
 - **object-oriented-design** — Designs with objects: responsibilities, contracts, and composition over inheritance.
 
 ## Creative/Reasoning (2)
@@ -1200,4 +1210,4 @@ registered in the router appear under the same family here automatically.
 - **speech-language-processing** — Applies Jurafsky & Martin's Speech and Language Processing (SLP) to build NLP systems on textbook foundations: regular expressions and text normalization, n-gra…
 
 ---
-*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 20:46 — 1120 skills, 24 families*
+*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 20:47 — 1130 skills, 24 families*
