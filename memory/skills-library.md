@@ -977,7 +977,7 @@ registered in the router appear under the same family here automatically.
 - **high-end-visual-design** — Teaches the AI to design like a high-end agency.
 - **liquid-glass** — Build and migrate iOS, macOS, iPadOS, watchOS, tvOS, and visionOS apps with Apple's Liquid Glass design system (iOS 26+, macOS 26 Tahoe+).
 
-## Auto-installed (find-skills) (25)
+## Auto-installed (find-skills) (26)
 
 - **audit-trail-compliance** — Records actor, action, target, hashes, outcome in append-only logs for compliance.
 - **boyd-convex-optimization** — Solves optimization the Boyd way: convex formulation, duality, and first-order methods.
@@ -993,6 +993,7 @@ registered in the router appear under the same family here automatically.
 - **made-to-stick-heath** — Applies Heath SUCCESs: simple, unexpected, concrete, credible, emotional, stories.
 - **observability-execution-monitoring** — Watches health via metrics, structured logs, alerts on stall/failure.
 - **pearl-causal-inference** — Reasons from correlation to causation: graphs, interventions, and counterfactuals.
+- **perlman-interconnections** — Designs robust bridging and routing: spanning trees, link-state, and self-stabilization.
 - **philosophy-software-design-ousterhout** — Applies Ousterhout deep modules, shallow interfaces, complexity management.
 - **practice-of-programming-kernighan** — Applies Kernighan & Pike style, testing, performance, portability.
 - **queue-decoupled-workers** — Decouples producers/consumers via durable queues for independent scale/fail.
@@ -1021,10 +1022,9 @@ registered in the router appear under the same family here automatically.
 - **chinchilla-scaling-laws** — Plans large-model training with scaling laws: compute-optimal size, data mix, and emergent behavior.
 - **pbft-hotstuff-bft** — Reaches agreement with adversaries present: BFT protocols from PBFT to HotStuff.
 
-## Other / custom (not yet in router registry) (3)
+## Other / custom (not yet in router registry) (2)
 
 - **linux-device-drivers-ldd** — Writes Linux kernel drivers: modules, char/block devices, interrupts, and concurrency.
-- **perlman-interconnections** — Designs robust bridging and routing: spanning trees, link-state, and self-stabilization.
 - **speech-language-processing** — Applies Jurafsky & Martin's Speech and Language Processing (SLP) to build NLP systems on textbook foundations: regular expressions and text normalization, n-gra…
 
 ## Social media (1)
