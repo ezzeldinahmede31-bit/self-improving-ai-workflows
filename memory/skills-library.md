@@ -7,7 +7,7 @@ for the full doc of the chosen skill. Grouping matches the router
 registry buckets (`compensatory-router/SKILL.md`), so new skills that were
 registered in the router appear under the same family here automatically.
 
-## Automation (per-tool) (325)
+## Automation (per-tool) (327)
 
 - **abstraction-quality-gate** — Enforces A Philosophy of Software Design's core principle: complexity management through deep modules and shallow interfaces.
 - **access-control-least-privilege-agents-v2** — Applies Access Control, Role-Based Permissions, and Least Privilege for AI Agents to production: distilled patterns, anti-patterns, and checklists for building…
@@ -191,6 +191,7 @@ registered in the router appear under the same family here automatically.
 - **mainframe-terminal-automation-v2** — Applies Mainframe and Terminal Screen Automation Techniques to production: distilled patterns, anti-patterns, and checklists for building reliable mainframe and…
 - **managing-humans** — Applies Michael Lopp's Managing Humans to lead engineering teams with honesty and craft: the one-on-one as the heart of management, feedback given directly and…
 - **mathematics-for-machine-learning** — Applies Deisenroth, Faisal & Ong's Mathematics for Machine Learning to the math every ML practitioner needs: linear algebra (vectors, matrices, decompositions),…
+- **mckee-story-design** — Designs stories that work: controlling idea, beats, and act structure.
 - **mcp-builder** — Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools.
 - **memory-context-compaction-vector-large** — Applies Memory Management and Context Compaction in Large-Scale Vector Systems to production: distilled patterns, anti-patterns, and checklists for building rel…
 - **memory-persistence-long-running-agents** — Applies Memory Management and Persistence in Long-Running AI Agents to production: distilled patterns, anti-patterns, and checklists for building reliable memor…
@@ -266,6 +267,7 @@ registered in the router appear under the same family here automatically.
 - **scaling-language-models-infra-cost** — Applies Scaling Language Models: Infrastructure, Cost, and Latency Optimization to production: distilled patterns, anti-patterns, and checklists for building re…
 - **scaling-lowcode-high-volume** — Applies Scaling Low-Code Automation Platforms for High-Volume Traffic to production: distilled patterns, anti-patterns, and checklists for building reliable sca…
 - **scheduled-jobs-cron-distributed-locking** — Applies Scheduled Jobs, Cron Automation, and Distributed Locking Mechanisms to production: distilled patterns, anti-patterns, and checklists for building reliab…
+- **schwartz-breakthrough-advertising** — Channels mass desire through awareness stages: Breakthrough Advertising mechanics.
 - **screen-scraping-ui-automation-legacy** — Applies Screen Scraping, UI Automation, and Computer Vision in Legacy Environments to production: distilled patterns, anti-patterns, and checklists for building…
 - **secure-enclaves-confidential-computing-v2** — Applies Secure Enclaves and Confidential Computing for Sensitive LLM Data to production: distilled patterns, anti-patterns, and checklists for building reliable…
 - **secure-execution-sandboxes-untrusted-code** — Applies Secure Execution Sandboxes for Untrusted Code Generation Agents to production: distilled patterns, anti-patterns, and checklists for building reliable s…
@@ -347,7 +349,7 @@ registered in the router appear under the same family here automatically.
 - **zapier-sdk** — Zapier SDK for TypeScript.
 - **zapier-system-cloner** — Replicates any Zapier (Zap) system — especially premium/expensive ones — with identical outputs and quality on n8n or code, using different (free/local) tools w…
 
-## Marketing/SEO/Growth (75)
+## Marketing/SEO/Growth (80)
 
 - **apify-audience-analysis** — Understand audience demographics, preferences, behavior patterns, and engagement quality across Facebook, Instagram, YouTube, and TikTok.
 - **audience-psychology-analyst** — Build a psychological profile of any target audience and translate it into marketing AND video-editing decisions.
@@ -355,6 +357,8 @@ registered in the router appear under the same family here automatically.
 - **beck-implementation-patterns** — Writes code at the method level the Beck way: intention-revealing classes, methods, and state.
 - **berkun-making-things-happen** — Leads projects to shipped: schedules, decision-making, and communication.
 - **biz-school-strategy** — Modern competitive strategy distilled for clinic wars: positioning, moats, OKRs, blitzscaling.
+- **bly-copywriters-handbook** — Writes B2B and direct copy hands-on: briefs, leads, and persuasion architecture.
+- **caples-tested-advertising** — Writes ads from tested methods: headline formulas and curiosity with payoff.
 - **clinic-audience-os** — Master operating system binding all psychology schools, the 2000-book index, and sales skills into one pipeline.
 - **clinic-buyer-psychology** — Psychographic profile of Egyptian private-clinic owners (dentists, dermatologists, clinic managers) for B2B selling.
 - **clinic-competitor-radar** — Competitor intelligence for the clinic system: leaders watchlist, structure-level imitation, trend memory.
@@ -384,6 +388,7 @@ registered in the router appear under the same family here automatically.
 - **gray-reuter-tp-processing** — Processes transactions at scale the Gray-Reuter way: TP monitors, workflows, and exactly-once effects.
 - **hands-on-ml-sklearn-keras-tensorflow** — Applies Aurelien Geron's Hands-On Machine Learning with Scikit-Learn, Keras and TensorFlow to build ML systems end to end: the full project lifecycle (frame, ge…
 - **hooked-nir-eyal** — Applies Eyal hook model: trigger, action, variable reward, investment.
+- **hopkins-scientific-advertising** — Advertises by measurement: test everything, sample honestly, serve the salesman.
 - **influence-psychology** — Apply the seven principles of ethical persuasion (reciprocity, commitment, social proof, authority, liking, scarcity, unity) to product design, copy, and sales.
 - **influencer-marketing** — When the user wants to run influencer, creator, or ambassador partnerships to promote their product — finding and vetting partners, structuring deals, briefing…
 - **integration-architecture-frameworks** — Applies the standard integration-architecture frameworks (SOA Reference Architecture, TOGAF-style integration, EAI/ESB patterns, and the integration capability…
@@ -397,6 +402,7 @@ registered in the router appear under the same family here automatically.
 - **microservices-up-and-running** — Applies Mitra and Nadareishvili's Microservices Up and Running to design small, independently deployable services: identify service boundaries by business capab…
 - **mit-intro-cs-python** — Teaches computation from zero the MIT 6.0001 way: state, control flow, decomposition, and growth rates.
 - **neural-networks-and-deep-learning** — Applies Michael Nielsen's free online book Neural Networks and Deep Learning to reason about neural networks from first principles: how backpropagation computes…
+- **ogilvy-on-advertising** — Advertises the Ogilvy way: research, headlines, and brand image.
 - **olah-mechanistic-interpretability** — Reverse-engineers neural networks: features, circuits, and causal attribution.
 - **persuasion-principles** — Master Robert Cialdini's 6 (+1) Principles of Persuasion from "Influence: The Psychology of Persuasion" (1984).
 - **pro-git** — Operates Git at the object-model level: blobs, trees, commits, branching, rebasing, and recovery.
@@ -420,17 +426,19 @@ registered in the router appear under the same family here automatically.
 - **social-publisher** — Multi-platform social media publishing automation - schedule, post, and track content across TikTok, Instagram, YouTube, LinkedIn, and more
 - **spanner-calvin-commit** — Builds globally-consistent distributed transactions: TrueTime ordering and deterministic scheduling.
 - **sql-code-review** — Universal SQL code review assistant that performs comprehensive security, maintainability, and code quality analysis across all SQL databases (MySQL, PostgreSQL…
+- **sugarman-adweek-triggers** — Triggers buying with direct-response psychology: slippery slides and buying emotions.
 - **swim-gossip-membership** — Spreads information and tracks membership epidemically: gossip, SWIM, and anti-entropy.
 - **tiktok-marketing** — TikTok content strategy, video creation workflows, posting optimization, and analytics.
 - **viral-hooks** — Expert in creating opening lines, thumbnails, and hooks that stop the scroll.
 - **winand-sql-indexing** — Indexes SQL correctly across vendors: B-trees, concatenation order, and execution plans.
 
-## Video/Media (9)
+## Video/Media (10)
 
 - **audio-whisper-transcriber** — Transcribes extracted audio files (mp3/wav) into text using local OpenAI Whisper / faster-whisper — no per-use API cost, no network upload, runs fully on-device…
 - **faceless-video-builder** — Free faceless video pipeline: 1 AI image per scene + Arabic voiceover + captions + assembly.
 - **fundamentals-speech-recognition** — Applies Rabiner & Juang's Fundamentals of Speech Recognition to build speech systems on the classic foundations: the speech signal and its representation, the h…
 - **media-downloader-extractor** — Downloads and extracts video/audio streams from social-media links (Facebook Reels, YouTube, TikTok, Instagram) using yt-dlp — bypassing browser scrapers, Cloud…
+- **snyder-save-the-cat** — Structures screenplays and video scripts: beats, genres, and loglines.
 - **video** — When the user wants to create, generate, or produce video content using AI tools or programmatic frameworks.
 - **video-edit** — Edit existing video on RunComfy — this skill is a smart router that matches the user's intent to the right edit model in the RunComfy catalog.
 - **video-editing** — AI-assisted video editing workflows for cutting, structuring, and augmenting real footage.
@@ -1077,4 +1085,4 @@ registered in the router appear under the same family here automatically.
 - **speech-language-processing** — Applies Jurafsky & Martin's Speech and Language Processing (SLP) to build NLP systems on textbook foundations: regular expressions and text normalization, n-gra…
 
 ---
-*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 17:51 — 997 skills, 24 families*
+*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 20:17 — 1005 skills, 24 families*
