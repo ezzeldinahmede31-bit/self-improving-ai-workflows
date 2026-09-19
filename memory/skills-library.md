@@ -598,7 +598,7 @@ registered in the router appear under the same family here automatically.
 - **thinking-triz** — When two design requirements seem mutually exclusive, name the contradiction, separate conflicting states, then invent a concrete no-compromise resolution.
 - **thinking-via-negativa** — Use when the reflex is to add a feature, layer, or process.
 
-## Context/Memory/System (64)
+## Context/Memory/System (63)
 
 - **advanced-evaluation** — This skill should be used for advanced LLM evaluation: LLM-as-judge systems, direct scoring, pairwise comparison, rubric calibration, evaluator bias mitigation,…
 - **alephone-binary-exploitation** — Understands memory-corruption attacks to defeat them: overflows, ROP, and modern mitigations.
@@ -662,10 +662,9 @@ registered in the router appear under the same family here automatically.
 - **sipser-theory-of-computation** — Reasons about what can be computed at all: automata, decidability, and complexity.
 - **state-machine-persistence** — Design n8n automations as recoverable state machines: persist multi-turn or long-running state (conversation context, job progress, dedupe keys) to Supabase, Re…
 - **tool-design** — This skill should be used for the tool-interface layer of an agent system specifically: writing tool descriptions agents can route on, designing tool schemas an…
-- **web-component-design** — Master React, Vue, and Svelte component patterns including CSS-in-JS, composition strategies, and reusable component architecture.
 - **windows-internals-russinovich** — Understands Windows from the kernel up: processes, memory, I/O, and security.
 
-## Agents/Architecture (49)
+## Agents/Architecture (50)
 
 - **agent-arch-system-design** — Expert system architecture design: patterns, scalability planning, ADRs, C4 diagrams, technology trade-offs, non-functional requirements.
 - **agent-reach** — Read and search external sources through the channels installed on this machine.
@@ -715,6 +714,7 @@ registered in the router appear under the same family here automatically.
 - **state-machine-workflow-modeling** — Represents workflows as explicit state machines with persisted state.
 - **streaming-systems-akidau** — Applies Tyler Akidau, Slava Chernyak, and Reuven Lax's Streaming Systems to build correct stream/batch data pipelines: the event-time vs processing-time distinc…
 - **terraform-up-and-running** — Applies Terraform: Up and Running (Yevgeniy Brikman) to infrastructure provisioning: treat every resource as code that is plan-able, reviewable, and reproducibl…
+- **web-component-design** — Master React, Vue, and Svelte component patterns including CSS-in-JS, composition strategies, and reusable component architecture.
 - **webapp-testing** — Toolkit for interacting with and testing local web applications using Playwright.
 
 ## Security (19)
