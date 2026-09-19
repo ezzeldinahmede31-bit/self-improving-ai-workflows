@@ -352,7 +352,7 @@ registered in the router appear under the same family here automatically.
 - **zapier-sdk** — Zapier SDK for TypeScript.
 - **zapier-system-cloner** — Replicates any Zapier (Zap) system — especially premium/expensive ones — with identical outputs and quality on n8n or code, using different (free/local) tools w…
 
-## Marketing/SEO/Growth (89)
+## Marketing/SEO/Growth (88)
 
 - **apify-audience-analysis** — Understand audience demographics, preferences, behavior patterns, and engagement quality across Facebook, Instagram, YouTube, and TikTok.
 - **architecture-decision-framework** — How to decide architecture and technology from REQUIREMENTS, not trends.
@@ -441,7 +441,6 @@ registered in the router appear under the same family here automatically.
 - **tiktok-marketing** — TikTok content strategy, video creation workflows, posting optimization, and analytics.
 - **vaynerchuk-jab-hook** — Wins social with give-give-ask: native storytelling per platform.
 - **viral-hooks** — Expert in creating opening lines, thumbnails, and hooks that stop the scroll.
-- **whitman-cashvertising** — Pulls buying triggers from the Life-Force 8 and 41 techniques.
 - **winand-sql-indexing** — Indexes SQL correctly across vendors: B-trees, concatenation order, and execution plans.
 
 ## Video/Media (11)
@@ -1046,7 +1045,7 @@ registered in the router appear under the same family here automatically.
 - **high-end-visual-design** — Teaches the AI to design like a high-end agency.
 - **liquid-glass** — Build and migrate iOS, macOS, iPadOS, watchOS, tvOS, and visionOS apps with Apple's Liquid Glass design system (iOS 26+, macOS 26 Tahoe+).
 
-## Auto-installed (find-skills) (35)
+## Auto-installed (find-skills) (36)
 
 - **agentic-eval** — Patterns and techniques for evaluating and improving AI agent outputs.
 - **architecture-primitives** — Catalog of reusable architectural primitives — boundaries, contracts, state machines, queues, caches, consistency models, and more.
@@ -1081,6 +1080,7 @@ registered in the router appear under the same family here automatically.
 - **system-design** — Scalability, availability, and distributed systems design
 - **timeout-graceful-degradation** — Bounds calls with explicit timeouts, defines degraded modes.
 - **validation-gate-data-quality** — Blocks bad data at entrances with schema/range checks + quarantine.
+- **whitman-cashvertising** — Pulls buying triggers from the Life-Force 8 and 41 techniques.
 - **workflow-versioning-upgrades** — Versions artifacts, staged rollout, safe downgrade.
 - **zinsser-writing-well** — Writes nonfiction with style: clarity, brevity, and humanity.
 
