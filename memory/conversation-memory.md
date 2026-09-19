@@ -1945,3 +1945,9 @@ Problem: REASONING keyword heuristic flagged innocent vendor prose ("moves betwe
 Fix in scripts/build_gates_pipeline.py: `_load_gates_ack` (sidecar honored ONLY inside `.opencode/skills/<slug>/`, fail-closed on malformed) + `_match_counting_ack` (requires finding~counting/boundary + verdict false-positive + evidence + reviewer + date) wired into DeepReasoningGate (downgrades heuristic flag only; never clears math FAIL/NEEDS_REVIEW/security/quality) + run_pipeline/main plumbing with [ACK] transparency line.
 Proof: 5 new tests/test_gates_ack.py pass; make-scenario-building + vapi-prompt-builder now READY_FOR_DEPLOYMENT with vendor bytes identical; full suite green.
 Device sweep for Make/Vapi creds: .env has NONE; playwright profile has none; real Chrome holds ACTIVE Make login (eu1.make.com sid+userId, today) but no API token; Vapi zero footprint. Need from user ONLY: (1) Make API token (Profile->API access, mcp:use scope) OR approve guided browser generation, (2) Vapi signup + VAPI_PRIVATE_KEY. Live execution proof blocked on exactly these two items.
+
+## Live-key verification (Sep 19): both keys stored, both 401 (read-only tests)
+Stored VAPI_API_KEY + MAKE_API_KEY in .env (0600, gitignored; values never logged).
+- Vapi GET /assistant -> 401 "Invalid Key... private vs public mix-up suspected". Pasted key likely PUBLIC; need PRIVATE server key.
+- Make GET /v2/users/me on eu1+us1 -> 401 SC401 "Invalid token header". Zone eu1 confirmed by live Chrome session; token may be MCP-scoped or malformed. Need API token from Profile->API access.
+- Live execution proof (Make scenario run / Vapi test call) stays blocked on corrected keys. No spend, no writes performed.
