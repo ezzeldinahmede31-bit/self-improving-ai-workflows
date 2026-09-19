@@ -719,7 +719,7 @@ registered in the router appear under the same family here automatically.
 - **web-security-browser-internals** — Applies Michal Zalewski's The Tangled Web to secure modern web applications: how browsers and HTTP actually behave (parsing, encoding, navigation, the same-orig…
 - **zero-to-one-thiel** — Applies Thiel monopoly, secrets, power law to strategy.
 
-## Coding/SWE (71)
+## Coding/SWE (70)
 
 - **agile-principles-patterns-practices** — Applies Robert C.
 - **algorithm-design** — Design algorithms with LaTeX pseudocode and UML diagrams.
@@ -730,7 +730,6 @@ registered in the router appear under the same family here automatically.
 - **art-of-readable-code** — Applies The Art of Readable Code by Dustin Boswell and Trevor Foucher to write code that is easy to understand: pack meaning into names, reduce what a reader mu…
 - **ast-codebase-graph-navigator** — Navigates multi-file codebases using Abstract Syntax Trees (AST), import graphs, and caller-callee traces instead of brute-force full-file loading.
 - **atomic-decomposition** — Decompose research ideas into atomic, self-contained concepts with bidirectional math-code mapping.
-- **black-risk-based-testing** — Manages testing by risk: analysis, priorities, and process control.
 - **c-programming-language** — Applies Kernighan & Ritchie's The C Programming Language to write clear, portable C: types and operators, control flow, functions and the argument-passing model…
 - **clean-agile** — Applies Robert C.
 - **clean-code** — Applies Robert C.
@@ -854,8 +853,9 @@ registered in the router appear under the same family here automatically.
 - **triage** — Move issues and external PRs through a state machine of triage roles, categorise, verify, grill if needed, and write agent-ready briefs.
 - **wiegers-software-requirements** — Engineers requirements that survive contact with stakeholders: elicitation, specification, and change control.
 
-## Superpowers pack — obra (21)
+## Superpowers pack — obra (22)
 
+- **black-risk-based-testing** — Manages testing by risk: analysis, priorities, and process control.
 - **brainstorming** — You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior.
 - **demarco-bears-risk** — Manages project risk explicitly: identification, quantification, and mitigation.
 - **dispatching-parallel-agents** — Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies
