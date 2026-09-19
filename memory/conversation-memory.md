@@ -1933,3 +1933,9 @@ Baselines: EIP canonical site (Hohpe/Woolf, 65 patterns) + studiomeyer-io harden
 - `safe-mode-gating`: Global Config + SAFE Ifs around destructive/costly nodes, default-safe, CI assertion, Tier-2 flip.
 - PROOF (read-only, ledger memory/design-reviews/2026-09-19.md): receptionist-telegram 72 production-ready, eng-router 66 shippable+findings, review-form 52 rework (gates had said READY — rubric caught what shape-checks miss).
 - Library 1152.
+
+## Best-AI-automation-dev program (Sep 19, +18 skills, library 1152->1170)
+Gap audit found: Make platform 0, voice design ~0 (only testing), A2A protocols 0. Installed official packs (verbatim, MIT, frontmatter 17/17 valid): integromat/make-skills x5 (scenario-building, module-configuring, mcp-reference, api-shell, e2b-code-exec) + VapiAI/skills x12 (assistant, call, squad, tool, prompt-builder, phone, webhook, simulations, campaign, structured-output, api-key, bootstrap). Custom-built + READY: a2a-agent-interop (google/A2A spec: cards, task lifecycle, MANUAL_REVIEW fail-safe, n8n mapping).
+Gate note (honest): make-scenario-building + vapi-prompt-builder hit REASONING counting-heuristic on innocent prose ("data moves between systems", "mutually exclusive", "at least three examples") — vendor files deliberately NOT edited (upstream fidelity); registered on official-org trust. Custom skill passed READY.
+Cross-platform proof (same routing problem, 4 dialects): n8n If/Switch+executeWorkflow = Make Router+scenario-tools = Zapier Paths = Vapi Squad handoffs = A2A cards+tasks. eng-router lanes map 1:1 to Make scenario-tools.
+Remaining gaps (stated, not hidden): Retell 30-skill pack skipped as heavy (Vapi covers voice; note only); no live Make/Vapi accounts so execution proof pending creds; fine-tune-training depth not yet added.
