@@ -7,7 +7,7 @@ for the full doc of the chosen skill. Grouping matches the router
 registry buckets (`compensatory-router/SKILL.md`), so new skills that were
 registered in the router appear under the same family here automatically.
 
-## Automation (per-tool) (357)
+## Automation (per-tool) (356)
 
 - **a2a-agent-interop** — Connect n8n agents to the open Agent-to-Agent (A2A) protocol: publish Agent Cards, drive the task lifecycle (message, polling, streaming, push), authenticate pe…
 - **abstraction-quality-gate** — Enforces A Philosophy of Software Design's core principle: complexity management through deep modules and shallow interfaces.
@@ -346,7 +346,6 @@ registered in the router appear under the same family here automatically.
 - **twitter-x-automation** — Automate Twitter/X social media workflows including posting, engagement, analytics, and audience growth
 - **uipath-aa-blueprism-advanced-bot** — Applies UiPath, Automation Anywhere, and Blue Prism: Advanced Bot Architecture to production: distilled patterns, anti-patterns, and checklists for building rel…
 - **unattended-vs-attended-automation-v2** — Applies Unattended vs.
-- **vapi-prompt-builder** — Create, improve, or audit Vapi voice agent and Squad system prompts for production phone and web based voice agents.
 - **vector-databases-architecture-indexing-v2** — Applies Vector Databases: Architecture, Indexing, and Scalable Similarity Search to production: distilled patterns, anti-patterns, and checklists for building r…
 - **vector-db-pinecone-milvus-qdrant-weaviate** — Applies Pinecone, Milvus, Qdrant, and Weaviate: Implementation and Tuning Guides to production: distilled patterns, anti-patterns, and checklists for building r…
 - **weather-automation** — Automate weather-based workflows, forecasts, alerts, and location-aware notifications
@@ -738,7 +737,7 @@ registered in the router appear under the same family here automatically.
 - **windows-internals-russinovich** — Understands Windows from the kernel up: processes, memory, I/O, and security.
 - **xss-csrf-testing** — XSS and CSRF testing distilled.
 
-## Agents/Architecture (60)
+## Agents/Architecture (61)
 
 - **agent-arch-system-design** — Expert system architecture design: patterns, scalability planning, ADRs, C4 diagrams, technology trade-offs, non-functional requirements.
 - **agent-reach** — Read and search external sources through the channels installed on this machine.
@@ -798,6 +797,7 @@ registered in the router appear under the same family here automatically.
 - **systems-design-methodology** — Use when the /systems-design mode is active.
 - **terraform-up-and-running** — Applies Terraform: Up and Running (Yevgeniy Brikman) to infrastructure provisioning: treat every resource as code that is plan-able, reviewable, and reproducibl…
 - **test-strategy-architecture** — Test strategy architecture distilled.
+- **vapi-prompt-builder** — Create, improve, or audit Vapi voice agent and Squad system prompts for production phone and web based voice agents.
 - **web-component-design** — Master React, Vue, and Svelte component patterns including CSS-in-JS, composition strategies, and reusable component architecture.
 - **webapp-testing** — Toolkit for interacting with and testing local web applications using Playwright.
 
