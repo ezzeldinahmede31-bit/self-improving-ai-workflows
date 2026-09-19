@@ -7,7 +7,7 @@ for the full doc of the chosen skill. Grouping matches the router
 registry buckets (`compensatory-router/SKILL.md`), so new skills that were
 registered in the router appear under the same family here automatically.
 
-## Automation (per-tool) (337)
+## Automation (per-tool) (338)
 
 - **abstraction-quality-gate** — Enforces A Philosophy of Software Design's core principle: complexity management through deep modules and shallow interfaces.
 - **access-control-least-privilege-agents-v2** — Applies Access Control, Role-Based Permissions, and Least Privilege for AI Agents to production: distilled patterns, anti-patterns, and checklists for building…
@@ -269,6 +269,7 @@ registered in the router appear under the same family here automatically.
 - **rlhf-agent-alignment** — Applies Reinforcement Learning from Human Feedback for Agent Alignment to production: distilled patterns, anti-patterns, and checklists for building reliable re…
 - **robotic-process-automation-guide-v2** — Applies Robotic Process Automation: Guide to Software Robots and Enterprise Deployment to production: distilled patterns, anti-patterns, and checklists for buil…
 - **safe-reliable-generative-ai-guardrails** — Applies Safe and Reliable Generative AI: Guardrails, Alignment, and Red Teaming to production: distilled patterns, anti-patterns, and checklists for building re…
+- **salesforce-testing-patterns** — Salesforce testing patterns distilled.
 - **scaling-bot-farms-orchestration-v2** — Applies Scaling Bot Farms: Infrastructure, Control Rooms, and Orchestration to production: distilled patterns, anti-patterns, and checklists for building reliab…
 - **scaling-language-models-infra-cost** — Applies Scaling Language Models: Infrastructure, Cost, and Latency Optimization to production: distilled patterns, anti-patterns, and checklists for building re…
 - **scaling-lowcode-high-volume** — Applies Scaling Low-Code Automation Platforms for High-Volume Traffic to production: distilled patterns, anti-patterns, and checklists for building reliable sca…
@@ -359,7 +360,7 @@ registered in the router appear under the same family here automatically.
 - **zapier-sdk** — Zapier SDK for TypeScript.
 - **zapier-system-cloner** — Replicates any Zapier (Zap) system — especially premium/expensive ones — with identical outputs and quality on n8n or code, using different (free/local) tools w…
 
-## Marketing/SEO/Growth (100)
+## Marketing/SEO/Growth (101)
 
 - **agile-testing-quadrants-deep** — Agile testing quadrants deep distilled.
 - **apify-audience-analysis** — Understand audience demographics, preferences, behavior patterns, and engagement quality across Facebook, Instagram, YouTube, and TikTok.
@@ -440,6 +441,7 @@ registered in the router appear under the same family here automatically.
 - **resilience-circuit-testing** — Resilience and circuit breaker testing distilled.
 - **rework-range-lean** — Applies the counter-conventional product and business principles from Rework (Fried & Hansson): small is a feature not a stage, constraints are an advantage, sc…
 - **saga-compensation-flows** — Coordinates multi-step distributed actions with forward steps plus compensating undos.
+- **sap-erp-testing** — SAP ERP testing distilled.
 - **scalability-distributed-systems** — How to build systems that survive PRODUCTION.
 - **secrets-scan-testing** — Secrets scanning testing distilled.
 - **sheridan-they-ask** — Wins buyers by answering their questions honestly: buyer-driven content.
@@ -601,13 +603,14 @@ registered in the router appear under the same family here automatically.
 - **understanding-machine-learning** — Applies Shalev-Shwartz and Ben-David's Understanding Machine Learning: From Theory to Algorithms to rigorously ground ML in learning theory: PAC learning, VC di…
 - **unit-test-boundary-conditions** — Provides edge case, corner case, boundary condition, and limit testing patterns for Java unit tests.
 
-## Thinking frames (40)
+## Thinking frames (41)
 
 - **ai-safety-governance** — Applies AI safety and governance discipline to every model-backed feature: prompt-injection defense, output filtering, access control, audit logging, policy enf…
 - **atomic-habits** — Applies James Clear's Atomic Habits to systems change: tiny 1% improvements compound; habits are built by systems, not by goals.
 - **foundations-statistical-nlp** — Applies Manning & Schutze's Foundations of Statistical Natural Language Processing to build NLP with statistical rigor: linguistic essentials, text tokenization…
 - **grill-me** — A relentless interview to sharpen a plan or design.
 - **grilling** — Grill the user relentlessly about a plan, decision, or idea.
+- **mainframe-testing-patterns** — Mainframe testing patterns distilled.
 - **noise-signal-protocol-security** — Designs and audits secure messaging: Noise handshakes, Double Ratchet, and formal verification.
 - **okken-pytest-craft** — Uses pytest professionally: fixtures, parametrize, markers, and plugins.
 - **prince-vision-models** — Models vision probabilistically: image formation, inference, and learning.
@@ -804,7 +807,7 @@ registered in the router appear under the same family here automatically.
 - **web-security-browser-internals** — Applies Michal Zalewski's The Tangled Web to secure modern web applications: how browsers and HTTP actually behave (parsing, encoding, navigation, the same-orig…
 - **zero-to-one-thiel** — Applies Thiel monopoly, secrets, power law to strategy.
 
-## Coding/SWE (90)
+## Coding/SWE (91)
 
 - **accessibility-wcag-testing** — Accessibility WCAG testing distilled.
 - **agile-principles-patterns-practices** — Applies Robert C.
@@ -886,6 +889,7 @@ registered in the router appear under the same family here automatically.
 - **tdd-sandbox-proof-engine** — Enforces Test-Driven Development (TDD) in a clean sandbox: code is only considered valid if companion unit tests pass 100% and the execution log is attached.
 - **terminal-bash-executor-governor** — Executes CLI commands, inspects exit codes, manages tailing log output, and enforces safety gates for destructive terminal operations.
 - **test-driven-development-by-example-beck** — Applies Beck TDD: red, green, refactor cycle.
+- **test-environment-management** — Test environment management distilled.
 - **test-maintenance-refactor** — Test maintenance and refactoring distilled.
 - **test-smells-catalog** — Applies the test-smell catalog half of Gerard Meszaros' XUnit Test Patterns to find and fix the problems that make test suites slow, brittle, and unmaintainable…
 - **types-and-programming-languages** — Applies Benjamin C.
@@ -930,10 +934,11 @@ registered in the router appear under the same family here automatically.
 - **worst-idea** — Worst Possible Idea (reverse brainstorming) — deliberately design the most terrible solutions to the problem, name the mechanism that makes each one bad, then i…
 - **zeller-fuzzing-book** — Fuzzes with structure: mutational, generational, and coverage-guided fuzzing.
 
-## Delivery/Gates (35)
+## Delivery/Gates (36)
 
 - **adversarial-self-falsifier** — Actively attacks and attempts to break generated code, math, or logic before finalizing the response.
 - **adzic-specification-by-example** — Gojko Adzic Specification by Example distilled.
+- **audit-trail-test-evidence** — Audit trail test evidence distilled.
 - **best-practice-first-designer** — MANDATORY research-first gate before designing or building ANY n8n workflow or AI agent.
 - **build-gates-pipeline** — MANDATORY pre-build gate pipeline for EVERY n8n workflow, AI agent, or automation artifact this agent produces.
 - **clarify-before-execute** — The user's mandatory discovery loop: when they give a request, DO NOT start building.
@@ -1112,7 +1117,7 @@ registered in the router appear under the same family here automatically.
 - **high-end-visual-design** — Teaches the AI to design like a high-end agency.
 - **liquid-glass** — Build and migrate iOS, macOS, iPadOS, watchOS, tvOS, and visionOS apps with Apple's Liquid Glass design system (iOS 26+, macOS 26 Tahoe+).
 
-## Auto-installed (find-skills) (66)
+## Auto-installed (find-skills) (71)
 
 - **agentic-eval** — Patterns and techniques for evaluating and improving AI agent outputs.
 - **api-testing-contract-patterns** — API testing patterns distilled.
@@ -1120,19 +1125,23 @@ registered in the router appear under the same family here automatically.
 - **architecture-primitives** — Catalog of reusable architectural primitives — boundaries, contracts, state machines, queues, caches, consistency models, and more.
 - **audit-trail-compliance** — Records actor, action, target, hashes, outcome in append-only logs for compliance.
 - **bdd-cucumber-deep** — Deep BDD with Cucumber distilled.
+- **blockchain-contract-testing** — Blockchain smart contract testing distilled.
 - **boyd-convex-optimization** — Solves optimization the Boyd way: convex formulation, duality, and first-order methods.
 - **candor-radical-feedback** — Gives feedback that works: care personally, challenge directly.
 - **cdn-cache-testing** — CDN and cache testing distilled.
+- **compliance-testing-patterns** — Compliance testing patterns distilled.
 - **copeland-pairwise-testing** — Covers input combinations efficiently: pairwise and combinatorial design.
 - **cypress-component-patterns** — Cypress testing patterns distilled.
 - **data-pipeline-testing** — Data pipeline testing distilled.
 - **decision-table-testing** — Decision table testing distilled.
 - **distributed-systems-field-manual** — Practical distributed-systems survival rules: timeouts, retries, clocks, quorums.
 - **ecommerce-order-processing-flows** — Automates order lifecycles with idempotent steps + reconciliation.
+- **embedded-iot-testing** — Embedded and IoT testing distilled.
 - **example-mapping-workshops** — Example mapping workshops distilled.
 - **fan-out-fan-in-merge** — Splits work parallel then rejoins by key, handling partial failures.
 - **feature-engineering-machine-learning** — Applies Alice Zheng and Amanda Casari's Feature Engineering for Machine Learning to turn raw data into features that make models work: numeric features (scaling…
 - **flaky-test-elimination** — Flaky test elimination distilled.
+- **game-testing-patterns** — Game testing patterns distilled.
 - **google-cloud-networking-observability** — Investigates Google Cloud networking issues by analyzing logs, metrics, and diagnostics.
 - **graph-databases-modeling** — Models and queries connected data: property graphs, traversals, and Cypher.
 - **graphql-advanced-testing** — Advanced GraphQL testing distilled.
@@ -1174,6 +1183,7 @@ registered in the router appear under the same family here automatically.
 - **timeout-graceful-degradation** — Bounds calls with explicit timeouts, defines degraded modes.
 - **use-case-testing-patterns** — Use case testing distilled.
 - **validation-gate-data-quality** — Blocks bad data at entrances with schema/range checks + quarantine.
+- **voice-assistant-testing** — Voice assistant testing distilled.
 - **web-scalability-startup-playbook** — Scale a web product 0 to millions without rewrites: stateless app, read replicas, cache layers, CDN, async queues, sharding.
 - **webdriverio-patterns** — WebdriverIO patterns distilled.
 - **websocket-event-testing** — WebSocket and event testing distilled.
@@ -1210,4 +1220,4 @@ registered in the router appear under the same family here automatically.
 - **speech-language-processing** — Applies Jurafsky & Martin's Speech and Language Processing (SLP) to build NLP systems on textbook foundations: regular expressions and text normalization, n-gra…
 
 ---
-*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 20:47 — 1130 skills, 24 families*
+*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 20:48 — 1140 skills, 24 families*

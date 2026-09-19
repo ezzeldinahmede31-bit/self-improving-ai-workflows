@@ -271,7 +271,7 @@ Evaluate the architecture across these dimensions:
 - Unclear module responsibilities
 - Circular dependencies
 - Poorly organized code structure
-- Lack of separation between layers
+- Lack of layer separation
 - Missing configuration abstraction
 - Hard-coded values
 - Insufficient test coverage
