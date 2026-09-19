@@ -587,12 +587,11 @@ registered in the router appear under the same family here automatically.
 - **thinking-triz** — When two design requirements seem mutually exclusive, name the contradiction, separate conflicting states, then invent a concrete no-compromise resolution.
 - **thinking-via-negativa** — Use when the reflex is to add a feature, layer, or process.
 
-## Context/Memory/System (61)
+## Context/Memory/System (60)
 
 - **advanced-evaluation** — This skill should be used for advanced LLM evaluation: LLM-as-judge systems, direct scoring, pairwise comparison, rubric calibration, evaluator bias mitigation,…
 - **alephone-binary-exploitation** — Understands memory-corruption attacks to defeat them: overflows, ROP, and modern mitigations.
 - **ambiguity-resolver** — Forced-explicit ambiguity gate for weak/free models.
-- **aniche-effective-testing** — Tests modern codebases effectively: testability design, doubles, and legacy strategy.
 - **aumasson-serious-crypto** — Deploys cryptography correctly: modern primitives, key management, and failure modes.
 - **automation-known-issues-compass** — The known-issues catalog + design-time checklist for n8n and Zapier: every common failure mode, its symptom, root cause and fix, encoded so that ANY automation/…
 - **bdi-mental-states** — This skill should be used when modeling agent mental states with BDI concepts: beliefs, desires, intentions, RDF-to-belief transformations, rational agency trac…
@@ -720,12 +719,13 @@ registered in the router appear under the same family here automatically.
 - **web-security-browser-internals** — Applies Michal Zalewski's The Tangled Web to secure modern web applications: how browsers and HTTP actually behave (parsing, encoding, navigation, the same-orig…
 - **zero-to-one-thiel** — Applies Thiel monopoly, secrets, power law to strategy.
 
-## Coding/SWE (71)
+## Coding/SWE (72)
 
 - **agile-principles-patterns-practices** — Applies Robert C.
 - **algorithm-design** — Design algorithms with LaTeX pseudocode and UML diagrams.
 - **algorithm-design-manual-war-stories** — Applies Steven Skiena's Algorithm Design Manual 'war manual' to real-world problems: classify the problem type first, consult the problem catalog for the proven…
 - **ambler-refactoring-databases** — Evolves production databases safely: refactoring patterns, migrations, and dual running.
+- **aniche-effective-testing** — Tests modern codebases effectively: testability design, doubles, and legacy strategy.
 - **apue-unix-programming** — Applies Stevens & Rago's APUE to real Unix/Linux system programming: file I/O and descriptors, files and directories, processes and environment, signals, termin…
 - **art-of-readable-code** — Applies The Art of Readable Code by Dustin Boswell and Trevor Foucher to write code that is easy to understand: pack meaning into names, reduce what a reader mu…
 - **ast-codebase-graph-navigator** — Navigates multi-file codebases using Abstract Syntax Trees (AST), import graphs, and caller-callee traces instead of brute-force full-file loading.
