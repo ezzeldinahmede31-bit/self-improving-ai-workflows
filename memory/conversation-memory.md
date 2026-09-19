@@ -1951,3 +1951,6 @@ Stored VAPI_API_KEY + MAKE_API_KEY in .env (0600, gitignored; values never logge
 - Vapi GET /assistant -> 401 "Invalid Key... private vs public mix-up suspected". Pasted key likely PUBLIC; need PRIVATE server key.
 - Make GET /v2/users/me on eu1+us1 -> 401 SC401 "Invalid token header". Zone eu1 confirmed by live Chrome session; token may be MCP-scoped or malformed. Need API token from Profile->API access.
 - Live execution proof (Make scenario run / Vapi test call) stays blocked on corrected keys. No spend, no writes performed.
+
+## Vapi live proof COMPLETE (Sep 19): key rotated, write-path proven free
+New VAPI_API_KEY verified 200 on GET /assistant. Proof assistant created (id logged in session only), GET 200, DELETE 200 — zero spend (no call, no number). Remaining for full voice proof: one billable test call (needs explicit money approval per Tier-2) + corrected Make API token (still 401).
