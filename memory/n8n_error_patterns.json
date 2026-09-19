@@ -2,30 +2,30 @@
   {
     "gate": "quality",
     "pattern": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "count": 114,
+    "count": 115,
     "first_seen": "2026-08-15T01:45:33.866641+00:00",
-    "last_seen": "2026-09-19T17:37:43.286333+00:00"
+    "last_seen": "2026-09-19T17:51:51.087969+00:00"
   },
   {
     "gate": "skills",
     "pattern": "no --skills-loaded manifest — actual agent loads are NOT verifiable headless; readiness (installed + frontmatter + routable) verified only",
-    "count": 113,
+    "count": 114,
     "first_seen": "2026-08-24T13:18:28.258531+00:00",
-    "last_seen": "2026-09-19T17:37:43.289303+00:00"
+    "last_seen": "2026-09-19T17:51:51.091599+00:00"
   },
   {
     "gate": "quality",
     "pattern": "No Error Trigger node and no continueOnFail on any node",
-    "count": 98,
+    "count": 99,
     "first_seen": "2026-08-15T01:45:33.866459+00:00",
-    "last_seen": "2026-09-19T17:37:43.281872+00:00"
+    "last_seen": "2026-09-19T17:51:51.085440+00:00"
   },
   {
     "gate": "dry_run",
     "pattern": "no dry-run evidence: nodes carry no pinned data and no expected_result from a trial run — run the workflow on the n8n instance (n8n-pinned-data-mocking) before delivery",
-    "count": 35,
+    "count": 36,
     "first_seen": "2026-08-17T06:06:55.931702+00:00",
-    "last_seen": "2026-09-17T12:29:56.160945+00:00"
+    "last_seen": "2026-09-19T17:51:51.096478+00:00"
   },
   {
     "gate": "preflight",

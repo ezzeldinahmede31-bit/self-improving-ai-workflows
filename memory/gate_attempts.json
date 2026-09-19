@@ -66,5 +66,8 @@
   },
   "clinic_competitor_watch.json": {
     "REASONING_REVIEW_REQUIRED::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 2
+  },
+  "proof_ping.json": {
+    "RUN_TRIAL_EXECUTION_FIRST::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 1
   }
 }

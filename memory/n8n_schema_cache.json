@@ -19,6 +19,10 @@
     "required": [],
     "version": "1"
   },
+  "@adcalls/n8n-nodes-call-tracking.AdCalls": {
+    "required": [],
+    "version": "1"
+  },
   "@adcalls/n8n-nodes-call-tracking.AdCallsHook": {
     "required": [],
     "version": "1"
@@ -83,6 +87,10 @@
     "required": [],
     "version": "1"
   },
+  "@ambriel-io/n8n-nodes-ambriel.ambriel": {
+    "required": [],
+    "version": "1"
+  },
   "@aotoki/n8n-nodes-line-messaging.lineMessaging": {
     "required": [],
     "version": "1"
@@ -136,6 +144,10 @@
     "version": "1"
   },
   "@authyo/n8n-nodes-authyo.authyo": {
+    "required": [],
+    "version": "1"
+  },
+  "@awakast/n8n-nodes-talent-veil.talentVeil": {
     "required": [],
     "version": "1"
   },
@@ -231,6 +243,22 @@
     "required": [],
     "version": "1"
   },
+  "@blackswampai/n8n-nodes-medusa.medusa": {
+    "required": [],
+    "version": "1"
+  },
+  "@blackswampai/n8n-nodes-studiocms.studioCms": {
+    "required": [],
+    "version": "1"
+  },
+  "@blackswampai/n8n-nodes-twentycrm.twenty": {
+    "required": [],
+    "version": "1"
+  },
+  "@blackswampai/n8n-nodes-twentycrm.twentyTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "@bloomflow/n8n-nodes-bloomflow.bloomflow": {
     "required": [],
     "version": "1"
@@ -248,10 +276,8 @@
     "version": "1"
   },
   "@brave/n8n-nodes-brave-search.braveSearch": {
-    "required": [
-      "operation"
-    ],
-    "version": "1"
+    "required": [],
+    "version": "1.1"
   },
   "@bredbox/n8n-nodes-bredbox.bredbox": {
     "required": [],
@@ -261,7 +287,15 @@
     "required": [],
     "version": "1"
   },
+  "@brightdeck/n8n-nodes-ai-slides.aiSlidesByBrightdeck": {
+    "required": [],
+    "version": "1"
+  },
   "@brontoio/n8n-nodes-bronto.bronto": {
+    "required": [],
+    "version": "1"
+  },
+  "@bruno_groehs/n8n-nodes-chatmodel-reasoning.lmChatReasoning": {
     "required": [],
     "version": "1"
   },
@@ -329,14 +363,16 @@
     "required": [],
     "version": "1"
   },
-  "@clubmega/n8n-nodes-mega.mega": {
+  "@clubmega/n8n-nodes-mega.chatwoot": {
+    "required": [],
+    "version": "1"
+  },
+  "@clubmega/n8n-nodes-mega.chatwootTrigger": {
     "required": [],
     "version": "1"
   },
   "@coginiti/n8n-nodes-coginiti.coginiti": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "@cometapi-dev/n8n-nodes-cometapi.cometApi": {
@@ -622,9 +658,7 @@
     "version": "1"
   },
   "@dongit/n8n-nodes-reporter.reporterPollingTrigger": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "@dongit/n8n-nodes-reporter.reporterTrigger": {
@@ -703,11 +737,39 @@
     "required": [],
     "version": "1"
   },
+  "@empirio-ai/n8n-nodes-empirio-ai.empirioAi": {
+    "required": [],
+    "version": "1"
+  },
+  "@empirio-ai/n8n-nodes-empirio-ai.empirioAiTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "@emvion/n8n-nodes-venabo.emvionVenabo": {
     "required": [],
     "version": "1"
   },
+  "@enconvert/n8n-nodes-enconvert.enconvert": {
+    "required": [],
+    "version": "1"
+  },
   "@enginemailer/n8n-nodes-enginemailer.enginemailer": {
+    "required": [],
+    "version": "1"
+  },
+  "@enterspeed/n8n-nodes-enterspeed.enterspeed": {
+    "required": [],
+    "version": "1"
+  },
+  "@enterspeed/n8n-nodes-enterspeed.enterspeedTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "@erudika/n8n-nodes-scoold.scoold": {
+    "required": [],
+    "version": "1"
+  },
+  "@erudika/n8n-nodes-scoold.scooldTrigger": {
     "required": [],
     "version": "1"
   },
@@ -720,6 +782,10 @@
     "version": "1"
   },
   "@fal-ai/n8n-nodes-fal.falAi": {
+    "required": [],
+    "version": "1"
+  },
+  "@falkordb/n8n-nodes-graphrag.graphRagAction": {
     "required": [],
     "version": "1"
   },
@@ -783,6 +849,14 @@
     "required": [],
     "version": "1"
   },
+  "@friday430/n8n-nodes-friday430.friday430": {
+    "required": [],
+    "version": "1"
+  },
+  "@friday430/n8n-nodes-friday430.friday430Trigger": {
+    "required": [],
+    "version": "1"
+  },
   "@fulfillmenttools/n8n-nodes-fulfillmenttools.fulfillmenttools": {
     "required": [],
     "version": "1"
@@ -836,7 +910,23 @@
     "required": [],
     "version": "1"
   },
+  "@gleanwork/n8n-nodes-gleanclient.gleanClient": {
+    "required": [],
+    "version": "1"
+  },
+  "@gleanwork/n8n-nodes-gleanclient.gleanClientTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "@globalping/n8n-nodes-globalping.globalping": {
+    "required": [],
+    "version": "1"
+  },
+  "@gluecrawl/n8n-nodes-gluecrawl.gluecrawl": {
+    "required": [],
+    "version": "1"
+  },
+  "@gluecrawl/n8n-nodes-gluecrawl.gluecrawlTrigger": {
     "required": [],
     "version": "1"
   },
@@ -845,9 +935,7 @@
     "version": "1"
   },
   "@gotohuman/n8n-nodes-gotohuman.gotoHuman": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "2"
   },
   "@gotohuman/n8n-nodes-gotohuman.gotoHumanTrigger": {
@@ -859,9 +947,7 @@
     "version": "1"
   },
   "@green-api/n8n-nodes-max-greenapi.greenapi": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "@green-api/n8n-nodes-max-greenapi.greenapiTrigger": {
@@ -869,9 +955,7 @@
     "version": "1"
   },
   "@green-api/n8n-nodes-whatsapp-greenapi.greenapi": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "@green-api/n8n-nodes-whatsapp-greenapi.greenapiTrigger": {
@@ -879,6 +963,14 @@
     "version": "1"
   },
   "@growsalesai/n8n-nodes-datacrazy.datacrazy": {
+    "required": [],
+    "version": "1"
+  },
+  "@hallopetra/n8n-nodes-hallopetra.petra": {
+    "required": [],
+    "version": "1"
+  },
+  "@hallopetra/n8n-nodes-hallopetra.petraTrigger": {
     "required": [],
     "version": "1"
   },
@@ -899,6 +991,18 @@
     "version": "1"
   },
   "@heygenofficial/n8n-nodes-heygen-official.heygenTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "@hookdeck/n8n-nodes-hookdeck.hookdeckEventGateway": {
+    "required": [],
+    "version": "1"
+  },
+  "@hookdeck/n8n-nodes-hookdeck.hookdeckEventGatewayTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "@html-css-to-image/n8n-nodes-html-css-to-image.htmlCssToImage": {
     "required": [],
     "version": "1"
   },
@@ -970,6 +1074,10 @@
     "required": [],
     "version": "1"
   },
+  "@ironfang/n8n-nodes-ironfang.ironfang": {
+    "required": [],
+    "version": "1"
+  },
   "@itechnotion/n8n-nodes-headless-saas-infographics.headlessSaas": {
     "required": [],
     "version": "1"
@@ -1007,6 +1115,14 @@
     "version": "1"
   },
   "@katara-ai/n8n-nodes-katara.katara": {
+    "required": [],
+    "version": "1"
+  },
+  "@kdctek/n8n-nodes-wacr.wacr": {
+    "required": [],
+    "version": "1"
+  },
+  "@kdctek/n8n-nodes-wacr.wacrTrigger": {
     "required": [],
     "version": "1"
   },
@@ -1078,6 +1194,14 @@
     "required": [],
     "version": "1"
   },
+  "@lobstrio/n8n-nodes-lobstr.lobstr": {
+    "required": [],
+    "version": "1"
+  },
+  "@lobstrio/n8n-nodes-lobstr.lobstrTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "@local-falcon/n8n-nodes-localfalcon.localFalcon": {
     "required": [],
     "version": "1"
@@ -1122,6 +1246,14 @@
     "required": [],
     "version": "1"
   },
+  "@manatal/n8n-nodes-manatal.manatal": {
+    "required": [],
+    "version": "1"
+  },
+  "@manatal/n8n-nodes-manatal.manatalTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "@manyreach/n8n-nodes-manyreach.manyreach": {
     "required": [],
     "version": "1"
@@ -1134,7 +1266,7 @@
     "required": [],
     "version": "1"
   },
-  "@mbakgun/n8n-nodes-slack-socket-mode.slacksocketmode": {
+  "@mbakgun/n8n-nodes-slack-socket-mode.slackSocketTrigger": {
     "required": [],
     "version": "1"
   },
@@ -1151,6 +1283,14 @@
     "version": "1"
   },
   "@mercadopago/n8n-nodes-mercadopago.mercadopago": {
+    "required": [],
+    "version": "1"
+  },
+  "@messagebird/n8n-nodes-bird.bird": {
+    "required": [],
+    "version": "1"
+  },
+  "@messagebird/n8n-nodes-bird.birdTrigger": {
     "required": [],
     "version": "1"
   },
@@ -1175,6 +1315,14 @@
     "version": "1"
   },
   "@mlabsh/n8n-nodes-mlab.mlab": {
+    "required": [],
+    "version": "1"
+  },
+  "@mohanvadivel/n8n-nodes-zoho-desk.zohoDesk": {
+    "required": [],
+    "version": "1"
+  },
+  "@mohanvadivel/n8n-nodes-zoho-desk.zohoDeskTrigger": {
     "required": [],
     "version": "1"
   },
@@ -1203,9 +1351,7 @@
     "version": "1"
   },
   "@mookielianhd/n8n-nodes-instagram.instagram": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "@mookielianhd/n8n-nodes-instagram.instagramTrigger": {
@@ -1225,10 +1371,7 @@
     "version": "3.1"
   },
   "@n8n/n8n-nodes-langchain.agentTool": {
-    "required": [
-      "toolDescription",
-      "text"
-    ],
+    "required": [],
     "version": "3"
   },
   "@n8n/n8n-nodes-langchain.alibabaCloud": {
@@ -1260,9 +1403,7 @@
     "version": "2.1"
   },
   "@n8n/n8n-nodes-langchain.chat": {
-    "required": [
-      "message"
-    ],
+    "required": [],
     "version": "1.3"
   },
   "@n8n/n8n-nodes-langchain.chatHubVectorStorePGVector": {
@@ -1278,9 +1419,7 @@
     "version": "1.3"
   },
   "@n8n/n8n-nodes-langchain.chatTool": {
-    "required": [
-      "message"
-    ],
+    "required": [],
     "version": "1.3"
   },
   "@n8n/n8n-nodes-langchain.chatTrigger": {
@@ -1292,16 +1431,11 @@
     "version": "1"
   },
   "@n8n/n8n-nodes-langchain.documentBinaryInputLoader": {
-    "required": [
-      "loader",
-      "binaryDataKey"
-    ],
+    "required": [],
     "version": "1"
   },
   "@n8n/n8n-nodes-langchain.documentDefaultDataLoader": {
-    "required": [
-      "dataType"
-    ],
+    "required": [],
     "version": "1.1"
   },
   "@n8n/n8n-nodes-langchain.documentGithubLoader": {
@@ -1329,9 +1463,7 @@
     "version": "1"
   },
   "@n8n/n8n-nodes-langchain.embeddingsGoogleVertex": {
-    "required": [
-      "projectId"
-    ],
+    "required": [],
     "version": "1"
   },
   "@n8n/n8n-nodes-langchain.embeddingsHuggingFaceInference": {
@@ -1349,9 +1481,7 @@
     "version": "1"
   },
   "@n8n/n8n-nodes-langchain.embeddingsNvidia": {
-    "required": [
-      "model"
-    ],
+    "required": [],
     "version": "1"
   },
   "@n8n/n8n-nodes-langchain.embeddingsOllama": {
@@ -1379,9 +1509,7 @@
     "version": "1.2"
   },
   "@n8n/n8n-nodes-langchain.guardrails": {
-    "required": [
-      "text"
-    ],
+    "required": [],
     "version": "2"
   },
   "@n8n/n8n-nodes-langchain.informationExtractor": {
@@ -1394,16 +1522,14 @@
   },
   "@n8n/n8n-nodes-langchain.lmChatAnthropic": {
     "required": [],
-    "version": "1.5"
+    "version": "1.6"
   },
   "@n8n/n8n-nodes-langchain.lmChatAwsBedrock": {
     "required": [],
-    "version": "1.1"
+    "version": "1.2"
   },
   "@n8n/n8n-nodes-langchain.lmChatAzureOpenAi": {
-    "required": [
-      "model"
-    ],
+    "required": [],
     "version": "1"
   },
   "@n8n/n8n-nodes-langchain.lmChatCohere": {
@@ -1419,9 +1545,7 @@
     "version": "1.1"
   },
   "@n8n/n8n-nodes-langchain.lmChatGoogleVertex": {
-    "required": [
-      "projectId"
-    ],
+    "required": [],
     "version": "1"
   },
   "@n8n/n8n-nodes-langchain.lmChatGroq": {
@@ -1429,14 +1553,12 @@
     "version": "1"
   },
   "@n8n/n8n-nodes-langchain.lmChatLemonade": {
-    "required": [
-      "model"
-    ],
+    "required": [],
     "version": "1"
   },
   "@n8n/n8n-nodes-langchain.lmChatMinimax": {
     "required": [],
-    "version": "1"
+    "version": "1.1"
   },
   "@n8n/n8n-nodes-langchain.lmChatMistralCloud": {
     "required": [],
@@ -1451,9 +1573,7 @@
     "version": "1"
   },
   "@n8n/n8n-nodes-langchain.lmChatOllama": {
-    "required": [
-      "model"
-    ],
+    "required": [],
     "version": "1"
   },
   "@n8n/n8n-nodes-langchain.lmChatOpenAi": {
@@ -1477,21 +1597,15 @@
     "version": "1"
   },
   "@n8n/n8n-nodes-langchain.lmLemonade": {
-    "required": [
-      "model"
-    ],
+    "required": [],
     "version": "1"
   },
   "@n8n/n8n-nodes-langchain.lmOllama": {
-    "required": [
-      "model"
-    ],
+    "required": [],
     "version": "1"
   },
   "@n8n/n8n-nodes-langchain.lmOpenAi": {
-    "required": [
-      "model"
-    ],
+    "required": [],
     "version": "1"
   },
   "@n8n/n8n-nodes-langchain.lmOpenHuggingFaceInference": {
@@ -1503,10 +1617,7 @@
     "version": "1.1"
   },
   "@n8n/n8n-nodes-langchain.mcpClient": {
-    "required": [
-      "endpointUrl",
-      "tool"
-    ],
+    "required": [],
     "version": "1.1"
   },
   "@n8n/n8n-nodes-langchain.mcpClientTool": {
@@ -1518,10 +1629,8 @@
     "version": "1.1"
   },
   "@n8n/n8n-nodes-langchain.mcpTrigger": {
-    "required": [
-      "path"
-    ],
-    "version": "2"
+    "required": [],
+    "version": "2.1"
   },
   "@n8n/n8n-nodes-langchain.memoryBufferWindow": {
     "required": [],
@@ -1565,11 +1674,11 @@
   },
   "@n8n/n8n-nodes-langchain.minimax": {
     "required": [],
-    "version": "1"
+    "version": "1.1"
   },
   "@n8n/n8n-nodes-langchain.minimaxTool": {
     "required": [],
-    "version": "1"
+    "version": "1.1"
   },
   "@n8n/n8n-nodes-langchain.modelSelector": {
     "required": [],
@@ -1632,15 +1741,11 @@
     "version": "1.1"
   },
   "@n8n/n8n-nodes-langchain.sentimentAnalysis": {
-    "required": [
-      "inputText"
-    ],
+    "required": [],
     "version": "1.1"
   },
   "@n8n/n8n-nodes-langchain.textClassifier": {
-    "required": [
-      "inputText"
-    ],
+    "required": [],
     "version": "1.1"
   },
   "@n8n/n8n-nodes-langchain.textSplitterCharacterTextSplitter": {
@@ -1668,9 +1773,7 @@
     "version": "1"
   },
   "@n8n/n8n-nodes-langchain.toolHttpRequest": {
-    "required": [
-      "url"
-    ],
+    "required": [],
     "version": "1.1"
   },
   "@n8n/n8n-nodes-langchain.toolSearXng": {
@@ -1704,15 +1807,11 @@
     "version": "2.2"
   },
   "@n8n/n8n-nodes-langchain.vectorStoreAzureAISearch": {
-    "required": [
-      "indexName"
-    ],
+    "required": [],
     "version": "1.3"
   },
   "@n8n/n8n-nodes-langchain.vectorStoreChromaDB": {
-    "required": [
-      "chromaCollection"
-    ],
+    "required": [],
     "version": "1.3"
   },
   "@n8n/n8n-nodes-langchain.vectorStoreInMemory": {
@@ -1728,18 +1827,11 @@
     "version": "1"
   },
   "@n8n/n8n-nodes-langchain.vectorStoreMilvus": {
-    "required": [
-      "milvusCollection"
-    ],
+    "required": [],
     "version": "1.3"
   },
   "@n8n/n8n-nodes-langchain.vectorStoreMongoDBAtlas": {
-    "required": [
-      "mongoCollection",
-      "embedding",
-      "metadata_field",
-      "vectorIndexName"
-    ],
+    "required": [],
     "version": "1.3"
   },
   "@n8n/n8n-nodes-langchain.vectorStoreOracleDBVector": {
@@ -1751,9 +1843,7 @@
     "version": "1.3"
   },
   "@n8n/n8n-nodes-langchain.vectorStorePinecone": {
-    "required": [
-      "pineconeIndex"
-    ],
+    "required": [],
     "version": "1.3"
   },
   "@n8n/n8n-nodes-langchain.vectorStorePineconeInsert": {
@@ -1769,21 +1859,15 @@
     "version": "1"
   },
   "@n8n/n8n-nodes-langchain.vectorStoreQdrant": {
-    "required": [
-      "qdrantCollection"
-    ],
+    "required": [],
     "version": "1.3"
   },
   "@n8n/n8n-nodes-langchain.vectorStoreRedis": {
-    "required": [
-      "redisIndex"
-    ],
+    "required": [],
     "version": "1.3"
   },
   "@n8n/n8n-nodes-langchain.vectorStoreSupabase": {
-    "required": [
-      "tableName"
-    ],
+    "required": [],
     "version": "1.3"
   },
   "@n8n/n8n-nodes-langchain.vectorStoreSupabaseInsert": {
@@ -1801,15 +1885,11 @@
     "version": "1"
   },
   "@n8n/n8n-nodes-langchain.vectorStoreWeaviate": {
-    "required": [
-      "weaviateCollection"
-    ],
+    "required": [],
     "version": "1.3"
   },
   "@n8n/n8n-nodes-langchain.vectorStoreZep": {
-    "required": [
-      "collectionName"
-    ],
+    "required": [],
     "version": "1.3"
   },
   "@n8n/n8n-nodes-langchain.vectorStoreZepInsert": {
@@ -1857,6 +1937,14 @@
     "version": "1"
   },
   "@nexrender/n8n-nodes-nexrender.nexrender": {
+    "required": [],
+    "version": "1"
+  },
+  "@nexscope/n8n-nodes-app.nexscope": {
+    "required": [],
+    "version": "1"
+  },
+  "@nodrel-dev/n8n-nodes-attio.attio": {
     "required": [],
     "version": "1"
   },
@@ -1909,9 +1997,7 @@
     "version": "1"
   },
   "@onlyfansapi/n8n-nodes-onlyfansapi.onlyFans": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "@onlyoffice/n8n-nodes-docspace.onlyofficeDocspace": {
@@ -1931,9 +2017,7 @@
     "version": "1"
   },
   "@openemm/n8n-nodes-openemm.openEmm": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "@openemm/n8n-nodes-openemm.openEmmTrigger": {
@@ -1975,6 +2059,14 @@
     "version": "1"
   },
   "@paloaltonetworks/n8n-nodes-prisma-airs.prismaAirs": {
+    "required": [],
+    "version": "1"
+  },
+  "@pdfgate/n8n-nodes-pdfgate.pdfGate": {
+    "required": [],
+    "version": "1"
+  },
+  "@pdfgate/n8n-nodes-pdfgate.pdfGateTrigger": {
     "required": [],
     "version": "1"
   },
@@ -2034,6 +2126,14 @@
     "required": [],
     "version": "1"
   },
+  "@plumsail/n8n-nodes-plumsail-forms.plumsailForms": {
+    "required": [],
+    "version": "1"
+  },
+  "@plumsail/n8n-nodes-plumsail-forms.plumsailFormsTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "@pmartino/n8n-nodes-360dialog.dialog360": {
     "required": [],
     "version": "1"
@@ -2067,6 +2167,14 @@
     "version": "1"
   },
   "@postpulse/n8n-nodes-postpulse.postPulse": {
+    "required": [],
+    "version": "1"
+  },
+  "@praxicraft/n8n-nodes-assess.praxicraftAssess": {
+    "required": [],
+    "version": "1"
+  },
+  "@praxicraft/n8n-nodes-assess.praxicraftAssessTrigger": {
     "required": [],
     "version": "1"
   },
@@ -2114,6 +2222,10 @@
     "required": [],
     "version": "1"
   },
+  "@quickemailverification/n8n-nodes-quickemailverification.quickEmailVerification": {
+    "required": [],
+    "version": "1"
+  },
   "@quire-io/n8n-nodes-quire.quire": {
     "required": [],
     "version": "1"
@@ -2130,6 +2242,14 @@
     "required": [],
     "version": "1"
   },
+  "@rendobar/n8n-nodes-rendobar.rendobar": {
+    "required": [],
+    "version": "1"
+  },
+  "@rendobar/n8n-nodes-rendobar.rendobarTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "@renebello/n8n-nodes-azuracast.azuraCast": {
     "required": [],
     "version": "1"
@@ -2143,9 +2263,7 @@
     "version": "1"
   },
   "@reportei/n8n-nodes-reportei.reportei": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "@respond-io/n8n-nodes-respond-io.respondio": {
@@ -2174,7 +2292,7 @@
   },
   "@rmyndharis/n8n-nodes-openwa.openWa": {
     "required": [],
-    "version": "1"
+    "version": "2"
   },
   "@rmyndharis/n8n-nodes-openwa.openWaTrigger": {
     "required": [],
@@ -2200,9 +2318,29 @@
     "required": [],
     "version": "1"
   },
+  "@saleslumen/n8n-nodes-saleslumen.saleslumen": {
+    "required": [],
+    "version": "1"
+  },
+  "@salessuite/n8n-nodes-salessuite.salesSuite": {
+    "required": [],
+    "version": "3"
+  },
+  "@salessuite/n8n-nodes-salessuite.salesSuiteTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "@scalogicai/n8n-nodes-mcp-enhanced.mcpClientEnhanced": {
     "required": [],
     "version": "1"
+  },
+  "@scitlab/n8n-nodes-doccape.doccape": {
+    "required": [],
+    "version": "2"
+  },
+  "@scope01gmbh/n8n-nodes-pimcore-datahub.pimcoreDatahub": {
+    "required": [],
+    "version": "2"
   },
   "@scopebound/n8n-nodes-scopebound.scopebound": {
     "required": [],
@@ -2236,6 +2374,14 @@
     "required": [],
     "version": "1"
   },
+  "@sentdm/n8n-nodes-sent.sent": {
+    "required": [],
+    "version": "1"
+  },
+  "@sentdm/n8n-nodes-sent.sentTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "@seranking/n8n-nodes-seranking.seRanking": {
     "required": [],
     "version": "1"
@@ -2253,6 +2399,14 @@
     "version": "1"
   },
   "@seventhingscompany/n8n-nodes-seventhings.seventhingsTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "@shiplab-eng/n8n-nodes-shiplab.shiplab": {
+    "required": [],
+    "version": "1"
+  },
+  "@shotstack/n8n-nodes-shotstack.shotstack": {
     "required": [],
     "version": "1"
   },
@@ -2284,7 +2438,19 @@
     "required": [],
     "version": "1"
   },
+  "@smapone/n8n-nodes-smapone.smapone": {
+    "required": [],
+    "version": "1"
+  },
   "@smartbooks-ai/n8n-nodes-api.smartbooksApi": {
+    "required": [],
+    "version": "1"
+  },
+  "@socialchampio/n8n-nodes-socialchamp.socialChamp": {
+    "required": [],
+    "version": "1"
+  },
+  "@socialrobot-io/n8n-nodes-socialrobot.socialRobot": {
     "required": [],
     "version": "1"
   },
@@ -2300,7 +2466,11 @@
     "required": [],
     "version": "1"
   },
-  "@splainez/n8n-nodes-phonenumber-parser.phonenumberparser": {
+  "@splainez/n8n-nodes-phonenumber-parser.phoneNumberParser": {
+    "required": [],
+    "version": "1"
+  },
+  "@stabrise/n8n-nodes-pdf-redaction.pdfRedaction": {
     "required": [],
     "version": "1"
   },
@@ -2380,6 +2550,22 @@
     "required": [],
     "version": "1"
   },
+  "@synergyconsulting/n8n-nodes-ivanti-neurons-for-itsm.ivantiNeuronsForItsm": {
+    "required": [],
+    "version": "1"
+  },
+  "@synergyconsulting/n8n-nodes-ivanti-neurons-for-itsm.ivantiNeuronsForItsmConnectorTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "@synergyconsulting/n8n-nodes-ivanti-neurons-for-itsm.ivantiNeuronsForItsmTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "@synergyconsulting/n8n-nodes-microsoft-365-admin.microsoft365Admin": {
+    "required": [],
+    "version": "1"
+  },
   "@tavily/n8n-nodes-tavily.tavily": {
     "required": [],
     "version": "1"
@@ -2414,6 +2600,14 @@
     "required": [],
     "version": "1"
   },
+  "@tjpa/n8n-nodes-keycloak-guard.keycloakGuard": {
+    "required": [],
+    "version": "1"
+  },
+  "@tjpa/n8n-nodes-keycloak-guard.keycloakVerify": {
+    "required": [],
+    "version": "1"
+  },
   "@tpsdev-ai/n8n-nodes-flair.flairChatMemory": {
     "required": [],
     "version": "1"
@@ -2434,7 +2628,23 @@
     "required": [],
     "version": "2"
   },
+  "@turbodocx/n8n-nodes-turbodocx.turboDocx": {
+    "required": [],
+    "version": "1"
+  },
+  "@turbodocx/n8n-nodes-turbodocx.turboDocxTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "@uprock-ai/n8n-nodes-uprock.upRockCrawler": {
+    "required": [],
+    "version": "1"
+  },
+  "@uptimeify/n8n-nodes-uptimeify.uptimeify": {
+    "required": [],
+    "version": "1"
+  },
+  "@uptimeify/n8n-nodes-uptimeify.uptimeifyTrigger": {
     "required": [],
     "version": "1"
   },
@@ -2454,14 +2664,24 @@
     "required": [],
     "version": "1"
   },
+  "@velmanta/n8n-nodes-smsapi.smsApi": {
+    "required": [],
+    "version": "1"
+  },
   "@verificaremails/n8n-nodes-verificaremails.verificaremails": {
     "required": [],
     "version": "1"
   },
+  "@verygoodffmpeg/n8n-nodes-verygoodffmpeg.vgf": {
+    "required": [],
+    "version": "1"
+  },
+  "@verygoodffmpeg/n8n-nodes-verygoodffmpeg.vgfTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "@videodb/n8n-nodes-videodb.videoDb": {
-    "required": [
-      "operation"
-    ],
+    "required": [],
     "version": "1"
   },
   "@videosailor/n8n-nodes-videosailor.videoSailor": {
@@ -2617,9 +2837,7 @@
     "version": "1"
   },
   "@xano/n8n-nodes-xano.xano": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "@ycloud-ai/n8n-nodes-ycloud.ycloud": {
@@ -2634,14 +2852,16 @@
     "required": [],
     "version": "1"
   },
+  "@zapi-omni/n8n-nodes-hubmessage.hubMessage": {
+    "required": [],
+    "version": "1"
+  },
   "@zennolab_com/n8n-nodes-capmonstercloud.capmonsterCloud": {
     "required": [],
     "version": "1"
   },
   "@zerobounce/n8n-nodes-zerobounce.zeroBounce": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "@zohoforms/n8n-nodes-zohoforms.zohoFormsTrigger": {
@@ -2655,6 +2875,10 @@
     "version": "1"
   },
   "@zohosign/n8n-nodes-sign.zohoSignTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "@zvid/n8n-nodes-zvid.zvid": {
     "required": [],
     "version": "1"
   },
@@ -2682,6 +2906,14 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-aca.aca": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-aca.acaTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-acquibee.acquibee": {
     "required": [
       "resource"
@@ -2700,7 +2932,7 @@
     "required": [],
     "version": "1"
   },
-  "n8n-nodes-actual.actual": {
+  "n8n-nodes-actual.actualBudget": {
     "required": [],
     "version": "1"
   },
@@ -2721,9 +2953,7 @@
     "version": "1"
   },
   "n8n-nodes-advbox.advbox": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-adyntel.adyntel": {
@@ -2735,6 +2965,14 @@
     "version": "1"
   },
   "n8n-nodes-agencii.agencii": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-agendaforge.agendaForge": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-agendaforge.agendaForgeTrigger": {
     "required": [],
     "version": "1"
   },
@@ -2754,7 +2992,7 @@
     "required": [],
     "version": "1"
   },
-  "n8n-nodes-ai-agent-langfuse.aiagentlangfuse": {
+  "n8n-nodes-ai-agent-langfuse.agentWithLangfuse": {
     "required": [],
     "version": "1"
   },
@@ -2763,6 +3001,14 @@
     "version": "1"
   },
   "n8n-nodes-ailabtools.ailabTools": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-aimedia-ai.aimediaAiChatModel": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-aimedia-ai.aimediaAiChatModelSingle": {
     "required": [],
     "version": "1"
   },
@@ -2794,10 +3040,22 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-aliaddo.aliaddoErp": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-aliaddo.aliaddoHub": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-alive5.alive5": {
     "required": [
       "resource"
     ],
+    "version": "1"
+  },
+  "n8n-nodes-allowly.allowly": {
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-allsign.allsign": {
@@ -2808,7 +3066,19 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-aloware.aloware": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-alphaloops-freight.alphaLoops": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-alphone.alphOne": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-alphone.alphOneTrigger": {
     "required": [],
     "version": "1"
   },
@@ -2845,6 +3115,10 @@
     "version": "1"
   },
   "n8n-nodes-apiconsultasdeveiculos.apiconsultasdeveiculos": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-apidirect.apidirect": {
     "required": [],
     "version": "1"
   },
@@ -2926,7 +3200,23 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-autotask.autotaskAiTools": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-autotask.autotaskMcpTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-autotask.autotaskTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-autype.autype": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-avanta.avanta": {
     "required": [],
     "version": "1"
   },
@@ -2954,7 +3244,19 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-azure-vm-ops.azureVmNode": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-babelbeez.babelbeezTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-backstage.backstage": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-backstage.backstageAiTool": {
     "required": [],
     "version": "1"
   },
@@ -2971,16 +3273,12 @@
     "version": "1"
   },
   "n8n-nodes-base.Brandfetch": {
-    "required": [
-      "domain"
-    ],
-    "version": "1"
+    "required": [],
+    "version": "2"
   },
   "n8n-nodes-base.BrandfetchTool": {
-    "required": [
-      "domain"
-    ],
-    "version": "1"
+    "required": [],
+    "version": "2"
   },
   "n8n-nodes-base.actionNetwork": {
     "required": [],
@@ -3003,9 +3301,7 @@
     "version": "1"
   },
   "n8n-nodes-base.acuitySchedulingTrigger": {
-    "required": [
-      "event"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.adalo": {
@@ -3025,9 +3321,7 @@
     "version": "1"
   },
   "n8n-nodes-base.affinityTrigger": {
-    "required": [
-      "events"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.aggregate": {
@@ -3055,11 +3349,7 @@
     "version": "2.2"
   },
   "n8n-nodes-base.airtableTrigger": {
-    "required": [
-      "baseId",
-      "tableId",
-      "triggerField"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.airtop": {
@@ -3179,9 +3469,7 @@
     "version": "1"
   },
   "n8n-nodes-base.awsSnsTrigger": {
-    "required": [
-      "topic"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.awsSqs": {
@@ -3225,33 +3513,23 @@
     "version": "1"
   },
   "n8n-nodes-base.baserow": {
-    "required": [
-      "tableId"
-    ],
+    "required": [],
     "version": "1.1"
   },
   "n8n-nodes-base.baserowTool": {
-    "required": [
-      "tableId"
-    ],
+    "required": [],
     "version": "1.1"
   },
   "n8n-nodes-base.beeminder": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.beeminderTool": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.bitbucketTrigger": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1.1"
   },
   "n8n-nodes-base.bitly": {
@@ -3275,9 +3553,7 @@
     "version": "1"
   },
   "n8n-nodes-base.boxTrigger": {
-    "required": [
-      "events"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.bubble": {
@@ -3289,10 +3565,8 @@
     "version": "1"
   },
   "n8n-nodes-base.calTrigger": {
-    "required": [
-      "events"
-    ],
-    "version": "2"
+    "required": [],
+    "version": "3"
   },
   "n8n-nodes-base.calendlyTrigger": {
     "required": [
@@ -3310,9 +3584,7 @@
     "version": "1"
   },
   "n8n-nodes-base.chargebeeTrigger": {
-    "required": [
-      "events"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.circleCi": {
@@ -3332,9 +3604,7 @@
     "version": "1"
   },
   "n8n-nodes-base.ciscoWebexTrigger": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.citrixAdc": {
@@ -3358,10 +3628,7 @@
     "version": "1"
   },
   "n8n-nodes-base.clickUpTrigger": {
-    "required": [
-      "team",
-      "events"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.clockify": {
@@ -3427,6 +3694,10 @@
     "required": [],
     "version": "1.1"
   },
+  "n8n-nodes-base.confluence": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-base.contentful": {
     "required": [],
     "version": "1"
@@ -3444,9 +3715,7 @@
     "version": "1"
   },
   "n8n-nodes-base.convertKitTrigger": {
-    "required": [
-      "event"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.convertToFile": {
@@ -3469,9 +3738,7 @@
     "version": "1"
   },
   "n8n-nodes-base.cortex": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.crateDb": {
@@ -3503,10 +3770,7 @@
     "version": "1"
   },
   "n8n-nodes-base.currentsTrigger": {
-    "required": [
-      "projectId",
-      "events"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.customerIo": {
@@ -3518,9 +3782,7 @@
     "version": "1"
   },
   "n8n-nodes-base.customerIoTrigger": {
-    "required": [
-      "events"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.dataTable": {
@@ -3574,9 +3836,7 @@
     "version": "1"
   },
   "n8n-nodes-base.dhlTool": {
-    "required": [
-      "trackingNumber"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.discord": {
@@ -3616,17 +3876,11 @@
     "version": "1"
   },
   "n8n-nodes-base.dropcontact": {
-    "required": [
-      "resource",
-      "operation"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.dropcontactTool": {
-    "required": [
-      "resource",
-      "operation"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.dynamicCredentialCheck": {
@@ -3635,6 +3889,12 @@
   },
   "n8n-nodes-base.e2eTest": {
     "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-base.e2eTestPollingTrigger": {
+    "required": [
+      "url"
+    ],
     "version": "1"
   },
   "n8n-nodes-base.e2eTestTool": {
@@ -3646,17 +3906,11 @@
     "version": "1"
   },
   "n8n-nodes-base.egoi": {
-    "required": [
-      "resource",
-      "operation"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.egoiTool": {
-    "required": [
-      "resource",
-      "operation"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.elasticSecurity": {
@@ -3688,15 +3942,11 @@
     "version": "2.1"
   },
   "n8n-nodes-base.emelia": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.emeliaTool": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.emeliaTrigger": {
@@ -3727,11 +3977,7 @@
     "version": "4.7"
   },
   "n8n-nodes-base.eventbriteTrigger": {
-    "required": [
-      "organization",
-      "event",
-      "actions"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.executeCommand": {
@@ -3763,55 +4009,31 @@
     "version": "1.1"
   },
   "n8n-nodes-base.facebookGraphApi": {
-    "required": [
-      "hostUrl",
-      "httpRequestMethod",
-      "graphApiVersion",
-      "node"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.facebookGraphApiTool": {
-    "required": [
-      "hostUrl",
-      "httpRequestMethod",
-      "graphApiVersion",
-      "node"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.facebookLeadAdsTrigger": {
-    "required": [
-      "event",
-      "page",
-      "form"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.facebookTrigger": {
-    "required": [
-      "appId",
-      "object"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.figmaTrigger": {
-    "required": [
-      "teamId",
-      "triggerOn"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.filemaker": {
-    "required": [
-      "layout"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.filemakerTool": {
-    "required": [
-      "layout"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.filter": {
@@ -3839,9 +4061,7 @@
     "version": "1"
   },
   "n8n-nodes-base.formTrigger": {
-    "required": [
-      "formTitle"
-    ],
+    "required": [],
     "version": "2.6"
   },
   "n8n-nodes-base.formstackTrigger": {
@@ -3851,15 +4071,11 @@
     "version": "1"
   },
   "n8n-nodes-base.freshdesk": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.freshdeskTool": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.freshservice": {
@@ -3907,9 +4123,7 @@
     "version": "1"
   },
   "n8n-nodes-base.getResponseTrigger": {
-    "required": [
-      "events"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.ghost": {
@@ -3937,31 +4151,19 @@
     "version": "1.1"
   },
   "n8n-nodes-base.githubTrigger": {
-    "required": [
-      "owner",
-      "repository",
-      "events"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.gitlab": {
-    "required": [
-      "owner"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.gitlabTool": {
-    "required": [
-      "owner"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.gitlabTrigger": {
-    "required": [
-      "owner",
-      "repository",
-      "events"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.gmail": {
@@ -4033,9 +4235,7 @@
     "version": "1"
   },
   "n8n-nodes-base.googleBusinessProfileTrigger": {
-    "required": [
-      "event"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.googleCalendar": {
@@ -4047,22 +4247,15 @@
     "version": "1.3"
   },
   "n8n-nodes-base.googleCalendarTrigger": {
-    "required": [
-      "calendarId",
-      "triggerOn"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.googleChat": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.googleChatTool": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.googleCloudNaturalLanguage": {
@@ -4106,9 +4299,7 @@
     "version": "3"
   },
   "n8n-nodes-base.googleDriveTrigger": {
-    "required": [
-      "triggerOn"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.googleFirebaseCloudFirestore": {
@@ -4120,17 +4311,11 @@
     "version": "1.1"
   },
   "n8n-nodes-base.googleFirebaseRealtimeDatabase": {
-    "required": [
-      "projectId",
-      "operation"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.googleFirebaseRealtimeDatabaseTool": {
-    "required": [
-      "projectId",
-      "operation"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.googlePerspective": {
@@ -4150,11 +4335,7 @@
     "version": "4.7"
   },
   "n8n-nodes-base.googleSheetsTrigger": {
-    "required": [
-      "documentId",
-      "sheetName",
-      "event"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.googleSlides": {
@@ -4198,37 +4379,23 @@
     "version": "1"
   },
   "n8n-nodes-base.graphql": {
-    "required": [
-      "endpoint",
-      "query"
-    ],
+    "required": [],
     "version": "1.1"
   },
   "n8n-nodes-base.graphqlTool": {
-    "required": [
-      "endpoint",
-      "query"
-    ],
+    "required": [],
     "version": "1.1"
   },
   "n8n-nodes-base.grist": {
-    "required": [
-      "docId",
-      "tableId"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.gristTool": {
-    "required": [
-      "docId",
-      "tableId"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.gumroadTrigger": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.hackerNews": {
@@ -4240,27 +4407,19 @@
     "version": "1"
   },
   "n8n-nodes-base.haloPSA": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.haloPSATool": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.harvest": {
-    "required": [
-      "accountId"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.harvestTool": {
-    "required": [
-      "accountId"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.helpScout": {
@@ -4278,15 +4437,11 @@
     "version": "1"
   },
   "n8n-nodes-base.highLevel": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "2"
   },
   "n8n-nodes-base.highLevelTool": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "2"
   },
   "n8n-nodes-base.homeAssistant": {
@@ -4306,16 +4461,12 @@
     "version": "1"
   },
   "n8n-nodes-base.httpRequest": {
-    "required": [
-      "url"
-    ],
-    "version": "4.4"
+    "required": [],
+    "version": "4.5"
   },
   "n8n-nodes-base.httpRequestTool": {
-    "required": [
-      "url"
-    ],
-    "version": "4.4"
+    "required": [],
+    "version": "4.5"
   },
   "n8n-nodes-base.hubspot": {
     "required": [],
@@ -4346,11 +4497,7 @@
     "version": "1"
   },
   "n8n-nodes-base.iCal": {
-    "required": [
-      "start",
-      "end",
-      "binaryPropertyName"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.if": {
@@ -4446,10 +4593,7 @@
     "version": "1"
   },
   "n8n-nodes-base.kafkaTrigger": {
-    "required": [
-      "topic",
-      "groupId"
-    ],
+    "required": [],
     "version": "1.3"
   },
   "n8n-nodes-base.keap": {
@@ -4467,22 +4611,15 @@
     "version": "1"
   },
   "n8n-nodes-base.koBoToolbox": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.koBoToolboxTool": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.koBoToolboxTrigger": {
-    "required": [
-      "formId",
-      "triggerOn"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.ldap": {
@@ -4502,9 +4639,7 @@
     "version": "2"
   },
   "n8n-nodes-base.lemlistTrigger": {
-    "required": [
-      "event"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.limit": {
@@ -4550,21 +4685,15 @@
     "version": "1"
   },
   "n8n-nodes-base.localFileTrigger": {
-    "required": [
-      "triggerOn"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.loneScale": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.loneScaleTool": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.loneScaleTrigger": {
@@ -4590,23 +4719,15 @@
     "version": "1"
   },
   "n8n-nodes-base.mailchimp": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.mailchimpTool": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.mailchimpTrigger": {
-    "required": [
-      "list",
-      "events",
-      "sources"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.mailerLite": {
@@ -4618,23 +4739,15 @@
     "version": "2"
   },
   "n8n-nodes-base.mailerLiteTrigger": {
-    "required": [
-      "events"
-    ],
+    "required": [],
     "version": "2"
   },
   "n8n-nodes-base.mailgun": {
-    "required": [
-      "fromEmail",
-      "toEmail"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.mailgunTool": {
-    "required": [
-      "fromEmail",
-      "toEmail"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.mailjet": {
@@ -4668,15 +4781,11 @@
     "version": "1"
   },
   "n8n-nodes-base.marketstack": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.marketstackTool": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.matrix": {
@@ -4722,16 +4831,12 @@
     "version": "3.2"
   },
   "n8n-nodes-base.messageAnAgent": {
-    "required": [
-      "message"
-    ],
-    "version": "2"
+    "required": [],
+    "version": "3.1"
   },
   "n8n-nodes-base.messageAnAgentTool": {
-    "required": [
-      "message"
-    ],
-    "version": "2"
+    "required": [],
+    "version": "3.1"
   },
   "n8n-nodes-base.messageBird": {
     "required": [],
@@ -4773,6 +4878,10 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-base.microsoftExcelSharePointTool": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-base.microsoftExcelTool": {
     "required": [],
     "version": "2.2"
@@ -4811,19 +4920,19 @@
   },
   "n8n-nodes-base.microsoftSharePoint": {
     "required": [],
-    "version": "1"
+    "version": "2"
   },
   "n8n-nodes-base.microsoftSharePointTool": {
     "required": [],
-    "version": "1"
+    "version": "2"
   },
   "n8n-nodes-base.microsoftSql": {
     "required": [],
-    "version": "1.1"
+    "version": "1.2"
   },
   "n8n-nodes-base.microsoftSqlTool": {
     "required": [],
-    "version": "1.1"
+    "version": "1.2"
   },
   "n8n-nodes-base.microsoftTeams": {
     "required": [],
@@ -4882,16 +4991,12 @@
     "version": "1"
   },
   "n8n-nodes-base.mongoDb": {
-    "required": [
-      "collection"
-    ],
-    "version": "1.3"
+    "required": [],
+    "version": "1.5"
   },
   "n8n-nodes-base.mongoDbTool": {
-    "required": [
-      "collection"
-    ],
-    "version": "1.3"
+    "required": [],
+    "version": "1.5"
   },
   "n8n-nodes-base.monicaCrm": {
     "required": [],
@@ -4906,15 +5011,11 @@
     "version": "1.1"
   },
   "n8n-nodes-base.mqtt": {
-    "required": [
-      "topic"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.mqttTool": {
-    "required": [
-      "topic"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.mqttTrigger": {
@@ -4953,9 +5054,7 @@
     "version": "1"
   },
   "n8n-nodes-base.n8nTrigger": {
-    "required": [
-      "events"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.nasa": {
@@ -4967,22 +5066,15 @@
     "version": "1"
   },
   "n8n-nodes-base.netlify": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.netlifyTool": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.netlifyTrigger": {
-    "required": [
-      "siteId",
-      "event"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.nextCloud": {
@@ -5014,9 +5106,7 @@
     "version": "3"
   },
   "n8n-nodes-base.notionTrigger": {
-    "required": [
-      "event"
-    ],
+    "required": [],
     "version": "1.1"
   },
   "n8n-nodes-base.npm": {
@@ -5044,15 +5134,11 @@
     "version": "1"
   },
   "n8n-nodes-base.oneSimpleApi": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.oneSimpleApiTool": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.onfleet": {
@@ -5064,9 +5150,7 @@
     "version": "1"
   },
   "n8n-nodes-base.onfleetTrigger": {
-    "required": [
-      "triggerOn"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.openAi": {
@@ -5091,11 +5175,11 @@
   },
   "n8n-nodes-base.oracleDatabase": {
     "required": [],
-    "version": "1"
+    "version": "1.1"
   },
   "n8n-nodes-base.oracleDatabaseTool": {
     "required": [],
-    "version": "1"
+    "version": "1.1"
   },
   "n8n-nodes-base.orbit": {
     "required": [],
@@ -5149,11 +5233,11 @@
   },
   "n8n-nodes-base.perplexity": {
     "required": [],
-    "version": "2"
+    "version": "3"
   },
   "n8n-nodes-base.perplexityTool": {
     "required": [],
-    "version": "2"
+    "version": "3"
   },
   "n8n-nodes-base.phantombuster": {
     "required": [],
@@ -5184,27 +5268,19 @@
     "version": "1.1"
   },
   "n8n-nodes-base.plivo": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.plivoTool": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.postBin": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.postBinTool": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.postHog": {
@@ -5228,9 +5304,7 @@
     "version": "1"
   },
   "n8n-nodes-base.postmarkTrigger": {
-    "required": [
-      "events"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.profitWell": {
@@ -5278,17 +5352,11 @@
     "version": "1.1"
   },
   "n8n-nodes-base.quickChart": {
-    "required": [
-      "data",
-      "output"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.quickChartTool": {
-    "required": [
-      "data",
-      "output"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.quickbase": {
@@ -5450,7 +5518,7 @@
   },
   "n8n-nodes-base.scheduleTrigger": {
     "required": [],
-    "version": "1.3"
+    "version": "1.4"
   },
   "n8n-nodes-base.seaTable": {
     "required": [],
@@ -5461,21 +5529,15 @@
     "version": "2"
   },
   "n8n-nodes-base.seaTableTrigger": {
-    "required": [
-      "tableName"
-    ],
+    "required": [],
     "version": "2"
   },
   "n8n-nodes-base.securityScorecard": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.securityScorecardTool": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.segment": {
@@ -5487,15 +5549,11 @@
     "version": "1"
   },
   "n8n-nodes-base.sendGrid": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.sendGridTool": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.sendInBlue": {
@@ -5507,9 +5565,7 @@
     "version": "1"
   },
   "n8n-nodes-base.sendInBlueTrigger": {
-    "required": [
-      "type"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.sendy": {
@@ -5570,11 +5626,11 @@
   },
   "n8n-nodes-base.slack": {
     "required": [],
-    "version": "2.5"
+    "version": "2.7"
   },
   "n8n-nodes-base.slackTool": {
     "required": [],
-    "version": "2.5"
+    "version": "2.7"
   },
   "n8n-nodes-base.slackTrigger": {
     "required": [],
@@ -5590,11 +5646,11 @@
   },
   "n8n-nodes-base.snowflake": {
     "required": [],
-    "version": "1"
+    "version": "1.1"
   },
   "n8n-nodes-base.snowflakeTool": {
     "required": [],
-    "version": "1"
+    "version": "1.1"
   },
   "n8n-nodes-base.sort": {
     "required": [],
@@ -5605,9 +5661,7 @@
     "version": "3"
   },
   "n8n-nodes-base.splitOut": {
-    "required": [
-      "fieldToSplitOut"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.splunk": {
@@ -5641,17 +5695,11 @@
     "version": "1"
   },
   "n8n-nodes-base.stackby": {
-    "required": [
-      "stackId",
-      "table"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.stackbyTool": {
-    "required": [
-      "stackId",
-      "table"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.stickyNote": {
@@ -5703,9 +5751,7 @@
     "version": "1"
   },
   "n8n-nodes-base.stripeTrigger": {
-    "required": [
-      "events"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.summarize": {
@@ -5721,9 +5767,7 @@
     "version": "1"
   },
   "n8n-nodes-base.surveyMonkeyTrigger": {
-    "required": [
-      "objectType"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.switch": {
@@ -5755,15 +5799,11 @@
     "version": "1"
   },
   "n8n-nodes-base.tapfiliate": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.tapfiliateTool": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.telegram": {
@@ -5775,39 +5815,27 @@
     "version": "1.2"
   },
   "n8n-nodes-base.telegramTrigger": {
-    "required": [
-      "updates"
-    ],
+    "required": [],
     "version": "1.5"
   },
   "n8n-nodes-base.theHive": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.theHiveProject": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.theHiveProjectTool": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.theHiveProjectTrigger": {
-    "required": [
-      "events"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.theHiveTool": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.theHiveTrigger": {
@@ -5827,15 +5855,11 @@
     "version": "1.1"
   },
   "n8n-nodes-base.todoist": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "2.2"
   },
   "n8n-nodes-base.todoistTool": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "2.2"
   },
   "n8n-nodes-base.togglTrigger": {
@@ -5967,10 +5991,7 @@
     "version": "1"
   },
   "n8n-nodes-base.venafiTlsProtectCloudTrigger": {
-    "required": [
-      "resource",
-      "triggerOn"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.venafiTlsProtectDatacenter": {
@@ -6037,9 +6058,7 @@
     "version": "1.1"
   },
   "n8n-nodes-base.whatsAppTrigger": {
-    "required": [
-      "updates"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.wise": {
@@ -6145,9 +6164,7 @@
     "version": "1"
   },
   "n8n-nodes-base.zendeskTrigger": {
-    "required": [
-      "service"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-base.zohoCrm": {
@@ -6195,12 +6212,18 @@
     "version": "1"
   },
   "n8n-nodes-beachday.beachDay": {
-    "required": [
-      "operation"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-bedrock-advanced.bedrockadvanced": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-beel.beel": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-beel.beelTrigger": {
     "required": [],
     "version": "1"
   },
@@ -6212,7 +6235,7 @@
     "required": [],
     "version": "1"
   },
-  "n8n-nodes-better-ai-agent.betteraiagent": {
+  "n8n-nodes-better-ai-agent.betterAiAgent": {
     "required": [],
     "version": "1"
   },
@@ -6252,6 +6275,26 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-blueauth.blueAuth": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-blueauth.blueAuthTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-bluesky-full.bluesky": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-bolna.bolna": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-bolna.bolnaTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-bolten.bolten": {
     "required": [],
     "version": "1"
@@ -6276,11 +6319,23 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-botbee.botBee": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-botnoi-voice.botnoitts": {
     "required": [],
     "version": "1"
   },
   "n8n-nodes-bounceban.bounceban": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-bouncewatch.bounceWatch": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-bouncewatch.bounceWatchTrigger": {
     "required": [],
     "version": "1"
   },
@@ -6294,7 +6349,7 @@
   },
   "n8n-nodes-browser-use-cloud.browserUse": {
     "required": [],
-    "version": "1"
+    "version": "2"
   },
   "n8n-nodes-browseract.browserAct": {
     "required": [],
@@ -6313,6 +6368,14 @@
     "version": "1"
   },
   "n8n-nodes-browserless.browserless": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-btcmatic.btcmatic": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-btcmatic.btcmaticTrigger": {
     "required": [],
     "version": "1"
   },
@@ -6396,6 +6459,14 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-cavuno.cavuno": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-cavuno.cavunoTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-ceidg.ceidg": {
     "required": [],
     "version": "1"
@@ -6409,6 +6480,14 @@
     "version": "1"
   },
   "n8n-nodes-centovacast.centovaCast": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-certyneo.certyneo": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-certyneo.certyneoTrigger": {
     "required": [],
     "version": "1"
   },
@@ -6441,9 +6520,7 @@
     "version": "1"
   },
   "n8n-nodes-chatwork.chatwork": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-checkmk.checkmk": {
@@ -6451,6 +6528,14 @@
     "version": "1"
   },
   "n8n-nodes-checkmob.checkmob": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-citedspy.citedSpy": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-citedspy.citedSpyTrigger": {
     "required": [],
     "version": "1"
   },
@@ -6490,6 +6575,10 @@
     "required": [],
     "version": "2"
   },
+  "n8n-nodes-cloudofficeprint.cloudOfficePrint": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-cnpj.cnpj": {
     "required": [],
     "version": "1"
@@ -6514,6 +6603,10 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-comtele-gateway.comteleGateway": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-concord-crm.concordCrm": {
     "required": [],
     "version": "1"
@@ -6527,9 +6620,7 @@
     "version": "1"
   },
   "n8n-nodes-contentstudio.contentStudio": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "5"
   },
   "n8n-nodes-context-dev.contextDev": {
@@ -6692,7 +6783,27 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-datagol.dataGol": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-datagol.dataGolTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-datahyena.datahyena": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-dcc.dcc": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-dcc.exampleNode": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-dcc.httpBin": {
     "required": [],
     "version": "1"
   },
@@ -6714,7 +6825,7 @@
   },
   "n8n-nodes-deepkeep.deepKeep": {
     "required": [],
-    "version": "1"
+    "version": "2"
   },
   "n8n-nodes-deepseek-chat-model.lmChatDeepSeek": {
     "required": [],
@@ -6725,6 +6836,14 @@
     "version": "1"
   },
   "n8n-nodes-deepseek-fix.deepSeekV4ChatModel": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-deepseek-lengan.lmChatDeepSeek": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-deepseek-reasoner.deepSeekReasoner": {
     "required": [],
     "version": "1"
   },
@@ -6756,6 +6875,10 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-deskcrew.deskCrew": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-deso.deso": {
     "required": [],
     "version": "1"
@@ -6765,6 +6888,14 @@
     "version": "1"
   },
   "n8n-nodes-dhis2.dhis2": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-dialnexa.dialNexa": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-dialnexa.dialNexaTrigger": {
     "required": [],
     "version": "1"
   },
@@ -6780,11 +6911,71 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-dinastiapi.dinastiAPIAI": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-dinastiapi.dinastiAPIAdmin": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-dinastiapi.dinastiAPICall": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-dinastiapi.dinastiAPIChat": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-dinastiapi.dinastiAPIGroup": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-dinastiapi.dinastiAPIMessage": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-dinastiapi.dinastiAPINewsletter": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-dinastiapi.dinastiAPISendAndWait": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-dinastiapi.dinastiAPISession": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-dinastiapi.dinastiAPIStatus": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-dinastiapi.dinastiAPITrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-dinastiapi.dinastiAPIUser": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-dinastiapi.dinastiAPIWebhook": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-direct7.direct7": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-discord-trigger.discordInteraction": {
     "required": [],
     "version": "1"
   },
   "n8n-nodes-discord-trigger.discordTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-disho.disho": {
     "required": [],
     "version": "1"
   },
@@ -6797,6 +6988,10 @@
     "version": "1"
   },
   "n8n-nodes-docker.docker": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-docmint.docMint": {
     "required": [],
     "version": "1"
   },
@@ -6841,9 +7036,7 @@
     "version": "1"
   },
   "n8n-nodes-docuprox.docuProx": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-docutray.docutray": {
@@ -6862,7 +7055,15 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-dohoo.dohoo": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-dokaai.dokaai": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-dokifly.dokifly": {
     "required": [],
     "version": "1"
   },
@@ -6870,7 +7071,15 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-domus.domus": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-donethat.doneThat": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-donotify.doNotify": {
     "required": [],
     "version": "1"
   },
@@ -6899,6 +7108,14 @@
     "version": "1"
   },
   "n8n-nodes-dvelop.dvelopActions": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-easy-appointments.easyAppointments": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-easy-appointments.easyAppointmentsTrigger": {
     "required": [],
     "version": "1"
   },
@@ -6986,6 +7203,14 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-entity-enricher.entityEnricher": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-entity-enricher.entityEnricherTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-epicai.epicAi": {
     "required": [],
     "version": "1"
@@ -6995,6 +7220,14 @@
     "version": "1"
   },
   "n8n-nodes-ersatztv.ersatztv": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-everypage.everyPage": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-everypage.everyPageTrigger": {
     "required": [],
     "version": "1"
   },
@@ -7062,11 +7295,27 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-fantasypros.fantasyPros": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-featherless.featherless": {
     "required": [],
     "version": "1"
   },
   "n8n-nodes-fidelimax.fidelimax": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-fideltour.fideltour": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-fideltour.fideltourTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-figranium.figranium": {
     "required": [],
     "version": "1"
   },
@@ -7079,6 +7328,10 @@
     "version": "1"
   },
   "n8n-nodes-fillout.filloutTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-fingrid.fingrid": {
     "required": [],
     "version": "1"
   },
@@ -7102,13 +7355,21 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-firma.firma": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-firma.firmaTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-fishaudio.fishaudio": {
     "required": [],
     "version": "1"
   },
   "n8n-nodes-fiwano.fiwano": {
     "required": [],
-    "version": "1"
+    "version": "2"
   },
   "n8n-nodes-fiwano.fiwanoTrigger": {
     "required": [],
@@ -7122,6 +7383,14 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-flightpowers.flightPowers": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-flowera.flowera": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-fluentc.fluentC": {
     "required": [],
     "version": "1"
@@ -7131,6 +7400,14 @@
     "version": "1"
   },
   "n8n-nodes-fluidx.fluidX": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-flyn.flyn": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-flyn.flynTrigger": {
     "required": [],
     "version": "1"
   },
@@ -7147,6 +7424,10 @@
     "version": "1"
   },
   "n8n-nodes-formaloo.formalooTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-formidable-forms.formidableFormsTrigger": {
     "required": [],
     "version": "1"
   },
@@ -7218,6 +7499,10 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-getsequence.sequence": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-glances.glances": {
     "required": [],
     "version": "1"
@@ -7256,7 +7541,19 @@
     ],
     "version": "1"
   },
+  "n8n-nodes-google-speech.googleSpeech": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-govee.govee": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-gptmaker.gptMaker": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-grahakly.grahakly": {
     "required": [],
     "version": "1"
   },
@@ -7277,6 +7574,10 @@
     "version": "1"
   },
   "n8n-nodes-greip.greip": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-grok.grok": {
     "required": [],
     "version": "1"
   },
@@ -7309,9 +7610,7 @@
     "version": "1"
   },
   "n8n-nodes-hedy.hedy": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-helicone.helicone": {
@@ -7400,7 +7699,7 @@
   },
   "n8n-nodes-ibm-quantum.ibmQuantum": {
     "required": [],
-    "version": "1"
+    "version": "2"
   },
   "n8n-nodes-ibm-quantum.ibmQuantumErrorTrigger": {
     "required": [],
@@ -7410,7 +7709,19 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-ictcontact.ictContact": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-ictcore.ictCore": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-ikas.ikas": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-imaginepdf.imaginePdf": {
     "required": [],
     "version": "1"
   },
@@ -7442,11 +7753,27 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-influtics.influtics": {
+    "required": [],
+    "version": "2"
+  },
   "n8n-nodes-infranodus.infranodus": {
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-inistate.inistate": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-inistate.inistateTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-inoreader.inoreader": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-insolvenzbekanntmachungen.insolvenzbekanntmachungen": {
     "required": [],
     "version": "1"
   },
@@ -7526,6 +7853,10 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-jitterflow.jitterflow": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-jmpy.jmpy": {
     "required": [],
     "version": "1"
@@ -7538,21 +7869,43 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-job-availability.jobAvailability": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-jobo-job-search.jobo": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-jobo-job-search.joboTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-jobtread.jobtread": {
     "required": [],
     "version": "1"
   },
   "n8n-nodes-joggai.joggAiNode": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-joomreem-content.joomla": {
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-json2video.json2Video": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-jsonpost.jsonPostTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-jsonscada.jsonScada": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-jsonscada.jsonScadaTrigger": {
     "required": [],
     "version": "1"
   },
@@ -7573,9 +7926,7 @@
     "version": "1"
   },
   "n8n-nodes-kargo-entegrator.kargoEntegrator": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-kargo-entegrator.kargoEntegratorTrigger": {
@@ -7590,6 +7941,14 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-keeperhub.keeperHub": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-keeperhub.keeperHubTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-keephub.keephub": {
     "required": [],
     "version": "1"
@@ -7599,6 +7958,10 @@
     "version": "1"
   },
   "n8n-nodes-keupera.keupera": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-kickcall.kickcall": {
     "required": [],
     "version": "1"
   },
@@ -7630,6 +7993,14 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-klaviyo-api.klaviyo": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-klaviyo-api.klaviyoTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-klicktipp.klicktipp": {
     "required": [],
     "version": "3"
@@ -7643,9 +8014,7 @@
     "version": "1"
   },
   "n8n-nodes-krispcall.krispcall": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-krs.krs": {
@@ -7673,9 +8042,7 @@
     "version": "1"
   },
   "n8n-nodes-launix.launixNode": {
-    "required": [
-      "operation"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-launix.launixTrigger": {
@@ -7732,6 +8099,14 @@
   },
   "n8n-nodes-lenz.lenz": {
     "required": [],
+    "version": "1.1"
+  },
+  "n8n-nodes-letmepost.letmepost": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-letmepost.letmepostTrigger": {
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-lettr.lettr": {
@@ -7760,16 +8135,14 @@
   },
   "n8n-nodes-linkup-so.linkup": {
     "required": [],
-    "version": "1"
+    "version": "1.1"
   },
   "n8n-nodes-linkupapi.linkup": {
     "required": [],
     "version": "1"
   },
   "n8n-nodes-litesoc.liteSoc": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-liveblocks.liveblocks": {
@@ -7785,9 +8158,7 @@
     "version": "1"
   },
   "n8n-nodes-llmlayer.llmLayer": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-llmpulse.llmPulse": {
@@ -7824,7 +8195,7 @@
   },
   "n8n-nodes-lucidlink.lucidlink": {
     "required": [],
-    "version": "1"
+    "version": "2"
   },
   "n8n-nodes-lumatrack.lumaTrack": {
     "required": [],
@@ -7846,6 +8217,14 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-maileon.maileon": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-maileon.maileonTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-mailhooks.mailhooks": {
     "required": [],
     "version": "1"
@@ -7858,7 +8237,19 @@
     "required": [],
     "version": "2"
   },
+  "n8n-nodes-mailmint.mailMint": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-mailmint.mailMintTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-mailtrap.mailtrap": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-mailvalid.mailValid": {
     "required": [],
     "version": "1"
   },
@@ -7873,9 +8264,7 @@
     "version": "1"
   },
   "n8n-nodes-mallabe-images.mallabeImages": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-manychat.manyChat": {
@@ -7894,7 +8283,15 @@
     "required": [],
     "version": "2"
   },
+  "n8n-nodes-mcp-studio.mcpStudio": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-mcp.mcpClient": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-md-to-docs.markdownToGoogleDocs": {
     "required": [],
     "version": "1"
   },
@@ -7907,9 +8304,7 @@
     "version": "1"
   },
   "n8n-nodes-medullar.medullar": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-medusa.medusa": {
@@ -7917,6 +8312,10 @@
     "version": "1"
   },
   "n8n-nodes-meetgeek.meetGeek": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-megaapi.megaApi": {
     "required": [],
     "version": "1"
   },
@@ -7992,6 +8391,22 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-moca.moca": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-mongodb-vector-search.mongoDbAiSearch": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-mongodb-vector-search.mongoDbVectorSearch": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-mongodb-vector-search.mongoDbVectorSearchVectorStore": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-moorcheh.moorcheh": {
     "required": [],
     "version": "1"
@@ -8013,6 +8428,10 @@
     "version": "2"
   },
   "n8n-nodes-msdefender.msdefender": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-msfrog.msfrog": {
     "required": [],
     "version": "1"
   },
@@ -8056,6 +8475,14 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-nano-gpt.nanoGpt": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-narrareach.narrareach": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-navidrome.navidrome": {
     "required": [],
     "version": "1"
@@ -8069,6 +8496,10 @@
     "version": "1"
   },
   "n8n-nodes-neo.neo": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-netsuite-rest.netSuiteRest": {
     "required": [],
     "version": "1"
   },
@@ -8136,6 +8567,14 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-nibo-empresas.niboEmpresas": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-nilai.nilAi": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-nimbasms.nimbaSMS": {
     "required": [],
     "version": "1"
@@ -8149,6 +8588,10 @@
     "version": "1"
   },
   "n8n-nodes-nocrash.nocrash": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-nordstellar.nordStellar": {
     "required": [],
     "version": "1"
   },
@@ -8228,6 +8671,14 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-omnidimension.omniDimension": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-omnidimension.omniDimensionTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-one-horizon.oneHorizon": {
     "required": [],
     "version": "1"
@@ -8260,7 +8711,11 @@
     "required": [],
     "version": "1"
   },
-  "n8n-nodes-openai-langfuse.openailangfuse": {
+  "n8n-nodes-openai-gpt5.openAiGpt5": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-openai-langfuse.lmChatOpenAiLangfuse": {
     "required": [],
     "version": "1"
   },
@@ -8285,6 +8740,58 @@
     "version": "1"
   },
   "n8n-nodes-openpix.openPixTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-openrouter-official.embeddingsOpenRouter": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-openrouter-official.openRouter": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-openrouter-official.openRouterCacheChatModel": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-openrouter-official.rerankerOpenRouter": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-openrouter-selector.openRouterChatCompletion": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-openrouter-selector.openRouterChatModel": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-openrouter-selector.openRouterModelSelector": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-openrouter-selector.openRouterSmartChat": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-openrouter-selector.openRouterSmartChatModel": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-openrouter-selector.openRouterSmartEmbed": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-openrouter-selector.openRouterSmartEmbedding": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-openrouter-selector.openRouterSmartTool": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-openrouter.openRouter": {
     "required": [],
     "version": "1"
   },
@@ -8382,6 +8889,10 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-paperpony.paperPony": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-parallel.parallel": {
     "required": [],
     "version": "1"
@@ -8442,6 +8953,10 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-pdf4me.pdf4me": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-pdfbolt.pdfBolt": {
     "required": [],
     "version": "1"
@@ -8454,7 +8969,19 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-pdfmill.pdfmill": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-pdfmint.pdfMint": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-pdfmonkey.pdfMonkey": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-pdfops.pdfops": {
     "required": [],
     "version": "1"
   },
@@ -8518,6 +9045,14 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-personyze.personyze": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-personyze.personyzeTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-phacet-official.phacet": {
     "required": [],
     "version": "1"
@@ -8526,7 +9061,15 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-pictomancer.pictomancer": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-pinbridge.pinBridge": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-pinflow-pinterest.pinFlow": {
     "required": [],
     "version": "1"
   },
@@ -8550,7 +9093,15 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-pipecorn.pipecorn": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-pipelex.pipelex": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-pixelpanda.pixelPanda": {
     "required": [],
     "version": "1"
   },
@@ -8590,6 +9141,10 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-polycracker.polycracker": {
+    "required": [],
+    "version": "2"
+  },
   "n8n-nodes-polydoc.polyDoc": {
     "required": [],
     "version": "1"
@@ -8599,6 +9154,14 @@
     "version": "1"
   },
   "n8n-nodes-postcards.postcards": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-postdom.postdom": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-postdom.postdomTrigger": {
     "required": [],
     "version": "1"
   },
@@ -8644,6 +9207,10 @@
     ],
     "version": "1"
   },
+  "n8n-nodes-prh.prh": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-pritset.pritset": {
     "required": [],
     "version": "1"
@@ -8665,9 +9232,7 @@
     "version": "1"
   },
   "n8n-nodes-proposaly.proposaly": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-proposaly.proposalyTrigger": {
@@ -8702,7 +9267,19 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-pushtodisplay.pushToDisplay": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-pyload.pyload": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-qa3at.qa3at": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-qa3at.qa3atTrigger": {
     "required": [],
     "version": "1"
   },
@@ -8761,6 +9338,10 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-rankparse.rankParse": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-rapiwa.rapiwa": {
     "required": [
       "operation"
@@ -8768,6 +9349,10 @@
     "version": "1"
   },
   "n8n-nodes-rapiwa.rapiwaTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-raynet.raynet": {
     "required": [],
     "version": "1"
   },
@@ -8859,6 +9444,14 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-regos.regos": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-regos.regosTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-relayion.relayion": {
     "required": [],
     "version": "1"
@@ -8867,7 +9460,19 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-relaypdf.relayPdf": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-relaypdf.relayPdfTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-relayshield.relayShield": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-renderform.renderForm": {
     "required": [],
     "version": "1"
   },
@@ -8880,6 +9485,10 @@
     "version": "1"
   },
   "n8n-nodes-rendex.rendex": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-rendex.rendexWatchTrigger": {
     "required": [],
     "version": "1"
   },
@@ -8971,6 +9580,18 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-saturation.saturation": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-saturation.saturationTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-scalelist.scalelist": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-scavio.scavio": {
     "required": [],
     "version": "1"
@@ -8987,14 +9608,16 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-scrapehero.scrapeHero": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-scrapeless.scrapeless": {
     "required": [],
     "version": "1"
   },
   "n8n-nodes-scraperapi-official.scraperApi": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-scrapesense.scrapeSense": {
@@ -9051,11 +9674,19 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-search1api.search1Api": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-seatalk.seaTalk": {
     "required": [],
     "version": "1"
   },
   "n8n-nodes-seatalk.seaTalkTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-sekalum.credentialHub": {
     "required": [],
     "version": "1"
   },
@@ -9096,10 +9727,7 @@
     "version": "1"
   },
   "n8n-nodes-sendzen.sendZen": {
-    "required": [
-      "resource",
-      "operation"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-sendzen.sendZenTrigger": {
@@ -9119,6 +9747,10 @@
     "version": "1"
   },
   "n8n-nodes-serpstat.serpstat": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-setsmart.setSmart": {
     "required": [],
     "version": "1"
   },
@@ -9154,11 +9786,23 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-shotium.shotium": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-shovels.shovels": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-signatrust.signatrust": {
     "required": [],
     "version": "1"
   },
   "n8n-nodes-signifycrm.signifyCrm": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-silentfail.silentFail": {
     "required": [],
     "version": "1"
   },
@@ -9182,6 +9826,14 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-sirenic.sirenic": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-sirenic.sirenicTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-skool.skapiPro": {
     "required": [],
     "version": "1"
@@ -9190,11 +9842,39 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-sleeper.sleeper": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-slide-synquic.slide": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-slide-synquic.slideTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-slideforge.slideforge": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-slskd.slskd": {
     "required": [],
     "version": "1"
   },
   "n8n-nodes-smallestai.smallestai": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-smartling.smartling": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-smartling.smartlingTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-smartsend.smartSend": {
     "required": [],
     "version": "1"
   },
@@ -9260,6 +9940,18 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-sonato.sonato": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-sonato.sonatoTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-soterai.soterGuard": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-sourcegeek.sourcegeek": {
     "required": [],
     "version": "1"
@@ -9297,6 +9989,10 @@
     "version": "1"
   },
   "n8n-nodes-sshv2.sshv2": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-stackscan.stackScan": {
     "required": [],
     "version": "1"
   },
@@ -9352,6 +10048,14 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-subscriby.subscriby": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-subscriby.subscribyTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-subspace.subspace": {
     "required": [],
     "version": "1"
@@ -9360,14 +10064,20 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-suitecrm-community.suitecrm": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-suitecrm-community.suitecrmTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-supadata.supadata": {
     "required": [],
     "version": "1"
   },
   "n8n-nodes-superchat.superchat": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-superchat.superchatTrigger": {
@@ -9379,6 +10089,10 @@
     "version": "1"
   },
   "n8n-nodes-supermetrics.supermetrics": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-supersendtx.superSendTx": {
     "required": [],
     "version": "1"
   },
@@ -9427,9 +10141,7 @@
     "version": "1"
   },
   "n8n-nodes-taddy.taddyApi": {
-    "required": [
-      "resource"
-    ],
+    "required": [],
     "version": "1"
   },
   "n8n-nodes-tadfoq.tadfoq": {
@@ -9449,6 +10161,10 @@
     "version": "2"
   },
   "n8n-nodes-talordata-serp.talordataSerp": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-tamperlens.tamperlens": {
     "required": [],
     "version": "1"
   },
@@ -9488,6 +10204,14 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-teamretro.teamRetro": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-teamretro.teamRetroTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-teamupcalendar.teamup": {
     "required": [],
     "version": "1"
@@ -9504,6 +10228,10 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-telzino-ai.telzino": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-tembory.tembory": {
     "required": [],
     "version": "1"
@@ -9516,11 +10244,15 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-tendem.tendemExpert": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-terraform-cloud.terraformCloud": {
     "required": [],
     "version": "1"
   },
-  "n8n-nodes-tesseractjs.tesseractjs": {
+  "n8n-nodes-tesseractjs.tesseractNode": {
     "required": [],
     "version": "1"
   },
@@ -9528,7 +10260,7 @@
     "required": [],
     "version": "1"
   },
-  "n8n-nodes-text-manipulation.textmanipulation": {
+  "n8n-nodes-text-manipulation.textManipulation": {
     "required": [],
     "version": "1"
   },
@@ -9588,6 +10320,14 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-threadly.threadly": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-threadly.threadlyTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-tia.tia": {
     "required": [],
     "version": "1"
@@ -9620,6 +10360,10 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-timr.timr": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-tmpfiles.tmpfiles": {
     "required": [],
     "version": "1"
@@ -9629,6 +10373,10 @@
     "version": "1"
   },
   "n8n-nodes-tnl-intelligence.tnlTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-tollara.tollara": {
     "required": [],
     "version": "1"
   },
@@ -9676,6 +10424,10 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-transkriptor.transkriptor": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-transmission.transmission": {
     "required": [],
     "version": "1"
@@ -9704,6 +10456,10 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-trustedrouter.trustedRouter": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-trustmarkt.trustmarkt": {
     "required": [],
     "version": "1"
@@ -9712,7 +10468,15 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-truthbear.truthBear": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-truthscan.truthscan": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-ttsbro.ttsBro": {
     "required": [],
     "version": "1"
   },
@@ -9729,6 +10493,10 @@
     "version": "1"
   },
   "n8n-nodes-twelve-data.twelveData": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-twenty-dynamic.twenty": {
     "required": [],
     "version": "1"
   },
@@ -9752,7 +10520,7 @@
     "required": [],
     "version": "1"
   },
-  "n8n-nodes-uazapi.uazapi": {
+  "n8n-nodes-uazapi.uazApi": {
     "required": [],
     "version": "1"
   },
@@ -9769,6 +10537,14 @@
     "version": "1"
   },
   "n8n-nodes-unifi-access.unifiAccessTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-unirate.uniRate": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-unirate.uniRateTrigger": {
     "required": [],
     "version": "1"
   },
@@ -9824,6 +10600,10 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-vatnode.vatnode": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-veed.veed": {
     "required": [],
     "version": "1"
@@ -9849,6 +10629,10 @@
     "version": "1"
   },
   "n8n-nodes-vercel-ai-sdk.groq": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-verica.vericaTrace": {
     "required": [],
     "version": "1"
   },
@@ -9952,6 +10736,14 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-wasync.wasync": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-wasync.wasyncTrigger": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-watcharr.watcharr": {
     "required": [],
     "version": "1"
@@ -9977,6 +10769,34 @@
     "version": "1"
   },
   "n8n-nodes-wawcd.wawcdTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-wax.wax": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-wax.waxGetAccountInfo": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-wax.waxGetAssets": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-wax.waxGetBalance": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-wax.waxTransferNft": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-wax.waxTransferToken": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-wax.waxVerifyAddress": {
     "required": [],
     "version": "1"
   },
@@ -10008,6 +10828,14 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-websockets-lite.websocketsReplyNode": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-websockets-lite.websocketsTriggerNode": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-weclapp.weclapp": {
     "required": [],
     "version": "1"
@@ -10016,7 +10844,31 @@
     "required": [],
     "version": "1"
   },
-  "n8n-nodes-wecom.wecom": {
+  "n8n-nodes-wecom.weComAiBotTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-wecom.weComBase": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-wecom.weComOffice": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-wecom.weComPassiveTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-wecom.weComSuiteTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-wecom.weComTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-wecom.weComWechat": {
     "required": [],
     "version": "1"
   },
@@ -10042,7 +10894,23 @@
     "required": [],
     "version": "1"
   },
-  "n8n-nodes-whatsapp.whatsapp": {
+  "n8n-nodes-whatsapp-retentionstack.whatsAppRetentionStack": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-whatsapp-retentionstack.whatsAppRetentionStackTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-whatsapp.whatsApp": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-whatsapp.whatsAppTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-whoisfreaks.whoisFreaks": {
     "required": [],
     "version": "1"
   },
@@ -10055,6 +10923,22 @@
     "version": "1"
   },
   "n8n-nodes-winston-ai.winstonAi": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-wolfhub.wolfHub": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-wolfhub.wolfHubChat": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-wolfhub.wolfHubLanguageModel": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-wolfhub.wolfHubTool": {
     "required": [],
     "version": "1"
   },
@@ -10071,6 +10955,10 @@
     "version": "1"
   },
   "n8n-nodes-workdrive.workDriveTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-workflowbuddy.workflowBuddy": {
     "required": [],
     "version": "1"
   },
@@ -10182,6 +11070,54 @@
     "required": [],
     "version": "1"
   },
+  "n8n-nodes-zalo-lengan.zaloBot": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-zalo-lengan.zaloBotPollingTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-zalo-lengan.zaloBotTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-zalo-lengan.zaloFriendTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-zalo-lengan.zaloGroup": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-zalo-lengan.zaloLoginByQr": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-zalo-lengan.zaloMessageTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-zalo-lengan.zaloPoll": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-zalo-lengan.zaloSendMessage": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-zalo-lengan.zaloTag": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-zalo-lengan.zaloTyping": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-zalo-lengan.zaloUser": {
+    "required": [],
+    "version": "1"
+  },
   "n8n-nodes-zalo-platform.zaloBot": {
     "required": [],
     "version": "1"
@@ -10211,6 +11147,14 @@
     "version": "1"
   },
   "n8n-nodes-zarmoney.zarmoneyTrigger": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-zatca-tools.zatcaTools": {
+    "required": [],
+    "version": "1"
+  },
+  "n8n-nodes-zatca-tools.zatcaToolsTrigger": {
     "required": [],
     "version": "1"
   },
