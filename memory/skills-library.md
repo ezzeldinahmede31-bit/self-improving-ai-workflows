@@ -7,7 +7,7 @@ for the full doc of the chosen skill. Grouping matches the router
 registry buckets (`compensatory-router/SKILL.md`), so new skills that were
 registered in the router appear under the same family here automatically.
 
-## Automation (per-tool) (335)
+## Automation (per-tool) (336)
 
 - **abstraction-quality-gate** — Enforces A Philosophy of Software Design's core principle: complexity management through deep modules and shallow interfaces.
 - **access-control-least-privilege-agents-v2** — Applies Access Control, Role-Based Permissions, and Least Privilege for AI Agents to production: distilled patterns, anti-patterns, and checklists for building…
@@ -76,6 +76,7 @@ registered in the router appear under the same family here automatically.
 - **competitor-social-fetcher** — Social lane of competitor watch: YouTube winners via yt-dlp, imitable formats digest.
 - **compliance-regulatory-ai-automation** — Applies Compliance and Regulatory Frameworks for AI Automation to production: distilled patterns, anti-patterns, and checklists for building reliable compliance…
 - **computer-vision-algorithms-applications** — Applies Richard Szeliski's Computer Vision: Algorithms and Applications to build vision systems: image formation and filtering, feature detection and matching,…
+- **concurrency-testing-patterns** — Concurrency testing patterns distilled.
 - **cost-storage-optimization-vector-massive** — Applies Cost and Storage Optimization for Massive Vector Datasets to production: distilled patterns, anti-patterns, and checklists for building reliable cost an…
 - **crispin-agile-testing** — Tests inside agile delivery: quadrants, whole-team quality, and automation pyramid.
 - **crm-automation** — CRM workflow automation for HubSpot, Salesforce, Pipedrive - lead management, deal tracking, and multi-CRM synchronization
@@ -357,7 +358,7 @@ registered in the router appear under the same family here automatically.
 - **zapier-sdk** — Zapier SDK for TypeScript.
 - **zapier-system-cloner** — Replicates any Zapier (Zap) system — especially premium/expensive ones — with identical outputs and quality on n8n or code, using different (free/local) tools w…
 
-## Marketing/SEO/Growth (90)
+## Marketing/SEO/Growth (91)
 
 - **apify-audience-analysis** — Understand audience demographics, preferences, behavior patterns, and engagement quality across Facebook, Instagram, YouTube, and TikTok.
 - **architect-elevator-staff** — Lead architecture across all floors: executives, managers, engineers.
@@ -448,6 +449,7 @@ registered in the router appear under the same family here automatically.
 - **tiktok-marketing** — TikTok content strategy, video creation workflows, posting optimization, and analytics.
 - **vaynerchuk-jab-hook** — Wins social with give-give-ask: native storytelling per platform.
 - **viral-hooks** — Expert in creating opening lines, thumbnails, and hooks that stop the scroll.
+- **visual-regression-deep** — Visual regression testing deep distilled.
 - **winand-sql-indexing** — Indexes SQL correctly across vendors: B-trees, concatenation order, and execution plans.
 
 ## Video/Media (11)
@@ -514,7 +516,7 @@ registered in the router appear under the same family here automatically.
 - **ammann-offutt-criteria** — Applies rigorous coverage: RIP model, logic/input/graph/syntax criteria.
 - **bayesian-reasoning-machine-learning** — Applies David Barber's Bayesian Reasoning and Machine Learning to build probabilistic models and reason with them: graphical models, belief propagation, samplin…
 - **beizer-domain-testing** — Tests input domains ruthlessly: boundaries, closures, and multidimensional edges.
-- **boundary-value-mastery** — Boundary value analysis mastery distilled.
+- **boundary-value-mastery** — Edge value analysis mastery distilled.
 - **cagan-inspired-product** — Builds products customers love the Silicon-Valley way: discovery before delivery.
 - **clrs-algorithm-mastery** — Enforces the CLRS (Introduction to Algorithms) method on hard algorithmic problems: rigorous asymptotic complexity analysis (Big-O/Theta/Omega) for time and spa…
 - **clrs-data-structures-mastery** — Applies CLRS (Introduction to Algorithms) data-structure rigor to real engineering: choose and reason about the right data structure for the access pattern — bi…
@@ -778,7 +780,7 @@ registered in the router appear under the same family here automatically.
 - **web-security-browser-internals** — Applies Michal Zalewski's The Tangled Web to secure modern web applications: how browsers and HTTP actually behave (parsing, encoding, navigation, the same-orig…
 - **zero-to-one-thiel** — Applies Thiel monopoly, secrets, power law to strategy.
 
-## Coding/SWE (79)
+## Coding/SWE (84)
 
 - **agile-principles-patterns-practices** — Applies Robert C.
 - **algorithm-design** — Design algorithms with LaTeX pseudocode and UML diagrams.
@@ -789,6 +791,7 @@ registered in the router appear under the same family here automatically.
 - **art-of-readable-code** — Applies The Art of Readable Code by Dustin Boswell and Trevor Foucher to write code that is easy to understand: pack meaning into names, reduce what a reader mu…
 - **ast-codebase-graph-navigator** — Navigates multi-file codebases using Abstract Syntax Trees (AST), import graphs, and caller-callee traces instead of brute-force full-file loading.
 - **async-python-patterns** — Master Python asyncio, concurrent programming, and async/await patterns for high-performance applications.
+- **async-testing-patterns** — Async code testing patterns distilled.
 - **atomic-decomposition** — Decompose research ideas into atomic, self-contained concepts with bidirectional math-code mapping.
 - **c-programming-language** — Applies Kernighan & Ritchie's The C Programming Language to write clear, portable C: types and operators, control flow, functions and the argument-passing model…
 - **chaos-resilience-practice** — Prove resilience by breaking things on purpose: game days, fault injection, blast-radius control.
@@ -826,6 +829,7 @@ registered in the router appear under the same family here automatically.
 - **interpreter-bytecode-vm** — Applies the clox half of Robert Nystrom's Crafting Interpreters to build a bytecode virtual machine: chunks and opcodes, a value stack, the compiler that emits…
 - **ios-design-guidelines** — Apple Human Interface Guidelines for iPhone.
 - **legacy-code-characterization** — Applies Michael Feathers' Working Effectively with Legacy Code to tame unreadable, untested code: the SEAM (a place where you can alter behavior without editing…
+- **legacy-test-characterization** — Legacy characterization testing distilled.
 - **linux-programming-interface** — Applies Michael Kerrisk's The Linux Programming Interface to systems programming on Linux: system calls and library functions, process creation and execution, m…
 - **multiprocessor-concurrency** — Applies Herlihy & Shavit's The Art of Multiprocessor Programming to design correct concurrent systems: lock-based and lock-free concurrent objects, atomicity an…
 - **observability-engineering-design** — Design systems that explain themselves: SLIs, tracing, cardinality discipline.
@@ -836,9 +840,11 @@ registered in the router appear under the same family here automatically.
 - **refactoring-catalog-recipes** — Applies the refactoring catalog of Martin Fowler's Refactoring as a recipe book: match the current code smell to a named refactoring, follow its mechanical step…
 - **refactoring-improving-design** — Applies Martin Fowler's Refactoring to improve existing code safely: the refactoring catalog (rename, extract, inline, move, replace), the discipline of behavio…
 - **refactoring-principles-fowler** — Applies Fowler Refactoring to improve design safely via behavior-preserving steps.
+- **refactoring-test-safety** — Refactoring under test safety distilled.
 - **root-cause-post-mortem-analyzer** — Performs rigorous root-cause analysis (RCA) on stack traces and runtime errors to prevent superficial band-aid fixes.
 - **sicp-abstraction-and-interpretation** — Applies the SICP (Structure and Interpretation of Computer Programs) discipline to system design and code: build programs as layers of abstraction with named pr…
 - **single-pass-frontier-emulator** — Emulates a frontier model's single-pass open-ended depth on a flash model: instead of greedily splitting a big open-ended task into tiny delegated pieces (which…
+- **snapshot-testing-patterns** — Snapshot testing patterns distilled.
 - **software-engineering-practitioners** — Applies Roger Pressman's Software Engineering: A Practitioner's Approach to the practical lifecycle: the software process and process models, agile development,…
 - **software-engineering-sommerville** — Applies Ian Sommerville's Software Engineering to the complete software process: software processes and models, agile and plan-driven development, requirements…
 - **subagent-task-delegator** — Decomposes large multi-part jobs into isolated sub-tasks executed by sub-agents, preserving the main conversation context budget.
@@ -847,6 +853,7 @@ registered in the router appear under the same family here automatically.
 - **swe-workflow** — REQUIRED for every code-related task.
 - **systems-design-review-methodology** — Use when the /systems-design-review mode is active.
 - **tdd** — Test-driven development.
+- **tdd-advanced-patterns** — Advanced TDD patterns distilled.
 - **tdd-sandbox-proof-engine** — Enforces Test-Driven Development (TDD) in a clean sandbox: code is only considered valid if companion unit tests pass 100% and the execution log is attached.
 - **terminal-bash-executor-governor** — Executes CLI commands, inspects exit codes, manages tailing log output, and enforces safety gates for destructive terminal operations.
 - **test-driven-development-by-example-beck** — Applies Beck TDD: red, green, refactor cycle.
@@ -1067,12 +1074,13 @@ registered in the router appear under the same family here automatically.
 - **high-end-visual-design** — Teaches the AI to design like a high-end agency.
 - **liquid-glass** — Build and migrate iOS, macOS, iPadOS, watchOS, tvOS, and visionOS apps with Apple's Liquid Glass design system (iOS 26+, macOS 26 Tahoe+).
 
-## Auto-installed (find-skills) (44)
+## Auto-installed (find-skills) (47)
 
 - **agentic-eval** — Patterns and techniques for evaluating and improving AI agent outputs.
 - **api-testing-contract-patterns** — API testing patterns distilled.
 - **architecture-primitives** — Catalog of reusable architectural primitives — boundaries, contracts, state machines, queues, caches, consistency models, and more.
 - **audit-trail-compliance** — Records actor, action, target, hashes, outcome in append-only logs for compliance.
+- **bdd-cucumber-deep** — Deep BDD with Cucumber distilled.
 - **boyd-convex-optimization** — Solves optimization the Boyd way: convex formulation, duality, and first-order methods.
 - **candor-radical-feedback** — Gives feedback that works: care personally, challenge directly.
 - **copeland-pairwise-testing** — Covers input combinations efficiently: pairwise and combinatorial design.
@@ -1081,6 +1089,7 @@ registered in the router appear under the same family here automatically.
 - **ecommerce-order-processing-flows** — Automates order lifecycles with idempotent steps + reconciliation.
 - **fan-out-fan-in-merge** — Splits work parallel then rejoins by key, handling partial failures.
 - **feature-engineering-machine-learning** — Applies Alice Zheng and Amanda Casari's Feature Engineering for Machine Learning to turn raw data into features that make models work: numeric features (scaling…
+- **flaky-test-elimination** — Flaky test elimination distilled.
 - **google-cloud-networking-observability** — Investigates Google Cloud networking issues by analyzing logs, metrics, and diagnostics.
 - **graph-databases-modeling** — Models and queries connected data: property graphs, traversals, and Cypher.
 - **idempotency-key-design** — Makes writes safe to repeat via natural or synthetic keys enforced at store.
@@ -1106,6 +1115,7 @@ registered in the router appear under the same family here automatically.
 - **shapiro-crdts** — Shares mutable state without coordination: convergent replicated data types.
 - **system-design** — Scalability, availability, and distributed systems design
 - **system-design-canon-index** — Index of 120+ system-design books mapped to skills: find which book covers what and which skill applies it.
+- **test-data-management** — Test data management distilled.
 - **timeout-graceful-degradation** — Bounds calls with explicit timeouts, defines degraded modes.
 - **use-case-testing-patterns** — Use case testing distilled.
 - **validation-gate-data-quality** — Blocks bad data at entrances with schema/range checks + quarantine.
@@ -1140,4 +1150,4 @@ registered in the router appear under the same family here automatically.
 - **speech-language-processing** — Applies Jurafsky & Martin's Speech and Language Processing (SLP) to build NLP systems on textbook foundations: regular expressions and text normalization, n-gra…
 
 ---
-*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 20:37 — 1060 skills, 24 families*
+*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 20:40 — 1070 skills, 24 families*

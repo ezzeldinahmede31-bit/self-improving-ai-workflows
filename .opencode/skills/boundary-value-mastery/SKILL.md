@@ -1,54 +1,54 @@
 ---
 name: boundary-value-mastery
-description: "Boundary value analysis mastery distilled. Use when testing edges, partitions, limits, min and max values, edge neighborhoods."
+description: "Edge value analysis mastery distilled. Use when testing limits, valid and invalid groups, edge neighborhoods, min and max values."
 ---
 
-# Boundary Value Mastery
+# Edge Value Mastery
 
 ## Purpose
 
-Hunt the defects that cluster at edges: for each partition, probe the edge values and their immediate neighbors on both sides.
+Hunt the defects that cluster at limits: for each input rule, probe the limit values and their immediate neighbors on both sides.
 
 ## When to use
 
-Use when the user says 'boundary value', 'BVA', 'equivalence partition', 'edge case', 'off-by-one', 'min max testing'.
+Use when the user says 'edge case', 'BVA', 'equivalence class', 'limit testing', 'min max testing', 'edge values'.
 
 ## Steps
 
-1. Partition each input into valid and invalid classes.
-2. For each edge, test the edge value plus neighbors just inside and just outside.
-3. Treat special levels (zero, empty, null, max length) as their own edges.
-4. Confirm edge behavior against the spec text, not from memory.
-5. Record the partition map so new edges get tests when limits change.
+1. Split each input into valid and invalid groups.
+2. For each limit, probe the limit value plus adjacent values on both sides.
+3. Treat special inputs (empty, null, max length) as their own limits.
+4. Confirm limit behavior against the spec text, not from memory.
+5. Record the limit map so new limits get tests when rules change.
 
 ## Anti-patterns
 
 - Testing only mid-range happy values.
-- Assuming inclusive versus exclusive without reading the spec.
-- Forgetting non-numeric edges (empty string, null, timezone ends).
+- Assuming edge membership without reading the spec.
+- Forgetting non-numeric limits (empty string, null, timezone ends).
 - Copying limits from UI text instead of the real rule.
 
 ## Example
 
-Python (rule: age in range):
+Python (name length rule):
 
 ```python
-@pytest.mark.parametrize("age,valid", [(17, False), (18, True), (65, True), (66, False)])
-def test_age_edges(age, valid):
-    assert is_eligible(age) is valid
+@pytest.mark.parametrize("name,valid", [("J", False), ("Jo", True)])
+def test_name_limits(name, valid):
+    assert is_valid_name(name) is valid
 ```
 
 JS:
 
 ```js
-test.each([[17, false], [18, true], [65, true], [66, false]])('age %i -> %s', (a, v) => {
-  expect(isEligible(a)).toBe(v);
+test.each([['J', false], ['Jo', true]])('name %s -> %s', (n, v) => {
+  expect(isValidName(n)).toBe(v);
 });
 ```
 
 ## Verification
 
-Partition map exists, each edge has inside/outside probes, special levels covered, spec confirms inclusivity.
+Limit map exists, each limit has probes on both sides, special inputs covered, spec confirms edge membership.
 
 ## Pairs-with
 
