@@ -17,6 +17,20 @@ avoids the trap from step zero and every failure is triaged in minutes.
   the container, hit /healthz. Pattern: 502 + "version: null" = instance down,
   NOT config error.
 
+- 2026-09-19: public API `https://ezzeldin8n.ezzeldin8n.cfd/api/v1/...` → 403
+  with bare python `urllib` (no User-Agent) while the SAME key → 200 from
+  `curl -A "Mozilla/5.0"` and 200 from `http://localhost:5677` on the box.
+  Root cause: Cloudflare bot-fight blocks non-browser UA, NOT a bad key.
+  Fix: always send a browser UA header; prefer `http://localhost:5677`
+  (n8n 2.30.8, native node proc, 47 workflows) for local work. Pattern:
+  403-public + 200-localhost = UA/proxy block, rotate nothing.
+- 2026-09-19: execution 4795 (`eng-router`, 32 nodes, inactive) → status
+  `crashed`, `NodeCrashedError`/`WorkflowCrashedError` ("possible
+  out-of-memory", 21ms trigger run). Fix direction: split the 32-node graph
+  into sub-workflows, chunk Code-node data, check host RAM; error workflow
+  `QvodOlYfZIRV22Qn` holds the details. Pattern: crash-in-ms on a big
+  inactive graph = OOM, not logic bug. Last-100 mix at the time: 99 success.
+
 ## 1 — Design-time pre-flight checklist (MANDATORY)
 
 Run these gates before ANY n8n build:
@@ -58,6 +72,8 @@ Run these gates before ANY n8n build:
 | Execution store huge / slow | retention defaults save everything | set saveDataSuccess/ErrorExecution=all|none policy |
 | Wait node "never resumes" | wait until time passed already / wrong unit | verify amount+unit, use continuation-time fields |
 | Code node memory error on big data | sandbox context limit | runOnceForEachItem + process in chunks; or HTTP/DB |
+| 403 on public API, same key 200 on localhost | Cloudflare bot-fight blocks bare UA (2026-09-19) | send browser UA; prefer localhost:5677 locally |
+| Execution `crashed` in ms on big graph (NodeCrashedError/OOM) | out-of-memory on large workflow (eng-router 32n, 2026-09-19) | split sub-workflows + chunk data + check host RAM |
 | Response body JSON malformed in repo | expression produced string not object | JSON.parse in Code / Set node, validate with schema guardrail |
 | Connection map with numeric keys / duplicates | hand-edited JSON | autofix (connection-numeric-keys / duplicate-removal) — n8n_validate_workflow |
 | Qdrant upsert "missing field `ids`" | POST used on `/points` (that path is RETRIEVE) | upsert must be PUT `/collections/{name}/points?wait=true` (qdrant-ops) |

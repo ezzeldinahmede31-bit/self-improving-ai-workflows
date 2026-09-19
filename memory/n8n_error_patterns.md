@@ -9092,3 +9092,6 @@
 - [2026-09-19T17:51:30.637788+00:00] workflow=wf1 attempt=8 consecutive_before_fail=3 reason=flaky node=N/A
 
 - [2026-09-19T17:51:30.637873+00:00] workflow=wf1 attempt=12 consecutive_before_fail=3 reason=flaky node=N/A
+
+- [2026-09-19T20:55:00+00:00] workflow=eng-router attempt=1 consecutive_before_fail=0 reason=NodeCrashedError/OOM node=N/A
+- [2026-09-19T20:55:00+00:00] workflow=public-api attempt=0 consecutive_before_fail=0 reason=403-without-UA-Cloudflare-block node=N/A
