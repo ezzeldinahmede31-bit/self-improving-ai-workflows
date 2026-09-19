@@ -1954,3 +1954,6 @@ Stored VAPI_API_KEY + MAKE_API_KEY in .env (0600, gitignored; values never logge
 
 ## Vapi live proof COMPLETE (Sep 19): key rotated, write-path proven free
 New VAPI_API_KEY verified 200 on GET /assistant. Proof assistant created (id logged in session only), GET 200, DELETE 200 — zero spend (no call, no number). Remaining for full voice proof: one billable test call (needs explicit money approval per Tier-2) + corrected Make API token (still 401).
+
+## Make MCP live proof PARTIAL (Sep 19): handshake OK, zero tools exposed
+Stored MAKE_MCP_URL (eu1 server uuid, 0600 gitignored). Key finding: MAKE_API_KEY fails api-v2 (SC401) but WORKS as `Authorization: Bearer` on the MCP endpoint — it is an MCP token, not an API token. initialize 200 both protocol versions (2024-11-05, 2025-03-26), server=MakeMCPAgentProfile "ezz". tools/list -> [] (empty). Per official make-mcp-reference: empty = no active on-demand scenarios shared with this agent profile and/or missing run scope. Needs dashboard step: share active on-demand scenario(s) with the profile + run scope (or approve guided browser run via logged-in Chrome). No spend, no writes performed.
