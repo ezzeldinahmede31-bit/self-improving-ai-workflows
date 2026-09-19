@@ -1957,3 +1957,6 @@ New VAPI_API_KEY verified 200 on GET /assistant. Proof assistant created (id log
 
 ## Make MCP live proof PARTIAL (Sep 19): handshake OK, zero tools exposed
 Stored MAKE_MCP_URL (eu1 server uuid, 0600 gitignored). Key finding: MAKE_API_KEY fails api-v2 (SC401) but WORKS as `Authorization: Bearer` on the MCP endpoint — it is an MCP token, not an API token. initialize 200 both protocol versions (2024-11-05, 2025-03-26), server=MakeMCPAgentProfile "ezz". tools/list -> [] (empty). Per official make-mcp-reference: empty = no active on-demand scenarios shared with this agent profile and/or missing run scope. Needs dashboard step: share active on-demand scenario(s) with the profile + run scope (or approve guided browser run via logged-in Chrome). No spend, no writes performed.
+
+## Make dashboard driven via real Chrome (Sep 19, no blind acts, screenshots each step)
+Opened existing "Make" window (eu1.make.com/2862717/agent-profiles/8074 toolbox "ezz"): Tools EMPTY, Default Key ***kGWj3Q (matches stored MCP token), Last used never. Add-tools dialog -> "No tools match" (nothing to share). Scenarios page: "You haven't created any scenarios yet" — brand-new account. Next needs ONE user confirmation: create minimal test scenario (webhook->response pong, on-demand, shared to toolbox). Screen focus restored to OpenCode.
