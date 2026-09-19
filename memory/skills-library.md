@@ -444,9 +444,10 @@ registered in the router appear under the same family here automatically.
 - **whitman-cashvertising** — Pulls buying triggers from the Life-Force 8 and 41 techniques.
 - **winand-sql-indexing** — Indexes SQL correctly across vendors: B-trees, concatenation order, and execution plans.
 
-## Video/Media (10)
+## Video/Media (11)
 
 - **audio-whisper-transcriber** — Transcribes extracted audio files (mp3/wav) into text using local OpenAI Whisper / faster-whisper — no per-use API cost, no network upload, runs fully on-device…
+- **dicks-storyworthy** — Crafts true stories worth telling: homework for life and five-second moments.
 - **faceless-video-builder** — Free faceless video pipeline: 1 AI image per scene + Arabic voiceover + captions + assembly.
 - **fundamentals-speech-recognition** — Applies Rabiner & Juang's Fundamentals of Speech Recognition to build speech systems on the classic foundations: the speech signal and its representation, the h…
 - **media-downloader-extractor** — Downloads and extracts video/audio streams from social-media links (Facebook Reels, YouTube, TikTok, Instagram) using yt-dlp — bypassing browser scrapers, Cloud…
@@ -1099,9 +1100,8 @@ registered in the router appear under the same family here automatically.
 - **chinchilla-scaling-laws** — Plans large-model training with scaling laws: compute-optimal size, data mix, and emergent behavior.
 - **pbft-hotstuff-bft** — Reaches agreement with adversaries present: BFT protocols from PBFT to HotStuff.
 
-## Social media (2)
+## Social media (1)
 
-- **dicks-storyworthy** — Crafts true stories worth telling: homework for life and five-second moments.
 - **shoham-multiagent-systems** — Designs strategic multi-agent systems: game forms, social choice, and protocols.
 
 ## Other / custom (not yet in router registry) (1)
