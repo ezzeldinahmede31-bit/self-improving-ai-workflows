@@ -472,7 +472,7 @@ registered in the router appear under the same family here automatically.
 - **search-patterns** — Applies Peter Morville's Search Patterns to design search and discovery experiences that actually work: the search UX/IA anatomy (query box, results, faceted na…
 - **vector-databases-similarity-search** — Covers the fundamentals of vector databases and similarity search that any RAG or semantic-search build depends on: embedding representation, vector indexes (HN…
 
-## Reasoning/Math/Logic (73)
+## Reasoning/Math/Logic (72)
 
 - **algorithm-design-kleinberg-tardos** — Applies Kleinberg & Tardos' Algorithm Design to designing algorithms by stable problem families: greedy algorithms and exchange arguments, divide and conquer wi…
 - **algorithmic-math-reasoner** — Raises correctness on hard algorithmic and mathematical problems where a fast model tends to jump to plausible-but-wrong answers: forces formal restatement, inv…
@@ -546,7 +546,6 @@ registered in the router appear under the same family here automatically.
 - **thought-based-reasoning** — Use when facing complex reasoning tasks - multi-step math, logic puzzles, decisions with tradeoffs, problems where direct answers fail, or when you need to show…
 - **understanding-machine-learning** — Applies Shalev-Shwartz and Ben-David's Understanding Machine Learning: From Theory to Algorithms to rigorously ground ML in learning theory: PAC learning, VC di…
 - **unit-test-boundary-conditions** — Provides edge case, corner case, boundary condition, and limit testing patterns for Java unit tests.
-- **webapp-testing** — Toolkit for interacting with and testing local web applications using Playwright.
 
 ## Thinking frames (39)
 
@@ -654,7 +653,7 @@ registered in the router appear under the same family here automatically.
 - **tool-design** — This skill should be used for the tool-interface layer of an agent system specifically: writing tool descriptions agents can route on, designing tool schemas an…
 - **windows-internals-russinovich** — Understands Windows from the kernel up: processes, memory, I/O, and security.
 
-## Agents/Architecture (46)
+## Agents/Architecture (47)
 
 - **agent-arch-system-design** — Expert system architecture design: patterns, scalability planning, ADRs, C4 diagrams, technology trade-offs, non-functional requirements.
 - **agent-reach** — Read and search external sources through the channels installed on this machine.
@@ -702,6 +701,7 @@ registered in the router appear under the same family here automatically.
 - **state-machine-workflow-modeling** — Represents workflows as explicit state machines with persisted state.
 - **streaming-systems-akidau** — Applies Tyler Akidau, Slava Chernyak, and Reuven Lax's Streaming Systems to build correct stream/batch data pipelines: the event-time vs processing-time distinc…
 - **terraform-up-and-running** — Applies Terraform: Up and Running (Yevgeniy Brikman) to infrastructure provisioning: treat every resource as code that is plan-able, reviewable, and reproducibl…
+- **webapp-testing** — Toolkit for interacting with and testing local web applications using Playwright.
 
 ## Security (18)
 
