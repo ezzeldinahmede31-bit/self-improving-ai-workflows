@@ -31,7 +31,7 @@ clear, brief, human, and exact.
    institutions. Write to ONE person, not "users".
 5. **Audience-shaped structure.** Lead with what matters to THEM (not
    chronology of your work); endings that land (quote, image, return to the
-   opening).ala
+   opening).
 
 ## Verification
 
