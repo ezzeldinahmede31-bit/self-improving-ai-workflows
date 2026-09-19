@@ -335,7 +335,7 @@ registered in the router appear under the same family here automatically.
 - **zapier-sdk** — Zapier SDK for TypeScript.
 - **zapier-system-cloner** — Replicates any Zapier (Zap) system — especially premium/expensive ones — with identical outputs and quality on n8n or code, using different (free/local) tools w…
 
-## Marketing/SEO/Growth (67)
+## Marketing/SEO/Growth (68)
 
 - **apify-audience-analysis** — Understand audience demographics, preferences, behavior patterns, and engagement quality across Facebook, Instagram, YouTube, and TikTok.
 - **audience-psychology-analyst** — Build a psychological profile of any target audience and translate it into marketing AND video-editing decisions.
@@ -359,6 +359,7 @@ registered in the router appear under the same family here automatically.
 - **data-mining-concepts-techniques** — Applies Han, Kamber & Pei's Data Mining: Concepts and Techniques to the complete data-mining process: data preprocessing and warehouse design, mining frequent p…
 - **deep-learning-cookbook** — Applies Douwe Osinga's Deep Learning Cookbook to solve real problems with ready-to-adapt recipes in Keras: working with images, text, sound, and structured data…
 - **dont-make-me-think** — Applies Steve Krug's Don't Make Me Think to web usability: a page is good if a user can say 'of course' — self-evident design, no thinking required.
+- **eghbal-working-in-public** — Sustains open source: maintainer economics, governance, and community health.
 - **environment-promotion-config** — Moves workflows across dev/stage/prod with scoped config, never copy-paste.
 - **firecrawl-scraper** — Web scraping skill using Firecrawl API for deep content extraction, format conversion, and page interaction.
 - **foley-computer-graphics** — Builds correct rendering: transforms, viewing, rasterization, and shading.
@@ -992,10 +993,9 @@ registered in the router appear under the same family here automatically.
 - **chinchilla-scaling-laws** — Plans large-model training with scaling laws: compute-optimal size, data mix, and emergent behavior.
 - **pbft-hotstuff-bft** — Reaches agreement with adversaries present: BFT protocols from PBFT to HotStuff.
 
-## Other / custom (not yet in router registry) (3)
+## Other / custom (not yet in router registry) (2)
 
 - **candor-radical-feedback** — Gives feedback that works: care personally, challenge directly.
-- **eghbal-working-in-public** — Sustains open source: maintainer economics, governance, and community health.
 - **speech-language-processing** — Applies Jurafsky & Martin's Speech and Language Processing (SLP) to build NLP systems on textbook foundations: regular expressions and text normalization, n-gra…
 
 ---
