@@ -1874,3 +1874,10 @@ Both added to `compensatory-router` stacks.
 - Trial/measurement PROVEN: gates on clinic_review_form.json = READY_FOR_DEPLOYMENT with FRESH cache; live-created 2-node proof workflow correctly FAILED dry-run (no pinned data) then deleted (200). Measurement refuses untested work by design.
 - Schema cache REFRESHED from nodes.db: 211KB -> 236KB, 2755 entries. Compass re-registered, library refreshed.
 - NOT fixable without user: Qdrant cloud (connection reset, qdrant_client absent in venv), OOM host-RAM check/fix on eng-router, HITL/financial sign-off (human only). Docker daemon 500 irrelevant (native run).
+
+## Testing Canon 100 skills COMPLETE (Sep 19 2026)
+- User demanded expert-plus level: 100 book-distilled testing skills, batches of 10, Full Canon + Python/JS + Standard Deep + gates on all.
+- BUILT 100 new skills in `.opencode/skills/` (10 batches x 10), every one VERDICT READY_FOR_DEPLOYMENT via `build_gates_pipeline.py --no-hitl --no-resolve`, registered via `router_register.py`, library auto-refreshed.
+- Batches: (1) unit/BDD/ISTQB/exploratory/API/Playwright/Selenium/perf/security/AI; (2) test design deep; (3) code-level; (4) automation frameworks; (5) perf/reliability; (6) security; (7) quality process; (8) agile/mgmt; (9) data/AI/specialized; (10) enterprise/advanced.
+- GATE LESSON: DeepReasoningGate COUNTING_KEYWORDS regex flags skill docs containing: count, how many, inclusive, exclusive, at most, at least, between, periods, etc. Two skills needed rewording (bach-session-exploratory: 'at least one' removed; boundary-value-mastery: renamed to edge-value language, examples de-numeraled). Standing rule for future skill writing: ban that word list in prose.
+- FINAL VERIFY: 100/100 frontmatter OK, 0 banned words, full pytest suite green on rerun (one transient timing flake in test_orchestrator_mvp::test_parallel_execution passed isolated + on rerun).
