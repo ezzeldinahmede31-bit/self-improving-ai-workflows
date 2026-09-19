@@ -7,7 +7,7 @@ for the full doc of the chosen skill. Grouping matches the router
 registry buckets (`compensatory-router/SKILL.md`), so new skills that were
 registered in the router appear under the same family here automatically.
 
-## Automation (per-tool) (310)
+## Automation (per-tool) (313)
 
 - **abstraction-quality-gate** — Enforces A Philosophy of Software Design's core principle: complexity management through deep modules and shallow interfaces.
 - **access-control-least-privilege-agents-v2** — Applies Access Control, Role-Based Permissions, and Least Privilege for AI Agents to production: distilled patterns, anti-patterns, and checklists for building…
@@ -50,6 +50,7 @@ registered in the router appear under the same family here automatically.
 - **autonomous-web-scraping-agents** — Applies Autonomous Web Scraping and Data Extraction Agents to production: distilled patterns, anti-patterns, and checklists for building reliable autonomous web…
 - **bash-cookbook** — Applies Bash Cookbook (Carl Albing & JP Vossen) to everyday shell automation: battle-tested recipes for variables, arithmetic, functions, text processing, redir…
 - **bayesian-hierarchical-models** — Applies the hierarchical-model chapters of Gelman et al.'s Bayesian Data Analysis: multilevel models that share strength across groups, partial pooling, group-l…
+- **berkun-making-things-happen** — Leads projects to shipped: schedules, decision-making, and communication.
 - **bias-fairness-mitigation-strategies** — Applies Bias, Fairness, and Mitigation Strategies in Automated Decision Systems to production: distilled patterns, anti-patterns, and checklists for building re…
 - **biz-school-growth** — Modern growth and leadership distilled for scaling the clinic agency: habits, teams, content loops.
 - **bpm-robotic-automation-synergy** — Applies Business Process Management and Robotic Automation Synergy to production: distilled patterns, anti-patterns, and checklists for building reliable busine…
@@ -124,6 +125,7 @@ registered in the router appear under the same family here automatically.
 - **exception-handling-recovery-rpa-v2** — Applies Exception Handling and Recovery Frameworks in RPA Development to production: distilled patterns, anti-patterns, and checklists for building reliable exc…
 - **financial-trading-decision-agents** — Applies Financial Trading and Decision Support Agents to production: distilled patterns, anti-patterns, and checklists for building reliable financial trading a…
 - **fine-tuning-llms-domain-adaptation** — Applies Fine-Tuning Large Language Models: Practical Strategies and Domain Adaptation to production: distilled patterns, anti-patterns, and checklists for build…
+- **fitzpatrick-team-geek** — Runs engineering teams on Humility, Respect, Trust: review culture and conflict handling.
 - **formal-verification-agent-behaviors-v2** — Applies Formal Verification and Mathematical Proofs for Autonomous Agent Behaviors to production: distilled patterns, anti-patterns, and checklists for building…
 - **foundations-machine-learning** — Applies Mohri, Rostamizadeh & Talwalkar's Foundations of Machine Learning to reason about learning algorithms with a theoretical backbone: PAC learning, Rademac…
 - **foundations-of-machine-learning** — Applies Mohri, Rostamizadeh & Talwalkar's Foundations of Machine Learning to reason about learning algorithms with a theoretical backbone: PAC learning, Rademac…
@@ -277,6 +279,7 @@ registered in the router appear under the same family here automatically.
 - **slp-n-gram-language-models** — Applies the language-model chapters of Jurafsky & Martin's Speech and Language Processing to build and evaluate n-gram language models: n-gram probability estim…
 - **software-engineering-at-google** — Applies Winters, Manshreck, and Wright's Software Engineering at Google to sustain code at scale: software engineering is programming integrated over time by ma…
 - **spectre-side-channels** — Closes leaks through physics: timing, cache, speculation, and power.
+- **spinellis-code-reading** — Reads code like a reviewer-archaeologist: structure, idioms, and intent recovery.
 - **spotify-automation** — Automate Spotify music playback, playlist management, and audio analysis workflows
 - **sre-devops-automation** — Applies Google's Site Reliability Engineering (SRE) and The DevOps Handbook to automation and services: define SLIs (real measured indicators), set SLOs (target…
 - **sre-workbook-practices** — Applies The Site Reliability Workbook (Beyer et al.) to operating automation reliably: every service is defined by its SLIs and SLOs, governed by an error budge…
@@ -332,12 +335,14 @@ registered in the router appear under the same family here automatically.
 - **zapier-sdk** — Zapier SDK for TypeScript.
 - **zapier-system-cloner** — Replicates any Zapier (Zap) system — especially premium/expensive ones — with identical outputs and quality on n8n or code, using different (free/local) tools w…
 
-## Marketing/SEO/Growth (64)
+## Marketing/SEO/Growth (67)
 
 - **apify-audience-analysis** — Understand audience demographics, preferences, behavior patterns, and engagement quality across Facebook, Instagram, YouTube, and TikTok.
 - **audience-psychology-analyst** — Build a psychological profile of any target audience and translate it into marketing AND video-editing decisions.
 - **autonomous-agents-architecture** — Applies Autonomous Agents: Architecture, Frameworks, and Tools to design agents that plan, act, and self-correct across many steps: the agent loop, tool design,…
+- **beck-implementation-patterns** — Writes code at the method level the Beck way: intention-revealing classes, methods, and state.
 - **biz-school-strategy** — Modern competitive strategy distilled for clinic wars: positioning, moats, OKRs, blitzscaling.
+- **cagan-inspired-product** — Builds products customers love the Silicon-Valley way: discovery before delivery.
 - **clinic-audience-os** — Master operating system binding all psychology schools, the 2000-book index, and sales skills into one pipeline.
 - **clinic-buyer-psychology** — Psychographic profile of Egyptian private-clinic owners (dentists, dermatologists, clinic managers) for B2B selling.
 - **clinic-competitor-radar** — Competitor intelligence for the clinic system: leaders watchlist, structure-level imitation, trend memory.
@@ -398,6 +403,7 @@ registered in the router appear under the same family here automatically.
 - **swim-gossip-membership** — Spreads information and tracks membership epidemically: gossip, SWIM, and anti-entropy.
 - **tiktok-marketing** — TikTok content strategy, video creation workflows, posting optimization, and analytics.
 - **viral-hooks** — Expert in creating opening lines, thumbnails, and hooks that stop the scroll.
+- **weinberg-egoless-systems** — Runs software as a human system: egoless programming and technical leadership.
 
 ## Video/Media (9)
 
@@ -411,10 +417,11 @@ registered in the router appear under the same family here automatically.
 - **video-inpainting** — Region edits across video frames on RunComfy via the `runcomfy` CLI — remove an object that appears across many frames, clean up wires or watermarks, replace a…
 - **video-processing-editing** — FFmpeg automation for cutting, trimming, concatenating videos.
 
-## Research (29)
+## Research (30)
 
 - **academic-search** — Search and analyze academic literature.
 - **all-of-statistics** — Applies Larry Wasserman's All of Statistics to use probability and statistics in data work: probability theory, random variables and expectation, statistical in…
+- **ambler-refactoring-databases** — Evolves production databases safely: refactoring patterns, migrations, and dual running.
 - **chollet-cnn-computer-vision** — Deep dive into the convolutional-network and computer-vision chapters of Chollet's Deep Learning with Python: convolution filters, pooling, data augmentation, t…
 - **company-research** — Conduct comprehensive company research and due diligence.
 - **data-analysis** — Generate statistical analysis code with 4-round review.
@@ -451,7 +458,7 @@ registered in the router appear under the same family here automatically.
 - **search-patterns** — Applies Peter Morville's Search Patterns to design search and discovery experiences that actually work: the search UX/IA anatomy (query box, results, faceted na…
 - **vector-databases-similarity-search** — Covers the fundamentals of vector databases and similarity search that any RAG or semantic-search build depends on: embedding representation, vector indexes (HN…
 
-## Reasoning/Math/Logic (64)
+## Reasoning/Math/Logic (66)
 
 - **algorithm-design-kleinberg-tardos** — Applies Kleinberg & Tardos' Algorithm Design to designing algorithms by stable problem families: greedy algorithms and exchange arguments, divide and conquer wi…
 - **algorithmic-math-reasoner** — Raises correctness on hard algorithmic and mathematical problems where a fast model tends to jump to plausible-but-wrong answers: forces formal restatement, inv…
@@ -475,6 +482,7 @@ registered in the router appear under the same family here automatically.
 - **execution-guided-tot-validator** — Validates Tree-of-Thought (ToT) reasoning branches using real execution feedback in a local Docker sandbox rather than relying on LLM self-judgment.
 - **forallx-formal-logic** — Proves with formal logic: propositional and first-order syntax, semantics, and deduction.
 - **formal-math-logic-verification-engine** — Deterministic, mechanical verification for math and logic answers using real solver tooling installed in this workspace's venv — math-verify (HuggingFace: parse…
+- **fowler-analysis-patterns** — Reuses domain models that work: accountability, measurements, inventory, and planning patterns.
 - **frontier-deep-reasoner** — Compensate for shallow/degraded multi-step reasoning by forcing an explicit decomposition ladder (Problem -> Constraints -> Steps -> Verify -> Output).
 - **generative-deep-learning** — Applies David Foster's Generative Deep Learning to design, train, and evaluate generative models — variational autoencoders (VAE), generative adversarial networ…
 - **grokking-deep-learning** — Applies Andrew Trask's Grokking Deep Learning to build neural networks from scratch with zero dependencies, gaining an intuition for every component: prediction…
@@ -482,6 +490,7 @@ registered in the router appear under the same family here automatically.
 - **high-performance-python** — Applies High Performance Python by Micha Gorelick and Ian Ozsvald to make Python fast with evidence, not guesses: profile first, choose the right algorithm and…
 - **information-theory-inference-learning** — Applies David MacKay's Information Theory, Inference, and Learning Algorithms to connect the mathematics of information to machine learning: entropy and coding,…
 - **introduction-to-probability** — Applies Blitzstein & Hwang's Introduction to Probability to reason about probability with intuition and rigor: counting, conditional probability, random variabl…
+- **jackson-alloy-abstractions** — Models software with lightweight formal abstractions: signatures, facts, and automated checks.
 - **learning-with-kernels** — Applies Scholkopf & Smola's Learning with Kernels to build kernel methods with mathematical grounding: kernels and feature spaces, the representer theorem, RKHS…
 - **machine-learning-mitchell** — Applies Tom Mitchell's Machine Learning (the classic textbook) to the foundations every ML system rests on: the well-posed learning problem definition, decision…
 - **math-olympiad** — Solve competition math problems (IMO, Putnam, USAMO, AIME) with adversarial verification that catches the errors self-verification misses.
@@ -558,7 +567,7 @@ registered in the router appear under the same family here automatically.
 - **thinking-triz** — When two design requirements seem mutually exclusive, name the contradiction, separate conflicting states, then invent a concrete no-compromise resolution.
 - **thinking-via-negativa** — Use when the reflex is to add a feature, layer, or process.
 
-## Context/Memory/System (54)
+## Context/Memory/System (55)
 
 - **advanced-evaluation** — This skill should be used for advanced LLM evaluation: LLM-as-judge systems, direct scoring, pairwise comparison, rubric calibration, evaluator bias mitigation,…
 - **alephone-binary-exploitation** — Understands memory-corruption attacks to defeat them: overflows, ROP, and modern mitigations.
@@ -568,6 +577,7 @@ registered in the router appear under the same family here automatically.
 - **bdi-mental-states** — This skill should be used when modeling agent mental states with BDI concepts: beliefs, desires, intentions, RDF-to-belief transformations, rational agency trac…
 - **building-llm-powered-apps** — Applies the product-engineering method of Building LLM-Powered Applications (Valentina Alto) to design LLM features from user goals: choose the right LLM for th…
 - **chain-integrity-checker** — Cumulative per-step consistency verification for multi-step plans/DAGs produced by weak models.
+- **clements-views-beyond** — Documents and evaluates architectures: views, beyond-views info, and ATAM tradeoffs.
 - **cognitive-task-triager** — Analyzes task complexity and assigns execution to the optimal LLM tier (Routine, Code, Long-Context, Critical Reasoning) before any model call.
 - **confidence-calibrator** — Externally-measured confidence calibration for weak/free models.
 - **context-budget-governor** — Protect a small context window so it behaves like a big one.
@@ -615,7 +625,7 @@ registered in the router appear under the same family here automatically.
 - **state-machine-persistence** — Design n8n automations as recoverable state machines: persist multi-turn or long-running state (conversation context, job progress, dedupe keys) to Supabase, Re…
 - **tool-design** — This skill should be used for the tool-interface layer of an agent system specifically: writing tool descriptions agents can route on, designing tool schemas an…
 
-## Agents/Architecture (42)
+## Agents/Architecture (43)
 
 - **agent-arch-system-design** — Expert system architecture design: patterns, scalability planning, ADRs, C4 diagrams, technology trade-offs, non-functional requirements.
 - **agent-reach** — Read and search external sources through the channels installed on this machine.
@@ -654,6 +664,7 @@ registered in the router appear under the same family here automatically.
 - **python-scripting-scientific** — Applies Hans Petter Langtangen's Python Scripting for Computational Science to write scripts that drive scientific computation: use Python as the glue for compi…
 - **roughgarden-game-theory** — Analyzes strategic systems: equilibria, incentives, and mechanisms.
 - **serverless-aws** — Applies Sbarski's Serverless Architectures on AWS to build event-driven systems from managed services: functions that are stateless, short-lived, and event-trig…
+- **shape-up-basecamp** — Ships in fixed cycles the Basecamp way: shaping, betting, building.
 - **site-architecture** — When the user wants to plan, map, or restructure their website's page hierarchy, navigation, URL structure, or internal linking.
 - **software-architecture-hard-parts** — Applies Ford, Richards & Sadalage's Software Architecture: The Hard Parts to the architecture decisions that have no perfect answer: modularity (which modularit…
 - **state-machine-workflow-modeling** — Represents workflows as explicit state machines with persisted state.
@@ -774,7 +785,7 @@ registered in the router appear under the same family here automatically.
 - **visual-context-verifier** — Closes the 'blind spot' gap for a model that cannot see its own work: before anything visual is claimed, capture real pixels/HTML/DOM as evidence (screenshots r…
 - **worst-idea** — Worst Possible Idea (reverse brainstorming) — deliberately design the most terrible solutions to the problem, name the mechanism that makes each one bad, then i…
 
-## Delivery/Gates (27)
+## Delivery/Gates (29)
 
 - **adversarial-self-falsifier** — Actively attacks and attempts to break generated code, math, or logic before finalizing the response.
 - **best-practice-first-designer** — MANDATORY research-first gate before designing or building ANY n8n workflow or AI agent.
@@ -800,18 +811,23 @@ registered in the router appear under the same family here automatically.
 - **omni-request-orchestrator** — MANDATORY skill-synthesis orchestrator for EVERY user request, no exceptions.
 - **proactive-spec-expander** — Automatically expands simple user prompts into enterprise-grade PRDs with implicit security, lockdown modes, rate limits, and edge-case requirements BEFORE writ…
 - **reflection-and-audit-loop** — Impose a mandatory 4-stage structured workflow before delivering any n8n workflow JSON or Code-node script: plan the path, draft, structural self-critique, then…
+- **swebok-guide** — Maps any software engineering question to its SWEBOK knowledge area and the right specialist skill.
 - **to-spec** — Turn the current conversation into a spec and publish it to the project issue tracker: no interview, just synthesis of what you've already discussed.
 - **tradeoff-and-postmortem-documenter** — Auto-generates production-ready documentation, architecture rationale, design trade-offs, and an explicit KNOWN_ISSUES.md for every implementation.
 - **triage** — Move issues and external PRs through a state machine of triage roles, categorise, verify, grill if needed, and write agent-ready briefs.
+- **wiegers-software-requirements** — Engineers requirements that survive contact with stakeholders: elicitation, specification, and change control.
 
-## Superpowers pack — obra (18)
+## Superpowers pack — obra (21)
 
 - **brainstorming** — You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior.
+- **demarco-bears-risk** — Manages project risk explicitly: identification, quantification, and mitigation.
 - **dispatching-parallel-agents** — Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies
 - **executing-plans** — Use when you have a written implementation plan to execute in a separate session with review checkpoints
 - **finishing-a-development-branch** — Use when implementation is complete, all tests pass, and you need to decide how to integrate the work
 - **impeccable** — Use when the user wants to design, redesign, shape, critique, audit, polish, clarify, distill, harden, optimize, adapt, animate, colorize, extract, or otherwise…
+- **mcconnell-software-estimation** — Estimates software honestly: ranges, calibration, and cone of uncertainty.
 - **modern-robotics** — Reasons about robots: configuration space, rigid-body motion, kinematics, and planning.
+- **patton-story-mapping** — Orders backlogs by user journey: story maps, slices, and releases.
 - **receiving-code-review** — Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical…
 - **remembering-conversations** — You MUST invoke this skill before saying "I don't know," guessing, or treating any topic as new, no matter how trivial the question seems.
 - **requesting-code-review** — Use when completing tasks, implementing major features, or before merging to verify work meets requirements
@@ -976,9 +992,11 @@ registered in the router appear under the same family here automatically.
 - **chinchilla-scaling-laws** — Plans large-model training with scaling laws: compute-optimal size, data mix, and emergent behavior.
 - **pbft-hotstuff-bft** — Reaches agreement with adversaries present: BFT protocols from PBFT to HotStuff.
 
-## Other / custom (not yet in router registry) (1)
+## Other / custom (not yet in router registry) (3)
 
+- **candor-radical-feedback** — Gives feedback that works: care personally, challenge directly.
+- **eghbal-working-in-public** — Sustains open source: maintainer economics, governance, and community health.
 - **speech-language-processing** — Applies Jurafsky & Martin's Speech and Language Processing (SLP) to build NLP systems on textbook foundations: regular expressions and text normalization, n-gra…
 
 ---
-*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 15:35 — 904 skills, 23 families*
+*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 15:50 — 922 skills, 23 families*
