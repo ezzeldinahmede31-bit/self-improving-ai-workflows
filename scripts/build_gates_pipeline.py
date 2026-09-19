@@ -595,6 +595,57 @@ class MathLogicGate:
         return {"status": status, "checks": checks, "violations": failed}
 
 
+def _match_counting_ack(acks: list[dict] | None) -> str:
+    """Return the evidence string of a valid sidecar acknowledgment covering
+    the counting/boundary heuristic flag, or '' when none applies.
+
+    Fail-closed: malformed entries, missing evidence, or a non-false-positive
+    verdict are ignored (no effect). An ack never clears math FAIL, security,
+    quality, or any other gate — it only documents that a human/agent reviewed
+    the keyword-heuristic flag and found no counting answer present. This lets
+    verbatim vendor docs pass without editing vendor files.
+    """
+    for entry in (acks or []):
+        if not isinstance(entry, dict):
+            continue
+        finding = str(entry.get("finding", ""))
+        if "counting" not in finding.lower() and "boundary" not in finding.lower():
+            continue
+        if str(entry.get("verdict", "")).strip().lower() != "false-positive":
+            continue
+        evidence = str(entry.get("evidence", "")).strip()
+        reviewer = str(entry.get("reviewer", "")).strip()
+        date = str(entry.get("date", "")).strip()
+        if not (evidence and reviewer and date):
+            continue
+        return f"{evidence} (reviewer: {reviewer}, {date})"
+    return ""
+
+
+def _load_gates_ack(artifact_path: str) -> list[dict]:
+    """Load the sidecar `.gates-ack.json` sitting next to the artifact.
+
+    Honored ONLY for artifacts inside `.opencode/skills/<slug>/` (reviewed
+    third-party/vendor skill docs that must stay verbatim). Any other location,
+    missing file, or malformed JSON returns [] (no effect — fail-closed).
+    """
+    try:
+        parent = Path(artifact_path).resolve().parent
+    except (OSError, ValueError):
+        return []
+    parts = parent.parts
+    if ".opencode" not in parts or "skills" not in parts:
+        return []
+    sidecar = parent / ".gates-ack.json"
+    if not sidecar.is_file():
+        return []
+    try:
+        data = json.loads(sidecar.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError, ValueError):
+        return []
+    return data if isinstance(data, list) else []
+
+
 class DeepReasoningGate:
     """Encodes the reasoning-skill gates as deterministic checks:
       - algorithmic-math-reasoner: formal restatement + brute-force
@@ -609,7 +660,8 @@ class DeepReasoningGate:
     """
 
     def run(self, artifact: Any, full_text: str, gates: dict, math_status: str,
-            known_patterns: list[str] | None = None) -> dict:
+            known_patterns: list[str] | None = None,
+            acks: list[dict] | None = None) -> dict:
         findings = []
         for pat in (known_patterns or [])[:8]:
             findings.append(f"AVOID previous rejection: {pat}")
@@ -623,6 +675,9 @@ class DeepReasoningGate:
         counting_flagged = bool(COUNTING_KEYWORDS.search(scan_text))
         has_candidates = bool(gates.get("vote"))
         has_expected = bool(gates.get("math") or gates.get("counting", {}).get("expected"))
+        ack_note = _match_counting_ack(acks)
+        if ack_note:
+            findings.append(f"ACK (sidecar-reviewed false positive): {ack_note}")
 
         if counting_flagged:
             findings.append("counting/boundary problem detected — boundary scan required")
@@ -630,6 +685,8 @@ class DeepReasoningGate:
                 findings.append("independent expected value present — two-method parity satisfied")
             elif has_candidates:
                 findings.append("candidates present — self-consistency vote is the parity method")
+            elif ack_note:
+                findings.append("sidecar acknowledgment covers the heuristic flag — no counting answer present")
             else:
                 findings.append("NEEDS_REVIEW: counting problem without independent verification")
         else:
@@ -660,7 +717,8 @@ class DeepReasoningGate:
         depth = "multi-candidate" if has_candidates else "single-pass"
         findings.append(f"reasoning depth: {depth}")
 
-        need_review = counting_flagged and not has_expected and not has_candidates
+        need_review = (counting_flagged and not has_expected
+                       and not has_candidates and not ack_note)
         if math_status == "NEEDS_REVIEW":
             need_review = True
         if need_review:
@@ -2155,7 +2213,8 @@ def run_pipeline(artifact: Any, full_text: str, hitl: bool, reporter,
                  skills_loaded: set[str] | list[str] | None = None,
                  complaints: ComplaintsRegistry | None = None,
                  resolve_complaints: bool = True,
-                 enable_autofix: bool = True) -> dict:
+                 enable_autofix: bool = True,
+                 acks: list[dict] | None = None) -> dict:
     gates = _extract_gates_section(artifact)
     workflow = artifact if isinstance(artifact, dict) and "nodes" in artifact else {"nodes": []}
     t0 = time.time()
@@ -2235,7 +2294,7 @@ def run_pipeline(artifact: Any, full_text: str, hitl: bool, reporter,
         # Stage 6: REASONING
         s6 = time.time()
         av = error_patterns.avoid_list() if error_patterns else []
-        rs = DeepReasoningGate().run({"nodes": wf.get("nodes", []), "_gates": gates}, ft, g, mt["status"], known_patterns=av)
+        rs = DeepReasoningGate().run({"nodes": wf.get("nodes", []), "_gates": gates}, ft, g, mt["status"], known_patterns=av, acks=acks)
         reporter.stage("REASONING", rs["status"], rs["notes"])
         _record_gate("REASONING", rs, time.time() - s6)
 
@@ -2622,6 +2681,9 @@ def main(argv=None) -> int:
               f"every mandatory gate skill must be in it")
 
     reporter = _Reporter(json_out=args.json)
+    acks = _load_gates_ack(args.artifact)
+    if acks:
+        print(f"[ACK] {len(acks)} reviewed finding(s) from .gates-ack.json")
     result = run_pipeline(artifact, full_text, hitl=not args.no_hitl, reporter=reporter,
                           schema_cache=schema_cache,
                           error_patterns=error_patterns,
@@ -2630,7 +2692,8 @@ def main(argv=None) -> int:
                           skills_loaded=skills_loaded,
                           complaints=complaints,
                           resolve_complaints=resolve_complaints,
-                          enable_autofix=enable_autofix)
+                          enable_autofix=enable_autofix,
+                          acks=acks)
     _persist_audit(result, full_text)
 
     if not args.json:
