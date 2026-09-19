@@ -407,7 +407,7 @@ registered in the router appear under the same family here automatically.
 - **video-inpainting** — Region edits across video frames on RunComfy via the `runcomfy` CLI — remove an object that appears across many frames, clean up wires or watermarks, replace a…
 - **video-processing-editing** — FFmpeg automation for cutting, trimming, concatenating videos.
 
-## Research (30)
+## Research (29)
 
 - **academic-search** — Search and analyze academic literature.
 - **all-of-statistics** — Applies Larry Wasserman's All of Statistics to use probability and statistics in data work: probability theory, random variables and expectation, statistical in…
@@ -437,7 +437,6 @@ registered in the router appear under the same family here automatically.
 - **prolog-logic-programming** — Programs in logic: facts, rules, queries, and search.
 - **rag-systems** — Applies Retrieval-Augmented Generation (RAG) Systems engineering to build grounded question-answering: document ingestion, chunking, embedding, vector indexing,…
 - **real-world-machine-learning** — Applies Brink, Richards & Fetherolf's Real-World Machine Learning to build and ship ML systems that work in practice: the end-to-end process (framing the proble…
-- **seacord-secure-coding** — Writes C/C++ and systems code that resists exploitation: input validation, memory safety, and integer correctness.
 - **web-search** — Formulate effective web search queries, analyze search results, and synthesize findings.
 
 ## ML/Data (5)
@@ -553,7 +552,7 @@ registered in the router appear under the same family here automatically.
 - **thinking-triz** — When two design requirements seem mutually exclusive, name the contradiction, separate conflicting states, then invent a concrete no-compromise resolution.
 - **thinking-via-negativa** — Use when the reflex is to add a feature, layer, or process.
 
-## Context/Memory/System (52)
+## Context/Memory/System (53)
 
 - **advanced-evaluation** — This skill should be used for advanced LLM evaluation: LLM-as-judge systems, direct scoring, pairwise comparison, rubric calibration, evaluator bias mitigation,…
 - **ambiguity-resolver** — Forced-explicit ambiguity gate for weak/free models.
@@ -603,6 +602,7 @@ registered in the router appear under the same family here automatically.
 - **project-development** — This skill should be used for project-level decisions about LLM-powered systems: whether an LLM is the right primitive for the task at hand, the shape of a mult…
 - **rate-limit-and-cost-guard** — Calculate expected API cost and call volume for every n8n workflow, then add rate-control (Wait/Loop limits) so API keys are not banned and budgets are not blow…
 - **rl-autonomous-agents** — Applies reinforcement learning to autonomous agents: define the reward signal, the policy, exploration, and the safety constraints, and know when RL is worth th…
+- **seacord-secure-coding** — Writes C/C++ and systems code that resists exploitation: input validation, memory safety, and integer correctness.
 - **self-improvement-loops** — This skill should be used when the harness, scaffold, workflow, or optimizer itself is the optimization target: recursive self-improvement (RSI) loops, meta-har…
 - **sipser-theory-of-computation** — Reasons about what can be computed at all: automata, decidability, and complexity.
 - **state-machine-persistence** — Design n8n automations as recoverable state machines: persist multi-turn or long-running state (conversation context, job progress, dedupe keys) to Supabase, Re…
