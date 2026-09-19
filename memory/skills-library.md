@@ -416,11 +416,10 @@ registered in the router appear under the same family here automatically.
 - **video-inpainting** — Region edits across video frames on RunComfy via the `runcomfy` CLI — remove an object that appears across many frames, clean up wires or watermarks, replace a…
 - **video-processing-editing** — FFmpeg automation for cutting, trimming, concatenating videos.
 
-## Research (30)
+## Research (29)
 
 - **academic-search** — Search and analyze academic literature.
 - **all-of-statistics** — Applies Larry Wasserman's All of Statistics to use probability and statistics in data work: probability theory, random variables and expectation, statistical in…
-- **ambler-refactoring-databases** — Evolves production databases safely: refactoring patterns, migrations, and dual running.
 - **chollet-cnn-computer-vision** — Deep dive into the convolutional-network and computer-vision chapters of Chollet's Deep Learning with Python: convolution filters, pooling, data augmentation, t…
 - **company-research** — Conduct comprehensive company research and due diligence.
 - **data-analysis** — Generate statistical analysis code with 4-round review.
@@ -691,11 +690,12 @@ registered in the router appear under the same family here automatically.
 - **web-security-browser-internals** — Applies Michal Zalewski's The Tangled Web to secure modern web applications: how browsers and HTTP actually behave (parsing, encoding, navigation, the same-orig…
 - **zero-to-one-thiel** — Applies Thiel monopoly, secrets, power law to strategy.
 
-## Coding/SWE (65)
+## Coding/SWE (66)
 
 - **agile-principles-patterns-practices** — Applies Robert C.
 - **algorithm-design** — Design algorithms with LaTeX pseudocode and UML diagrams.
 - **algorithm-design-manual-war-stories** — Applies Steven Skiena's Algorithm Design Manual 'war manual' to real-world problems: classify the problem type first, consult the problem catalog for the proven…
+- **ambler-refactoring-databases** — Evolves production databases safely: refactoring patterns, migrations, and dual running.
 - **apue-unix-programming** — Applies Stevens & Rago's APUE to real Unix/Linux system programming: file I/O and descriptors, files and directories, processes and environment, signals, termin…
 - **art-of-readable-code** — Applies The Art of Readable Code by Dustin Boswell and Trevor Foucher to write code that is easy to understand: pack meaning into names, reduce what a reader mu…
 - **ast-codebase-graph-navigator** — Navigates multi-file codebases using Abstract Syntax Trees (AST), import graphs, and caller-callee traces instead of brute-force full-file loading.
