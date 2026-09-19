@@ -62,8 +62,8 @@ Images and icons come back as `<img>` elements whose `src` is a remote asset URL
 
 ## opencode adaptation
 
-Figma calls on this workspace go through the `figma` MCP server
-(`opencode.jsonc`), currently DISABLED until a token exists. To activate:
-put a Figma personal access token in `.env` as `FIGMA_API_KEY`, set the
-server to `"enabled": true`, and verify with `opencode mcp list`. Until
-then the methodology above applies but live Figma calls will refuse.
+FIGMA_API_KEY is live in `.env` (90-day read scopes, verified against
+`/v1/me`). Live reads go through the Figma REST API (`X-Figma-Token`
+header) — the `figma` MCP entry in `opencode.jsonc` stays DISABLED because
+this opencode build speaks SSE while mcp.figma.com demands Streamable HTTP
+(405). Re-enable it once the client supports streamable HTTP.

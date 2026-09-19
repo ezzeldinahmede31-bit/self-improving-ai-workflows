@@ -27,7 +27,7 @@
       "enabled": false,
       "oauth": false,
       "headers": {
-        "Authorization": "Bearer {env:FIGMA_API_KEY}"
+        "X-Figma-Token": "{env:FIGMA_API_KEY}"
       }
     }
   },
