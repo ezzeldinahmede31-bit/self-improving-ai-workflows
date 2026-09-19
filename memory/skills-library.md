@@ -719,7 +719,7 @@ registered in the router appear under the same family here automatically.
 - **web-security-browser-internals** — Applies Michal Zalewski's The Tangled Web to secure modern web applications: how browsers and HTTP actually behave (parsing, encoding, navigation, the same-orig…
 - **zero-to-one-thiel** — Applies Thiel monopoly, secrets, power law to strategy.
 
-## Coding/SWE (70)
+## Coding/SWE (69)
 
 - **agile-principles-patterns-practices** — Applies Robert C.
 - **algorithm-design** — Design algorithms with LaTeX pseudocode and UML diagrams.
@@ -743,7 +743,6 @@ registered in the router appear under the same family here automatically.
 - **code-linter-python-js** — Deterministically lint and structurally check any JavaScript or Python written for n8n Code nodes before delivery.
 - **codebase-design** — Shared vocabulary for designing deep modules.
 - **codebase-mind-persistence** — Persistent on-disk codebase mind map (approximate 1M-token context emulation) built ONCE per codebase — symbol index, module-level summaries, dependency graph,…
-- **copeland-pairwise-testing** — Covers input combinations efficiently: pairwise and combinatorial design.
 - **crafting-interpreters** — Applies Robert Nystrom's Crafting Interpreters to build a complete, correct language interpreter end to end: two working interpreters (jlox in Java, clox in C)…
 - **ctm-concepts-techniques-models** — Applies Van Roy & Haridi's CTM to program in the right computation model for the job: the kernel-language approach where declarative, concurrent, message-passin…
 - **data-structures-analysis-cpp** — Applies Mark Allen Weiss' C++ data structures book to implementing and analyzing fundamental structures correctly: generic containers, lists, stacks, queues, tr…
@@ -990,11 +989,12 @@ registered in the router appear under the same family here automatically.
 - **high-end-visual-design** — Teaches the AI to design like a high-end agency.
 - **liquid-glass** — Build and migrate iOS, macOS, iPadOS, watchOS, tvOS, and visionOS apps with Apple's Liquid Glass design system (iOS 26+, macOS 26 Tahoe+).
 
-## Auto-installed (find-skills) (28)
+## Auto-installed (find-skills) (29)
 
 - **audit-trail-compliance** — Records actor, action, target, hashes, outcome in append-only logs for compliance.
 - **boyd-convex-optimization** — Solves optimization the Boyd way: convex formulation, duality, and first-order methods.
 - **candor-radical-feedback** — Gives feedback that works: care personally, challenge directly.
+- **copeland-pairwise-testing** — Covers input combinations efficiently: pairwise and combinatorial design.
 - **ecommerce-order-processing-flows** — Automates order lifecycles with idempotent steps + reconciliation.
 - **fan-out-fan-in-merge** — Splits work parallel then rejoins by key, handling partial failures.
 - **feature-engineering-machine-learning** — Applies Alice Zheng and Amanda Casari's Feature Engineering for Machine Learning to turn raw data into features that make models work: numeric features (scaling…
