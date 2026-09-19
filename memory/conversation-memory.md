@@ -1925,3 +1925,11 @@ Contract confirmed by user: scope Full Canon, stack Python+JS, depth Standard De
 - Overlap found while saving: sibling's "Testing Canon 100" roster (B1/B9/B10 above) names the SAME dirs I reviewed/registered (osherove/adzic/graham/bach/api-testing/playwright/selenium/performance/security/ai-powered + accessibility/localization/usability/compatibility + mainframe/sap/salesforce/embedded/game/voice/blockchain/compliance/audit-trail/test-environment). No conflict: router_register is idempotent, gates had already passed on my runs, and I never moved/deleted its files. Its 14 unadopted-by-me system-design dirs remain on disk unregistered-by-me (verdicts in memory/foreign-skills-verdicts.md).
 - Honest discrepancies for the record: (a) my pytest runs show test_parallel_execution FAILING under load (load avg ~10), while sibling reports green — timing-flake, environment-dependent, both observations kept; (b) dir totals differ across entries because both sessions install concurrently — counts are point-in-time, not contradictions.
 - Standing recommendation: one librarian session for installs; shared memory file is now interleaved by design (append-only from both sides).
+
+## World-best-design program (Sep 19, 3 skills, all READY first-pass)
+Baselines: EIP canonical site (Hohpe/Woolf, 65 patterns) + studiomeyer-io hardened templates (audit: happy-path-only gap, 4 opt-in nodes, env-gated) + zarif3624 contract-first enterprise (fixtures, fingerprints, inactive default) + kspandian32 layered/SAFE_MODE/log-drain.
+- `eip-workflow-patterns`: 14 patterns mapped to n8n (router/splitter/aggregator+completeness/claim-check/canonical/idempotent-receiver/dead-letter/control-bus...).
+- `world-class-design-review`: 0-100 rubric (contracts 15, idempotency 15, error 15, security 15, observability 10, cost 10, maintainability 10, docs 10); grades 90/75/60.
+- `safe-mode-gating`: Global Config + SAFE Ifs around destructive/costly nodes, default-safe, CI assertion, Tier-2 flip.
+- PROOF (read-only, ledger memory/design-reviews/2026-09-19.md): receptionist-telegram 72 production-ready, eng-router 66 shippable+findings, review-form 52 rework (gates had said READY — rubric caught what shape-checks miss).
+- Library 1152.
