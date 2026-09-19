@@ -1,6 +1,6 @@
 ---
 name: production-capacity-planning
-description: "Size production with math, not hope: demand curves, Little law, headroom, load tests. Use when the user says 'how many servers', 'capacity planning', 'السعة', 'headroom', 'load test plan', 'Little law', 'forecast traffic', or needs machine/shard/replica counts with evidence."
+description: "Size production with math, not hope: demand curves, Little law, headroom, load tests. Use when the user says 'server sizing', 'capacity planning', 'السعة', 'headroom', 'load test plan', 'Little law', 'forecast traffic', or needs machine/shard/replica counts with evidence."
 ---
 
 # Production Capacity Planning

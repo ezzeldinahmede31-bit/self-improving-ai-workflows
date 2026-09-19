@@ -128,7 +128,7 @@ in this index with their one-line lesson.
 
 ## Verification
 
-Every book above resolves to at least one loadable skill; (M) rows are
+Every book above resolves to a named loadable skill; (M) rows are
 covered by the master skill named, (E) rows by a dedicated skill, (I)
 rows name their pair. A book with no row is a gap — report it via
 `find-skills` flow instead of guessing.
