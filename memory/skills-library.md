@@ -7,7 +7,7 @@ for the full doc of the chosen skill. Grouping matches the router
 registry buckets (`compensatory-router/SKILL.md`), so new skills that were
 registered in the router appear under the same family here automatically.
 
-## Automation (per-tool) (324)
+## Automation (per-tool) (323)
 
 - **abstraction-quality-gate** — Enforces A Philosophy of Software Design's core principle: complexity management through deep modules and shallow interfaces.
 - **access-control-least-privilege-agents-v2** — Applies Access Control, Role-Based Permissions, and Least Privilege for AI Agents to production: distilled patterns, anti-patterns, and checklists for building…
@@ -229,7 +229,6 @@ registered in the router appear under the same family here automatically.
 - **obsidian-automation** — Automate Obsidian knowledge management, note linking, and personal knowledge base workflows
 - **orthogonality-guard** — Enforces the Pragmatic Programmer principle of Orthogonality: changes in one area of the system should not affect other areas.
 - **pattern-recognition-machine-learning** — Applies Christopher Bishop's Pattern Recognition and Machine Learning (PRML) to reason rigorously about ML models: probability and decision theory, linear model…
-- **pdf** — Use this skill whenever the user wants to do anything with PDF files.
 - **pipedrive-automation** — Automate Pipedrive CRM workflows including deal management, pipeline tracking, and sales reporting
 - **podcast-automation** — Automate podcast production workflows including recording, editing, publishing, and distribution
 - **pptx** — Use this skill any time a .pptx or .potx file is involved in any way — as input, output, or both.
@@ -433,7 +432,7 @@ registered in the router appear under the same family here automatically.
 - **video-inpainting** — Region edits across video frames on RunComfy via the `runcomfy` CLI — remove an object that appears across many frames, clean up wires or watermarks, replace a…
 - **video-processing-editing** — FFmpeg automation for cutting, trimming, concatenating videos.
 
-## Research (31)
+## Research (32)
 
 - **academic-search** — Search and analyze academic literature.
 - **all-of-statistics** — Applies Larry Wasserman's All of Statistics to use probability and statistics in data work: probability theory, random variables and expectation, statistical in…
@@ -459,6 +458,7 @@ registered in the router appear under the same family here automatically.
 - **model-explanations-shap-lime** — Deep dive into the two workhorse model-agnostic explanation methods from Interpretable Machine Learning: SHAP (Shapley values, additive attributions, summary/de…
 - **parallel-deep-research** — ONLY use when user explicitly says 'deep research', 'exhaustive', 'comprehensive report', or 'thorough investigation'.
 - **parallel-web-search** — DEFAULT for all research and web queries.
+- **pdf** — Use this skill whenever the user wants to do anything with PDF files.
 - **pgm-learning-from-data** — Applies the learning chapters of Koller & Friedman's Probabilistic Graphical Models to estimate a graphical model from data: maximum likelihood and Bayesian par…
 - **practical-natural-language-processing** — Applies Vajjala, Majumder, Gupta & Surana's Practical Natural Language Processing to ship production NLP applications end to end: text processing pipelines, tex…
 - **probabilistic-graphical-models** — Applies Koller & Friedman's Probabilistic Graphical Models to represent and reason about uncertainty: Bayesian networks and Markov networks, the conditional-ind…
