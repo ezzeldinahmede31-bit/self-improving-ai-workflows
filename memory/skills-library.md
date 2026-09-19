@@ -719,7 +719,7 @@ registered in the router appear under the same family here automatically.
 - **web-security-browser-internals** — Applies Michal Zalewski's The Tangled Web to secure modern web applications: how browsers and HTTP actually behave (parsing, encoding, navigation, the same-orig…
 - **zero-to-one-thiel** — Applies Thiel monopoly, secrets, power law to strategy.
 
-## Coding/SWE (72)
+## Coding/SWE (71)
 
 - **agile-principles-patterns-practices** — Applies Robert C.
 - **algorithm-design** — Design algorithms with LaTeX pseudocode and UML diagrams.
@@ -764,7 +764,6 @@ registered in the router appear under the same family here automatically.
 - **how-to-design-programs** — Applies the How to Design Programs (HtDP) design recipe to any coding task: turn the problem statement into a data definition, design the function signature wit…
 - **interpreter-bytecode-vm** — Applies the clox half of Robert Nystrom's Crafting Interpreters to build a bytecode virtual machine: chunks and opcodes, a value stack, the compiler that emits…
 - **ios-design-guidelines** — Apple Human Interface Guidelines for iPhone.
-- **khorikov-unit-testing** — Writes unit tests worth keeping: the four pillars and London vs Detroit.
 - **legacy-code-characterization** — Applies Michael Feathers' Working Effectively with Legacy Code to tame unreadable, untested code: the SEAM (a place where you can alter behavior without editing…
 - **linux-programming-interface** — Applies Michael Kerrisk's The Linux Programming Interface to systems programming on Linux: system calls and library functions, process creation and execution, m…
 - **multiprocessor-concurrency** — Applies Herlihy & Shavit's The Art of Multiprocessor Programming to design correct concurrent systems: lock-based and lock-free concurrent objects, atomicity an…
@@ -991,7 +990,7 @@ registered in the router appear under the same family here automatically.
 - **high-end-visual-design** — Teaches the AI to design like a high-end agency.
 - **liquid-glass** — Build and migrate iOS, macOS, iPadOS, watchOS, tvOS, and visionOS apps with Apple's Liquid Glass design system (iOS 26+, macOS 26 Tahoe+).
 
-## Auto-installed (find-skills) (27)
+## Auto-installed (find-skills) (28)
 
 - **audit-trail-compliance** — Records actor, action, target, hashes, outcome in append-only logs for compliance.
 - **boyd-convex-optimization** — Solves optimization the Boyd way: convex formulation, duality, and first-order methods.
@@ -1001,6 +1000,7 @@ registered in the router appear under the same family here automatically.
 - **feature-engineering-machine-learning** — Applies Alice Zheng and Amanda Casari's Feature Engineering for Machine Learning to turn raw data into features that make models work: numeric features (scaling…
 - **graph-databases-modeling** — Models and queries connected data: property graphs, traversals, and Cypher.
 - **idempotency-key-design** — Makes writes safe to repeat via natural or synthetic keys enforced at store.
+- **khorikov-unit-testing** — Writes unit tests worth keeping: the four pillars and London vs Detroit.
 - **lean-startup-ries** — Applies Ries build-measure-learn, MVP, validated learning.
 - **linux-device-drivers-ldd** — Writes Linux kernel drivers: modules, char/block devices, interrupts, and concurrency.
 - **long-running-operations-tracking** — Models multi-minute/day jobs as operation resources with status/progress/resume.
