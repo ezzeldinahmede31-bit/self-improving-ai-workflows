@@ -708,7 +708,7 @@ registered in the router appear under the same family here automatically.
 - **terraform-up-and-running** — Applies Terraform: Up and Running (Yevgeniy Brikman) to infrastructure provisioning: treat every resource as code that is plan-able, reviewable, and reproducibl…
 - **webapp-testing** — Toolkit for interacting with and testing local web applications using Playwright.
 
-## Security (18)
+## Security (19)
 
 - **applied-cryptography-engineering** — Applies the cryptography discipline of Security Engineering (Ross Anderson): use vetted schemes correctly — authenticated encryption, key generation and storage…
 - **better-auth-security-best-practices** — Configure rate limiting, manage auth secrets, set up CSRF protection, define trusted origins, secure sessions and cookies, encrypt OAuth tokens, track IP addres…
@@ -722,6 +722,7 @@ registered in the router appear under the same family here automatically.
 - **linux-administration-handbook** — Applies Linux Administration Handbook (Evi Nemeth, Garth Snyder, Hein R.
 - **mlops-production** — Applies MLOps Production discipline to ship and operate ML models reliably: reproducible training runs, data and model versioning, automated pipelines, a model…
 - **network-security-private-communication** — Applies Kaufman, Perlman & Speciner's Network Security to protect communication in the real world: the goals (confidentiality, integrity, authentication), the p…
+- **postgresql-code-review** — PostgreSQL-specific code review assistant focusing on PostgreSQL best practices, anti-patterns, and unique quality standards.
 - **security-and-hardening** — Hardens code against vulnerabilities.
 - **security-engineering-platform-security** — Applies the platform-security chapters of Ross Anderson's Security Engineering to harden the environment around an application: privilege separation and least p…
 - **security-engineering-threat-modeling** — Applies Ross Anderson's Security Engineering to design systems that resist real adversaries: threat modeling (who attacks, why, with what resources), fail-safe…
@@ -1055,9 +1056,8 @@ registered in the router appear under the same family here automatically.
 - **chinchilla-scaling-laws** — Plans large-model training with scaling laws: compute-optimal size, data mix, and emergent behavior.
 - **pbft-hotstuff-bft** — Reaches agreement with adversaries present: BFT protocols from PBFT to HotStuff.
 
-## Social media (2)
+## Social media (1)
 
-- **postgresql-code-review** — PostgreSQL-specific code review assistant focusing on PostgreSQL best practices, anti-patterns, and unique quality standards.
 - **shoham-multiagent-systems** — Designs strategic multi-agent systems: game forms, social choice, and protocols.
 
 ## Other / custom (not yet in router registry) (1)
