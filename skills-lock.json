@@ -355,6 +355,12 @@
       "skillPath": "ads-copywriter/SKILL.md",
       "computedHash": "143d60166187d611c5ef943ccb440252934306e0ea5e9615ce2a064e5ea4b7f8"
     },
+    "agentic-eval": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/agentic-eval/SKILL.md",
+      "computedHash": "40771d7d389c1542e6cb995d75e516893466f01c3b66bc040b158ceb793d4bed"
+    },
     "ai-agent-builder": {
       "source": "claude-office-skills/skills",
       "sourceType": "github",
@@ -655,6 +661,12 @@
       "skillPath": "dcf-valuation/SKILL.md",
       "computedHash": "3bb24d0d97a5eeacb32eade993f2cafb094780c0505d6b700c0eb1261d18e724"
     },
+    "debian-linux-triage": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/debian-linux-triage/SKILL.md",
+      "computedHash": "88092e8dbcdbe6d3682b6bc8b1be15cf1f3945203d111ff4a7ce39e58f94498a"
+    },
     "deep-research": {
       "source": "lingzhi227/agent-research-skills",
       "sourceType": "github",
@@ -871,6 +883,12 @@
       "skillPath": "google-ads-manager/SKILL.md",
       "computedHash": "821d4199d97cae69dc1ec42a92ed991510a7e1010766dda8c2f4eaa472fd34b5"
     },
+    "google-cloud-networking-observability": {
+      "source": "google/skills",
+      "sourceType": "github",
+      "skillPath": "skills/cloud/google-cloud-networking-observability/SKILL.md",
+      "computedHash": "a22bc1863b3645268c134d89e756d0c761df1d3132e7b563e3270485174c2716"
+    },
     "hr-automation": {
       "source": "claude-office-skills/skills",
       "sourceType": "github",
@@ -997,6 +1015,12 @@
       "skillPath": "skills/literature-search/SKILL.md",
       "computedHash": "d587db98be3cf930570e6604d1036977e80db3a087bf0c1dd604b65ee336c202"
     },
+    "llm-evaluation": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/llm-application-dev/skills/llm-evaluation/SKILL.md",
+      "computedHash": "af89a6013eacc5db7afe102b4a2af95ad8dcad4721e35700cba24b1ebd35c94f"
+    },
     "marketing-council": {
       "source": "coreyhaines31/marketingskills",
       "sourceType": "github",
@@ -1098,6 +1122,12 @@
       "sourceType": "github",
       "skillPath": "nda-generator/SKILL.md",
       "computedHash": "21f5410d204b23cff4de8acd987c678e353667bc65705e55119ffa267ef6ce49"
+    },
+    "neon-postgres": {
+      "source": "neondatabase/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/neon-postgres/SKILL.md",
+      "computedHash": "af41bab4ecbf2e659b7caa1f9ca62559af7841ad38ff556b5bebf8ae7de29677"
     },
     "news-monitor": {
       "source": "claude-office-skills/skills",
@@ -1267,6 +1297,12 @@
       "skillPath": "skills/pricing/SKILL.md",
       "computedHash": "b413a03fe63cb2c09d288f8cee9dbc28c0cfa97faf59516abf219fe746e627ab"
     },
+    "prisma-database-setup": {
+      "source": "prisma/skills",
+      "sourceType": "github",
+      "skillPath": "prisma-database-setup/SKILL.md",
+      "computedHash": "6a991a2530a6da7131e3fc71c353e8278702d0146b8b6e1d2fdfc2d3d0a21bd2"
+    },
     "product-marketing": {
       "source": "coreyhaines31/marketingskills",
       "sourceType": "github",
@@ -1296,6 +1332,12 @@
       "sourceType": "github",
       "skillPath": "skills/public-relations/SKILL.md",
       "computedHash": "1b13653b478b49049e4df4981ea032de63833387c4f914eadaeb070f6ecbdc5c"
+    },
+    "python-testing-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/python-development/skills/python-testing-patterns/SKILL.md",
+      "computedHash": "1306eea409e7eff2288d7658806cb508f18339a0ee9a686d324a0fd2570eae55"
     },
     "rebuttal-writing": {
       "source": "lingzhi227/agent-research-skills",
@@ -1596,6 +1638,12 @@
       "sourceType": "github",
       "skillPath": "web-search/SKILL.md",
       "computedHash": "ec4bd9f90f8e7aea9ed7fa35b5a6a26bb88b5121dd22065aa6308187ed780f82"
+    },
+    "webapp-testing": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/webapp-testing/SKILL.md",
+      "computedHash": "ad5b1fc52807e9afa4635e59218a026b164dc58b6c3f41b0f7c644dcd6ccf572"
     },
     "weekly-report": {
       "source": "claude-office-skills/skills",
