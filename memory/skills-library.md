@@ -358,7 +358,7 @@ registered in the router appear under the same family here automatically.
 - **zapier-sdk** — Zapier SDK for TypeScript.
 - **zapier-system-cloner** — Replicates any Zapier (Zap) system — especially premium/expensive ones — with identical outputs and quality on n8n or code, using different (free/local) tools w…
 
-## Marketing/SEO/Growth (91)
+## Marketing/SEO/Growth (92)
 
 - **apify-audience-analysis** — Understand audience demographics, preferences, behavior patterns, and engagement quality across Facebook, Instagram, YouTube, and TikTok.
 - **architect-elevator-staff** — Lead architecture across all floors: executives, managers, engineers.
@@ -390,6 +390,7 @@ registered in the router appear under the same family here automatically.
 - **dont-make-me-think** — Applies Steve Krug's Don't Make Me Think to web usability: a page is good if a user can say 'of course' — self-evident design, no thinking required.
 - **eghbal-working-in-public** — Sustains open source: maintainer economics, governance, and community health.
 - **environment-promotion-config** — Moves workflows across dev/stage/prod with scoped config, never copy-paste.
+- **espresso-xcuitest-mobile** — Native mobile testing with Espresso and XCUITest distilled.
 - **figma-generate-design** — Use this skill alongside figma-use when the task involves translating an application page, view, or multi-section layout into Figma.
 - **firecrawl-scraper** — Web scraping skill using Firecrawl API for deep content extraction, format conversion, and page interaction.
 - **firecrawl-website-design-clone** — Extract any website's design system into an agent-ready DESIGN.md using Firecrawl scrape evidence.
@@ -758,7 +759,7 @@ registered in the router appear under the same family here automatically.
 - **web-component-design** — Master React, Vue, and Svelte component patterns including CSS-in-JS, composition strategies, and reusable component architecture.
 - **webapp-testing** — Toolkit for interacting with and testing local web applications using Playwright.
 
-## Security (19)
+## Security (20)
 
 - **applied-cryptography-engineering** — Applies the cryptography discipline of Security Engineering (Ross Anderson): use vetted schemes correctly — authenticated encryption, key generation and storage…
 - **better-auth-security-best-practices** — Configure rate limiting, manage auth secrets, set up CSRF protection, define trusted origins, secure sessions and cookies, encrypt OAuth tokens, track IP addres…
@@ -773,6 +774,7 @@ registered in the router appear under the same family here automatically.
 - **mlops-production** — Applies MLOps Production discipline to ship and operate ML models reliably: reproducible training runs, data and model versioning, automated pipelines, a model…
 - **network-security-private-communication** — Applies Kaufman, Perlman & Speciner's Network Security to protect communication in the real world: the goals (confidentiality, integrity, authentication), the p…
 - **postgresql-code-review** — PostgreSQL-specific code review assistant focusing on PostgreSQL best practices, anti-patterns, and unique quality standards.
+- **rest-assured-patterns** — REST Assured patterns distilled.
 - **security-and-hardening** — Hardens code against vulnerabilities.
 - **security-engineering-platform-security** — Applies the platform-security chapters of Ross Anderson's Security Engineering to harden the environment around an application: privilege separation and least p…
 - **security-engineering-threat-modeling** — Applies Ross Anderson's Security Engineering to design systems that resist real adversaries: threat modeling (who attacks, why, with what resources), fail-safe…
@@ -780,7 +782,7 @@ registered in the router appear under the same family here automatically.
 - **web-security-browser-internals** — Applies Michal Zalewski's The Tangled Web to secure modern web applications: how browsers and HTTP actually behave (parsing, encoding, navigation, the same-orig…
 - **zero-to-one-thiel** — Applies Thiel monopoly, secrets, power law to strategy.
 
-## Coding/SWE (84)
+## Coding/SWE (85)
 
 - **agile-principles-patterns-practices** — Applies Robert C.
 - **algorithm-design** — Design algorithms with LaTeX pseudocode and UML diagrams.
@@ -824,6 +826,7 @@ registered in the router appear under the same family here automatically.
 - **functional-programming-scala** — Applies Chiusano & Bjarnason's Functional Programming in Scala to design pure, testable programs: referential transparency, total functions, data modeling with…
 - **gawande-checklist-manifesto** — Makes complex work reliable with checklists: design, discipline, and culture.
 - **goos-outside-in-tdd** — Applies Freeman & Pryce's Growing Object-Oriented Software, Guided by Tests (GOOS): build systems outside-in with a walking skeleton, write a failing integratio…
+- **grpc-contract-testing** — gRPC contract testing distilled.
 - **handley-everybody-writes** — Writes well simply: voice, story, and ruthless usefulness.
 - **how-to-design-programs** — Applies the How to Design Programs (HtDP) design recipe to any coding task: turn the problem statement into a data definition, design the function signature wit…
 - **interpreter-bytecode-vm** — Applies the clox half of Robert Nystrom's Crafting Interpreters to build a bytecode virtual machine: chunks and opcodes, a value stack, the compiler that emits…
@@ -933,7 +936,7 @@ registered in the router appear under the same family here automatically.
 - **triage** — Move issues and external PRs through a state machine of triage roles, categorise, verify, grill if needed, and write agent-ready briefs.
 - **wiegers-software-requirements** — Engineers requirements that survive contact with stakeholders: elicitation, specification, and change control.
 
-## Superpowers pack — obra (26)
+## Superpowers pack — obra (27)
 
 - **black-risk-based-testing** — Manages testing by risk: analysis, priorities, and process control.
 - **brainstorming** — You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior.
@@ -944,6 +947,7 @@ registered in the router appear under the same family here automatically.
 - **graham-istqb-foundations** — Dorothy Graham ISTQB foundations distilled.
 - **grill-with-docs** — A relentless interview to sharpen a plan or design, which also creates docs (ADR's and glossary) as we go.
 - **impeccable** — Use when the user wants to design, redesign, shape, critique, audit, polish, clarify, distill, harden, optimize, adapt, animate, colorize, extract, or otherwise…
+- **junit5-enterprise-patterns** — Enterprise JUnit 5 patterns distilled.
 - **mcconnell-software-estimation** — Estimates software honestly: ranges, calibration, and cone of uncertainty.
 - **model-based-testing-spec** — Model-based testing distilled.
 - **modern-robotics** — Reasons about robots: configuration space, rigid-body motion, kinematics, and planning.
@@ -1074,16 +1078,18 @@ registered in the router appear under the same family here automatically.
 - **high-end-visual-design** — Teaches the AI to design like a high-end agency.
 - **liquid-glass** — Build and migrate iOS, macOS, iPadOS, watchOS, tvOS, and visionOS apps with Apple's Liquid Glass design system (iOS 26+, macOS 26 Tahoe+).
 
-## Auto-installed (find-skills) (47)
+## Auto-installed (find-skills) (53)
 
 - **agentic-eval** — Patterns and techniques for evaluating and improving AI agent outputs.
 - **api-testing-contract-patterns** — API testing patterns distilled.
+- **appium-mobile-patterns** — Appium mobile patterns distilled.
 - **architecture-primitives** — Catalog of reusable architectural primitives — boundaries, contracts, state machines, queues, caches, consistency models, and more.
 - **audit-trail-compliance** — Records actor, action, target, hashes, outcome in append-only logs for compliance.
 - **bdd-cucumber-deep** — Deep BDD with Cucumber distilled.
 - **boyd-convex-optimization** — Solves optimization the Boyd way: convex formulation, duality, and first-order methods.
 - **candor-radical-feedback** — Gives feedback that works: care personally, challenge directly.
 - **copeland-pairwise-testing** — Covers input combinations efficiently: pairwise and combinatorial design.
+- **cypress-component-patterns** — Cypress testing patterns distilled.
 - **decision-table-testing** — Decision table testing distilled.
 - **distributed-systems-field-manual** — Practical distributed-systems survival rules: timeouts, retries, clocks, quorums.
 - **ecommerce-order-processing-flows** — Automates order lifecycles with idempotent steps + reconciliation.
@@ -1092,6 +1098,7 @@ registered in the router appear under the same family here automatically.
 - **flaky-test-elimination** — Flaky test elimination distilled.
 - **google-cloud-networking-observability** — Investigates Google Cloud networking issues by analyzing logs, metrics, and diagnostics.
 - **graph-databases-modeling** — Models and queries connected data: property graphs, traversals, and Cypher.
+- **graphql-advanced-testing** — Advanced GraphQL testing distilled.
 - **idempotency-key-design** — Makes writes safe to repeat via natural or synthetic keys enforced at store.
 - **khorikov-unit-testing** — Writes unit tests worth keeping: the four pillars and London vs Detroit.
 - **lean-startup-ries** — Applies Ries build-measure-learn, MVP, validated learning.
@@ -1116,10 +1123,13 @@ registered in the router appear under the same family here automatically.
 - **system-design** — Scalability, availability, and distributed systems design
 - **system-design-canon-index** — Index of 120+ system-design books mapped to skills: find which book covers what and which skill applies it.
 - **test-data-management** — Test data management distilled.
+- **testng-parallel-patterns** — TestNG parallel patterns distilled.
 - **timeout-graceful-degradation** — Bounds calls with explicit timeouts, defines degraded modes.
 - **use-case-testing-patterns** — Use case testing distilled.
 - **validation-gate-data-quality** — Blocks bad data at entrances with schema/range checks + quarantine.
 - **web-scalability-startup-playbook** — Scale a web product 0 to millions without rewrites: stateless app, read replicas, cache layers, CDN, async queues, sharding.
+- **webdriverio-patterns** — WebdriverIO patterns distilled.
+- **websocket-event-testing** — WebSocket and event testing distilled.
 - **whitman-cashvertising** — Pulls buying triggers from the Life-Force 8 and 41 techniques.
 - **workflow-versioning-upgrades** — Versions artifacts, staged rollout, safe downgrade.
 - **zinsser-writing-well** — Writes nonfiction with style: clarity, brevity, and humanity.
@@ -1150,4 +1160,4 @@ registered in the router appear under the same family here automatically.
 - **speech-language-processing** — Applies Jurafsky & Martin's Speech and Language Processing (SLP) to build NLP systems on textbook foundations: regular expressions and text normalization, n-gra…
 
 ---
-*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 20:40 — 1070 skills, 24 families*
+*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 20:41 — 1080 skills, 24 families*
