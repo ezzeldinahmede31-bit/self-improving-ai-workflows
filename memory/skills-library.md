@@ -7,7 +7,7 @@ for the full doc of the chosen skill. Grouping matches the router
 registry buckets (`compensatory-router/SKILL.md`), so new skills that were
 registered in the router appear under the same family here automatically.
 
-## Automation (per-tool) (313)
+## Automation (per-tool) (312)
 
 - **abstraction-quality-gate** — Enforces A Philosophy of Software Design's core principle: complexity management through deep modules and shallow interfaces.
 - **access-control-least-privilege-agents-v2** — Applies Access Control, Role-Based Permissions, and Least Privilege for AI Agents to production: distilled patterns, anti-patterns, and checklists for building…
@@ -50,7 +50,6 @@ registered in the router appear under the same family here automatically.
 - **autonomous-web-scraping-agents** — Applies Autonomous Web Scraping and Data Extraction Agents to production: distilled patterns, anti-patterns, and checklists for building reliable autonomous web…
 - **bash-cookbook** — Applies Bash Cookbook (Carl Albing & JP Vossen) to everyday shell automation: battle-tested recipes for variables, arithmetic, functions, text processing, redir…
 - **bayesian-hierarchical-models** — Applies the hierarchical-model chapters of Gelman et al.'s Bayesian Data Analysis: multilevel models that share strength across groups, partial pooling, group-l…
-- **berkun-making-things-happen** — Leads projects to shipped: schedules, decision-making, and communication.
 - **bias-fairness-mitigation-strategies** — Applies Bias, Fairness, and Mitigation Strategies in Automated Decision Systems to production: distilled patterns, anti-patterns, and checklists for building re…
 - **biz-school-growth** — Modern growth and leadership distilled for scaling the clinic agency: habits, teams, content loops.
 - **bpm-robotic-automation-synergy** — Applies Business Process Management and Robotic Automation Synergy to production: distilled patterns, anti-patterns, and checklists for building reliable busine…
@@ -335,12 +334,13 @@ registered in the router appear under the same family here automatically.
 - **zapier-sdk** — Zapier SDK for TypeScript.
 - **zapier-system-cloner** — Replicates any Zapier (Zap) system — especially premium/expensive ones — with identical outputs and quality on n8n or code, using different (free/local) tools w…
 
-## Marketing/SEO/Growth (66)
+## Marketing/SEO/Growth (67)
 
 - **apify-audience-analysis** — Understand audience demographics, preferences, behavior patterns, and engagement quality across Facebook, Instagram, YouTube, and TikTok.
 - **audience-psychology-analyst** — Build a psychological profile of any target audience and translate it into marketing AND video-editing decisions.
 - **autonomous-agents-architecture** — Applies Autonomous Agents: Architecture, Frameworks, and Tools to design agents that plan, act, and self-correct across many steps: the agent loop, tool design,…
 - **beck-implementation-patterns** — Writes code at the method level the Beck way: intention-revealing classes, methods, and state.
+- **berkun-making-things-happen** — Leads projects to shipped: schedules, decision-making, and communication.
 - **biz-school-strategy** — Modern competitive strategy distilled for clinic wars: positioning, moats, OKRs, blitzscaling.
 - **clinic-audience-os** — Master operating system binding all psychology schools, the 2000-book index, and sales skills into one pipeline.
 - **clinic-buyer-psychology** — Psychographic profile of Egyptian private-clinic owners (dentists, dermatologists, clinic managers) for B2B selling.
