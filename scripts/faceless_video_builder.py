@@ -246,7 +246,8 @@ def main():
         img = os.path.join(work, 's%d.jpg' % i)
         mp3 = os.path.join(work, 's%d.mp3' % i)
         srt = os.path.join(work, 's%d.srt' % i)
-        if a.style == 'kinetic':
+        scene_kind = sc.get('kind', a.style)
+        if scene_kind == 'kinetic':
             print('scene %d/%d kinetic...' % (i + 1, len(scenes)), flush=True)
             kinetic_bg(img)
             kinetic_title_card(sc.get('title') or sc['voice'][:60],
@@ -276,7 +277,7 @@ def main():
             open(srt, 'w').write('1\n00:00:00,000 --> 00:00:03,000\n%s\n' % sc['voice'])
         clip = os.path.join(work, 'c%d.mp4' % i)
         print('scene %d/%d render...' % (i + 1, len(scenes)), flush=True)
-        if a.style == 'kinetic':
+        if scene_kind == 'kinetic':
             scene_clip_kinetic(img, os.path.join(work, 't%d.png' % i), mp3, srt, clip)
         else:
             scene_clip(img, mp3, srt, clip, i)
