@@ -439,6 +439,24 @@
       "skillPath": "skills/apple-ui-designer/SKILL.md",
       "computedHash": "26d43c0a38e7a0ad8cf2cd5418d48ca7525873cc60f203ac67fcf024ce577eb3"
     },
+    "architecture-decision-framework": {
+      "source": "imadnan4/architect-skills",
+      "sourceType": "github",
+      "skillPath": "skills/architecture-decision-framework/SKILL.md",
+      "computedHash": "d87c6c77cc83c911c7a43d2c1e11036947f826d919cc61306530219b73734742"
+    },
+    "architecture-patterns": {
+      "source": "miles990/claude-software-skills",
+      "sourceType": "github",
+      "skillPath": "software-design/architecture-patterns/SKILL.md",
+      "computedHash": "b34a3384c2b78894c86766d1519232e0a3b2e6cca6e18f67eaffb236052af2ee"
+    },
+    "architecture-review": {
+      "source": "imadnan4/architect-skills",
+      "sourceType": "github",
+      "skillPath": "skills/architecture-review/SKILL.md",
+      "computedHash": "175ad499b73fea34840a6240c3d76214d6b7a4acac13c07bd1f45e286fe659d6"
+    },
     "aso": {
       "source": "coreyhaines31/marketingskills",
       "sourceType": "github",
@@ -1507,6 +1525,12 @@
       "skillPath": "skills/sales-enablement/SKILL.md",
       "computedHash": "554e501e3c5926eced49cae2fd3460a61252d8979891e212aad6e39ff999c703"
     },
+    "scalability-distributed-systems": {
+      "source": "imadnan4/architect-skills",
+      "sourceType": "github",
+      "skillPath": "skills/scalability-distributed-systems/SKILL.md",
+      "computedHash": "33ac11b6c0d240babb2a7294e8b7f92c61577e23c072b8e94851ba9f5064fb6f"
+    },
     "schema": {
       "source": "coreyhaines31/marketingskills",
       "sourceType": "github",
@@ -1645,6 +1669,12 @@
       "skillPath": "social-publisher/SKILL.md",
       "computedHash": "3f4a60ea1a380adaa8f47c13f4e7fbc008171868ef730da357a8d90c16595bb1"
     },
+    "software-architecture-design": {
+      "source": "vasilyu1983/ai-agents-public",
+      "sourceType": "github",
+      "skillPath": "frameworks/shared-skills/skills/software-architecture-design/SKILL.md",
+      "computedHash": "29d8995c006d958a17dd8dfb3670f7fab0189a534c8e8457074fb42fc767bb9a"
+    },
     "sql-code-review": {
       "source": "github/awesome-copilot",
       "sourceType": "github",
@@ -1680,6 +1710,12 @@
       "sourceType": "github",
       "skillPath": "skills/symbolic-equation/SKILL.md",
       "computedHash": "e52ef86c4f3be7a8ad0e0a0605e32c45f4f03356c10c1aa1a6fa7c4d3e10b8f3"
+    },
+    "system-design": {
+      "source": "miles990/claude-software-skills",
+      "sourceType": "github",
+      "skillPath": "software-design/system-design/SKILL.md",
+      "computedHash": "7232be91ba616822e1cb1dcc47c4f58ae87ac4afa52a736cbd8269039ad5eec1"
     },
     "table-extractor": {
       "source": "claude-office-skills/skills",

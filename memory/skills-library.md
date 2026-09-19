@@ -7,7 +7,7 @@ for the full doc of the chosen skill. Grouping matches the router
 registry buckets (`compensatory-router/SKILL.md`), so new skills that were
 registered in the router appear under the same family here automatically.
 
-## Automation (per-tool) (327)
+## Automation (per-tool) (330)
 
 - **abstraction-quality-gate** — Enforces A Philosophy of Software Design's core principle: complexity management through deep modules and shallow interfaces.
 - **access-control-least-privilege-agents-v2** — Applies Access Control, Role-Based Permissions, and Least Privilege for AI Agents to production: distilled patterns, anti-patterns, and checklists for building…
@@ -136,6 +136,7 @@ registered in the router appear under the same family here automatically.
 - **fundamentals-of-bpm** — Applies Dumas, La Rosa, Mendling & Reijers' Fundamentals of Business Process Management as the practical handbook for modeling and improving business processes…
 - **gate-first-pass-builder** — Build ANY n8n workflow or AI agent so it passes the user's own build gates (build_gates_pipeline.py) on the FIRST attempt — no rejections, no fixes-after-the-fa…
 - **gaussian-processes-machine-learning** — Applies Rasmussen & Williams' Gaussian Processes for Machine Learning to build probabilistic regression and classification with GPs: covariance functions, exact…
+- **godin-permission-marketing** — Earns attention with permission: anticipated, personal, relevant messaging.
 - **government-public-sector-automation-v2** — Applies Government and Public Sector Process Automation to production: distilled patterns, anti-patterns, and checklists for building reliable government and pu…
 - **graphrag-knowledge-graphs-vector-v2** — Applies GraphRAG: Combining Knowledge Graphs and Vector Search for Deep Context to production: distilled patterns, anti-patterns, and checklists for building re…
 - **guardrails-alignment-runtime-safety-v2** — Applies Guardrails, Alignment, and Runtime Safety Filters in AI Automation to production: distilled patterns, anti-patterns, and checklists for building reliabl…
@@ -300,6 +301,8 @@ registered in the router appear under the same family here automatically.
 - **supply-chain-optimization-multi-agent** — Applies Supply Chain Optimization Using Multi-Agent AI Systems to production: distilled patterns, anti-patterns, and checklists for building reliable supply cha…
 - **supply-chain-security-ai-models-v2** — Applies Supply Chain Security for Open-Source AI Models and Automation Dependencies to production: distilled patterns, anti-patterns, and checklists for buildin…
 - **swarm-intelligence-decentralized-networks** — Applies Swarm Intelligence and Decentralized Agent Networks to production: distilled patterns, anti-patterns, and checklists for building reliable swarm intelli…
+- **system-type-distributed** — Foundational patterns for distributed systems — consensus, consistency models, replication, partitioning, clock synchronization, distributed transactions, and f…
+- **system-type-event-driven** — Domain patterns for event-driven and message-based systems — pub/sub, event sourcing, CQRS, sagas, delivery guarantees, schema evolution, and failure modes.
 - **task-decomposition-planning-algorithms** — Applies Task Decomposition and Planning Algorithms for Cognitive Agents to production: distilled patterns, anti-patterns, and checklists for building reliable t…
 - **task-mining-workforce-analytics-v2** — Applies Task Mining and Workforce Analytics for Automation Opportunities to production: distilled patterns, anti-patterns, and checklists for building reliable…
 - **team-topologies** — Applies Skelton and Pais' Team Topologies to shape teams and the software around them: Conway's Law makes organization the primary architecture constraint, so c…
@@ -349,12 +352,14 @@ registered in the router appear under the same family here automatically.
 - **zapier-sdk** — Zapier SDK for TypeScript.
 - **zapier-system-cloner** — Replicates any Zapier (Zap) system — especially premium/expensive ones — with identical outputs and quality on n8n or code, using different (free/local) tools w…
 
-## Marketing/SEO/Growth (80)
+## Marketing/SEO/Growth (85)
 
 - **apify-audience-analysis** — Understand audience demographics, preferences, behavior patterns, and engagement quality across Facebook, Instagram, YouTube, and TikTok.
+- **architecture-decision-framework** — How to decide architecture and technology from REQUIREMENTS, not trends.
 - **audience-psychology-analyst** — Build a psychological profile of any target audience and translate it into marketing AND video-editing decisions.
 - **autonomous-agents-architecture** — Applies Autonomous Agents: Architecture, Frameworks, and Tools to design agents that plan, act, and self-correct across many steps: the agent loop, tool design,…
 - **beck-implementation-patterns** — Writes code at the method level the Beck way: intention-revealing classes, methods, and state.
+- **berger-contagious-stepps** — Engineers word of mouth with STEPPS: triggers, emotion, and stories.
 - **berkun-making-things-happen** — Leads projects to shipped: schedules, decision-making, and communication.
 - **biz-school-strategy** — Modern competitive strategy distilled for clinic wars: positioning, moats, OKRs, blitzscaling.
 - **bly-copywriters-handbook** — Writes B2B and direct copy hands-on: briefs, leads, and persuasion architecture.
@@ -415,8 +420,10 @@ registered in the router appear under the same family here automatically.
 - **psych-school-persuasion** — Persuasion school for clinic selling: Cialdini-style compliance, propaganda literacy, ad craft.
 - **psych-school-power** — Power and maneuver school for clinic selling: Machiavelli, Greene, war strategy, propaganda systems.
 - **psych-school-social** — Social psychology for clinic selling: norms, tribes, conformity.
+- **python-backend-architecture-review** — Comprehensive Python backend architecture review.
 - **rework-range-lean** — Applies the counter-conventional product and business principles from Rework (Fried & Hansson): small is a feature not a stage, constraints are an advantage, sc…
 - **saga-compensation-flows** — Coordinates multi-step distributed actions with forward steps plus compensating undos.
+- **scalability-distributed-systems** — How to build systems that survive PRODUCTION.
 - **single-variable-calculus** — Uses calculus where computer science actually needs it: growth, optimization, and series.
 - **social** — When the user wants help creating, scheduling, or optimizing social media content for LinkedIn, Twitter/X, Instagram, TikTok, Facebook, or other platforms, or w…
 - **social-media** — Drafts engaging social media posts, writes hooks, suggests hashtags, creates thread structures, and generates companion images.
@@ -429,6 +436,7 @@ registered in the router appear under the same family here automatically.
 - **sugarman-adweek-triggers** — Triggers buying with direct-response psychology: slippery slides and buying emotions.
 - **swim-gossip-membership** — Spreads information and tracks membership epidemically: gossip, SWIM, and anti-entropy.
 - **tiktok-marketing** — TikTok content strategy, video creation workflows, posting optimization, and analytics.
+- **vaynerchuk-jab-hook** — Wins social with give-give-ask: native storytelling per platform.
 - **viral-hooks** — Expert in creating opening lines, thumbnails, and hooks that stop the scroll.
 - **winand-sql-indexing** — Indexes SQL correctly across vendors: B-trees, concatenation order, and execution plans.
 
@@ -488,7 +496,7 @@ registered in the router appear under the same family here automatically.
 - **search-patterns** — Applies Peter Morville's Search Patterns to design search and discovery experiences that actually work: the search UX/IA anatomy (query box, results, faceted na…
 - **vector-databases-similarity-search** — Covers the fundamentals of vector databases and similarity search that any RAG or semantic-search build depends on: embedding representation, vector indexes (HN…
 
-## Reasoning/Math/Logic (73)
+## Reasoning/Math/Logic (74)
 
 - **algorithm-design-kleinberg-tardos** — Applies Kleinberg & Tardos' Algorithm Design to designing algorithms by stable problem families: greedy algorithms and exchange arguments, divide and conquer wi…
 - **algorithmic-math-reasoner** — Raises correctness on hard algorithmic and mathematical problems where a fast model tends to jump to plausible-but-wrong answers: forces formal restatement, inv…
@@ -550,6 +558,7 @@ registered in the router appear under the same family here automatically.
 - **slp-pos-tagging-parsing** — Applies the sequence-labeling and parsing chapters of Jurafsky & Martin's Speech and Language Processing to tag and parse text: part-of-speech tagging with HMMs…
 - **sutton-barto-rl** — Designs reinforcement learning from MDPs to policy gradients: Bellman, TD, and actor-critic.
 - **symbolic-equation** — Discover scientific equations from data using LLM-guided evolutionary search (LLM-SR).
+- **system-design-production-blueprint** — Master production system-design protocol: requirements, estimation math, API/data contracts, component design, failure modes, capacity, cost, ADR.
 - **taocp-backtracking-exact-cover** — Applies the combinatorial-search chapters of Knuth's TAOCP Volume 4A to exhaustive and backtracking algorithms: the general backtracking framework, the exact-co…
 - **taocp-hashing-techniques** — Applies the hashing section of Knuth's TAOCP Volume 3 to design correct, fast hash tables: the choice of hash functions and their statistical behavior, open add…
 - **taocp-vol1-fundamental-algorithms** — Applies Donald Knuth's The Art of Computer Programming Volume 1 to fundamental algorithmics: mathematical preliminaries and rigorous definitions, the MIX/MIXAL…
@@ -564,7 +573,7 @@ registered in the router appear under the same family here automatically.
 - **understanding-machine-learning** — Applies Shalev-Shwartz and Ben-David's Understanding Machine Learning: From Theory to Algorithms to rigorously ground ML in learning theory: PAC learning, VC di…
 - **unit-test-boundary-conditions** — Provides edge case, corner case, boundary condition, and limit testing patterns for Java unit tests.
 
-## Thinking frames (39)
+## Thinking frames (40)
 
 - **ai-safety-governance** — Applies AI safety and governance discipline to every model-backed feature: prompt-injection defense, output filtering, access control, audit logging, policy enf…
 - **atomic-habits** — Applies James Clear's Atomic Habits to systems change: tiny 1% improvements compound; habits are built by systems, not by goals.
@@ -605,6 +614,7 @@ registered in the router appear under the same family here automatically.
 - **thinking-thought-experiment** — When a real test is too rare, large, or irreversible, run a controlled counterfactual: isolate one variable, fix conditions, trace the mechanistic chain, and bo…
 - **thinking-triz** — When two design requirements seem mutually exclusive, name the contradiction, separate conflicting states, then invent a concrete no-compromise resolution.
 - **thinking-via-negativa** — Use when the reflex is to add a feature, layer, or process.
+- **tradeoff-analysis** — Structured tradeoff analysis methodology — the 8-dimension comparison frame, tradeoff matrix template, and common tradeoff patterns.
 
 ## Context/Memory/System (63)
 
@@ -672,13 +682,15 @@ registered in the router appear under the same family here automatically.
 - **tool-design** — This skill should be used for the tool-interface layer of an agent system specifically: writing tool descriptions agents can route on, designing tool schemas an…
 - **windows-internals-russinovich** — Understands Windows from the kernel up: processes, memory, I/O, and security.
 
-## Agents/Architecture (50)
+## Agents/Architecture (54)
 
 - **agent-arch-system-design** — Expert system architecture design: patterns, scalability planning, ADRs, C4 diagrams, technology trade-offs, non-functional requirements.
 - **agent-reach** — Read and search external sources through the channels installed on this machine.
 - **api-design-patterns** — Applies JJ Geewax's API Design Patterns to design professional, evolvable REST/HTTP APIs: resource-oriented design with the standard methods (get/list/create/up…
 - **api-long-running-operations** — Applies the long-running operations chapter of API Design Patterns (Geewax): model asynchronous jobs correctly with a standard resource that starts, reports pro…
 - **api-versioning-compatibility** — Applies the versioning and backwards-compatibility chapter of API Design Patterns (Geewax): evolve an API without breaking existing clients — additive-only chan…
+- **architecture-patterns** — Software architecture patterns and best practices
+- **architecture-review** — Mandatory PRE-MERGE architecture review.
 - **architecture-tradeoff-analysis** — Applies the trade-off analysis method of Software Architecture: The Hard Parts (Ford, Richards, Sadalage) to decisions with no perfect answer: name the candidat…
 - **autonomous-git-coworker** — Manages Git workflows natively: checks status, creates feature branches, crafts atomic commits with descriptive logs, and prepares PRs.
 - **autonomous-model-self-evolver** — Autonomous meta-skill that MEASURES the current model against a live leader with real model calls on deterministic probes, pulls real weaknesses from the audit…
@@ -718,9 +730,11 @@ registered in the router appear under the same family here automatically.
 - **roughgarden-game-theory** — Analyzes strategic systems: equilibria, incentives, and mechanisms.
 - **serverless-aws** — Applies Sbarski's Serverless Architectures on AWS to build event-driven systems from managed services: functions that are stateless, short-lived, and event-trig…
 - **site-architecture** — When the user wants to plan, map, or restructure their website's page hierarchy, navigation, URL structure, or internal linking.
+- **software-architecture-design** — Designs runtime and platform architecture inside a chosen solution.
 - **software-architecture-hard-parts** — Applies Ford, Richards & Sadalage's Software Architecture: The Hard Parts to the architecture decisions that have no perfect answer: modularity (which modularit…
 - **state-machine-workflow-modeling** — Represents workflows as explicit state machines with persisted state.
 - **streaming-systems-akidau** — Applies Tyler Akidau, Slava Chernyak, and Reuven Lax's Streaming Systems to build correct stream/batch data pipelines: the event-time vs processing-time distinc…
+- **systems-design-methodology** — Use when the /systems-design mode is active.
 - **terraform-up-and-running** — Applies Terraform: Up and Running (Yevgeniy Brikman) to infrastructure provisioning: treat every resource as code that is plan-able, reviewable, and reproducibl…
 - **web-component-design** — Master React, Vue, and Svelte component patterns including CSS-in-JS, composition strategies, and reusable component architecture.
 - **webapp-testing** — Toolkit for interacting with and testing local web applications using Playwright.
@@ -747,7 +761,7 @@ registered in the router appear under the same family here automatically.
 - **web-security-browser-internals** — Applies Michal Zalewski's The Tangled Web to secure modern web applications: how browsers and HTTP actually behave (parsing, encoding, navigation, the same-orig…
 - **zero-to-one-thiel** — Applies Thiel monopoly, secrets, power law to strategy.
 
-## Coding/SWE (73)
+## Coding/SWE (75)
 
 - **agile-principles-patterns-practices** — Applies Robert C.
 - **algorithm-design** — Design algorithms with LaTeX pseudocode and UML diagrams.
@@ -788,6 +802,7 @@ registered in the router appear under the same family here automatically.
 - **functional-programming-scala** — Applies Chiusano & Bjarnason's Functional Programming in Scala to design pure, testable programs: referential transparency, total functions, data modeling with…
 - **gawande-checklist-manifesto** — Makes complex work reliable with checklists: design, discipline, and culture.
 - **goos-outside-in-tdd** — Applies Freeman & Pryce's Growing Object-Oriented Software, Guided by Tests (GOOS): build systems outside-in with a walking skeleton, write a failing integratio…
+- **handley-everybody-writes** — Writes well simply: voice, story, and ruthless usefulness.
 - **how-to-design-programs** — Applies the How to Design Programs (HtDP) design recipe to any coding task: turn the problem statement into a data definition, design the function signature wit…
 - **interpreter-bytecode-vm** — Applies the clox half of Robert Nystrom's Crafting Interpreters to build a bytecode virtual machine: chunks and opcodes, a value stack, the compiler that emits…
 - **ios-design-guidelines** — Apple Human Interface Guidelines for iPhone.
@@ -809,6 +824,7 @@ registered in the router appear under the same family here automatically.
 - **surgical-diff-patch-editor** — Enforces exact line-level search-and-replace block edits instead of rewriting whole files, preventing accidental code truncation.
 - **swc-smart-contract-security** — Audits smart contracts: reentrancy, access control, oracles, and upgrade safety.
 - **swe-workflow** — REQUIRED for every code-related task.
+- **systems-design-review-methodology** — Use when the /systems-design-review mode is active.
 - **tdd** — Test-driven development.
 - **tdd-sandbox-proof-engine** — Enforces Test-Driven Development (TDD) in a clean sandbox: code is only considered valid if companion unit tests pass 100% and the execution log is attached.
 - **terminal-bash-executor-governor** — Executes CLI commands, inspects exit codes, manages tailing log output, and enforces safety gates for destructive terminal operations.
@@ -1025,9 +1041,10 @@ registered in the router appear under the same family here automatically.
 - **high-end-visual-design** — Teaches the AI to design like a high-end agency.
 - **liquid-glass** — Build and migrate iOS, macOS, iPadOS, watchOS, tvOS, and visionOS apps with Apple's Liquid Glass design system (iOS 26+, macOS 26 Tahoe+).
 
-## Auto-installed (find-skills) (32)
+## Auto-installed (find-skills) (34)
 
 - **agentic-eval** — Patterns and techniques for evaluating and improving AI agent outputs.
+- **architecture-primitives** — Catalog of reusable architectural primitives — boundaries, contracts, state machines, queues, caches, consistency models, and more.
 - **audit-trail-compliance** — Records actor, action, target, hashes, outcome in append-only logs for compliance.
 - **boyd-convex-optimization** — Solves optimization the Boyd way: convex formulation, duality, and first-order methods.
 - **candor-radical-feedback** — Gives feedback that works: care personally, challenge directly.
@@ -1056,6 +1073,7 @@ registered in the router appear under the same family here automatically.
 - **seven-databases-tour** — Chooses the right database paradigm: relational, KV, columnar, document, graph.
 - **shape-up-basecamp** — Ships in fixed cycles the Basecamp way: shaping, betting, building.
 - **shapiro-crdts** — Shares mutable state without coordination: convergent replicated data types.
+- **system-design** — Scalability, availability, and distributed systems design
 - **timeout-graceful-degradation** — Bounds calls with explicit timeouts, defines degraded modes.
 - **validation-gate-data-quality** — Blocks bad data at entrances with schema/range checks + quarantine.
 - **workflow-versioning-upgrades** — Versions artifacts, staged rollout, safe downgrade.
@@ -1080,9 +1098,10 @@ registered in the router appear under the same family here automatically.
 
 - **shoham-multiagent-systems** — Designs strategic multi-agent systems: game forms, social choice, and protocols.
 
-## Other / custom (not yet in router registry) (1)
+## Other / custom (not yet in router registry) (2)
 
 - **speech-language-processing** — Applies Jurafsky & Martin's Speech and Language Processing (SLP) to build NLP systems on textbook foundations: regular expressions and text normalization, n-gra…
+- **zinsser-writing-well** — Writes nonfiction with style: clarity, brevity, and humanity.
 
 ---
-*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 20:17 — 1005 skills, 24 families*
+*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 20:23 — 1024 skills, 24 families*
