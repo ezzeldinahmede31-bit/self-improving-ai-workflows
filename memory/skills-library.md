@@ -7,7 +7,7 @@ for the full doc of the chosen skill. Grouping matches the router
 registry buckets (`compensatory-router/SKILL.md`), so new skills that were
 registered in the router appear under the same family here automatically.
 
-## Automation (per-tool) (324)
+## Automation (per-tool) (326)
 
 - **abstraction-quality-gate** — Enforces A Philosophy of Software Design's core principle: complexity management through deep modules and shallow interfaces.
 - **access-control-least-privilege-agents-v2** — Applies Access Control, Role-Based Permissions, and Least Privilege for AI Agents to production: distilled patterns, anti-patterns, and checklists for building…
@@ -127,6 +127,7 @@ registered in the router appear under the same family here automatically.
 - **event-driven-architecture-async-patterns** — Applies Event-Driven Architecture: Patterns for Asynchronous System Integration to production: distilled patterns, anti-patterns, and checklists for building re…
 - **excel-automation** — Automate Excel spreadsheets: formulas, data cleanup, chart creation, VBA macros, and reporting workflows.
 - **exception-handling-recovery-rpa-v2** — Applies Exception Handling and Recovery Frameworks in RPA Development to production: distilled patterns, anti-patterns, and checklists for building reliable exc…
+- **figma-generate-design** — Use this skill alongside figma-use when the task involves translating an application page, view, or multi-section layout into Figma.
 - **financial-trading-decision-agents** — Applies Financial Trading and Decision Support Agents to production: distilled patterns, anti-patterns, and checklists for building reliable financial trading a…
 - **fine-tuning-llms-domain-adaptation** — Applies Fine-Tuning Large Language Models: Practical Strategies and Domain Adaptation to production: distilled patterns, anti-patterns, and checklists for build…
 - **fitzpatrick-team-geek** — Runs engineering teams on Humility, Respect, Trust: review culture and conflict handling.
@@ -320,6 +321,7 @@ registered in the router appear under the same family here automatically.
 - **vector-db-pinecone-milvus-qdrant-weaviate** — Applies Pinecone, Milvus, Qdrant, and Weaviate: Implementation and Tuning Guides to production: distilled patterns, anti-patterns, and checklists for building r…
 - **weather-automation** — Automate weather-based workflows, forecasts, alerts, and location-aware notifications
 - **web-api-design-love** — Applies Leonard Richardson & Sam Ruby's RESTful Web Services ('web-api-design-love' — the pragmatic REST classic) to build HTTP APIs that treat the web as a pla…
+- **web-design-engineer** — Build or redesign polished browser-rendered visual artifacts with HTML/CSS/JavaScript/React: pages, dashboards, prototypes, slide decks, animations, UI mockups,…
 - **webhook-automation** — Build and manage webhook-based integrations for real-time event processing and API connections
 - **webhook-security-payload-verification** — Applies Webhook Security, Payload Verification, and Error Retry Strategies to production: distilled patterns, anti-patterns, and checklists for building reliabl…
 - **webhook-trigger-hardening** — Secures inbound webhooks with HMAC, timestamp freshness, replay defense, schema validation.
@@ -346,7 +348,7 @@ registered in the router appear under the same family here automatically.
 - **zapier-sdk** — Zapier SDK for TypeScript.
 - **zapier-system-cloner** — Replicates any Zapier (Zap) system — especially premium/expensive ones — with identical outputs and quality on n8n or code, using different (free/local) tools w…
 
-## Marketing/SEO/Growth (73)
+## Marketing/SEO/Growth (74)
 
 - **apify-audience-analysis** — Understand audience demographics, preferences, behavior patterns, and engagement quality across Facebook, Instagram, YouTube, and TikTok.
 - **audience-psychology-analyst** — Build a psychological profile of any target audience and translate it into marketing AND video-editing decisions.
@@ -374,6 +376,7 @@ registered in the router appear under the same family here automatically.
 - **eghbal-working-in-public** — Sustains open source: maintainer economics, governance, and community health.
 - **environment-promotion-config** — Moves workflows across dev/stage/prod with scoped config, never copy-paste.
 - **firecrawl-scraper** — Web scraping skill using Firecrawl API for deep content extraction, format conversion, and page interaction.
+- **firecrawl-website-design-clone** — Extract any website's design system into an agent-ready DESIGN.md using Firecrawl scrape evidence.
 - **foley-computer-graphics** — Builds correct rendering: transforms, viewing, rasterization, and shading.
 - **generative-ai-design-patterns** — Applies Generative AI Design Patterns for cloud AI engineering to architect production generative systems: the request-response pattern, caching and deduplicati…
 - **ghemawat-gfs-filesystems** — Stores exabytes across commodity machines: GFS/HDFS architecture and operations.
@@ -595,7 +598,7 @@ registered in the router appear under the same family here automatically.
 - **thinking-triz** — When two design requirements seem mutually exclusive, name the contradiction, separate conflicting states, then invent a concrete no-compromise resolution.
 - **thinking-via-negativa** — Use when the reflex is to add a feature, layer, or process.
 
-## Context/Memory/System (62)
+## Context/Memory/System (64)
 
 - **advanced-evaluation** — This skill should be used for advanced LLM evaluation: LLM-as-judge systems, direct scoring, pairwise comparison, rubric calibration, evaluator bias mitigation,…
 - **alephone-binary-exploitation** — Understands memory-corruption attacks to defeat them: overflows, ROP, and modern mitigations.
@@ -625,6 +628,7 @@ registered in the router appear under the same family here automatically.
 - **durable-experience-consolidator** — Turns a finished working session into durable cross-session knowledge so nothing important is forgotten after the chat ends: extracts principles, verified facts…
 - **efficient-dl-quantization-pruning** — Deep dive into model compression from Sze et al.
 - **evaluation** — This skill should be used when building agent evaluation systems: deterministic checks, regression suites, multi-dimensional rubrics, quality gates, production…
+- **figma-design-to-code** — **MANDATORY prerequisite** — you MUST invoke this skill BEFORE calling the `get_design_context` Figma MCP tool.
 - **filesystem-context** — This skill should be used when agent work needs file-backed context: durable scratchpads, tool-output offloading, just-in-time discovery, cross-agent handoff fi…
 - **fine-tuning-llms** — Applies the fine-tuning discipline of Building LLM-Powered Applications and NLP with Transformers: decide when fine-tuning beats prompting, prepare and curate t…
 - **harness-engineering** — This skill should be used when designing autonomous agent harnesses: research loops, evaluation scaffolds, locked and editable surfaces, durable logs, novelty g…
@@ -658,9 +662,10 @@ registered in the router appear under the same family here automatically.
 - **sipser-theory-of-computation** — Reasons about what can be computed at all: automata, decidability, and complexity.
 - **state-machine-persistence** — Design n8n automations as recoverable state machines: persist multi-turn or long-running state (conversation context, job progress, dedupe keys) to Supabase, Re…
 - **tool-design** — This skill should be used for the tool-interface layer of an agent system specifically: writing tool descriptions agents can route on, designing tool schemas an…
+- **web-component-design** — Master React, Vue, and Svelte component patterns including CSS-in-JS, composition strategies, and reusable component architecture.
 - **windows-internals-russinovich** — Understands Windows from the kernel up: processes, memory, I/O, and security.
 
-## Agents/Architecture (49)
+## Agents/Architecture (50)
 
 - **agent-arch-system-design** — Expert system architecture design: patterns, scalability planning, ADRs, C4 diagrams, technology trade-offs, non-functional requirements.
 - **agent-reach** — Read and search external sources through the channels installed on this machine.
@@ -710,6 +715,7 @@ registered in the router appear under the same family here automatically.
 - **state-machine-workflow-modeling** — Represents workflows as explicit state machines with persisted state.
 - **streaming-systems-akidau** — Applies Tyler Akidau, Slava Chernyak, and Reuven Lax's Streaming Systems to build correct stream/batch data pipelines: the event-time vs processing-time distinc…
 - **terraform-up-and-running** — Applies Terraform: Up and Running (Yevgeniy Brikman) to infrastructure provisioning: treat every resource as code that is plan-able, reviewable, and reproducibl…
+- **web-design-reviewer** — This skill enables visual inspection of websites running locally or remotely to identify and fix design issues.
 - **webapp-testing** — Toolkit for interacting with and testing local web applications using Playwright.
 
 ## Security (19)
@@ -734,7 +740,7 @@ registered in the router appear under the same family here automatically.
 - **web-security-browser-internals** — Applies Michal Zalewski's The Tangled Web to secure modern web applications: how browsers and HTTP actually behave (parsing, encoding, navigation, the same-orig…
 - **zero-to-one-thiel** — Applies Thiel monopoly, secrets, power law to strategy.
 
-## Coding/SWE (71)
+## Coding/SWE (72)
 
 - **agile-principles-patterns-practices** — Applies Robert C.
 - **algorithm-design** — Design algorithms with LaTeX pseudocode and UML diagrams.
@@ -803,6 +809,7 @@ registered in the router appear under the same family here automatically.
 - **test-smells-catalog** — Applies the test-smell catalog half of Gerard Meszaros' XUnit Test Patterns to find and fix the problems that make test suites slow, brittle, and unmaintainable…
 - **types-and-programming-languages** — Applies Benjamin C.
 - **varghese-network-algorithmics** — Implements packet processing at line rate: fast lookups, classification, and scheduling.
+- **web-design-guidelines** — Review UI code for Web Interface Guidelines compliance.
 - **weinberg-egoless-systems** — Runs software as a human system: egoless programming and technical leadership.
 - **xunit-test-patterns** — Applies Gerard Meszaros' XUnit Test Patterns to write clean, maintainable test suites: the Four-Phase test structure, the Test Double taxonomy (dummy, stub, fak…
 - **zeller-why-programs-fail** — Debugs systematically like a scientist: reproduce, hypothesize, predict, experiment.
@@ -1070,4 +1077,4 @@ registered in the router appear under the same family here automatically.
 - **speech-language-processing** — Applies Jurafsky & Martin's Speech and Language Processing (SLP) to build NLP systems on textbook foundations: regular expressions and text normalization, n-gra…
 
 ---
-*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 17:36 — 990 skills, 24 families*
+*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 17:51 — 997 skills, 24 families*

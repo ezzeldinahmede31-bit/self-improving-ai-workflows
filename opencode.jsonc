@@ -9,6 +9,26 @@
       "headers": {
         "X-Api-Key": "{env:WORKFLOWHUB_API_KEY}"
       }
+    },
+    "playwright": {
+      "type": "local",
+      "command": ["npx", "-y", "@playwright/mcp@latest", "--browser", "chrome", "--caps", "vision,pdf", "--user-data-dir", "/home/ezzeldin/Documents/Default Project/memory/.sessions/playwright_persistent"],
+      "enabled": true
+    },
+    "firecrawl": {
+      "type": "remote",
+      "url": "https://mcp.firecrawl.dev/v2/mcp",
+      "enabled": true,
+      "oauth": false
+    },
+    "figma": {
+      "type": "remote",
+      "url": "https://mcp.figma.com/mcp",
+      "enabled": false,
+      "oauth": false,
+      "headers": {
+        "Authorization": "Bearer {env:FIGMA_API_KEY}"
+      }
     }
   },
   "disabled_providers": [],
