@@ -1899,3 +1899,9 @@ Books: Feathers "Working Effectively with Legacy Code" + Newman "Monolith to Mic
 - `cloud-egress-triage` (SRE Workbook + Qdrant 104 case): 6-step ladder; Qdrant stuck at step 5/6 (owner: dashboard/egress).
 - Library 1145. Pre-gate keyword self-scan clean on all 4 (0 hits) — no rephrasing needed this round.
 - Accountability gap: no book closes it — human Tier-2/3 sign-off stays (deploy-signoff-governance).
+
+## Clarification (user asked "خلصت 100 مهارة ولا عملت ايه", then "سجل ده في الذاكرة")
+- Told user plainly: NOT 100 separate files — 25 new skills total (13 external + 1 blueprint + 11 canon masters), per his own confirmed choice of distilled masters over 100 separate files.
+- 120+ books live INSIDE those skills (e.g. web-scalability-startup-playbook distills 5 books); system-design-canon-index maps every book to its skill.
+- Reason given: many books overlap (e.g. 5 microservices books), 100 files = bloat/duplication/slowness.
+- Standing offer: if he wants 100 separate files (one per book regardless of overlap), he only needs to say so.
