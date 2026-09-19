@@ -518,10 +518,10 @@
       "computedHash": "a1a70ea8bc8371ca884a6ce838d981f4792be22f3feed1c59ffacf983a83ec1d"
     },
     "code-review": {
-      "source": "mattpocock/skills",
+      "source": "coderabbitai/skills",
       "sourceType": "github",
-      "skillPath": "skills/engineering/code-review/SKILL.md",
-      "computedHash": "caa9a086baaf9e0f7cd71f64edfa83da6821c05e826b083221f3d02e3d6a1905"
+      "skillPath": "skills/code-review/SKILL.md",
+      "computedHash": "1cc49f29b6762f2cb3a20e3e111fb87aeaa418669d9cc00b81c2cb504baf9dbe"
     },
     "cold-email": {
       "source": "coreyhaines31/marketingskills",
@@ -906,6 +906,18 @@
       "sourceType": "github",
       "skillPath": "skills/cloud/google-cloud-networking-observability/SKILL.md",
       "computedHash": "a22bc1863b3645268c134d89e756d0c761df1d3132e7b563e3270485174c2716"
+    },
+    "grill-with-docs": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "skillPath": "skills/engineering/grill-with-docs/SKILL.md",
+      "computedHash": "35e62aa423aaeab6a414bcac273f56dfb17802ef2334b41b6a3b00f28196c8cf"
+    },
+    "handoff": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "skillPath": "skills/productivity/handoff/SKILL.md",
+      "computedHash": "20e5f4afdef502637510bc5c64d27645d3c85c88df9cb006824bbb0980166319"
     },
     "hr-automation": {
       "source": "claude-office-skills/skills",
@@ -1303,6 +1315,12 @@
       "skillPath": "skills/popups/SKILL.md",
       "computedHash": "95c5cb45dcbb05362168255d97ee68d53a5916d8de779bd08f5f70c9b0cabd36"
     },
+    "postgresql-code-review": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/postgresql-code-review/SKILL.md",
+      "computedHash": "1167ec9449aa866e16bc7449e05ab4d391cdce95a0b0c5e1155b793160471eb5"
+    },
     "ppt-visual": {
       "source": "claude-office-skills/skills",
       "sourceType": "github",
@@ -1573,6 +1591,12 @@
       "skillPath": "social-publisher/SKILL.md",
       "computedHash": "3f4a60ea1a380adaa8f47c13f4e7fbc008171868ef730da357a8d90c16595bb1"
     },
+    "sql-code-review": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/sql-code-review/SKILL.md",
+      "computedHash": "7dd337a3271381237c5ace34f9a9a525f73e1a4f93a48321044b00fcd5f95942"
+    },
     "status": {
       "source": "parallel-web/parallel-agent-skills",
       "sourceType": "github",
@@ -1614,6 +1638,12 @@
       "sourceType": "github",
       "skillPath": "skills/table-generation/SKILL.md",
       "computedHash": "1a121f47f2df64fe020e61ffd6c357ccc2c94a77f544cafc164285a08eb0763b"
+    },
+    "tdd": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "skillPath": "skills/engineering/tdd/SKILL.md",
+      "computedHash": "e753a5da75292bbe59d302d89566bc2c53d0e73944da2f0e944a7578883c07d0"
     },
     "telegram-bot": {
       "source": "claude-office-skills/skills",

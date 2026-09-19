@@ -345,7 +345,7 @@ registered in the router appear under the same family here automatically.
 - **zapier-sdk** — Zapier SDK for TypeScript.
 - **zapier-system-cloner** — Replicates any Zapier (Zap) system — especially premium/expensive ones — with identical outputs and quality on n8n or code, using different (free/local) tools w…
 
-## Marketing/SEO/Growth (72)
+## Marketing/SEO/Growth (73)
 
 - **apify-audience-analysis** — Understand audience demographics, preferences, behavior patterns, and engagement quality across Facebook, Instagram, YouTube, and TikTok.
 - **audience-psychology-analyst** — Build a psychological profile of any target audience and translate it into marketing AND video-editing decisions.
@@ -415,6 +415,7 @@ registered in the router appear under the same family here automatically.
 - **social-media-image-sizes** — Check and resize images for social media platforms.
 - **social-publisher** — Multi-platform social media publishing automation - schedule, post, and track content across TikTok, Instagram, YouTube, LinkedIn, and more
 - **spanner-calvin-commit** — Builds globally-consistent distributed transactions: TrueTime ordering and deterministic scheduling.
+- **sql-code-review** — Universal SQL code review assistant that performs comprehensive security, maintainability, and code quality analysis across all SQL databases (MySQL, PostgreSQL…
 - **swim-gossip-membership** — Spreads information and tracks membership epidemically: gossip, SWIM, and anti-entropy.
 - **tiktok-marketing** — TikTok content strategy, video creation workflows, posting optimization, and analytics.
 - **viral-hooks** — Expert in creating opening lines, thumbnails, and hooks that stop the scroll.
@@ -656,7 +657,7 @@ registered in the router appear under the same family here automatically.
 - **tool-design** — This skill should be used for the tool-interface layer of an agent system specifically: writing tool descriptions agents can route on, designing tool schemas an…
 - **windows-internals-russinovich** — Understands Windows from the kernel up: processes, memory, I/O, and security.
 
-## Agents/Architecture (47)
+## Agents/Architecture (48)
 
 - **agent-arch-system-design** — Expert system architecture design: patterns, scalability planning, ADRs, C4 diagrams, technology trade-offs, non-functional requirements.
 - **agent-reach** — Read and search external sources through the channels installed on this machine.
@@ -686,6 +687,7 @@ registered in the router appear under the same family here automatically.
 - **fundamentals-of-software-architecture** — Applies Mark Richards & Neal Ford's Fundamentals of Software Architecture to think like an architect: architecture characteristics (and the tension that no arch…
 - **geewax-pagination-filtering-masks** — Applies the pagination, filtering, and field-mask chapters of JJ Geewax's API Design Patterns to make list/read APIs scalable, queryable, and bandwidth-friendly…
 - **gof-design-patterns** — Applies the Gang of Four Design Patterns (Gamma, Helm, Johnson, Vlissides) to n8n workflows and code: creational (Factory, Singleton, Builder, Prototype), struc…
+- **handoff** — Compact the current conversation into a handoff document for another agent to pick up.
 - **improve-codebase-architecture** — Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.
 - **marz-lambda-kappa** — Architects big-data serving: batch, speed, and serving layers.
 - **microservices-boundary-design** — Applies Sam Newman's Building Microservices to split automation and backends into independently deployable services: finding service boundaries by business capa…
@@ -727,7 +729,7 @@ registered in the router appear under the same family here automatically.
 - **web-security-browser-internals** — Applies Michal Zalewski's The Tangled Web to secure modern web applications: how browsers and HTTP actually behave (parsing, encoding, navigation, the same-orig…
 - **zero-to-one-thiel** — Applies Thiel monopoly, secrets, power law to strategy.
 
-## Coding/SWE (69)
+## Coding/SWE (70)
 
 - **agile-principles-patterns-practices** — Applies Robert C.
 - **algorithm-design** — Design algorithms with LaTeX pseudocode and UML diagrams.
@@ -788,6 +790,7 @@ registered in the router appear under the same family here automatically.
 - **surgical-diff-patch-editor** — Enforces exact line-level search-and-replace block edits instead of rewriting whole files, preventing accidental code truncation.
 - **swc-smart-contract-security** — Audits smart contracts: reentrancy, access control, oracles, and upgrade safety.
 - **swe-workflow** — REQUIRED for every code-related task.
+- **tdd** — Test-driven development.
 - **tdd-sandbox-proof-engine** — Enforces Test-Driven Development (TDD) in a clean sandbox: code is only considered valid if companion unit tests pass 100% and the execution log is attached.
 - **terminal-bash-executor-governor** — Executes CLI commands, inspects exit codes, manages tailing log output, and enforces safety gates for destructive terminal operations.
 - **test-driven-development-by-example-beck** — Applies Beck TDD: red, green, refactor cycle.
@@ -862,7 +865,7 @@ registered in the router appear under the same family here automatically.
 - **triage** — Move issues and external PRs through a state machine of triage roles, categorise, verify, grill if needed, and write agent-ready briefs.
 - **wiegers-software-requirements** — Engineers requirements that survive contact with stakeholders: elicitation, specification, and change control.
 
-## Superpowers pack — obra (23)
+## Superpowers pack — obra (24)
 
 - **black-risk-based-testing** — Manages testing by risk: analysis, priorities, and process control.
 - **brainstorming** — You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior.
@@ -870,6 +873,7 @@ registered in the router appear under the same family here automatically.
 - **dispatching-parallel-agents** — Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies
 - **executing-plans** — Use when you have a written implementation plan to execute in a separate session with review checkpoints
 - **finishing-a-development-branch** — Use when implementation is complete, all tests pass, and you need to decide how to integrate the work
+- **grill-with-docs** — A relentless interview to sharpen a plan or design, which also creates docs (ADR's and glossary) as we go.
 - **impeccable** — Use when the user wants to design, redesign, shape, critique, audit, polish, clarify, distill, harden, optimize, adapt, animate, colorize, extract, or otherwise…
 - **mcconnell-software-estimation** — Estimates software honestly: ranges, calibration, and cone of uncertainty.
 - **modern-robotics** — Reasons about robots: configuration space, rigid-body motion, kinematics, and planning.
@@ -1051,8 +1055,9 @@ registered in the router appear under the same family here automatically.
 - **chinchilla-scaling-laws** — Plans large-model training with scaling laws: compute-optimal size, data mix, and emergent behavior.
 - **pbft-hotstuff-bft** — Reaches agreement with adversaries present: BFT protocols from PBFT to HotStuff.
 
-## Social media (1)
+## Social media (2)
 
+- **postgresql-code-review** — PostgreSQL-specific code review assistant focusing on PostgreSQL best practices, anti-patterns, and unique quality standards.
 - **shoham-multiagent-systems** — Designs strategic multi-agent systems: game forms, social choice, and protocols.
 
 ## Other / custom (not yet in router registry) (1)
@@ -1060,4 +1065,4 @@ registered in the router appear under the same family here automatically.
 - **speech-language-processing** — Applies Jurafsky & Martin's Speech and Language Processing (SLP) to build NLP systems on textbook foundations: regular expressions and text normalization, n-gra…
 
 ---
-*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 17:00 — 980 skills, 24 families*
+*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 17:13 — 985 skills, 24 families*
