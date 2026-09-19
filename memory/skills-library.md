@@ -704,7 +704,7 @@ registered in the router appear under the same family here automatically.
 - **windows-internals-russinovich** — Understands Windows from the kernel up: processes, memory, I/O, and security.
 - **xss-csrf-testing** — XSS and CSRF testing distilled.
 
-## Agents/Architecture (58)
+## Agents/Architecture (59)
 
 - **agent-arch-system-design** — Expert system architecture design: patterns, scalability planning, ADRs, C4 diagrams, technology trade-offs, non-functional requirements.
 - **agent-reach** — Read and search external sources through the channels installed on this machine.
@@ -762,16 +762,18 @@ registered in the router appear under the same family here automatically.
 - **streaming-systems-akidau** — Applies Tyler Akidau, Slava Chernyak, and Reuven Lax's Streaming Systems to build correct stream/batch data pipelines: the event-time vs processing-time distinc…
 - **systems-design-methodology** — Use when the /systems-design mode is active.
 - **terraform-up-and-running** — Applies Terraform: Up and Running (Yevgeniy Brikman) to infrastructure provisioning: treat every resource as code that is plan-able, reviewable, and reproducibl…
+- **test-strategy-architecture** — Test strategy architecture distilled.
 - **web-component-design** — Master React, Vue, and Svelte component patterns including CSS-in-JS, composition strategies, and reusable component architecture.
 - **webapp-testing** — Toolkit for interacting with and testing local web applications using Playwright.
 
-## Security (24)
+## Security (26)
 
 - **api-security-owasp-top10** — API security OWASP Top 10 testing distilled.
 - **applied-cryptography-engineering** — Applies the cryptography discipline of Security Engineering (Ross Anderson): use vetted schemes correctly — authenticated encryption, key generation and storage…
 - **auth-session-testing** — Auth and session testing distilled.
 - **better-auth-security-best-practices** — Configure rate limiting, manage auth secrets, set up CSRF protection, define trusted origins, secure sessions and cookies, encrypt OAuth tokens, track IP addres…
 - **clean-code-alignment-methodology** — Mandatory methodology for ALL new skills: ensures Clean Code principles are embedded from day 1.
+- **code-coverage-mastery** — Code coverage mastery distilled.
 - **credential-secret-handling** — Stores secrets in vaults, references by ID, never in code/logs.
 - **dast-sast-integration** — DAST and SAST integration distilled.
 - **enterprise-quality-audit-loop** — Deterministic Quality & ISO/IEC 25010 compliance gate paired with an automated feedback and self-correction loop.
@@ -781,6 +783,7 @@ registered in the router appear under the same family here automatically.
 - **groth-zk-proofs** — Proves statements without revealing secrets: SNARKs, commitments, and circuits.
 - **linux-administration-handbook** — Applies Linux Administration Handbook (Evi Nemeth, Garth Snyder, Hein R.
 - **mlops-production** — Applies MLOps Production discipline to ship and operate ML models reliably: reproducible training runs, data and model versioning, automated pipelines, a model…
+- **mutation-score-gates** — Mutation score gating distilled.
 - **network-security-private-communication** — Applies Kaufman, Perlman & Speciner's Network Security to protect communication in the real world: the goals (confidentiality, integrity, authentication), the p…
 - **postgresql-code-review** — PostgreSQL-specific code review assistant focusing on PostgreSQL best practices, anti-patterns, and unique quality standards.
 - **rest-assured-patterns** — REST Assured patterns distilled.
@@ -792,7 +795,7 @@ registered in the router appear under the same family here automatically.
 - **web-security-browser-internals** — Applies Michal Zalewski's The Tangled Web to secure modern web applications: how browsers and HTTP actually behave (parsing, encoding, navigation, the same-orig…
 - **zero-to-one-thiel** — Applies Thiel monopoly, secrets, power law to strategy.
 
-## Coding/SWE (86)
+## Coding/SWE (87)
 
 - **agile-principles-patterns-practices** — Applies Robert C.
 - **algorithm-design** — Design algorithms with LaTeX pseudocode and UML diagrams.
@@ -856,6 +859,7 @@ registered in the router appear under the same family here automatically.
 - **refactoring-principles-fowler** — Applies Fowler Refactoring to improve design safely via behavior-preserving steps.
 - **refactoring-test-safety** — Refactoring under test safety distilled.
 - **root-cause-post-mortem-analyzer** — Performs rigorous root-cause analysis (RCA) on stack traces and runtime errors to prevent superficial band-aid fixes.
+- **shift-left-review-patterns** — Shift-left review patterns distilled.
 - **sicp-abstraction-and-interpretation** — Applies the SICP (Structure and Interpretation of Computer Programs) discipline to system design and code: build programs as layers of abstraction with named pr…
 - **single-pass-frontier-emulator** — Emulates a frontier model's single-pass open-ended depth on a flash model: instead of greedily splitting a big open-ended task into tiny delegated pieces (which…
 - **snapshot-testing-patterns** — Snapshot testing patterns distilled.
@@ -913,7 +917,7 @@ registered in the router appear under the same family here automatically.
 - **worst-idea** — Worst Possible Idea (reverse brainstorming) — deliberately design the most terrible solutions to the problem, name the mechanism that makes each one bad, then i…
 - **zeller-fuzzing-book** — Fuzzes with structure: mutational, generational, and coverage-guided fuzzing.
 
-## Delivery/Gates (33)
+## Delivery/Gates (34)
 
 - **adversarial-self-falsifier** — Actively attacks and attempts to break generated code, math, or logic before finalizing the response.
 - **adzic-specification-by-example** — Gojko Adzic Specification by Example distilled.
@@ -921,6 +925,7 @@ registered in the router appear under the same family here automatically.
 - **build-gates-pipeline** — MANDATORY pre-build gate pipeline for EVERY n8n workflow, AI agent, or automation artifact this agent produces.
 - **clarify-before-execute** — The user's mandatory discovery loop: when they give a request, DO NOT start building.
 - **compensatory-router** — Meta-skill that routes any incoming task to the right compensatory skill pack (deep reasoning / context budget / verification / long-horizon execution) so a fla…
+- **defect-triage-rootcause** — Defect triage and root cause distilled.
 - **dependency-supply-testing** — Dependency and supply chain testing distilled.
 - **dont-reinvent-the-wheel** — Research existing products, open-source projects, commercial script marketplaces such as CodeCanyon/Envato Market, SaaS tools, SDK features, APIs, webhooks, emb…
 - **elite-verifier-delegation** — When a fast model must reach frontier-level certainty, delegate VERIFICATION (not generation) to a stronger model: generate cheap here, then have the strongest…
@@ -949,7 +954,7 @@ registered in the router appear under the same family here automatically.
 - **triage** — Move issues and external PRs through a state machine of triage roles, categorise, verify, grill if needed, and write agent-ready briefs.
 - **wiegers-software-requirements** — Engineers requirements that survive contact with stakeholders: elicitation, specification, and change control.
 
-## Superpowers pack — obra (28)
+## Superpowers pack — obra (29)
 
 - **black-risk-based-testing** — Manages testing by risk: analysis, priorities, and process control.
 - **brainstorming** — You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior.
@@ -973,6 +978,7 @@ registered in the router appear under the same family here automatically.
 - **subagent-driven-development** — Use when executing implementation plans with independent tasks in the current session
 - **systematic-debugging** — Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes
 - **test-driven-development** — Use when implementing any feature or bugfix, before writing implementation code
+- **test-plan-writing** — Test plan writing distilled.
 - **using-git-worktrees** — Use when starting feature work that needs isolation from current workspace or before executing implementation plans - ensures an isolated workspace exists via n…
 - **using-superpowers** — Use when starting any conversation - establishes how to find and use skills, requiring skill invocation before ANY response including clarifying questions
 - **verification-before-completion** — Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output be…
@@ -1092,7 +1098,7 @@ registered in the router appear under the same family here automatically.
 - **high-end-visual-design** — Teaches the AI to design like a high-end agency.
 - **liquid-glass** — Build and migrate iOS, macOS, iPadOS, watchOS, tvOS, and visionOS apps with Apple's Liquid Glass design system (iOS 26+, macOS 26 Tahoe+).
 
-## Auto-installed (find-skills) (57)
+## Auto-installed (find-skills) (61)
 
 - **agentic-eval** — Patterns and techniques for evaluating and improving AI agent outputs.
 - **api-testing-contract-patterns** — API testing patterns distilled.
@@ -1131,13 +1137,17 @@ registered in the router appear under the same family here automatically.
 - **perlman-interconnections** — Designs robust bridging and routing: spanning trees, link-state, and self-stabilization.
 - **philosophy-software-design-ousterhout** — Applies Ousterhout deep modules, shallow interfaces, complexity management.
 - **practice-of-programming-kernighan** — Applies Kernighan & Pike style, testing, performance, portability.
+- **quality-metrics-dashboard** — Quality metrics dashboard distilled.
 - **queue-decoupled-workers** — Decouples producers/consumers via durable queues for independent scale/fail.
+- **release-readiness-gates** — Release readiness gating distilled.
 - **retry-backoff-jitter** — Configures transient retries with exponential backoff, jitter, budgets, classification.
+- **risk-based-prioritization** — Risk-based prioritization distilled.
 - **scheduled-digest-aggregation** — Accumulates events, delivers consolidated digests on schedule.
 - **seven-databases-tour** — Chooses the right database paradigm: relational, KV, columnar, document, graph.
 - **shape-up-basecamp** — Ships in fixed cycles the Basecamp way: shaping, betting, building.
 - **shapiro-crdts** — Shares mutable state without coordination: convergent replicated data types.
 - **spike-breakpoint-testing** — Spike and breakpoint testing distilled.
+- **static-analysis-testing** — Static analysis testing distilled.
 - **system-design** — Scalability, availability, and distributed systems design
 - **system-design-canon-index** — Index of 120+ system-design books mapped to skills: find which book covers what and which skill applies it.
 - **test-data-management** — Test data management distilled.
@@ -1180,4 +1190,4 @@ registered in the router appear under the same family here automatically.
 - **speech-language-processing** — Applies Jurafsky & Martin's Speech and Language Processing (SLP) to build NLP systems on textbook foundations: regular expressions and text normalization, n-gra…
 
 ---
-*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 20:43 — 1100 skills, 24 families*
+*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 20:45 — 1110 skills, 24 families*
