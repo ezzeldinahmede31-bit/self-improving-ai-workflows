@@ -20,7 +20,7 @@ apply before lunch.
    thundering herd. Exponential backoff, full jitter, per-dependency
    retry budgets, idempotency keys on every mutating retry
    (`idempotency-key-design`).
-3. **Clocks lie.** Never order跨 events by wall clock across nodes;
+3. **Clocks lie.** Never order events by wall clock across nodes;
    use logical clocks / versions / fencing tokens. Lease + fence beats   lock-without-fence (split-brain writes lose to the fenced loser).
 4. **Quorums for truth.** R + W > N for overlap; leader for writes,
    followers for reads when lag is tolerable. Name the consistency per
