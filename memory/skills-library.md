@@ -952,10 +952,11 @@ registered in the router appear under the same family here automatically.
 - **high-end-visual-design** — Teaches the AI to design like a high-end agency.
 - **liquid-glass** — Build and migrate iOS, macOS, iPadOS, watchOS, tvOS, and visionOS apps with Apple's Liquid Glass design system (iOS 26+, macOS 26 Tahoe+).
 
-## Auto-installed (find-skills) (22)
+## Auto-installed (find-skills) (23)
 
 - **audit-trail-compliance** — Records actor, action, target, hashes, outcome in append-only logs for compliance.
 - **boyd-convex-optimization** — Solves optimization the Boyd way: convex formulation, duality, and first-order methods.
+- **candor-radical-feedback** — Gives feedback that works: care personally, challenge directly.
 - **ecommerce-order-processing-flows** — Automates order lifecycles with idempotent steps + reconciliation.
 - **fan-out-fan-in-merge** — Splits work parallel then rejoins by key, handling partial failures.
 - **feature-engineering-machine-learning** — Applies Alice Zheng and Amanda Casari's Feature Engineering for Machine Learning to turn raw data into features that make models work: numeric features (scaling…
@@ -993,9 +994,8 @@ registered in the router appear under the same family here automatically.
 - **chinchilla-scaling-laws** — Plans large-model training with scaling laws: compute-optimal size, data mix, and emergent behavior.
 - **pbft-hotstuff-bft** — Reaches agreement with adversaries present: BFT protocols from PBFT to HotStuff.
 
-## Other / custom (not yet in router registry) (2)
+## Other / custom (not yet in router registry) (1)
 
-- **candor-radical-feedback** — Gives feedback that works: care personally, challenge directly.
 - **speech-language-processing** — Applies Jurafsky & Martin's Speech and Language Processing (SLP) to build NLP systems on textbook foundations: regular expressions and text normalization, n-gra…
 
 ---
