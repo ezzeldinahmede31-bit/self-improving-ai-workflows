@@ -1,6 +1,6 @@
 ---
 name: eip-workflow-patterns
-description: "Design n8n workflows with the Enterprise Integration Patterns vocabulary (Hohpe/Woolf): content-based router, splitter, aggregator with completeness conditions, recipient list, claim check, normalizer, canonical data model, idempotent receiver, dead letter channel, control bus — each mapped to concrete n8n nodes. Use when designing any multi-step workflow, choosing between If/Switch/fan-out shapes, or reviewing whether a graph uses the right pattern for its problem. Pairs with n8n-subworkflow-modularizer, live-workflow-surgery, stability-patterns-production, n8n-oom-crash-recovery."
+description: "Design n8n workflows with the Enterprise Integration Patterns vocabulary (Hohpe/Woolf): content-based router, splitter, aggregator with completeness conditions, recipient list, claim check, normalizer, canonical data model, idempotent receiver, dead letter channel, control bus — each mapped to concrete n8n nodes. Use when designing any multi-step workflow, choosing If/Switch/fan-out shapes, or reviewing whether a graph uses the right pattern for its problem. Pairs with n8n-subworkflow-modularizer, live-workflow-surgery, stability-patterns-production, n8n-oom-crash-recovery."
 ---
 
 # EIP Workflow Patterns (n8n mapping)
