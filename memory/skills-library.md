@@ -7,7 +7,7 @@ for the full doc of the chosen skill. Grouping matches the router
 registry buckets (`compensatory-router/SKILL.md`), so new skills that were
 registered in the router appear under the same family here automatically.
 
-## Automation (per-tool) (321)
+## Automation (per-tool) (320)
 
 - **abstraction-quality-gate** — Enforces A Philosophy of Software Design's core principle: complexity management through deep modules and shallow interfaces.
 - **access-control-least-privilege-agents-v2** — Applies Access Control, Role-Based Permissions, and Least Privilege for AI Agents to production: distilled patterns, anti-patterns, and checklists for building…
@@ -135,7 +135,6 @@ registered in the router appear under the same family here automatically.
 - **fundamentals-of-bpm** — Applies Dumas, La Rosa, Mendling & Reijers' Fundamentals of Business Process Management as the practical handbook for modeling and improving business processes…
 - **gate-first-pass-builder** — Build ANY n8n workflow or AI agent so it passes the user's own build gates (build_gates_pipeline.py) on the FIRST attempt — no rejections, no fixes-after-the-fa…
 - **gaussian-processes-machine-learning** — Applies Rasmussen & Williams' Gaussian Processes for Machine Learning to build probabilistic regression and classification with GPs: covariance functions, exact…
-- **google-cloud-networking-observability** — Investigates Google Cloud networking issues by analyzing logs, metrics, and diagnostics.
 - **government-public-sector-automation-v2** — Applies Government and Public Sector Process Automation to production: distilled patterns, anti-patterns, and checklists for building reliable government and pu…
 - **graphrag-knowledge-graphs-vector-v2** — Applies GraphRAG: Combining Knowledge Graphs and Vector Search for Deep Context to production: distilled patterns, anti-patterns, and checklists for building re…
 - **guardrails-alignment-runtime-safety-v2** — Applies Guardrails, Alignment, and Runtime Safety Filters in AI Automation to production: distilled patterns, anti-patterns, and checklists for building reliabl…
@@ -996,7 +995,7 @@ registered in the router appear under the same family here automatically.
 - **high-end-visual-design** — Teaches the AI to design like a high-end agency.
 - **liquid-glass** — Build and migrate iOS, macOS, iPadOS, watchOS, tvOS, and visionOS apps with Apple's Liquid Glass design system (iOS 26+, macOS 26 Tahoe+).
 
-## Auto-installed (find-skills) (30)
+## Auto-installed (find-skills) (31)
 
 - **audit-trail-compliance** — Records actor, action, target, hashes, outcome in append-only logs for compliance.
 - **boyd-convex-optimization** — Solves optimization the Boyd way: convex formulation, duality, and first-order methods.
@@ -1005,6 +1004,7 @@ registered in the router appear under the same family here automatically.
 - **ecommerce-order-processing-flows** — Automates order lifecycles with idempotent steps + reconciliation.
 - **fan-out-fan-in-merge** — Splits work parallel then rejoins by key, handling partial failures.
 - **feature-engineering-machine-learning** — Applies Alice Zheng and Amanda Casari's Feature Engineering for Machine Learning to turn raw data into features that make models work: numeric features (scaling…
+- **google-cloud-networking-observability** — Investigates Google Cloud networking issues by analyzing logs, metrics, and diagnostics.
 - **graph-databases-modeling** — Models and queries connected data: property graphs, traversals, and Cypher.
 - **idempotency-key-design** — Makes writes safe to repeat via natural or synthetic keys enforced at store.
 - **khorikov-unit-testing** — Writes unit tests worth keeping: the four pillars and London vs Detroit.
