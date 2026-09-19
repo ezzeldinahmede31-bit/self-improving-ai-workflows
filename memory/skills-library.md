@@ -7,8 +7,9 @@ for the full doc of the chosen skill. Grouping matches the router
 registry buckets (`compensatory-router/SKILL.md`), so new skills that were
 registered in the router appear under the same family here automatically.
 
-## Automation (per-tool) (343)
+## Automation (per-tool) (358)
 
+- **a2a-agent-interop** — Connect n8n agents to the open Agent-to-Agent (A2A) protocol: publish Agent Cards, drive the task lifecycle (message, polling, streaming, push), authenticate pe…
 - **abstraction-quality-gate** — Enforces A Philosophy of Software Design's core principle: complexity management through deep modules and shallow interfaces.
 - **access-control-least-privilege-agents-v2** — Applies Access Control, Role-Based Permissions, and Least Privilege for AI Agents to production: distilled patterns, anti-patterns, and checklists for building…
 - **active-learning-embedding-refinement-v2** — Applies Active Learning and Continuous Embedding Refinement to production: distilled patterns, anti-patterns, and checklists for building reliable active learni…
@@ -80,6 +81,12 @@ registered in the router appear under the same family here automatically.
 - **computer-vision-algorithms-applications** — Applies Richard Szeliski's Computer Vision: Algorithms and Applications to build vision systems: image formation and filtering, feature detection and matching,…
 - **concurrency-testing-patterns** — Concurrency testing patterns distilled.
 - **cost-storage-optimization-vector-massive** — Applies Cost and Storage Optimization for Massive Vector Datasets to production: distilled patterns, anti-patterns, and checklists for building reliable cost an…
+- **create-call** — Create one-off outbound phone calls, web calls, scheduled calls, and simple batch calls using the Vapi API.
+- **create-campaign** — Create, schedule, duplicate, inspect, cancel, archive, and troubleshoot Vapi outbound Campaigns.
+- **create-phone-number** — Plan, provision, import, route, update, and verify Vapi phone numbers through the public API.
+- **create-squad** — Design, create, update, and verify Vapi Squads and documented handoff tools through the public API.
+- **create-structured-output** — Design, create, inspect, update, attach, detach, preview, execute, and verify reusable Vapi Structured Outputs through public API or Server SDK workflows.
+- **create-tool** — Select, define, create, inspect, update, attach, detach, and verify reusable Vapi tools through the public API.
 - **crispin-agile-testing** — Tests inside agile delivery: quadrants, whole-team quality, and automation pyramid.
 - **crm-automation** — CRM workflow automation for HubSpot, Salesforce, Pipedrive - lead management, deal tracking, and multi-CRM synchronization
 - **crm-contact-sync-patterns** — Keeps contacts consistent across systems with ownership + change cursors.
@@ -194,6 +201,10 @@ registered in the router appear under the same family here automatically.
 - **machine-learning-tensorflow** — Applies Tom Hope, Yehezkel Resheff & Itay Lieder's Machine Learning with TensorFlow to build machine learning models with TensorFlow: the TensorFlow programming…
 - **mailchimp-automation** — Automate Mailchimp email marketing campaigns, audience management, automations, and analytics
 - **mainframe-terminal-automation-v2** — Applies Mainframe and Terminal Screen Automation Techniques to production: distilled patterns, anti-patterns, and checklists for building reliable mainframe and…
+- **make-api-shell-connection-workflow** — This skill should be used when Claude needs to build or reuse a reusable Make API-call shell by discovering the correct app-specific Make an API Call module, re…
+- **make-e2b-code-execution** — Use this skill when an agent needs to write reusable code, store it under the configured Hermes Code folder, run it directly through local code execution, or ho…
+- **make-mcp-reference** — This skill should be used when the user asks about "Make MCP server", "Make MCP tools", "MCP token", "Make OAuth", "scenario as tool", "MCP scopes", "Make API a…
+- **make-module-configuring** — This skill should be used when configuring Make module parameters, assigning connections, mapping data between modules, setting up webhooks or data stores in mo…
 - **managing-humans** — Applies Michael Lopp's Managing Humans to lead engineering teams with honesty and craft: the one-on-one as the heart of management, feedback given directly and…
 - **mathematics-for-machine-learning** — Applies Deisenroth, Faisal & Ong's Mathematics for Machine Learning to the math every ML practitioner needs: linear algebra (vectors, matrices, decompositions),…
 - **mckee-story-design** — Designs stories that work: controlling idea, beats, and act structure.
@@ -293,9 +304,12 @@ registered in the router appear under the same family here automatically.
 - **semantic-caching-llm-cost-latency-v2** — Applies Semantic Caching for LLM Cost and Latency Reduction to production: distilled patterns, anti-patterns, and checklists for building reliable semantic cach…
 - **serverless-workflow-orchestration** — Applies Serverless Workflow Orchestration on Cloud Native Infrastructure to production: distilled patterns, anti-patterns, and checklists for building reliable…
 - **serving-llms-vllm-tgi-tensorrt-v2** — Applies Serving Large Language Models with vLLM, TGI, and TensorRT-LLM to production: distilled patterns, anti-patterns, and checklists for building reliable se…
+- **setup-api-key** — Guide users through obtaining and configuring a Vapi API key.
+- **setup-webhook** — Configure Vapi server URLs and webhooks to receive real-time call events, transcripts, tool calls, and end-of-call reports.
 - **sheets-automation** — Google Sheets automation workflows - data sync, task management, reporting dashboards, and multi-platform integrations
 - **shopify-automation** — Shopify e-commerce automation - inventory management, order processing, customer workflows, and analytics
 - **simulating-human-markets-economics** — Applies Simulating Human Markets and Economics with Multi-Agent AI to production: distilled patterns, anti-patterns, and checklists for building reliable simula…
+- **simulations** — Design, create, run, monitor, and maintain Vapi Simulations for assistants and squads.
 - **skillopt-sleep** — Use when the user wants their Claude agent to self-improve from past usage, asks about a nightly/offline 'sleep' or 'dream' cycle, memory/skill consolidation, o…
 - **slp-dialogue-systems** — Applies the dialogue chapters of Jurafsky & Martin's Speech and Language Processing to design conversational systems: dialogue acts, dialogue state tracking, fr…
 - **slp-n-gram-language-models** — Applies the language-model chapters of Jurafsky & Martin's Speech and Language Processing to build and evaluate n-gram language models: n-gram probability estim…
@@ -333,6 +347,7 @@ registered in the router appear under the same family here automatically.
 - **twitter-x-automation** — Automate Twitter/X social media workflows including posting, engagement, analytics, and audience growth
 - **uipath-aa-blueprism-advanced-bot** — Applies UiPath, Automation Anywhere, and Blue Prism: Advanced Bot Architecture to production: distilled patterns, anti-patterns, and checklists for building rel…
 - **unattended-vs-attended-automation-v2** — Applies Unattended vs.
+- **vapi-prompt-builder** — Create, improve, or audit Vapi voice agent and Squad system prompts for production phone and web based voice agents.
 - **vector-databases-architecture-indexing-v2** — Applies Vector Databases: Architecture, Indexing, and Scalable Similarity Search to production: distilled patterns, anti-patterns, and checklists for building r…
 - **vector-db-pinecone-milvus-qdrant-weaviate** — Applies Pinecone, Milvus, Qdrant, and Weaviate: Implementation and Tuning Guides to production: distilled patterns, anti-patterns, and checklists for building r…
 - **weather-automation** — Automate weather-based workflows, forecasts, alerts, and location-aware notifications
@@ -365,7 +380,7 @@ registered in the router appear under the same family here automatically.
 - **zapier-sdk** — Zapier SDK for TypeScript.
 - **zapier-system-cloner** — Replicates any Zapier (Zap) system — especially premium/expensive ones — with identical outputs and quality on n8n or code, using different (free/local) tools w…
 
-## Marketing/SEO/Growth (101)
+## Marketing/SEO/Growth (103)
 
 - **agile-testing-quadrants-deep** — Agile testing quadrants deep distilled.
 - **apify-audience-analysis** — Understand audience demographics, preferences, behavior patterns, and engagement quality across Facebook, Instagram, YouTube, and TikTok.
@@ -391,6 +406,7 @@ registered in the router appear under the same family here automatically.
 - **computer-vision-multiview-stereo** — Applies the camera-geometry and stereo chapters of Richard Szeliski's Computer Vision: Algorithms and Applications: camera models and calibration, epipolar geom…
 - **content-research-writer** — Research topics and write content like blog posts, articles, and copy
 - **conversion-psychology** — Psychology of conversion for sponsored content.
+- **create-assistant** — Design, create, or validate saved and transient Vapi voice assistants.
 - **cron-scheduling-automation** — Builds reliable scheduled jobs: cron expressions, timezone, overlap guards, missed-run policy.
 - **customer-research** — When the user wants to conduct, analyze, or synthesize customer research.
 - **data-mapping-transformation-nodes** — Transforms payloads with explicit declarative mappings, tests.
@@ -464,6 +480,7 @@ registered in the router appear under the same family here automatically.
 - **sugarman-adweek-triggers** — Triggers buying with direct-response psychology: slippery slides and buying emotions.
 - **swim-gossip-membership** — Spreads information and tracks membership epidemically: gossip, SWIM, and anti-entropy.
 - **tiktok-marketing** — TikTok content strategy, video creation workflows, posting optimization, and analytics.
+- **vapi-bootstrap-framework** — Opt-in recreation of the Bun + TypeScript framework used to build Vapi's landing-page voice agents from a ROUGH_DRAFT.md spec, including a scenario registry, la…
 - **vaynerchuk-jab-hook** — Wins social with give-give-ask: native storytelling per platform.
 - **viral-hooks** — Expert in creating opening lines, thumbnails, and hooks that stop the scroll.
 - **visual-regression-deep** — Visual regression testing deep distilled.
@@ -721,7 +738,7 @@ registered in the router appear under the same family here automatically.
 - **windows-internals-russinovich** — Understands Windows from the kernel up: processes, memory, I/O, and security.
 - **xss-csrf-testing** — XSS and CSRF testing distilled.
 
-## Agents/Architecture (59)
+## Agents/Architecture (60)
 
 - **agent-arch-system-design** — Expert system architecture design: patterns, scalability planning, ADRs, C4 diagrams, technology trade-offs, non-functional requirements.
 - **agent-reach** — Read and search external sources through the channels installed on this machine.
@@ -757,6 +774,7 @@ registered in the router appear under the same family here automatically.
 - **gof-design-patterns** — Applies the Gang of Four Design Patterns (Gamma, Helm, Johnson, Vlissides) to n8n workflows and code: creational (Factory, Singleton, Builder, Prototype), struc…
 - **handoff** — Compact the current conversation into a handoff document for another agent to pick up.
 - **improve-codebase-architecture** — Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.
+- **make-scenario-building** — This skill should be used when designing Make scenarios, choosing which modules to use, composing module flows, setting up routing/branching/filtering/iteration…
 - **marz-lambda-kappa** — Architects big-data serving: batch, speed, and serving layers.
 - **microservices-boundary-design** — Applies Sam Newman's Building Microservices to split automation and backends into independently deployable services: finding service boundaries by business capa…
 - **missing-semester-cs-tools** — Masters the tooling CS degrees skip: shell, editors, data wrangling, and debugging.
@@ -1230,4 +1248,4 @@ registered in the router appear under the same family here automatically.
 - **speech-language-processing** — Applies Jurafsky & Martin's Speech and Language Processing (SLP) to build NLP systems on textbook foundations: regular expressions and text normalization, n-gra…
 
 ---
-*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 21:11 — 1150 skills, 24 families*
+*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 21:17 — 1168 skills, 24 families*
