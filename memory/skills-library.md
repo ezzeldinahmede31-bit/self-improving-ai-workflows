@@ -622,7 +622,7 @@ registered in the router appear under the same family here automatically.
 - **state-machine-persistence** — Design n8n automations as recoverable state machines: persist multi-turn or long-running state (conversation context, job progress, dedupe keys) to Supabase, Re…
 - **tool-design** — This skill should be used for the tool-interface layer of an agent system specifically: writing tool descriptions agents can route on, designing tool schemas an…
 
-## Agents/Architecture (43)
+## Agents/Architecture (42)
 
 - **agent-arch-system-design** — Expert system architecture design: patterns, scalability planning, ADRs, C4 diagrams, technology trade-offs, non-functional requirements.
 - **agent-reach** — Read and search external sources through the channels installed on this machine.
@@ -661,7 +661,6 @@ registered in the router appear under the same family here automatically.
 - **python-scripting-scientific** — Applies Hans Petter Langtangen's Python Scripting for Computational Science to write scripts that drive scientific computation: use Python as the glue for compi…
 - **roughgarden-game-theory** — Analyzes strategic systems: equilibria, incentives, and mechanisms.
 - **serverless-aws** — Applies Sbarski's Serverless Architectures on AWS to build event-driven systems from managed services: functions that are stateless, short-lived, and event-trig…
-- **shape-up-basecamp** — Ships in fixed cycles the Basecamp way: shaping, betting, building.
 - **site-architecture** — When the user wants to plan, map, or restructure their website's page hierarchy, navigation, URL structure, or internal linking.
 - **software-architecture-hard-parts** — Applies Ford, Richards & Sadalage's Software Architecture: The Hard Parts to the architecture decisions that have no perfect answer: modularity (which modularit…
 - **state-machine-workflow-modeling** — Represents workflows as explicit state machines with persisted state.
@@ -953,7 +952,7 @@ registered in the router appear under the same family here automatically.
 - **high-end-visual-design** — Teaches the AI to design like a high-end agency.
 - **liquid-glass** — Build and migrate iOS, macOS, iPadOS, watchOS, tvOS, and visionOS apps with Apple's Liquid Glass design system (iOS 26+, macOS 26 Tahoe+).
 
-## Auto-installed (find-skills) (21)
+## Auto-installed (find-skills) (22)
 
 - **audit-trail-compliance** — Records actor, action, target, hashes, outcome in append-only logs for compliance.
 - **boyd-convex-optimization** — Solves optimization the Boyd way: convex formulation, duality, and first-order methods.
@@ -972,6 +971,7 @@ registered in the router appear under the same family here automatically.
 - **queue-decoupled-workers** — Decouples producers/consumers via durable queues for independent scale/fail.
 - **retry-backoff-jitter** — Configures transient retries with exponential backoff, jitter, budgets, classification.
 - **scheduled-digest-aggregation** — Accumulates events, delivers consolidated digests on schedule.
+- **shape-up-basecamp** — Ships in fixed cycles the Basecamp way: shaping, betting, building.
 - **shapiro-crdts** — Shares mutable state without coordination: convergent replicated data types.
 - **timeout-graceful-degradation** — Bounds calls with explicit timeouts, defines degraded modes.
 - **validation-gate-data-quality** — Blocks bad data at entrances with schema/range checks + quarantine.
