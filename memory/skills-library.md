@@ -422,12 +422,11 @@ registered in the router appear under the same family here automatically.
 - **video-inpainting** — Region edits across video frames on RunComfy via the `runcomfy` CLI — remove an object that appears across many frames, clean up wires or watermarks, replace a…
 - **video-processing-editing** — FFmpeg automation for cutting, trimming, concatenating videos.
 
-## Research (32)
+## Research (31)
 
 - **academic-search** — Search and analyze academic literature.
 - **all-of-statistics** — Applies Larry Wasserman's All of Statistics to use probability and statistics in data work: probability theory, random variables and expectation, statistical in…
 - **chollet-cnn-computer-vision** — Deep dive into the convolutional-network and computer-vision chapters of Chollet's Deep Learning with Python: convolution filters, pooling, data augmentation, t…
-- **columnar-analytics-engines** — Runs analytical queries fast on columnar stores: compression, vectorization, and late materialization.
 - **company-research** — Conduct comprehensive company research and due diligence.
 - **data-analysis** — Generate statistical analysis code with 4-round review.
 - **data-mining-practical-ml** — Applies Witten, Frank, Hall & Pal's Data Mining: Practical Machine Learning Tools and Techniques to mine data with the practical toolkit: the data-mining proces…
@@ -574,7 +573,7 @@ registered in the router appear under the same family here automatically.
 - **thinking-triz** — When two design requirements seem mutually exclusive, name the contradiction, separate conflicting states, then invent a concrete no-compromise resolution.
 - **thinking-via-negativa** — Use when the reflex is to add a feature, layer, or process.
 
-## Context/Memory/System (55)
+## Context/Memory/System (56)
 
 - **advanced-evaluation** — This skill should be used for advanced LLM evaluation: LLM-as-judge systems, direct scoring, pairwise comparison, rubric calibration, evaluator bias mitigation,…
 - **alephone-binary-exploitation** — Understands memory-corruption attacks to defeat them: overflows, ROP, and modern mitigations.
@@ -586,6 +585,7 @@ registered in the router appear under the same family here automatically.
 - **chain-integrity-checker** — Cumulative per-step consistency verification for multi-step plans/DAGs produced by weak models.
 - **clements-views-beyond** — Documents and evaluates architectures: views, beyond-views info, and ATAM tradeoffs.
 - **cognitive-task-triager** — Analyzes task complexity and assigns execution to the optimal LLM tier (Routine, Code, Long-Context, Critical Reasoning) before any model call.
+- **columnar-analytics-engines** — Runs analytical queries fast on columnar stores: compression, vectorization, and late materialization.
 - **confidence-calibrator** — Externally-measured confidence calibration for weak/free models.
 - **context-budget-governor** — Protect a small context window so it behaves like a big one.
 - **context-compression** — This skill should be used when long-running agent sessions need context compression, structured summarization, compaction, token-per-task optimization, or durab…
