@@ -48,8 +48,11 @@ API = "https://api.github.com/repos/{repo}/git/trees/{branch}?recursive=1"
 def fetch_tree(repo, branch):
     url = API.format(repo=repo, branch=branch)
     req = urllib.request.Request(url, headers={"User-Agent": "template-index-builder"})
-    with urllib.request.urlopen(req, timeout=90) as r:
-        data = json.load(r)
+    try:
+        with urllib.request.urlopen(req, timeout=90) as r:
+            data = json.load(r)
+    except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as e:
+        raise RuntimeError(f"tree fetch failed for {repo}@{branch}: {e}")
     if data.get("truncated"):
         raise RuntimeError(f"tree truncated for {repo}")
     return [e["path"] for e in data.get("tree", [])
