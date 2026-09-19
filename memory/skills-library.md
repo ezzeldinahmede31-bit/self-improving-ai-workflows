@@ -589,7 +589,7 @@ registered in the router appear under the same family here automatically.
 - **thinking-triz** — When two design requirements seem mutually exclusive, name the contradiction, separate conflicting states, then invent a concrete no-compromise resolution.
 - **thinking-via-negativa** — Use when the reflex is to add a feature, layer, or process.
 
-## Context/Memory/System (61)
+## Context/Memory/System (60)
 
 - **advanced-evaluation** — This skill should be used for advanced LLM evaluation: LLM-as-judge systems, direct scoring, pairwise comparison, rubric calibration, evaluator bias mitigation,…
 - **alephone-binary-exploitation** — Understands memory-corruption attacks to defeat them: overflows, ROP, and modern mitigations.
@@ -643,7 +643,6 @@ registered in the router appear under the same family here automatically.
 - **nlp-transformers-huggingface** — Applies Tunstall, von Werra & Wolf's Natural Language Processing with Transformers to build production NLP pipelines with the Hugging Face ecosystem — tokenizat…
 - **progressive-context-compressor** — Survives long sessions without losing fidelity: instead of a single late collapse, maintains a rolling structured summary as the conversation grows, decides WHA…
 - **project-development** — This skill should be used for project-level decisions about LLM-powered systems: whether an LLM is the right primitive for the task at hand, the shape of a mult…
-- **python-testing-patterns** — Implement comprehensive testing strategies with pytest, fixtures, mocking, and test-driven development.
 - **rate-limit-and-cost-guard** — Calculate expected API cost and call volume for every n8n workflow, then add rate-control (Wait/Loop limits) so API keys are not banned and budgets are not blow…
 - **rl-autonomous-agents** — Applies reinforcement learning to autonomous agents: define the reward signal, the policy, exploration, and the safety constraints, and know when RL is worth th…
 - **seacord-secure-coding** — Writes C/C++ and systems code that resists exploitation: input validation, memory safety, and integer correctness.
@@ -859,7 +858,7 @@ registered in the router appear under the same family here automatically.
 - **triage** — Move issues and external PRs through a state machine of triage roles, categorise, verify, grill if needed, and write agent-ready briefs.
 - **wiegers-software-requirements** — Engineers requirements that survive contact with stakeholders: elicitation, specification, and change control.
 
-## Superpowers pack — obra (22)
+## Superpowers pack — obra (23)
 
 - **black-risk-based-testing** — Manages testing by risk: analysis, priorities, and process control.
 - **brainstorming** — You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior.
@@ -871,6 +870,7 @@ registered in the router appear under the same family here automatically.
 - **mcconnell-software-estimation** — Estimates software honestly: ranges, calibration, and cone of uncertainty.
 - **modern-robotics** — Reasons about robots: configuration space, rigid-body motion, kinematics, and planning.
 - **patton-story-mapping** — Orders backlogs by user journey: story maps, slices, and releases.
+- **python-testing-patterns** — Implement comprehensive testing strategies with pytest, fixtures, mocking, and test-driven development.
 - **receiving-code-review** — Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical…
 - **remembering-conversations** — You MUST invoke this skill before saying "I don't know," guessing, or treating any topic as new, no matter how trivial the question seems.
 - **requesting-code-review** — Use when completing tasks, implementing major features, or before merging to verify work meets requirements
