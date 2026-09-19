@@ -996,7 +996,7 @@ registered in the router appear under the same family here automatically.
 - **high-end-visual-design** — Teaches the AI to design like a high-end agency.
 - **liquid-glass** — Build and migrate iOS, macOS, iPadOS, watchOS, tvOS, and visionOS apps with Apple's Liquid Glass design system (iOS 26+, macOS 26 Tahoe+).
 
-## Auto-installed (find-skills) (29)
+## Auto-installed (find-skills) (30)
 
 - **audit-trail-compliance** — Records actor, action, target, hashes, outcome in append-only logs for compliance.
 - **boyd-convex-optimization** — Solves optimization the Boyd way: convex formulation, duality, and first-order methods.
@@ -1013,6 +1013,7 @@ registered in the router appear under the same family here automatically.
 - **long-running-operations-tracking** — Models multi-minute/day jobs as operation resources with status/progress/resume.
 - **loop-batch-pagination** — Processes large datasets via bounded loops, cursor pagination, sized batches.
 - **made-to-stick-heath** — Applies Heath SUCCESs: simple, unexpected, concrete, credible, emotional, stories.
+- **neon-postgres** — Guides and best practices for working with Lakebase Postgres on Neon: connections, pooled vs direct, schema migrations, branching, autoscaling, scale-to-zero, i…
 - **observability-execution-monitoring** — Watches health via metrics, structured logs, alerts on stall/failure.
 - **pearl-causal-inference** — Reasons from correlation to causation: graphs, interventions, and counterfactuals.
 - **perlman-interconnections** — Designs robust bridging and routing: spanning trees, link-state, and self-stabilization.
@@ -1044,9 +1045,8 @@ registered in the router appear under the same family here automatically.
 - **chinchilla-scaling-laws** — Plans large-model training with scaling laws: compute-optimal size, data mix, and emergent behavior.
 - **pbft-hotstuff-bft** — Reaches agreement with adversaries present: BFT protocols from PBFT to HotStuff.
 
-## Social media (2)
+## Social media (1)
 
-- **neon-postgres** — Guides and best practices for working with Lakebase Postgres on Neon: connections, pooled vs direct, schema migrations, branching, autoscaling, scale-to-zero, i…
 - **shoham-multiagent-systems** — Designs strategic multi-agent systems: game forms, social choice, and protocols.
 
 ## Other / custom (not yet in router registry) (1)
