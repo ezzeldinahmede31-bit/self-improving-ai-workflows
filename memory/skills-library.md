@@ -422,7 +422,7 @@ registered in the router appear under the same family here automatically.
 - **video-inpainting** — Region edits across video frames on RunComfy via the `runcomfy` CLI — remove an object that appears across many frames, clean up wires or watermarks, replace a…
 - **video-processing-editing** — FFmpeg automation for cutting, trimming, concatenating videos.
 
-## Research (31)
+## Research (30)
 
 - **academic-search** — Search and analyze academic literature.
 - **all-of-statistics** — Applies Larry Wasserman's All of Statistics to use probability and statistics in data work: probability theory, random variables and expectation, statistical in…
@@ -437,7 +437,6 @@ registered in the router appear under the same family here automatically.
 - **evidence-over-memory** — Kill hallucination by making verification a reflex: any factual claim, API detail, library version, file path, or numeric fact must come from a tool result, not…
 - **firecrawl-deep-research** — Produce an intensive, cited analytical report: executive summary, multi-angle findings, contrarian views, open questions, and full sources.
 - **github-research** — Explore and analyze GitHub repositories related to a research topic.
-- **graph-databases-modeling** — Models and queries connected data: property graphs, traversals, and Cypher.
 - **hands-on-ai-python** — Applies Prateek Joshi's Artificial Intelligence with Python to implement classic AI algorithms from scratch in Python — search (BFS, DFS, A*), constraint satisf…
 - **literature-search** — Search academic literature using Semantic Scholar, arXiv, and OpenAlex APIs.
 - **llm-workflow-production-tactics** — Distills the production-workflow guidance of the O'Reilly LLM-stack literature that "Real-World Workflows with LLMs"-style books cover — Berryman & Ziegler's Pr…
@@ -963,7 +962,7 @@ registered in the router appear under the same family here automatically.
 - **high-end-visual-design** — Teaches the AI to design like a high-end agency.
 - **liquid-glass** — Build and migrate iOS, macOS, iPadOS, watchOS, tvOS, and visionOS apps with Apple's Liquid Glass design system (iOS 26+, macOS 26 Tahoe+).
 
-## Auto-installed (find-skills) (24)
+## Auto-installed (find-skills) (25)
 
 - **audit-trail-compliance** — Records actor, action, target, hashes, outcome in append-only logs for compliance.
 - **boyd-convex-optimization** — Solves optimization the Boyd way: convex formulation, duality, and first-order methods.
@@ -971,6 +970,7 @@ registered in the router appear under the same family here automatically.
 - **ecommerce-order-processing-flows** — Automates order lifecycles with idempotent steps + reconciliation.
 - **fan-out-fan-in-merge** — Splits work parallel then rejoins by key, handling partial failures.
 - **feature-engineering-machine-learning** — Applies Alice Zheng and Amanda Casari's Feature Engineering for Machine Learning to turn raw data into features that make models work: numeric features (scaling…
+- **graph-databases-modeling** — Models and queries connected data: property graphs, traversals, and Cypher.
 - **idempotency-key-design** — Makes writes safe to repeat via natural or synthetic keys enforced at store.
 - **lean-startup-ries** — Applies Ries build-measure-learn, MVP, validated learning.
 - **long-running-operations-tracking** — Models multi-minute/day jobs as operation resources with status/progress/resume.
