@@ -7,7 +7,7 @@ for the full doc of the chosen skill. Grouping matches the router
 registry buckets (`compensatory-router/SKILL.md`), so new skills that were
 registered in the router appear under the same family here automatically.
 
-## Automation (per-tool) (336)
+## Automation (per-tool) (337)
 
 - **abstraction-quality-gate** — Enforces A Philosophy of Software Design's core principle: complexity management through deep modules and shallow interfaces.
 - **access-control-least-privilege-agents-v2** — Applies Access Control, Role-Based Permissions, and Least Privilege for AI Agents to production: distilled patterns, anti-patterns, and checklists for building…
@@ -52,6 +52,7 @@ registered in the router appear under the same family here automatically.
 - **autonomous-web-scraping-agents** — Applies Autonomous Web Scraping and Data Extraction Agents to production: distilled patterns, anti-patterns, and checklists for building reliable autonomous web…
 - **bash-cookbook** — Applies Bash Cookbook (Carl Albing & JP Vossen) to everyday shell automation: battle-tested recipes for variables, arithmetic, functions, text processing, redir…
 - **bayesian-hierarchical-models** — Applies the hierarchical-model chapters of Gelman et al.'s Bayesian Data Analysis: multilevel models that share strength across groups, partial pooling, group-l…
+- **bdd-trio-collaboration** — BDD trio collaboration distilled.
 - **bias-fairness-mitigation-strategies** — Applies Bias, Fairness, and Mitigation Strategies in Automated Decision Systems to production: distilled patterns, anti-patterns, and checklists for building re…
 - **biz-school-growth** — Modern growth and leadership distilled for scaling the clinic agency: habits, teams, content loops.
 - **bpm-robotic-automation-synergy** — Applies Business Process Management and Robotic Automation Synergy to production: distilled patterns, anti-patterns, and checklists for building reliable busine…
@@ -358,8 +359,9 @@ registered in the router appear under the same family here automatically.
 - **zapier-sdk** — Zapier SDK for TypeScript.
 - **zapier-system-cloner** — Replicates any Zapier (Zap) system — especially premium/expensive ones — with identical outputs and quality on n8n or code, using different (free/local) tools w…
 
-## Marketing/SEO/Growth (96)
+## Marketing/SEO/Growth (98)
 
+- **agile-testing-quadrants-deep** — Agile testing quadrants deep distilled.
 - **apify-audience-analysis** — Understand audience demographics, preferences, behavior patterns, and engagement quality across Facebook, Instagram, YouTube, and TikTok.
 - **architect-elevator-staff** — Lead architecture across all floors: executives, managers, engineers.
 - **architecture-decision-framework** — How to decide architecture and technology from REQUIREMENTS, not trends.
@@ -432,6 +434,7 @@ registered in the router appear under the same family here automatically.
 - **psych-school-power** — Power and maneuver school for clinic selling: Machiavelli, Greene, war strategy, propaganda systems.
 - **psych-school-social** — Social psychology for clinic selling: norms, tribes, conformity.
 - **python-backend-architecture-review** — Comprehensive Python backend architecture review.
+- **qa-coaching-patterns** — QA coaching patterns distilled.
 - **resilience-circuit-testing** — Resilience and circuit breaker testing distilled.
 - **rework-range-lean** — Applies the counter-conventional product and business principles from Rework (Fried & Hansson): small is a feature not a stage, constraints are an advantage, sc…
 - **saga-compensation-flows** — Coordinates multi-step distributed actions with forward steps plus compensating undos.
@@ -515,8 +518,9 @@ registered in the router appear under the same family here automatically.
 - **search-patterns** — Applies Peter Morville's Search Patterns to design search and discovery experiences that actually work: the search UX/IA anatomy (query box, results, faceted na…
 - **vector-databases-similarity-search** — Covers the fundamentals of vector databases and similarity search that any RAG or semantic-search build depends on: embedding representation, vector indexes (HN…
 
-## Reasoning/Math/Logic (76)
+## Reasoning/Math/Logic (77)
 
+- **acceptance-test-driven** — Acceptance test-driven development distilled.
 - **algorithm-design-kleinberg-tardos** — Applies Kleinberg & Tardos' Algorithm Design to designing algorithms by stable problem families: greedy algorithms and exchange arguments, divide and conquer wi…
 - **algorithmic-math-reasoner** — Raises correctness on hard algorithmic and mathematical problems where a fast model tends to jump to plausible-but-wrong answers: forces formal restatement, inv…
 - **ammann-offutt-criteria** — Applies rigorous coverage: RIP model, logic/input/graph/syntax criteria.
@@ -795,7 +799,7 @@ registered in the router appear under the same family here automatically.
 - **web-security-browser-internals** — Applies Michal Zalewski's The Tangled Web to secure modern web applications: how browsers and HTTP actually behave (parsing, encoding, navigation, the same-orig…
 - **zero-to-one-thiel** — Applies Thiel monopoly, secrets, power law to strategy.
 
-## Coding/SWE (87)
+## Coding/SWE (88)
 
 - **agile-principles-patterns-practices** — Applies Robert C.
 - **algorithm-design** — Design algorithms with LaTeX pseudocode and UML diagrams.
@@ -875,6 +879,7 @@ registered in the router appear under the same family here automatically.
 - **tdd-sandbox-proof-engine** — Enforces Test-Driven Development (TDD) in a clean sandbox: code is only considered valid if companion unit tests pass 100% and the execution log is attached.
 - **terminal-bash-executor-governor** — Executes CLI commands, inspects exit codes, manages tailing log output, and enforces safety gates for destructive terminal operations.
 - **test-driven-development-by-example-beck** — Applies Beck TDD: red, green, refactor cycle.
+- **test-maintenance-refactor** — Test maintenance and refactoring distilled.
 - **test-smells-catalog** — Applies the test-smell catalog half of Gerard Meszaros' XUnit Test Patterns to find and fix the problems that make test suites slow, brittle, and unmaintainable…
 - **types-and-programming-languages** — Applies Benjamin C.
 - **varghese-network-algorithmics** — Implements packet processing at line rate: fast lookups, classification, and scheduling.
@@ -917,7 +922,7 @@ registered in the router appear under the same family here automatically.
 - **worst-idea** — Worst Possible Idea (reverse brainstorming) — deliberately design the most terrible solutions to the problem, name the mechanism that makes each one bad, then i…
 - **zeller-fuzzing-book** — Fuzzes with structure: mutational, generational, and coverage-guided fuzzing.
 
-## Delivery/Gates (34)
+## Delivery/Gates (35)
 
 - **adversarial-self-falsifier** — Actively attacks and attempts to break generated code, math, or logic before finalizing the response.
 - **adzic-specification-by-example** — Gojko Adzic Specification by Example distilled.
@@ -949,6 +954,7 @@ registered in the router appear under the same family here automatically.
 - **proactive-spec-expander** — Automatically expands simple user prompts into enterprise-grade PRDs with implicit security, lockdown modes, rate limits, and edge-case requirements BEFORE writ…
 - **reflection-and-audit-loop** — Impose a mandatory 4-stage structured workflow before delivering any n8n workflow JSON or Code-node script: plan the path, draft, structural self-critique, then…
 - **swebok-guide** — Maps any software engineering question to its SWEBOK knowledge area and the right specialist skill.
+- **test-documentation-living** — Living test documentation distilled.
 - **to-spec** — Turn the current conversation into a spec and publish it to the project issue tracker: no interview, just synthesis of what you've already discussed.
 - **tradeoff-and-postmortem-documenter** — Auto-generates production-ready documentation, architecture rationale, design trade-offs, and an explicit KNOWN_ISSUES.md for every implementation.
 - **triage** — Move issues and external PRs through a state machine of triage roles, categorise, verify, grill if needed, and write agent-ready briefs.
@@ -1098,7 +1104,7 @@ registered in the router appear under the same family here automatically.
 - **high-end-visual-design** — Teaches the AI to design like a high-end agency.
 - **liquid-glass** — Build and migrate iOS, macOS, iPadOS, watchOS, tvOS, and visionOS apps with Apple's Liquid Glass design system (iOS 26+, macOS 26 Tahoe+).
 
-## Auto-installed (find-skills) (61)
+## Auto-installed (find-skills) (65)
 
 - **agentic-eval** — Patterns and techniques for evaluating and improving AI agent outputs.
 - **api-testing-contract-patterns** — API testing patterns distilled.
@@ -1114,6 +1120,7 @@ registered in the router appear under the same family here automatically.
 - **decision-table-testing** — Decision table testing distilled.
 - **distributed-systems-field-manual** — Practical distributed-systems survival rules: timeouts, retries, clocks, quorums.
 - **ecommerce-order-processing-flows** — Automates order lifecycles with idempotent steps + reconciliation.
+- **example-mapping-workshops** — Example mapping workshops distilled.
 - **fan-out-fan-in-merge** — Splits work parallel then rejoins by key, handling partial failures.
 - **feature-engineering-machine-learning** — Applies Alice Zheng and Amanda Casari's Feature Engineering for Machine Learning to turn raw data into features that make models work: numeric features (scaling…
 - **flaky-test-elimination** — Flaky test elimination distilled.
@@ -1122,6 +1129,7 @@ registered in the router appear under the same family here automatically.
 - **graphql-advanced-testing** — Advanced GraphQL testing distilled.
 - **idempotency-key-design** — Makes writes safe to repeat via natural or synthetic keys enforced at store.
 - **injection-testing-patterns** — Injection testing patterns distilled.
+- **kanban-qa-flow** — Kanban QA flow distilled.
 - **khorikov-unit-testing** — Writes unit tests worth keeping: the four pillars and London vs Detroit.
 - **lean-startup-ries** — Applies Ries build-measure-learn, MVP, validated learning.
 - **linux-device-drivers-ldd** — Writes Linux kernel drivers: modules, char/block devices, interrupts, and concurrency.
@@ -1139,10 +1147,12 @@ registered in the router appear under the same family here automatically.
 - **practice-of-programming-kernighan** — Applies Kernighan & Pike style, testing, performance, portability.
 - **quality-metrics-dashboard** — Quality metrics dashboard distilled.
 - **queue-decoupled-workers** — Decouples producers/consumers via durable queues for independent scale/fail.
+- **regression-strategy-patterns** — Regression strategy patterns distilled.
 - **release-readiness-gates** — Release readiness gating distilled.
 - **retry-backoff-jitter** — Configures transient retries with exponential backoff, jitter, budgets, classification.
 - **risk-based-prioritization** — Risk-based prioritization distilled.
 - **scheduled-digest-aggregation** — Accumulates events, delivers consolidated digests on schedule.
+- **scrum-qa-integration** — Scrum QA integration distilled.
 - **seven-databases-tour** — Chooses the right database paradigm: relational, KV, columnar, document, graph.
 - **shape-up-basecamp** — Ships in fixed cycles the Basecamp way: shaping, betting, building.
 - **shapiro-crdts** — Shares mutable state without coordination: convergent replicated data types.
@@ -1190,4 +1200,4 @@ registered in the router appear under the same family here automatically.
 - **speech-language-processing** — Applies Jurafsky & Martin's Speech and Language Processing (SLP) to build NLP systems on textbook foundations: regular expressions and text normalization, n-gra…
 
 ---
-*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 20:45 — 1110 skills, 24 families*
+*Auto-generated by `scripts/skills_docs_generator.py` on 2026-09-19 20:46 — 1120 skills, 24 families*
