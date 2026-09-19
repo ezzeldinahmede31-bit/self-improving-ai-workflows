@@ -335,7 +335,7 @@ registered in the router appear under the same family here automatically.
 - **zapier-sdk** — Zapier SDK for TypeScript.
 - **zapier-system-cloner** — Replicates any Zapier (Zap) system — especially premium/expensive ones — with identical outputs and quality on n8n or code, using different (free/local) tools w…
 
-## Marketing/SEO/Growth (68)
+## Marketing/SEO/Growth (67)
 
 - **apify-audience-analysis** — Understand audience demographics, preferences, behavior patterns, and engagement quality across Facebook, Instagram, YouTube, and TikTok.
 - **audience-psychology-analyst** — Build a psychological profile of any target audience and translate it into marketing AND video-editing decisions.
@@ -404,7 +404,6 @@ registered in the router appear under the same family here automatically.
 - **swim-gossip-membership** — Spreads information and tracks membership epidemically: gossip, SWIM, and anti-entropy.
 - **tiktok-marketing** — TikTok content strategy, video creation workflows, posting optimization, and analytics.
 - **viral-hooks** — Expert in creating opening lines, thumbnails, and hooks that stop the scroll.
-- **weinberg-egoless-systems** — Runs software as a human system: egoless programming and technical leadership.
 
 ## Video/Media (9)
 
@@ -692,7 +691,7 @@ registered in the router appear under the same family here automatically.
 - **web-security-browser-internals** — Applies Michal Zalewski's The Tangled Web to secure modern web applications: how browsers and HTTP actually behave (parsing, encoding, navigation, the same-orig…
 - **zero-to-one-thiel** — Applies Thiel monopoly, secrets, power law to strategy.
 
-## Coding/SWE (64)
+## Coding/SWE (65)
 
 - **agile-principles-patterns-practices** — Applies Robert C.
 - **algorithm-design** — Design algorithms with LaTeX pseudocode and UML diagrams.
@@ -755,6 +754,7 @@ registered in the router appear under the same family here automatically.
 - **test-driven-development-by-example-beck** — Applies Beck TDD: red, green, refactor cycle.
 - **test-smells-catalog** — Applies the test-smell catalog half of Gerard Meszaros' XUnit Test Patterns to find and fix the problems that make test suites slow, brittle, and unmaintainable…
 - **types-and-programming-languages** — Applies Benjamin C.
+- **weinberg-egoless-systems** — Runs software as a human system: egoless programming and technical leadership.
 - **xunit-test-patterns** — Applies Gerard Meszaros' XUnit Test Patterns to write clean, maintainable test suites: the Four-Phase test structure, the Test Double taxonomy (dummy, stub, fak…
 - **zeller-why-programs-fail** — Debugs systematically like a scientist: reproduce, hypothesize, predict, experiment.
 - **zero-trust-modular-decomposer** — Enforces strict modular architecture, breaking implementations into single-responsibility files (7-10 modules) with zero-trust isolation boundaries.
