@@ -331,7 +331,7 @@ registered in the router appear under the same family here automatically.
 - **zapier-sdk** — Zapier SDK for TypeScript.
 - **zapier-system-cloner** — Replicates any Zapier (Zap) system — especially premium/expensive ones — with identical outputs and quality on n8n or code, using different (free/local) tools w…
 
-## Marketing/SEO/Growth (61)
+## Marketing/SEO/Growth (60)
 
 - **apify-audience-analysis** — Understand audience demographics, preferences, behavior patterns, and engagement quality across Facebook, Instagram, YouTube, and TikTok.
 - **audience-psychology-analyst** — Build a psychological profile of any target audience and translate it into marketing AND video-editing decisions.
@@ -391,7 +391,6 @@ registered in the router appear under the same family here automatically.
 - **social-media-generator** — This skill should be used when the user requests social media content creation for Twitter, Instagram, LinkedIn, or Facebook.
 - **social-media-image-sizes** — Check and resize images for social media platforms.
 - **social-publisher** — Multi-platform social media publishing automation - schedule, post, and track content across TikTok, Instagram, YouTube, LinkedIn, and more
-- **tech-ethics-ip-privacy** — Resolves technology ethics: professional duty, intellectual property, and privacy.
 - **tiktok-marketing** — TikTok content strategy, video creation workflows, posting optimization, and analytics.
 - **viral-hooks** — Expert in creating opening lines, thumbnails, and hooks that stop the scroll.
 
@@ -447,7 +446,7 @@ registered in the router appear under the same family here automatically.
 - **search-patterns** — Applies Peter Morville's Search Patterns to design search and discovery experiences that actually work: the search UX/IA anatomy (query box, results, faceted na…
 - **vector-databases-similarity-search** — Covers the fundamentals of vector databases and similarity search that any RAG or semantic-search build depends on: embedding representation, vector indexes (HN…
 
-## Reasoning/Math/Logic (63)
+## Reasoning/Math/Logic (64)
 
 - **algorithm-design-kleinberg-tardos** — Applies Kleinberg & Tardos' Algorithm Design to designing algorithms by stable problem families: greedy algorithms and exchange arguments, divide and conquer wi…
 - **algorithmic-math-reasoner** — Raises correctness on hard algorithmic and mathematical problems where a fast model tends to jump to plausible-but-wrong answers: forces formal restatement, inv…
@@ -506,6 +505,7 @@ registered in the router appear under the same family here automatically.
 - **taocp-vol2-seminumerical-algorithms** — Applies Knuth's TAOCP Volume 2 to random-number generation and arithmetic: linear congruential generators, statistical tests of randomness, arbitrary-precision…
 - **taocp-vol3-sorting-searching** — Applies Knuth's TAOCP Volume 3 to sorting and searching done right: the classic internal sorting methods (insertion, exchange, selection, merging, distribution/…
 - **taocp-vol4a-combinatorial-algorithms** — Applies Knuth's TAOCP Volume 4A to combinatorial search and generation: generating permutations, combinations, and partitions, backtracking and the general comb…
+- **tech-ethics-ip-privacy** — Resolves technology ethics: professional duty, intellectual property, and privacy.
 - **test-time-compute-scaling** — Brings frontier-level accuracy to a fast/cheap model on HARD problems only, using test-time scaling: generate multiple independent solution paths in parallel, t…
 - **think-bayes** — Applies Allen Downey's Think Bayes to solve real problems with Bayesian statistics in Python: the Bayesian framework (prior, likelihood, posterior), representin…
 - **thinking-fast-and-slow-kahneman** — Applies Kahneman System 1/2, biases, heuristics to design decisions.
