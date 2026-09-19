@@ -332,7 +332,7 @@ registered in the router appear under the same family here automatically.
 - **zapier-sdk** — Zapier SDK for TypeScript.
 - **zapier-system-cloner** — Replicates any Zapier (Zap) system — especially premium/expensive ones — with identical outputs and quality on n8n or code, using different (free/local) tools w…
 
-## Marketing/SEO/Growth (65)
+## Marketing/SEO/Growth (64)
 
 - **apify-audience-analysis** — Understand audience demographics, preferences, behavior patterns, and engagement quality across Facebook, Instagram, YouTube, and TikTok.
 - **audience-psychology-analyst** — Build a psychological profile of any target audience and translate it into marketing AND video-editing decisions.
@@ -387,7 +387,6 @@ registered in the router appear under the same family here automatically.
 - **psych-school-social** — Social psychology for clinic selling: norms, tribes, conformity.
 - **rework-range-lean** — Applies the counter-conventional product and business principles from Rework (Fried & Hansson): small is a feature not a stage, constraints are an advantage, sc…
 - **saga-compensation-flows** — Coordinates multi-step distributed actions with forward steps plus compensating undos.
-- **shapiro-crdts** — Shares mutable state without coordination: convergent replicated data types.
 - **single-variable-calculus** — Uses calculus where computer science actually needs it: growth, optimization, and series.
 - **social** — When the user wants help creating, scheduling, or optimizing social media content for LinkedIn, Twitter/X, Instagram, TikTok, Facebook, or other platforms, or w…
 - **social-media** — Drafts engaging social media posts, writes hooks, suggests hashtags, creates thread structures, and generates companion images.
@@ -937,7 +936,7 @@ registered in the router appear under the same family here automatically.
 - **high-end-visual-design** — Teaches the AI to design like a high-end agency.
 - **liquid-glass** — Build and migrate iOS, macOS, iPadOS, watchOS, tvOS, and visionOS apps with Apple's Liquid Glass design system (iOS 26+, macOS 26 Tahoe+).
 
-## Auto-installed (find-skills) (20)
+## Auto-installed (find-skills) (21)
 
 - **audit-trail-compliance** — Records actor, action, target, hashes, outcome in append-only logs for compliance.
 - **boyd-convex-optimization** — Solves optimization the Boyd way: convex formulation, duality, and first-order methods.
@@ -956,6 +955,7 @@ registered in the router appear under the same family here automatically.
 - **queue-decoupled-workers** — Decouples producers/consumers via durable queues for independent scale/fail.
 - **retry-backoff-jitter** — Configures transient retries with exponential backoff, jitter, budgets, classification.
 - **scheduled-digest-aggregation** — Accumulates events, delivers consolidated digests on schedule.
+- **shapiro-crdts** — Shares mutable state without coordination: convergent replicated data types.
 - **timeout-graceful-degradation** — Bounds calls with explicit timeouts, defines degraded modes.
 - **validation-gate-data-quality** — Blocks bad data at entrances with schema/range checks + quarantine.
 - **workflow-versioning-upgrades** — Versions artifacts, staged rollout, safe downgrade.
