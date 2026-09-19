@@ -7,7 +7,7 @@ for the full doc of the chosen skill. Grouping matches the router
 registry buckets (`compensatory-router/SKILL.md`), so new skills that were
 registered in the router appear under the same family here automatically.
 
-## Automation (per-tool) (326)
+## Automation (per-tool) (325)
 
 - **abstraction-quality-gate** — Enforces A Philosophy of Software Design's core principle: complexity management through deep modules and shallow interfaces.
 - **access-control-least-privilege-agents-v2** — Applies Access Control, Role-Based Permissions, and Least Privilege for AI Agents to production: distilled patterns, anti-patterns, and checklists for building…
@@ -127,7 +127,6 @@ registered in the router appear under the same family here automatically.
 - **event-driven-architecture-async-patterns** — Applies Event-Driven Architecture: Patterns for Asynchronous System Integration to production: distilled patterns, anti-patterns, and checklists for building re…
 - **excel-automation** — Automate Excel spreadsheets: formulas, data cleanup, chart creation, VBA macros, and reporting workflows.
 - **exception-handling-recovery-rpa-v2** — Applies Exception Handling and Recovery Frameworks in RPA Development to production: distilled patterns, anti-patterns, and checklists for building reliable exc…
-- **figma-generate-design** — Use this skill alongside figma-use when the task involves translating an application page, view, or multi-section layout into Figma.
 - **financial-trading-decision-agents** — Applies Financial Trading and Decision Support Agents to production: distilled patterns, anti-patterns, and checklists for building reliable financial trading a…
 - **fine-tuning-llms-domain-adaptation** — Applies Fine-Tuning Large Language Models: Practical Strategies and Domain Adaptation to production: distilled patterns, anti-patterns, and checklists for build…
 - **fitzpatrick-team-geek** — Runs engineering teams on Humility, Respect, Trust: review culture and conflict handling.
@@ -348,7 +347,7 @@ registered in the router appear under the same family here automatically.
 - **zapier-sdk** — Zapier SDK for TypeScript.
 - **zapier-system-cloner** — Replicates any Zapier (Zap) system — especially premium/expensive ones — with identical outputs and quality on n8n or code, using different (free/local) tools w…
 
-## Marketing/SEO/Growth (74)
+## Marketing/SEO/Growth (75)
 
 - **apify-audience-analysis** — Understand audience demographics, preferences, behavior patterns, and engagement quality across Facebook, Instagram, YouTube, and TikTok.
 - **audience-psychology-analyst** — Build a psychological profile of any target audience and translate it into marketing AND video-editing decisions.
@@ -375,6 +374,7 @@ registered in the router appear under the same family here automatically.
 - **dont-make-me-think** — Applies Steve Krug's Don't Make Me Think to web usability: a page is good if a user can say 'of course' — self-evident design, no thinking required.
 - **eghbal-working-in-public** — Sustains open source: maintainer economics, governance, and community health.
 - **environment-promotion-config** — Moves workflows across dev/stage/prod with scoped config, never copy-paste.
+- **figma-generate-design** — Use this skill alongside figma-use when the task involves translating an application page, view, or multi-section layout into Figma.
 - **firecrawl-scraper** — Web scraping skill using Firecrawl API for deep content extraction, format conversion, and page interaction.
 - **firecrawl-website-design-clone** — Extract any website's design system into an agent-ready DESIGN.md using Firecrawl scrape evidence.
 - **foley-computer-graphics** — Builds correct rendering: transforms, viewing, rasterization, and shading.
