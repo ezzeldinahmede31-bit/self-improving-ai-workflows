@@ -720,7 +720,7 @@ registered in the router appear under the same family here automatically.
 - **web-security-browser-internals** — Applies Michal Zalewski's The Tangled Web to secure modern web applications: how browsers and HTTP actually behave (parsing, encoding, navigation, the same-orig…
 - **zero-to-one-thiel** — Applies Thiel monopoly, secrets, power law to strategy.
 
-## Coding/SWE (72)
+## Coding/SWE (71)
 
 - **agile-principles-patterns-practices** — Applies Robert C.
 - **algorithm-design** — Design algorithms with LaTeX pseudocode and UML diagrams.
@@ -761,7 +761,6 @@ registered in the router appear under the same family here automatically.
 - **functional-programming-scala** — Applies Chiusano & Bjarnason's Functional Programming in Scala to design pure, testable programs: referential transparency, total functions, data modeling with…
 - **gawande-checklist-manifesto** — Makes complex work reliable with checklists: design, discipline, and culture.
 - **goos-outside-in-tdd** — Applies Freeman & Pryce's Growing Object-Oriented Software, Guided by Tests (GOOS): build systems outside-in with a walking skeleton, write a failing integratio…
-- **hendrickson-explore-it** — Explores software skillfully: charters, sessions, and heuristics.
 - **how-to-design-programs** — Applies the How to Design Programs (HtDP) design recipe to any coding task: turn the problem statement into a data definition, design the function signature wit…
 - **interpreter-bytecode-vm** — Applies the clox half of Robert Nystrom's Crafting Interpreters to build a bytecode virtual machine: chunks and opcodes, a value stack, the compiler that emits…
 - **ios-design-guidelines** — Apple Human Interface Guidelines for iPhone.
@@ -795,7 +794,7 @@ registered in the router appear under the same family here automatically.
 - **zeller-why-programs-fail** — Debugs systematically like a scientist: reproduce, hypothesize, predict, experiment.
 - **zero-trust-modular-decomposer** — Enforces strict modular architecture, breaking implementations into single-responsibility files (7-10 modules) with zero-trust isolation boundaries.
 
-## Browser/Device (24)
+## Browser/Device (25)
 
 - **analogy** — Forced Analogy / Structural Transplant — map the problem onto a structurally similar system from a distant domain (immune system, air-traffic control, restauran…
 - **apple-ui-designer** — Redesign mobile app UI to feel unmistakably Apple-like, iOS-forward, and native.
@@ -806,6 +805,7 @@ registered in the router appear under the same family here automatically.
 - **desktop-gui-controller** — Controls the user's real X11 desktop session (DISPLAY=:0) like a human coworker: list/focus/resize windows with wmctrl, send keyboard and mouse events, capture…
 - **emergent-reasoning-edge** — Beats a frontier model's parametric instinct at open-ended creativity and emergent reasoning by adding two things it cannot have: (1) LIVE world evidence — web/…
 - **first-principles** — Break down complex problems to their fundamental truths, then reason up from there.
+- **hendrickson-explore-it** — Explores software skillfully: charters, sessions, and heuristics.
 - **hitl-captcha-auth-handler** — Detects CAPTCHAs, Cloudflare Turnstile, and 2FA SMS/Email verification prompts during browser automation, triggers a Human-in-the-Loop (HITL) pause, then resume…
 - **inversion** — Assumption Inversion — list the assumptions behind the current approach and flip each one, then ask where the flipped version could actually be true.
 - **lateral** — Lateral thinking toolkit router — when you're stuck, going in circles, need fresh ideas, or standard brainstorming keeps producing predictable results, this dia…
