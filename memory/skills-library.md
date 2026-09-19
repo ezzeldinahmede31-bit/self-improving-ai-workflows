@@ -651,11 +651,10 @@ registered in the router appear under the same family here automatically.
 - **tool-design** — This skill should be used for the tool-interface layer of an agent system specifically: writing tool descriptions agents can route on, designing tool schemas an…
 - **windows-internals-russinovich** — Understands Windows from the kernel up: processes, memory, I/O, and security.
 
-## Agents/Architecture (47)
+## Agents/Architecture (46)
 
 - **agent-arch-system-design** — Expert system architecture design: patterns, scalability planning, ADRs, C4 diagrams, technology trade-offs, non-functional requirements.
 - **agent-reach** — Read and search external sources through the channels installed on this machine.
-- **agentic-eval** — Patterns and techniques for evaluating and improving AI agent outputs.
 - **api-design-patterns** — Applies JJ Geewax's API Design Patterns to design professional, evolvable REST/HTTP APIs: resource-oriented design with the standard methods (get/list/create/up…
 - **api-long-running-operations** — Applies the long-running operations chapter of API Design Patterns (Geewax): model asynchronous jobs correctly with a standard resource that starts, reports pro…
 - **api-versioning-compatibility** — Applies the versioning and backwards-compatibility chapter of API Design Patterns (Geewax): evolve an API without breaking existing clients — additive-only chan…
@@ -995,8 +994,9 @@ registered in the router appear under the same family here automatically.
 - **high-end-visual-design** — Teaches the AI to design like a high-end agency.
 - **liquid-glass** — Build and migrate iOS, macOS, iPadOS, watchOS, tvOS, and visionOS apps with Apple's Liquid Glass design system (iOS 26+, macOS 26 Tahoe+).
 
-## Auto-installed (find-skills) (31)
+## Auto-installed (find-skills) (32)
 
+- **agentic-eval** — Patterns and techniques for evaluating and improving AI agent outputs.
 - **audit-trail-compliance** — Records actor, action, target, hashes, outcome in append-only logs for compliance.
 - **boyd-convex-optimization** — Solves optimization the Boyd way: convex formulation, duality, and first-order methods.
 - **candor-radical-feedback** — Gives feedback that works: care personally, challenge directly.
