@@ -35,8 +35,8 @@ clear, brief, human, and exact.
 
 ## Verification
 
-Revision checklist per piece: clutter pass (word-count delta recorded),
-one-idea scan, verb audit (passive count down), humanity check (would a
+Revision checklist per piece: clutter pass (words-cut recorded),
+one-idea scan, verb audit (passives reduced), humanity check (would a
 person say this aloud?), ending resonance test. Unrevised second drafts are
 first drafts with confidence issues.
 

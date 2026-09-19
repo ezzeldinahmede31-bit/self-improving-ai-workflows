@@ -33,7 +33,7 @@ awareness, desire, and sophistication.
    unaware/early markets needing emotional entry. Story MUST converge on
    the mechanism (entertainment that never lands the pitch is expensive
    theater).
-6. **Proclamation/Invitation lead.** Direct announcement or exclusive
+6. **Proclamation/Invitation lead.** Direct announcement or members-only
    invitation — for lists, launches, and events where relationship precedes
    persuasion. Exclusivity must be real (segment-gated, capped, or timed).
 
