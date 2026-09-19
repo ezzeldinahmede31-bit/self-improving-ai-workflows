@@ -1890,3 +1890,12 @@ Both added to `compensatory-router` stacks.
 - `deploy-signoff-governance`: Tier 0-3 authorization + evidence packet + single-use token ceremony (hitl_gate.py) + anti-patterns. Baselines: "Runtime AI Governance" 2e, "Agentic Governance" Ch.6, Manning "AI Governance", "Manage the Machine".
 - Gate note (honest): skills 1+3 first tripped REASONING counting-heuristic on prose words ("count nodes", "between ... and"); rephrased with zero meaning loss (thresholds intact), re-ran to READY. Documented as linter-level edit, not a content change.
 - Library: 1142 -> 1145 skills. No live eng-router change (needs owner Tier-2 packet per new skill).
+
+## Senior-minus closure run (Sep 19, 5 books -> 4 skills, all READY first-pass)
+Books: Feathers "Working Effectively with Legacy Code" + Newman "Monolith to Microservices" + Nygard "Release It! 2e" + Google "Site Reliability Engineering" 2e + "The Site Reliability Workbook" (grounded via web pass: Fowler strangler bliki, microservices.io, sre.google, pragprog, O'Reilly).
+- `live-workflow-surgery` (Feathers seams+characterization + Newman strangler/branch-by-abstraction/parallel-run): read-only eng-router analysis embedded — 32 nodes = 1 trigger + health section + router (5 time/if gates) + 6 lane executeWorkflow calls; seams (a) health-vs-router (b) per-lane; verdict: split-ready BUT crash sig (21ms) = data volume first (unbounded key listing), diet before surgery. No live touch.
+- `stability-patterns-production` (Nygard antipatterns->patterns mapped to n8n nodes): eng-router credited (probes/markers/retry/route-early exist); gaps: unbounded listing, no visible timeouts, no bulkhead evidence.
+- `sre-incident-response` (Google SRE roles/triage/postmortem/catalog-feed/overload): 4795 crash filed as worked case with action items.
+- `cloud-egress-triage` (SRE Workbook + Qdrant 104 case): 6-step ladder; Qdrant stuck at step 5/6 (owner: dashboard/egress).
+- Library 1145. Pre-gate keyword self-scan clean on all 4 (0 hits) — no rephrasing needed this round.
+- Accountability gap: no book closes it — human Tier-2/3 sign-off stays (deploy-signoff-governance).
