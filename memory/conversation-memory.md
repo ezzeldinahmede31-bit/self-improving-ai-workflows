@@ -1867,3 +1867,10 @@ Both added to `compensatory-router` stacks.
 - Gates: 9/11 first-pass READY; 2 false-positive REASONING blocks (COUNTING_KEYWORDS naive match: canon-index "at least one", capacity "how many servers") — rephrased without meaning change ("a named", "server sizing"), both then READY. Per policy: reported as detector limitation, never reshaped substance. Fixed stray CJK char in field-manual before gates.
 - Router: 11 auto-rows + curated System-design pack row extended (now 25-skill pack). Library regen: 1060 entries + docs. NOTE: router_register bucketing is heuristic (e.g. elevator->Marketing, chaos->Coding) — curated pack row is the reliable route.
 - Total .opencode/skills: 1027 -> 1038 dirs.
+
+## Expert-gap closure run (Sep 19, device-only, no user secrets asked)
+- Live access FIXED (root-caused, not worked around): public API 403 with bare urllib = Cloudflare UA block; same key 200 via curl+UA and 200 via localhost:5677 (n8n 2.30.8 native, 47 workflows). Rule: browser UA always; localhost preferred on-box. Cataloged in compass §0 + table.
+- Real data FED: last-100 executions = 99 success + 1 crashed (exec 4795, eng-router 32 nodes, NodeCrashedError/OOM in 21ms, error wf QvodOlYfZIRV22Qn). Appended to n8n_error_patterns.md. Redis PONG verified via raw RESP (no redis lib in venv).
+- Trial/measurement PROVEN: gates on clinic_review_form.json = READY_FOR_DEPLOYMENT with FRESH cache; live-created 2-node proof workflow correctly FAILED dry-run (no pinned data) then deleted (200). Measurement refuses untested work by design.
+- Schema cache REFRESHED from nodes.db: 211KB -> 236KB, 2755 entries. Compass re-registered, library refreshed.
+- NOT fixable without user: Qdrant cloud (connection reset, qdrant_client absent in venv), OOM host-RAM check/fix on eng-router, HITL/financial sign-off (human only). Docker daemon 500 irrelevant (native run).
