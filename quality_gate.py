@@ -20,6 +20,37 @@ MAX_ATTEMPTS = 3
 MAX_CYCLOMATIC = 10
 MAX_NODES_SINGLE_WORKFLOW = 10
 
+# ---------------------------------------------------------------------------
+# Strict-quality hardening (user rule: جودة صارمة). Small, capped deductions
+# so idiomatic clean workflows (webhook → https, pinned, connected) still
+# score ~85 PASSED, while sloppy graphs fail harder and for more reasons.
+# ---------------------------------------------------------------------------
+# Node types that START an execution (a graph with none can never run).
+TRIGGER_HINTS = ("trigger", "webhook", "schedule", "chat", "form")
+
+# Node-type keywords that perform an external network call (need retry/timeout
+# — ASI08 cascading-failure discipline: a slow dependency must not hang the
+# whole graph forever).
+NETWORK_HINTS = (
+    "httprequest", "httprequesttool", "sendemail", "telegram", "slack",
+    "discord", "gmail", "twilio", "whatsapp", "openai", "anthropic",
+    "stripe", "github", "hubspot", "salesforce", "postgres", "mysql",
+    "mongodb", "redis", "notion", "airtable", "sheets",
+)
+
+# Side-effecting write signals (need idempotency/dedup — redeliveries must
+# not duplicate effects).
+WRITE_HINTS = (
+    "create", "update", "upsert", "insert", "append", "delete", "write",
+    "send", "post", "publish",
+)
+READ_ONLY_HINTS = ("get", "list", "read", "search", "fetch")
+
+IDEMPOTENCY_HINTS = (
+    "idempotency", "dedup", "dedupe", "webhook-id", "request-id",
+    "event-id", "executionid", "execution_id",
+)
+
 # Bare n8n variable references used as plain string values WITHOUT the
 # ={{...}} expression wrapper — n8n evaluates them as literal text, so the
 # node silently receives the wrong value. The most common AI-generation
@@ -138,6 +169,94 @@ class QualityGate:
                     f"use the Code node (n8n-nodes-base.code) instead")
         return findings
 
+    def _scan_identity(self, nodes: list[dict]) -> list[str]:
+        """Strict identity: duplicate names break $node refs; a graph with no
+        trigger can never execute. (-15 each — structural, not style.)"""
+        findings = []
+        seen: dict[str, int] = {}
+        for n in nodes:
+            name = str(n.get('name', '') or '')
+            if name:
+                seen[name] = seen.get(name, 0) + 1
+        dupes = sorted(k for k, c in seen.items() if c > 1)
+        if dupes:
+            findings.append(
+                f"Duplicate node names {dupes} — $node references resolve "
+                f"ambiguously; rename so every node is unique")
+        if nodes and not any(
+                any(h in str(n.get('type', '')).lower() for h in TRIGGER_HINTS)
+                or str(n.get('type', '')).lower().endswith('.form')
+                for n in nodes):
+            findings.append(
+                "No trigger node (webhook/schedule/manual/chat/form) — "
+                "the graph can never start executing")
+        return findings
+
+    def _is_write_op(self, node: dict) -> bool:
+        t = str(node.get('type', '')).lower()
+        params = node.get('parameters', {}) or {}
+        op = str(params.get('operation', '')).lower()
+        if op and any(k in op for k in WRITE_HINTS):
+            return True
+        if not any(k in t for k in WRITE_HINTS):
+            return False
+        return not any(k in op for k in READ_ONLY_HINTS)
+
+    def _scan_resilience(self, nodes: list[dict]) -> list[str]:
+        """Strict resilience (ASI08): network calls need retry/timeout;
+        writes need idempotency. (-5 per affected node, capped — guidance
+        with teeth, not a guillotine.)"""
+        retry_hits: list[str] = []
+        idem_hits: list[str] = []
+        for n in nodes:
+            t = str(n.get('type', '')).lower()
+            params = n.get('parameters', {}) or {}
+            body = json.dumps(params, default=str).lower()
+            if any(k in t for k in NETWORK_HINTS):
+                has_retry = bool(params.get('retryOnFail')) or 'retry' in body \
+                    or 'timeout' in body
+                if not has_retry:
+                    retry_hits.append(str(n.get('name')))
+            if self._is_write_op(n):
+                if not any(k in body for k in IDEMPOTENCY_HINTS):
+                    idem_hits.append(str(n.get('name')))
+        findings = []
+        if retry_hits:
+            findings.append(
+                f"Network node(s) {retry_hits[:3]} without retry/timeout — "
+                f"one slow dependency hangs the graph (ASI08 cascading "
+                f"failure); set retryOnFail + timeout")
+        if idem_hits:
+            findings.append(
+                f"Write node(s) {idem_hits[:3]} without idempotency/dedup "
+                f"signal — redeliveries duplicate effects; consume a "
+                f"webhook-id/request-id/event-id key")
+        return findings
+
+    def _scan_hygiene(self, workflow: dict) -> list[str]:
+        """Strict hygiene: debug residue, TODO markers, insecure http://.
+        Small deductions that make sloppiness visible in review."""
+        findings = []
+        text = json.dumps(workflow, default=str)
+        code_text = " ".join(
+            str((n.get('parameters', {}) or {}).get(k, ""))
+            for n in workflow.get('nodes', [])
+            for k in ("jsCode", "pythonCode", "functionCode"))
+        if re.search(r"console\.log\s*\(|print\s*\(", code_text):
+            findings.append(
+                "Debug residue (console.log/print) in Code node — strip "
+                "before production; logs leak internals")
+        if re.search(r"\bTODO\b|\bFIXME\b|\bHACK\b", text):
+            findings.append(
+                "TODO/FIXME/HACK marker ships in the artifact — finish or "
+                "file it, never deploy a reminder as code")
+        if re.search(r'"https?://[^"]*"', text) and re.search(
+                r'"http://(?!localhost|127\.0\.0\.1)[^"]*"', text):
+            findings.append(
+                "Insecure http:// URL literal — credentials and PII travel "
+                "in cleartext; use https://")
+        return findings
+
     def _scan_complexity(self, js: str) -> int:
         """Rough cyclomatic complexity: count branch keywords."""
         if not js:
@@ -244,6 +363,9 @@ class QualityGate:
 
         # 4. Reliability
         reliability = self._scan_reliability(workflow)
+        missing_error = any('Error Trigger' in v or 'continueOnFail' in v
+                            for v in reliability)
+        missing_pin = any('pinnedData' in v for v in reliability)
         if reliability:
             isolated_count = sum(1 for v in reliability if 'Isolated' in v)
             # Isolated nodes are a hard structural failure: -20 each
@@ -251,6 +373,32 @@ class QualityGate:
             # Other reliability issues -10 each
             score -= 10 * (len(reliability) - isolated_count)
             violations += reliability
+        # Strict combo: NEITHER error handling NOR test data — untestable
+        # AND unrecoverable. Extra -10 on top of the two singles.
+        if missing_error and missing_pin:
+            score -= 10
+            violations.append(
+                "Strict: no error handling AND no pinnedData — the workflow "
+                "is neither testable nor recoverable; add an Error Trigger "
+                "and pin sample data")
+
+        # 4b. Strict identity (-15 each)
+        identity = self._scan_identity(nodes)
+        if identity:
+            score -= 15 * len(identity)
+            violations += identity
+
+        # 4c. Strict resilience (-5 per class, capped at -10)
+        resilience = self._scan_resilience(nodes)
+        if resilience:
+            score -= 5 * len(resilience)
+            violations += resilience
+
+        # 4d. Strict hygiene (-5 debug/TODO, -10 insecure http)
+        hygiene = self._scan_hygiene(workflow)
+        for h in hygiene:
+            score -= 10 if h.startswith("Insecure http") else 5
+            violations.append(h)
 
         # 5. Code-node complexity (-5 each breach)
         for n in nodes:

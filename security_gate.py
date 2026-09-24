@@ -86,6 +86,80 @@ HIGH_ENTROPY_ASSIGN_RE = re.compile(
     r"(?:const|let|var)\s+\w*(?:key|token|secret|password|auth)\w*\s*=\s*"
     r"['\"][A-Za-z0-9\-_+/=]{20,}['\"]", re.IGNORECASE)
 
+# ---------------------------------------------------------------------------
+# Global-standards hardening (OWASP LLM Top 10 2025 + OWASP Agentic ASI 2026 +
+# NIST AI RMF GenAI Profile 600-1). Each pattern below names its source so the
+# audit trail (Package G) maps onto the industry taxonomy without code changes.
+# ---------------------------------------------------------------------------
+# LLM01:2025 / ASI01 — jailbreak / goal-hijack override phrases embedded in a
+# prompt or Code text. The gate's own <untrusted_external_data> defense wrapper
+# contains such phrasing by design, so anything INSIDE that wrapper is exempt.
+JAILBREAK_RES = [
+    r"ignore\s+(all\s+)?(previous|prior|above)\s+instructions",
+    r"disregard\s+(all\s+)?(previous|prior|above)\s+instructions",
+    r"you\s+are\s+now\s+(DAN|jailbroken|unrestricted|unfiltered)",
+    r"\bDAN\s+mode\b",
+    r"bypass\s+(safety|security|guardrails?|content\s+filter)",
+    r"jailbreak",
+    r"repeat\s+(your\s+)?system\s+(prompt|instructions)",
+    r"reveal\s+(your\s+)?(system\s+)?(prompt|instructions)",
+    r"show\s+me\s+your\s+system\s+(prompt|instructions)",
+]
+
+# LLM02:2025 / NIST privacy — high-precision PII literals. Deliberately narrow
+# (card + private-key block + LABELED national id) so random digit strings
+# never trip it.
+CREDIT_CARD_RE = re.compile(
+    r"\b(?:\d[ -]?){13,16}\d\b")
+PRIVATE_KEY_BLOCK_RE = re.compile(
+    r"-----BEGIN\s+(?:RSA\s+)?PRIVATE\s+KEY-----")
+LABELED_NATIONAL_ID_RE = re.compile(
+    r"(?:national[\s_-]?id|رقم[\s_]*قومي)\s*[:=]\s*[\"']?\d{14}[\"']?",
+    re.IGNORECASE)
+
+# LLM03:2025 / ASI04 — remote-code fetch inside Code nodes (supply-chain
+# execution: curl|bash, wget|sh, package install from URL, dynamic import).
+REMOTE_FETCH_RES = [
+    r"curl[\s(][^|]*\|\s*(bash|sh)",
+    r"wget[\s(][^|]*\|\s*(bash|sh)",
+    r"pip\s+install\s+https?://",
+    r"npm\s+(i|install)\s+https?://",
+    r"require\s*\(\s*['\"]https?://",
+    r"import\s*\(\s*['\"]https?://",
+    r"from\s+https?://\S+\s+import",
+    r"powershell[^\n]*-e(?:nc|ncodedCommand)",
+    r"certutil[^\n]*-urlcache",
+]
+
+# LLM05:2025 / ASI05 — LLM/agent output concatenated into a code/SQL sink
+# without sanitization signals (improper output handling → injection / RCE).
+OUTPUT_SINK_RES = [
+    r"\beval\s*\(", r"\bexec\s*\(", r"executeQuery\s*\(",
+    r"\bSELECT\b.*FROM", r"\bINSERT\b.*INTO", r"\bDELETE\b.*FROM",
+    r"\bUPDATE\b.*SET",
+]
+LLM_OUTPUT_REF_RES = [
+    r"\$json", r"\$input", r"\$fromAI", r"fromAI\s*\(",
+    r"\bai_tool\b", r"\bagent\s*output\b",
+]
+SANITIZE_SIGNAL_RES = [
+    r"sanitiz", r"parameteriz", r"queryParameters", r"query_params",
+    r"escape", r"whitelist", r"allowlist", r"prepared",
+]
+
+# ASI06 — nodes that persist conversational/state memory across turns.
+MEMORY_NODE_HINTS = (
+    "memory", "windowbuffer", "redischat", "conversationmemory",
+)
+
+# ASI09 / NIST human-AI config — high-stakes domains that must never act
+# without human approval (financial / medical / legal).
+HIGH_STAKES_TIER = [
+    "payment", "charge", "invoice", "billing", "loan", "credit",
+    "prescrib", "diagnos", "medical", "patient", "dosage",
+    "legal", "court", "lawsuit", "contract_sign",
+]
+
 # Risk score weights
 _SCORES = {
     'hardcoded_secret': 35,
@@ -111,6 +185,17 @@ _SCORES = {
     'secret_in_agent_memory': 40,         # CRITICAL
     'no_iteration_ceiling': 15,           # MEDIUM
     'llm_controlled_destination': 30,     # HIGH — SSRF via LLM-picked URL
+    # --- Global-standards hardening (strict: all CRITICAL/HIGH are fatal) ---
+    'jailbreak_override': 40,             # CRITICAL — LLM01/ASI01 prompt injection payload
+    'pii_exposure': 35,                  # HIGH — LLM02/NIST privacy (fatal via max-rule)
+    'remote_code_fetch': 40,             # CRITICAL — LLM03/ASI04 supply-chain execution
+    'community_unpinned': 30,            # HIGH — LLM03/ASI04 unpinned third-party (+10 base = fatal)
+    'unsafe_output_handling': 40,        # CRITICAL — LLM05/ASI05 injection via LLM output
+    'prompt_leakage_echo': 30,           # HIGH — LLM07 system-prompt disclosure
+    'rogue_autonomy': 40,                # CRITICAL — ASI10 unbounded + wildcard + no oversight
+    'high_stakes_no_approval': 40,       # CRITICAL — ASI09/NIST high-stakes without HITL
+    'inter_agent_no_auth': 15,           # MEDIUM — ASI07 sub-workflow/tool trust
+    'memory_poisoning_sink': 30,         # HIGH — ASI06/LLM04 untrusted data into memory
 }
 RISK_THRESHOLD = 40
 
@@ -386,6 +471,137 @@ class SecurityGate:
                 unique.append(v)
         return unique
 
+    def _strip_defense_wrapper(self, text: str) -> str:
+        """Remove <untrusted_external_data>…</untrusted_external_data> blocks —
+        the gate's own defense wrapper quotes override phrasing BY DESIGN, so
+        it must never count as a jailbreak payload (LLM01 self-flag)."""
+        return re.sub(r"<untrusted_external_data.*?</untrusted_external_data>",
+                      " ", text, flags=re.DOTALL | re.IGNORECASE)
+
+    def _scan_jailbreak(self, workflow_json: dict, full_text: str) -> list[str]:
+        """LLM01:2025 / ASI01 — jailbreak / goal-hijack override phrases in
+        agent prompts or Code text (outside the defense wrapper)."""
+        findings = []
+        candidates = []
+        for node in workflow_json.get("nodes", []):
+            ntype = str(node.get("type", "")).lower()
+            params = node.get("parameters", {}) or {}
+            if "agent" in ntype or "assistant" in ntype:
+                candidates.append((node.get("name", "unnamed"),
+                                   self._agent_system_prompt(node)))
+            for key in ("jsCode", "pythonCode", "functionCode", "text"):
+                val = params.get(key)
+                if isinstance(val, str) and val.strip():
+                    candidates.append((node.get("name", "unnamed"), val))
+        for nname, text in candidates:
+            scrubbed = self._strip_defense_wrapper(text or "")
+            for pat in JAILBREAK_RES:
+                if re.search(pat, scrubbed, re.IGNORECASE):
+                    findings.append(
+                        f"[JAILBREAK_OVERRIDE_IN_PROMPT] Node '{nname}' contains "
+                        f"prompt-injection override /{pat}/ — prompt injection "
+                        f"(OWASP LLM01) and agent goal hijack (ASI01) vector; "
+                        f"strip the payload or isolate it as untrusted data")
+                    break
+        return findings
+
+    def _scan_pii_exposure(self, full_text: str) -> list[str]:
+        """LLM02:2025 / NIST privacy — PII literals riding in the artifact
+        (exports, backups, git all leak them)."""
+        findings = []
+        if PRIVATE_KEY_BLOCK_RE.search(full_text or ""):
+            findings.append(
+                "[PII_EXPOSURE] Private-key block embedded in artifact — "
+                "sensitive information disclosure (OWASP LLM02); move to the "
+                "credential store, never ship key material in JSON")
+        if LABELED_NATIONAL_ID_RE.search(full_text or ""):
+            findings.append(
+                "[PII_EXPOSURE] Labeled national-ID number embedded in "
+                "artifact — sensitive disclosure (OWASP LLM02 / NIST privacy); "
+                "reference by ID at runtime instead of embedding")
+        # Credit-card shape only counts when it looks like a real PAN, not a
+        # short id: require 15-16 digits after stripping separators.
+        for m in CREDIT_CARD_RE.finditer(full_text or ""):
+            digits = re.sub(r"\D", "", m.group())
+            if len(digits) in (15, 16) and digits != digits[0] * len(digits):
+                findings.append(
+                    "[PII_EXPOSURE] Credit-card-like number embedded in "
+                    "artifact — sensitive disclosure (OWASP LLM02); tokenize "
+                    "or vault it, never ship PANs in workflow JSON")
+                break
+        return findings
+
+    def _scan_remote_fetch(self, workflow_json: dict) -> list[str]:
+        """LLM03:2025 / ASI04 — Code nodes fetching + executing remote code
+        (supply-chain compromise runs with core permissions)."""
+        findings = []
+        for node in workflow_json.get("nodes", []):
+            params = node.get("parameters", {}) or {}
+            code = " ".join(str(params.get(k, "")) for k in
+                            ("jsCode", "pythonCode", "functionCode"))
+            if not code.strip():
+                continue
+            for pat in REMOTE_FETCH_RES:
+                if re.search(pat, code, re.IGNORECASE):
+                    findings.append(
+                        f"[REMOTE_CODE_FETCH] Node '{node.get('name', 'unnamed')}' "
+                        f"fetches/executes remote code (/{pat}/) — supply-chain "
+                        f"compromise (OWASP LLM03 / ASI04); vendor the code, "
+                        f"pin the version, review before production")
+                    break
+        return findings
+
+    def _scan_community_unpinned(self, workflow_json: dict) -> list[str]:
+        """LLM03:2025 / ASI04 — third-party nodes without a pinned version
+        (@x.y.z) can silently upgrade to a compromised release."""
+        findings = []
+        for node in workflow_json.get("nodes", []):
+            ntype = str(node.get("type", "") or "")
+            if not ntype:
+                continue
+            nl = ntype.lower()
+            is_core = (nl.startswith("n8n-nodes-base.")
+                       or nl.startswith("n8n-nodes-langchain.")
+                       or nl.startswith("@n8n/"))
+            if is_core:
+                continue
+            if "@" not in ntype:
+                findings.append(
+                    f"[COMMUNITY_NODE_UNPINNED] Node '{node.get('name', 'unnamed')}' "
+                    f"uses third-party type '{ntype}' with NO pinned version — "
+                    f"supply-chain risk (OWASP LLM03 / ASI04); pin @x.y.z and "
+                    f"review its source before production")
+        return findings
+
+    def _scan_unsafe_output(self, workflow_json: dict) -> list[str]:
+        """LLM05:2025 / ASI05 — LLM/agent output concatenated into a code or
+        SQL sink with no sanitization signal (improper output handling)."""
+        findings = []
+        for node in workflow_json.get("nodes", []):
+            params = node.get("parameters", {}) or {}
+            code = " ".join(str(params.get(k, "")) for k in
+                            ("jsCode", "pythonCode", "functionCode"))
+            query = str(params.get("query", "") or params.get("sql", "") or "")
+            body = f"{code}\n{query}"
+            if not body.strip():
+                continue
+            has_sink = any(re.search(p, body, re.IGNORECASE)
+                           for p in OUTPUT_SINK_RES)
+            has_llm_ref = any(re.search(p, body, re.IGNORECASE)
+                              for p in LLM_OUTPUT_REF_RES)
+            if has_sink and has_llm_ref:
+                sanitized = any(re.search(p, body, re.IGNORECASE)
+                                for p in SANITIZE_SIGNAL_RES)
+                if not sanitized:
+                    findings.append(
+                        f"[UNSAFE_OUTPUT_HANDLING] Node "
+                        f"'{node.get('name', 'unnamed')}' feeds LLM/agent "
+                        f"output into a code/SQL sink with no sanitization "
+                        f"signal — improper output handling (OWASP LLM05) and "
+                        f"unexpected code execution (ASI05); sanitize, "
+                        f"parameterize, or whitelist first")
+        return findings
+
     def _scan_container(self, node: dict) -> list[str]:
         findings = []
         params = json.dumps(node.get('parameters', {}))
@@ -451,6 +667,40 @@ class SecurityGate:
             start, end = p["position"], p["position"] + len(p["expression"])
             fixed = fixed[:start] + wrapped + fixed[end:]
         return fixed
+
+    def _memory_wired(self, workflow_json: dict, node_name: str) -> bool:
+        """Is a memory sub-node wired to this agent via ai_memory (either
+        direction — n8n 2.x owns the edge on the memory node)?"""
+        conns = workflow_json.get("connections", {})
+        if not isinstance(conns, dict):
+            return False
+
+        def _targets_edge(targets) -> list:
+            found = []
+            stack = [targets]
+            while stack:
+                t = stack.pop()
+                if isinstance(t, dict):
+                    if t.get("node"):
+                        found.append(t["node"])
+                elif isinstance(t, list):
+                    stack.extend(t)
+            return found
+
+        own = conns.get(node_name)
+        if isinstance(own, dict):
+            for out_key, targets in own.items():
+                if "memory" in (out_key or "").lower():
+                    return True
+        for src, groups in conns.items():
+            if src == node_name or not isinstance(groups, dict):
+                continue
+            for out_key, targets in groups.items():
+                if "memory" not in (out_key or "").lower():
+                    continue
+                if node_name in _targets_edge(targets):
+                    return True
+        return False
 
     def _connected_tool_names(self, workflow_json: dict, node_name: str) -> list:
         """n8n agent tools are connected via the ai_tool output, NOT stored in
@@ -563,17 +813,56 @@ class SecurityGate:
                             f"high-risk tool '{tool}' lacks requiresHumanApproval")
                         extra_risk += _SCORES['state_changing_tool_no_approval']
 
-            # --- R7: Rate/Cost Ceiling ---
+            # --- R7: Rate/Cost Ceiling (LLM10:2025 unbounded consumption,
+            # ASI10 rogue autonomy) ---
             max_iter = self._agent_max_iterations(node)
             try:
                 max_iter_val = int(max_iter) if max_iter is not None else None
             except (TypeError, ValueError):
                 max_iter_val = None
-            if max_iter_val is None or max_iter_val > 25:
+            if max_iter_val is None:
                 violations.append(
                     f"[NO_ITERATION_CEILING] Agent '{node_name}' maxIterations "
                     f"undefined or unreasonably high (runaway loop / cost risk)")
                 extra_risk += _SCORES['no_iteration_ceiling']
+            elif max_iter_val > 25:
+                violations.append(
+                    f"[NO_ITERATION_CEILING] Agent '{node_name}' maxIterations="
+                    f"{max_iter_val} exceeds the 25-step autonomy ceiling — "
+                    f"unbounded consumption (OWASP LLM10) and unbounded "
+                    f"autonomy (ASI10); cap iterations and budget tokens")
+                extra_risk += _SCORES['rogue_autonomy']
+
+            # --- R9: Rogue-autonomy composite (ASI10) ---
+            # Empty oversight (no system prompt) + uncapped iterations +
+            # broad/destructive tooling = an agent that can do anything with
+            # no one steering. Each signal alone warns; TOGETHER they are fatal.
+            prompt_empty = not prompt.strip()
+            uncapped = max_iter_val is None or max_iter_val > 25
+            broad_tools = wildcard or (not tool_scope and not connected_tools)
+            destructive_tool = any(
+                any(kw in str(t).lower() for kw in DESTRUCTIVE_TIER)
+                for t in (tool_scope if isinstance(tool_scope, list) else []))
+            if prompt_empty and uncapped and (broad_tools or destructive_tool):
+                violations.append(
+                    f"[ROGUE_AUTONOMY] Agent '{node_name}' has no system prompt "
+                    f"+ uncapped iterations + broad/destructive tools — rogue "
+                    f"agent risk (OWASP ASI10); define the goal, cap "
+                    f"iterations, lock tool scope, require approval")
+                extra_risk += _SCORES['rogue_autonomy']
+
+            # --- R12: Memory-poisoning sink (ASI06 / LLM04) ---
+            # Untrusted external input (R2 points) flowing into an agent that
+            # persists memory: today's injection becomes tomorrow's policy.
+            mem_wired = self._memory_wired(workflow_json, node_name)
+            if points and mem_wired:
+                violations.append(
+                    f"[MEMORY_POISONING_SINK] Agent '{node_name}' persists "
+                    f"memory while consuming {len(points)} unsanitized "
+                    f"external input(s) — memory/context poisoning (OWASP "
+                    f"ASI06 / LLM04); validate before memorizing, isolate "
+                    f"sessions, sanitize routinely")
+                extra_risk += _SCORES['memory_poisoning_sink']
 
         # --- R4: Chained high-risk actions (two-tier) ---
         destructive_streak: list[str] = []
@@ -615,6 +904,51 @@ class SecurityGate:
                 destructive_streak = []
             else:
                 reversible_streak = []
+
+        # --- R10: High-stakes domains need approval (ASI09 / NIST
+        # human-AI config) — financial / medical / legal actions must never
+        # run on agent autonomy alone, however "reversible" they look. ---
+        for node in nodes:
+            ntype = node.get("type", "").lower()
+            node_name = node.get("name", "unnamed")
+            params = node.get("parameters", {})
+            options = params.get("options", {}) if isinstance(params.get("options"), dict) else {}
+            approval = (params.get("requiresHumanApproval", False) or
+                        options.get("requiresHumanApproval", False))
+            op = str(params.get("operation", "")).lower()
+            res = str(params.get("resource", "")).lower()
+            action_ctx = f"{ntype} {res} {op}"
+            if any(kw in action_ctx for kw in HIGH_STAKES_TIER):
+                if not approval:
+                    violations.append(
+                        f"[HIGH_STAKES_NO_APPROVAL] High-stakes action "
+                        f"'{node_name}' ({action_ctx.strip()}) lacks human "
+                        f"approval — human-agent trust exploitation (OWASP "
+                        f"ASI09) and NIST human-AI configuration risk; "
+                        f"misleading agent explanations must never auto-act "
+                        f"on money, health, or legal matters")
+                    extra_risk += _SCORES['high_stakes_no_approval']
+
+        # --- R11: Inter-agent / sub-workflow trust (ASI07) ---
+        # toolWorkflow nodes invoke another agent's surface with the caller's
+        # privileges — unauthenticated delegation is spoofable.
+        for node in nodes:
+            ntype = str(node.get("type", "") or "")
+            if "toolworkflow" not in ntype.lower():
+                continue
+            params = node.get("parameters", {}) or {}
+            body = json.dumps(params, default=str).lower()
+            authed = any(s in body for s in (
+                "auth", "credential", "token", "header", "signature", "apikey",
+                "api_key", "bearer", "hmac"))
+            if not authed and not (node.get("credentials") or {}):
+                violations.append(
+                    f"[INTER_AGENT_NO_AUTH] Node "
+                    f"'{node.get('name', 'unnamed')}' delegates to a "
+                    f"sub-workflow/tool with no authentication signal — "
+                    f"insecure inter-agent communication (OWASP ASI07); "
+                    f"authenticate and verify the callee")
+                extra_risk += _SCORES['inter_agent_no_auth']
 
         # --- R5: Webhook/Trigger Auth Enforcement ---
         # Responders answer; authentication belongs to the trigger that
@@ -725,6 +1059,12 @@ class SecurityGate:
         all_violations += self._scan_metadata_leak(workflow_json, full_text)
         all_violations += self._scan_verbose_errors(workflow_json)
         all_violations += self._scan_community_nodes(workflow_json)
+        # Global-standards hardening (OWASP LLM 2025 + ASI 2026 + NIST GenAI)
+        all_violations += self._scan_jailbreak(workflow_json, full_text)
+        all_violations += self._scan_pii_exposure(full_text)
+        all_violations += self._scan_remote_fetch(workflow_json)
+        all_violations += self._scan_community_unpinned(workflow_json)
+        all_violations += self._scan_unsafe_output(workflow_json)
         promoted_hits = self._apply_promoted_rules(full_text)
         auto_fatal = any(h["fatal"] for h in promoted_hits)
         all_violations += [h["message"] for h in promoted_hits]
@@ -758,6 +1098,16 @@ class SecurityGate:
                     risk += _SCORES['verbose_error']
                 elif v.startswith("[COMMUNITY_NODE]"):
                     risk += _SCORES['community_node']
+                elif v.startswith("[COMMUNITY_NODE_UNPINNED]"):
+                    risk += _SCORES['community_unpinned']
+                elif v.startswith("[JAILBREAK_OVERRIDE_IN_PROMPT]"):
+                    risk += _SCORES['jailbreak_override']
+                elif v.startswith("[PII_EXPOSURE]"):
+                    risk += _SCORES['pii_exposure']
+                elif v.startswith("[REMOTE_CODE_FETCH]"):
+                    risk += _SCORES['remote_code_fetch']
+                elif v.startswith("[UNSAFE_OUTPUT_HANDLING]"):
+                    risk += _SCORES['unsafe_output_handling']
                 continue
             if 'secret' in v or 'Hardcoded' in v:
                 risk += _SCORES['hardcoded_secret']
@@ -801,6 +1151,18 @@ class SecurityGate:
                for v in unique):
             risk = max(risk, 45)
 
+        # PII literals are live exposure too (LLM02) — fatal on their own.
+        if any(v.startswith("[PII_EXPOSURE]") for v in unique):
+            risk = max(risk, 45)
+
+        # Jailbreak payloads, remote-code fetchers, and unsafe output sinks
+        # are all active exploit primitives — fatal on their own.
+        if any(v.startswith(("[JAILBREAK_OVERRIDE_IN_PROMPT]",
+                              "[REMOTE_CODE_FETCH]",
+                              "[UNSAFE_OUTPUT_HANDLING]"))
+               for v in unique):
+            risk = max(risk, 45)
+
         # Auto-learned fatal rules (e.g. promoted SSRF guards) are fatal too.
         if auto_fatal:
             risk = max(risk, 45)
@@ -811,7 +1173,9 @@ class SecurityGate:
                 tag in v for v in unique for tag in
                 ("TOOL_SCOPE_LOCK", "DESTRUCTIVE_ACTION_NO_APPROVAL",
                  "STATE_CHANGING_TOOL_NO_APPROVAL", "WEBHOOK_NO_AUTH",
-                 "SECRET_IN_AGENT_MEMORY", "LLM_CONTROLLED_DESTINATION")):
+                 "SECRET_IN_AGENT_MEMORY", "LLM_CONTROLLED_DESTINATION",
+                 "ROGUE_AUTONOMY", "HIGH_STAKES_NO_APPROVAL",
+                 "MEMORY_POISONING_SINK")):
             risk = max(risk, 45)
 
         status = "APPROVED" if risk < RISK_THRESHOLD else "REJECTED_SECURITY_RISK"
