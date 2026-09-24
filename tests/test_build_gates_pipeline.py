@@ -343,11 +343,16 @@ def test_dry_run_skip_without_nodes():
 
 def test_clean_workflow_without_evidence_rejected():
     # even a perfect workflow must carry trial evidence before it ships
+    # (strict-quality-clean: top-level error handling + retry discipline pass
+    # quality; NO pinned data, so the DRY-RUN stage is what rejects it)
+    fetch = _node("Fetch Homepage", "n8n-nodes-base.httpRequest", url="https://example.com",
+                  retryOnFail=True)
+    fetch["continueOnFail"] = True  # real n8n shape: top-level, not in params
     wf = _wf([_node("Receive Webhook", "n8n-nodes-base.webhook",
                     path="h", authentication="headerAuth"),
-              _node("Fetch Homepage", "n8n-nodes-base.httpRequest", url="https://example.com",
-                    continueOnFail=True),
-              _node("Send Telegram Message", "n8n-nodes-base.httpRequest", url="https://example.com")],
+              fetch,
+              _node("Send Telegram Message", "n8n-nodes-base.httpRequest", url="https://example.com",
+                    retryOnFail=True)],
              {"Receive Webhook": {"main": [{"node": "Fetch Homepage"}]},
               "Fetch Homepage": {"main": [{"node": "Send Telegram Message"}]}})
     res = _run(wf)

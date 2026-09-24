@@ -364,7 +364,11 @@ def test_pipeline_precision_violation_blocks():
 
 
 def test_pipeline_clean_workflow_passes_precision():
-    wf = _wf([_trigger(), _node("Send HTTP Response")],
+    # strict-quality-clean: top-level error handling + retry discipline pass
+    # quality (no pinned data, so DRY_RUN_EVIDENCE_MISSING is the verdict)
+    send = _node("Send HTTP Response", retryOnFail=True)
+    send["continueOnFail"] = True  # real n8n shape: top-level, not in params
+    wf = _wf([_trigger(), send],
              {"Receive Webhook": {"main": [{"node": "Send HTTP Response"}]}})
     res = _run(wf)
     assert res["stages"]["precision"]["status"] == "PASS"

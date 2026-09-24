@@ -161,7 +161,8 @@ class TestStrictQuality:
         assert any("Duplicate node names" in v for v in r["violations"])
 
     def test_no_trigger_deduct(self):
-        wf = {"nodes": [_node("S", "n8n-nodes-base.set", assignments={})],
+        wf = {"nodes": [_node("S1", "n8n-nodes-base.set", assignments={}),
+                        _node("S2", "n8n-nodes-base.noOp")],
               "connections": {}}
         r = QualityGate().evaluate_to_dict(wf)
         assert any("No trigger node" in v for v in r["violations"])

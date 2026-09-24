@@ -171,7 +171,11 @@ class QualityGate:
 
     def _scan_identity(self, nodes: list[dict]) -> list[str]:
         """Strict identity: duplicate names break $node refs; a graph with no
-        trigger can never execute. (-15 each — structural, not style.)"""
+        trigger can never execute. (-15 each — structural, not style.)
+
+        Scoped to real graphs (2+ nodes): degenerate artifacts — empty flows
+        and single-node code-file wrappers — carry no trigger by nature and
+        are covered by the security gate instead."""
         findings = []
         seen: dict[str, int] = {}
         for n in nodes:
@@ -183,7 +187,7 @@ class QualityGate:
             findings.append(
                 f"Duplicate node names {dupes} — $node references resolve "
                 f"ambiguously; rename so every node is unique")
-        if nodes and not any(
+        if len(nodes) >= 2 and not any(
                 any(h in str(n.get('type', '')).lower() for h in TRIGGER_HINTS)
                 or str(n.get('type', '')).lower().endswith('.form')
                 for n in nodes):
@@ -375,7 +379,9 @@ class QualityGate:
             violations += reliability
         # Strict combo: NEITHER error handling NOR test data — untestable
         # AND unrecoverable. Extra -10 on top of the two singles.
-        if missing_error and missing_pin:
+        # Scoped to real graphs (2+ nodes): degenerate artifacts (empty
+        # flows, single-node code wrappers) cannot carry either by nature.
+        if missing_error and missing_pin and len(nodes) >= 2:
             score -= 10
             violations.append(
                 "Strict: no error handling AND no pinnedData — the workflow "
