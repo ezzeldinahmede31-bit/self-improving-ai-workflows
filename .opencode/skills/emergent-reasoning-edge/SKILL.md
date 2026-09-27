@@ -69,6 +69,23 @@ generation (this is how skill compounds where a reflex cannot).
 | Creative spark | one brilliant-ish pass | 6 frames × N candidates × attack rounds |
 | Second idea in same domain | starts from scratch | session log compounds kills |
 
+## Cost Optimization (implemented)
+
+The pipeline now includes a mandatory caching layer (`scripts/emergent_cache.py`):
+
+1. **Search caching** — query results cached 24h (SHA256 keyed)
+2. **Frame caching** — problem frames cached per session
+3. **Candidate caching** — divergent candidates cached per frame set
+4. **Analogy caching** — cross-domain analogies cached per candidate/domain
+5. **Falsification caching** — attack round results cached per candidate/round
+6. **Token budget** — 50k tokens/session hard cap, 8k max per invocation
+7. **Early exit** — confidence ≥ 0.85 skips remaining gates
+8. **Council vote disabled by default** — major cost saver (enable via flag)
+9. **Reduced candidates** — 4 instead of 6
+10. **Max 2 sources per candidate** — limits web search cost
+
+Pipeline config: `scripts/emergent_cache.py` → `create_optimized_emergent_pipeline()`
+
 ## Honest limits
 
 - Slower and more token-hungry than instinct — use only when conventional
@@ -78,3 +95,4 @@ generation (this is how skill compounds where a reflex cannot).
   clearly labeled instead of nothing.
 - Live search quality bounds evidence quality — cite, but also state when
   evidence is thin.
+- Cache hits reduce cost but may serve stale evidence — TTL 24h mitigates.
