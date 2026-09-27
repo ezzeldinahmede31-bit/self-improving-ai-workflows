@@ -44,10 +44,31 @@ with `input_type: query` then searches Qdrant).
 Direct: `scripts/rag_common.py` exposes `embed(texts, input_type="passage")`
 and `embed_query(query)`.
 
+## Auto-Failover & Model Rotation (NEW — permanent fix for 410 GONE)
+
+The NVIDIA model router (`scripts/nvidia_model_router.py`) now provides:
+- **Auto-discovery** of all 82+ available models from NVIDIA catalog
+- **3-tier fallback**: Free (Nemotron 3 Ultra Free, Llama 3.1 Nemotron 70B) → Standard (Nemotron Lightning 30B, Mistral Nemotron) → Frontier (Nemotron 4 340B)
+- **Circuit breaker** on failures (3 consecutive = 60s cooldown)
+- **Quota tracking** per tier (Free: 500/day, Standard: 200/day, Frontier: 50/day)
+- **Health checks** before use
+- **410 GONE handling**: model marked permanently unhealthy, instant failover
+
+Integration with embeddings:
+```python
+from scripts.nvidia_model_router import NvidiaModelRouter
+
+router = NvidiaModelRouter()
+# For embeddings, use the free tier embedding models
+models = router.discover_models()
+embedding_models = [m for m in models if "embed" in m.id.lower()]
+```
+
 ## Troubleshooting
 - 400/422 => check `input_type` present and valid (passage/query); check `input`
   is an array of strings; check batch size <= 2.
 - 401 => NVIDIA_API_KEY wrong/rotated; update `.env`.
+- 410 GONE => **Auto-handled by router** — model marked dead, failover to next healthy model
 - Embeddings returned but search finds nothing => dimension mismatch with the
   Qdrant vector size, or store payload keys not `content`/`metadata`.
 - Slow first call => cold model load; retry once before assuming failure.

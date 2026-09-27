@@ -75,3 +75,23 @@ Grounds the existing `model_failover.FailoverDriver` and
 With `cognitive-task-triager`: triager decides WHICH tier class the task needs;
 this router decides WHICH concrete provider answers and what to do when it
 fails.
+
+## NVIDIA Implementation (LIVE)
+
+**`scripts/nvidia_model_router.py`** — complete implementation for NVIDIA NIM:
+- Auto-discovers 82+ models from `https://integrate.api.nvidia.com/v1/models`
+- 3-tier fallback: Free → Standard → Frontier
+- Circuit breaker (3 failures = 60s cooldown)
+- Quota tracking per tier (Free: 500/day, Standard: 200/day, Frontier: 50/day)
+- 410 GONE handling: model marked permanently unhealthy
+- Health checks before use
+- Compatible with `model_failover.ModelLadder` via `create_nvidia_ladder()`
+
+Usage:
+```python
+from scripts.nvidia_model_router import NvidiaModelRouter
+router = NvidiaModelRouter()
+result = router.complete([{"role": "user", "content": "Hello"}])
+```
+
+Test: `venv/bin/python scripts/nvidia_model_router.py` — discovers all models
