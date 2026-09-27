@@ -1,0 +1,55 @@
+{
+  "timestamp": 1790523531.5654726,
+  "repo": "Default Project",
+  "total_samples": 5,
+  "passed": 4,
+  "score": 0.8,
+  "score_pct": "80%",
+  "results": [
+    {
+      "test_file": "tests/test_ai_automation_security.py",
+      "target_function": "test_wildcard_tools_rejected",
+      "pre_fix_fail": true,
+      "post_fix_pass": true,
+      "measured": true,
+      "fail_output": "",
+      "pass_output": ""
+    },
+    {
+      "test_file": "tests/test_auto_self_evolver.py",
+      "target_function": "test_missing_leader_means_unmeasured",
+      "pre_fix_fail": true,
+      "post_fix_pass": true,
+      "measured": true,
+      "fail_output": "",
+      "pass_output": ""
+    },
+    {
+      "test_file": "tests/test_build_gates_pipeline.py",
+      "target_function": "test_clean_workflow_approved",
+      "pre_fix_fail": true,
+      "post_fix_pass": true,
+      "measured": true,
+      "fail_output": "",
+      "pass_output": ""
+    },
+    {
+      "test_file": "tests/test_cognitive_modules.py",
+      "target_function": "test_dag_structure",
+      "pre_fix_fail": true,
+      "post_fix_pass": true,
+      "measured": true,
+      "fail_output": "",
+      "pass_output": ""
+    },
+    {
+      "test_file": "tests/test_e2e_live_n8n.py",
+      "target_function": "test_create_workflow_via_api",
+      "pre_fix_fail": true,
+      "post_fix_pass": false,
+      "measured": false,
+      "fail_output": "",
+      "pass_output": "\n"
+    }
+  ]
+}

@@ -69,5 +69,11 @@
   },
   "proof_ping.json": {
     "RUN_TRIAL_EXECUTION_FIRST::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 1
+  },
+  "tmp5auimrfq.json": {
+    "SECURITY_VIOLATION_REQUIRES_HUMAN::[JAILBREAK_OVERRIDE_IN_PROMPT] Node 'Agent' contains prompt-injection override /ignore\\s+(all\\s+)?(previous|prior|above)": 1
+  },
+  "tmpzu64a4n4.json": {
+    "SECURITY_VIOLATION_REQUIRES_HUMAN::[JAILBREAK_OVERRIDE_IN_PROMPT] Node 'Agent' contains prompt-injection override /ignore\\s+(all\\s+)?(previous|prior|above)": 1
   }
 }
