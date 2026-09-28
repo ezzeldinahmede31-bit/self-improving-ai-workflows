@@ -2065,3 +2065,17 @@ Opened existing "Make" window (eu1.make.com/2862717/agent-profiles/8074 toolbox 
 - Remaining honest gaps: n8n LIVE_UNVERIFIED, DR restore not run in fresh
   env, no live model (self-improvement unmeasured by design), DNS-rebinding
   TOCTOU documented limit, local sandbox not a security boundary.
+
+## Final verified report recorded (2026-09-28, user confirmed)
+- Registry: 49 features F001-F049 (NOT 56) — 21 VERIFIED, 27 INTEGRATED,
+  1 LIVE_UNVERIFIED (F043 n8n). No PRODUCTION_READY claimed anywhere.
+- Chains fixed: 7 (C1-policy..C7-audit); domains grouped under chains.
+- Vuln fixed: egress numeric-IP bypass (HIGH) via _normalize_numeric_ip.
+- New: enforced_execution.py (strict fail-closed), build_production_sinks
+  (HMAC mandatory), RemoteAPIClient egress hook, 79-attack adversarial
+  suite, registry integrity tests, egress golden regression.
+- Evidence: 978 passed / 8 deselected; gates READY on 3 modules,
+  HEURISTIC on feature_registry.py (pipeline artifact-type mismatch).
+- Architecture status: PARTIALLY VERIFIED. Open gaps: n8n live run,
+  fresh-env DR restore, DNS-rebinding TOCTOU (documented), local sandbox
+  non-boundary, self-improvement unmeasured without live model.
