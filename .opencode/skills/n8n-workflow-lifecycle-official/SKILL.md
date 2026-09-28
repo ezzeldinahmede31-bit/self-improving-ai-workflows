@@ -10,7 +10,7 @@ description: Use when starting, designing, organizing, finishing, or shipping an
 1. **PLAN.** Gather requirements, ask clarifying questions, search for existing workflows / sub-workflows that already do this.
 2. **BUILD.** Write SDK code (with skills: subworkflows, node-config, expressions, code-nodes; readability section below). Use `validate_node_config` as a side-channel for iteration, debugging, or small single-node edits: clean per-parameter errors without full-graph noise. Not a replacement for `validate_workflow` in VALIDATE.
 3. **VALIDATE.** `validate_workflow` + `get_workflow_details` for connections, then have the user verify per-node credentials and create anything you couldn't (missing credentials, folders, etc).
-4. **TEST.** `test_workflow` with `prepare_test_pin_data`; iterate until output matches intent.
+4. **TEST.** `test_workflow` with `prepare_workflow_pin_data`; iterate until output matches intent.
 5. **PUBLISH.** `publish_workflow` only after stages 3 and 4 are clean.
 6. **HANDOFF.** Production handoff: how to trigger it, what it returns, what to watch, what they should know to use it well.
 
@@ -28,7 +28,7 @@ Skipping a stage produces workflows that look done but break in production, or s
 
 ## Strong defaults
 
-- **Test before publish** with `test_workflow` + `prepare_test_pin_data`. See `references/TESTING.md` for mocking by trigger type, pinning individual nodes, and the side-effect surface. Looser for internal one-off scripts you watch run.
+- **Test before publish** with `test_workflow` + `prepare_workflow_pin_data`. See `references/TESTING.md` for mocking by trigger type, pinning individual nodes, and the side-effect surface. Looser for internal one-off scripts you watch run.
 - **Always include a `description`** on `create_workflow_from_code`. 1-2 sentences capturing *what* and *why*. See "Readability" below.
 
 ## Validation isn't enough
@@ -72,7 +72,7 @@ For full conventions (verb-noun patterns, capitalization, prefixes), read `refer
 - **Workflows:** verb-first, scoped. `Send weekly customer report` not `Customer report sender`.
 - **Nodes:** describe what they *do* in this workflow, not the node type. `Fetch active customers` not `Postgres1`.
 - **Sub-workflows:** plain descriptive name (`Parse RFC2822 date`); carry the category in tags (`subworkflow`, a domain tag, `tool`), not a name prefix. `search_workflows({ tags })` filters on them. See `n8n-subworkflows-official` `references/NAMING_AND_DISCOVERY.md`.
-- **Tags:** the AI-side discovery mechanism (n8n 2.27.0+). The MCP lists (`list_tags`), filters (`search_workflows({ tags })`), and attaches them (`update_workflow` `addTags`/`removeTags`, auto-creating unknown names). Lowercase, 2-4 per workflow. See `references/NAMING_CONVENTIONS.md`.
+- **Tags:** the AI-side discovery mechanism (n8n 2.27.0+). The MCP lists (`list_workflow_tags`), filters (`search_workflows({ tags })`), and attaches them (`update_workflow` `addTags`/`removeTags`, auto-creating unknown names). Lowercase, 2-4 per workflow. See `references/NAMING_CONVENTIONS.md`.
 
 ## Readability: descriptions, node groups, sticky notes, conventions
 
@@ -91,21 +91,13 @@ Plus two notes:
 - **Match existing project conventions before introducing your own.** Skim a couple of nearby workflows via `search_workflows` + `get_workflow_details` and mirror the sticky palette, naming, and description style.
 - **Layout is auto-applied on create / update.** SDK `position` values for non-sticky nodes are ignored. Stickies, node groups, and naming are your readability levers.
 
-## Folder limitations
+## Folder management
 
-The MCP can place a workflow into a folder that **already exists**. It cannot:
+On a registered instance the MCP creates and organizes folders: `create_folder`, `update_folder` (rename/move), `move_workflows_to_folder`, and a `folderId` on `create_workflow_from_code` for create-time placement. `search_folders` resolves names to IDs.
 
-- Create new folders
-- Move existing folders
-- Move existing workflows between folders
+If the user wants a folder that doesn't exist, create it, don't build at the root and report success. If the folder tools are absent, the instance isn't registered: folders are blocked in the UI too, so ask the user to register (free, in Settings) rather than create the folder by hand. No tool deletes a folder, and projects are read-only.
 
-If the user asks for a folder that doesn't exist, **say so before building**. Don't silently create at the project root and report success. Surface options:
-
-1. User creates the folder manually, then you place workflows into it.
-2. Use a different existing folder.
-3. Confirm root-level placement is acceptable.
-
-For the full protocol including detecting existing folders via `search_folders`, read `references/FOLDER_LIMITATIONS.md`.
+For the full protocol, read `references/FOLDER_LIMITATIONS.md`.
 
 ## Per-workflow MCP access
 
@@ -126,7 +118,7 @@ There are things the user has to do that you can't, and they need to be done bef
 
 - **Verify credentials per node.** `newCredential('Label')` is cosmetic. n8n auto-assigns the most recently edited credential of the right type, which silently picks the wrong one when the user has multiples (prod vs staging Gmail, two API keys). Tell them: "open every node that uses a credential and confirm the right one is selected." See `n8n-credentials-and-security-official` non-negotiable #2.
 - **Create missing credentials.** If the user pasted a secret in chat or the workflow needs an account that doesn't exist yet, name the credential *type* and have them create it in the UI.
-- **Create missing folders.** The MCP can't create folders. If the user wanted a folder that doesn't exist, they create it before you can place the workflow there. See `references/FOLDER_LIMITATIONS.md`.
+- **Register for folders (only if the tools are missing).** Folder tools need a registered instance. If they're absent, the user registers (free, in Settings) before you can create or place folders; otherwise you handle folders yourself. See `references/FOLDER_LIMITATIONS.md`.
 - **MCP access toggle for user created workflows.** Workflows you create via the MCP are MCP-accessible by default. The toggle only matters when the test depends on a UI-created workflow being callable from the MCP. See `references/MCP_ACCESS_PER_WORKFLOW.md`.
 
 Don't proceed to TEST until these are confirmed done.

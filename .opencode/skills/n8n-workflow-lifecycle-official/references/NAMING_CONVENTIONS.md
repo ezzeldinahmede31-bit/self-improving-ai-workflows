@@ -71,18 +71,18 @@ For `Merge`, name after what's being merged (`Merge customer + Stripe data`).
 
 ## Tags
 
-Tags are the AI-side discovery and categorization mechanism (n8n 2.27.0+). The MCP can read them (`list_tags`), filter by them (`search_workflows({ tags })`, AND semantics), and attach/detach them (`update_workflow` `addTags`/`removeTags`). `addTags` auto-creates an unknown tag, so you never pre-register one. It cannot rename or delete tag entities, and `create_workflow_from_code` can't set tags at create time, so tag right after creating.
+Tags are the AI-side discovery and categorization mechanism (n8n 2.27.0+). The MCP can read them (`list_workflow_tags`), filter by them (`search_workflows({ tags })`, AND semantics), and attach/detach them (`update_workflow` `addTags`/`removeTags`). `addTags` auto-creates an unknown tag, so you never pre-register one. It cannot rename or delete tag entities, and `create_workflow_from_code` can't set tags at create time, so tag right after creating.
 
 Tag names are now exact-match machine identifiers, not just human labels:
 
 - All lowercase, spaces not hyphens: `customer`, `daily report`, `util`, `prod`. A case or spelling mismatch is a different tag.
 - No emojis. `addTags` and the `tags` filter match names exactly, so an emoji makes every match fragile.
-- **`list_tags` before tagging** to reuse the instance's existing names instead of spawning near-duplicates (`customer` vs `customers`).
+- **`list_workflow_tags` before tagging** to reuse the instance's existing names instead of spawning near-duplicates (`customer` vs `customers`).
 - Aim for 2-4 per workflow. More is noise.
 
 Standard category tags: `subworkflow` (reusable building block), a domain tag (`customer`, `billing`, `notification`), and `tool` (MCP-callable, see `n8n-extending-mcp-official`). For the full discovery protocol, see `n8n-subworkflows-official` `references/NAMING_AND_DISCOVERY.md`.
 
-Instance and user conventions overrule all of the above. If `list_tags` shows an existing vocabulary, or the user prefers different names, casing, or categories, match theirs. Consistency within an instance beats this skill's defaults.
+Instance and user conventions overrule all of the above. If `list_workflow_tags` shows an existing vocabulary, or the user prefers different names, casing, or categories, match theirs. Consistency within an instance beats this skill's defaults.
 
 ## Workflow `description`
 

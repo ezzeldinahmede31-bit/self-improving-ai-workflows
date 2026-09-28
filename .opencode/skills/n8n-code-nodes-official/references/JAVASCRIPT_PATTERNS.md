@@ -146,7 +146,7 @@ return [{ json: { ...item, signature } }]
 
 ### `console.log` for "debugging"
 
-Goes to instance logs the user may not have access to. Use `test_workflow` and `get_execution`.
+Goes to instance logs the user may not have access to. Use `test_workflow` and `get_workflow_execution`.
 
 To surface debug info downstream:
 
@@ -190,7 +190,7 @@ Code runs in a sandboxed JS runtime, separate from n8n's main process. Each invo
 
 For most workflows the overhead is a rounding error next to one HTTP call. When it matters (hot paths, large item counts, latency-sensitive webhooks), see the performance section in `ARROW_FUNCTIONS_IN_EDIT_FIELDS.md`. Cramming code-node-grade logic into an inline arrow function is ugly but can be the right call.
 
-99% of the time the bottleneck is upstream (HTTP call, DB query). If genuinely slow, profile via `get_execution` first.
+99% of the time the bottleneck is upstream (HTTP call, DB query). If genuinely slow, profile via `get_workflow_execution` first.
 
 ## Testing
 

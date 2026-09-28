@@ -1,0 +1,1 @@
+[{"date": "2026-09-28", "evidence": "Flag tripped by prose 'choosing between n8n-native vs decorator vs durable-execution' ('between'). A design comparison, no numeric counting answer anywhere in the file.", "finding": "counting/boundary heuristic flag on adapter prose", "reviewer": "opencode-agent", "verdict": "false-positive"}]

@@ -1,6 +1,6 @@
 # Testing workflows
 
-Two tools, used together. `prepare_test_pin_data` returns JSON Schemas (no actual data) for every node that needs pinning. You generate sample values matching the schemas and pass them to `test_workflow` as the `pinData` parameter. Inspect results via `get_execution`.
+Two tools, used together. `prepare_workflow_pin_data` returns JSON Schemas (no actual data) for every node that needs pinning. You generate sample values matching the schemas and pass them to `test_workflow` as the `pinData` parameter. Inspect results via `get_workflow_execution`.
 
 ## What `test_workflow` actually pins
 
@@ -40,7 +40,7 @@ If you're unsure whether a node has side effects, ask. False-positive asks waste
 
 ## Generating pin data
 
-`prepare_test_pin_data` returns JSON Schemas describing the expected shape for each node that needs pinning. **It does not return actual data, you generate it.** Merge sample values into a single `pinData` object keyed by node name, with every item wrapped in `{ "json": { ... } }`:
+`prepare_workflow_pin_data` returns JSON Schemas describing the expected shape for each node that needs pinning. **It does not return actual data, you generate it.** Merge sample values into a single `pinData` object keyed by node name, with every item wrapped in `{ "json": { ... } }`:
 
 ```js
 {
@@ -54,7 +54,7 @@ Pin every key the generator returns. Skipping a credentialed node leaves it with
 
 ## Mocking trigger input by type
 
-`prepare_test_pin_data` generates a representative trigger input. Hand-build when the generator's defaults don't match real callers.
+`prepare_workflow_pin_data` generates a representative trigger input. Hand-build when the generator's defaults don't match real callers.
 
 | Trigger | Pin shape |
 |---|---|
@@ -80,7 +80,7 @@ Pinning and disabling are revertable. Sandbox credentials are infrastructure and
 
 ## Inspection after testing
 
-`test_workflow` returns an execution ID. `get_execution({ executionId, workflowId, includeData: true })` exposes per-node input/output. Walk through:
+`test_workflow` returns an execution ID. `get_workflow_execution({ executionId, workflowId, includeData: true })` exposes per-node input/output. Walk through:
 
 - Per-node output shape matches intent.
 - Errors caught by error branches fired correctly, not silently.
@@ -94,7 +94,7 @@ The full pre-publish checklist that includes testing is in `VALIDATION_CHECKLIST
 
 Pin data passed to `test_workflow` is **per-execution only**. It is not written to the workflow definition, and the n8n execution viewer currently shows no visual indicator (no pin icon, no badge) on the nodes that were pinned. The only programmatic signals are:
 
-- The `pinData` block in `get_execution`'s response, which lists the pinned node names.
+- The `pinData` block in `get_workflow_execution`'s response, which lists the pinned node names.
 - `executionTime: 0` on each pinned node.
 
 Because the user has no canvas confirmation that a destructive-looking node was actually mocked, **always tell the user which nodes were pinned after the call.** Especially for nodes whose live execution would be destructive (Postgres `DELETE`, payment capture, file write, email send). A one-liner is enough:

@@ -89,7 +89,7 @@ These don't surface as parameter errors. The node runs with bad input. Always in
 ## Input data checks
 
 ```
-get_execution({ executionId: <execution_id>, workflowId: <workflow_id>, includeData: true })
+get_workflow_execution({ executionId: <execution_id>, workflowId: <workflow_id>, includeData: true })
 ```
 
 Inspect the failing node's input. If it's wrong:
@@ -126,7 +126,7 @@ If a query "doesn't return enough":
 
 User: "the Postgres query returns nothing but I know there are matching rows."
 
-1. `get_execution({ executionId, workflowId, includeData: true })` → Postgres ran successfully, returned 0 rows.
+1. `get_workflow_execution({ executionId, workflowId, includeData: true })` → Postgres ran successfully, returned 0 rows.
 2. `get_workflow_details({ workflowId })` → query `SELECT * FROM users WHERE email = $1`, parameter `$1 = '={{ $json.email }}'`.
 3. Execution input: `email = "User@Example.com"` (capital U).
 4. DB stores lowercase: `user@example.com`.

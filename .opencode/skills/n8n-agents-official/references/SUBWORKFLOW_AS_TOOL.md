@@ -217,7 +217,7 @@ This makes the sub-workflow understandable on its own.
 
 A sub-workflow tool can be tested without the agent:
 
-1. `prepare_test_pin_data` on the Execute Workflow Trigger generates representative input.
+1. `prepare_workflow_pin_data` on the Execute Workflow Trigger generates representative input.
 2. `test_workflow` runs the sub-workflow with that pinned data.
 3. Verify the output shape matches what the agent will receive.
 

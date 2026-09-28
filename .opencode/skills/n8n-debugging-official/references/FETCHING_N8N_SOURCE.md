@@ -141,7 +141,7 @@ Read when:
 Reading source is high-effort. The order:
 
 1. Check parameters via `get_node_types` and `get_workflow_details`.
-2. Test with `prepare_test_pin_data`, inspect via `get_execution`.
+2. Test with `prepare_workflow_pin_data`, inspect via `get_workflow_execution`.
 3. Re-read user docs at `docs.n8n.io`.
 4. Search GitHub issues for similar reports.
 5. **Then** source.

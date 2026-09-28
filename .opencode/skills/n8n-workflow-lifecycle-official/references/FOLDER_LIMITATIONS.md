@@ -1,57 +1,28 @@
-# Folder limitations
+# Folder management
 
-The MCP can place workflows into folders that **already exist**. It cannot create folders, move folders, or move workflows between folders. The typical failure mode:
+On a **registered** instance the MCP creates, renames, and moves folders, and moves workflows between them. On an unregistered instance the folder tools don't exist, and folders are blocked in the n8n UI too, so the fix is to register, not to build folders by hand.
 
-> User: "Create five workflows for the Customer Data project, organized into a `Reports` folder."
-> Agent: *creates five workflows at the project root, doesn't mention folders*
-> User: *finds workflows scattered across the root, has to drag them in one by one*
+## Tools
 
-Don't be that agent.
-
-## What you can do
-
-| Operation | Available? |
+| Operation | Tool |
 |---|---|
-| List existing folders (`search_folders`) | ✅ |
-| Place a workflow into an existing folder (via `create_workflow_from_code` parameter) | ✅ |
-| Search workflows by folder | ✅ |
-| Create a new folder | ❌ |
-| Move an existing folder | ❌ |
-| Move an existing workflow into a different folder | ❌ |
+| Resolve a folder name to its ID | `search_folders` |
+| Create a folder (optionally nested) | `create_folder` (needs `projectId`) |
+| Rename or move a folder within its project | `update_folder` |
+| Move workflows into a folder, or to root (`folderId: "0"`) | `move_workflows_to_folder` (≤20, same project) |
+| Place a workflow into a folder at create time | `create_workflow_from_code` `folderId` (needs `projectId`) |
 
-## The protocol when the user mentions a folder
+No tool deletes a folder, and projects are read-only (`search_projects` only; no create/rename project).
 
-1. **Call `search_folders`** for the relevant project.
-2. **If the folder exists**, place the workflow there via the `create_workflow_from_code` parameter.
-3. **If it doesn't**, surface this *before* building. Use the message below or close to it.
+## Protocol when the user mentions a folder
 
-### What to say when the folder doesn't exist
+1. **`search_folders`** for the project. Multiple name matches → ask which one.
+2. **Exists** → place workflows there: `folderId` on `create_workflow_from_code`, or `move_workflows_to_folder` for ones that already exist.
+3. **Doesn't exist** → `create_folder`, then place. No need to hand it back to the user.
+4. **Folder tools absent** → the instance isn't registered. Ask the user to register it (free Community-edition registration in Settings); folders are unavailable in the UI until then.
 
-> "I can place workflows into folders that already exist, but I can't create new folders via the MCP. I don't see a `<folder-name>` folder in the `<project-name>` project. Four options:
->
-> 1. Create the folder yourself in the n8n UI, and I'll then place workflows into it.
-> 2. Use an existing folder. I see: `<list>`. Want one of those?
-> 3. Place at the project root, and you can drag them later.
-> 4. Build a folder-creation MCP extension once, then I'll create folders directly going forward. n8n's REST API has a Folders endpoint (https://docs.n8n.io/api/api-reference/#tag/folders), so this is a one-time wrap. See `n8n-extending-mcp-official`.
->
-> Which would you like?"
+Confirm the destination by folder **name**, not ID. `move_workflows_to_folder` can partially succeed: report anything in `failed`.
 
-The fourth option is worth surfacing when the user creates folders often, or expects to in the future. One-time setup, then this limitation is gone for them. For users hitting this once, options 1-3 are usually the right answer.
+## Many workflows at once
 
-Adjust wording, but always:
-
-- Be explicit about the limitation.
-- Offer concrete alternatives.
-- Don't proceed silently.
-
-## When the user is creating many workflows
-
-Batching makes the limitation worse: scattered workflows mean N drag-and-drops, not one.
-
-If many workflows are requested in a folder that doesn't exist:
-
-1. Pause before creating any.
-2. Surface the limitation once.
-3. Wait for the user's choice.
-4. Batch-create.
-
+`move_workflows_to_folder` takes up to 20 IDs per call and requires all to share the folder's project. Create the folder once, then batch the moves.

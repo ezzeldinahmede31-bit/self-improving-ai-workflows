@@ -71,7 +71,7 @@ If you find any, invoke `n8n-credentials-and-security-official` and migrate befo
 
 ### 5. `test_workflow` produced expected output
 
-Use `prepare_test_pin_data`, then `test_workflow`. Inspect outputs via `get_execution`.
+Use `prepare_workflow_pin_data`, then `test_workflow`. Inspect outputs via `get_workflow_execution`.
 
 **Before running:** `test_workflow` auto-pins triggers, credentialed nodes, and HTTP Request. Code, Edit Fields, If, Data Tables, Execute Command, file ops, and sub-workflow calls run for real. If any of those have user-visible side effects, ask the user before running. See `TESTING.md` for the side-effect protocol, mocking by trigger type, pinning individual nodes, and the post-run announce-what-was-pinned protocol.
 

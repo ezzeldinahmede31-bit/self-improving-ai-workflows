@@ -31,7 +31,7 @@ Match cause to cheap check, in order of likelihood:
 3. **Paths misconfigured or misconnected** → inspect the `connections` object via `get_workflow_details`. For Merge input mismatches, see `n8n-node-configuration-official` `references/MERGE_NODE.md`.
 4. **Upstream data stripped** → trace `$json.x` references back through the chain, look for any node that replaces the json with its own output. Common offenders: Aggregate, HTTP-binary, Extract from File, Code in "Run for All Items" mode, branching Merge. Not exhaustive: any node can do this if its output shape doesn't include the upstream fields.
 5. **Item context lost** → check downstream of any Aggregate / Execute Once / Split Out for `.item` references, switch to `$input.all().find(...)` or a Merge anchor.
-6. **Logical errors** → trace data through `get_execution` step by step, compare each node's output vs. expected.
+6. **Logical errors** → trace data through `get_workflow_execution` step by step, compare each node's output vs. expected.
 7. **Genuine bug** → fall through to reading the n8n source, then GitHub issues, then a workaround.
 
 For external API problems, the upstream service's API docs (not n8n's wrapper) are the truth. Fetch API docs and n8n's source code to debug if required.
@@ -54,7 +54,7 @@ Vague ("it's broken") becomes tractable when concrete ("email sends to wrong add
 ### Step 2: check the execution
 
 ```
-get_execution({ executionId: <execution_id>, workflowId: <workflow_id>, includeData: true })
+get_workflow_execution({ executionId: <execution_id>, workflowId: <workflow_id>, includeData: true })
 ```
 
 Look at:
@@ -99,13 +99,13 @@ If the manual shape-vs-config diff is tedious (deep params, AI tool subnodes, ma
 ### Step 5: test with pinned data
 
 ```
-prepare_test_pin_data({ workflowId: '<id>' })
+prepare_workflow_pin_data({ workflowId: '<id>' })
 test_workflow({ workflowId: '<id>' })
 ```
 
 Controlled input isolates "workflow broken?" from "input weird?". If pinned data works but real input fails, the issue is in real input handling.
 
-If pinned data also produces wrong output, that's likely a logical error: trace each node's output against what you expected. `get_execution` on the test run gives you the actual emitted data per step, which is the source of truth for what each node did.
+If pinned data also produces wrong output, that's likely a logical error: trace each node's output against what you expected. `get_workflow_execution` on the test run gives you the actual emitted data per step, which is the source of truth for what each node did.
 
 ### Step 6: read the n8n source
 
@@ -157,11 +157,11 @@ For confirmed bugs:
 | Anti-pattern | What goes wrong | Fix |
 |---|---|---|
 | "It should work, are you sure you're doing X?" | Dismisses the user's report, misses real issues | Believe the user. Investigate. |
-| Re-running without checking the execution | Same failure twice, no new info | `get_execution` on the failed run, read the error |
+| Re-running without checking the execution | Same failure twice, no new info | `get_workflow_execution` on the failed run, read the error |
 | Assuming docs are accurate when behavior contradicts | Accepting the wrong mental model | Read the source. Behavior is truth |
 | Re-implementing logic in a Code node when a configured node fails | Hides the bug, doesn't fix root cause | Diagnose first, only work around when the bug is confirmed |
-| Bisecting by deleting nodes randomly | Wastes time | Step through `get_execution` to find the failed node directly |
-| Asking the user to re-screenshot instead of inspecting via MCP | Slow, error-prone | Use `get_workflow_details` and `get_execution` |
+| Bisecting by deleting nodes randomly | Wastes time | Step through `get_workflow_execution` to find the failed node directly |
+| Asking the user to re-screenshot instead of inspecting via MCP | Slow, error-prone | Use `get_workflow_details` and `get_workflow_execution` |
 | Calling it "fixed" when you've worked around the bug, not understood it | Bug recurs in slightly different form | Document the cause. If working around, mark with `<!-- TEMPORARY: -->` |
 | Declaring a "bug" without asking the user's n8n version or when they last updated the skills | Real cause is often drift, and user updates and the "bug" disappears | Ask both versions before reporting. See Step 7. |
 
