@@ -7,7 +7,7 @@ for the full doc of the chosen skill. Grouping matches the router
 registry buckets (`compensatory-router/SKILL.md`), so new skills that were
 registered in the router appear under the same family here automatically.
 
-## Automation (per-tool) (376)
+## Automation (per-tool) (375)
 
 - **a2a-agent-interop** — Connect n8n agents to the open Agent-to-Agent (A2A) protocol: publish Agent Cards, drive the task lifecycle (message, polling, streaming, push), authenticate pe…
 - **abstraction-quality-gate** — Enforces A Philosophy of Software Design's core principle: complexity management through deep modules and shallow interfaces.
@@ -365,7 +365,6 @@ registered in the router appear under the same family here automatically.
 - **twitter-x-automation** — Automate Twitter/X social media workflows including posting, engagement, analytics, and audience growth
 - **uipath-aa-blueprism-advanced-bot** — Applies UiPath, Automation Anywhere, and Blue Prism: Advanced Bot Architecture to production: distilled patterns, anti-patterns, and checklists for building rel…
 - **unattended-vs-attended-automation-v2** — Applies Unattended vs.
-- **using-n8n-skills-official** — Use when working with n8n workflows in any capacity.
 - **vector-databases-architecture-indexing-v2** — Applies Vector Databases: Architecture, Indexing, and Scalable Similarity Search to production: distilled patterns, anti-patterns, and checklists for building r…
 - **vector-db-pinecone-milvus-qdrant-weaviate** — Applies Pinecone, Milvus, Qdrant, and Weaviate: Implementation and Tuning Guides to production: distilled patterns, anti-patterns, and checklists for building r…
 - **weather-automation** — Automate weather-based workflows, forecasts, alerts, and location-aware notifications
@@ -1236,7 +1235,7 @@ registered in the router appear under the same family here automatically.
 - **workflow-versioning-upgrades** — Versions artifacts, staged rollout, safe downgrade.
 - **zinsser-writing-well** — Writes nonfiction with style: clarity, brevity, and humanity.
 
-## n8n (13)
+## n8n (14)
 
 - **deploy-signoff-governance** — Run the final human sign-off ceremony for financial or sensitive deploys: authorization tiers (what needs a human, what never auto-approves), the evidence packe…
 - **eip-workflow-patterns** — Design n8n workflows with the Enterprise Integration Patterns vocabulary (Hohpe/Woolf): content-based router, splitter, aggregator with completeness conditions,…
@@ -1251,6 +1250,7 @@ registered in the router appear under the same family here automatically.
 - **n8n-runtime-semantics-guard** — Guards n8n runtime semantics that schema checks miss.
 - **qdrant-production-readiness** — Triage Qdrant connectivity failures (connection reset, 401/403, TLS) and harden a collection for production: the connectivity ladder (DNS, TLS, api-key header,…
 - **stability-patterns-production** — Make n8n systems survive the real world with Nygard stability patterns mapped to workflow nodes: timeouts, circuit breakers, bulkheads, fail fast, shed load, ba…
+- **using-n8n-skills-official** — Use when working with n8n workflows in any capacity.
 
 ## Dev utilities (6)
 
