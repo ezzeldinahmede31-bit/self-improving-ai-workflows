@@ -7,7 +7,7 @@ for the full doc of the chosen skill. Grouping matches the router
 registry buckets (`compensatory-router/SKILL.md`), so new skills that were
 registered in the router appear under the same family here automatically.
 
-## Automation (per-tool) (377)
+## Automation (per-tool) (376)
 
 - **a2a-agent-interop** — Connect n8n agents to the open Agent-to-Agent (A2A) protocol: publish Agent Cards, drive the task lifecycle (message, polling, streaming, push), authenticate pe…
 - **abstraction-quality-gate** — Enforces A Philosophy of Software Design's core principle: complexity management through deep modules and shallow interfaces.
@@ -250,7 +250,6 @@ registered in the router appear under the same family here automatically.
 - **n8n-schema-guardrail** — Verify generated n8n workflow JSON against the actual installed node schemas before deploy.
 - **n8n-static-linters-adapter** — Zero-dependency n8n static linters adapter (secret/credential lint, 24 production-debug rules, ruff-like syntax checks).
 - **n8n-subworkflow-modularizer** — Split complex n8n automations into small, independent sub-workflows wired together with Execute Workflow nodes.
-- **n8n-subworkflows-official** — Use when building anything multi-step, anything that looks repeatable, anything the user mentions reusing, or any workflow with more than ~10 nodes.
 - **n8n-syntax-v2-enforcer** — Enforce modern n8n 2.x expression and Code-node syntax deterministically.
 - **n8n-workflow** — Automate document workflows with n8n - 7800+ workflow templates
 - **n8n-workflow-lifecycle-official** — Use when starting, designing, organizing, finishing, or shipping an n8n workflow.
@@ -563,7 +562,7 @@ registered in the router appear under the same family here automatically.
 - **search-patterns** — Applies Peter Morville's Search Patterns to design search and discovery experiences that actually work: the search UX/IA anatomy (query box, results, faceted na…
 - **vector-databases-similarity-search** — Covers the fundamentals of vector databases and similarity search that any RAG or semantic-search build depends on: embedding representation, vector indexes (HN…
 
-## Reasoning/Math/Logic (78)
+## Reasoning/Math/Logic (79)
 
 - **acceptance-test-driven** — Acceptance test-driven development distilled.
 - **algorithm-design-kleinberg-tardos** — Applies Kleinberg & Tardos' Algorithm Design to designing algorithms by stable problem families: greedy algorithms and exchange arguments, divide and conquer wi…
@@ -612,6 +611,7 @@ registered in the router appear under the same family here automatically.
 - **mit-computation-structures** — Builds computers from gates to operating systems the 6.004 way: logic, FSMs, ISAs, pipelines, caches.
 - **more-programming-pearls** — Applies Jon Bentley's More Programming Pearls to writing, verifying, and improving programs: an end-to-end case study of a real program, writing correct program…
 - **myers-art-of-testing** — Designs black-box test cases that find bugs: partitioning, boundaries, and cause-effect.
+- **n8n-subworkflows-official** — Use when building anything multi-step, anything that looks repeatable, anything the user mentions reusing, or any workflow with more than ~10 nodes.
 - **off-by-one-boundary-guard** — Destroys the off-by-one class of errors in counting problems (open vs closed intervals, fence-post counts, period-crossing counts, inclusive/exclusive ranges, e…
 - **pgm-inference-variable-elimination** — Applies the inference chapters of Koller & Friedman's Probabilistic Graphical Models to answer queries from a graphical model: variable elimination and its comp…
 - **probabilistic-machine-learning-intro** — Applies Kevin Murphy's Probabilistic Machine Learning: An Introduction as the modern foundation for ML engineering: supervised and unsupervised learning framed…
