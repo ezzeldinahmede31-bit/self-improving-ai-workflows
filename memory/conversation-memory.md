@@ -2009,3 +2009,7 @@ Opened existing "Make" window (eu1.make.com/2862717/agent-profiles/8074 toolbox 
 ## P1b DONE (Sep 28) — reliability, 4 modules + 4 skills
 - adversarial_suite.py (11 inert cases/9 families with expected verdicts, detector grading) + saga.py (forward/compensate with reverse undo, honest undo errors, journal) + idempotency.py (keyed exactly-once, replay w/o re-execution, crash records nothing) + chaos_drills.py (12-fault inject/assert/recover + DisasterDrill restore-to-smoke with RTO).
 - TESTS 11/11. GATES 8/8 READY (pre-scan clean). Skills: adversarial-suite, saga-compensation-engine, idempotency-store, chaos-drills. Total -> 1220 skills.
+
+## P1c DONE (Sep 28) — tenancy/privacy/deploy/trace, 4 modules + 4 skills
+- tenancy.py (isolated namespaces, ok->warning->degraded->critical->exceeded machine with action lists, per-tenant ledger; rewrote tangled first draft cleanly) + privacy.py (4-level classification, retention TTL, export/delete log, DLP deny-list + redact + minimize) + deployment.py (stable-hash flags, 1-10-50-100 canary with probe gates, auto-rollback, missing-probe halt) + tracing.py (context-var traces, adopt/span/report, JSONL sink).
+- TESTS 9/9. GATES 8/8 READY (pre-scan clean). Skills: multi-tenant-platform, privacy-data-governance, deployment-controller, distributed-tracing. Total -> 1224 skills.
