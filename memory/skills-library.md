@@ -7,7 +7,7 @@ for the full doc of the chosen skill. Grouping matches the router
 registry buckets (`compensatory-router/SKILL.md`), so new skills that were
 registered in the router appear under the same family here automatically.
 
-## Automation (per-tool) (378)
+## Automation (per-tool) (377)
 
 - **a2a-agent-interop** — Connect n8n agents to the open Agent-to-Agent (A2A) protocol: publish Agent Cards, drive the task lifecycle (message, polling, streaming, push), authenticate pe…
 - **abstraction-quality-gate** — Enforces A Philosophy of Software Design's core principle: complexity management through deep modules and shallow interfaces.
@@ -237,7 +237,6 @@ registered in the router appear under the same family here automatically.
 - **n8n-e2e-test-runner** — Run a real end-to-end integration test after deploying an n8n workflow: hit the live webhook/trigger with a sample payload and verify it returns a 200 OK (plus…
 - **n8n-error-boundary-architect** — Automatically add error handling to every n8n workflow: Error Trigger nodes, Continue On Fail with error branches, and exponential-backoff retry strategies.
 - **n8n-error-handling-official** — Use when building any webhook-triggered workflow, scheduled/production-bound workflow, wiring a per-node error output, or any workflow where silent failure woul…
-- **n8n-extending-mcp-official** — Use when you want to expose an n8n workflow as a tool the coding agent can call.
 - **n8n-flowguard-adapter** — Graph-based n8n security scanner adapter (OWASP Agentic Top 10, SARIF output, CI fail-on-severity).
 - **n8n-git-sync** — Sync every n8n workflow JSON to a local/cloud Git repository automatically after create/update success.
 - **n8n-loops-official** — Use when working with multi-item data, batches, paginated APIs, rate-limited APIs, fan-out across multiple branches, anything that needs to "do this for each",…
@@ -1237,7 +1236,7 @@ registered in the router appear under the same family here automatically.
 - **workflow-versioning-upgrades** — Versions artifacts, staged rollout, safe downgrade.
 - **zinsser-writing-well** — Writes nonfiction with style: clarity, brevity, and humanity.
 
-## n8n (12)
+## n8n (13)
 
 - **deploy-signoff-governance** — Run the final human sign-off ceremony for financial or sensitive deploys: authorization tiers (what needs a human, what never auto-approves), the evidence packe…
 - **eip-workflow-patterns** — Design n8n workflows with the Enterprise Integration Patterns vocabulary (Hohpe/Woolf): content-based router, splitter, aggregator with completeness conditions,…
@@ -1248,6 +1247,7 @@ registered in the router appear under the same family here automatically.
 - **n8n-data-tables-official** — Use when working with n8n's built-in Data Tables, designing schemas, inserting/updating/upserting rows, deduping, or querying.
 - **n8n-deployment-ops-guard** — Guards n8n deployment and production operations that gates cannot see.
 - **n8n-expressions-official** — Use when writing or reviewing n8n expressions (`{{...}}` syntax), `$json` / `$node` references, Luxon date code, or expression errors.
+- **n8n-extending-mcp-official** — Use when you want to expose an n8n workflow as a tool the coding agent can call.
 - **n8n-runtime-semantics-guard** — Guards n8n runtime semantics that schema checks miss.
 - **qdrant-production-readiness** — Triage Qdrant connectivity failures (connection reset, 401/403, TLS) and harden a collection for production: the connectivity ladder (DNS, TLS, api-key header,…
 - **stability-patterns-production** — Make n8n systems survive the real world with Nygard stability patterns mapped to workflow nodes: timeouts, circuit breakers, bulkheads, fail fast, shed load, ba…
