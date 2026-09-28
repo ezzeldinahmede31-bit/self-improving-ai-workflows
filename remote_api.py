@@ -114,8 +114,16 @@ def _target_host_is_blocked_literal(host: str) -> str | None:
     was mock-routed (went_to_mock). A DIRECT literal private/loopback/
     link-local target with no mock routing is refused here even when no
     egress_policy is configured (legacy mode), so legacy clients cannot be
-    used as an SSRF primitive. Numeric-IP evasions (hex/octal/short/decimal)
+    used as an SSRF primitive.     Numeric-IP evasions (hex/octal/short/decimal)
     are canonicalized via egress_firewall before classification.
+
+    DNS names return None here: without an egress_policy there is no
+    resolver hook, so DNS-resolved private targets are NOT blocked in
+    legacy mode. Legacy (egress_policy=None) clients are therefore NOT
+    an SSRF security boundary against DNS-based targets — production
+    deployments MUST set egress_policy (orchestrator wires it from
+    enforcement.egress). This function only closes the literal-IP path,
+    which needs no resolver.
     """
     import ipaddress
     h = (host or "").lower().rstrip(".")

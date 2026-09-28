@@ -323,6 +323,16 @@ class SystemOrchestrator:
         self.enforcement = platform_wiring.EnforcementProfile.from_dict(
             enforcement)
         self.evidence = platform_wiring.build_sinks(evidence_dir)
+        if self.enforcement is None:
+            # Explicit, loud, non-silent: legacy mode performs NO central
+            # enforcement (no policy/capability/egress gates on step 2d).
+            # It exists for local dev/tests only and MUST NOT serve
+            # production traffic. Anything deployed serves with an
+            # enforcement profile (policy + capability + egress).
+            print("[SECURITY] SystemOrchestrator in LEGACY UNENFORCED mode "
+                  "(enforcement=None): central gates skipped. "
+                  "Not for production use.",
+                  file=sys.stderr)
         # Close the direct-HTTP bypass: when an enforcement profile carries
         # an egress policy, the orchestrator's own HTTP client enforces it
         # on EVERY request (fail closed via EgressBlockedError).

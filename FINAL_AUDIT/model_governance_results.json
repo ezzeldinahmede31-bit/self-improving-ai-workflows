@@ -1,0 +1,12 @@
+{
+  "status": "LIVE_MODEL_UNVERIFIED",
+  "evidence": "no live model connected; evolver honestly reports unmeasured/nothing promoted; bench/drift suites run offline",
+  "offline": {
+    "returncode": 0,
+    "tail": [
+      "........                                                                 [100%]"
+    ],
+    "passed": true
+  },
+  "_generated_at": "2026-09-28T16:38:15Z"
+}

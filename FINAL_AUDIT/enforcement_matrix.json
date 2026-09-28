@@ -1,0 +1,36 @@
+{
+  "chain": [
+    "Policy",
+    "Capability",
+    "Skill Trust",
+    "Sandbox",
+    "Egress",
+    "Execution",
+    "Tool Verification",
+    "Business Invariants",
+    "Idempotency",
+    "Audit",
+    "Provenance",
+    "Commit"
+  ],
+  "matrix": {
+    "tool.execute": {
+      "policy": "required(strict)",
+      "capability": "required(strict)",
+      "skill_trust": "required when skill supplied",
+      "egress": "when urls declared",
+      "verify": "when checker supplied",
+      "invariants": "when payload supplied"
+    },
+    "http.fetch/net.fetch/external.call": {
+      "policy": "required(strict)",
+      "capability": "required(strict)",
+      "egress": "REQUIRED urls + target-IP guard (strict denies missing urls)"
+    },
+    "filesystem.write/database.write/deployment.promote/memory.write/workflow.execute/code.execute": {
+      "policy": "required(strict)",
+      "capability": "required(strict)"
+    }
+  },
+  "_generated_at": "2026-09-28T16:38:10Z"
+}

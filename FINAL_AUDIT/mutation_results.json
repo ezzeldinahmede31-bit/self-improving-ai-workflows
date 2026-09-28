@@ -1,0 +1,5 @@
+{
+  "method": "control-removal semantic check (no file mutation): with CapabilityIssuer.verify monkeypatched to always-allow, revoked tokens verify True (control is load-bearing); with strict=False the executor returns denied verdicts instead of raising (mode difference is intentional). Targeted regression tests fail if their control is removed (revocation/resource/egress/url guards).",
+  "status": "control-load-bearing DEMONSTRATED; full mutation corpus remains future work",
+  "_generated_at": "2026-09-28T16:38:12Z"
+}

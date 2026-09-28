@@ -1,0 +1,60 @@
+{
+  "fixed_this_pass": [
+    {
+      "id": "SEC-01",
+      "severity": "CRITICAL",
+      "finding": "capability attenuate() ignored revocation/expiry (verified live: revoked parent minted valid child)",
+      "fix": "attenuate() now rejects revoked/expired parents; regression tests test_attenuate_revoked_parent_blocked",
+      "evidence": "tests/test_p0a_capability.py"
+    },
+    {
+      "id": "SEC-02",
+      "severity": "HIGH",
+      "finding": "capability attenuate() allowed resource widening (child '*' from parent 'tA/*')",
+      "fix": "child resource must equal parent, match parent glob, or parent is '*'; wildcard children rejected",
+      "evidence": "test_attenuate_resource_widening_blocked"
+    },
+    {
+      "id": "SEC-03",
+      "severity": "HIGH",
+      "finding": "EnforcedExecutor strict mode skipped egress when a network action declared no urls",
+      "fix": "NETWORK_ACTIONS w/o urls denied in strict mode",
+      "evidence": "tests/test_p0d_enforced_egress.py"
+    },
+    {
+      "id": "SEC-04",
+      "severity": "HIGH",
+      "finding": "RemoteAPIClient legacy path allowed direct literal private/loopback targets (incl. hex/decimal evasions)",
+      "fix": "connection-target literal-IP guard, always on, mock-routed targets exempt",
+      "evidence": "tests/test_p0d_remote_target_guard.py"
+    },
+    {
+      "id": "SEC-05",
+      "severity": "MEDIUM",
+      "finding": "legacy unenforced orchestrator mode was silent",
+      "fix": "loud stderr warning at init; documented as dev-only",
+      "evidence": "master_system_orchestrator.py"
+    }
+  ],
+  "known_residual_gaps": [
+    {
+      "id": "GAP-01",
+      "severity": "HIGH",
+      "gap": "legacy (enforcement=None) DNS-name targets are not SSRF-checked; production MUST configure enforcement.egress",
+      "mitigation": "literal-IP guard always on; orchestrator wires egress_policy when profile present; loud legacy warning"
+    },
+    {
+      "id": "GAP-02",
+      "severity": "LOW",
+      "gap": "capability issue() has no maximum TTL cap",
+      "mitigation": "short TTLs in production callers (900s task tokens); revocation available"
+    },
+    {
+      "id": "GAP-03",
+      "severity": "LOW",
+      "gap": "DNS-rebinding TOCTOU between check time and connect time for long-lived connections",
+      "mitigation": "documented; callers holding connections must re-check per connect via resolve hook"
+    }
+  ],
+  "_generated_at": "2026-09-28T16:38:10Z"
+}

@@ -73,6 +73,14 @@ class EnforcedExecutor:
       - `invariant_domain`: domain name used for invariant evaluation.
       - `audit_sink` / `provenance_sink`: optional sinks; every decision
         (allow AND deny) is recorded when present.
+      - `tenant`: AUDIT LABEL ONLY — it is recorded on the audit entry but
+        is NOT an enforcement control. Tenant isolation is enforced via
+        capability resource scope (e.g. `tenantA/*` cannot satisfy a
+        `tenantB/...` resource check) plus `tenancy.py` namespace checks.
+        Never treat the `tenant=` label as proof of isolation.
+      - `skill_records=None` means "no third-party skill involved", NOT
+        "skip trust". Any skill that participates MUST be passed in
+        `skill_records` or its execution is outside the trust gate.
     """
 
     def __init__(

@@ -1,0 +1,75 @@
+{
+  "method": "static inspection of entrypoints + EnforcedExecutor chain",
+  "sensitive_actions": [
+    "browser.act",
+    "code.execute",
+    "database.write",
+    "deployment.promote",
+    "external.call",
+    "filesystem.write",
+    "http.fetch",
+    "mcp.call",
+    "memory.write",
+    "n8n.execute",
+    "net.fetch",
+    "tool.execute",
+    "workflow.execute"
+  ],
+  "network_actions_require_urls_strict": [
+    "external.call",
+    "http.fetch",
+    "net.fetch"
+  ],
+  "entrypoints": [
+    {
+      "entrypoint": "SystemOrchestrator.execute_workflow_task",
+      "caller": "operator/API",
+      "sensitive": [
+        "net.fetch",
+        "code.execute",
+        "n8n.execute",
+        "memory.write"
+      ],
+      "gates": "policy->capability->skill_trust->egress(step2d)->verifier->invariants->HITL->audit/provenance",
+      "notes": "enforcement=None => LEGACY UNENFORCED (loud stderr warning); production requires enforcement profile"
+    },
+    {
+      "entrypoint": "EnforcedExecutor.execute",
+      "caller": "sensitive callers (strict=True production default)",
+      "sensitive": [
+        "browser.act",
+        "code.execute",
+        "database.write",
+        "deployment.promote",
+        "external.call",
+        "filesystem.write",
+        "http.fetch",
+        "mcp.call",
+        "memory.write",
+        "n8n.execute",
+        "net.fetch",
+        "tool.execute",
+        "workflow.execute"
+      ],
+      "gates": "policy->capability->skill_trust->egress->execution->tool_verify->invariants->audit/provenance",
+      "notes": "network actions w/o urls denied; tenant= is audit label only"
+    },
+    {
+      "entrypoint": "RemoteAPIClient.request",
+      "caller": "orchestrator/tools",
+      "sensitive": [
+        "external.call"
+      ],
+      "gates": "MockRouter.assert_safe + optional egress_policy + connection-target literal-IP guard (always on)",
+      "notes": "DNS-name targets need egress_policy; legacy DNS path is not a security boundary (documented)"
+    },
+    {
+      "entrypoint": "Scheduler/Worker/LocalWorker/RemoteAPI/MCP/Browser/n8n/CLI/webhook/callback/recovery/admin",
+      "caller": "orchestrator + operators",
+      "sensitive": "via EnforcedExecutor or orchestrator step gates",
+      "gates": "same chain; debug/admin paths carry no bypass (no legacy passthrough in strict mode)",
+      "notes": "verified by test_adversarial_full_stack.py"
+    }
+  ],
+  "_generated_at": "2026-09-28T16:38:10Z"
+}
