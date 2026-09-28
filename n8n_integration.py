@@ -6,7 +6,7 @@ it exposes the existing verifier as an async-compatible call with
 the same strict gates (5 consecutive passes, 15 total attempts).
 
 Usage:
-    n8n = N8NIntegration(base_url, api_key)
+    n8n = N8NIntegration(base_url, api_key, egress_policy=...)
     result = n8n.trigger_and_verify(workflow_id, webhook_path, payload, expected_output)
     # result = {"ok": bool, "runs": [...], "status": "stable|flat|flaky|timeout"}
 
@@ -24,6 +24,8 @@ from pathlib import Path
 from typing import Any, Callable, Optional
 
 import requests
+
+from egress_firewall import check_url as _check_url, EgressPolicy
 
 REQUIRED_CONSECUTIVE_PASSES = 5
 MAX_TOTAL_ATTEMPTS = 15
@@ -54,7 +56,14 @@ class N8NConfig:
 class N8NIntegration:
     """Trigger an n8n workflow and verify its output stability."""
 
-    def __init__(self, config: N8NConfig | None = None):
+    def __init__(
+        self,
+        config: N8NConfig | None = None,
+        *,
+        egress_policy: EgressPolicy | None = None,
+        capability_issuer: Any = None,
+        capability_token: str | None = None,
+    ):
         self.config = config or N8NConfig(
             base_url=_load_env("N8N_BASE_URL", "http://localhost:5678"),
             api_key=_load_env("N8N_API_KEY", ""),
@@ -63,13 +72,26 @@ class N8NIntegration:
         self.session = requests.Session()
         if self.config.api_key:
             self.session.headers.update({"X-N8N-API-KEY": self.config.api_key})
+        self.egress_policy = egress_policy
+        self.capability_issuer = capability_issuer
+        self.capability_token = capability_token
 
     def _fetch_workflow(self, workflow_id: str) -> dict | None:
+        url = f"{self.config.base_url}/api/v1/workflows/{workflow_id}"
+        if self.egress_policy is not None:
+            verdict = _check_url(url, self.egress_policy)
+            if not verdict.allowed:
+                raise RuntimeError(f"Egress blocked: {verdict.reason}")
+        if self.capability_issuer is not None and self.capability_token:
+            from platform_wiring import check_capability as _check_cap
+            import urllib.parse
+            host = urllib.parse.urlparse(self.config.base_url).hostname or ""
+            chk = _check_cap(self.capability_issuer, self.capability_token,
+                             action="net.fetch", resource=host or "*")
+            if not chk["ok"]:
+                raise RuntimeError(f"Capability rejected: {chk['reason']}")
         try:
-            resp = self.session.get(
-                f"{self.config.base_url}/api/v1/workflows/{workflow_id}",
-                timeout=TIMEOUT_PER_EXECUTION,
-            )
+            resp = self.session.get(url, timeout=TIMEOUT_PER_EXECUTION)
             if resp.status_code == 200:
                 return resp.json()
         except Exception:
@@ -77,11 +99,21 @@ class N8NIntegration:
         return None
 
     def _latest_execution_id(self, workflow_id: str) -> str | None:
+        url = f"{self.config.base_url}/api/v1/executions?workflowId={workflow_id}&limit=1"
+        if self.egress_policy is not None:
+            verdict = _check_url(url, self.egress_policy)
+            if not verdict.allowed:
+                raise RuntimeError(f"Egress blocked: {verdict.reason}")
+        if self.capability_issuer is not None and self.capability_token:
+            from platform_wiring import check_capability as _check_cap
+            import urllib.parse
+            host = urllib.parse.urlparse(self.config.base_url).hostname or ""
+            chk = _check_cap(self.capability_issuer, self.capability_token,
+                             action="net.fetch", resource=host or "*")
+            if not chk["ok"]:
+                raise RuntimeError(f"Capability rejected: {chk['reason']}")
         try:
-            resp = self.session.get(
-                f"{self.config.base_url}/api/v1/executions?workflowId={workflow_id}&limit=1",
-                timeout=TIMEOUT_PER_EXECUTION,
-            )
+            resp = self.session.get(url, timeout=TIMEOUT_PER_EXECUTION)
             if resp.status_code == 200:
                 data = resp.json()
                 if data.get("data"):
@@ -91,11 +123,21 @@ class N8NIntegration:
         return None
 
     def _fetch_execution(self, execution_id: str) -> dict | None:
+        url = f"{self.config.base_url}/api/v1/executions/{execution_id}?includeData=true"
+        if self.egress_policy is not None:
+            verdict = _check_url(url, self.egress_policy)
+            if not verdict.allowed:
+                raise RuntimeError(f"Egress blocked: {verdict.reason}")
+        if self.capability_issuer is not None and self.capability_token:
+            from platform_wiring import check_capability as _check_cap
+            import urllib.parse
+            host = urllib.parse.urlparse(self.config.base_url).hostname or ""
+            chk = _check_cap(self.capability_issuer, self.capability_token,
+                             action="net.fetch", resource=host or "*")
+            if not chk["ok"]:
+                raise RuntimeError(f"Capability rejected: {chk['reason']}")
         try:
-            resp = self.session.get(
-                f"{self.config.base_url}/api/v1/executions/{execution_id}?includeData=true",
-                timeout=TIMEOUT_PER_EXECUTION,
-            )
+            resp = self.session.get(url, timeout=TIMEOUT_PER_EXECUTION)
             if resp.status_code == 200:
                 return resp.json()
         except Exception:
@@ -105,6 +147,18 @@ class N8NIntegration:
     def _trigger_via_webhook(self, webhook_path: str, payload: dict) -> bool:
         """POST to webhook. Returns True if HTTP 2xx, else False."""
         url = f"{self.config.webhook_base or self.config.base_url}/webhook/{webhook_path}"
+        if self.egress_policy is not None:
+            verdict = _check_url(url, self.egress_policy)
+            if not verdict.allowed:
+                raise RuntimeError(f"Egress blocked: {verdict.reason}")
+        if self.capability_issuer is not None and self.capability_token:
+            from platform_wiring import check_capability as _check_cap
+            import urllib.parse
+            host = urllib.parse.urlparse(self.config.webhook_base or self.config.base_url).hostname or ""
+            chk = _check_cap(self.capability_issuer, self.capability_token,
+                             action="net.fetch", resource=host or "*")
+            if not chk["ok"]:
+                raise RuntimeError(f"Capability rejected: {chk['reason']}")
         try:
             resp = self.session.post(url, json=payload, timeout=TIMEOUT_PER_EXECUTION)
             return 200 <= resp.status_code < 300

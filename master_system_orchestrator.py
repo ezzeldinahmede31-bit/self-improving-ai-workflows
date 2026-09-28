@@ -342,8 +342,12 @@ class SystemOrchestrator:
             except AttributeError:
                 pass
         self._task_capability: dict = {}
-        # n8n integration (lazy, None when no API key)
-        self.n8n = N8NIntegration()
+        # n8n integration (lazy, None when no API key) - enforce egress/capability
+        self.n8n = N8NIntegration(
+            egress_policy=self.enforcement.egress if self.enforcement else None,
+            capability_issuer=self._task_capability.get("issuer"),
+            capability_token=self._task_capability.get("token"),
+        )
         self._n8n_webhook_base: str = ""
 
     def _purge_legacy_rule_store(self) -> None:
@@ -750,6 +754,10 @@ class SystemOrchestrator:
                 self.enforcement, actions=["net.fetch", "code.execute"],
                 resource="task:*", ttl_s=900)
             self._task_capability = cap
+            # Update n8n integration with the new capability
+            if self.n8n is not None:
+                self.n8n.capability_issuer = cap.get("issuer")
+                self.n8n.capability_token = cap.get("token")
 
         # ---- STEP 1: Brutal budget + honesty audit ----
         audit = BrutallyHonestBudgetAnalyzer.audit_task(
