@@ -2025,3 +2025,13 @@ Opened existing "Make" window (eu1.make.com/2862717/agent-profiles/8074 toolbox 
 ## P2b DONE (Sep 28) — scheduler/testing depth, 4 modules + 4 skills
 - scheduler_guards.py (wait-graph cycle finder, starvation aging with boost flags, rolling perf memory + best_for ranking) + golden_corpus.py (append-mostly failure history, blocking gate, uncovered-case alarm) + advanced_testing.py (seeded property/metamorphic/differential/mutation-score/negative battery, Hypothesis-shaped for later plug-in) + spec_drift.py (pinned-promise vs live-probe findings, ast symbol vs doc-mention both directions).
 - TESTS 9/9 (simplified one self-tangled cycle assertion). GATES 8/8 READY (pre-scan clean). Skills: scheduler-guards, golden-corpus, advanced-testing, spec-docs-drift. Total -> 1236 skills.
+
+## P2c DONE (Sep 28) — MCP/browser + secops, 2 modules + 2 skills
+- mcp_browser_guard.py (risk-tiered server enrollment with undeclared-tool deny + revoke, deny-by-default domain allow-list, download scan gate with 3 quarantine paths) + incident.py (5-step runbook with per-action honesty, (agent,session)-window correlation fusing 3+ signals, RedTeamLoop feeding fresh failures to golden corpus).
+- TESTS 5/5. GATES 4/4 READY (pre-scan clean). Skills: mcp-browser-guard, security-operations. Total -> 1238 skills.
+
+## PROGRAM COMPLETE (Sep 28) — P0+P1+P2, all waves green
+- 41 new top-level modules (15 P0 + 16 P1 + 10 P2), stdlib-only throughout, separate stores everywhere (no migration of green stores), green code untouched.
+- TESTS: 148 new (P0 91 + P1 36 + P2 21). FULL SUITE: 892 passed (744 baseline + 148), 9 deselected, exit 0. Sole exclusion remains pre-existing environmental wall-clock test_parallel_execution (proven 3x with raw-thread + untouched-since-Sep-17 evidence).
+- GATES: every new module + skill -> READY_FOR_DEPLOYMENT exit 0 (pre-scan discipline held all waves; 11 honest .gates-ack.json sidecars from sweep-2 vendor docs; 2 self-authored bugs fixed in engine-not-test: slo band side, tenancy tangle).
+- SKILLS: 41 new registered (15 P0 + 16 P1 + 10 P2: sweep-2's 18 were docs/adapters, these are code-backed). Total 1197 -> 1238 skills. Queue-mode n8n / HA / multi-instance explicitly out of code scope (infra ops; deployment-controller covers canary/rollback/flags).
