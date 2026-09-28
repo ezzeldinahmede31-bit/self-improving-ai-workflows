@@ -2,5 +2,5 @@
   "status": "STATIC_MANIFESTS_ONLY",
   "evidence": "skills-lock.json present; full runtime SBOM/drift scan not executed this pass; dep_drift.py pinned-baseline mechanism exists (F036 INTEGRATED)",
   "note": "runtime dependency verification remains SIMULATED",
-  "_generated_at": "2026-09-28T17:32:40Z"
+  "_generated_at": "2026-09-28T18:24:36Z"
 }

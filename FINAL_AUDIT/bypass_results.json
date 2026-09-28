@@ -4,5 +4,5 @@
   "network_action_without_urls_denied_strict": true,
   "legacy_direct_literal_ip_blocked": "5/5",
   "verdict": "all live probes behave fail-closed: True",
-  "_generated_at": "2026-09-28T17:32:35Z"
+  "_generated_at": "2026-09-28T18:24:32Z"
 }

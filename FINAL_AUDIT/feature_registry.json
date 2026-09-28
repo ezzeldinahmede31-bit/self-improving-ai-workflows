@@ -123,7 +123,7 @@
       "negative_test": "tests/test_p0a_egress.py",
       "bypass_test": "tests/test_adversarial_full_stack.py",
       "status": "VERIFIED",
-      "evidence": ""
+      "evidence": "TTL-clamped DnsCache + fetch_pinned connection-boundary rebind/redirect/downgrade closure (tests/test_p0d_dns_ttl_pinned.py, 22 tests)"
     },
     {
       "id": "F009",
@@ -543,7 +543,7 @@
       "negative_test": "tests/test_p1a_bench_drift.py",
       "bypass_test": "tests/test_adversarial_full_stack.py",
       "status": "INTEGRATED",
-      "evidence": ""
+      "evidence": "live NVIDIA catalog (81 models) + 16-token completion routed through untrusted-output gate; prod path never invokes live model (tests/test_p1a_live_model_governance.py + test_p0d_production_isolation.py)"
     },
     {
       "id": "F039",
@@ -700,5 +700,5 @@
       "evidence": ""
     }
   ],
-  "_generated_at": "2026-09-28T17:32:35Z"
+  "_generated_at": "2026-09-28T18:24:32Z"
 }
