@@ -428,6 +428,29 @@ class SystemOrchestrator:
         if not self.elide_output:
             print(*parts)
 
+    def set_deployment_probes(self, probes: dict, promote_fn=None,
+                              feature_flags=None) -> None:
+        """Attach deployment probes (stage -> callable returning ok, metrics)
+        and optional promote_fn + feature_flags for canary rollout."""
+        self._deploy_probes = probes
+        self._deploy_promote_fn = promote_fn
+        self._deploy_feature_flags = FeatureFlags() if feature_flags is None else feature_flags
+
+    def set_skill_trust_hook(self, registry_path: str, secret: bytes) -> None:
+        """Attach a skill-trust hook to the scheduler (lazy, lazy)."""
+        if self.trust_hook is not None:
+            return
+        self.trust_hook = lambda rec: platform_wiring.skill_filter(
+            platform_wiring.EnforcementProfile(
+                trust_registry_path=registry_path,
+                trust_secret=secret), [rec])[1]["verdicts"].get(
+                    rec.name, ("unknown", "no verdict"))[0] == "ok", \
+            platform_wiring.skill_filter(
+                platform_wiring.EnforcementProfile(
+                    trust_registry_path=registry_path,
+                    trust_secret=secret), [rec])[1]["verdicts"].get(
+                    rec.name, ("unknown", "no verdict"))[1]
+
     def _seal_result(self, result: dict, task_prompt: str,
                      workflow_json: dict | None = None,
                      scope: dict | None = None,
@@ -930,6 +953,32 @@ class SystemOrchestrator:
                 self.logger.info("deploy_directive", task=task_prompt[:80],
                                  version=version)
                 self.alerts.evaluate()
+                # ---- STEP 4a: DEPLOYMENT GATE (optional, when probes supplied).
+                # Caller can pass deployment_probes dict (stage -> callable) +
+                # promote_fn to enable the full canary->rollback flow.
+                deploy_res = None
+                deploy_probes = getattr(self, "_deploy_probes", None)
+                deploy_promote_fn = getattr(self, "_deploy_promote_fn", None)
+                deploy_feature_flags = getattr(self, "_deploy_feature_flags", None)
+                if deploy_probes:
+                    prov = self.evidence["provenance"]
+                    prov.link(platform_wiring.task_fingerprint(task_prompt),
+                              "deployment", task_prompt[:160])
+                    res = platform_wiring.deploy_release(
+                        self.evidence,
+                        release=f"deploy-{platform_wiring.task_fingerprint(task_prompt)}",
+                        previous="current",
+                        gates_fn=lambda: (True, "orchestrator-gates-passed"),
+                        probes=deploy_probes,
+                        promote_fn=deploy_promote_fn,
+                        feature_flags=deploy_feature_flags)
+                    deploy_res = res
+                    if res["rolled_back"]:
+                        self._emit("[4a] Deployment:", f"ROLLED BACK — {res['reason']}")
+                        self._golden_from_rejection(
+                            task_prompt, [f"deploy: {res['reason']}"])
+                    else:
+                        self._emit("[4a] Deployment:", f"LIVE = {res['live']}")
                 return self._seal_result(
                     {"status": "READY_FOR_DEPLOYMENT", "decision": decision,
                      "scope": scope, "tools": self._probe_tools(),
