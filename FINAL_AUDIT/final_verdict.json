@@ -1,0 +1,40 @@
+{
+  "total_features": 49,
+  "full_suite": {
+    "returncode": 0,
+    "tail": [
+      "........................................................................ [ 95%]",
+      ".................................................                        [100%]"
+    ],
+    "passed": true
+  },
+  "live_verified": [
+    "unit",
+    "integration",
+    "security",
+    "adversarial-full-stack",
+    "tenancy",
+    "idempotency/saga",
+    "deployment-trace",
+    "capability-regression",
+    "egress-regression",
+    "remote-target-regression"
+  ],
+  "unverified": [
+    "n8n-live",
+    "dr-fresh-env-restore",
+    "live-model",
+    "runtime-SBOM"
+  ],
+  "known_unresolved_critical": [],
+  "known_unresolved_high": [
+    "GAP-01 (legacy DNS path; production requires enforcement.egress)"
+  ],
+  "known_unresolved_medium": [],
+  "known_unresolved_low": [
+    "GAP-02 (no max TTL cap)",
+    "GAP-03 (DNS-rebinding TOCTOU)"
+  ],
+  "absolute_claims": "none made; see report wording rule",
+  "_generated_at": "2026-09-28T16:39:24Z"
+}
