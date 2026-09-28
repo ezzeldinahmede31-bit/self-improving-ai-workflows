@@ -51,6 +51,7 @@ from context_enrichment import (ImplicitIntentLexicon,
 from auto_self_evolver import (AutonomousSelfEvolver, WeaknessSource,
                                SKILLS_ROOT, DEFAULT_HMAC_KEY_PATH)
 import platform_wiring
+from n8n_integration import N8NIntegration
 
 
 # ============================================================
@@ -322,6 +323,9 @@ class SystemOrchestrator:
             enforcement)
         self.evidence = platform_wiring.build_sinks(evidence_dir)
         self._task_capability: dict = {}
+        # n8n integration (lazy, None when no API key)
+        self.n8n = N8NIntegration()
+        self._n8n_webhook_base: str = ""
 
     def _purge_legacy_rule_store(self) -> None:
         """Remove any leftover jit_evolve_skills tempdir from before the move to
@@ -940,6 +944,50 @@ class SystemOrchestrator:
             if decision["status"] == "READY_FOR_DEPLOYMENT":
                 self._emit("    Safety+Quality passed. Deploy directive ready.")
                 self._emit("[5] Tools probed:", self._probe_tools())
+
+                # ---- STEP 4: N8N INTEGRATION (optional, when webhook configured).
+                # Triggers the n8n workflow via webhook and verifies stability
+                # (5 consecutive passes, 15 total attempts). Skipped when no
+                # webhook or no n8n API key — preserves legacy behavior exactly.
+                n8n_result = None
+                n8n_webhook = self._n8n_webhook_base
+                if self.n8n and self.n8n.config.api_key and n8n_webhook:
+                    webhook_path = workflow_json.get("webhook_path") or task_prompt[:32]
+                    payload = workflow_json.get("n8n_payload", {})
+                    expected = workflow_json.get("n8n_expected_output", {})
+                    self._emit("[4] N8N Integration:", f"triggering {webhook_path}")
+                    n8n_res = self.n8n.trigger_and_verify(
+                        workflow_id=workflow_json.get("n8n_workflow_id", ""),
+                        webhook_path=webhook_path,
+                        payload=payload,
+                        expected_output=expected,
+                        webhook_base=self._n8n_webhook_base,
+                    )
+                    n8n_result = n8n_res
+                    if not n8n_res.get("ok"):
+                        self._emit("[4] N8N:", f"status={n8n_res.get('status')} — {n8n_res.get('details')}")
+                        self._golden_from_rejection(
+                            task_prompt, [f"n8n: {n8n_res.get('status')} — {n8n_res.get('details')}"])
+                        req = self.hitl.create_pending(
+                            raw_input=task_prompt,
+                            risk_score=60,
+                            violations=[f"n8n failure: {n8n_res.get('status')}"],
+                            payload={"n8n": n8n_res},
+                        )
+                        self.metrics.inc("pending_hitl")
+                        return self._seal_result(
+                            {"status": "PENDING_HUMAN_REVIEW",
+                             "reason": f"n8n failure — {n8n_res.get('details')}",
+                             "hitl_request_id": req.request_id,
+                             "n8n": n8n_res,
+                             "scope": scope, "audit": audit},
+                            task_prompt, workflow_json, scope, audit, decision)
+                    self._emit("[4] N8N:", f"STABLE = {n8n_res.get('consecutive')} consecutive passes")
+                    # Record n8n execution in provenance
+                    prov = self.evidence["provenance"]
+                    prov.link(platform_wiring.task_fingerprint(task_prompt),
+                              "n8n", f"{n8n_res.get('consecutive')} passes, {n8n_res.get('attempts')} attempts")
+
                 # metrics + version ledger + cost stub (real spend comes from
                 # LiteLLM feeder; record here the decision path only)
                 self.metrics.inc("tasks_deployed")
