@@ -171,12 +171,20 @@ class RemoteAPIClient:
         base_backoff_seconds: float = 0.2,
         max_backoff_seconds: float = 8.0,
         sleep: Callable[[float], None] = time.sleep,
+        egress_policy=None,
+        egress_resolve: Optional[Callable[[str], list]] = None,
     ):
         self.router = router or MockRouter()
         self.max_retries = max_retries
         self.base_backoff_seconds = base_backoff_seconds
         self.max_backoff_seconds = max_backoff_seconds
         self.sleep = sleep
+        # Optional runtime SSRF firewall (egress_firewall.EgressPolicy).
+        # None = legacy behavior (MockRouter.assert_safe only). When set,
+        # EVERY request target is validated and blocked destinations raise
+        # EgressBlockedError before any socket is opened.
+        self.egress_policy = egress_policy
+        self.egress_resolve = egress_resolve
 
     def _backoff_wait(self, retry_after: Optional[int], attempt: int) -> float:
         if retry_after is not None and retry_after > 0:
@@ -199,6 +207,13 @@ class RemoteAPIClient:
         """
         headers = headers or {}
         self.router.assert_safe(url)
+        if self.egress_policy is not None:
+            from egress_firewall import check_url as _check_url
+            verdict = _check_url(url, self.egress_policy,
+                                 resolve=self.egress_resolve)
+            if not verdict.allowed:
+                raise EgressBlockedError(
+                    f"Egress firewall blocked {url}: {verdict.reason}")
         went_to_mock = self.router.is_mocked(url)
         target = self.router.resolve(url)
         service = urllib.parse.urlparse(url).netloc

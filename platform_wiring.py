@@ -65,13 +65,31 @@ class EnforcementProfile:
         )
 
 
-def build_sinks(evidence_dir: str | None = None) -> dict:
-    """Evidence sinks. Tmpdir when unset (volatile); caller dir when set."""
+def build_sinks(evidence_dir: str | None = None,
+                audit_secret: bytes | None = None) -> dict:
+    """Evidence sinks. Tmpdir when unset (volatile); caller dir when set.
+
+    `audit_secret` signs the audit chain (HMAC). When None, the
+    `AUDIT_HMAC_KEY` env var (hex, 16+ bytes) is tried; unsigned chains
+    are allowed here ONLY for tests/local dev — production must use
+    `build_production_sinks()` which fails closed without a key.
+    """
     root = evidence_dir or tempfile.mkdtemp(prefix="plat_ev_")
     os.makedirs(root, exist_ok=True)
+    secret = audit_secret
+    if secret is None:
+        hexkey = os.environ.get("AUDIT_HMAC_KEY", "")
+        try:
+            secret = bytes.fromhex(hexkey) if hexkey else None
+        except ValueError:
+            secret = None
+        if secret is not None and len(secret) < 16:
+            secret = None
     return {
         "dir": root,
-        "audit": AuditChain(os.path.join(root, "audit_chain.db")),
+        "audit": AuditChain(os.path.join(root, "audit_chain.db"),
+                            secret=secret),
+        "signed": secret is not None,
         "provenance": ProvenanceLog(
             os.path.join(root, "provenance_chain.jsonl")),
         "golden": GoldenCorpus(os.path.join(root, "golden_corpus.json")),
@@ -81,6 +99,30 @@ def build_sinks(evidence_dir: str | None = None) -> dict:
         "incidents": IncidentResponse(),
         "redteam": RedTeamLoop(),
     }
+
+
+def build_production_sinks(evidence_dir: str | None = None,
+                           audit_secret: bytes | None = None) -> dict:
+    """Production sinks: SIGNED audit is mandatory (fail closed).
+
+    Raises RuntimeError when no 16+ byte HMAC key is available from
+    `audit_secret` or the `AUDIT_HMAC_KEY` env var (hex). Use this for
+    every production deployment; `build_sinks()` stays for tests/dev.
+    """
+    secret = audit_secret
+    if secret is None:
+        hexkey = os.environ.get("AUDIT_HMAC_KEY", "")
+        try:
+            secret = bytes.fromhex(hexkey) if hexkey else None
+        except ValueError:
+            secret = None
+    if secret is None or len(secret) < 16:
+        raise RuntimeError(
+            "production audit requires a 16+ byte HMAC key: set "
+            "AUDIT_HMAC_KEY (hex) or pass audit_secret explicitly")
+    sinks = build_sinks(evidence_dir, audit_secret=secret)
+    sinks["signed"] = True
+    return sinks
 
 
 def audit_event(sinks: dict, *, kind: str, actor: str, subject: str,

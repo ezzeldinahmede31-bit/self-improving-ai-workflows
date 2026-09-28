@@ -89,6 +89,81 @@ def _ip_blocked(ip: ipaddress._BaseAddress) -> str | None:
     return "non-global IPv6 address"
 
 
+def _parse_numeric_part(part: str) -> int | None:
+    """Parse one inet_aton-style numeric part (decimal/octal/hex).
+
+    Returns None when the part is not purely numeric (i.e. a DNS label).
+    Browsers, curl and glibc accept these forms, so the firewall must too:
+      '0x7f' -> 127, '0177' -> 127, '127' -> 127.
+    """
+    if not part:
+        return None
+    try:
+        if len(part) > 2 and part[:2].lower() == "0x":
+            return int(part[2:], 16)
+        if len(part) > 1 and part[0] == "0" and part.isdigit():
+            if any(c in "89" for c in part):
+                return None  # invalid octal: not a numeric IP part
+            return int(part, 8)
+        if part.isdigit():
+            return int(part, 10)
+    except ValueError:
+        return None
+    return None
+
+
+def _normalize_numeric_ip(host: str) -> str | None:
+    """Canonicalize inet_aton-style numeric hosts to dotted decimal.
+
+    Covers what `ipaddress.ip_address` REFUSES but real resolvers accept:
+      - bare 32-bit decimal/hex: '2130706433' / '0x7f000001' -> 127.0.0.1
+      - short dotted forms: '127.1' -> 127.0.0.1, '10.1' -> 10.0.0.1
+      - per-part hex/octal: '0x7f.0x0.0x0.0x1', '0177.0.0.1'
+    Returns the canonical dotted quad, or None when the host is not a
+    numeric-IP form (normal DNS name -> None, resolved via DNS path).
+    """
+    h = host.lower().rstrip(".")
+    if not h or any(c not in "0123456789abcdefx." for c in h):
+        return None
+    if "." not in h:
+        # bare integer: decimal or 0x-hex 32-bit value
+        try:
+            n = int(h[2:], 16) if h.startswith("0x") else int(h, 10)
+        except ValueError:
+            return None
+        if 0 <= n <= 0xFFFFFFFF:
+            return ".".join(str((n >> s) & 0xFF)
+                            for s in (24, 16, 8, 0))
+        return None
+    parts = h.split(".")
+    if not 1 <= len(parts) <= 4:
+        return None
+    nums = [_parse_numeric_part(p) for p in parts]
+    if any(n is None or n < 0 for n in nums):
+        return None
+    if len(nums) == 4:
+        if any(n > 255 for n in nums):
+            return None
+        quads = nums
+    else:
+        # inet_aton short forms: leading parts are single bytes, the last
+        # part fills the remaining bytes (up to 3).
+        head, last = nums[:-1], nums[-1]
+        if any(n > 255 for n in head):
+            return None
+        remaining = 4 - len(head)
+        max_last = 256 ** remaining - 1
+        if last > max_last:
+            return None
+        tail = [(last >> (8 * i)) & 0xFF
+                for i in range(remaining - 1, -1, -1)]
+        quads = head + tail
+    try:
+        return str(ipaddress.ip_address(".".join(str(q) for q in quads)))
+    except ValueError:
+        return None
+
+
 def _domain_allowed(host: str, allowed: tuple[str, ...]) -> bool:
     host = host.lower().rstrip(".")
     for dom in allowed:
@@ -120,17 +195,24 @@ def check_url(url: str, policy: EgressPolicy | None = None,
         return EgressVerdict(False, f"port not allowed: {port}", ())
 
     candidates: list[str] = []
-    try:
-        ip = ipaddress.ip_address(host)
-        candidates = [host]
-    except ValueError:
-        resolver = resolve or (lambda h: _default_resolve(h, policy.dns_timeout_s))
+    numeric = _normalize_numeric_ip(host)
+    if numeric is not None:
+        # Numeric-IP form (decimal/hex/octal/short): resolve LOCALLY to the
+        # canonical address. Never send these to DNS — a resolver that
+        # answers them differently (or at all) must not change the verdict.
+        candidates = [numeric]
+    else:
         try:
-            candidates = [str(c) for c in (resolver(host) or [])]
-        except OSError:
-            candidates = []
-        if not candidates:
-            return EgressVerdict(False, f"host does not resolve: {host}", ())
+            ip = ipaddress.ip_address(host)
+            candidates = [host]
+        except ValueError:
+            resolver = resolve or (lambda h: _default_resolve(h, policy.dns_timeout_s))
+            try:
+                candidates = [str(c) for c in (resolver(host) or [])]
+            except OSError:
+                candidates = []
+            if not candidates:
+                return EgressVerdict(False, f"host does not resolve: {host}", ())
     resolved: list[str] = []
     for cand in candidates:
         try:

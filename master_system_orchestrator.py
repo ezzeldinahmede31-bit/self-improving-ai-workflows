@@ -323,6 +323,14 @@ class SystemOrchestrator:
         self.enforcement = platform_wiring.EnforcementProfile.from_dict(
             enforcement)
         self.evidence = platform_wiring.build_sinks(evidence_dir)
+        # Close the direct-HTTP bypass: when an enforcement profile carries
+        # an egress policy, the orchestrator's own HTTP client enforces it
+        # on EVERY request (fail closed via EgressBlockedError).
+        if self.enforcement is not None and self.enforcement.egress is not None:
+            try:
+                self.client.egress_policy = self.enforcement.egress
+            except AttributeError:
+                pass
         self._task_capability: dict = {}
         # n8n integration (lazy, None when no API key)
         self.n8n = N8NIntegration()

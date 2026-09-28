@@ -69,3 +69,25 @@ def test_unresolvable_denied():
     v = check_url("https://no-such-host.invalid/", EgressPolicy(),
                   resolve=lambda h: [])
     assert not v.allowed
+
+
+def test_numeric_ip_forms_canonicalized_and_blocked():
+    """Golden regression: inet_aton numeric forms must not bypass the wall.
+
+    Root cause (found 2026-09-28 by test_adversarial_full_stack): Python's
+    ipaddress module rejects decimal/hex/short IPv4 forms that real
+    resolvers (glibc/curl/browsers) accept, so they fell into the DNS path
+    and could be ALLOWED while the socket connected to 127.0.0.1/10.x.
+    """
+    pol = EgressPolicy(allow_public_internet=True)
+    for url, why in [
+        ("http://2130706433/", "decimal 127.0.0.1"),
+        ("http://0x7f000001/", "hex 127.0.0.1"),
+        ("http://0x7f.0x0.0x0.0x1/", "dotted hex 127.0.0.1"),
+        ("http://127.1/", "short 127.0.0.1"),
+        ("http://0177.0.0.1/", "octal 127.0.0.1"),
+        ("http://3232235521/", "decimal 192.168.0.1"),
+        ("http://10.1/", "short 10.0.0.1"),
+    ]:
+        v = check_url(url, pol, resolve=_resolve)
+        assert not v.allowed, f"BYPASS via {why}: {url}"
