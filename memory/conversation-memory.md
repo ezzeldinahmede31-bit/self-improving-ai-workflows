@@ -2021,3 +2021,7 @@ Opened existing "Make" window (eu1.make.com/2862717/agent-profiles/8074 toolbox 
 ## P2a DONE (Sep 28) — contracts/evolution/drift, 4 modules + 4 skills
 - contract_test.py (pinned input/output schemas, error taxonomy, latency ceiling, version pin; five breach classes) + schema_evolve.py (ordered migrations, additive-only audit with widening list, dual-read with _legacy) + dep_drift.py (SBOM-shaped diffs, major-move detection, retest verdicts) + api_monitor.py (shape/latency/version probes, first-deviation findings).
 - TESTS 7/7. GATES 8/8 READY (pre-scan clean). Skills: contract-testing, schema-evolution, dependency-drift-watch, api-monitor. Total -> 1232 skills.
+
+## P2b DONE (Sep 28) — scheduler/testing depth, 4 modules + 4 skills
+- scheduler_guards.py (wait-graph cycle finder, starvation aging with boost flags, rolling perf memory + best_for ranking) + golden_corpus.py (append-mostly failure history, blocking gate, uncovered-case alarm) + advanced_testing.py (seeded property/metamorphic/differential/mutation-score/negative battery, Hypothesis-shaped for later plug-in) + spec_drift.py (pinned-promise vs live-probe findings, ast symbol vs doc-mention both directions).
+- TESTS 9/9 (simplified one self-tangled cycle assertion). GATES 8/8 READY (pre-scan clean). Skills: scheduler-guards, golden-corpus, advanced-testing, spec-docs-drift. Total -> 1236 skills.
