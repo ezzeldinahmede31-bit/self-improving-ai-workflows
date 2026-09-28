@@ -14,6 +14,7 @@ resource. This module is the single choke-point for touching them:
 
 import json
 import sqlite3
+import sys
 import threading
 import time
 import urllib.error

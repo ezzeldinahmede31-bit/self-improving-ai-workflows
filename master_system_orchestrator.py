@@ -16,6 +16,7 @@ import os
 import sqlite3
 import sys
 import tempfile
+import time
 import uuid
 from pathlib import Path
 from typing import Any, Callable, Optional
@@ -49,6 +50,7 @@ from context_enrichment import (ImplicitIntentLexicon,
                                 render_implicit_context, resolve_implicit)
 from auto_self_evolver import (AutonomousSelfEvolver, WeaknessSource,
                                SKILLS_ROOT, DEFAULT_HMAC_KEY_PATH)
+import platform_wiring
 
 
 # ============================================================
@@ -214,6 +216,8 @@ class SystemOrchestrator:
         mock_mappings: Optional[dict[str, str]] = None,
         elide_output: bool = False,
         tools_host: str = "127.0.0.1",
+        enforcement: Optional[dict] = None,
+        evidence_dir: Optional[str] = None,
     ):
         self.budget_usd = budget_usd
         self.generator = generator
@@ -310,6 +314,14 @@ class SystemOrchestrator:
         # disappearance fires a security_incident alert IMMEDIATELY.
         self._purge_legacy_rule_store()
         self._check_rule_store_integrity()
+        # Platform wiring: enforcement profile (None => legacy behavior
+        # preserved exactly) + evidence sinks (volatile tmpdir unless the
+        # caller pins evidence_dir). Sinks record audit/provenance/golden
+        # evidence for every terminal decision without mutating verdicts.
+        self.enforcement = platform_wiring.EnforcementProfile.from_dict(
+            enforcement)
+        self.evidence = platform_wiring.build_sinks(evidence_dir)
+        self._task_capability: dict = {}
 
     def _purge_legacy_rule_store(self) -> None:
         """Remove any leftover jit_evolve_skills tempdir from before the move to
@@ -416,6 +428,54 @@ class SystemOrchestrator:
         if not self.elide_output:
             print(*parts)
 
+    def _seal_result(self, result: dict, task_prompt: str,
+                     workflow_json: dict | None = None,
+                     scope: dict | None = None,
+                     audit: dict | None = None,
+                     decision: dict | None = None) -> dict:
+        """Attach audit evidence to any terminal result (additive only).
+
+        Appends one audit event per terminal decision and links
+        provenance on READY deliveries. Never mutates the verdict.
+        """
+        try:
+            fp = platform_wiring.task_fingerprint(task_prompt)
+            entry = platform_wiring.audit_event(
+                self.evidence, kind="orchestrator_decision",
+                actor="orchestrator", subject=fp,
+                detail=f"status={result.get('status')} "
+                       f"reason={str(result.get('reason', ''))[:120]}")
+            result = dict(result)
+            result["evidence"] = {"audit_id": entry["id"],
+                                  "audit_hash": entry["event_hash"],
+                                  "task_fp": fp}
+            if result.get("status") == "READY_FOR_DEPLOYMENT":
+                prov = self.evidence["provenance"]
+                prov.link(fp, "task", task_prompt[:160])
+                if workflow_json:
+                    prov.link(fp, "workflow",
+                              str(result.get("snapshot_version", "unversioned")))
+                prov.link(fp, "deployment", entry["event_hash"][:12])
+                result["evidence"]["provenance_gaps"] = prov.gaps(fp)
+        except Exception:
+            pass
+        return result
+
+    def _golden_from_rejection(self, task_prompt: str,
+                               violations: list) -> None:
+        """Feed security rejections into the golden failure corpus."""
+        try:
+            fp = platform_wiring.task_fingerprint(task_prompt)
+            for v in (violations or [])[:3]:
+                cid = f"orch-{fp}-{abs(hash(str(v))) % 10000}"
+                if cid not in self.evidence["golden"]._cases:
+                    self.evidence["golden"].add_case(
+                        cid, reproducer=str(v)[:200],
+                        expect="must stay blocked",
+                        incident=f"orchestrator:{fp}")
+        except Exception:
+            pass
+
     def execute_workflow_task(
         self,
         task_prompt: str,
@@ -423,6 +483,7 @@ class SystemOrchestrator:
         daily_reqs: int = 1000,
         tech_stack: Optional[list[str]] = None,
         require_human_for_security: bool = True,
+        business: Optional[dict] = None,
     ) -> dict:
         tech_stack = tech_stack or []
         self._emit(f"\n=== Orchestrating: {task_prompt} ===")
@@ -456,11 +517,13 @@ class SystemOrchestrator:
                 payload={"ambiguity": amb.assessment.to_dict()},
             )
             self.metrics.inc("pending_hitl")
-            return {"status": "PENDING_HUMAN_REVIEW",
-                    "reason": "ambiguous task — clarifying question routed to HITL",
-                    "hitl_request_id": req.request_id,
-                    "clarifying_question": amb.assessment.clarifying_question,
-                    "ambiguity": amb.assessment.to_dict()}
+            return self._seal_result(
+                {"status": "PENDING_HUMAN_REVIEW",
+                 "reason": "ambiguous task — clarifying question routed to HITL",
+                 "hitl_request_id": req.request_id,
+                 "clarifying_question": amb.assessment.clarifying_question,
+                 "ambiguity": amb.assessment.to_dict()},
+                task_prompt, workflow_json)
 
         # ---- STEP 0.1: AUTONOMOUS SELF-EVOLUTION — close known model gaps
         # BEFORE real work. Benchmark vs SOTA for this task domain; if the gap
@@ -572,17 +635,75 @@ class SystemOrchestrator:
                          "calibration_category": category},
             )
             self.metrics.inc("pending_hitl")
-            return {"status": "PENDING_HUMAN_REVIEW",
-                    "reason": "cascade escalation (frontier unconfigured)",
-                    "hitl_request_id": req.request_id,
-                    "hardening": {"confidence": effective_conf, "tier": route["tier"]}}
+            return self._seal_result(
+                {"status": "PENDING_HUMAN_REVIEW",
+                 "reason": "cascade escalation (frontier unconfigured)",
+                 "hitl_request_id": req.request_id,
+                 "hardening": {"confidence": effective_conf,
+                               "tier": route["tier"]}},
+                task_prompt, workflow_json)
         if not schema_result.ok:
             self.calibrator.record_outcome(pred_id, accepted=False)
             self.metrics.inc("schema_rejections")
-            return {"status": "REJECTED",
-                    "reason": "workflow JSON violates contract schema",
-                    "schema_errors": schema_result.errors[:5],
-                    "hardening": {"tier": route["tier"]}}
+            return self._seal_result(
+                {"status": "REJECTED",
+                 "reason": "workflow JSON violates contract schema",
+                 "schema_errors": schema_result.errors[:5],
+                 "hardening": {"tier": route["tier"]}},
+                task_prompt, workflow_json)
+
+        # ---- STEP 0d: ENFORCED POLICY GATE (no-op without a profile).
+        # A configured policy decides BEFORE spend/planning side effects.
+        # Deny => audited PENDING_HUMAN_REVIEW; approve => HITL pending;
+        # allow => mint a task capability used by the egress step below.
+        if self.enforcement is not None:
+            verdict = platform_wiring.policy_gate(
+                self.enforcement, agent="orchestrator",
+                action="workflow.execute", resource=task_prompt[:64])
+            self._emit("[0d] Policy:", json.dumps(
+                {k: v for k, v in verdict.items() if k != "token"},
+                ensure_ascii=False))
+            if not verdict["allowed"] and not verdict["needs_approval"]:
+                platform_wiring.audit_event(
+                    self.evidence, kind="policy_denial",
+                    actor="orchestrator",
+                    subject=platform_wiring.task_fingerprint(task_prompt),
+                    detail=f"rule={verdict['rule']} {verdict['reason']}")
+                self._golden_from_rejection(
+                    task_prompt, [f"policy:{verdict['rule']}"])
+                req = self.hitl.create_pending(
+                    raw_input=task_prompt,
+                    risk_score=60,
+                    violations=[f"policy denial: {verdict['rule']}"],
+                    payload={"policy": verdict},
+                )
+                self.metrics.inc("pending_hitl")
+                return self._seal_result(
+                    {"status": "PENDING_HUMAN_REVIEW",
+                     "reason": f"policy denial — {verdict['reason']}",
+                     "hitl_request_id": req.request_id,
+                     "policy": {k: v for k, v in verdict.items()
+                                if k != "token"}},
+                    task_prompt, workflow_json)
+            if verdict["needs_approval"]:
+                req = self.hitl.create_pending(
+                    raw_input=task_prompt,
+                    risk_score=50,
+                    violations=[f"policy approval: {verdict['rule']}"],
+                    payload={"policy": verdict},
+                )
+                self.metrics.inc("pending_hitl")
+                return self._seal_result(
+                    {"status": "PENDING_HUMAN_REVIEW",
+                     "reason": f"policy approval — {verdict['reason']}",
+                     "hitl_request_id": req.request_id,
+                     "policy": {k: v for k, v in verdict.items()
+                                if k != "token"}},
+                    task_prompt, workflow_json)
+            cap = platform_wiring.mint_task_capability(
+                self.enforcement, actions=["net.fetch", "code.execute"],
+                resource="task:*", ttl_s=900)
+            self._task_capability = cap
 
         # ---- STEP 1: Brutal budget + honesty audit ----
         audit = BrutallyHonestBudgetAnalyzer.audit_task(
@@ -599,7 +720,9 @@ class SystemOrchestrator:
 
         if not audit["viable"]:
             self._emit("[ABORT] Task not financially viable. No deployment.")
-            return {"status": "BUDGET_REJECTED", "audit": audit}
+            return self._seal_result({"status": "BUDGET_REJECTED",
+                                      "audit": audit},
+                                     task_prompt, workflow_json)
 
         # ---- STEP 2: JIT task-scoped knowledge ----
         jit = TaskScopedJITRAG(task_prompt)
@@ -654,14 +777,36 @@ class SystemOrchestrator:
                     "red_team": rt_report,
                 }
                 if require_human_for_security:
-                    return {"status": "PENDING_HUMAN_REVIEW",
-                            "reason": "Red-Team adversarial findings" + extra_suffix,
-                            "hitl_request_id": req.request_id,
-                            "red_team": rt_report,
-                            "scope": scope, "audit": audit}
+                    self._golden_from_rejection(task_prompt, violations)
+                    platform_wiring.handle_failure(
+                        self.evidence,
+                        incident_id="redteam-" + platform_wiring.task_fingerprint(
+                            task_prompt),
+                        alert={"agent": "orchestrator", "session": "task",
+                               "kind": "redteam", "ts": time.time(),
+                               "detail": "; ".join(violations[:3])},
+                        golden_case={
+                            "id": "rt-redteam-" + platform_wiring.task_fingerprint(
+                                task_prompt),
+                            "reproducer": "; ".join(violations[:2])[:200],
+                            "expect": "must stay blocked"})
+                    return self._seal_result(
+                        {"status": "PENDING_HUMAN_REVIEW",
+                         "reason": "Red-Team adversarial findings" + extra_suffix,
+                         "hitl_request_id": req.request_id,
+                         "red_team": rt_report,
+                         "scope": scope, "audit": audit},
+                        task_prompt, workflow_json, scope, audit)
             else:
                 # ---- STEP 2c: Execution-guided code sandbox (Code nodes) ----
-                sandbox = ExecutionSandbox(use_docker=False)
+                # Enforcement profile swaps in the hardened agent_sandbox
+                # tier (docker-strong when available) through a call-shape
+                # shim — the check logic below is untouched.
+                if self.enforcement is not None:
+                    sandbox = platform_wiring.AgentSandboxShim(
+                        prefer_docker=self.enforcement.sandbox_docker)
+                else:
+                    sandbox = ExecutionSandbox(use_docker=False)
                 runtime = save_code_nodes_runtime_check(workflow_json, sandbox)
                 failures = [r for r in runtime if not r.get("success")]
                 self._emit("[2c] Code-node runtime checks:",
@@ -674,15 +819,100 @@ class SystemOrchestrator:
                         "reason": "Execution sandbox runtime failure",
                         "sandbox_failures": failures,
                     }
-                    return {"status": "REJECTED",
-                            "reason": "Execution sandbox runtime failure",
-                            "sandbox_failures": failures,
-                            "scope": scope, "audit": audit}
+                    return self._seal_result(
+                        {"status": "REJECTED",
+                         "reason": "Execution sandbox runtime failure",
+                         "sandbox_failures": failures,
+                         "scope": scope, "audit": audit},
+                        task_prompt, workflow_json, scope, audit)
+
+            # ---- STEP 2d: ENFORCED EGRESS + CAPABILITY (no-op unconfigured).
+            # Every external URL in the workflow is validated; each fetch
+            # must also sit inside the task capability minted at step 0d.
+            if self.enforcement is not None and (
+                    self.enforcement.egress is not None
+                    or self._task_capability.get("enforced")):
+                urls = platform_wiring.extract_external_urls(workflow_json)
+                gate = platform_wiring.egress_guard(self.enforcement, urls)
+                cap_blocked = []
+                issuer = self._task_capability.get("issuer")
+                token = self._task_capability.get("token")
+                if issuer is not None and token:
+                    import urllib.parse as _up
+                    for url in gate["allowed"]:
+                        host = _up.urlsplit(url).hostname or ""
+                        chk = platform_wiring.check_capability(
+                            issuer, token, action="net.fetch",
+                            resource=host or "*")
+                        if not chk["ok"]:
+                            cap_blocked.append({"url": url,
+                                                "reason": chk["reason"]})
+                violations = [f"egress: {b['url']} ({b['reason']})"
+                              for b in gate["blocked"]]
+                violations += [f"capability: {b['url']} ({b['reason']})"
+                               for b in cap_blocked]
+                self._emit("[2d] Egress:",
+                           f"{len(gate['allowed'])} allowed, "
+                           f"{len(violations)} blocked")
+                if violations:
+                    self._golden_from_rejection(task_prompt, violations)
+                    req = self.hitl.create_pending(
+                        raw_input=task_prompt,
+                        risk_score=60,
+                        violations=violations,
+                        payload={"egress": gate,
+                                 "capability": cap_blocked},
+                    )
+                    self.metrics.inc("pending_hitl")
+                    return self._seal_result(
+                        {"status": "PENDING_HUMAN_REVIEW",
+                         "reason": "Egress/capability denial",
+                         "hitl_request_id": req.request_id,
+                         "egress": gate,
+                         "scope": scope, "audit": audit},
+                        task_prompt, workflow_json, scope, audit)
 
             # ---- STEP 3: scoped verification ----
             decision = self.verifier.verify_and_route(workflow_json)
             self._emit("[3] Verifier decision:", decision["status"])
             self.last_decision = decision
+
+            # ---- STEP 3b: BUSINESS INVARIANTS (skipped without payload).
+            # A technically green delivery that violates domain truth must
+            # not deploy: the payload fails closed to human review.
+            if decision["status"] == "READY_FOR_DEPLOYMENT" and business:
+                from business_invariants import InvariantEngine
+                engine = InvariantEngine()
+                for name, fn, doc in business.get("checks", []) or []:
+                    engine.register(business.get("domain", "default"),
+                                    name, fn, doc or "")
+                inv = engine.evaluate(business.get("domain", "default"),
+                                      business.get("payload", {}))
+                self._emit("[3b] Invariants:",
+                           "pass" if inv["ok"] else
+                           f"FAIL — {[f['name'] for f in inv['failed']]}")
+                if not inv["ok"]:
+                    self._golden_from_rejection(
+                        task_prompt,
+                        [f"invariant:{f['name']}" for f in inv["failed"]])
+                    req = self.hitl.create_pending(
+                        raw_input=task_prompt,
+                        risk_score=60,
+                        violations=[f"invariant {f['name']}: {f['reason']}"
+                                    for f in inv["failed"]],
+                        payload={"invariants": inv, "business": {
+                            k: v for k, v in business.items()
+                            if k != "checks"}},
+                    )
+                    self.metrics.inc("pending_hitl")
+                    return self._seal_result(
+                        {"status": "PENDING_HUMAN_REVIEW",
+                         "reason": "Business invariant failure",
+                         "hitl_request_id": req.request_id,
+                         "invariants": inv,
+                         "scope": scope, "audit": audit},
+                        task_prompt, workflow_json, scope, audit,
+                        decision)
 
             if decision["status"] == "READY_FOR_DEPLOYMENT":
                 self._emit("    Safety+Quality passed. Deploy directive ready.")
@@ -700,17 +930,19 @@ class SystemOrchestrator:
                 self.logger.info("deploy_directive", task=task_prompt[:80],
                                  version=version)
                 self.alerts.evaluate()
-                return {"status": "READY_FOR_DEPLOYMENT", "decision": decision,
-                        "scope": scope, "tools": self._probe_tools(),
-                        "snapshot_version": version,
-                        "hardening": {"confidence": effective_conf,
-                                      "stated_confidence": conf,
-                                      "calibration_category": category,
-                                      "adjusted_threshold": self.calibrator.get_adjusted_threshold(category),
-                                      "intent_rules": self._intent_render_cache,
-                                      "tier": route["tier"],
-                                      "rag_hits": enrichment["context_hits"]},
-                        "metrics": self.metrics.snapshot()}
+                return self._seal_result(
+                    {"status": "READY_FOR_DEPLOYMENT", "decision": decision,
+                     "scope": scope, "tools": self._probe_tools(),
+                     "snapshot_version": version,
+                     "hardening": {"confidence": effective_conf,
+                                   "stated_confidence": conf,
+                                   "calibration_category": category,
+                                   "adjusted_threshold": self.calibrator.get_adjusted_threshold(category),
+                                   "intent_rules": self._intent_render_cache,
+                                   "tier": route["tier"],
+                                   "rag_hits": enrichment["context_hits"]},
+                     "metrics": self.metrics.snapshot()},
+                    task_prompt, workflow_json, scope, audit, decision)
             if decision["status"] == "PENDING_HUMAN_REVIEW":
                 idx = decision.get("hitl_request_id", "")
                 self._emit(f"    [HITL] request {idx} awaiting human decision "
@@ -720,13 +952,22 @@ class SystemOrchestrator:
                     self.feedback.record_rejection(v, reason="verifier hitl")
                 self.metrics.inc("pending_hitl")
                 if require_human_for_security:
-                    return {"status": "PENDING_HUMAN_REVIEW",
-                            "hitl_request_id": idx, "decision": decision,
-                            "scope": scope, "audit": audit,
-                            "feedback": self.feedback.rejection_summary()}
+                    self._golden_from_rejection(
+                        task_prompt, decision.get("violations", [])[:3])
+                    return self._seal_result(
+                        {"status": "PENDING_HUMAN_REVIEW",
+                         "hitl_request_id": idx, "decision": decision,
+                         "scope": scope, "audit": audit,
+                         "feedback": self.feedback.rejection_summary()},
+                        task_prompt, workflow_json, scope, audit, decision)
             # SOLVED via generator loop or rejected by quality
-            return {"status": decision.get("status", "REJECTED"),
-                    "decision": decision, "scope": scope, "audit": audit}
+            self._golden_from_rejection(
+                task_prompt, (decision.get("violations", [])
+                              if isinstance(decision, dict) else [])[:3])
+            return self._seal_result(
+                {"status": decision.get("status", "REJECTED"),
+                 "decision": decision, "scope": scope, "audit": audit},
+                task_prompt, workflow_json, scope, audit, decision)
         finally:
             # ---- STEP 4: purge ephemeral RAG + sweep secret vault ----
             purged = jit.purge_context()

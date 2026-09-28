@@ -170,11 +170,14 @@ def _jaccard(a: set[str], b: set[str]) -> float:
 def resolve_for_contract(contract: dict, repo_root: str,
                          index: dict[str, SkillRecord] | None = None,
                          budget: int | None = None,
-                         threshold: float = DEFAULT_THRESHOLD
+                         threshold: float = DEFAULT_THRESHOLD,
+                         trust_hook=None
                          ) -> tuple[list[SkillRecord], dict]:
     """Returns (selected, report). Explicit `skills` are honored first
     (unknown names kept but flagged unverified); auto-fill is threshold-
-    adaptive up to budget with a diversity filter. Deterministic."""
+    adaptive up to budget with a diversity filter. Deterministic.
+    trust_hook(rec) -> (allow: bool, reason: str) enforces the skill
+    trust registry when supplied; None preserves legacy behavior."""
     index = index if index is not None else build_index(repo_root)
     budget = DEFAULT_BUDGET if budget is None else int(
         contract.get("skill_budget", budget))
@@ -218,6 +221,26 @@ def resolve_for_contract(contract: dict, repo_root: str,
 
     report = {"selected": [s.name for s in selected], "notes": notes,
               "surfaces": {s.name: s.surface for s in selected}}
+    if trust_hook is not None:
+        allowed, trust_notes, verdicts = [], [], {}
+        for rec in selected:
+            try:
+                allow, reason = trust_hook(rec)
+            except Exception as exc:  # noqa: BLE001 - fail closed
+                allow, reason = False, f"trust hook crashed: {exc}"
+            verdicts[rec.name] = {"allow": bool(allow),
+                                  "reason": str(reason)}
+            if allow:
+                allowed.append(rec)
+            else:
+                trust_notes.append(
+                    f"skill '{rec.name}' excluded by trust: {reason}")
+        report["trust"] = verdicts
+        report["notes"] = notes + trust_notes
+        report["selected"] = [s.name for s in allowed]
+        report["excluded"] = [s.name for s in selected
+                              if s.name not in report["selected"]]
+        selected = allowed
     return selected, report
 
 

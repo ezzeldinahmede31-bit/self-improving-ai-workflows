@@ -35,7 +35,7 @@ class Orchestrator:
                  repo_root: str | None = None, tasklog_path: str | None = None,
                  router=None, models_registry: dict | None = None,
                  models_catalog: list | None = None,
-                 spawn_hook=None):
+                 spawn_hook=None, trust_hook=None):
         self.store = store
         self.work_root = work_root
         self.registry = registry
@@ -47,6 +47,7 @@ class Orchestrator:
         self.router = router or models_mod.ModelRouter(
             models_registry, models_catalog, store)
         self.spawn_hook = spawn_hook  # operability hook: called with Popen
+        self.trust_hook = trust_hook  # skill-trust gate: None => legacy
         self._merge_lock = threading.Lock()  # merges into one repo are serial
         self._selections: dict[str, dict] = {}
         os.makedirs(work_root, exist_ok=True)
@@ -179,10 +180,15 @@ class Orchestrator:
             # is what the gates SKILLS stage enforces at merge time.
             try:
                 _sel, _rep = skills_mod.resolve_for_contract(
-                    contract, self.repo_root)
+                    contract, self.repo_root, trust_hook=self.trust_hook)
             except Exception:  # noqa: BLE001 - skills never break execution
                 _sel, _rep = [], {"selected": [], "notes": ["resolver failed"],
                                   "surfaces": {}}
+            if _rep.get("trust"):
+                self.store.record_event(
+                    project_id, "skill_trust",
+                    {"task_id": task_id, "verdicts": _rep["trust"],
+                     "excluded": _rep.get("excluded", [])})
             # Harness-owned dir, NOT the worktree: a fixed manifest name
             # inside merged worktrees collides across parallel tasks.
             skills_manifest = skills_mod.write_manifest(

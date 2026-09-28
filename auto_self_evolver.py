@@ -992,13 +992,19 @@ class AutonomousSelfEvolver:
         min_rejections: int = 1,
         current_model: str = "deepseek-v4-flash",
         promote_on_pass: bool = True,
+        promotion=None,
+        promotion_stages: dict | None = None,
     ) -> EvolutionResult:
         """Honest loop:
           1. measure gap with live models (no leader => refuse to claim a gap)
           2. pull REAL weaknesses from the audit trail
           3. for each, run the CURRENT model; verify it now passes the probe
           4. promote ONLY the rules the model actually passes.
-        Without a model, nothing is verified and nothing is promoted."""
+        Without a model, nothing is verified and nothing is promoted.
+        promotion (a PromotionPipeline): when supplied, a passing probe
+        routes the candidate through scan->unit->regression->sandbox->
+        eval->approval->promote instead of direct registry promotion.
+        None preserves the legacy direct-promote path exactly."""
         report = self.benchmark_and_analyze_gap(
             task_type, current_model_fn, leader_fn, current_model=current_model)
 
@@ -1042,18 +1048,46 @@ class AutonomousSelfEvolver:
             ok, detail = run_probe(probe, output)
             if ok:
                 if promote_on_pass:
-                    # DSPy-style: the verified output becomes a real few-shot
-                    # example stored with the rule (a demonstration that PASSES).
-                    self.registry.promote(rule, probe, evidence={
-                        "rejection_count": cand.get("count", 0),
-                        "last_reason": cand.get("reason", ""),
-                        "verified_by": current_model,
-                        "demonstration": output,
-                        "system_directive": directive,
-                    })
-                    self.registry.write_skill_doc(rule, probe,
-                        f"rule '{rule}' promoted after passing probe")
-                    promoted += 1
+                    if promotion is None:
+                        # Legacy direct-promote path (unchanged).
+                        # DSPy-style: the verified output becomes a real few-shot
+                        # example stored with the rule (a demonstration that PASSES).
+                        self.registry.promote(rule, probe, evidence={
+                            "rejection_count": cand.get("count", 0),
+                            "last_reason": cand.get("reason", ""),
+                            "verified_by": current_model,
+                            "demonstration": output,
+                            "system_directive": directive,
+                        })
+                        self.registry.write_skill_doc(rule, probe,
+                            f"rule '{rule}' promoted after passing probe")
+                        promoted += 1
+                    else:
+                        # Governed path: the candidate earns trust in stages;
+                        # promote() executes solely on an approval pass.
+                        stages = dict(promotion_stages or {})
+                        report = promotion.run(
+                            rule,
+                            {"output": output, "probe": probe,
+                             "directive": directive,
+                             "candidate": cand},
+                            stages)
+                        if report.get("promoted"):
+                            self.registry.promote(rule, probe, evidence={
+                                "rejection_count": cand.get("count", 0),
+                                "last_reason": cand.get("reason", ""),
+                                "verified_by": current_model,
+                                "demonstration": output,
+                                "system_directive": directive,
+                                "promotion": report,
+                            })
+                            self.registry.write_skill_doc(rule, probe,
+                                f"rule '{rule}' promoted via pipeline")
+                            promoted += 1
+                        else:
+                            failures.append(
+                                f"{rule}: promotion halted at "
+                                f"{report.get('halted_at')}")
             else:
                 self._refine(rule, probe, detail)
                 failures.append(f"{rule}: probe failed -> {detail}")
