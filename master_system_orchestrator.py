@@ -223,15 +223,27 @@ class SystemOrchestrator:
     ):
         self.budget_usd = budget_usd
         self.generator = generator
-        # HITL gate created later after enforcement is configured
-        self.hitl = None
+        # HITL gate must exist BEFORE the verifier is built (it receives
+        # hitl_gate=self.hitl). Egress policy is attached after the
+        # enforcement profile is configured below.
+        self.hitl = HITLGate(security_token=security_token)
+        # Key-rotation alerts go through the SAME Telegram channel the HITL
+        # gate posts approvals to: one ops alert stream (a rotation confirm is
+        # a human override, just like a HITL approval). Without bot/chat creds
+        # the handler is None and rotation alerts stay in the audit trail/CLI.
         _bot = os.environ.get("HITL_TELEGRAM_BOT_TOKEN")
         _chat = os.environ.get("HITL_TELEGRAM_CHAT_ID")
         _rotation_alert = None
-        # Placeholder - will be set after hitl is created
-        _tg_handler = None
-        def _rotation_alert(text: str) -> None:
-            pass  # will be overridden after hitl is created
+        if _bot and _chat:
+            _tg_handler = self.hitl.notify_telegram(_bot, _chat)
+
+            def _rotation_alert(text: str) -> None:
+                req = HITLRequest(request_id="key-rotation", raw_input=text,
+                                  risk_score=50, violations=["key_rotation_pending"])
+                try:
+                    _tg_handler(req)
+                except Exception:
+                    pass
         # Promoted-rules storage: permanent, HMAC-signed, audited. The tempdir
         # experiment is gone — rules now live under .opencode/skills/auto-rules
         # with a project-root key and an audit trail in FeedbackLoop.
@@ -324,28 +336,14 @@ class SystemOrchestrator:
                   "(enforcement=None): central gates skipped. "
                   "Not for production use.",
                   file=sys.stderr)
-        # HITL gate - created after enforcement is known
-        self.hitl = HITLGate(
-            security_token=security_token,
-            egress_policy=self.enforcement.egress if self.enforcement else None,
-        )
-        # Key-rotation alerts go through the SAME Telegram channel the HITL
-        # gate posts approvals to: one ops alert stream (a rotation confirm is
-        # a human override, just like a HITL approval). Without bot/chat creds
-        # the handler is None and rotation alerts stay in the audit trail/CLI.
-        _bot = os.environ.get("HITL_TELEGRAM_BOT_TOKEN")
-        _chat = os.environ.get("HITL_TELEGRAM_CHAT_ID")
-        _rotation_alert = None
-        if _bot and _chat:
-            _tg_handler = self.hitl.notify_telegram(_bot, _chat)
-
-            def _rotation_alert(text: str) -> None:
-                req = HITLRequest(request_id="key-rotation", raw_input=text,
-                                  risk_score=50, violations=["key_rotation_pending"])
-                try:
-                    _tg_handler(req)
-                except Exception:
-                    pass
+        # HITL gate egress: attach the enforcement egress policy now that
+        # the profile is known (the gate itself was created before the
+        # verifier above, which requires hitl_gate=self.hitl).
+        if self.enforcement is not None and self.enforcement.egress is not None:
+            try:
+                self.hitl.egress_policy = self.enforcement.egress
+            except AttributeError:
+                pass
             try:
                 self.client.egress_policy = self.enforcement.egress
             except AttributeError:
