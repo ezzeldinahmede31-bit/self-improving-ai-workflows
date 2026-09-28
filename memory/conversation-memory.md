@@ -2104,3 +2104,30 @@ Opened existing "Make" window (eu1.make.com/2862717/agent-profiles/8074 toolbox 
 - Lesson: init order is a security property (hitl must exist before
   verifier); mutation-test every deny branch; grep production callers of
   any "central" enforcement (claims without callers are UNVERIFIED).
+
+## Final gap discovery + closure pass (2026-09-28)
+- Prior report claimed 987 passed/0 failed; INDEPENDENT re-run found
+  tests/test_orchestrator_mvp.py::test_parallel_execution FAILING
+  (wall=0.897 vs 0.8 threshold — flaky timing, overlap assert held).
+  Fixed with headroom (wall<1.5). Never trust a report without re-running.
+- Phase-1 subagent map found the REAL GAP-01 surface (much larger than
+  reported): tool_gateway socket/http, LiteLLM complete, model_failover
+  probe, health_probes, observability telegram, secrets VaultBackend,
+  orchestrator/research curl-string, tiered_pipeline exec(), client_portal
+  direct n8n POST, scripts/* DIRECT. Triaged each to live-vs-dead in prod.
+- Closed: egress DnsCache TTL clamp + fetch_pinned TOCTOU/rebind/redirect/
+  downgrade closure (GAP-02/GAP-03); ToolGateway+LiteLLM loopback pin;
+  tiered_pipeline exec fail-closed + helpers rewritten direct (no codegen);
+  n8n strict mode (mandatory egress + per-task capability, HITL on refuse);
+  HITL telegram POST (no GET query secrets); portal https+payload cap;
+  capability MAX_TTL_S=86400 fail-closed; audit outage -> explicit
+  audit_failed flag (never silent); import-graph + spy isolation tests
+  proving scripts/* unreachable from production path.
+- Live probes: n8n absent (stays LIVE_UNVERIFIED); NVIDIA catalog 81 models
+  + one 16-token completion through untrusted-output gate (LIVE_PARTIAL);
+  DR fresh-env not available (DR_PRODUCTION_UNVERIFIED).
+- Mutation proof: neutered _ip_blocked in scratch copy -> suites fail;
+  restored byte-identical. Test-the-tests demonstrated by execution.
+- FINAL: 1033 passed, 1 skipped, 8 deselected, 0 failed; zero-gap gate PASS.
+  Residuals: SUPPLY-PINS (MEDIUM, no pip lock), AUDIT-OUTAGE flagged
+  (LOW), legacy dev mode (LOW), n8n-live/dr/model-full/sbom unverified.
