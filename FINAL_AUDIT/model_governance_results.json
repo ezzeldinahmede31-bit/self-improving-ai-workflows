@@ -1,12 +1,12 @@
 {
-  "status": "LIVE_MODEL_UNVERIFIED",
-  "evidence": "no live model connected; evolver honestly reports unmeasured/nothing promoted; bench/drift suites run offline",
+  "status": "LIVE_PARTIAL (ops-router probe only, NOT full governance)",
+  "evidence": "live NVIDIA catalog listed (81 models) + ONE bounded 16-token completion (meta/llama-3.2-11b-vision-instruct, ~0.5s) routed through the untrusted-output gate (ai_verify + invariants); quota-exhaustion skip + circuit-breaker trip proven offline; production orchestrator path never invokes a live model (spy-proven isolation). Missing for full governance: drift-over-time, observed-429, malformed-output-at-scale, cost/latency SLOs under load.",
   "offline": {
     "returncode": 0,
     "tail": [
-      "........                                                                 [100%]"
+      "............s                                                            [100%]"
     ],
     "passed": true
   },
-  "_generated_at": "2026-09-28T18:24:36Z"
+  "_generated_at": "2026-09-28T18:29:09Z"
 }

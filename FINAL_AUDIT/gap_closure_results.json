@@ -1,0 +1,31 @@
+{
+  "dns_ttl_pinned": {
+    "returncode": 0,
+    "tail": [
+      "......................                                                   [100%]"
+    ],
+    "passed": true
+  },
+  "gap01_closures": {
+    "returncode": 0,
+    "tail": [
+      "................                                                         [100%]"
+    ],
+    "passed": true
+  },
+  "production_isolation": {
+    "returncode": 0,
+    "tail": [
+      "....                                                                     [100%]"
+    ],
+    "passed": true
+  },
+  "live_model_governance_offline": {
+    "returncode": 0,
+    "tail": [
+      "....s                                                                    [100%]"
+    ],
+    "passed": true
+  },
+  "_generated_at": "2026-09-28T18:29:13Z"
+}

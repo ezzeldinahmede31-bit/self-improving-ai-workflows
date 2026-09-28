@@ -1,5 +1,5 @@
 {
   "status": "DR_PRODUCTION_UNVERIFIED",
   "evidence": "restore proven in test env only (F042); no fresh-isolated-environment production restore executed this pass",
-  "_generated_at": "2026-09-28T18:24:36Z"
+  "_generated_at": "2026-09-28T18:29:08Z"
 }

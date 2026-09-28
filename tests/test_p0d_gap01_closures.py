@@ -103,6 +103,20 @@ def test_helpers_still_compute_directly(tmp_path):
     assert "error" in pipe.executor.analyze_logs("y" * 1025, None)
 
 
+# ---- Capability max-TTL cap (generator GAP-02) ----
+
+def test_capability_ttl_capped_fail_closed():
+    from capability import CapabilityIssuer, MAX_TTL_S
+    iss = CapabilityIssuer(b"y" * 32)
+    with pytest.raises(ValueError):
+        iss.issue(actions=["net.fetch"], ttl_s=MAX_TTL_S + 1)
+    with pytest.raises(ValueError):
+        iss.issue(actions=["net.fetch"], ttl_s=10 ** 9)
+    tok = iss.issue(actions=["net.fetch"], ttl_s=MAX_TTL_S)
+    ok, _ = iss.verify(tok, action="net.fetch", resource="x")
+    assert ok is True
+
+
 # ---- N8N strict mode ----
 
 def _cfg():

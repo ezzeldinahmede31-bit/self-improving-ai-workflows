@@ -1,6 +1,6 @@
 {
-  "status": "STATIC_MANIFESTS_ONLY",
-  "evidence": "skills-lock.json present; full runtime SBOM/drift scan not executed this pass; dep_drift.py pinned-baseline mechanism exists (F036 INTEGRATED)",
-  "note": "runtime dependency verification remains SIMULATED",
-  "_generated_at": "2026-09-28T18:24:36Z"
+  "status": "STATIC_MANIFESTS_PLUS_FREEZE_SNAPSHOT",
+  "evidence": "skills-lock.json present (hash-pinned skills); FINAL_AUDIT/pip_freeze.txt snapshot recorded this pass (identity+version per installed dist); full runtime SBOM/drift scan not executed; dep_drift.py pinned-baseline mechanism exists (F036 INTEGRATED)",
+  "note": "no requirements.txt: fresh installs unpinned -> SUPPLY-PINS (MEDIUM) residual",
+  "_generated_at": "2026-09-28T18:29:09Z"
 }

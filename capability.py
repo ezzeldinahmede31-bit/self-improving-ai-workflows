@@ -27,6 +27,12 @@ import time
 
 _SKEW_S = 60
 
+# GAP-02 closure (capability side): no token may outlive MAX_TTL_S, no
+# matter what a caller requests. issue() fails closed (raises) above the
+# cap instead of silently minting a long-lived grant; attenuate() can only
+# narrow (its TTL is additionally bounded by the parent's expiry).
+MAX_TTL_S = 86400  # 24h; production callers use 600-900s task tokens
+
 
 def _b64e(raw: bytes) -> str:
     return base64.urlsafe_b64encode(raw).decode("ascii").rstrip("=")
@@ -61,6 +67,10 @@ class CapabilityIssuer:
             raise ValueError("actions allow-list must be non-empty")
         if ttl_s <= 0:
             raise ValueError("ttl_s must be positive")
+        if int(ttl_s) > MAX_TTL_S:
+            raise ValueError(
+                f"ttl_s={int(ttl_s)} exceeds maximum {MAX_TTL_S}s: mint "
+                "short-lived tokens and re-issue instead of long grants")
         now = int(time.time())
         body = {"v": 1, "id": secrets.token_hex(8), "act": acts,
                 "res": str(resource), "iat": now, "exp": now + int(ttl_s),
