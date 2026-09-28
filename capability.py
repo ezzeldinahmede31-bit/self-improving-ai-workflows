@@ -110,11 +110,15 @@ class CapabilityIssuer:
         return True, "ok"
 
     def attenuate(self, token: str, *, actions: list[str] | None = None,
-                  resource: str | None = None,
-                  ttl_s: int | None = None) -> str:
+                   resource: str | None = None,
+                   ttl_s: int | None = None) -> str:
         """Mint a narrowed child of a valid token (never wider)."""
-        ok, why = self.verify(token, action="__attenuate__", resource="")
-        body = self._decode(token)
+        body = self._decode(token)  # raises on forgery/tampering
+        tid = str(body.get("id", ""))
+        if tid in self._revoked:
+            raise CapabilityError("parent token revoked")
+        if int(body.get("exp", 0)) < int(time.time()) - _SKEW_S:
+            raise CapabilityError("parent token expired")
         parent_acts = set(body.get("act", []))
         child_acts = set(actions) if actions is not None else parent_acts
         if not child_acts.issubset(parent_acts) and not all(
@@ -122,6 +126,12 @@ class CapabilityIssuer:
                 for a in child_acts):
             raise CapabilityError("child scope exceeds parent scope")
         child_res = resource if resource is not None else body.get("res", "*")
+        parent_res = str(body.get("res", "*"))
+        if child_res != parent_res and parent_res != "*":
+            if any(c in str(child_res) for c in "*?["):
+                raise CapabilityError("child resource exceeds parent scope")
+            if not fnmatch.fnmatchcase(str(child_res), parent_res):
+                raise CapabilityError("child resource exceeds parent scope")
         parent_exp = int(body.get("exp", 0))
         child_ttl = ttl_s if ttl_s is not None else max(
             1, parent_exp - int(time.time()))

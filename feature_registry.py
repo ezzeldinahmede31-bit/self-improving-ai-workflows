@@ -16,10 +16,18 @@ Each Feature has: id (stable F001...), name, implementation (module),
 production_entrypoint, production_caller, enforcement_point, positive
 test, negative_test, bypass_test, status, evidence.
 
-Statuses: IMPLEMENTED < INTEGRATED < VERIFIED < PRODUCTION_READY.
+Statuses form a promotion ladder:
+  IMPLEMENTED < INTEGRATED < VERIFIED < PRODUCTION_READY.
 Also: BLOCKED, OPTIONAL, SIMULATED, LIVE_UNVERIFIED. A feature is
 INTEGRATED only with a real production caller; VERIFIED only with
 positive+negative+bypass tests and evidence.
+
+Counting semantics: status_counts() reports CURRENT_STATUS — each
+feature is counted exactly once, at its current rung (mutually
+exclusive buckets that sum to TOTAL). These are NOT cumulative
+roll-ups: VERIFIED does not include PRODUCTION_READY, INTEGRATED
+does not include VERIFIED. Promotion moves a feature from one
+bucket to the next; it is never in two buckets at once.
 """
 
 from __future__ import annotations

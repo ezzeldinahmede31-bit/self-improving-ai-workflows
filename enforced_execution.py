@@ -29,6 +29,12 @@ class EnforcementError(RuntimeError):
     """Raised when a sensitive action is attempted without enforcement."""
 
 
+NETWORK_ACTIONS = frozenset({
+    "http.fetch",
+    "net.fetch",
+    "external.call",
+})
+
 SENSITIVE_ACTIONS = frozenset({
     "tool.execute",
     "http.fetch",
@@ -181,7 +187,7 @@ class EnforcedExecutor:
                     action, gates,
                     f"untrusted skills excluded: {report['excluded']}"), None
 
-        # 4. Egress — only when outbound URLs are declared.
+        # 4. Egress — required for network actions; checked when URLs declared.
         if urls:
             eg = platform_wiring.egress_guard(self.profile, urls)
             gates["egress"] = {"enforced": eg["enforced"],
@@ -193,6 +199,12 @@ class EnforcedExecutor:
             if not eg["enforced"] and sensitive and self.strict:
                 return self._deny(action, gates,
                                   "egress not enforced (strict mode)"), None
+        elif action in NETWORK_ACTIONS and sensitive and self.strict:
+            gates["egress"] = {"enforced": False,
+                               "reason": "network action without declared urls"}
+            return self._deny(action, gates,
+                              "network action without declared urls "
+                              "(strict mode)"), None
 
         # 5. Execution (exactly once).
         result = run() if run is not None else None

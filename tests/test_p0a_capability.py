@@ -77,6 +77,26 @@ def test_attenuate_narrows_only():
         iss.attenuate(tok, actions=["admin.*"])
 
 
+def test_attenuate_revoked_parent_blocked():
+    iss = _issuer()
+    tok = iss.issue(actions=["a"], resource="*")
+    iss.revoke(iss._decode(tok)["id"])
+    with pytest.raises(CapabilityError):
+        iss.attenuate(tok, actions=["a"])
+
+
+def test_attenuate_resource_widening_blocked():
+    iss = _issuer()
+    tok = iss.issue(actions=["a"], resource="tenantA/*")
+    with pytest.raises(CapabilityError):
+        iss.attenuate(tok, resource="*")
+    with pytest.raises(CapabilityError):
+        iss.attenuate(tok, resource="tenantB/*")
+    child = iss.attenuate(tok, resource="tenantA/doc1")
+    ok, _ = iss.verify(child, action="a", resource="tenantA/doc1")
+    assert ok
+
+
 def test_empty_actions_rejected():
     iss = _issuer()
     with pytest.raises(ValueError):

@@ -106,6 +106,44 @@ def health_summary(limit: int = 500) -> list[dict]:
     return [dict(r) for r in rows]
 
 
+def _target_host_is_blocked_literal(host: str) -> str | None:
+    """Fail-closed literal-IP check for the connection target.
+
+    Mock routing intentionally produces loopback targets (127.0.0.1) from
+    public original URLs — that path is allowed only when the original URL
+    was mock-routed (went_to_mock). A DIRECT literal private/loopback/
+    link-local target with no mock routing is refused here even when no
+    egress_policy is configured (legacy mode), so legacy clients cannot be
+    used as an SSRF primitive. Numeric-IP evasions (hex/octal/short/decimal)
+    are canonicalized via egress_firewall before classification.
+    """
+    import ipaddress
+    h = (host or "").lower().rstrip(".")
+    try:
+        from egress_firewall import _normalize_numeric_ip
+        canon = _normalize_numeric_ip(h)
+    except Exception:
+        canon = None
+    candidate = canon or h
+    try:
+        ip = ipaddress.ip_address(candidate)
+    except ValueError:
+        return None  # DNS name: handled by egress_policy DNS path when set
+    if ip.is_loopback:
+        return "loopback address"
+    if getattr(ip, "is_link_local", False):
+        return "link-local address (metadata scope)"
+    if getattr(ip, "is_multicast", False):
+        return "multicast address"
+    if getattr(ip, "is_reserved", False):
+        return "reserved address"
+    if getattr(ip, "is_private", False):
+        return "private-network address"
+    if not getattr(ip, "is_global", True):
+        return "non-global address"
+    return None
+
+
 class MockRouter:
     """Maps a real external host to a local mock base URL (Digital Twin)."""
 
@@ -216,6 +254,15 @@ class RemoteAPIClient:
                     f"Egress firewall blocked {url}: {verdict.reason}")
         went_to_mock = self.router.is_mocked(url)
         target = self.router.resolve(url)
+        if not went_to_mock:
+            # Connection-target check: the socket opens `target`, not `url`.
+            # A direct literal non-global target without mock routing is
+            # refused even in legacy mode (no egress_policy).
+            target_host = (urllib.parse.urlparse(target).hostname or "")
+            hit = _target_host_is_blocked_literal(target_host)
+            if hit is not None:
+                raise EgressBlockedError(
+                    f"Egress to non-global target blocked: {hit}")
         service = urllib.parse.urlparse(url).netloc
         retries = 0
 

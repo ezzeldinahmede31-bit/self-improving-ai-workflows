@@ -10355,3 +10355,39 @@
 - [2026-09-28T16:24:46.264080+00:00] workflow=wf1 attempt=8 consecutive_before_fail=3 reason=flaky node=N/A
 
 - [2026-09-28T16:24:46.264161+00:00] workflow=wf1 attempt=12 consecutive_before_fail=3 reason=flaky node=N/A
+
+- [2026-09-28T16:31:37.913061+00:00] workflow=wf1 attempt=1 consecutive_before_fail=0 reason=exec error node=N/A
+
+- [2026-09-28T16:31:37.913248+00:00] workflow=wf1 attempt=2 consecutive_before_fail=0 reason=exec error node=N/A
+
+- [2026-09-28T16:31:37.913290+00:00] workflow=wf1 attempt=3 consecutive_before_fail=0 reason=exec error node=N/A
+
+- [2026-09-28T16:31:37.913329+00:00] workflow=wf1 attempt=4 consecutive_before_fail=0 reason=exec error node=N/A
+
+- [2026-09-28T16:31:37.913375+00:00] workflow=wf1 attempt=5 consecutive_before_fail=0 reason=exec error node=N/A
+
+- [2026-09-28T16:31:37.913423+00:00] workflow=wf1 attempt=6 consecutive_before_fail=0 reason=exec error node=N/A
+
+- [2026-09-28T16:31:37.913584+00:00] workflow=wf1 attempt=7 consecutive_before_fail=0 reason=exec error node=N/A
+
+- [2026-09-28T16:31:37.913618+00:00] workflow=wf1 attempt=8 consecutive_before_fail=0 reason=exec error node=N/A
+
+- [2026-09-28T16:31:37.913646+00:00] workflow=wf1 attempt=9 consecutive_before_fail=0 reason=exec error node=N/A
+
+- [2026-09-28T16:31:37.913685+00:00] workflow=wf1 attempt=10 consecutive_before_fail=0 reason=exec error node=N/A
+
+- [2026-09-28T16:31:37.913749+00:00] workflow=wf1 attempt=11 consecutive_before_fail=0 reason=exec error node=N/A
+
+- [2026-09-28T16:31:37.913790+00:00] workflow=wf1 attempt=12 consecutive_before_fail=0 reason=exec error node=N/A
+
+- [2026-09-28T16:31:37.913830+00:00] workflow=wf1 attempt=13 consecutive_before_fail=0 reason=exec error node=N/A
+
+- [2026-09-28T16:31:37.913871+00:00] workflow=wf1 attempt=14 consecutive_before_fail=0 reason=exec error node=N/A
+
+- [2026-09-28T16:31:37.913906+00:00] workflow=wf1 attempt=15 consecutive_before_fail=0 reason=exec error node=N/A
+
+- [2026-09-28T16:31:37.915422+00:00] workflow=wf1 attempt=4 consecutive_before_fail=3 reason=flaky node=N/A
+
+- [2026-09-28T16:31:37.915529+00:00] workflow=wf1 attempt=8 consecutive_before_fail=3 reason=flaky node=N/A
+
+- [2026-09-28T16:31:37.915607+00:00] workflow=wf1 attempt=12 consecutive_before_fail=3 reason=flaky node=N/A
