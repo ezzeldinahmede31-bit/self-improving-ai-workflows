@@ -350,10 +350,17 @@ class SystemOrchestrator:
                 pass
         self._task_capability: dict = {}
         # n8n integration (lazy, None when no API key) - enforce egress/capability
+        # Production (enforcement profile present) => strict mode: egress is
+        # mandatory at construction and the per-task capability (minted at
+        # step 0d, before any n8n call at step 4) is mandatory per call, so
+        # a wiring regression fails closed instead of silently opening.
+        _strict_n8n = self.enforcement is not None and (
+            self.enforcement.egress is not None)
         self.n8n = N8NIntegration(
             egress_policy=self.enforcement.egress if self.enforcement else None,
             capability_issuer=self._task_capability.get("issuer"),
             capability_token=self._task_capability.get("token"),
+            strict=_strict_n8n,
         )
         self._n8n_webhook_base: str = ""
 
@@ -514,8 +521,20 @@ class SystemOrchestrator:
                               str(result.get("snapshot_version", "unversioned")))
                 prov.link(fp, "deployment", entry["event_hash"][:12])
                 result["evidence"]["provenance_gaps"] = prov.gaps(fp)
-        except Exception:
-            pass
+        except Exception as exc:
+            # AUDIT FAILURE IS NEVER SILENT (Phase-13 declaration): the
+            # verdict itself is preserved (a denial stays a denial — safety
+            # is fail-closed), but observability degrades EXPLICITLY. The
+            # result carries audit_failed=True so no downstream consumer can
+            # mistake it for a fully-evidenced delivery.
+            import sys as _sys
+            print(f"[AUDIT-FAILURE] evidence unavailable for "
+                  f"status={result.get('status')}: {exc.__class__.__name__}",
+                  file=_sys.stderr)
+            result = dict(result)
+            result["evidence"] = {"audit_failed": True,
+                                  "task_fp": task_prompt[:16],
+                                  "reason": exc.__class__.__name__}
         return result
 
     def _golden_from_rejection(self, task_prompt: str,
@@ -990,13 +1009,19 @@ class SystemOrchestrator:
                     payload = workflow_json.get("n8n_payload", {})
                     expected = workflow_json.get("n8n_expected_output", {})
                     self._emit("[4] N8N Integration:", f"triggering {webhook_path}")
-                    n8n_res = self.n8n.trigger_and_verify(
-                        workflow_id=workflow_json.get("n8n_workflow_id", ""),
-                        webhook_path=webhook_path,
-                        payload=payload,
-                        expected_output=expected,
-                        webhook_base=self._n8n_webhook_base,
-                    )
+                    try:
+                        n8n_res = self.n8n.trigger_and_verify(
+                            workflow_id=workflow_json.get("n8n_workflow_id", ""),
+                            webhook_path=webhook_path,
+                            payload=payload,
+                            expected_output=expected,
+                            webhook_base=self._n8n_webhook_base,
+                        )
+                    except RuntimeError as _n8n_gate_exc:
+                        # Strict-mode gate refusal (egress/capability) fails
+                        # closed to human review, never a crash.
+                        n8n_res = {"ok": False, "status": "gate_refused",
+                                   "details": str(_n8n_gate_exc)}
                     n8n_result = n8n_res
                     if not n8n_res.get("ok"):
                         self._emit("[4] N8N:", f"status={n8n_res.get('status')} — {n8n_res.get('details')}")

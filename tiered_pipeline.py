@@ -239,14 +239,30 @@ class Triager:
 
 
 class PythonExecutor:
-    """Layer 2a: Executes computation tasks with actual Python."""
+    """Layer 2a: Executes computation tasks with actual Python.
 
-    def __init__(self):
+    SECURITY (GAP-01 closure): in-process exec() of caller-supplied code is
+    DISABLED by default (fail-closed). execute() raises RuntimeError unless
+    the executor was constructed with allow_arbitrary_exec=True (explicit
+    local-dev opt-in only — never in production paths). The built-in
+    helpers (analyze_logs / verify_docker_compose / compute_resources) no
+    longer generate + exec code at all: they are plain Python functions, so
+    filepath/pattern inputs cannot break out of a code string.
+    """
+
+    def __init__(self, allow_arbitrary_exec: bool = False):
         self.globals = {}
         self.locals = {}
+        self.allow_arbitrary_exec = bool(allow_arbitrary_exec)
 
     def execute(self, code: str, timeout: int = 30) -> dict:
         """Execute Python code and return result with metadata."""
+        if not self.allow_arbitrary_exec:
+            raise RuntimeError(
+                "PythonExecutor.execute is disabled by default (arbitrary "
+                "in-process exec). Construct with allow_arbitrary_exec=True "
+                "for explicit local-dev use, or route untrusted code through "
+                "agent_sandbox + EnforcedExecutor(code.execute).")
         import io
         import contextlib
         import traceback
@@ -275,89 +291,81 @@ class PythonExecutor:
             }
 
     def analyze_logs(self, filepath: str, pattern: str = None) -> dict:
-        """Built-in log analysis."""
-        code = f"""
-import re, json
-from collections import Counter
+        """Built-in log analysis (direct implementation, no codegen)."""
+        import re
 
-with open('{filepath}') as f:
-    lines = f.readlines()
-
-results = {{"total_lines": len(lines)}}
-if '{pattern}':
-    matches = [l for l in lines if re.search(r'{pattern}', l)]
-    results["matches"] = len(matches)
-    results["samples"] = matches[:10]
-else:
-    # Basic stats
-    results["error_count"] = sum(1 for l in lines if 'ERROR' in l.upper())
-    results["warn_count"] = sum(1 for l in lines if 'WARN' in l.upper())
-    results["sample"] = lines[:5]
-
-print(json.dumps(results))
-"""
-        result = self.execute(code)
-        if result["success"]:
-            return json.loads(result["stdout"])
-        return {"error": result["error"]}
+        if len(str(filepath)) > 1024:
+            return {"error": "filepath too long"}
+        if pattern is not None and len(str(pattern)) > 200:
+            return {"error": "pattern too long"}
+        try:
+            with open(filepath) as f:
+                lines = f.readlines()
+        except OSError as e:
+            return {"error": str(e)}
+        results = {"total_lines": len(lines)}
+        if pattern:
+            try:
+                rx = re.compile(pattern)
+            except re.error as e:
+                return {"error": f"bad pattern: {e}"}
+            matches = [line for line in lines if rx.search(line)]
+            results["matches"] = len(matches)
+            results["samples"] = matches[:10]
+        else:
+            # Basic stats
+            results["error_count"] = sum(1 for line in lines if 'ERROR' in line.upper())
+            results["warn_count"] = sum(1 for line in lines if 'WARN' in line.upper())
+            results["sample"] = lines[:5]
+        return results
 
     def verify_docker_compose(self, filepath: str) -> dict:
-        """Built-in docker-compose verification."""
-        code = f"""
-import yaml, json
+        """Built-in docker-compose verification (direct, no codegen)."""
+        import yaml
 
-with open('{filepath}') as f:
-    config = yaml.safe_load(f)
+        try:
+            with open(filepath) as f:
+                config = yaml.safe_load(f)
+        except OSError as e:
+            return {"error": str(e)}
+        except yaml.YAMLError as e:
+            return {"error": f"bad yaml: {e}"}
+        if not isinstance(config, dict):
+            return {"error": "compose file did not parse to a mapping"}
 
-ports = {{}}
-conflicts = {{}}
-for svc, cfg in config.get('services', {{}}).items():
-    for p in cfg.get('ports', []):
-        host_port = str(p).split(':')[0]
-        ports.setdefault(host_port, []).append(svc)
+        ports: dict = {}
+        for svc, cfg in (config.get('services', {}) or {}).items():
+            for p in (cfg or {}).get('ports', []):
+                host_port = str(p).split(':')[0]
+                ports.setdefault(host_port, []).append(svc)
 
-conflicts = {{p: s for p, s in ports.items() if len(s) > 1}}
-
-print(json.dumps({{
-    "valid": len(conflicts) == 0,
-    "conflicts": conflicts,
-    "services": list(config.get('services', {{}}).keys()),
-    "total_ports": len(ports)
-}}))
-"""
-        import json
-        result = self.execute(code)
-        if result["success"]:
-            return json.loads(result["stdout"])
-        return {"error": result["error"]}
+        conflicts = {p: s for p, s in ports.items() if len(s) > 1}
+        return {
+            "valid": len(conflicts) == 0,
+            "conflicts": conflicts,
+            "services": list((config.get('services', {}) or {}).keys()),
+            "total_ports": len(ports),
+        }
 
     def compute_resources(self, containers: list, workload_multiplier: float = 1.5) -> dict:
-        """Resource estimation."""
-        code = f"""
-import json
-containers = {containers}
-multiplier = {workload_multiplier}
+        """Resource estimation (direct arithmetic, no codegen)."""
+        try:
+            base_ram = sum(float(c.get('base_ram_mb', 0)) for c in containers)
+            base_cpu = sum(float(c.get('base_cpu_percent', 0)) for c in containers)
+            multiplier = float(workload_multiplier)
+        except Exception as e:  # malformed container specs fail as data errors
+            return {"error": f"bad input: {e.__class__.__name__}"}
 
-base_ram = sum(c.get('base_ram_mb', 0) for c in containers)
-base_cpu = sum(c.get('base_cpu_percent', 0) for c in containers)
-
-peak_ram = base_ram * multiplier
-peak_cpu = min(base_cpu * multiplier, 100 * len(containers))
-
-print(json.dumps({{
-    "base_ram_mb": base_ram,
-    "base_cpu_percent": base_cpu,
-    "estimated_peak_ram_mb": round(peak_ram, 1),
-    "estimated_peak_cpu_percent": round(peak_cpu, 1),
-    "safe_margin_ram_mb": round(peak_ram * 1.3, 1),
-    "container_count": len(containers)
-}}))
-"""
-        import json
-        result = self.execute(code)
-        if result["success"]:
-            return json.loads(result["stdout"])
-        return {"error": result["error"]}
+        peak_ram = base_ram * multiplier
+        peak_cpu = min(base_cpu * multiplier, 100 * len(containers))
+        return {
+            "base_ram_mb": base_ram,
+            "base_cpu_percent": base_cpu,
+            "estimated_peak_ram_mb": round(peak_ram, 1),
+            "estimated_peak_cpu_percent": round(peak_cpu, 1),
+            "safe_margin_ram_mb": round(peak_ram * 1.3, 1),
+            "container_count": len(containers),
+        }
 
 
 class Verifier:
@@ -477,9 +485,10 @@ class EscalationGate:
 class TieredPipeline:
     """Main pipeline orchestrating all layers."""
 
-    def __init__(self):
+    def __init__(self, allow_arbitrary_exec: bool = False):
         self.triager = Triager()
-        self.executor = PythonExecutor()
+        self.executor = PythonExecutor(
+            allow_arbitrary_exec=allow_arbitrary_exec)
         self.verifier = Verifier()
         self.escalation = EscalationGate()
         self.audit_log = []
@@ -582,8 +591,14 @@ class TieredPipeline:
             self._log(f"Computing resources for {len(containers)} containers")
             return self.executor.compute_resources(containers, multiplier)
 
-        # Generic: execute provided code
+        # Generic: execute provided code (fail-closed unless explicitly opted in)
         if "code" in context:
+            if not self.executor.allow_arbitrary_exec:
+                self._log("REFUSED custom code execution (not opted in)")
+                return {"error": "custom code execution disabled: construct "
+                                 "TieredPipeline(allow_arbitrary_exec=True) "
+                                 "for local-dev use, or route untrusted code "
+                                 "through agent_sandbox"}
             self._log("Executing custom Python code")
             result = self.executor.execute(context["code"])
             if result["success"]:
@@ -594,8 +609,9 @@ class TieredPipeline:
 
 
 # Convenience function for direct use
-def run_pipeline(request: str, context: dict = None) -> PipelineResult:
-    pipeline = TieredPipeline()
+def run_pipeline(request: str, context: dict = None,
+                 allow_arbitrary_exec: bool = False) -> PipelineResult:
+    pipeline = TieredPipeline(allow_arbitrary_exec=allow_arbitrary_exec)
     return pipeline.process(request, context)
 
 

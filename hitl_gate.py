@@ -295,11 +295,16 @@ class HITLGate:
                     print(f"[HITL][Telegram] egress blocked: {verdict.reason}", file=sys.stderr)
                     return
             data = urllib.parse.urlencode({"chat_id": chat_id, "text": text}).encode()
+            # POST with a form body (never GET query-string): keeps chat_id +
+            # text out of URL logs/proxies. The bot token stays in the path
+            # (Telegram API shape) and must never be logged on failure.
+            req = urllib.request.Request(url, data=data, method="POST")
             try:
-                with urllib.request.urlopen(url + "?" + data.decode(), timeout=10) as resp:
+                with urllib.request.urlopen(req, timeout=10) as resp:
                     resp.read()
             except Exception as e:
-                print(f"[HITL][Telegram] notify failed: {e}", file=sys.stderr)
+                print("[HITL][Telegram] notify failed: "
+                      f"{e.__class__.__name__}", file=sys.stderr)
         return handler
 
     # ---------- inspection / reporting ----------

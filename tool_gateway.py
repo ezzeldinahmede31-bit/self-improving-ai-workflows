@@ -60,15 +60,32 @@ class ToolStatus:
 
 class ToolGateway:
     """Probes each tool once; exposes capability flags so the orchestrator can
-    decide to use them without bloating the deterministic core."""
+    decide to use them without bloating the deterministic core.
+
+    SECURITY (GAP-01 closure): probes are loopback-only by default. The
+    gateway talks to operator-local sidecars (LiteLLM/Prism/Qdrant on
+    127.0.0.1); a non-loopback host is rejected unless the caller passes
+    allow_non_loopback=True explicitly (never from workflow-controlled
+    input). Ports are validated integers.
+    """
 
     def __init__(self, host: str = "127.0.0.1",
-                 ports: Optional[dict[str, int]] = None):
+                 ports: Optional[dict[str, int]] = None,
+                 allow_non_loopback: bool = False):
+        if not allow_non_loopback and host not in (
+                "127.0.0.1", "::1", "localhost"):
+            raise ValueError(
+                f"ToolGateway host must be loopback (got {host!r}); pass "
+                "allow_non_loopback=True only for explicit operator config, "
+                "never from workflow-controlled input.")
         self.host = host
         self.ports = {
             "litellm": 4000, "prism": 4010, "qdrant": 6333,
             **(ports or {}),
         }
+        for name, port in self.ports.items():
+            if not isinstance(port, int) or not (1 <= port <= 65535):
+                raise ValueError(f"bad port for {name}: {port!r}")
         self._cache: Optional[ToolStatus] = None
 
     def status(self, refresh: bool = False) -> ToolStatus:
@@ -123,7 +140,16 @@ class LiteLLMFailover:
 
     def __init__(self, base_url: str = "http://127.0.0.1:4000",
                  models: Optional[list[str]] = None,
-                 budget_usd: float = 5.0):
+                 budget_usd: float = 5.0,
+                 allow_non_loopback: bool = False):
+        from urllib.parse import urlsplit as _split
+        _host = (_split(base_url).hostname or "")
+        if not allow_non_loopback and _host not in (
+                "127.0.0.1", "::1", "localhost"):
+            raise ValueError(
+                f"LiteLLMFailover base_url must be loopback (got {_host!r}); "
+                "pass allow_non_loopback=True only for explicit operator "
+                "config.")
         self.base_url = base_url.rstrip("/")
         self.models = models or ["deepseek-chat", "qwen-coder-local", "deepseek-reasoner"]
         self.budget_usd = budget_usd

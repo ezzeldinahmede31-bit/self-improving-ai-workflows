@@ -14,6 +14,14 @@ N8N_BASE_URL = "https://ezzeldin8n.ezzeldin8n.cfd"
 WEBHOOK_PATH = st.secrets.get("WEBHOOK_PATH", "client-portal")
 WEBHOOK_URL = f"{N8N_BASE_URL}/webhook/{WEBHOOK_PATH}"
 
+# GAP-01 closure: this portal is a fixed-destination forwarder (operator-set
+# URL above), NOT an open egress. Fail closed at import when the operator
+# misconfigures a non-HTTPS or empty destination; cap user payload size so
+# the portal cannot be used to smuggle oversized blobs into the workflow.
+if not WEBHOOK_URL.startswith("https://"):
+    raise RuntimeError("client portal requires an https:// n8n webhook URL")
+MAX_PAYLOAD_CHARS = 8_000
+
 st.title("🤖 AI Automation Portal")
 st.caption("أدخل بياناتك ونظام الأتمتة يعمل خلف الكواليس. النتائج تصل إليك مباشرة.")
 
@@ -63,6 +71,10 @@ with tab_leadgen:
 
 
 def _send(payload: dict, kind: str):
+    import json as _json
+    if len(_json.dumps(payload)) > MAX_PAYLOAD_CHARS:
+        st.error("الحمولة كبيرة جدًا — قلص الرابط/المعايير.")
+        return
     with st.spinner("جاري إرسال طلبك إلى نظام الأتمتة…"):
         try:
             resp = requests.post(WEBHOOK_URL, json=payload, timeout=60)

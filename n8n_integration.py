@@ -63,7 +63,18 @@ class N8NIntegration:
         egress_policy: EgressPolicy | None = None,
         capability_issuer: Any = None,
         capability_token: str | None = None,
+        strict: bool = False,
     ):
+        """strict=True (production): egress_policy is MANDATORY at
+        construction; per-call, a missing egress gate or a missing task
+        capability fails closed instead of skipping the check (the
+        capability is minted per-task at step 0d and injected later, so it
+        is enforced at call time, not here). strict=False keeps the legacy
+        dev/test shape where absent gates skip checks."""
+        if strict and egress_policy is None:
+            raise RuntimeError(
+                "N8NIntegration strict mode requires egress_policy")
+        self.strict = bool(strict)
         self.config = config or N8NConfig(
             base_url=_load_env("N8N_BASE_URL", "http://localhost:5678"),
             api_key=_load_env("N8N_API_KEY", ""),
@@ -82,6 +93,8 @@ class N8NIntegration:
             verdict = _check_url(url, self.egress_policy)
             if not verdict.allowed:
                 raise RuntimeError(f"Egress blocked: {verdict.reason}")
+        elif self.strict:
+            raise RuntimeError("strict mode: egress gate missing")
         if self.capability_issuer is not None and self.capability_token:
             from platform_wiring import check_capability as _check_cap
             import urllib.parse
@@ -90,6 +103,8 @@ class N8NIntegration:
                              action="net.fetch", resource=host or "*")
             if not chk["ok"]:
                 raise RuntimeError(f"Capability rejected: {chk['reason']}")
+        elif self.strict:
+            raise RuntimeError("strict mode: task capability missing")
         try:
             resp = self.session.get(url, timeout=TIMEOUT_PER_EXECUTION)
             if resp.status_code == 200:
@@ -104,6 +119,8 @@ class N8NIntegration:
             verdict = _check_url(url, self.egress_policy)
             if not verdict.allowed:
                 raise RuntimeError(f"Egress blocked: {verdict.reason}")
+        elif self.strict:
+            raise RuntimeError("strict mode: egress gate missing")
         if self.capability_issuer is not None and self.capability_token:
             from platform_wiring import check_capability as _check_cap
             import urllib.parse
@@ -112,6 +129,8 @@ class N8NIntegration:
                              action="net.fetch", resource=host or "*")
             if not chk["ok"]:
                 raise RuntimeError(f"Capability rejected: {chk['reason']}")
+        elif self.strict:
+            raise RuntimeError("strict mode: task capability missing")
         try:
             resp = self.session.get(url, timeout=TIMEOUT_PER_EXECUTION)
             if resp.status_code == 200:
@@ -128,6 +147,8 @@ class N8NIntegration:
             verdict = _check_url(url, self.egress_policy)
             if not verdict.allowed:
                 raise RuntimeError(f"Egress blocked: {verdict.reason}")
+        elif self.strict:
+            raise RuntimeError("strict mode: egress gate missing")
         if self.capability_issuer is not None and self.capability_token:
             from platform_wiring import check_capability as _check_cap
             import urllib.parse
@@ -136,6 +157,8 @@ class N8NIntegration:
                              action="net.fetch", resource=host or "*")
             if not chk["ok"]:
                 raise RuntimeError(f"Capability rejected: {chk['reason']}")
+        elif self.strict:
+            raise RuntimeError("strict mode: task capability missing")
         try:
             resp = self.session.get(url, timeout=TIMEOUT_PER_EXECUTION)
             if resp.status_code == 200:
@@ -151,6 +174,8 @@ class N8NIntegration:
             verdict = _check_url(url, self.egress_policy)
             if not verdict.allowed:
                 raise RuntimeError(f"Egress blocked: {verdict.reason}")
+        elif self.strict:
+            raise RuntimeError("strict mode: egress gate missing")
         if self.capability_issuer is not None and self.capability_token:
             from platform_wiring import check_capability as _check_cap
             import urllib.parse
@@ -159,6 +184,8 @@ class N8NIntegration:
                              action="net.fetch", resource=host or "*")
             if not chk["ok"]:
                 raise RuntimeError(f"Capability rejected: {chk['reason']}")
+        elif self.strict:
+            raise RuntimeError("strict mode: task capability missing")
         try:
             resp = self.session.post(url, json=payload, timeout=TIMEOUT_PER_EXECUTION)
             return 200 <= resp.status_code < 300

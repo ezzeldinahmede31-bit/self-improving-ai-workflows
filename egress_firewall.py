@@ -7,10 +7,13 @@ first), metadata endpoints, userinfo smuggling, scheme/port policy,
 and an optional domain allow-list. Default posture is deny-by-default
 for non-public space; public internet requires explicit opt-in.
 
-DNS-rebinding note (honest limit): a name that resolves clean now can
-resolve hostile later. This guard validates at check time; callers that
-hold connections open across re-resolution must re-check per connect
-(the `resolve` hook makes that cheap to wire in).
+DNS-rebinding note: check_url() validates at check time. Callers that fetch
+must use fetch_pinned(), which pins the connection to the AUTHORIZED IP
+(no second DNS lookup), re-resolves at connect time and re-validates on
+any change, and re-validates every redirect hop — the TOCTOU window is
+closed at the connection boundary, not just at check time. DNS answers
+flow through DnsCache with TTL clamped into
+[min_dns_ttl_s, max_dns_ttl_s]: no entry outlives policy.
 
 Only stdlib is used. The default resolver uses socket.getaddrinfo with
 a short timeout; tests inject a fake resolver (no network in tests).
@@ -44,6 +47,19 @@ class EgressPolicy:
     allowed_schemes: tuple[str, ...] = ("http", "https")
     extra_blocked_hosts: tuple[str, ...] = ()
     dns_timeout_s: float = 3.0
+    # --- DNS cache policy (GAP-02 closure) ---
+    # No cached DNS entry may live longer than max_dns_ttl_s, no matter what
+    # TTL a resolver claims. Entries claiming less than min_dns_ttl_s are
+    # rounded UP (prevents 0-TTL rebinding races); claims above the max are
+    # clamped DOWN. Negative (NXDOMAIN/error) answers get their own short
+    # budget so a transient failure cannot be weaponized into a long block
+    # (or a long hole).
+    max_dns_ttl_s: float = 300.0
+    min_dns_ttl_s: float = 5.0
+    negative_cache_ttl_s: float = 30.0
+    # Entries learned from the OS resolver (getaddrinfo exposes no TTL)
+    # are stored with default_dns_ttl_s, itself clamped into [min, max].
+    default_dns_ttl_s: float = 60.0
 
 
 @dataclass
@@ -67,6 +83,102 @@ def _default_resolve(host: str, timeout_s: float) -> list[str]:
     except OSError:
         pass
     return out
+
+
+def clamp_dns_ttl(ttl_s: float | None, policy: EgressPolicy) -> float:
+    """Clamp a claimed DNS TTL into the policy window [min, max].
+
+    Rules (all deterministic, all tested at the boundaries):
+      - missing/None TTL  -> default_dns_ttl_s (clamped)
+      - negative / NaN     -> min_dns_ttl_s (never cache "forever ago",
+                             never treat as immortal)
+      - below min         -> min_dns_ttl_s (kills 0/1-second rebind races)
+      - above max         -> max_dns_ttl_s (a hostile resolver cannot pin
+                             a stale answer past policy)
+    """
+    lo, hi = policy.min_dns_ttl_s, policy.max_dns_ttl_s
+    if hi < 0:
+        hi = 0.0
+    if lo < 0:
+        lo = 0.0
+    if hi < lo:
+        hi = lo
+    if ttl_s is None:
+        ttl_s = policy.default_dns_ttl_s
+    try:
+        ttl = float(ttl_s)
+    except (TypeError, ValueError):
+        return lo
+    if ttl != ttl:  # NaN
+        return lo
+    if ttl < lo:
+        return lo
+    if ttl > hi:
+        return hi
+    return ttl
+
+
+class DnsCache:
+    """Tiny TTL-bounded DNS cache with separate negative entries.
+
+    Positive entries: host -> (ips, expires_at). Negative entries
+    (resolution returned nothing): host -> expires_at, living at most
+    negative_cache_ttl_s. NOTHING lives past its clamped TTL — there is
+    no stale-serve path: an expired entry is re-resolved, never reused.
+    `now` is injectable for deterministic tests.
+    """
+
+    def __init__(self, policy: EgressPolicy | None = None):
+        self.policy = policy or EgressPolicy()
+        self._positive: dict[str, tuple[tuple[str, ...], float]] = {}
+        self._negative: dict[str, float] = {}
+
+    def lookup(self, host: str, resolve, ttl_s: float | None = None,
+               now: float | None = None) -> list[str]:
+        """Return cached IPs or resolve + cache with a clamped TTL.
+
+        `resolve` is the underlying resolver callable (host -> list[str]).
+        `ttl_s` is the TTL the resolver claims for this answer (None when
+        the resolver exposes none, e.g. getaddrinfo).
+        """
+        import time as _time
+        t = now if now is not None else _time.monotonic()
+        key = host.lower().rstrip(".")
+        hit = self._positive.get(key)
+        if hit is not None:
+            ips, expires = hit
+            if t < expires:
+                return list(ips)
+            del self._positive[key]
+        neg_expires = self._negative.get(key)
+        if neg_expires is not None:
+            if t < neg_expires:
+                return []
+            del self._negative[key]
+        try:
+            ips = [str(c) for c in (resolve(key) or [])]
+        except OSError:
+            ips = []
+        if ips:
+            clamped = clamp_dns_ttl(ttl_s, self.policy)
+            self._positive[key] = (tuple(ips), t + clamped)
+            return list(ips)
+        neg_ttl = self.policy.negative_cache_ttl_s
+        if neg_ttl < 0:
+            neg_ttl = 0.0
+        if neg_ttl > self.policy.max_dns_ttl_s:
+            neg_ttl = self.policy.max_dns_ttl_s
+        self._negative[key] = t + neg_ttl
+        return []
+
+    def invalidate(self, host: str) -> None:
+        key = host.lower().rstrip(".")
+        self._positive.pop(key, None)
+        self._negative.pop(key, None)
+
+    def clear(self) -> None:
+        self._positive.clear()
+        self._negative.clear()
 
 
 def _ip_blocked(ip: ipaddress._BaseAddress) -> str | None:
@@ -174,8 +286,14 @@ def _domain_allowed(host: str, allowed: tuple[str, ...]) -> bool:
 
 
 def check_url(url: str, policy: EgressPolicy | None = None,
-              resolve=None) -> EgressVerdict:
-    """Validate one outbound URL. Returns (allowed, reason, resolved_ips)."""
+               resolve=None, dns_cache: DnsCache | None = None,
+               resolve_ttl_s: float | None = None) -> EgressVerdict:
+    """Validate one outbound URL. Returns (allowed, reason, resolved_ips).
+
+    When `dns_cache` is supplied, DNS answers flow through it (TTL clamped
+    to policy); otherwise resolution is direct. `resolve_ttl_s` carries the
+    TTL the resolver claims for this answer (tests / TTL-aware resolvers).
+    """
     policy = policy or EgressPolicy()
     try:
         parts = urlsplit(url)
@@ -206,11 +324,15 @@ def check_url(url: str, policy: EgressPolicy | None = None,
             ip = ipaddress.ip_address(host)
             candidates = [host]
         except ValueError:
-            resolver = resolve or (lambda h: _default_resolve(h, policy.dns_timeout_s))
-            try:
-                candidates = [str(c) for c in (resolver(host) or [])]
-            except OSError:
-                candidates = []
+            base_resolve = resolve or (lambda h: _default_resolve(h, policy.dns_timeout_s))
+            if dns_cache is not None:
+                candidates = dns_cache.lookup(host, base_resolve,
+                                              ttl_s=resolve_ttl_s)
+            else:
+                try:
+                    candidates = [str(c) for c in (base_resolve(host) or [])]
+                except OSError:
+                    candidates = []
             if not candidates:
                 return EgressVerdict(False, f"host does not resolve: {host}", ())
     resolved: list[str] = []
@@ -231,3 +353,172 @@ def check_url(url: str, policy: EgressPolicy | None = None,
             return EgressVerdict(False, "public internet not opted in",
                                  tuple(resolved))
     return EgressVerdict(True, "ok", tuple(resolved))
+
+
+# ---------------------------------------------------------------------------
+# Connection-boundary enforcement (GAP-03 closure: DNS rebinding / TOCTOU)
+#
+# check_url() authorizes a destination, but DNS can change between the check
+# and the connect. fetch_pinned() closes that window: it resolves + checks,
+# then connects to the AUTHORIZED IP literally (no second DNS lookup), and
+# re-resolves at connect time — if the answer changed, the new answer must
+# pass check_url again or the fetch aborts. Redirects are followed manually
+# (never by a client that would skip validation), each hop re-validated,
+# with a hop ceiling. Numeric-IP smuggling (decimal/hex/octal/short forms)
+# is canonicalized by _normalize_numeric_ip before any resolution, so those
+# forms can never dodge the check.
+# ---------------------------------------------------------------------------
+
+class PinnedFetchBlocked(RuntimeError):
+    """Raised when a pinned fetch is denied at any boundary."""
+
+
+def _split_url(url: str):
+    parts = urlsplit(url)
+    host = (parts.hostname or "").lower()
+    port = parts.port or (443 if parts.scheme.lower() == "https" else 80)
+    path = parts.path or "/"
+    if parts.query:
+        path += "?" + parts.query
+    return parts, host, port, path
+
+
+def fetch_pinned(url: str, policy: EgressPolicy | None = None, *,
+                 method: str = "GET", data: bytes | None = None,
+                 headers: dict | None = None,
+                 timeout_s: float = 10.0, max_redirects: int = 3,
+                 resolve=None, dns_cache: DnsCache | None = None,
+                 connect=None) -> dict:
+    """Fetch one URL with connection-boundary pinning (stdlib only).
+
+    Returns {"status", "body", "url" (final), "redirects"}.
+    Raises PinnedFetchBlocked on any denied boundary (initial check,
+    connect-time re-resolution mismatch, redirect hop, port/scheme).
+    `connect` is an injectable transport (host, port, ip, use_tls, path,
+    method, data, headers, timeout) -> (status, body, resp_headers) used
+    by deterministic tests; the default transport connects to the pinned
+    IP literally with SNI/Host set to the original hostname.
+    """
+    import http.client as _httpc
+    import ssl as _ssl
+
+    policy = policy or EgressPolicy()
+    current_url = url
+    redirects = 0
+    headers = dict(headers or {})
+    _, _initial_host, _, _ = _split_url(url)
+    _initial_tls = urlsplit(url).scheme.lower() == "https"
+
+    def _default_connect(host, port, ip, use_tls, path, method,
+                         data, headers, timeout):
+        if use_tls:
+            ctx = _ssl.create_default_context()
+
+            class _PinnedHTTPS(_httpc.HTTPSConnection):
+                def connect(self):  # noqa: D102 - connect to IP, SNI=host
+                    sock = socket.create_connection((ip, port),
+                                                    timeout=timeout)
+                    self.sock = ctx.wrap_socket(sock,
+                                                server_hostname=host)
+            conn = _PinnedHTTPS(host, port, timeout=timeout)
+        else:
+            conn = _httpc.HTTPConnection(ip, port, timeout=timeout)
+        try:
+            send_headers = dict(headers)
+            # When connecting to a literal IP for a named host, the Host
+            # header must carry the ORIGINAL name (virtual hosting).
+            if not use_tls:
+                send_headers.setdefault("Host", host)
+            conn.request(method, path, body=data, headers=send_headers)
+            resp = conn.getresponse()
+            body = resp.read()
+            resp_headers = {k.lower(): v
+                            for k, v in resp.getheaders()}
+            return resp.status, body, resp_headers
+        finally:
+            try:
+                conn.close()
+            except OSError:
+                pass
+
+    transport = connect or _default_connect
+
+    while True:
+        verdict = check_url(current_url, policy, resolve=resolve,
+                            dns_cache=dns_cache)
+        if not verdict.allowed:
+            raise PinnedFetchBlocked(
+                f"boundary check denied {current_url}: {verdict.reason}")
+        parts, host, port, path = _split_url(current_url)
+        use_tls = parts.scheme.lower() == "https"
+        authorized = set(verdict.resolved_ips)
+
+        # Re-resolve at connect time: the destination must not have moved
+        # past authorization. A changed answer is re-checked, not trusted.
+        # IP literals / numeric forms skip re-resolution entirely: the
+        # literal IS the destination, there is nothing to rebind.
+        numeric_host = _normalize_numeric_ip(host)
+        try:
+            _literal = ipaddress.ip_address(numeric_host or host)
+            is_literal = True
+        except ValueError:
+            is_literal = False
+        if verdict.resolved_ips and not is_literal:
+            base_resolve = resolve or (
+                lambda h: _default_resolve(h, policy.dns_timeout_s))
+            try:
+                fresh = {str(c) for c in (base_resolve(host) or [])}
+            except OSError:
+                fresh = set()
+            numeric = _normalize_numeric_ip(host)
+            if numeric is not None:
+                fresh = {numeric}
+            else:
+                try:
+                    ipaddress.ip_address(host)
+                    fresh = {host}
+                except ValueError:
+                    pass
+            if fresh and not fresh <= authorized:
+                recheck = check_url(current_url, policy, resolve=resolve,
+                                    dns_cache=None)
+                if not recheck.allowed:
+                    raise PinnedFetchBlocked(
+                        "destination changed after authorization: "
+                        f"{current_url}: {recheck.reason}")
+                authorized = set(recheck.resolved_ips)
+            target_ip = sorted(authorized)[0]
+        else:
+            # IP literal / numeric form: connect to the canonical address.
+            numeric = _normalize_numeric_ip(host)
+            try:
+                ipaddress.ip_address(numeric or host)
+            except ValueError:
+                raise PinnedFetchBlocked(
+                    f"no authorized address for {current_url}")
+            target_ip = numeric or host
+
+        status, body, resp_headers = transport(
+            host, port, target_ip, use_tls, path, method, data,
+            headers, timeout_s)
+        if status in (301, 302, 303, 307, 308) and redirects < max_redirects:
+            location = (resp_headers.get("location") or "").strip()
+            if not location:
+                return {"status": status, "body": body,
+                        "url": current_url, "redirects": redirects}
+            from urllib.parse import urljoin as _urljoin
+            current_url = _urljoin(current_url, location)
+            # No silent https -> http downgrade inside a pinned fetch: an
+            # attacker-controlled redirect must not strip transport security.
+            if _initial_tls and urlsplit(current_url).scheme.lower() != "https":
+                raise PinnedFetchBlocked(
+                    f"refusing https->http downgrade to {current_url}")
+            redirects += 1
+            if method not in ("GET", "HEAD") and status in (301, 302, 303):
+                method, data = "GET", None
+            continue
+        if status in (301, 302, 303, 307, 308) and redirects >= max_redirects:
+            raise PinnedFetchBlocked(
+                f"redirect ceiling exceeded ({max_redirects}) at {current_url}")
+        return {"status": status, "body": body,
+                "url": current_url, "redirects": redirects}
