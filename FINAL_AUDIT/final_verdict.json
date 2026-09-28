@@ -4,7 +4,7 @@
     "returncode": 0,
     "tail": [
       "........................................................................ [ 97%]",
-      ".........................                                                [100%]"
+      "..........................                                               [100%]"
     ],
     "passed": true
   },
@@ -18,23 +18,28 @@
     "deployment-trace",
     "capability-regression",
     "egress-regression",
-    "remote-target-regression"
+    "remote-target-regression",
+    "dns-ttl-pinned",
+    "gap01-closures",
+    "production-isolation",
+    "model-governance-offline",
+    "audit-failure-flag"
   ],
   "unverified": [
     "n8n-live",
     "dr-fresh-env-restore",
-    "live-model",
+    "live-model-full-governance",
     "runtime-SBOM"
   ],
   "known_unresolved_critical": [],
-  "known_unresolved_high": [
-    "GAP-01 (legacy DNS path; production requires enforcement.egress)"
+  "known_unresolved_high": [],
+  "known_unresolved_medium": [
+    "SUPPLY-PINS (no pip lockfile; skills hash-pinned; snapshot recorded)"
   ],
-  "known_unresolved_medium": [],
   "known_unresolved_low": [
-    "GAP-02 (no max TTL cap)",
-    "GAP-03 (DNS-rebinding TOCTOU)"
+    "AUDIT-OUTAGE (flagged-degraded delivery; verdicts preserved)",
+    "legacy dev-only mode exists (loud, non-strict, must not serve production)"
   ],
   "absolute_claims": "none made; see report wording rule",
-  "_generated_at": "2026-09-28T18:25:39Z"
+  "_generated_at": "2026-09-28T18:30:17Z"
 }
