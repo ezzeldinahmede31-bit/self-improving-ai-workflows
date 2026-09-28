@@ -7,7 +7,7 @@ for the full doc of the chosen skill. Grouping matches the router
 registry buckets (`compensatory-router/SKILL.md`), so new skills that were
 registered in the router appear under the same family here automatically.
 
-## Automation (per-tool) (379)
+## Automation (per-tool) (378)
 
 - **a2a-agent-interop** — Connect n8n agents to the open Agent-to-Agent (A2A) protocol: publish Agent Cards, drive the task lifecycle (message, polling, streaming, push), authenticate pe…
 - **abstraction-quality-gate** — Enforces A Philosophy of Software Design's core principle: complexity management through deep modules and shallow interfaces.
@@ -233,7 +233,6 @@ registered in the router appear under the same family here automatically.
 - **n8n-autodoc-mermaid** — Automatically generate a README.md with a Mermaid flowchart, inputs/outputs table, and step-by-step client runbook for every n8n workflow delivered.
 - **n8n-code-nodes-official** — Use when the user reaches for a Code node, mentions writing JavaScript or Python in n8n, or any custom logic comes up in workflow design.
 - **n8n-credential-security-guard** — Prevent ANY API key, secret, token, or password from being written into n8n node parameters, expressions, or Code-node source.
-- **n8n-credentials-and-security-official** — Use when handling any auth, API keys, tokens, OAuth, bearer tokens, basic auth, or secret values in n8n workflows.
 - **n8n-debugging-official** — Use when an n8n workflow isn't working, errors appear, results don't match what was expected, or the user says "this isn't working." Triggers on errors, unexpec…
 - **n8n-e2e-test-runner** — Run a real end-to-end integration test after deploying an n8n workflow: hit the live webhook/trigger with a sample payload and verify it returns a 200 OK (plus…
 - **n8n-error-boundary-architect** — Automatically add error handling to every n8n workflow: Error Trigger nodes, Continue On Fail with error branches, and exponential-backoff retry strategies.
@@ -1238,13 +1237,14 @@ registered in the router appear under the same family here automatically.
 - **workflow-versioning-upgrades** — Versions artifacts, staged rollout, safe downgrade.
 - **zinsser-writing-well** — Writes nonfiction with style: clarity, brevity, and humanity.
 
-## n8n (11)
+## n8n (12)
 
 - **deploy-signoff-governance** — Run the final human sign-off ceremony for financial or sensitive deploys: authorization tiers (what needs a human, what never auto-approves), the evidence packe…
 - **eip-workflow-patterns** — Design n8n workflows with the Enterprise Integration Patterns vocabulary (Hohpe/Woolf): content-based router, splitter, aggregator with completeness conditions,…
 - **ir-vector-space-ranking** — Applies the information-retrieval chapters of Jurafsky & Martin's Speech and Language Processing to rank documents for a query: the vector space model, TF-IDF w…
 - **live-workflow-surgery** — Change a live n8n workflow without breaking it: find seams, lock behavior with characterization parity runs, extract via the strangler pattern (new sub-workflow…
 - **n8n-binary-and-data-official** — Use when handling files, images, attachments, or binary data in n8n, OR when an AI agent needs to take a user-uploaded file as tool input or return a generated…
+- **n8n-credentials-and-security-official** — Use when handling any auth, API keys, tokens, OAuth, bearer tokens, basic auth, or secret values in n8n workflows.
 - **n8n-data-tables-official** — Use when working with n8n's built-in Data Tables, designing schemas, inserting/updating/upserting rows, deduping, or querying.
 - **n8n-deployment-ops-guard** — Guards n8n deployment and production operations that gates cannot see.
 - **n8n-expressions-official** — Use when writing or reviewing n8n expressions (`{{...}}` syntax), `$json` / `$node` references, Luxon date code, or expression errors.
