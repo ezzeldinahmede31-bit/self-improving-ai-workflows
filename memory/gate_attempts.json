@@ -78,5 +78,8 @@
   },
   "secret_redactor.py": {
     "REASONING_REVIEW_REQUIRED::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 3
+  },
+  "feature_registry.py": {
+    "REASONING_REVIEW_REQUIRED::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 2
   }
 }

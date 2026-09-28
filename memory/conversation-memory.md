@@ -2035,3 +2035,33 @@ Opened existing "Make" window (eu1.make.com/2862717/agent-profiles/8074 toolbox 
 - TESTS: 148 new (P0 91 + P1 36 + P2 21). FULL SUITE: 892 passed (744 baseline + 148), 9 deselected, exit 0. Sole exclusion remains pre-existing environmental wall-clock test_parallel_execution (proven 3x with raw-thread + untouched-since-Sep-17 evidence).
 - GATES: every new module + skill -> READY_FOR_DEPLOYMENT exit 0 (pre-scan discipline held all waves; 11 honest .gates-ack.json sidecars from sweep-2 vendor docs; 2 self-authored bugs fixed in engine-not-test: slo band side, tenancy tangle).
 - SKILLS: 41 new registered (15 P0 + 16 P1 + 10 P2: sweep-2's 18 were docs/adapters, these are code-backed). Total 1197 -> 1238 skills. Queue-mode n8n / HA / multi-instance explicitly out of code scope (infra ops; deployment-controller covers canary/rollback/flags).
+
+## Hardening audit + fixes (2026-09-28 session)
+- READ-ONLY audit first: 75 modules, 65 test files; baseline 893 passed.
+- platform_wiring "unimported" claim REFUTED for orchestrator path
+  (master_system_orchestrator imports it) but CONFIRMED for alternate
+  executors (scheduler/worker/local_workers/remote_api/n8n) — fixed by
+  wiring + central EnforcedExecutor.
+- NEW `enforced_execution.py`: EnforcedExecutor, strict=True default =
+  No Gate -> No Execution (raises EnforcementError, callable never runs).
+- NEW `feature_registry.py`: honest count is 49 features F001-F049
+  (NOT 56 — corrected, no padding). 7 chains C1-C7 fixed terminology;
+  14+ domains grouped under chains. Statuses: 21 VERIFIED, 27 INTEGRATED,
+  1 LIVE_UNVERIFIED (F043 n8n).
+- REAL VULN FIXED: egress numeric-IP bypass (decimal/hex/octal/short
+  IPv4 like 2130706433, 0x7f000001, 127.1 fell into DNS path and could
+  ALLOW while socket hit 127.0.0.1). Added _normalize_numeric_ip to
+  egress_firewall.py + golden regression in tests/test_p0a_egress.py.
+- Audit HMAC: build_sinks reads AUDIT_HMAC_KEY env; NEW
+  build_production_sinks() fails closed without 16+ byte key.
+- RemoteAPIClient gained egress_policy hook; orchestrator attaches its
+  enforcement egress policy to self.client (direct-HTTP bypass closed).
+- NEW tests/test_adversarial_full_stack.py: 79 attacks, all fail-closed.
+  NEW tests/test_feature_registry.py: 5 integrity tests.
+- Full suite: 978 passed, 8 deselected (need live env). Gates pipeline:
+  READY_FOR_DEPLOYMENT on enforced_execution/egress/platform_wiring;
+  feature_registry.py HEURISTIC (pipeline misroutes a data file through
+  n8n-workflow checks — pipeline artifact-type issue, not code defect).
+- Remaining honest gaps: n8n LIVE_UNVERIFIED, DR restore not run in fresh
+  env, no live model (self-improvement unmeasured by design), DNS-rebinding
+  TOCTOU documented limit, local sandbox not a security boundary.
