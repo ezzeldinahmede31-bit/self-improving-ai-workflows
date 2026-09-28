@@ -1,0 +1,478 @@
+{
+  "artifact": "",
+  "timestamp": "2026-09-28T16:24:58.218193+00:00",
+  "verdict": "REJECTED_SECURITY_RISK",
+  "reason_code": "SECURITY_VIOLATION_REQUIRES_HUMAN",
+  "stages": {
+    "preflight": {
+      "status": "PASS",
+      "violations": [],
+      "checked": 2
+    },
+    "security": {
+      "status": "REJECTED_SECURITY_RISK",
+      "risk_score": 45,
+      "violations": [
+        "[WEBHOOK_NO_AUTH] Webhook trigger 'Start' has no authentication configured"
+      ],
+      "threshold": 40,
+      "auto_fixes": []
+    },
+    "quality": {
+      "status": "REJECTED",
+      "quality_score": 40,
+      "violations": [
+        "Deprecated syntax `\\$json\\b(?!\\.)` used",
+        "Code-node uses bare $json without $input accessor",
+        "Style (non-blocking): node name `Start` is not verb-prefixed/discoverable (e.g. 'Send Email')",
+        "Style (non-blocking): node name `Do` is not verb-prefixed/discoverable (e.g. 'Send Email')",
+        "No Error Trigger node and no continueOnFail on any node",
+        "No pinnedData on primary nodes — cannot unit-test instantly",
+        "Strict: no error handling AND no pinnedData — the workflow is neither testable nor recoverable; add an Error Trigger and pin sample data"
+      ],
+      "threshold": 80
+    },
+    "integrity": {
+      "status": "PASS",
+      "violations": []
+    },
+    "precision": {
+      "status": "PASS",
+      "violations": [],
+      "warnings": [],
+      "checked": 2
+    },
+    "rag": {
+      "status": "SKIP",
+      "violations": [],
+      "warnings": [],
+      "checked": 2
+    },
+    "skills": {
+      "status": "FAIL",
+      "violations": [
+        "mandatory skill invocation failed for gate(s): SECURITY, QUALITY, INTEGRITY, PRECISION, REASONING"
+      ],
+      "invoked": [
+        {
+          "skill": "security-review",
+          "status": "FAILED",
+          "error": "skill not in --skills-loaded manifest — the agent must actually load 'security-review' (skill tool) before this gate can pass",
+          "evidence": {
+            "skill": "security-review",
+            "exists": true,
+            "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/security-review/SKILL.md",
+            "frontmatter_ok": true,
+            "frontmatter_error": null,
+            "declared_name": "security-review",
+            "name_matches": true,
+            "router_registered": true
+          }
+        },
+        {
+          "skill": "security-and-hardening",
+          "status": "FAILED",
+          "error": "skill not in --skills-loaded manifest — the agent must actually load 'security-and-hardening' (skill tool) before this gate can pass",
+          "evidence": {
+            "skill": "security-and-hardening",
+            "exists": true,
+            "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/security-and-hardening/SKILL.md",
+            "frontmatter_ok": true,
+            "frontmatter_error": null,
+            "declared_name": "security-and-hardening",
+            "name_matches": true,
+            "router_registered": true
+          }
+        },
+        {
+          "skill": "frontier-red-team-auditor",
+          "status": "FAILED",
+          "error": "skill not in --skills-loaded manifest — the agent must actually load 'frontier-red-team-auditor' (skill tool) before this gate can pass",
+          "evidence": {
+            "skill": "frontier-red-team-auditor",
+            "exists": true,
+            "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/frontier-red-team-auditor/SKILL.md",
+            "frontmatter_ok": true,
+            "frontmatter_error": null,
+            "declared_name": "frontier-red-team-auditor",
+            "name_matches": true,
+            "router_registered": true
+          }
+        },
+        {
+          "skill": "n8n-credential-security-guard",
+          "status": "FAILED",
+          "error": "skill not in --skills-loaded manifest — the agent must actually load 'n8n-credential-security-guard' (skill tool) before this gate can pass",
+          "evidence": {
+            "skill": "n8n-credential-security-guard",
+            "exists": true,
+            "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/n8n-credential-security-guard/SKILL.md",
+            "frontmatter_ok": true,
+            "frontmatter_error": null,
+            "declared_name": "n8n-credential-security-guard",
+            "name_matches": true,
+            "router_registered": true
+          }
+        },
+        {
+          "skill": "enterprise-security-gate",
+          "status": "FAILED",
+          "error": "skill not in --skills-loaded manifest — the agent must actually load 'enterprise-security-gate' (skill tool) before this gate can pass",
+          "evidence": {
+            "skill": "enterprise-security-gate",
+            "exists": true,
+            "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/enterprise-security-gate/SKILL.md",
+            "frontmatter_ok": true,
+            "frontmatter_error": null,
+            "declared_name": "enterprise-security-gate",
+            "name_matches": true,
+            "router_registered": true
+          }
+        },
+        {
+          "skill": "n8n-validation-expert",
+          "status": "FAILED",
+          "error": "skill not in --skills-loaded manifest — the agent must actually load 'n8n-validation-expert' (skill tool) before this gate can pass",
+          "evidence": {
+            "skill": "n8n-validation-expert",
+            "exists": true,
+            "path": "/home/ezzeldin/.claude/skills/n8n-validation-expert/SKILL.md",
+            "frontmatter_ok": true,
+            "frontmatter_error": null,
+            "declared_name": "n8n-validation-expert",
+            "name_matches": true,
+            "router_registered": true
+          }
+        },
+        {
+          "skill": "n8n-schema-guardrail",
+          "status": "FAILED",
+          "error": "skill not in --skills-loaded manifest — the agent must actually load 'n8n-schema-guardrail' (skill tool) before this gate can pass",
+          "evidence": {
+            "skill": "n8n-schema-guardrail",
+            "exists": true,
+            "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/n8n-schema-guardrail/SKILL.md",
+            "frontmatter_ok": true,
+            "frontmatter_error": null,
+            "declared_name": "n8n-schema-guardrail",
+            "name_matches": true,
+            "router_registered": true
+          }
+        },
+        {
+          "skill": "critical-thinking-logical-reasoning",
+          "status": "FAILED",
+          "error": "skill not in --skills-loaded manifest — the agent must actually load 'critical-thinking-logical-reasoning' (skill tool) before this gate can pass",
+          "evidence": {
+            "skill": "critical-thinking-logical-reasoning",
+            "exists": true,
+            "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/critical-thinking-logical-reasoning/SKILL.md",
+            "frontmatter_ok": true,
+            "frontmatter_error": null,
+            "declared_name": "critical-thinking-logical-reasoning",
+            "name_matches": true,
+            "router_registered": true
+          }
+        },
+        {
+          "skill": "n8n-error-boundary-architect",
+          "status": "FAILED",
+          "error": "skill not in --skills-loaded manifest — the agent must actually load 'n8n-error-boundary-architect' (skill tool) before this gate can pass",
+          "evidence": {
+            "skill": "n8n-error-boundary-architect",
+            "exists": true,
+            "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/n8n-error-boundary-architect/SKILL.md",
+            "frontmatter_ok": true,
+            "frontmatter_error": null,
+            "declared_name": "n8n-error-boundary-architect",
+            "name_matches": true,
+            "router_registered": true
+          }
+        },
+        {
+          "skill": "automation-known-issues-compass",
+          "status": "FAILED",
+          "error": "skill not in --skills-loaded manifest — the agent must actually load 'automation-known-issues-compass' (skill tool) before this gate can pass",
+          "evidence": {
+            "skill": "automation-known-issues-compass",
+            "exists": true,
+            "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/automation-known-issues-compass/SKILL.md",
+            "frontmatter_ok": true,
+            "frontmatter_error": null,
+            "declared_name": "automation-known-issues-compass",
+            "name_matches": true,
+            "router_registered": true
+          }
+        },
+        {
+          "skill": "off-by-one-boundary-guard",
+          "status": "FAILED",
+          "error": "skill not in --skills-loaded manifest — the agent must actually load 'off-by-one-boundary-guard' (skill tool) before this gate can pass",
+          "evidence": {
+            "skill": "off-by-one-boundary-guard",
+            "exists": true,
+            "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/off-by-one-boundary-guard/SKILL.md",
+            "frontmatter_ok": true,
+            "frontmatter_error": null,
+            "declared_name": "off-by-one-boundary-guard",
+            "name_matches": true,
+            "router_registered": true
+          }
+        },
+        {
+          "skill": "frontier-deep-reasoner",
+          "status": "FAILED",
+          "error": "skill not in --skills-loaded manifest — the agent must actually load 'frontier-deep-reasoner' (skill tool) before this gate can pass",
+          "evidence": {
+            "skill": "frontier-deep-reasoner",
+            "exists": true,
+            "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/frontier-deep-reasoner/SKILL.md",
+            "frontmatter_ok": true,
+            "frontmatter_error": null,
+            "declared_name": "frontier-deep-reasoner",
+            "name_matches": true,
+            "router_registered": true
+          }
+        }
+      ],
+      "failed_gates": [
+        "SECURITY",
+        "QUALITY",
+        "INTEGRITY",
+        "PRECISION",
+        "REASONING"
+      ],
+      "manifest_provided": true
+    },
+    "stability": {
+      "status": "SKIP",
+      "violations": [],
+      "stability": null
+    },
+    "math": {
+      "status": "SKIP",
+      "checks": [],
+      "violations": []
+    },
+    "reasoning": {
+      "status": "PASS",
+      "notes": [
+        "no counting/boundary trigger — off-by-one class not flagged",
+        "n8n workflow artifact — branch/error-path review applied",
+        "reasoning depth: single-pass"
+      ]
+    },
+    "dry_run": {
+      "status": "FAIL",
+      "violations": [
+        "no dry-run evidence: nodes carry no pinned data and no expected_result from a trial run — run the workflow on the n8n instance (n8n-pinned-data-mocking) before delivery"
+      ],
+      "dry_run": {
+        "pinned": false,
+        "expected_parity": false
+      }
+    },
+    "complaints": {
+      "status": "NO_COMPLAINTS",
+      "violations": [],
+      "open": 0,
+      "installed": [],
+      "created": [],
+      "no_solution": []
+    }
+  },
+  "hitl_request": null,
+  "mandatory_skills_invoked": [
+    {
+      "skill": "security-review",
+      "status": "FAILED",
+      "error": "skill not in --skills-loaded manifest — the agent must actually load 'security-review' (skill tool) before this gate can pass",
+      "evidence": {
+        "skill": "security-review",
+        "exists": true,
+        "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/security-review/SKILL.md",
+        "frontmatter_ok": true,
+        "frontmatter_error": null,
+        "declared_name": "security-review",
+        "name_matches": true,
+        "router_registered": true
+      }
+    },
+    {
+      "skill": "security-and-hardening",
+      "status": "FAILED",
+      "error": "skill not in --skills-loaded manifest — the agent must actually load 'security-and-hardening' (skill tool) before this gate can pass",
+      "evidence": {
+        "skill": "security-and-hardening",
+        "exists": true,
+        "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/security-and-hardening/SKILL.md",
+        "frontmatter_ok": true,
+        "frontmatter_error": null,
+        "declared_name": "security-and-hardening",
+        "name_matches": true,
+        "router_registered": true
+      }
+    },
+    {
+      "skill": "frontier-red-team-auditor",
+      "status": "FAILED",
+      "error": "skill not in --skills-loaded manifest — the agent must actually load 'frontier-red-team-auditor' (skill tool) before this gate can pass",
+      "evidence": {
+        "skill": "frontier-red-team-auditor",
+        "exists": true,
+        "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/frontier-red-team-auditor/SKILL.md",
+        "frontmatter_ok": true,
+        "frontmatter_error": null,
+        "declared_name": "frontier-red-team-auditor",
+        "name_matches": true,
+        "router_registered": true
+      }
+    },
+    {
+      "skill": "n8n-credential-security-guard",
+      "status": "FAILED",
+      "error": "skill not in --skills-loaded manifest — the agent must actually load 'n8n-credential-security-guard' (skill tool) before this gate can pass",
+      "evidence": {
+        "skill": "n8n-credential-security-guard",
+        "exists": true,
+        "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/n8n-credential-security-guard/SKILL.md",
+        "frontmatter_ok": true,
+        "frontmatter_error": null,
+        "declared_name": "n8n-credential-security-guard",
+        "name_matches": true,
+        "router_registered": true
+      }
+    },
+    {
+      "skill": "enterprise-security-gate",
+      "status": "FAILED",
+      "error": "skill not in --skills-loaded manifest — the agent must actually load 'enterprise-security-gate' (skill tool) before this gate can pass",
+      "evidence": {
+        "skill": "enterprise-security-gate",
+        "exists": true,
+        "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/enterprise-security-gate/SKILL.md",
+        "frontmatter_ok": true,
+        "frontmatter_error": null,
+        "declared_name": "enterprise-security-gate",
+        "name_matches": true,
+        "router_registered": true
+      }
+    },
+    {
+      "skill": "n8n-validation-expert",
+      "status": "FAILED",
+      "error": "skill not in --skills-loaded manifest — the agent must actually load 'n8n-validation-expert' (skill tool) before this gate can pass",
+      "evidence": {
+        "skill": "n8n-validation-expert",
+        "exists": true,
+        "path": "/home/ezzeldin/.claude/skills/n8n-validation-expert/SKILL.md",
+        "frontmatter_ok": true,
+        "frontmatter_error": null,
+        "declared_name": "n8n-validation-expert",
+        "name_matches": true,
+        "router_registered": true
+      }
+    },
+    {
+      "skill": "n8n-schema-guardrail",
+      "status": "FAILED",
+      "error": "skill not in --skills-loaded manifest — the agent must actually load 'n8n-schema-guardrail' (skill tool) before this gate can pass",
+      "evidence": {
+        "skill": "n8n-schema-guardrail",
+        "exists": true,
+        "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/n8n-schema-guardrail/SKILL.md",
+        "frontmatter_ok": true,
+        "frontmatter_error": null,
+        "declared_name": "n8n-schema-guardrail",
+        "name_matches": true,
+        "router_registered": true
+      }
+    },
+    {
+      "skill": "critical-thinking-logical-reasoning",
+      "status": "FAILED",
+      "error": "skill not in --skills-loaded manifest — the agent must actually load 'critical-thinking-logical-reasoning' (skill tool) before this gate can pass",
+      "evidence": {
+        "skill": "critical-thinking-logical-reasoning",
+        "exists": true,
+        "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/critical-thinking-logical-reasoning/SKILL.md",
+        "frontmatter_ok": true,
+        "frontmatter_error": null,
+        "declared_name": "critical-thinking-logical-reasoning",
+        "name_matches": true,
+        "router_registered": true
+      }
+    },
+    {
+      "skill": "n8n-error-boundary-architect",
+      "status": "FAILED",
+      "error": "skill not in --skills-loaded manifest — the agent must actually load 'n8n-error-boundary-architect' (skill tool) before this gate can pass",
+      "evidence": {
+        "skill": "n8n-error-boundary-architect",
+        "exists": true,
+        "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/n8n-error-boundary-architect/SKILL.md",
+        "frontmatter_ok": true,
+        "frontmatter_error": null,
+        "declared_name": "n8n-error-boundary-architect",
+        "name_matches": true,
+        "router_registered": true
+      }
+    },
+    {
+      "skill": "automation-known-issues-compass",
+      "status": "FAILED",
+      "error": "skill not in --skills-loaded manifest — the agent must actually load 'automation-known-issues-compass' (skill tool) before this gate can pass",
+      "evidence": {
+        "skill": "automation-known-issues-compass",
+        "exists": true,
+        "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/automation-known-issues-compass/SKILL.md",
+        "frontmatter_ok": true,
+        "frontmatter_error": null,
+        "declared_name": "automation-known-issues-compass",
+        "name_matches": true,
+        "router_registered": true
+      }
+    },
+    {
+      "skill": "off-by-one-boundary-guard",
+      "status": "FAILED",
+      "error": "skill not in --skills-loaded manifest — the agent must actually load 'off-by-one-boundary-guard' (skill tool) before this gate can pass",
+      "evidence": {
+        "skill": "off-by-one-boundary-guard",
+        "exists": true,
+        "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/off-by-one-boundary-guard/SKILL.md",
+        "frontmatter_ok": true,
+        "frontmatter_error": null,
+        "declared_name": "off-by-one-boundary-guard",
+        "name_matches": true,
+        "router_registered": true
+      }
+    },
+    {
+      "skill": "frontier-deep-reasoner",
+      "status": "FAILED",
+      "error": "skill not in --skills-loaded manifest — the agent must actually load 'frontier-deep-reasoner' (skill tool) before this gate can pass",
+      "evidence": {
+        "skill": "frontier-deep-reasoner",
+        "exists": true,
+        "path": "/home/ezzeldin/Documents/Default Project/.opencode/skills/frontier-deep-reasoner/SKILL.md",
+        "frontmatter_ok": true,
+        "frontmatter_error": null,
+        "declared_name": "frontier-deep-reasoner",
+        "name_matches": true,
+        "router_registered": true
+      }
+    }
+  ],
+  "skill_invocation_status": "FAIL",
+  "skill_manifest_provided": true,
+  "autofix_history": [],
+  "owasp_aa0x": {
+    "AA04": {
+      "title": "Inadequate Access Control",
+      "findings": [
+        "security: [WEBHOOK_NO_AUTH] Webhook trigger 'Start' has no authentication configured"
+      ]
+    }
+  }
+}
