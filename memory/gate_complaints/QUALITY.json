@@ -1,23 +1,5 @@
 [
   {
-    "id": "quality-1789828549019",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T14:35:49.019503+00:00",
-    "resolved_at": "2026-09-19T14:35:51.647271+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
     "id": "quality-1789828551804",
     "gate": "QUALITY",
     "kind": "SKILL_GAP",
@@ -3597,6 +3579,24 @@
     "created_at": "2026-09-27T15:44:00.060834+00:00",
     "resolved_at": "2026-09-27T15:44:04.571679+00:00",
     "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1790574655029",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
+    "keywords": [
+      "pinneddata",
+      "primary",
+      "unit-test",
+      "instantly"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "OPEN",
+    "created_at": "2026-09-28T05:50:55.029615+00:00",
+    "resolved_at": null,
+    "resolution": null,
     "search_hits": []
   }
 ]
