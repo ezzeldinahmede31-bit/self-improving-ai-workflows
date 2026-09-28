@@ -48,9 +48,11 @@ class EnforcementProfile:
     incident_actions: dict | None = None
 
     @staticmethod
-    def from_dict(spec: dict | None) -> "EnforcementProfile | None":
+    def from_dict(spec: dict | None | "EnforcementProfile") -> "EnforcementProfile | None":
         if not spec:
             return None
+        if isinstance(spec, EnforcementProfile):
+            return spec
         return EnforcementProfile(
             policy=spec.get("policy"),
             capability_secret=spec.get("capability_secret"),

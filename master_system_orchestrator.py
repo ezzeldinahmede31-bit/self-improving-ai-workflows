@@ -21,6 +21,7 @@ import uuid
 from pathlib import Path
 from typing import Any, Callable, Optional
 
+from deployment import DeploymentController, FeatureFlags
 from verifier_engine import VerifierEngine
 from security_gate import RISK_THRESHOLD
 from hitl_gate import HITLGate, HITLState, HITLRequest
