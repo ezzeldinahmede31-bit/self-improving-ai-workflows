@@ -75,5 +75,8 @@
   },
   "tmpzu64a4n4.json": {
     "SECURITY_VIOLATION_REQUIRES_HUMAN::[JAILBREAK_OVERRIDE_IN_PROMPT] Node 'Agent' contains prompt-injection override /ignore\\s+(all\\s+)?(previous|prior|above)": 1
+  },
+  "secret_redactor.py": {
+    "REASONING_REVIEW_REQUIRED::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 3
   }
 }

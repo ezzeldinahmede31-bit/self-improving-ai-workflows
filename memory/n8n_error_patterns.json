@@ -2,23 +2,23 @@
   {
     "gate": "quality",
     "pattern": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "count": 138,
+    "count": 141,
     "first_seen": "2026-08-15T01:45:33.866641+00:00",
-    "last_seen": "2026-09-28T06:14:26.232197+00:00"
+    "last_seen": "2026-09-28T06:37:17.455632+00:00"
   },
   {
     "gate": "skills",
     "pattern": "no --skills-loaded manifest — actual agent loads are NOT verifiable headless; readiness (installed + frontmatter + routable) verified only",
-    "count": 137,
+    "count": 140,
     "first_seen": "2026-08-24T13:18:28.258531+00:00",
-    "last_seen": "2026-09-28T06:14:26.239869+00:00"
+    "last_seen": "2026-09-28T06:37:17.463309+00:00"
   },
   {
     "gate": "quality",
     "pattern": "No Error Trigger node and no continueOnFail on any node",
-    "count": 122,
+    "count": 125,
     "first_seen": "2026-08-15T01:45:33.866459+00:00",
-    "last_seen": "2026-09-28T06:14:26.231320+00:00"
+    "last_seen": "2026-09-28T06:37:17.454910+00:00"
   },
   {
     "gate": "dry_run",
