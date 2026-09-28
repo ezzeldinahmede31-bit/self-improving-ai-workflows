@@ -3,8 +3,8 @@
   "full_suite": {
     "returncode": 0,
     "tail": [
-      "........................................................................ [ 95%]",
-      ".................................................                        [100%]"
+      "........................................................................ [ 94%]",
+      "...................................................                      [100%]"
     ],
     "passed": true
   },
@@ -36,5 +36,13 @@
     "GAP-03 (DNS-rebinding TOCTOU)"
   ],
   "absolute_claims": "none made; see report wording rule",
-  "_generated_at": "2026-09-28T16:39:24Z"
+  "_generated_at": "2026-09-28T17:33:50Z",
+  "part2": {
+    "full_suite": "987 passed, 0 failed",
+    "new_findings_fixed": 3,
+    "known_unresolved_high": [
+      "GAP-01 (legacy DNS path; production requires enforcement.egress)",
+      "NF-01 residual: other scripts/* HTTP clients are ops tools, not production paths (documented)"
+    ]
+  }
 }

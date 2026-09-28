@@ -1,0 +1,70 @@
+{
+  "note": "PART 2 independent red-team: trusted nothing from Part 1; every claim re-proven from code/live probes",
+  "claims_reverified": {
+    "total": 49,
+    "ids_sequential": true,
+    "counts": {
+      "VERIFIED": 21,
+      "INTEGRATED": 27,
+      "LIVE_UNVERIFIED": 1
+    },
+    "empty_fields": "NONE"
+  },
+  "new_findings": [
+    {
+      "id": "NF-01",
+      "severity": "HIGH",
+      "finding": "EnforcedExecutor has ZERO production callers; n8n_integration (requests.Session) and HITL telegram notify (urlopen) bypassed egress/capability in orchestrator production path",
+      "fix": "N8NIntegration accepts egress_policy+capability and enforces per-call; orchestrator wires profile egress + refreshes task capability; HITLGate accepts egress_policy, wired post-profile",
+      "status": "FIXED+TESTED"
+    },
+    {
+      "id": "NF-02",
+      "severity": "MEDIUM",
+      "finding": "TEST GAP: neutering EnforcedExecutor policy-deny branch failed no test",
+      "fix": "added test_policy_deny_blocks_strict_execution + test_policy_approve_routes_to_deny_strict; mutation now fails",
+      "status": "FIXED+TESTED"
+    },
+    {
+      "id": "NF-03",
+      "severity": "HIGH",
+      "finding": "own Part-2 edit broke verifier->HITL escalation (hitl created after verifier got None) + mis-indented client egress wiring; caused REJECTED_SECURITY_RISK leak",
+      "fix": "restored creation order; egress attached post-profile; regression green",
+      "status": "FIXED+TESTED (self-caught by suite)"
+    }
+  ],
+  "bypass_campaign": {
+    "policy": "blocked",
+    "capability": "blocked",
+    "skill_trust": "blocked",
+    "sandbox": "docker-tier enforced",
+    "egress": "blocked (incl. n8n/HITL paths)",
+    "verification": "blocked",
+    "invariants": "blocked",
+    "idempotency": "blocked",
+    "audit": "blocked",
+    "provenance": "blocked",
+    "hitl": "blocked (INVALID_TOKEN)",
+    "tenant": "blocked (0/50 concurrent)",
+    "deployment": "halt+rollback",
+    "self_improvement": "gated, nothing promoted w/o model"
+  },
+  "mutation_result": "each control load-bearing (in-memory + file-level proofs); 1 TEST GAP found and closed",
+  "concurrency_result": "100/100 verifies, 0 cross-tenant successes/50, idempotent single-execution x20 threads, no races found",
+  "crash_result": "separate-process restart replays recorded result with 0 re-executions; chaos/saga/audit suites green",
+  "tenant_isolation_result": "sequential + concurrent A->B blocked across capability/resource/attenuation; suite green",
+  "chain_results": {
+    "prompt_tool_memory_capability_egress": "every link fail-closed",
+    "supply_chain": "untrusted skill excluded in enforce mode",
+    "deployment": "halt at 10%, rollback on probe exception",
+    "self_improvement": "halt-on-fail, approval-gated",
+    "state_machine": "wrong HITL token -> INVALID_TOKEN, state unchanged"
+  },
+  "config_audit": "no fail-open defaults in production code; strict=False only in __main__ self-test; cloud_allowed defaults False",
+  "live_validations": [
+    "n8n: LIVE_UNVERIFIED (no live instance; status unchanged)",
+    "model: LIVE_MODEL_UNVERIFIED",
+    "DR: DR_PRODUCTION_UNVERIFIED (test-env restore only)"
+  ],
+  "full_suite": "987 passed, 8 deselected, 0 failed"
+}

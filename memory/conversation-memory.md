@@ -2079,3 +2079,28 @@ Opened existing "Make" window (eu1.make.com/2862717/agent-profiles/8074 toolbox 
 - Architecture status: PARTIALLY VERIFIED. Open gaps: n8n live run,
   fresh-env DR restore, DNS-rebinding TOCTOU (documented), local sandbox
   non-boundary, self-improvement unmeasured without live model.
+
+## Final Hardening Part 1 + Independent Red Team Part 2 (Sep 28 2026)
+- Part 1 fixed 5: SEC-01 revoked-parent attenuation (capability.py), SEC-02
+  resource widening, SEC-03 network-without-urls strict deny
+  (enforced_execution.py NETWORK_ACTIONS), SEC-04 legacy literal-IP SSRF
+  guard (remote_api.py), SEC-05 loud legacy-unenforced warning. Registry
+  clarified to CURRENT_STATUS: 49 total (21 VERIFIED / 27 INTEGRATED /
+  1 LIVE_UNVERIFIED / 0 PRODUCTION_READY).
+- Part 2 (trusted nothing) found 3 NEW: NF-01 EnforcedExecutor has zero
+  production callers; n8n_integration + HITL telegram bypassed egress — fixed
+  (per-call egress+capability, orchestrator wiring). NF-02 TEST GAP
+  policy-deny branch unguarded — fixed with 2 mutation-guard tests.
+  NF-03 own init-order regression broke verifier->HITL escalation —
+  self-caught by suite, fixed (creation order restored, egress attached
+  post-profile).
+- Live proofs: bypass 17/17 fail-closed; concurrency 100/100, 0/50
+  cross-tenant; crash restart 0 re-executions; chain/supply/deploy/self-improve
+  attacks all stopped. Full suite: 987 passed / 8 deselected / 0 failed.
+- Honest residuals: GAP-01 legacy DNS path (HIGH), GAP-02/03 (LOW),
+  n8n-live/DR-fresh-env/live-model UNVERIFIED. Verdict: PARTIALLY VERIFIED.
+- Artifacts: FINAL_AUDIT/ (16 JSONs incl. part2_redteam.json),
+  scripts/final_audit_gen.py, scripts/final_zero_gap_gate.py (PASS).
+- Lesson: init order is a security property (hitl must exist before
+  verifier); mutation-test every deny branch; grep production callers of
+  any "central" enforcement (claims without callers are UNVERIFIED).
