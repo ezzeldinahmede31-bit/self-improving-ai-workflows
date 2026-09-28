@@ -2013,3 +2013,7 @@ Opened existing "Make" window (eu1.make.com/2862717/agent-profiles/8074 toolbox 
 ## P1c DONE (Sep 28) — tenancy/privacy/deploy/trace, 4 modules + 4 skills
 - tenancy.py (isolated namespaces, ok->warning->degraded->critical->exceeded machine with action lists, per-tenant ledger; rewrote tangled first draft cleanly) + privacy.py (4-level classification, retention TTL, export/delete log, DLP deny-list + redact + minimize) + deployment.py (stable-hash flags, 1-10-50-100 canary with probe gates, auto-rollback, missing-probe halt) + tracing.py (context-var traces, adopt/span/report, JSONL sink).
 - TESTS 9/9. GATES 8/8 READY (pre-scan clean). Skills: multi-tenant-platform, privacy-data-governance, deployment-controller, distributed-tracing. Total -> 1224 skills.
+
+## P1d DONE (Sep 28) — SRE/economics/health, 4 modules + 4 skills
+- slo.py (rate/p95/avg/max targets, ok/at-risk/breached with 10% edge band; fixed own band bug: near-edge computed on wrong side, corrected engine not test) + cost_governor.py (ascending thresholds, tight reroutes cheap, critical requires approval, frozen blocks) + capacity.py (snapshots, headroom binding, first-breaker forecast with labeled-approx latency math) + health_probes.py (dated-secret windows, TCP gates, synthetic act-verify-cleanup with loud uncleaned failure).
+- TESTS 8/8. GATES 8/8 READY (pre-scan clean). Skills: slo-engine, cost-governance, capacity-planning, health-probes. Total -> 1228 skills. P1 COMPLETE: 16 modules, 36 tests, 32/32 gates, 16 skills.
