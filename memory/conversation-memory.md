@@ -2017,3 +2017,7 @@ Opened existing "Make" window (eu1.make.com/2862717/agent-profiles/8074 toolbox 
 ## P1d DONE (Sep 28) — SRE/economics/health, 4 modules + 4 skills
 - slo.py (rate/p95/avg/max targets, ok/at-risk/breached with 10% edge band; fixed own band bug: near-edge computed on wrong side, corrected engine not test) + cost_governor.py (ascending thresholds, tight reroutes cheap, critical requires approval, frozen blocks) + capacity.py (snapshots, headroom binding, first-breaker forecast with labeled-approx latency math) + health_probes.py (dated-secret windows, TCP gates, synthetic act-verify-cleanup with loud uncleaned failure).
 - TESTS 8/8. GATES 8/8 READY (pre-scan clean). Skills: slo-engine, cost-governance, capacity-planning, health-probes. Total -> 1228 skills. P1 COMPLETE: 16 modules, 36 tests, 32/32 gates, 16 skills.
+
+## P2a DONE (Sep 28) — contracts/evolution/drift, 4 modules + 4 skills
+- contract_test.py (pinned input/output schemas, error taxonomy, latency ceiling, version pin; five breach classes) + schema_evolve.py (ordered migrations, additive-only audit with widening list, dual-read with _legacy) + dep_drift.py (SBOM-shaped diffs, major-move detection, retest verdicts) + api_monitor.py (shape/latency/version probes, first-deviation findings).
+- TESTS 7/7. GATES 8/8 READY (pre-scan clean). Skills: contract-testing, schema-evolution, dependency-drift-watch, api-monitor. Total -> 1232 skills.
