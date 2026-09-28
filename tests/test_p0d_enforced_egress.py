@@ -50,7 +50,6 @@ def test_network_action_with_blocked_url_denied():
 
 
 def test_non_network_action_without_urls_allowed():
-    ex, iss, tok2 = _executor()
     from capability import CapabilityIssuer
     iss2 = CapabilityIssuer(b"0123456789abcdef")
     tok = iss2.issue(actions=["memory.write"], resource="*")
@@ -62,3 +61,30 @@ def test_non_network_action_without_urls_allowed():
         capability_token=tok, capability_issuer=iss2,
         run=lambda: "ok")
     assert verdict.allowed and result == "ok"
+
+
+def test_policy_deny_blocks_strict_execution():
+    """Mutation guard: neutering the policy-deny branch must fail this."""
+    from capability import CapabilityIssuer
+    iss = CapabilityIssuer(b"0123456789abcdef")
+    tok = iss.issue(actions=["tool.execute"], resource="*")
+    ex = EnforcedExecutor(
+        EnforcementProfile(policy={"default": "deny", "rules": []}),
+        strict=True)
+    with pytest.raises(EnforcementError, match="policy"):
+        ex.execute(action="tool.execute", actor="a", resource="r",
+                   capability_token=tok, capability_issuer=iss,
+                   run=lambda: "must-not-run")
+
+
+def test_policy_approve_routes_to_deny_strict():
+    from capability import CapabilityIssuer
+    iss = CapabilityIssuer(b"0123456789abcdef")
+    tok = iss.issue(actions=["tool.execute"], resource="*")
+    ex = EnforcedExecutor(
+        EnforcementProfile(policy={"default": "approve", "rules": []}),
+        strict=True)
+    with pytest.raises(EnforcementError, match="approval"):
+        ex.execute(action="tool.execute", actor="a", resource="r",
+                   capability_token=tok, capability_issuer=iss,
+                   run=lambda: "must-not-run")

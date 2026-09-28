@@ -23,6 +23,8 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Callable, Optional
 
+from egress_firewall import check_url as _check_url, EgressPolicy
+
 DEFAULT_TIMEOUT_MINUTES = 15
 DEFAULT_DB_PATH = Path(__file__).parent / "audit.db"
 
@@ -80,6 +82,7 @@ class HITLGate:
         security_token: Optional[str] = None,
         notify_handler: Optional[Callable[[HITLRequest], None]] = None,
         env_token: Optional[str] = None,
+        egress_policy: EgressPolicy | None = None,
     ):
         self.db_path = str(db_path)
         self.timeout_minutes = timeout_minutes
@@ -91,6 +94,7 @@ class HITLGate:
             or self._load_env_token()
         )
         self.notify_handler = notify_handler
+        self.egress_policy = egress_policy
         self._init_db()
 
     # ---------- persistence helpers ----------
@@ -285,6 +289,11 @@ class HITLGate:
                 f"Reject: /reject_{req.request_id}"
             )
             url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+            if self.egress_policy is not None:
+                verdict = _check_url(url, self.egress_policy)
+                if not verdict.allowed:
+                    print(f"[HITL][Telegram] egress blocked: {verdict.reason}", file=sys.stderr)
+                    return
             data = urllib.parse.urlencode({"chat_id": chat_id, "text": text}).encode()
             try:
                 with urllib.request.urlopen(url + "?" + data.decode(), timeout=10) as resp:
