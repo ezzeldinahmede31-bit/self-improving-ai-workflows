@@ -1,5 +1,5 @@
 {
   "status": "LIVE_UNVERIFIED",
   "evidence": "architecturally integrated (F043); live run requires RUN_LIVE_E2E=1 against a reachable instance; not executed this pass",
-  "_generated_at": "2026-09-28T16:38:15Z"
+  "_generated_at": "2026-09-28T17:32:40Z"
 }
