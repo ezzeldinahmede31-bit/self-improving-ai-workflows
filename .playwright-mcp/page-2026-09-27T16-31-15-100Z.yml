@@ -1,0 +1,199 @@
+- generic [ref=f8e1]:
+  - generic [ref=f8e3]:
+    - generic [ref=f8e4]:
+      - complementary "Skip links" [ref=f8e5]:
+        - link "Skip to main content" [ref=f8e6] [cursor=pointer]:
+          - /url: /apis/credentials?project=n8nezz-505804
+        - button "Keyboard shortcuts" [ref=f8e8]
+        - link [ref=f8e10] [cursor=pointer]:
+          - /url: https://cloud.google.com/docs/accessibility?hl=en_US
+          - generic [ref=f8e11]:
+            - text: Accessibility Help
+            - generic "external, opens new window" [ref=f8e12]:
+              - img "external, opens new window" [ref=f8e13]
+        - link [ref=f8e16] [cursor=pointer]:
+          - /url: https://support.google.com/accessibility/contact/feedback?hl=en_US
+          - generic [ref=f8e17]:
+            - text: Accessibility Feedback
+            - generic "external, opens new window" [ref=f8e18]:
+              - img "external, opens new window" [ref=f8e19]
+      - banner [ref=f8e23]:
+        - generic [ref=f8e24]:
+          - navigation [ref=f8e27]:
+            - button "Navigation menu (.)" [ref=f8e28] [cursor=pointer]
+          - link "Google Cloud Platform Home" [ref=f8e32] [cursor=pointer]:
+            - /url: /?project=n8nezz-505804
+          - button "You're currently working in n8nezz. Hit enter to switch projects, folders, or organizations" [ref=f8e40]:
+            - generic [ref=f8e41]: n8nezz
+        - button "Open search" [ref=f8e53] [cursor=pointer]
+        - generic [ref=f8e58]:
+          - button "Open or close Gemini Cloud Assist chat (Alt G)" [ref=f8e62] [cursor=pointer]
+          - generic [ref=f8e68]:
+            - button "Activate Cloud Shell (G then S)" [disabled]
+          - button "Open notifications" [ref=f8e72] [cursor=pointer]
+          - button "Settings and utilities" [ref=f8e80] [cursor=pointer]
+    - generic [ref=f8e106]:
+      - navigation "APIs & Services" [ref=f8e113]:
+        - generic [ref=f8e114]:
+          - generic [ref=f8e115]:
+            - heading [level=2] [ref=f8e116]:
+              - link "APIs & Services" [ref=f8e117] [cursor=pointer]:
+                - /url: /apis?project=n8nezz-505804
+            - button "Toggle APIs & Services navigation menu" [expanded] [ref=f8e126] [cursor=pointer]
+          - list "Enabled APIs & services, 1 of 5 More options Library, 2 of 5 More options Credentials, 3 of 5 More options OAuth consent screen, 4 of 5 More options Page usage agreements, 5 of 5 More options" [ref=f8e134]:
+            - listitem [ref=f8e135]:
+              - generic [ref=f8e138]:
+                - link "Enabled APIs & services, 1 of 5" [ref=f8e139] [cursor=pointer]:
+                  - /url: /apis/dashboard?project=n8nezz-505804
+                  - generic [ref=f8e140]: Enabled APIs & services
+                - button "More options" [ref=f8e147] [cursor=pointer]
+            - listitem [ref=f8e151]:
+              - generic [ref=f8e154]:
+                - link "Library, 2 of 5" [ref=f8e155] [cursor=pointer]:
+                  - /url: /apis/library?project=n8nezz-505804
+                  - generic [ref=f8e156]: Library
+                - button "More options" [ref=f8e163] [cursor=pointer]
+            - listitem [ref=f8e167]:
+              - generic [ref=f8e170]:
+                - link "Credentials, 3 of 5" [ref=f8e171] [cursor=pointer]:
+                  - /url: /apis/credentials?project=n8nezz-505804
+                  - generic [ref=f8e172]: Credentials
+                - button "More options" [ref=f8e179] [cursor=pointer]
+            - listitem [ref=f8e183]:
+              - generic [ref=f8e186]:
+                - link "OAuth consent screen, 4 of 5" [ref=f8e187] [cursor=pointer]:
+                  - /url: /apis/credentials/consent?project=n8nezz-505804
+                  - generic [ref=f8e188]: OAuth consent screen
+                - button "More options" [ref=f8e195] [cursor=pointer]
+            - listitem [ref=f8e199]:
+              - generic [ref=f8e202]:
+                - link "Page usage agreements, 5 of 5" [ref=f8e203] [cursor=pointer]:
+                  - /url: /apis/agreements?project=n8nezz-505804
+                  - generic [ref=f8e204]: Page usage agreements
+                - button "More options" [ref=f8e212] [cursor=pointer]
+      - main [ref=f8e217]:
+        - generic [ref=f8e229]:
+          - generic [ref=f8e232]:
+            - heading "Credentials" [level=1] [ref=f8e235]
+            - generic [ref=f8e239]:
+              - generic [ref=f8e241]:
+                - button "Create credential" [active] [ref=f8e243]:
+                  - generic [ref=f8e248]: Create credentials
+                - button "Delete credential" [disabled] [ref=f8e254]:
+                  - generic [ref=f8e259]: Delete
+              - button "More actions Credentials" [ref=f8e261] [cursor=pointer]
+          - generic [ref=f8e273]:
+            - paragraph [ref=f8e275]:
+              - text: Create credentials to access your enabled APIs.
+              - link "Learn more about this feature external, opens new window" [ref=f8e276] [cursor=pointer]:
+                - /url: https://cloud.google.com/docs/authentication
+                - text: Learn more
+                - img "external, opens new window" [ref=f8e277]
+            - generic [ref=f8e280]:
+              - heading "API Keys" [level=2] [ref=f8e282]
+              - grid "API Keys , Navigate table with arrow keys. Enter key to interact with cell. Tab to navigate inside cell. Escape to exit cell." [ref=f8e286]:
+                - rowgroup [ref=f8e295]:
+                  - row [ref=f8e296] [cursor=pointer]:
+                    - gridcell "Row selection" [ref=f8e297]:
+                      - checkbox "Select all rows" [disabled] [ref=f8e298]
+                    - columnheader "Status" [ref=f8e299]
+                    - columnheader "Name" [ref=f8e305]:
+                      - generic [ref=f8e307]:
+                        - generic [ref=f8e308]: Name
+                        - button "Sort by Name" [ref=f8e309]
+                    - columnheader "Bound account" [ref=f8e313]:
+                      - generic [ref=f8e315]:
+                        - generic [ref=f8e316]:
+                          - text: Bound account
+                          - button "Help with bound account" [ref=f8e318]
+                        - button "Sort by Bound account" [ref=f8e322]
+                    - columnheader "Creation date" [ref=f8e326]:
+                      - generic [ref=f8e328]:
+                        - generic [ref=f8e329]: Creation date
+                        - button "Sort by Creation date" [ref=f8e330]
+                    - columnheader "Restrictions" [ref=f8e334]:
+                      - generic [ref=f8e336]:
+                        - generic [ref=f8e337]: Restrictions
+                        - button "Sort by Restrictions" [ref=f8e338]
+                    - columnheader "Actions" [ref=f8e342]
+                - rowgroup [ref=f8e345]:
+                  - row [ref=f8e346] [cursor=pointer]:
+                    - gridcell "No API keys to display" [ref=f8e347]
+            - generic [ref=f8e348]:
+              - heading "OAuth 2.0 Client IDs" [level=2] [ref=f8e350]
+              - grid "OAuth 2.0 Client IDs , Navigate table with arrow keys. Enter key to interact with cell. Tab to navigate inside cell. Escape to exit cell." [ref=f8e354]:
+                - rowgroup [ref=f8e362]:
+                  - row [ref=f8e363] [cursor=pointer]:
+                    - gridcell "Row selection" [ref=f8e364]:
+                      - checkbox "Select all rows" [ref=f8e365]
+                    - columnheader "Name" [ref=f8e366]:
+                      - generic [ref=f8e368]:
+                        - generic [ref=f8e369]: Name
+                        - button "Sort by Name" [ref=f8e370]
+                    - columnheader "Creation date" [ref=f8e374]:
+                      - generic [ref=f8e376]:
+                        - generic [ref=f8e377]: Creation date
+                        - button "Sort by Creation date" [ref=f8e378]
+                    - columnheader "Type" [ref=f8e382]:
+                      - generic [ref=f8e384]:
+                        - generic [ref=f8e385]: Type
+                        - button "Sort by Type" [ref=f8e386]
+                    - columnheader "Client ID" [ref=f8e390]:
+                      - generic [ref=f8e392]:
+                        - generic [ref=f8e393]: Client ID
+                        - button "Sort by Client ID" [ref=f8e394]
+                    - columnheader "Actions" [ref=f8e398]
+                - rowgroup [ref=f8e401]:
+                  - row [ref=f8e402] [cursor=pointer]:
+                    - gridcell [ref=f8e403]:
+                      - checkbox "Web client 2" [ref=f8e405]
+                    - rowheader [ref=f8e406]:
+                      - link "Web client 2" [ref=f8e407]:
+                        - /url: /apis/credentials/oauthclient/686990569863-ti0euhl1rc4h4cdbce5511md4dsq5enr.apps.googleusercontent.com?project=n8nezz-505804
+                    - gridcell "Aug 17, 2026" [ref=f8e408]
+                    - gridcell "Web application" [ref=f8e409]
+                    - gridcell [ref=f8e410]:
+                      - code [ref=f8e411]: 686990569863-ti0e...
+                      - button "Click to copy the OAuth client" [ref=f8e412]
+                    - gridcell [ref=f8e417]:
+                      - link "Click to edit the OAuth client" [ref=f8e418]:
+                        - /url: /apis/credentials/oauthclient/686990569863-ti0euhl1rc4h4cdbce5511md4dsq5enr.apps.googleusercontent.com?project=n8nezz-505804
+                      - button "Click to delete the OAuth client" [ref=f8e425]
+                  - row [ref=f8e430] [cursor=pointer]:
+                    - gridcell [ref=f8e431]:
+                      - checkbox "Web client 1" [ref=f8e433]
+                    - rowheader [ref=f8e434]:
+                      - link "Web client 1" [ref=f8e435]:
+                        - /url: /apis/credentials/oauthclient/686990569863-u3mjsoi67di507cuid81pd449e9tsfo1.apps.googleusercontent.com?project=n8nezz-505804
+                    - gridcell "Aug 17, 2026" [ref=f8e436]
+                    - gridcell "Web application" [ref=f8e437]
+                    - gridcell [ref=f8e438]:
+                      - code [ref=f8e439]: 686990569863-u3mj...
+                      - button "Click to copy the OAuth client" [ref=f8e440]
+                    - gridcell [ref=f8e445]:
+                      - link "Click to edit the OAuth client" [ref=f8e446]:
+                        - /url: /apis/credentials/oauthclient/686990569863-u3mjsoi67di507cuid81pd449e9tsfo1.apps.googleusercontent.com?project=n8nezz-505804
+                      - button "Click to delete the OAuth client" [ref=f8e453]
+            - generic [ref=f8e458]:
+              - generic [ref=f8e459]:
+                - heading "Service Accounts" [level=2] [ref=f8e460]
+                - link "Manage service accounts" [ref=f8e464] [cursor=pointer]:
+                  - /url: /iam-admin/serviceaccounts?project=n8nezz-505804
+              - grid "Service Accounts , Navigate table with arrow keys. Enter key to interact with cell. Tab to navigate inside cell. Escape to exit cell." [ref=f8e468]:
+                - rowgroup [ref=f8e474]:
+                  - row [ref=f8e475] [cursor=pointer]:
+                    - gridcell "Row selection" [ref=f8e476]:
+                      - checkbox "Select all rows" [disabled] [ref=f8e477]
+                    - columnheader "Email" [ref=f8e478]:
+                      - generic [ref=f8e480]:
+                        - generic [ref=f8e481]: Email
+                        - button "Sort by Email" [ref=f8e482]
+                    - columnheader "Name" [ref=f8e486]:
+                      - generic [ref=f8e488]:
+                        - generic [ref=f8e489]: Name
+                        - button "Sort by Name" [ref=f8e490]
+                    - columnheader "Actions" [ref=f8e494]
+                - rowgroup [ref=f8e497]:
+                  - row [ref=f8e498] [cursor=pointer]:
+                    - gridcell "No service accounts to display" [ref=f8e499]
+  - iframe [aria-hidden] [ref=f8e501]

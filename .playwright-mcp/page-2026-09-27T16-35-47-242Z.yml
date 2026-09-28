@@ -1,0 +1,48 @@
+- generic [active] [ref=f30e1]:
+  - button "Skip to main content" [ref=f30e5] [cursor=pointer]
+  - banner [ref=f30e8]:
+    - generic [ref=f30e9]:
+      - link "Google Account settings" [ref=f30e13] [cursor=pointer]:
+        - /url: /?tab=kk&authuser=1
+        - generic [ref=f30e15]: Account
+      - generic [ref=f30e22]:
+        - button "Help" [ref=f30e23] [cursor=pointer]
+        - tooltip [aria-hidden] [ref=f30e29]: Help
+      - generic [ref=f30e31]:
+        - button "Google apps" [ref=f30e35] [cursor=pointer]
+        - 'button "Google Account: Ezzeldin Ahmed (ezzeldinahmede31@gmail.com)" [ref=f30e41] [cursor=pointer]'
+  - generic [ref=f30e168]:
+    - navigation [ref=f30e170]:
+      - generic [ref=f30e172]:
+        - button "Back to previous page" [ref=f30e173] [cursor=pointer]
+        - tooltip [aria-hidden] [ref=f30e178]: Back to previous page
+      - heading "2-Step Verification phones" [level=1] [ref=f30e179]
+    - main [ref=f30e184]:
+      - generic [ref=f30e259]:
+        - paragraph [ref=f30e262]:
+          - text: You can receive sign-in codes at these numbers. You may have additional numbers that can be used to recover your Google Account.
+          - link "Manage recovery phones" [ref=f30e263] [cursor=pointer]:
+            - /url: signinoptions/rescuephone?authuser=1
+        - generic [ref=f30e265]:
+          - generic [ref=f30e266]:
+            - list [ref=f30e267]:
+              - listitem [ref=f30e268]:
+                - generic [ref=f30e269]:
+                  - generic [ref=f30e273]:
+                    - generic [ref=f30e274]: 010 35504596
+                    - paragraph [ref=f30e281]: To keep your account safe, there's a security delay before you can use a new phone for 2-Step Verification.
+                  - 'button "Delete phone number: 010 35504596" [ref=f30e284] [cursor=pointer]'
+            - separator [ref=f30e291]
+          - button "Add a backup 2-Step Verification phone" [ref=f30e295] [cursor=pointer]
+  - contentinfo [ref=f30e160]:
+    - link "View Google's Privacy Policy" [ref=f30e161] [cursor=pointer]:
+      - /url: https://policies.google.com/privacy?authuser=1
+      - text: Privacy
+    - link "View Google's Terms of Service" [ref=f30e162] [cursor=pointer]:
+      - /url: https://policies.google.com/terms?authuser=1
+      - text: Terms
+    - link "Help" [ref=f30e163] [cursor=pointer]:
+      - /url: https://support.google.com/accounts
+    - link "Learn more about Google Account" [ref=f30e164] [cursor=pointer]:
+      - /url: https://www.google.com/account/about
+      - text: About

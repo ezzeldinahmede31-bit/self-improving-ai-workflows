@@ -1,0 +1,68 @@
+- generic [active] [ref=f50e1]:
+  - button "Skip to main content" [ref=f50e5] [cursor=pointer]
+  - banner [ref=f50e8]:
+    - generic [ref=f50e9]:
+      - link "Google Account settings" [ref=f50e13] [cursor=pointer]:
+        - /url: /?tab=kk&authuser=1
+        - generic [ref=f50e15]: Account
+      - generic [ref=f50e22]:
+        - button "Help" [ref=f50e23] [cursor=pointer]
+        - tooltip [aria-hidden] [ref=f50e29]: Help
+      - generic [ref=f50e31]:
+        - button "Google apps" [ref=f50e35] [cursor=pointer]
+        - 'button "Google Account: Ezzeldin Ahmed (ezzeldinahmede31@gmail.com)" [ref=f50e41] [cursor=pointer]'
+  - generic [ref=f50e47]:
+    - navigation [ref=f50e49]:
+      - generic [ref=f50e51]:
+        - button "Back to previous page" [ref=f50e52] [cursor=pointer]
+        - tooltip [aria-hidden] [ref=f50e57]: Back to previous page
+      - heading "2-Step Verification" [level=1] [ref=f50e58]
+    - main [ref=f50e63]:
+      - generic [ref=f50e66]:
+        - generic [ref=f50e69]:
+          - heading "Turn on 2-Step Verification" [level=2] [ref=f50e70]
+          - paragraph [ref=f50e71]: Prevent hackers from accessing your account with an additional layer of security.
+          - paragraph [ref=f50e72]:
+            - text: Unless you’re signing in with a passkey, you’ll be asked to complete the most secure second step available on your account. You can update your second steps and sign-in options any time in your settings.
+            - link "Go to Security Settings" [ref=f50e73] [cursor=pointer]:
+              - /url: security
+        - article [ref=f50e75]:
+          - generic [ref=f50e77]:
+            - heading "Second steps" [level=2] [ref=f50e78]
+            - generic [ref=f50e79]: Make sure you can access your Google Account by keeping this information up to date and adding more sign-in options
+          - list [ref=f50e81]:
+            - listitem [ref=f50e82]:
+              - generic [ref=f50e83]:
+                - generic [ref=f50e86]:
+                  - generic [ref=f50e87]: Passkeys and security keys
+                  - generic [ref=f50e88]: Add a passkey
+                - button "Add a passkey" [ref=f50e96] [cursor=pointer]
+            - listitem [ref=f50e102]:
+              - link "Google prompt" [ref=f50e104] [cursor=pointer]:
+                - /url: two-step-verification/prompt
+            - listitem [ref=f50e116]:
+              - link "Authenticator Add authenticator app" [ref=f50e118] [cursor=pointer]:
+                - /url: two-step-verification/authenticator
+                - generic [ref=f50e122]:
+                  - generic [ref=f50e123]: Authenticator
+                  - generic [ref=f50e124]: Add authenticator app
+            - listitem [ref=f50e135]:
+              - link "Phone number 010 35504596" [ref=f50e137] [cursor=pointer]:
+                - /url: two-step-verification/phone-numbers
+                - generic [ref=f50e141]:
+                  - generic [ref=f50e142]: Phone number
+                  - generic [ref=f50e143]: 010 35504596
+        - button "Turn on 2-Step Verification" [ref=f50e157] [cursor=pointer]:
+          - generic [aria-hidden] [ref=f50e159]: Turn on 2-Step Verification
+  - contentinfo [ref=f50e161]:
+    - link "View Google's Privacy Policy" [ref=f50e162] [cursor=pointer]:
+      - /url: https://policies.google.com/privacy?authuser=1
+      - text: Privacy
+    - link "View Google's Terms of Service" [ref=f50e163] [cursor=pointer]:
+      - /url: https://policies.google.com/terms?authuser=1
+      - text: Terms
+    - link "Help" [ref=f50e164] [cursor=pointer]:
+      - /url: https://support.google.com/accounts
+    - link "Learn more about Google Account" [ref=f50e165] [cursor=pointer]:
+      - /url: https://www.google.com/account/about
+      - text: About

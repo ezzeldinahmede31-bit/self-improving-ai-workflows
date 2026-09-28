@@ -1,0 +1,46 @@
+- generic [active] [ref=f25e1]:
+  - button "Skip to main content" [ref=f25e5] [cursor=pointer]
+  - banner [ref=f25e8]:
+    - generic [ref=f25e9]:
+      - link "Google Account settings" [ref=f25e13] [cursor=pointer]:
+        - /url: /?tab=kk&authuser=1
+        - generic [ref=f25e15]: Account
+      - generic [ref=f25e22]:
+        - button "Help" [ref=f25e23] [cursor=pointer]
+        - tooltip [aria-hidden] [ref=f25e29]: Help
+      - generic [ref=f25e31]:
+        - button "Google apps" [ref=f25e35] [cursor=pointer]
+        - 'button "Google Account: Ezzeldin Ahmed (ezzeldinahmede31@gmail.com)" [ref=f25e41] [cursor=pointer]'
+  - generic [ref=f25e47]:
+    - navigation [ref=f25e49]:
+      - generic [ref=f25e51]:
+        - button "Back to previous page" [ref=f25e52] [cursor=pointer]
+        - tooltip [aria-hidden] [ref=f25e57]: Back to previous page
+      - heading "Recovery phone" [level=1] [ref=f25e58]
+    - main [ref=f25e63]:
+      - generic [ref=f25e67]:
+        - generic [ref=f25e68]:
+          - paragraph [ref=f25e69]: Your recovery phone is used to reach you in case we detect unusual activity in your account or you accidentally get locked out.
+          - paragraph [ref=f25e70]:
+            - text: When you change your recovery phone, you may be able to choose to get sign-in codes sent to your previous recovery phone for one week.
+            - link "Learn more about recovery phone numbers" [ref=f25e71] [cursor=pointer]:
+              - /url: https://support.google.com/accounts/answer/183728?hl=en&authuser=1
+              - text: Learn more
+        - generic [ref=f25e72]:
+          - button "Add recovery phone" [ref=f25e78] [cursor=pointer]
+          - paragraph [ref=f25e82]:
+            - text: There may be other numbers associated with your Google Account.
+            - link "Manage your phone numbers" [ref=f25e83] [cursor=pointer]:
+              - /url: phone
+  - contentinfo [ref=f25e85]:
+    - link "View Google's Privacy Policy" [ref=f25e86] [cursor=pointer]:
+      - /url: https://policies.google.com/privacy?authuser=1
+      - text: Privacy
+    - link "View Google's Terms of Service" [ref=f25e87] [cursor=pointer]:
+      - /url: https://policies.google.com/terms?authuser=1
+      - text: Terms
+    - link "Help" [ref=f25e88] [cursor=pointer]:
+      - /url: https://support.google.com/accounts
+    - link "Learn more about Google Account" [ref=f25e89] [cursor=pointer]:
+      - /url: https://www.google.com/account/about
+      - text: About

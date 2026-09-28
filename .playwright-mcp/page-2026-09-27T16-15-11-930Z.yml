@@ -1,0 +1,17 @@
+- generic [ref=f1e28]:
+  - heading "Telegram" [level=1] [ref=f1e30]
+  - paragraph [ref=f1e31]: Please confirm your country code and enter your phone number.
+  - generic [ref=f1e32]:
+    - generic [ref=f1e34] [cursor=pointer]:
+      - textbox [ref=f1e35]
+      - generic: Country
+    - generic [ref=f1e37]:
+      - textbox "Your phone number" [active] [ref=f1e38]: ا
+      - generic: Your phone number
+    - generic [ref=f1e39] [cursor=pointer]:
+      - checkbox "Keep me signed in " [checked] [ref=f1e40]
+      - generic [ref=f1e41]:
+        - generic [ref=f1e42]: Keep me signed in
+        - text: 
+    - button "Log in by QR Code" [ref=f1e43] [cursor=pointer]
+    - button "Log in with Passkey" [ref=f1e44] [cursor=pointer]

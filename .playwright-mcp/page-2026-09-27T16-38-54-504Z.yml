@@ -1,0 +1,194 @@
+- generic [active] [ref=f45e1]:
+  - button "Skip to main content" [ref=f45e5] [cursor=pointer]
+  - banner [ref=f45e8]:
+    - generic [ref=f45e9]:
+      - link "Google Account settings" [ref=f45e13] [cursor=pointer]:
+        - /url: /?tab=kk&authuser=1
+        - generic [ref=f45e15]: Account
+      - generic [ref=f45e16]:
+        - search [ref=f45e18]:
+          - generic [ref=f45e24]:
+            - textbox [disabled] [aria-hidden] [ref=f45e25]: Search Google Account
+            - combobox "Search Google Account" [ref=f45e26]
+          - button [aria-hidden] [ref=f45e27] [cursor=pointer]
+        - generic [ref=f45e36]:
+          - button "Help" [ref=f45e37] [cursor=pointer]
+          - tooltip [aria-hidden] [ref=f45e43]: Help
+      - generic [ref=f45e45]:
+        - button "Google apps" [ref=f45e49] [cursor=pointer]
+        - 'button "Google Account: Ezzeldin Ahmed (ezzeldinahmede31@gmail.com)" [ref=f45e55] [cursor=pointer]'
+  - generic [ref=f45e58]:
+    - generic [ref=f45e65]:
+      - navigation "Navigation menu" [ref=f45e70]:
+        - menubar [ref=f45e72]:
+          - menuitem [ref=f45e75] [cursor=pointer]:
+            - generic [ref=f45e76]:
+              - generic [aria-hidden] [ref=f45e85]: Home
+              - generic: Home
+          - menuitem [ref=f45e88] [cursor=pointer]:
+            - generic [ref=f45e89]:
+              - generic [aria-hidden] [ref=f45e98]: Wallet & subscriptions
+              - generic: Wallet & subscriptions
+          - menuitem [ref=f45e101] [cursor=pointer]:
+            - generic [ref=f45e102]:
+              - generic [aria-hidden] [ref=f45e111]: Personal info
+              - generic: Personal info
+          - menuitem [ref=f45e114] [cursor=pointer]:
+            - generic [ref=f45e115]:
+              - generic [aria-hidden] [ref=f45e124]: Security & sign-in
+              - generic: Security & sign-in
+          - menuitem [ref=f45e127] [cursor=pointer]:
+            - generic [ref=f45e128]:
+              - generic [aria-hidden] [ref=f45e137]: Google password
+              - generic: Google password
+          - menuitem [ref=f45e140] [cursor=pointer]:
+            - generic [ref=f45e141]:
+              - generic [aria-hidden] [ref=f45e150]: Linked apps
+              - generic: Linked apps
+          - menuitem [ref=f45e153] [cursor=pointer]:
+            - generic [ref=f45e154]:
+              - generic [aria-hidden] [ref=f45e163]: Data & privacy
+              - generic: Data & privacy
+          - menuitem [ref=f45e166] [cursor=pointer]:
+            - generic [ref=f45e167]:
+              - generic [aria-hidden] [ref=f45e176]: People & sharing
+              - generic: People & sharing
+          - menuitem [ref=f45e179] [cursor=pointer]:
+            - generic [ref=f45e180]:
+              - generic [aria-hidden] [ref=f45e189]: Family
+              - generic: Family
+          - menuitem [ref=f45e192] [cursor=pointer]:
+            - generic [ref=f45e193]:
+              - generic [aria-hidden] [ref=f45e202]: Account storage
+              - generic: Account storage
+      - main [ref=f45e203]:
+        - generic [ref=f45e204]:
+          - heading "Security & sign-in" [level=1] [ref=f45e205]
+          - link "You have security recommendations Recommended actions found in the Security Checkup" [ref=f45e210] [cursor=pointer]:
+            - /url: smartlink/security-checkup?continue=https%3A%2F%2Fmyaccount.google.com%2Fu%2F1%2Fsecurity
+            - generic [ref=f45e214]:
+              - generic [ref=f45e215]: You have security recommendations
+              - generic [ref=f45e216]: Recommended actions found in the Security Checkup
+          - generic [ref=f45e217]:
+            - heading "Recent security activity" [level=2] [ref=f45e219]
+            - generic [ref=f45e221]:
+              - 'link "Sign-in step added: Phone number 7:34 PM · Egypt" [ref=f45e223] [cursor=pointer]':
+                - /url: notifications/eid/7159606663031952708?origin=3&continue=https%3A%2F%2Fmyaccount.google.com%2Fu%2F1%2Fsecurity
+                - generic [ref=f45e226]:
+                  - generic [ref=f45e227]: "Sign-in step added: Phone number"
+                  - generic [ref=f45e228]: 7:34 PM · Egypt
+              - link "New sign-in on Linux 7:33 PM · Egypt" [ref=f45e230] [cursor=pointer]:
+                - /url: notifications/eid/-9187930615979057264?origin=3&continue=https%3A%2F%2Fmyaccount.google.com%2Fu%2F1%2Fsecurity
+                - generic [ref=f45e233]:
+                  - generic [ref=f45e234]: New sign-in on Linux
+                  - generic [ref=f45e235]: 7:33 PM · Egypt
+              - link "Review security activity" [ref=f45e237] [cursor=pointer]:
+                - /url: notifications?origin=3
+          - generic [ref=f45e242]:
+            - generic [ref=f45e243]:
+              - heading "How you sign in to Google" [level=2] [ref=f45e244]
+              - paragraph [ref=f45e245]: Make sure you can always access your Google Account by keeping this information up to date
+            - generic [ref=f45e246]:
+              - generic [ref=f45e247]:
+                - link "2-Step Verification 2-Step Verification is off" [ref=f45e249] [cursor=pointer]:
+                  - /url: signinoptions/twosv
+                  - generic [ref=f45e253]:
+                    - generic [ref=f45e254]: 2-Step Verification
+                    - generic [ref=f45e255]: 2-Step Verification is off
+                - link "Password Last changed Aug 11" [ref=f45e257] [cursor=pointer]:
+                  - /url: signinoptions/password?continue=https%3A%2F%2Fmyaccount.google.com%2Fu%2F1%2Fsecurity
+                  - generic [ref=f45e261]:
+                    - generic [ref=f45e262]: Password
+                    - generic [ref=f45e263]: Last changed Aug 11
+                - link "Skip password when possible On" [ref=f45e265] [cursor=pointer]:
+                  - /url: signinoptions/passwordoptional?utm_source=google-account&utm_medium=web
+                  - generic [ref=f45e268]:
+                    - generic [ref=f45e269]: Skip password when possible
+                    - generic "On" [ref=f45e272]
+                - link "2-Step Verification phones 010 35504596" [ref=f45e275] [cursor=pointer]:
+                  - /url: two-step-verification/phone-numbers?utm_source=google-account&utm_medium=web&utm_campaign=twostepverificationphone-screen&continue=https%3A%2F%2Fmyaccount.google.com%2Fu%2F1%2Fsecurity
+                  - generic [ref=f45e279]:
+                    - generic [ref=f45e280]: 2-Step Verification phones
+                    - generic [ref=f45e281]: 010 35504596
+                - link "Recovery phone Add a mobile phone number" [ref=f45e283] [cursor=pointer]:
+                  - /url: signinoptions/rescuephone?continue=https%3A%2F%2Fmyaccount.google.com%2Fu%2F1%2Fsecurity
+                  - generic [ref=f45e286]:
+                    - generic [ref=f45e287]: Recovery phone
+                    - generic "Add a mobile phone number" [ref=f45e290]
+                - link "Recovery email Add an email address" [ref=f45e293] [cursor=pointer]:
+                  - /url: recovery/email?continue=https%3A%2F%2Fmyaccount.google.com%2Fu%2F1%2Fsecurity
+                  - generic [ref=f45e296]:
+                    - generic [ref=f45e297]: Recovery email
+                    - generic "Add an email address" [ref=f45e300]
+              - generic [ref=f45e304]:
+                - generic [ref=f45e305]: You can add more sign-in options
+                - toolbar [ref=f45e307]:
+                  - link "Recovery contacts" [ref=f45e311] [cursor=pointer]:
+                    - /url: signinoptions/recoverycontacts?utm_source=google-account&utm_medium=web&utm_campaign=recoverycontacts-screen&continue=https%3A%2F%2Fmyaccount.google.com%2Fu%2F1%2Fsecurity
+                  - link "Passkeys and security keys" [ref=f45e317] [cursor=pointer]:
+                    - /url: signinoptions/passkeys?utm_source=google-account&utm_medium=web&utm_campaign=passkeys-screen&continue=https%3A%2F%2Fmyaccount.google.com%2Fu%2F1%2Fsecurity
+                  - link "Authenticator" [ref=f45e323] [cursor=pointer]:
+                    - /url: two-step-verification/authenticator?utm_source=google-account&utm_medium=web&utm_campaign=authenticator-screen&continue=https%3A%2F%2Fmyaccount.google.com%2Fu%2F1%2Fsecurity
+                  - link "Google prompt" [ref=f45e329] [cursor=pointer]:
+                    - /url: two-step-verification/prompt?utm_source=google-account&utm_medium=web&utm_campaign=googleprompt-screen&continue=https%3A%2F%2Fmyaccount.google.com%2Fu%2F1%2Fsecurity
+          - generic [ref=f45e332]:
+            - generic [ref=f45e333]:
+              - heading "Your devices" [level=2] [ref=f45e334]
+              - paragraph [ref=f45e335]: Where you’re signed in
+            - generic [ref=f45e337]:
+              - link "3 sessions on Linux computer(s) Linux, Linux, ..." [ref=f45e339] [cursor=pointer]:
+                - /url: device-activity?continue=https%3A%2F%2Fmyaccount.google.com%2Fu%2F1%2Fsecurity
+                - generic [ref=f45e343]:
+                  - generic [ref=f45e344]: 3 sessions on Linux computer(s)
+                  - generic [ref=f45e345]: Linux, Linux, ...
+              - link "Find a lost device" [ref=f45e347] [cursor=pointer]:
+                - /url: find-your-phone
+              - link "Manage all devices 3" [ref=f45e354] [cursor=pointer]:
+                - /url: device-activity?continue=https%3A%2F%2Fmyaccount.google.com%2Fu%2F1%2Fsecurity
+                - generic [ref=f45e355]:
+                  - generic [ref=f45e356]: Manage all devices
+                  - generic [ref=f45e359]: "3"
+          - generic [ref=f45e362]:
+            - generic [ref=f45e363]:
+              - heading "Your linked apps" [level=2] [ref=f45e364]
+              - paragraph [ref=f45e365]: Keep track of your Google Account data
+            - generic [ref=f45e367]:
+              - link "Adside" [ref=f45e369] [cursor=pointer]:
+                - /url: linkedapps/overview/AREUMUUdn-uD_WHYJZ3yScZ8Zr4tC8vm9LV1u8Z5HazNZPiZWHsZpJxB0uhlLub8gASeI8N00xWCbsl3W6Ftisvf1qY?continue=https%3A%2F%2Fmyaccount.google.com%2Fu%2F1%2Fsecurity
+              - link "alibabacloud" [ref=f45e376] [cursor=pointer]:
+                - /url: linkedapps/overview/AREUMUXPACS-aASaYL0dhcr7ntGsYw2J_WnNTrjImKaG-2FlcG0-lPtezF4H7cXEbtPPbEKePgd6gWRRmlOVR8LFN5I?continue=https%3A%2F%2Fmyaccount.google.com%2Fu%2F1%2Fsecurity
+              - link "Apify" [ref=f45e383] [cursor=pointer]:
+                - /url: linkedapps/overview/AREUMUXFRcCflaPXXgqUQ8OJcTQ49-5pHRb6_ts7bKEc244KRETLZMlLYnPVpbSDGG_hUs2_ZMXYW0IRw4MycLAGDL4?continue=https%3A%2F%2Fmyaccount.google.com%2Fu%2F1%2Fsecurity
+              - link "See all linked apps 15" [ref=f45e390] [cursor=pointer]:
+                - /url: linkedapps?continue=https%3A%2F%2Fmyaccount.google.com%2Fu%2F1%2Fsecurity
+                - generic [ref=f45e391]:
+                  - generic [ref=f45e392]: See all linked apps
+                  - generic [ref=f45e395]: "15"
+          - link "Enhanced Safe Browsing for your account More personalized protections against dangerous websites, downloads, and extensions. Off" [ref=f45e402] [cursor=pointer]:
+            - /url: account-enhanced-safe-browsing?continue=https%3A%2F%2Fmyaccount.google.com%2Fu%2F1%2Fsecurity
+            - generic [ref=f45e405]:
+              - generic [ref=f45e406]:
+                - generic [ref=f45e407]: Enhanced Safe Browsing for your account
+                - generic [ref=f45e408]: More personalized protections against dangerous websites, downloads, and extensions.
+              - generic "Off" [ref=f45e410]
+          - link "Password Manager You have 1 password saved in your Google Account. Password Manager makes it easier to sign in to sites and apps you use on any signed-in device." [ref=f45e416] [cursor=pointer]:
+            - /url: https://passwords.google.com/?standalone=false&hl=en&utm_source=google-account&utm_medium=web&authuser=1&continue=https%3A%2F%2Fmyaccount.google.com%2Fu%2F1%2Fsecurity
+            - generic [ref=f45e420]:
+              - generic [ref=f45e421]: Password Manager
+              - generic [ref=f45e422]: You have 1 password saved in your Google Account. Password Manager makes it easier to sign in to sites and apps you use on any signed-in device.
+          - toolbar [ref=f45e429]:
+            - button "Search Google Account" [ref=f45e433] [cursor=pointer]
+            - button "Get help" [ref=f45e439] [cursor=pointer]
+    - iframe [ref=f45e442]
+  - contentinfo [ref=f45e443]:
+    - link "View Google's Privacy Policy" [ref=f45e444] [cursor=pointer]:
+      - /url: https://policies.google.com/privacy?authuser=1
+      - text: Privacy
+    - link "View Google's Terms of Service" [ref=f45e445] [cursor=pointer]:
+      - /url: https://policies.google.com/terms?authuser=1
+      - text: Terms
+    - link "Help" [ref=f45e446] [cursor=pointer]:
+      - /url: https://support.google.com/accounts
+    - link "Learn more about Google Account" [ref=f45e447] [cursor=pointer]:
+      - /url: https://www.google.com/account/about
+      - text: About

@@ -1,0 +1,563 @@
+- generic [ref=f1e1]:
+  - generic:
+    - generic:       
+    - generic:     
+    - generic:        
+  - generic [ref=f1e51]:
+    - generic [ref=f1e55]:
+      - generic [ref=f1e57]:
+        - button "Open menu" [ref=f1e59] [cursor=pointer]
+        - generic [ref=f1e61]:
+          - generic [aria-hidden] [ref=f1e64]: 
+          - generic:
+            - button "Open Story List"
+          - textbox "Search" [ref=f1e65]
+      - generic [ref=f1e71]:
+        - generic:
+          - 'link "الاتش ار الفرفوش رزق الاتش ار الفرفوش رزق 06:30 PM إعلان توظيف – شركة أكتف ACTIV تعلن شركة أكتف ACTIV عن حاجتها إلى: محاسب جرد حديث التخرج. 📍 يشترط أن يكون المتقدم من سكان القاهرة في المقام الأول 📍 مقر العمل: سراي القبة – القاهرة 💰 الراتب الأ... 79" [ref=f1e73] [cursor=pointer]':
+            - /url: "#-1001900348229"
+            - img "الاتش ار الفرفوش رزق" [ref=f1e78]
+            - generic [ref=f1e79]:
+              - generic [ref=f1e80]:
+                - button "الاتش ار الفرفوش رزق" [ref=f1e82]
+                - generic [aria-hidden] [ref=f1e83]: 
+                - generic [ref=f1e84]: 06:30 PM
+              - generic [ref=f1e86]:
+                - paragraph [ref=f1e87]:
+                  - generic [aria-hidden] [ref=f1e88]: 
+                  - generic [ref=f1e89]:
+                    - text: "إعلان توظيف – شركة أكتف ACTIV تعلن شركة أكتف ACTIV عن حاجتها إلى: محاسب جرد حديث التخرج."
+                    - img "📍" [ref=f1e90]
+                    - text: يشترط أن يكون المتقدم من سكان القاهرة في المقام الأول
+                    - img "📍" [ref=f1e91]
+                    - text: "مقر العمل: سراي القبة – القاهرة"
+                    - img "💰" [ref=f1e92]
+                    - text: الراتب الأ...
+                - generic [ref=f1e93]: "79"
+          - 'link "شباب صُحبة أبجديات علم شرعي - الدفعة الذهبية 🔟 شباب صُحبة أبجديات علم شرعي - الدفعة الذهبية 🔟 04:57 AM عبدالمؤمن : https://youtube.com/shorts/dsdAbCqW5S8?si=GYX7v4AvVFirebKS 429" [ref=f1e97] [cursor=pointer]':
+            - /url: "#-1002526156929"
+            - img "شباب صُحبة أبجديات علم شرعي - الدفعة الذهبية 🔟" [ref=f1e102]
+            - generic [ref=f1e103]:
+              - generic [ref=f1e104]:
+                - button [ref=f1e106]:
+                  - text: شباب صُحبة أبجديات علم شرعي - الدفعة الذهبية
+                  - img "🔟" [ref=f1e107]
+                - generic [aria-hidden] [ref=f1e108]: 
+                - generic [ref=f1e109]: 04:57 AM
+              - generic [ref=f1e111]:
+                - paragraph [ref=f1e112]:
+                  - generic [ref=f1e113]: عبدالمؤمن
+                  - generic [ref=f1e114]: ":"
+                  - generic [ref=f1e115]: https://youtube.com/shorts/dsdAbCqW5S8?si=GYX7v4AvVFirebKS
+                - generic [ref=f1e117]: "429"
+          - link "Mohamed Hammam Mohamed Hammam Sat Mohamed Hammam joined Telegram 1" [ref=f1e121] [cursor=pointer]:
+            - /url: "#8794729274"
+            - generic "Mohamed Hammam" [ref=f1e124]: MH
+            - generic [ref=f1e127]:
+              - generic [ref=f1e128]:
+                - button "Mohamed Hammam" [ref=f1e130]
+                - generic [ref=f1e131]: Sat
+              - generic [ref=f1e133]:
+                - paragraph [ref=f1e134]:
+                  - generic [ref=f1e135]: Mohamed Hammam joined Telegram
+                - generic [ref=f1e136]: "1"
+          - 'link "Manger social media Manger social media Sep 18 Draft: حل" [ref=f1e140] [cursor=pointer]':
+            - /url: "#8634698976"
+            - generic "Manger social media" [ref=f1e143]: MS
+            - generic [ref=f1e146]:
+              - generic [ref=f1e147]:
+                - button "Manger social media" [ref=f1e149]
+                - generic [ref=f1e150]: Sep 18
+              - paragraph [ref=f1e153]:
+                - generic [ref=f1e154]: "Draft:"
+                - generic [ref=f1e155]: حل
+          - link "Ahmed Salah - أحـمد صـلاح Ahmed Salah - أحـمد صـلاح Sep 18 فرصة عمل تلي سيلز (إناث فقط) لشركة سياحة فئة ( أ ) في المهندسين الراتب الأساسي 10,000 جنيه + كوميشن إمكانية زيادة الراتب بعد 3 أشهر، وفقًا للتقييم ⏱️ مواعيد العمل 8 ساعات من ( 10 ص ) إلى ( 6 م ) ... 16" [ref=f1e157] [cursor=pointer]:
+            - /url: "#-1001505921061"
+            - img "Ahmed Salah - أحـمد صـلاح" [ref=f1e162]
+            - generic [ref=f1e163]:
+              - generic [ref=f1e164]:
+                - button "Ahmed Salah - أحـمد صـلاح" [ref=f1e166]
+                - generic [ref=f1e167]: Sep 18
+              - generic [ref=f1e169]:
+                - paragraph [ref=f1e170]:
+                  - generic [ref=f1e171]:
+                    - text: فرصة عمل تلي سيلز (إناث فقط) لشركة سياحة فئة ( أ ) في المهندسين الراتب الأساسي 10,000 جنيه + كوميشن إمكانية زيادة الراتب بعد 3 أشهر، وفقًا للتقييم
+                    - img "⏱️" [ref=f1e172]
+                    - text: مواعيد العمل 8 ساعات من ( 10 ص ) إلى ( 6 م ) ...
+                - generic [ref=f1e173]: "16"
+          - link "أبجديات أونلاين - عـلـم شرعــي - الدفعة العاشرة 🔟- الدفعة الذهبية أبجديات أونلاين - عـلـم شرعــي - الدفعة العاشرة 🔟 - الدفعة الذهبية Sep 17 يمكن أحسن طريقة تتعرف بيها على أي دورة فعلًا… إنك تدخلها بنفسك 🤍 وعشان عايزينك تخوض التجربة بنفسك فتحنالك أول محاضرة من \"مفاتيح تربية الأبناء\" عيش تفاصيلها، ركّز في الأفكار اللي بتتقال، وشوف بنفسك ... 3" [ref=f1e177] [cursor=pointer]:
+            - /url: "#-1002885310899"
+            - img "أبجديات أونلاين - عـلـم شرعــي - الدفعة العاشرة 🔟- الدفعة الذهبية" [ref=f1e182]
+            - generic [ref=f1e183]:
+              - generic [ref=f1e184]:
+                - button [ref=f1e186]:
+                  - text: أبجديات أونلاين - عـلـم شرعــي - الدفعة العاشرة
+                  - img "🔟" [ref=f1e187]
+                  - text: "- الدفعة الذهبية"
+                - generic [aria-hidden] [ref=f1e188]: 
+                - generic [ref=f1e189]: Sep 17
+              - generic [ref=f1e191]:
+                - paragraph [ref=f1e192]:
+                  - generic [ref=f1e193]:
+                    - text: يمكن أحسن طريقة تتعرف بيها على أي دورة فعلًا… إنك تدخلها بنفسك
+                    - img "🤍" [ref=f1e194]
+                    - text: وعشان عايزينك تخوض التجربة بنفسك فتحنالك أول محاضرة من "مفاتيح تربية الأبناء" عيش تفاصيلها، ركّز في الأفكار اللي بتتقال، وشوف بنفسك ...
+                - generic [ref=f1e195]: "3"
+          - link "BotFather BotFather Sep 17 Done! Congratulations on your new bot. You will find it at t.me/Manger_social_media_bot. You can now add a description, about section and profile picture for your bot, see /help for a list of commands... Open" [ref=f1e199] [cursor=pointer]:
+            - /url: "#93372553"
+            - img "BotFather" [ref=f1e204]
+            - generic [ref=f1e205]:
+              - generic [ref=f1e206]:
+                - button "BotFather" [ref=f1e208]
+                - generic [ref=f1e212]: Sep 17
+              - generic [ref=f1e214]:
+                - paragraph [ref=f1e215]:
+                  - generic [ref=f1e216]: Done! Congratulations on your new bot. You will find it at t.me/Manger_social_media_bot. You can now add a description, about section and profile picture for your bot, see /help for a list of commands...
+                - button "Open" [ref=f1e218]
+          - 'link "Clinic Receptionist Bot Clinic Receptionist Bot Sep 17 رادار الترند اليومي (2026-09-17) 1. الهوك: القالب: العمود: رد بـ (نفذ 1) لتحويل الزاوية لسكريبت" [ref=f1e220] [cursor=pointer]':
+            - /url: "#8816319673"
+            - generic "Clinic Receptionist Bot" [ref=f1e223]: CR
+            - generic [ref=f1e226]:
+              - generic [ref=f1e227]:
+                - button "Clinic Receptionist Bot" [ref=f1e229]
+                - generic [ref=f1e230]: Sep 17
+              - paragraph [ref=f1e233]:
+                - generic [ref=f1e234]: "رادار الترند اليومي (2026-09-17) 1. الهوك: القالب: العمود: رد بـ (نفذ 1) لتحويل الزاوية لسكريبت"
+          - 'link "Get My ID Get My ID Sep 17 Your ID: 7198289938 Current chat ID: 7198289938" [ref=f1e236] [cursor=pointer]':
+            - /url: "#7795495001"
+            - img "Get My ID" [ref=f1e241]
+            - generic [ref=f1e242]:
+              - generic [ref=f1e243]:
+                - button "Get My ID" [ref=f1e245]
+                - generic [ref=f1e246]: Sep 17
+              - paragraph [ref=f1e249]:
+                - generic [ref=f1e250]: "Your ID: 7198289938 Current chat ID: 7198289938"
+          - link "Get My ID Get My ID Sep 17 /start" [ref=f1e252] [cursor=pointer]:
+            - /url: "#7570846838"
+            - img "Get My ID" [ref=f1e257]
+            - generic [ref=f1e258]:
+              - generic [ref=f1e259]:
+                - button "Get My ID" [ref=f1e261]
+                - generic [ref=f1e262]:
+                  - generic [aria-hidden] [ref=f1e266]: 
+                  - generic [ref=f1e267]: Sep 17
+              - paragraph [ref=f1e269]:
+                - generic [ref=f1e270]: /start
+          - link "UserInfoBot UserInfoBot Sep 17 ابعت الرقم" [ref=f1e272] [cursor=pointer]:
+            - /url: "#195764254"
+            - generic "UserInfoBot" [ref=f1e275]: U
+            - generic [ref=f1e278]:
+              - generic [ref=f1e279]:
+                - button "UserInfoBot" [ref=f1e281]
+                - generic [ref=f1e282]:
+                  - generic [aria-hidden] [ref=f1e286]: 
+                  - generic [ref=f1e287]: Sep 17
+              - paragraph [ref=f1e289]:
+                - generic [ref=f1e290]: ابعت الرقم
+          - 'link "clinic_Developer_bot clinic_Developer_bot Sep 15 🚨 عطل بالنظام — main — العقدة Is Agent Reply Usable?: Node ''Regex Guard'' hasn''t been executed" [ref=f1e292] [cursor=pointer]':
+            - /url: "#8834885028"
+            - generic "clinic_Developer_bot" [ref=f1e295]: C
+            - generic [ref=f1e298]:
+              - generic [ref=f1e299]:
+                - button "clinic_Developer_bot" [ref=f1e301]
+                - generic [ref=f1e302]: Sep 15
+              - paragraph [ref=f1e305]:
+                - generic [ref=f1e306]:
+                  - img "🚨" [ref=f1e307]
+                  - text: "عطل بالنظام — main — العقدة Is Agent Reply Usable?: Node 'Regex Guard' hasn't been executed"
+          - link "clinic_docter_bot clinic_docter_bot Sep 14 /start" [ref=f1e309] [cursor=pointer]:
+            - /url: "#8906350459"
+            - generic "clinic_docter_bot" [ref=f1e312]: C
+            - generic [ref=f1e315]:
+              - generic [ref=f1e316]:
+                - button "clinic_docter_bot" [ref=f1e318]
+                - generic [ref=f1e319]:
+                  - generic [aria-hidden] [ref=f1e323]: 
+                  - generic [ref=f1e324]: Sep 14
+              - paragraph [ref=f1e326]:
+                - generic [ref=f1e327]: /start
+          - link "clinic_Assistantt_bot clinic_Assistantt_bot Sep 14 🎤 Voice Message" [ref=f1e329] [cursor=pointer]:
+            - /url: "#8616253767"
+            - generic "clinic_Assistantt_bot" [ref=f1e332]: C
+            - generic [ref=f1e335]:
+              - generic [ref=f1e336]:
+                - button "clinic_Assistantt_bot" [ref=f1e338]
+                - generic [ref=f1e339]: Sep 14
+              - paragraph [ref=f1e342]:
+                - generic [ref=f1e344]:
+                  - img "🎤" [ref=f1e345]
+                  - text: Voice Message
+          - link "company data_bot company data_bot Sep 11 اه" [ref=f1e347] [cursor=pointer]:
+            - /url: "#8971640830"
+            - generic "company data_bot" [ref=f1e350]: CD
+            - generic [ref=f1e353]:
+              - generic [ref=f1e354]:
+                - button "company data_bot" [ref=f1e356]
+                - generic [ref=f1e357]:
+                  - generic [aria-hidden] [ref=f1e361]: 
+                  - generic [ref=f1e362]: Sep 11
+              - paragraph [ref=f1e364]:
+                - generic [ref=f1e365]: اه
+          - link "فولت فولت Sep 5 فولت joined Telegram 1" [ref=f1e367] [cursor=pointer]:
+            - /url: "#8906252983"
+            - generic "فولت" [ref=f1e370]: ف
+            - generic [ref=f1e373]:
+              - generic [ref=f1e374]:
+                - button "فولت" [ref=f1e376]
+                - generic [ref=f1e377]: Sep 5
+              - generic [ref=f1e379]:
+                - paragraph [ref=f1e380]:
+                  - generic [ref=f1e381]: فولت joined Telegram
+                - generic [ref=f1e382]: "1"
+          - link "Job101 Job101 Sep 3 Job101 joined Telegram 1" [ref=f1e386] [cursor=pointer]:
+            - /url: "#8669772896"
+            - generic "Job101" [ref=f1e389]: J
+            - generic [ref=f1e392]:
+              - generic [ref=f1e393]:
+                - button "Job101" [ref=f1e395]
+                - generic [ref=f1e396]: Sep 3
+              - generic [ref=f1e398]:
+                - paragraph [ref=f1e399]:
+                  - generic [ref=f1e400]: Job101 joined Telegram
+                - generic [ref=f1e401]: "1"
+          - link "عبدالرحمن محمد مح مد عبدالرحمن محمد مح مد Aug 19 عبدالرحمن محمد مح مد joined Telegram" [ref=f1e405] [cursor=pointer]:
+            - /url: "#8661119295"
+            - generic "عبدالرحمن محمد مح مد" [ref=f1e408]: عم
+            - generic [ref=f1e411]:
+              - generic [ref=f1e412]:
+                - button "عبدالرحمن محمد مح مد" [ref=f1e414]
+                - generic [ref=f1e415]: Aug 19
+              - paragraph [ref=f1e418]:
+                - generic [ref=f1e419]: عبدالرحمن محمد مح مد joined Telegram
+          - link "Deleted Account Deleted Account Jul 27 Deleted Account joined Telegram 1" [ref=f1e421] [cursor=pointer]:
+            - /url: "#8549565338"
+            - img "Deleted Account" [ref=f1e426]: 
+            - generic [ref=f1e427]:
+              - generic [ref=f1e428]:
+                - button "Deleted Account" [ref=f1e431]
+                - generic [ref=f1e432]: Jul 27
+              - generic [ref=f1e434]:
+                - paragraph [ref=f1e435]:
+                  - generic [ref=f1e436]: Deleted Account joined Telegram
+                - generic [ref=f1e437]: "1"
+          - link "اليسون (الجون) اليسون (الجون) Jul 25 اليسون (الجون) joined Telegram 1" [ref=f1e441] [cursor=pointer]:
+            - /url: "#8990982136"
+            - generic "اليسون (الجون)" [ref=f1e444]: اا
+            - generic [ref=f1e447]:
+              - generic [ref=f1e448]:
+                - button "اليسون (الجون)" [ref=f1e450]
+                - generic [ref=f1e451]: Jul 25
+              - generic [ref=f1e453]:
+                - paragraph [ref=f1e454]:
+                  - generic [ref=f1e455]: اليسون (الجون) joined Telegram
+                - generic [ref=f1e456]: "1"
+          - 'link "Ezz Saved Messages Jun 29 Create calender. event : start 2026-8-31 10:30 End 8-31. 11 Summury quick check in with Ali" [ref=f1e460] [cursor=pointer]':
+            - /url: "#7198289938"
+            - img "Ezz" [ref=f1e465]: 
+            - generic [ref=f1e466]:
+              - generic [ref=f1e467]:
+                - button "Saved Messages" [ref=f1e469]
+                - generic [ref=f1e470]:
+                  - generic [aria-hidden] [ref=f1e474]: 
+                  - generic [ref=f1e475]: Jun 29
+              - paragraph [ref=f1e477]:
+                - generic [aria-hidden] [ref=f1e478]: 
+                - generic [ref=f1e479]: "Create calender. event : start 2026-8-31 10:30 End 8-31. 11 Summury quick check in with Ali"
+          - link "بيع مكن بيع مكن Jun 24 بيع مكن joined Telegram" [ref=f1e481] [cursor=pointer]:
+            - /url: "#8624716307"
+            - generic "بيع مكن" [ref=f1e484]: بم
+            - generic [ref=f1e487]:
+              - generic [ref=f1e488]:
+                - button "بيع مكن" [ref=f1e490]
+                - generic [ref=f1e491]: Jun 24
+              - paragraph [ref=f1e494]:
+                - generic [ref=f1e495]: بيع مكن joined Telegram
+          - link "عمر (ميراندا) (ميراندا) عمر (ميراندا) (ميراندا) Jun 5 عمر (ميراندا) (ميراندا) joined Telegram 1" [ref=f1e497] [cursor=pointer]:
+            - /url: "#8985970096"
+            - generic "عمر (ميراندا) (ميراندا)" [ref=f1e500]: عم
+            - generic [ref=f1e503]:
+              - generic [ref=f1e504]:
+                - button "عمر (ميراندا) (ميراندا)" [ref=f1e506]
+                - generic [ref=f1e507]: Jun 5
+              - generic [ref=f1e509]:
+                - paragraph [ref=f1e510]:
+                  - generic [ref=f1e511]: عمر (ميراندا) (ميراندا) joined Telegram
+                - generic [ref=f1e512]: "1"
+          - link "tareklabtolabعيادة التيسير tareklabtolabعيادة التيسير May 2 tareklabtolabعيادة التيسير joined Telegram" [ref=f1e516] [cursor=pointer]:
+            - /url: "#8786605525"
+            - generic "tareklabtolabعيادة التيسير" [ref=f1e519]: Tا
+            - generic [ref=f1e522]:
+              - generic [ref=f1e523]:
+                - button "tareklabtolabعيادة التيسير" [ref=f1e525]
+                - generic [ref=f1e526]: May 2
+              - paragraph [ref=f1e529]:
+                - generic [ref=f1e530]: tareklabtolabعيادة التيسير joined Telegram
+          - link "سامح حسين 2 سامح حسين 2 Apr 27 سامح حسين 2 joined Telegram 1" [ref=f1e532] [cursor=pointer]:
+            - /url: "#8524556285"
+            - generic "سامح حسين 2" [ref=f1e535]: سح
+            - generic [ref=f1e538]:
+              - generic [ref=f1e539]:
+                - button "سامح حسين 2" [ref=f1e541]
+                - generic [ref=f1e542]: Apr 27
+              - generic [ref=f1e544]:
+                - paragraph [ref=f1e545]:
+                  - generic [ref=f1e546]: سامح حسين 2 joined Telegram
+                - generic [ref=f1e547]: "1"
+      - generic [ref=f1e550]:
+        - button "New Message" [ref=f1e551] [cursor=pointer]:
+          - generic [aria-hidden] [ref=f1e552]: 
+          - generic [aria-hidden] [ref=f1e553]: 
+        - generic:   
+    - generic [ref=f1e555]:
+      - generic [ref=f1e556]:
+        - generic [ref=f1e558]:
+          - generic [ref=f1e559]:
+            - button "Back" [ref=f1e560] [cursor=pointer]
+            - generic: "23"
+          - generic [ref=f1e563] [cursor=pointer]:
+            - img "BotFather" [ref=f1e566]
+            - generic [ref=f1e567]:
+              - button "BotFather" [ref=f1e569]
+              - generic [ref=f1e573]: 7 958 519 monthly users
+        - generic [ref=f1e575]:
+          - button "Search this chat" [ref=f1e576] [cursor=pointer]:
+            - generic [aria-hidden] [ref=f1e577]: 
+          - button "More actions" [ref=f1e578] [cursor=pointer]:
+            - generic [aria-hidden] [ref=f1e579]: 
+      - generic [ref=f1e581]:
+        - generic [ref=f1e584]:
+          - generic [ref=f1e587]:
+            - paragraph [ref=f1e588]: What can this bot do?
+            - text: "BotFather is the one bot to rule them all. Use it to create new bot accounts and manage your existing bots.About Telegram bots:"
+            - link "https://core.telegram.org/bots" [ref=f1e589] [cursor=pointer]:
+              - /url: https://core.telegram.org/bots
+            - text: "Bot API manual:"
+            - link "https://core.telegram.org/bots/api" [ref=f1e590] [cursor=pointer]:
+              - /url: https://core.telegram.org/bots/api
+            - text: Contact @BotSupport if you have questions about the Bot API.
+          - generic [ref=f1e591]:
+            - generic: September 14
+            - generic [ref=f1e595]:
+              - generic [ref=f1e597]:
+                - text: /newbot
+                - generic [ref=f1e598] [cursor=pointer]:
+                  - generic [ref=f1e599]: 02:01 AM
+                  - generic [aria-hidden] [ref=f1e603]: 
+              - img "Red Heart" [ref=f1e610] [cursor=pointer]
+            - generic [ref=f1e613]:
+              - generic [ref=f1e615]:
+                - text: Alright, a new bot. How are we going to call it? Please choose a name for your bot.
+                - generic [ref=f1e616] [cursor=pointer]: 02:01 AM
+              - img "Red Heart" [ref=f1e624] [cursor=pointer]
+            - generic [ref=f1e627]:
+              - generic [ref=f1e629]:
+                - text: clinic_Developer_bot
+                - generic [ref=f1e630] [cursor=pointer]:
+                  - generic [ref=f1e631]: 02:02 AM
+                  - generic [aria-hidden] [ref=f1e635]: 
+              - img "Red Heart" [ref=f1e642] [cursor=pointer]
+            - generic [ref=f1e645]:
+              - generic [ref=f1e647]:
+                - text: "Good. Now let's choose a username for your bot. It must end in `bot`. Like this, for example: TetrisBot or tetris_bot."
+                - generic [ref=f1e648] [cursor=pointer]: 02:02 AM
+              - img "Red Heart" [ref=f1e656] [cursor=pointer]
+            - generic [ref=f1e659]:
+              - generic [ref=f1e661]:
+                - text: clinic_Developer_bot
+                - generic [ref=f1e662] [cursor=pointer]:
+                  - generic [ref=f1e663]: 02:02 AM
+                  - generic [aria-hidden] [ref=f1e667]: 
+              - img "Red Heart" [ref=f1e674] [cursor=pointer]
+            - generic [ref=f1e677]:
+              - generic [ref=f1e679]:
+                - text: Done! Congratulations on your new bot. You will find it at
+                - link "t.me/clinic_Developer_bot" [ref=f1e680] [cursor=pointer]:
+                  - /url: https://t.me/clinic_Developer_bot
+                - text: ". You can now add a description, about section and profile picture for your bot, see /help for a list of commands. By the way, when you've finished creating your cool bot, ping our Bot Support if you want a better username for it. Just make sure the bot is fully operational before you do this.Use this token to access the HTTP API:"
+                - textbox [ref=f1e681] [cursor=pointer]
+                - text: Keep your token
+                - strong [ref=f1e682]: secure
+                - text: and
+                - strong [ref=f1e683]: store it safely
+                - text: ", it can be used by anyone to control your bot.For a description of the Bot API, see this page:"
+                - link "https://core.telegram.org/bots/api" [ref=f1e684] [cursor=pointer]:
+                  - /url: https://core.telegram.org/bots/api
+                - generic [ref=f1e685] [cursor=pointer]: 02:02 AM
+              - img "Red Heart" [ref=f1e693] [cursor=pointer]
+            - generic [ref=f1e696]:
+              - generic [ref=f1e698]:
+                - text: /newbot
+                - generic [ref=f1e699] [cursor=pointer]:
+                  - generic [ref=f1e700]: 02:05 AM
+                  - generic [aria-hidden] [ref=f1e704]: 
+              - img "Red Heart" [ref=f1e711] [cursor=pointer]
+            - generic [ref=f1e714]:
+              - generic [ref=f1e716]:
+                - text: Alright, a new bot. How are we going to call it? Please choose a name for your bot.
+                - generic [ref=f1e717] [cursor=pointer]: 02:05 AM
+              - img "Red Heart" [ref=f1e725] [cursor=pointer]
+            - generic [ref=f1e728]:
+              - generic [ref=f1e730]:
+                - text: clinic_docter_bot
+                - generic [ref=f1e731] [cursor=pointer]:
+                  - generic [ref=f1e732]: 02:06 AM
+                  - generic [aria-hidden] [ref=f1e736]: 
+              - img "Red Heart" [ref=f1e743] [cursor=pointer]
+            - generic [ref=f1e746]:
+              - generic [ref=f1e748]:
+                - text: "Good. Now let's choose a username for your bot. It must end in `bot`. Like this, for example: TetrisBot or tetris_bot."
+                - generic [ref=f1e749] [cursor=pointer]: 02:06 AM
+              - img "Red Heart" [ref=f1e757] [cursor=pointer]
+            - generic [ref=f1e760]:
+              - generic [ref=f1e762]:
+                - text: clinic_docter_bot
+                - generic [ref=f1e763] [cursor=pointer]:
+                  - generic [ref=f1e764]: 02:06 AM
+                  - generic [aria-hidden] [ref=f1e768]: 
+              - img "Red Heart" [ref=f1e775] [cursor=pointer]
+            - generic [ref=f1e778]:
+              - generic [ref=f1e780]:
+                - text: Done! Congratulations on your new bot. You will find it at
+                - link "t.me/clinic_docter_bot" [ref=f1e781] [cursor=pointer]:
+                  - /url: https://t.me/clinic_docter_bot
+                - text: ". You can now add a description, about section and profile picture for your bot, see /help for a list of commands. By the way, when you've finished creating your cool bot, ping our Bot Support if you want a better username for it. Just make sure the bot is fully operational before you do this.Use this token to access the HTTP API:"
+                - textbox [ref=f1e782] [cursor=pointer]
+                - text: Keep your token
+                - strong [ref=f1e783]: secure
+                - text: and
+                - strong [ref=f1e784]: store it safely
+                - text: ", it can be used by anyone to control your bot.For a description of the Bot API, see this page:"
+                - link "https://core.telegram.org/bots/api" [ref=f1e785] [cursor=pointer]:
+                  - /url: https://core.telegram.org/bots/api
+                - generic [ref=f1e786] [cursor=pointer]: 02:06 AM
+              - img "Red Heart" [ref=f1e794] [cursor=pointer]
+            - generic [ref=f1e797]:
+              - generic [ref=f1e799]:
+                - text: /newbot
+                - generic [ref=f1e800] [cursor=pointer]:
+                  - generic [ref=f1e801]: 12:49 PM
+                  - generic [aria-hidden] [ref=f1e805]: 
+              - img "Red Heart" [ref=f1e812] [cursor=pointer]
+            - generic [ref=f1e815]:
+              - generic [ref=f1e817]:
+                - text: Alright, a new bot. How are we going to call it? Please choose a name for your bot.
+                - generic [ref=f1e818] [cursor=pointer]: 12:49 PM
+              - img "Red Heart" [ref=f1e826] [cursor=pointer]
+          - generic [ref=f1e827]:
+            - generic: September 17
+            - generic [ref=f1e831]:
+              - generic [ref=f1e833]:
+                - text: Manger social media
+                - generic [ref=f1e834] [cursor=pointer]:
+                  - generic [ref=f1e835]: 05:49 PM
+                  - generic [aria-hidden] [ref=f1e839]: 
+              - img "Red Heart" [ref=f1e846] [cursor=pointer]
+            - generic [ref=f1e849]:
+              - generic [ref=f1e851]:
+                - text: "Good. Now let's choose a username for your bot. It must end in `bot`. Like this, for example: TetrisBot or tetris_bot."
+                - generic [ref=f1e852] [cursor=pointer]: 05:49 PM
+              - img "Red Heart" [ref=f1e860] [cursor=pointer]
+            - generic [ref=f1e863]:
+              - generic [ref=f1e865]:
+                - text: Manger social media_bot
+                - generic [ref=f1e866] [cursor=pointer]:
+                  - generic [ref=f1e867]: 05:50 PM
+                  - generic [aria-hidden] [ref=f1e871]: 
+              - img "Red Heart" [ref=f1e878] [cursor=pointer]
+            - generic [ref=f1e881]:
+              - generic [ref=f1e883]:
+                - text: Sorry, this username is invalid.
+                - generic [ref=f1e884] [cursor=pointer]: 05:50 PM
+              - img "Red Heart" [ref=f1e892] [cursor=pointer]
+            - generic [ref=f1e895]:
+              - generic [ref=f1e897]:
+                - text: Manger_social_media_bot
+                - generic [ref=f1e898] [cursor=pointer]:
+                  - generic [ref=f1e899]: 05:50 PM
+                  - generic [aria-hidden] [ref=f1e903]: 
+              - img "Red Heart" [ref=f1e910] [cursor=pointer]
+            - generic [ref=f1e913]:
+              - generic [ref=f1e915]:
+                - text: Done! Congratulations on your new bot. You will find it at
+                - link "t.me/Manger_social_media_bot" [ref=f1e916] [cursor=pointer]:
+                  - /url: https://t.me/Manger_social_media_bot
+                - text: ". You can now add a description, about section and profile picture for your bot, see /help for a list of commands. By the way, when you've finished creating your cool bot, ping our Bot Support if you want a better username for it. Just make sure the bot is fully operational before you do this.Use this token to access the HTTP API:"
+                - textbox [ref=f1e917] [cursor=pointer]
+                - text: Keep your token
+                - strong [ref=f1e918]: secure
+                - text: and
+                - strong [ref=f1e919]: store it safely
+                - text: ", it can be used by anyone to control your bot.For a description of the Bot API, see this page:"
+                - link "https://core.telegram.org/bots/api" [ref=f1e920] [cursor=pointer]:
+                  - /url: https://core.telegram.org/bots/api
+                - generic [ref=f1e921] [cursor=pointer]: 05:50 PM
+              - img "Red Heart" [ref=f1e929] [cursor=pointer]
+        - generic [ref=f1e930]:
+          - generic:
+            - generic:
+              - button "AccDescrPollVoteDown":
+                - generic [aria-hidden]: 
+              - generic: 
+            - generic:
+              - button "Go to next unread reactions":
+                - generic [aria-hidden]: 
+              - generic: 
+            - generic:
+              - button "Go to next mention":
+                - generic [aria-hidden]: 
+              - generic: 
+            - generic:
+              - button "Go to bottom":
+                - generic [aria-hidden]: 
+          - generic [ref=f1e931]:
+            - generic [ref=f1e933]:
+              - button "Open bot command keyboard" [ref=f1e934] [cursor=pointer]:
+                - generic [aria-hidden] [ref=f1e935]: 
+                - generic [ref=f1e936]: Open
+              - generic [ref=f1e937]:
+                - button "Add an attachment" [ref=f1e938] [cursor=pointer]:
+                  - generic [aria-hidden] [ref=f1e939]: 
+                - menu "Add an attachment":      
+              - generic [aria-hidden]:
+                - button [disabled]:
+                  - generic [aria-hidden]: 
+                - button [disabled]:
+                  - generic [aria-hidden]: 
+              - button "Open full editor":
+                - generic [aria-hidden]: 
+              - generic [ref=f1e940]:
+                - generic [ref=f1e943]:
+                  - textbox "Message" [active] [ref=f1e944]:
+                    - paragraph [ref=f1e945]
+                  - generic: Message
+                - generic [aria-hidden]:
+                  - generic:
+                    - generic:
+                      - paragraph
+                - generic:
+                  - generic:
+                    - button [disabled]:
+                      - generic [aria-hidden]: 
+                  - generic:
+                    - button [disabled]:
+                      - generic [aria-hidden]: 
+                  - button [disabled]:
+                    - generic [aria-hidden]: 
+                  - button [disabled]:
+                    - generic [aria-hidden]: 
+                  - button [disabled]:
+                    - generic [aria-hidden]: 
+                  - button [disabled]:
+                    - generic [aria-hidden]: 
+              - button "Choose emoji, sticker or GIF" [ref=f1e946] [cursor=pointer]:
+                - generic [aria-hidden] [ref=f1e947]: 
+            - button "Record voice message" [ref=f1e948] [cursor=pointer]:
+              - generic [aria-hidden] [ref=f1e949]: 
+              - generic [aria-hidden] [ref=f1e950]: 
+              - text: 
+              - generic [aria-hidden] [ref=f1e951]: 
+              - generic [aria-hidden] [ref=f1e952]: 
+            - generic:  
+          - generic:
+            - generic:
+              - generic "0 messages selected"

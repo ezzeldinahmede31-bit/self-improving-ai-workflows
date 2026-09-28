@@ -1,0 +1,43 @@
+- generic [ref=f36e1]:
+  - button "Skip to main content" [ref=f36e251] [cursor=pointer]
+  - banner [ref=f36e8]:
+    - generic [ref=f36e9]:
+      - link "Google Account settings" [ref=f36e252] [cursor=pointer]:
+        - /url: /?tab=kk&authuser=1
+        - generic [ref=f36e15]: Account
+      - generic [ref=f36e22]:
+        - button "Help" [ref=f36e253] [cursor=pointer]
+        - tooltip [aria-hidden] [ref=f36e29]: Help
+      - generic [ref=f36e31]:
+        - button "Google apps" [ref=f36e254] [cursor=pointer]
+        - 'button "Google Account: Ezzeldin Ahmed (ezzeldinahmede31@gmail.com)" [ref=f36e255] [cursor=pointer]'
+  - generic [ref=f36e174]:
+    - navigation [ref=f36e176]:
+      - generic [ref=f36e178]:
+        - button "Back to previous page" [ref=f36e256] [cursor=pointer]
+        - tooltip [aria-hidden] [ref=f36e184]: Back to previous page
+      - heading "Authenticator app" [level=1] [ref=f36e257]
+    - main [ref=f36e190]:
+      - generic [ref=f36e196]:
+        - paragraph [ref=f36e197]: Instead of waiting for text messages, get verification codes from an authenticator app. It works even if your phone is offline.
+        - paragraph [ref=f36e198]:
+          - text: First, download Google Authenticator from the
+          - link "Google Play Store" [ref=f36e258] [cursor=pointer]:
+            - /url: https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&authuser=1
+          - text: or the
+          - link "iOS App Store" [ref=f36e259] [cursor=pointer]:
+            - /url: https://apps.apple.com/us/app/google-authenticator/id388497605
+          - text: .
+        - button "Set up authenticator" [active] [ref=f36e260] [cursor=pointer]
+  - contentinfo [ref=f36e161]:
+    - link "View Google's Privacy Policy" [ref=f36e261] [cursor=pointer]:
+      - /url: https://policies.google.com/privacy?authuser=1
+      - text: Privacy
+    - link "View Google's Terms of Service" [ref=f36e262] [cursor=pointer]:
+      - /url: https://policies.google.com/terms?authuser=1
+      - text: Terms
+    - link "Help" [ref=f36e263] [cursor=pointer]:
+      - /url: https://support.google.com/accounts
+    - link "Learn more about Google Account" [ref=f36e264] [cursor=pointer]:
+      - /url: https://www.google.com/account/about
+      - text: About

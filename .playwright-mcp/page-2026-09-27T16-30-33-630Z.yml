@@ -1,0 +1,59 @@
+- generic [active] [ref=f2e1]:
+  - generic [ref=f2e3]:
+    - alertdialog "Free trial dialog" [ref=f2e5]:
+      - generic [ref=f2e6]:
+        - generic [ref=f2e13]:
+          - text: Start your Free Trial with $300 in credit. Don’t worry—you won’t be charged if you run out of credits.
+          - link "Learn more about the free trial program. external, opens new window" [ref=f2e14] [cursor=pointer]:
+            - /url: https://cloud.google.com/free/
+            - text: Learn more
+            - img "external, opens new window" [ref=f2e15]
+        - generic [ref=f2e18]:
+          - button "Dismiss full account activation banner" [ref=f2e19]:
+            - generic [ref=f2e20]: Dismiss
+          - button "Start free" [ref=f2e21]
+    - generic [ref=f2e23]:
+      - complementary "Skip links" [ref=f2e24]:
+        - link "Skip to main content" [ref=f2e25] [cursor=pointer]:
+          - /url: /welcome?pli=1&project=n8nezz-505804
+        - button "Keyboard shortcuts" [ref=f2e27]
+        - link [ref=f2e29] [cursor=pointer]:
+          - /url: https://cloud.google.com/docs/accessibility?hl=en_US
+          - generic [ref=f2e30]:
+            - text: Accessibility Help
+            - generic "external, opens new window" [ref=f2e31]:
+              - img "external, opens new window" [ref=f2e32]
+        - link [ref=f2e35] [cursor=pointer]:
+          - /url: https://support.google.com/accessibility/contact/feedback?hl=en_US
+          - generic [ref=f2e36]:
+            - text: Accessibility Feedback
+            - generic "external, opens new window" [ref=f2e37]:
+              - img "external, opens new window" [ref=f2e38]
+      - banner [ref=f2e42]:
+        - generic [ref=f2e43]:
+          - navigation [ref=f2e46]:
+            - button "Navigation menu (.)" [ref=f2e47] [cursor=pointer]
+          - link "Google Cloud Platform Home" [ref=f2e51] [cursor=pointer]:
+            - /url: /?project=n8nezz-505804
+          - button "No project selected. Hit enter to select a project, folder, or organization." [ref=f2e59]:
+            - generic [ref=f2e60]: Select a project
+        - button "Open search" [ref=f2e69] [cursor=pointer]
+        - generic [ref=f2e74]:
+          - button "Activate Cloud Shell" [disabled] [ref=f2e77]
+          - button "Open notifications" [ref=f2e83]
+          - button "Settings and utilities" [ref=f2e89]
+    - main [ref=f2e116]:
+      - generic [ref=f2e135]:
+        - heading "Google Cloud access blocked" [level=2] [ref=f2e137]
+        - paragraph [ref=f2e138]: Effective September 1, 2026, Google Cloud has begun to enforce 2-step verification (2SV), also called multi-factor authentication (MFA). Go to your security settings to turn on 2-step verification.
+        - generic [ref=f2e139]:
+          - button "Turn on 2-step verification" [ref=f2e140]:
+            - generic [ref=f2e141]: Enable MFA
+          - link "Learn more about multi-factor authentication external, opens new window" [ref=f2e142] [cursor=pointer]:
+            - /url: https://cloud.google.com/docs/authentication/external/mfa-requirement
+            - generic [ref=f2e143]:
+              - text: Learn more
+              - img "external, opens new window" [ref=f2e144]:
+                - img "external, opens new window" [ref=f2e145]
+        - paragraph [ref=f2e148]: "Note: It may take a few minutes after enabling 2SV for changes to become active. Refresh this page to check your status, or try again later if you are still blocked."
+  - iframe [aria-hidden] [ref=f2e150]

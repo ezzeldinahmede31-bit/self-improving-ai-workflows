@@ -1,0 +1,202 @@
+[  104377ms] [INFO] This page uses Chrome's Built-In AI features (LanguageDetector)! We're always improving our models; please submit your feedback here: https://issues.chromium.org/issues/new?component=1583316 @ https://web.telegram.org/a/assets/useConnectionStatus-mf5TNn05.js:3
+[  106140ms] [LOG] %c[2026-09-27T16:16:17.646Z] [ERROR] - [WebSocket connection failed attempt: 1] color : #ff0000 @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  106140ms] [ERROR] Error: WebSocket connection timeout
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:29291 @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  106141ms] [ERROR] WebSocket error Event @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  106142ms] [ERROR] Socket zws1.web.telegram.org closed. Code: 1006, reason: , was clean: false @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  107149ms] [LOG] %c[2026-09-27T16:16:18.656Z] [WARN] - [Using fallback connection] color : #ff00ff @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  111198ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  112034ms] [ERROR] Error: Not connected
+    at Yr.send (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:31126)
+    at e._sendLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:67981) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  129402ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  147606ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  159819ms] [LOG] %c[2026-09-27T16:17:11.327Z] [WARN] - [Connection closed while receiving data] color : #ff00ff @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  159820ms] [ERROR] AbortError: The user aborted a request. @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  159820ms] [ERROR] AbortError: The user aborted a request. @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  165809ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  184013ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  202229ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  220431ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  238634ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  256838ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  275043ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  293247ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  311449ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  329651ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  347853ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  366055ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  384258ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  402460ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  420662ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  438864ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  457067ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  475269ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  493471ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  511673ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  529876ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  548078ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  566280ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  584482ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  602685ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  620889ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  639092ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  646538ms] [WARNING] The provided application server key is not a VAPID key. Only VAPID keys will be supported in the future. For more information check https://crbug.com/41468162. @ https://web.telegram.org/a/#93372553:0
+[  657297ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  675501ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  693703ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  711907ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  730112ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  748314ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  766516ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  784719ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  802923ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  821125ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  839329ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  857533ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  875734ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  893937ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  912142ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  930344ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
+[  948547ms] [WARNING] Error: TIMEOUT
+    at https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155160
+    at async dc (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:155257)
+    at async e._updateLoop (https://web.telegram.org/a/worker-CoOYSQ1x.js:2195:140899) @ https://web.telegram.org/a/worker-CoOYSQ1x.js:2194
