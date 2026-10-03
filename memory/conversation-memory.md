@@ -2136,3 +2136,11 @@ Opened existing "Make" window (eu1.make.com/2862717/agent-profiles/8074 toolbox 
 - External review graded script 8.5/10 but citations 5.5/10 (over-attribution). Fixed at roots in 5 skills (all gates green).
 - New `scripts/claims_review.py`: FAIL on absolutes/push-CTAs/fixed-ratios/fabricated-proof; WARN on unhedged frequency. Proven: old script FAIL (4 findings), new script PASS exit 0.
 - Final 2 fixes applied (ممكن hook, behavior-framed scene 5). OS skill now mandates claims_review PASS before publishing.
+
+## Clinic client-loss video rendered (Oct 3 2026) — Kore calm, kinetic
+- User: complete the 5-scene script from memory + render with the BEFORE-LAST voice (explicitly not the last). Contract confirmed via questions: voice=Kore calm بدون joy, style=kinetic بدون صور, script completed same-style + CTA, send to Telegram as usual.
+- Voice = Gemini Kore with ORIGINAL calm direction (natural phone-chat, no overacting — from git history), NOT the current joy/human GEMINI_DIRECTION. Audio reused across re-renders (no extra TTS cost).
+- Script: /tmp/clinic_scenes_final.json — claims_review.py VERDICT: PASS (hedged كل شهر with ممكن; scene 4 kept verbatim per user; scene 5 CTA closed with ديمو-واتساب wording).
+- Render: output/faceless_20261003-131551.mp4 (77.7s, 720x1280, h264+aac, 2.7MB). Voice MP3s cached in /tmp/fv_20261003-130011/ (reused, no re-TTS).
+- 3 REAL kinetic-path bugs found+worked around (all in scripts/faceless_video_builder.py, NOT yet patched in repo): (1) scene_clip_kinetic chains `,movie=` with comma — invalid, must be `;movie=` separate chain (ffmpeg 255); (2) force_style with FontName containing spaces is silently ignored → huge default captions — fixed by generating per-scene .ass (PlayRes 720x1280, Noto Sans Arabic 44, bottom, manual \N wraps); (3) this libass build (FriBidi SIMPLE) renders ل+ا ligature (لا/لأ/لإ/لآ) as tofu in EVERY system Arabic font — fixed by inserting U+200C ZWNJ between ل and following alef-form in caption text only (titles unaffected, audio untouched). Font switched Kufi→Noto Sans Arabic Bold 56 + wider line step (Kufi lacked glyphs + Naskh line overlap).
+- Frames eyeballed at 5/25/40/60/72s: title clean, captions small-bottom, zero tofu. PENDING: owner Telegram chat id unknown (getUpdates empty, no id in .env/history) — video delivered as file, send needs the chat.
