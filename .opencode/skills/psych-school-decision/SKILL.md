@@ -25,6 +25,8 @@ CHOICE — how the owner picks.
 ## Clinic rules
 
 1. Anchor price against the empty chair (monthly loss), never against competitors.
+   Call it reference-point/value framing (strength: moderate) — NOT lab-grade
+   "anchoring" unless citing an actual anchoring experiment.
 2. Offer a pair only: pilot versus monthly. A third plan is banned.
 3. Free demo = zero-price entry; paid pilot = commitment.
 4. After signup, send proof-of-wisdom (stats + peer story) to kill dissonance.

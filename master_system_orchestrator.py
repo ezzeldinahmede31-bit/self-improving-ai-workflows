@@ -469,6 +469,27 @@ class SystemOrchestrator:
         if not self.elide_output:
             print(*parts)
 
+    def _audit_or_degraded(self, *, kind: str, actor: str, subject: str,
+                           detail: str = "") -> dict:
+        """Audit-event write with explicit degradation (never silent).
+
+        Policy: safety verdicts are fail-closed elsewhere; HERE the job is
+        preserving the denial/HITL routing itself. If the audit store is
+        down, the denial still reaches HITL (fail-closed safety preserved)
+        carrying audit_failed=True + a stderr line, so an audit outage can
+        never blind human review silently.
+        """
+        try:
+            return platform_wiring.audit_event(
+                self.evidence, kind=kind, actor=actor, subject=subject,
+                detail=detail)
+        except Exception as exc:
+            print(f"[AUDIT-FAILURE] {kind} event unwritten "
+                  f"({exc.__class__.__name__}): routing continues degraded",
+                  file=sys.stderr)
+            return {"id": None, "event_hash": "AUDIT_FAILED",
+                    "audit_failed": True}
+
     def set_deployment_probes(self, probes: dict, promote_fn=None,
                               feature_flags=None) -> None:
         """Attach deployment probes (stage -> callable returning ok, metrics)
@@ -549,8 +570,11 @@ class SystemOrchestrator:
                         cid, reproducer=str(v)[:200],
                         expect="must stay blocked",
                         incident=f"orchestrator:{fp}")
-        except Exception:
-            pass
+        except Exception as exc:
+            # Regression evidence, not a verdict: the rejection already
+            # happened. Loud + degraded, never silent.
+            print(f"[GOLDEN-FAILURE] regression case unwritten "
+                  f"({exc.__class__.__name__})", file=sys.stderr)
 
     def execute_workflow_task(
         self,
@@ -740,8 +764,8 @@ class SystemOrchestrator:
                 {k: v for k, v in verdict.items() if k != "token"},
                 ensure_ascii=False))
             if not verdict["allowed"] and not verdict["needs_approval"]:
-                platform_wiring.audit_event(
-                    self.evidence, kind="policy_denial",
+                audit_ref = self._audit_or_degraded(
+                    kind="policy_denial",
                     actor="orchestrator",
                     subject=platform_wiring.task_fingerprint(task_prompt),
                     detail=f"rule={verdict['rule']} {verdict['reason']}")
@@ -751,7 +775,8 @@ class SystemOrchestrator:
                     raw_input=task_prompt,
                     risk_score=60,
                     violations=[f"policy denial: {verdict['rule']}"],
-                    payload={"policy": verdict},
+                    payload={"policy": verdict,
+                             "audit": audit_ref},
                 )
                 self.metrics.inc("pending_hitl")
                 return self._seal_result(

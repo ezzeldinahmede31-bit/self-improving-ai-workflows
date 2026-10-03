@@ -70,26 +70,43 @@ class FileBackend(SecretBackend):
 
 
 class VaultBackend(SecretBackend):
-    """HashiCorp Vault KV v2 via HTTP. Uses the X-Vault-Token from env/.secrets."""
+    """HashiCorp Vault KV v2 via HTTP. Uses the X-Vault-Token from env/.secrets.
+
+    Transport is connection-pinned (fetch_pinned): the Vault address is
+    validated AND the socket opens the authorized IP literally, so DNS
+    between check and connect cannot reroute a request carrying the Vault
+    token. Pass egress_policy explicitly in production; the default gates
+    a fixed private/Vault-shaped destination (never open egress).
+    """
 
     name = "vault"
 
     def __init__(self, addr: Optional[str] = None, token: Optional[str] = None,
-                 mount: str = "secret"):
+                 mount: str = "secret", egress_policy=None):
         self.addr = (addr or os.environ.get("VAULT_ADDR", "")).rstrip("/")
         self.token = token or os.environ.get("VAULT_TOKEN", "") or ""
         self.mount = mount
+        self.egress_policy = egress_policy
 
     def get(self, name: str) -> Optional[str]:
         if not self.addr:
             return None
+        from egress_firewall import (fetch_pinned, EgressPolicy,
+                                     PinnedFetchBlocked)
         url = f"{self.addr}/v1/{self.mount}/data/{name}"
-        req = urllib.request.Request(url, headers={"X-Vault-Token": self.token})
+        policy = self.egress_policy or EgressPolicy()
         try:
-            with urllib.request.urlopen(req, timeout=3) as r:
-                data = json.loads(r.read().decode())
-                return data.get("data", {}).get("data", {}).get(name)
-        except (urllib.error.URLError, OSError, TimeoutError, KeyError, ValueError):
+            out = fetch_pinned(
+                url, policy, method="GET",
+                headers={"X-Vault-Token": self.token}, timeout_s=3)
+        except PinnedFetchBlocked:
+            return None
+        if out.get("status") != 200:
+            return None
+        try:
+            data = json.loads(out["body"].decode())
+            return data.get("data", {}).get("data", {}).get(name)
+        except (ValueError, UnicodeDecodeError, AttributeError):
             return None
 
 

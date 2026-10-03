@@ -33,7 +33,7 @@ clinic-owner groups skew to the upper half of that band).
 | Axis | Profile | Mechanism / source |
 |---|---|---|
 | Motivation | Protect daily revenue + professional prestige; wants the clinic to look modern without learning tech | Maslow esteem + competence; Clinit Egypt guide 2026: owners demand Arabic UI, EGP billing, WhatsApp engagement |
-| Core fear | Empty chair = money burned; missed calls going to the competitor next door | Loss aversion (Kahneman & Tversky prospect theory, 1979/2011): losses weigh ~2x gains — frame as loss avoided |
+| Core fear | Empty chair = money burned; missed calls going to the competitor next door | Loss framing (Kahneman & Tversky prospect theory, 1979/2011): losses loom larger than gains — frame as loss avoided. HONESTY RULE: never state a fixed ratio (no "2x law"); strength = well-supported direction, not a universal constant |
 | Pain (their words) | "العيان بيتصل ومحدش بيرد"، "الحجوزات بتضيع"، "السكرتيرة مشغولة"، "الناس بتحجز ومبتجيش" | Industry benchmarks: 30-38% of calls missed (Dental Economics); no-show 4-30%, avg ~15% (Denzif 2026 citing ADA); staffing shortages hit 90% (ADA) |
 | Decision style | Deliberative on money, impulsive on pain: asks price fast, buys when a peer proves it | System 1 triggers on pain scenes; System 2 needs numbers before paying (Kahneman, Thinking, Fast and Slow, 2011) |
 | Trust evidence | Peer clinics + hard numbers, not vendor promises | Social proof must be in-group (Cialdini, Influence, unity principle): "عيادة زي عيادتك" |

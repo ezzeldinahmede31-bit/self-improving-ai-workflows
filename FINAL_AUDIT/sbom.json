@@ -1,0 +1,2250 @@
+{
+  "python": "3.12.3",
+  "os": "Linux 7.0.0-31-generic x86_64",
+  "openssl": "OpenSSL 3.0.13 30 Jan 2024",
+  "sqlite": "3.45.1",
+  "dists": [
+    {
+      "name": "agent-reach",
+      "version": "0.1.0"
+    },
+    {
+      "name": "aiohappyeyeballs",
+      "version": "2.7.1"
+    },
+    {
+      "name": "aiohttp",
+      "version": "3.14.3"
+    },
+    {
+      "name": "aiosignal",
+      "version": "1.4.0"
+    },
+    {
+      "name": "altair",
+      "version": "6.2.2"
+    },
+    {
+      "name": "annotated-doc",
+      "version": "0.0.5"
+    },
+    {
+      "name": "annotated-types",
+      "version": "0.8.0"
+    },
+    {
+      "name": "antlr4-python3-runtime",
+      "version": "4.13.2"
+    },
+    {
+      "name": "anyio",
+      "version": "4.14.2"
+    },
+    {
+      "name": "arabic-reshaper",
+      "version": "3.0.1"
+    },
+    {
+      "name": "attrs",
+      "version": "26.1.0"
+    },
+    {
+      "name": "av",
+      "version": "18.1.0"
+    },
+    {
+      "name": "azure-core",
+      "version": "1.41.0"
+    },
+    {
+      "name": "azure-identity",
+      "version": "1.25.3"
+    },
+    {
+      "name": "blinker",
+      "version": "1.9.0"
+    },
+    {
+      "name": "certifi",
+      "version": "2026.7.22"
+    },
+    {
+      "name": "cffi",
+      "version": "2.1.1"
+    },
+    {
+      "name": "charset-normalizer",
+      "version": "3.5.0"
+    },
+    {
+      "name": "click",
+      "version": "8.1.8"
+    },
+    {
+      "name": "cryptography",
+      "version": "50.0.0"
+    },
+    {
+      "name": "ctranslate2",
+      "version": "4.8.1"
+    },
+    {
+      "name": "curl_cffi",
+      "version": "0.16.3"
+    },
+    {
+      "name": "defusedxml",
+      "version": "0.7.1"
+    },
+    {
+      "name": "distro",
+      "version": "1.9.0"
+    },
+    {
+      "name": "edge-tts",
+      "version": "7.2.8"
+    },
+    {
+      "name": "et_xmlfile",
+      "version": "2.0.0"
+    },
+    {
+      "name": "faster-whisper",
+      "version": "1.2.1"
+    },
+    {
+      "name": "feedparser",
+      "version": "6.0.14"
+    },
+    {
+      "name": "feedparser-sgmllib",
+      "version": "2.1.0"
+    },
+    {
+      "name": "filelock",
+      "version": "3.32.2"
+    },
+    {
+      "name": "flatbuffers",
+      "version": "25.12.19"
+    },
+    {
+      "name": "frozenlist",
+      "version": "1.8.0"
+    },
+    {
+      "name": "fsspec",
+      "version": "2026.7.0"
+    },
+    {
+      "name": "greenlet",
+      "version": "3.5.5"
+    },
+    {
+      "name": "grpcio",
+      "version": "1.84.0"
+    },
+    {
+      "name": "gTTS",
+      "version": "2.5.4"
+    },
+    {
+      "name": "h11",
+      "version": "0.16.0"
+    },
+    {
+      "name": "h2",
+      "version": "4.4.1"
+    },
+    {
+      "name": "hf-xet",
+      "version": "1.6.0"
+    },
+    {
+      "name": "hpack",
+      "version": "4.2.0"
+    },
+    {
+      "name": "httpcore",
+      "version": "1.0.9"
+    },
+    {
+      "name": "httpcore2",
+      "version": "2.10.0"
+    },
+    {
+      "name": "httptools",
+      "version": "0.8.0"
+    },
+    {
+      "name": "httpx",
+      "version": "0.28.1"
+    },
+    {
+      "name": "httpx2",
+      "version": "2.10.0"
+    },
+    {
+      "name": "huggingface_hub",
+      "version": "1.27.0"
+    },
+    {
+      "name": "hyperframe",
+      "version": "6.1.0"
+    },
+    {
+      "name": "idna",
+      "version": "3.18"
+    },
+    {
+      "name": "imageio-ffmpeg",
+      "version": "0.6.0"
+    },
+    {
+      "name": "iniconfig",
+      "version": "2.3.0"
+    },
+    {
+      "name": "itsdangerous",
+      "version": "2.2.0"
+    },
+    {
+      "name": "jeepney",
+      "version": "0.9.0"
+    },
+    {
+      "name": "Jinja2",
+      "version": "3.1.6"
+    },
+    {
+      "name": "jiter",
+      "version": "0.16.0"
+    },
+    {
+      "name": "jsonschema",
+      "version": "4.26.0"
+    },
+    {
+      "name": "jsonschema-specifications",
+      "version": "2025.9.1"
+    },
+    {
+      "name": "latex2sympy2_extended",
+      "version": "1.11.0"
+    },
+    {
+      "name": "lxml",
+      "version": "6.1.3"
+    },
+    {
+      "name": "markdown-it-py",
+      "version": "4.2.0"
+    },
+    {
+      "name": "MarkupSafe",
+      "version": "3.0.3"
+    },
+    {
+      "name": "math-verify",
+      "version": "0.9.0"
+    },
+    {
+      "name": "mcp",
+      "version": "2.2.0"
+    },
+    {
+      "name": "mcp-types",
+      "version": "2.2.0"
+    },
+    {
+      "name": "mdurl",
+      "version": "0.1.2"
+    },
+    {
+      "name": "minizinc",
+      "version": "0.10.0"
+    },
+    {
+      "name": "MouseInfo",
+      "version": "0.1.3"
+    },
+    {
+      "name": "mpmath",
+      "version": "1.3.0"
+    },
+    {
+      "name": "msal",
+      "version": "1.37.0"
+    },
+    {
+      "name": "msal-extensions",
+      "version": "1.3.1"
+    },
+    {
+      "name": "multidict",
+      "version": "6.9.0"
+    },
+    {
+      "name": "narwhals",
+      "version": "2.24.0"
+    },
+    {
+      "name": "numpy",
+      "version": "2.5.1"
+    },
+    {
+      "name": "onnxruntime",
+      "version": "1.28.0"
+    },
+    {
+      "name": "openai",
+      "version": "3.0.0"
+    },
+    {
+      "name": "openpyxl",
+      "version": "3.1.5"
+    },
+    {
+      "name": "opentelemetry-api",
+      "version": "1.44.0"
+    },
+    {
+      "name": "packaging",
+      "version": "26.3"
+    },
+    {
+      "name": "pandas",
+      "version": "3.0.5"
+    },
+    {
+      "name": "pdf2image",
+      "version": "1.17.0"
+    },
+    {
+      "name": "pillow",
+      "version": "12.3.0"
+    },
+    {
+      "name": "pip",
+      "version": "24.0"
+    },
+    {
+      "name": "playwright",
+      "version": "1.62.0"
+    },
+    {
+      "name": "pluggy",
+      "version": "1.6.0"
+    },
+    {
+      "name": "portalocker",
+      "version": "3.2.0"
+    },
+    {
+      "name": "propcache",
+      "version": "0.5.4"
+    },
+    {
+      "name": "protobuf",
+      "version": "7.35.1"
+    },
+    {
+      "name": "proxyproviders",
+      "version": "0.2.2"
+    },
+    {
+      "name": "pyarrow",
+      "version": "24.0.0"
+    },
+    {
+      "name": "PyAutoGUI",
+      "version": "0.9.54"
+    },
+    {
+      "name": "pycparser",
+      "version": "3.0"
+    },
+    {
+      "name": "pydantic",
+      "version": "2.13.4"
+    },
+    {
+      "name": "pydantic_core",
+      "version": "2.46.4"
+    },
+    {
+      "name": "pydeck",
+      "version": "0.9.3"
+    },
+    {
+      "name": "pyee",
+      "version": "13.0.1"
+    },
+    {
+      "name": "PyGetWindow",
+      "version": "0.0.9"
+    },
+    {
+      "name": "Pygments",
+      "version": "2.20.0"
+    },
+    {
+      "name": "PyJWT",
+      "version": "2.13.0"
+    },
+    {
+      "name": "PyMsgBox",
+      "version": "2.0.1"
+    },
+    {
+      "name": "pypdf",
+      "version": "6.19.0"
+    },
+    {
+      "name": "pyperclip",
+      "version": "1.11.0"
+    },
+    {
+      "name": "PyRect",
+      "version": "0.2.0"
+    },
+    {
+      "name": "PyScreeze",
+      "version": "1.0.1"
+    },
+    {
+      "name": "pytest",
+      "version": "9.1.1"
+    },
+    {
+      "name": "python-bidi",
+      "version": "0.6.11"
+    },
+    {
+      "name": "python-dateutil",
+      "version": "2.9.0.post0"
+    },
+    {
+      "name": "python-docx",
+      "version": "1.2.0"
+    },
+    {
+      "name": "python-dotenv",
+      "version": "1.2.2"
+    },
+    {
+      "name": "python-multipart",
+      "version": "0.0.32"
+    },
+    {
+      "name": "python-pptx",
+      "version": "1.0.2"
+    },
+    {
+      "name": "python-sat",
+      "version": "1.9.dev13"
+    },
+    {
+      "name": "python3-xlib",
+      "version": "0.15"
+    },
+    {
+      "name": "pytweening",
+      "version": "1.2.0"
+    },
+    {
+      "name": "PyYAML",
+      "version": "6.0.3"
+    },
+    {
+      "name": "qdrant-client",
+      "version": "1.19.1"
+    },
+    {
+      "name": "referencing",
+      "version": "0.37.0"
+    },
+    {
+      "name": "requests",
+      "version": "2.34.2"
+    },
+    {
+      "name": "rich",
+      "version": "15.0.0"
+    },
+    {
+      "name": "rpds-py",
+      "version": "2026.6.3"
+    },
+    {
+      "name": "scipy",
+      "version": "1.18.0"
+    },
+    {
+      "name": "SecretStorage",
+      "version": "3.5.0"
+    },
+    {
+      "name": "setuptools",
+      "version": "84.0.0"
+    },
+    {
+      "name": "shellingham",
+      "version": "1.5.4"
+    },
+    {
+      "name": "six",
+      "version": "1.17.0"
+    },
+    {
+      "name": "sniffio",
+      "version": "1.3.1"
+    },
+    {
+      "name": "sse-starlette",
+      "version": "3.4.8"
+    },
+    {
+      "name": "starlette",
+      "version": "1.3.1"
+    },
+    {
+      "name": "streamlit",
+      "version": "1.61.1"
+    },
+    {
+      "name": "sympy",
+      "version": "1.14.0"
+    },
+    {
+      "name": "tabulate",
+      "version": "0.10.0"
+    },
+    {
+      "name": "tenacity",
+      "version": "9.1.4"
+    },
+    {
+      "name": "TikTokApi",
+      "version": "7.3.3"
+    },
+    {
+      "name": "tokenizers",
+      "version": "0.23.1"
+    },
+    {
+      "name": "toml",
+      "version": "0.10.2"
+    },
+    {
+      "name": "tqdm",
+      "version": "4.70.0"
+    },
+    {
+      "name": "truststore",
+      "version": "0.10.4"
+    },
+    {
+      "name": "typer",
+      "version": "0.27.2"
+    },
+    {
+      "name": "typing-inspection",
+      "version": "0.4.4"
+    },
+    {
+      "name": "typing_extensions",
+      "version": "4.16.0"
+    },
+    {
+      "name": "urllib3",
+      "version": "2.7.0"
+    },
+    {
+      "name": "uvicorn",
+      "version": "0.52.1"
+    },
+    {
+      "name": "watchdog",
+      "version": "6.0.0"
+    },
+    {
+      "name": "websockets",
+      "version": "16.1.1"
+    },
+    {
+      "name": "xlsxwriter",
+      "version": "3.2.9"
+    },
+    {
+      "name": "yarl",
+      "version": "1.25.1"
+    },
+    {
+      "name": "yt-dlp",
+      "version": "2026.7.4"
+    },
+    {
+      "name": "z3-solver",
+      "version": "5.0.0.0"
+    }
+  ],
+  "dist_count": 146,
+  "skills": [
+    {
+      "name": "Amazon Seller",
+      "hash": "06e06fa3175aca67",
+      "source": "github"
+    },
+    {
+      "name": "Apple Shortcuts Integration",
+      "hash": "c1f639cf7e0b4c6b",
+      "source": "github"
+    },
+    {
+      "name": "Applicant Screening",
+      "hash": "b37ca4af2d5af79c",
+      "source": "github"
+    },
+    {
+      "name": "Asana Automation",
+      "hash": "6dedfe52decdff7e",
+      "source": "github"
+    },
+    {
+      "name": "Brand Guidelines Generator",
+      "hash": "59434d7ddfe945dd",
+      "source": "github"
+    },
+    {
+      "name": "Browser Automation",
+      "hash": "237d8356ed821101",
+      "source": "github"
+    },
+    {
+      "name": "Changelog Generator",
+      "hash": "6a9f69f98d414c29",
+      "source": "github"
+    },
+    {
+      "name": "Chat with PDF",
+      "hash": "862111e8c54ce06c",
+      "source": "github"
+    },
+    {
+      "name": "ClickUp Automation",
+      "hash": "02a3bd1a43e2122f",
+      "source": "github"
+    },
+    {
+      "name": "Content Research Writer",
+      "hash": "fe51451e295bd561",
+      "source": "github"
+    },
+    {
+      "name": "Database Sync",
+      "hash": "c9ef163f3eaba6f2",
+      "source": "github"
+    },
+    {
+      "name": "DocuSign Automation",
+      "hash": "136e1ec22b637f27",
+      "source": "github"
+    },
+    {
+      "name": "ETL Pipeline",
+      "hash": "4663ddf39772a018",
+      "source": "github"
+    },
+    {
+      "name": "Email Classifier",
+      "hash": "1dbbfd4b26319a62",
+      "source": "github"
+    },
+    {
+      "name": "Expense Tracker",
+      "hash": "a741eb982892d3d4",
+      "source": "github"
+    },
+    {
+      "name": "Facebook/Meta Ads",
+      "hash": "33cff4ee52d9243c",
+      "source": "github"
+    },
+    {
+      "name": "File Organizer",
+      "hash": "c0ee059875e0bb07",
+      "source": "github"
+    },
+    {
+      "name": "Home Assistant Automation",
+      "hash": "ffe5c7be2f56303b",
+      "source": "github"
+    },
+    {
+      "name": "Intercom Automation",
+      "hash": "31ef438ca1d4b669",
+      "source": "github"
+    },
+    {
+      "name": "Invoice Automation",
+      "hash": "37db731930d86021",
+      "source": "github"
+    },
+    {
+      "name": "Invoice Organizer",
+      "hash": "3596f506dc7f3515",
+      "source": "github"
+    },
+    {
+      "name": "Jira Automation",
+      "hash": "9ff9011bebab1510",
+      "source": "github"
+    },
+    {
+      "name": "Job Description Generator",
+      "hash": "2a6026e617f3d579",
+      "source": "github"
+    },
+    {
+      "name": "Lead Qualification",
+      "hash": "4e93ebef86530464",
+      "source": "github"
+    },
+    {
+      "name": "Lead Research Assistant",
+      "hash": "0fa74099704cb3a4",
+      "source": "github"
+    },
+    {
+      "name": "Linear Automation",
+      "hash": "89d8a80e8de458c4",
+      "source": "github"
+    },
+    {
+      "name": "LinkedIn Automation",
+      "hash": "b70976d824d3b70a",
+      "source": "github"
+    },
+    {
+      "name": "Mailchimp Automation",
+      "hash": "77247d17ecb93a25",
+      "source": "github"
+    },
+    {
+      "name": "Microsoft Teams Automation",
+      "hash": "eb1f66dfbc534bd3",
+      "source": "github"
+    },
+    {
+      "name": "Monday.com Automation",
+      "hash": "47426a06eaf16119",
+      "source": "github"
+    },
+    {
+      "name": "Obsidian Automation",
+      "hash": "29ceb93a77c56fa0",
+      "source": "github"
+    },
+    {
+      "name": "Offer Letter Generator",
+      "hash": "9f5de270998cc966",
+      "source": "github"
+    },
+    {
+      "name": "PDF Compress",
+      "hash": "0a06541f1f4dba17",
+      "source": "github"
+    },
+    {
+      "name": "PDF Converter",
+      "hash": "3fd6fc02ca17a883",
+      "source": "github"
+    },
+    {
+      "name": "PDF Form Filler",
+      "hash": "e569fd4f364ca2f9",
+      "source": "github"
+    },
+    {
+      "name": "PDF Merge & Split",
+      "hash": "cf776e12f4a96475",
+      "source": "github"
+    },
+    {
+      "name": "PDF OCR Extraction",
+      "hash": "89d2e796a30b97e5",
+      "source": "github"
+    },
+    {
+      "name": "PDF Watermark",
+      "hash": "844ec473e18a08c5",
+      "source": "github"
+    },
+    {
+      "name": "Pipedrive Automation",
+      "hash": "56f81fe62ede7445",
+      "source": "github"
+    },
+    {
+      "name": "Podcast Automation",
+      "hash": "2aa0283d9e1115b4",
+      "source": "github"
+    },
+    {
+      "name": "QuickBooks Automation",
+      "hash": "668b38dc8c4ae880",
+      "source": "github"
+    },
+    {
+      "name": "Security Monitoring",
+      "hash": "3172de39d1eab706",
+      "source": "github"
+    },
+    {
+      "name": "Spotify Automation",
+      "hash": "adcf3c914f32e2cf",
+      "source": "github"
+    },
+    {
+      "name": "Stripe Payments",
+      "hash": "232fab240d1e5a1a",
+      "source": "github"
+    },
+    {
+      "name": "Suspicious Email Analyzer",
+      "hash": "0018e4421609e2de",
+      "source": "github"
+    },
+    {
+      "name": "Transcription Automation",
+      "hash": "0b5ea8e2d12241a7",
+      "source": "github"
+    },
+    {
+      "name": "Trello Automation",
+      "hash": "1f91b8150b87c4ca",
+      "source": "github"
+    },
+    {
+      "name": "Twilio SMS Automation",
+      "hash": "a17d739f51713dfa",
+      "source": "github"
+    },
+    {
+      "name": "Twitter/X Automation",
+      "hash": "b92db91c49d12ea3",
+      "source": "github"
+    },
+    {
+      "name": "Weather Automation",
+      "hash": "88c32b19fc299941",
+      "source": "github"
+    },
+    {
+      "name": "Webhook Automation",
+      "hash": "1df4d6308b87de01",
+      "source": "github"
+    },
+    {
+      "name": "WooCommerce Automation",
+      "hash": "832db54e74ae306e",
+      "source": "github"
+    },
+    {
+      "name": "YouTube Automation",
+      "hash": "56c9207546e26c11",
+      "source": "github"
+    },
+    {
+      "name": "Zendesk Automation",
+      "hash": "0f7bb55289553cff",
+      "source": "github"
+    },
+    {
+      "name": "ab-testing",
+      "hash": "c42af0107540e71d",
+      "source": "github"
+    },
+    {
+      "name": "academic-search",
+      "hash": "b82b97a44b44bad3",
+      "source": "github"
+    },
+    {
+      "name": "ad-creative",
+      "hash": "f5a61cff2ea986a0",
+      "source": "github"
+    },
+    {
+      "name": "ads",
+      "hash": "569e690ae2defe2a",
+      "source": "github"
+    },
+    {
+      "name": "ads-copywriter",
+      "hash": "143d60166187d611",
+      "source": "github"
+    },
+    {
+      "name": "agentic-eval",
+      "hash": "40771d7d389c1542",
+      "source": "github"
+    },
+    {
+      "name": "ai-agent-builder",
+      "hash": "e9c8f2b8f951dbdb",
+      "source": "github"
+    },
+    {
+      "name": "ai-seo",
+      "hash": "a6265a6c9451a259",
+      "source": "github"
+    },
+    {
+      "name": "ai-slides",
+      "hash": "222b533624006343",
+      "source": "github"
+    },
+    {
+      "name": "airtable-automation",
+      "hash": "7bb0ea18138c4713",
+      "source": "github"
+    },
+    {
+      "name": "algorithm-design",
+      "hash": "8e9426b4f805b15e",
+      "source": "github"
+    },
+    {
+      "name": "analytics",
+      "hash": "f7f83a1c1c4ad904",
+      "source": "github"
+    },
+    {
+      "name": "ansible-automation",
+      "hash": "2f6b7fc42258730e",
+      "source": "github"
+    },
+    {
+      "name": "apify-actor-development",
+      "hash": "9acd9956d4b407b5",
+      "source": "github"
+    },
+    {
+      "name": "apify-actorization",
+      "hash": "700d0529a5392e3c",
+      "source": "github"
+    },
+    {
+      "name": "apify-generate-output-schema",
+      "hash": "8f765e6d05d827b2",
+      "source": "github"
+    },
+    {
+      "name": "apify-sdk-integration",
+      "hash": "5c6989e0ac6dd67e",
+      "source": "github"
+    },
+    {
+      "name": "apify-ultimate-scraper",
+      "hash": "04248bcb9227819a",
+      "source": "github"
+    },
+    {
+      "name": "apple-ui-designer",
+      "hash": "26d43c0a38e7a0ad",
+      "source": "github"
+    },
+    {
+      "name": "architecture-decision-framework",
+      "hash": "d87c6c77cc83c911",
+      "source": "github"
+    },
+    {
+      "name": "architecture-patterns",
+      "hash": "b34a3384c2b78894",
+      "source": "github"
+    },
+    {
+      "name": "architecture-review",
+      "hash": "175ad499b73fea34",
+      "source": "github"
+    },
+    {
+      "name": "aso",
+      "hash": "f84a1fb5cb1a8a7f",
+      "source": "github"
+    },
+    {
+      "name": "async-python-patterns",
+      "hash": "e0f03523d9898483",
+      "source": "github"
+    },
+    {
+      "name": "atomic-decomposition",
+      "hash": "428ac066ca1842c2",
+      "source": "github"
+    },
+    {
+      "name": "attribution",
+      "hash": "6bc4819e64d8d71f",
+      "source": "github"
+    },
+    {
+      "name": "backward-traceability",
+      "hash": "b16d4348fcedb1c0",
+      "source": "github"
+    },
+    {
+      "name": "batch-convert",
+      "hash": "2903d16a9199291e",
+      "source": "github"
+    },
+    {
+      "name": "batch-processor",
+      "hash": "d31e9e676921312b",
+      "source": "github"
+    },
+    {
+      "name": "better-auth-security-best-practices",
+      "hash": "7a230edf3a24ce18",
+      "source": "github"
+    },
+    {
+      "name": "calendar-automation",
+      "hash": "1e645b6206ed4653",
+      "source": "github"
+    },
+    {
+      "name": "chart-designer",
+      "hash": "6d69766f465bea4e",
+      "source": "github"
+    },
+    {
+      "name": "churn-prevention",
+      "hash": "527c4740617d9eee",
+      "source": "github"
+    },
+    {
+      "name": "citation-management",
+      "hash": "aae734fe77fa3d2a",
+      "source": "github"
+    },
+    {
+      "name": "co-marketing",
+      "hash": "1f447a4e851f9e6b",
+      "source": "github"
+    },
+    {
+      "name": "code-debugging",
+      "hash": "a1a70ea8bc8371ca",
+      "source": "github"
+    },
+    {
+      "name": "code-review",
+      "hash": "1cc49f29b6762f2c",
+      "source": "github"
+    },
+    {
+      "name": "cold-email",
+      "hash": "be0b73511a6244b8",
+      "source": "github"
+    },
+    {
+      "name": "community-marketing",
+      "hash": "d089fdcff8cf5a86",
+      "source": "github"
+    },
+    {
+      "name": "company-research",
+      "hash": "001f1cfee381c624",
+      "source": "github"
+    },
+    {
+      "name": "competitive-analysis",
+      "hash": "8b9d912f9c41cfac",
+      "source": "github"
+    },
+    {
+      "name": "competitor-profiling",
+      "hash": "d691200df7b02d85",
+      "source": "github"
+    },
+    {
+      "name": "competitors",
+      "hash": "6380b59f188f7155",
+      "source": "github"
+    },
+    {
+      "name": "content-strategy",
+      "hash": "13824c129ab70874",
+      "source": "github"
+    },
+    {
+      "name": "contract-review",
+      "hash": "23633a3629f7d98d",
+      "source": "github"
+    },
+    {
+      "name": "contract-template",
+      "hash": "d6cb790725644b0a",
+      "source": "github"
+    },
+    {
+      "name": "conversion-psychology",
+      "hash": "9a0302bf7fbb1c6b",
+      "source": "github"
+    },
+    {
+      "name": "copy-editing",
+      "hash": "ba4e44a8470b3ae2",
+      "source": "github"
+    },
+    {
+      "name": "copywriting",
+      "hash": "c8d63b1f77be04fd",
+      "source": "github"
+    },
+    {
+      "name": "cover-letter",
+      "hash": "3ac95c65245e20a2",
+      "source": "github"
+    },
+    {
+      "name": "create-assistant",
+      "hash": "b117d54d89a5cf99",
+      "source": "github"
+    },
+    {
+      "name": "create-call",
+      "hash": "e92ee41f98599573",
+      "source": "github"
+    },
+    {
+      "name": "create-campaign",
+      "hash": "00954139b6ea5b9d",
+      "source": "github"
+    },
+    {
+      "name": "create-phone-number",
+      "hash": "a01c36742e89d2eb",
+      "source": "github"
+    },
+    {
+      "name": "create-squad",
+      "hash": "07d0c8f4d86a1621",
+      "source": "github"
+    },
+    {
+      "name": "create-structured-output",
+      "hash": "c9a46240299275f4",
+      "source": "github"
+    },
+    {
+      "name": "create-tool",
+      "hash": "5fa211e8ee1f3d77",
+      "source": "github"
+    },
+    {
+      "name": "critical-thinking-logical-reasoning",
+      "hash": "6aaa421d1d8a091d",
+      "source": "github"
+    },
+    {
+      "name": "crm-automation",
+      "hash": "3802668496ec7e90",
+      "source": "github"
+    },
+    {
+      "name": "cro",
+      "hash": "07f7a27c57e48f4b",
+      "source": "github"
+    },
+    {
+      "name": "crypto-report",
+      "hash": "2b809a4ce2d28a19",
+      "source": "github"
+    },
+    {
+      "name": "customer-research",
+      "hash": "a432ee6d37151c4b",
+      "source": "github"
+    },
+    {
+      "name": "customer-success",
+      "hash": "e0cd563075808b32",
+      "source": "github"
+    },
+    {
+      "name": "cv-builder",
+      "hash": "e5de7de7841c4c5d",
+      "source": "github"
+    },
+    {
+      "name": "data-analysis",
+      "hash": "a183e27bac6b336c",
+      "source": "github"
+    },
+    {
+      "name": "data-extractor",
+      "hash": "7cd1fe725a05f472",
+      "source": "github"
+    },
+    {
+      "name": "data-pipeline",
+      "hash": "4b8676f77ee0a054",
+      "source": "github"
+    },
+    {
+      "name": "dcf-valuation",
+      "hash": "3bb24d0d97a5eeac",
+      "source": "github"
+    },
+    {
+      "name": "debian-linux-triage",
+      "hash": "88092e8dbcdbe6d3",
+      "source": "github"
+    },
+    {
+      "name": "debugging-and-error-recovery",
+      "hash": "6f437bc609eb8d0d",
+      "source": "github"
+    },
+    {
+      "name": "deep-research",
+      "hash": "1b143dc30f0ab793",
+      "source": "github"
+    },
+    {
+      "name": "dev-slides",
+      "hash": "c9b99de83d641a72",
+      "source": "github"
+    },
+    {
+      "name": "devops-automation",
+      "hash": "5b10e70bef82a107",
+      "source": "github"
+    },
+    {
+      "name": "diagnosing-superpowers",
+      "hash": "0f33f20feb5340f7",
+      "source": "github"
+    },
+    {
+      "name": "diagram-creator",
+      "hash": "194c79fd66c55307",
+      "source": "github"
+    },
+    {
+      "name": "directory-submissions",
+      "hash": "b737c3b9b9387bbe",
+      "source": "github"
+    },
+    {
+      "name": "discord-bot",
+      "hash": "c6ab4b49cbcb54f2",
+      "source": "github"
+    },
+    {
+      "name": "doc-parser",
+      "hash": "72e667a2dfb0cf76",
+      "source": "github"
+    },
+    {
+      "name": "doc-pipeline",
+      "hash": "255fb529f5d3d93c",
+      "source": "github"
+    },
+    {
+      "name": "docx",
+      "hash": "59c70107f8eae818",
+      "source": "github"
+    },
+    {
+      "name": "docx-manipulation",
+      "hash": "8a6022f9be78b656",
+      "source": "github"
+    },
+    {
+      "name": "email-drafter",
+      "hash": "aeaaa9f8deef6e97",
+      "source": "github"
+    },
+    {
+      "name": "email-marketing",
+      "hash": "4af2dfe3c79e1f67",
+      "source": "github"
+    },
+    {
+      "name": "emails",
+      "hash": "261d986c2a1f1f5f",
+      "source": "github"
+    },
+    {
+      "name": "excalidraw-skill",
+      "hash": "1abb25407319d9b0",
+      "source": "github"
+    },
+    {
+      "name": "excel-automation",
+      "hash": "0580e0c2f19d4854",
+      "source": "github"
+    },
+    {
+      "name": "expense-report",
+      "hash": "202ecc68ece0c00d",
+      "source": "github"
+    },
+    {
+      "name": "experiment-code",
+      "hash": "e915623275e0c2f9",
+      "source": "github"
+    },
+    {
+      "name": "experiment-design",
+      "hash": "aa4b7c620a5eefc1",
+      "source": "github"
+    },
+    {
+      "name": "extension-to-functions-codebase",
+      "hash": "4597667cb7548b99",
+      "source": "github"
+    },
+    {
+      "name": "figma-design-to-code",
+      "hash": "5aae51a057f1dd82",
+      "source": "github"
+    },
+    {
+      "name": "figma-generate-design",
+      "hash": "2f1e4d76ae361a3d",
+      "source": "github"
+    },
+    {
+      "name": "figure-generation",
+      "hash": "ad127d111d249ba7",
+      "source": "github"
+    },
+    {
+      "name": "financial-modeling",
+      "hash": "7b9347eba3e65246",
+      "source": "github"
+    },
+    {
+      "name": "firebase-ai-logic-basics",
+      "hash": "2af723026c6cb09a",
+      "source": "github"
+    },
+    {
+      "name": "firebase-app-hosting-basics",
+      "hash": "e32ac489690e6c04",
+      "source": "github"
+    },
+    {
+      "name": "firebase-auth-basics",
+      "hash": "25070123c29d5909",
+      "source": "github"
+    },
+    {
+      "name": "firebase-basics",
+      "hash": "3a41bf302bfce4da",
+      "source": "github"
+    },
+    {
+      "name": "firebase-crashlytics",
+      "hash": "1316a59236b4e231",
+      "source": "github"
+    },
+    {
+      "name": "firebase-data-connect",
+      "hash": "e4108a3f77cda0a3",
+      "source": "github"
+    },
+    {
+      "name": "firebase-firestore",
+      "hash": "7462e16e15fa68b8",
+      "source": "github"
+    },
+    {
+      "name": "firebase-hosting-basics",
+      "hash": "381c7bb4200644d4",
+      "source": "github"
+    },
+    {
+      "name": "firebase-remote-config-basics",
+      "hash": "4477c4ed83c5ee33",
+      "source": "github"
+    },
+    {
+      "name": "firebase-security-rules-auditor",
+      "hash": "69927a1fca346754",
+      "source": "github"
+    },
+    {
+      "name": "firecrawl-deep-research",
+      "hash": "21bdb113b789c70d",
+      "source": "github"
+    },
+    {
+      "name": "firecrawl-website-design-clone",
+      "hash": "64cf5cbcebeb488b",
+      "source": "github"
+    },
+    {
+      "name": "form-builder",
+      "hash": "76befb46400c973a",
+      "source": "github"
+    },
+    {
+      "name": "free-tools",
+      "hash": "3fd8ab504b9b6d79",
+      "source": "github"
+    },
+    {
+      "name": "frontend-design",
+      "hash": "89496d5dd00f4810",
+      "source": "github"
+    },
+    {
+      "name": "github-research",
+      "hash": "e2fc4df5a6cbbf00",
+      "source": "github"
+    },
+    {
+      "name": "gmail-workflows",
+      "hash": "8d9ced03628367e3",
+      "source": "github"
+    },
+    {
+      "name": "google-ads-manager",
+      "hash": "821d4199d97cae69",
+      "source": "github"
+    },
+    {
+      "name": "google-cloud-networking-observability",
+      "hash": "a22bc1863b364526",
+      "source": "github"
+    },
+    {
+      "name": "grill-with-docs",
+      "hash": "35e62aa423aaeab6",
+      "source": "github"
+    },
+    {
+      "name": "handoff",
+      "hash": "20e5f4afdef50263",
+      "source": "github"
+    },
+    {
+      "name": "hr-automation",
+      "hash": "bf1406dedb8fcdc5",
+      "source": "github"
+    },
+    {
+      "name": "html-slides",
+      "hash": "92ebe1f925720815",
+      "source": "github"
+    },
+    {
+      "name": "html-to-ppt",
+      "hash": "050ae0e8dd621b5d",
+      "source": "github"
+    },
+    {
+      "name": "idea-generation",
+      "hash": "4ce38d23b300a4ca",
+      "source": "github"
+    },
+    {
+      "name": "image",
+      "hash": "e4b5511566d08a79",
+      "source": "github"
+    },
+    {
+      "name": "image-generation",
+      "hash": "82412c7d34a72172",
+      "source": "github"
+    },
+    {
+      "name": "influence-psychology",
+      "hash": "a67347ebd874191d",
+      "source": "github"
+    },
+    {
+      "name": "influencer-marketing",
+      "hash": "c1024fd09bb644bb",
+      "source": "github"
+    },
+    {
+      "name": "infographic",
+      "hash": "1f81bbcfe4c2c639",
+      "source": "github"
+    },
+    {
+      "name": "investment-memo",
+      "hash": "164ca17d48f2726f",
+      "source": "github"
+    },
+    {
+      "name": "invoice-generator",
+      "hash": "447d50f79ab763e1",
+      "source": "github"
+    },
+    {
+      "name": "invoice-template",
+      "hash": "8752d9c1eabcd22e",
+      "source": "github"
+    },
+    {
+      "name": "ios-design-guidelines",
+      "hash": "4e61d1d566817986",
+      "source": "github"
+    },
+    {
+      "name": "ios-glass-ui-designer",
+      "hash": "d39bbf9ae26d2fb7",
+      "source": "github"
+    },
+    {
+      "name": "latex-formatting",
+      "hash": "c54413ee387288bc",
+      "source": "github"
+    },
+    {
+      "name": "launch",
+      "hash": "a2b19accde6cace3",
+      "source": "github"
+    },
+    {
+      "name": "layout-analyzer",
+      "hash": "5ef6e2b921b1ee66",
+      "source": "github"
+    },
+    {
+      "name": "lead-magnets",
+      "hash": "268c83c38cc49d3e",
+      "source": "github"
+    },
+    {
+      "name": "lead-routing",
+      "hash": "b0cc826500505672",
+      "source": "github"
+    },
+    {
+      "name": "literature-review",
+      "hash": "42bf6244bf3d5b78",
+      "source": "github"
+    },
+    {
+      "name": "literature-search",
+      "hash": "d587db98be3cf930",
+      "source": "github"
+    },
+    {
+      "name": "llm-evaluation",
+      "hash": "af89a6013eacc5db",
+      "source": "github"
+    },
+    {
+      "name": "make-api-shell-connection-workflow",
+      "hash": "a9c98d665ba47e2c",
+      "source": "github"
+    },
+    {
+      "name": "make-e2b-code-execution",
+      "hash": "3aa46d5ce6a3b502",
+      "source": "github"
+    },
+    {
+      "name": "make-mcp-reference",
+      "hash": "2d476ad3c631535f",
+      "source": "github"
+    },
+    {
+      "name": "make-module-configuring",
+      "hash": "a917c928830a2c75",
+      "source": "github"
+    },
+    {
+      "name": "make-scenario-building",
+      "hash": "8ebd38a795f8069a",
+      "source": "github"
+    },
+    {
+      "name": "marketing-council",
+      "hash": "ac7cb3d3b358b516",
+      "source": "github"
+    },
+    {
+      "name": "marketing-ideas",
+      "hash": "c2a310c97126a0c4",
+      "source": "github"
+    },
+    {
+      "name": "marketing-loops",
+      "hash": "35027841740127f6",
+      "source": "github"
+    },
+    {
+      "name": "marketing-plan",
+      "hash": "c6a0c9473c11a6b3",
+      "source": "github"
+    },
+    {
+      "name": "marketing-psychology",
+      "hash": "50d735eb0f5c36f3",
+      "source": "github"
+    },
+    {
+      "name": "math-reasoning",
+      "hash": "c30a0e630cbd3a34",
+      "source": "github"
+    },
+    {
+      "name": "mcp-builder",
+      "hash": "826e46adf81e1372",
+      "source": "github"
+    },
+    {
+      "name": "mcp-hub",
+      "hash": "39820f7bf265f97c",
+      "source": "github"
+    },
+    {
+      "name": "md-slides",
+      "hash": "13726d169fcf7f94",
+      "source": "github"
+    },
+    {
+      "name": "md-to-office",
+      "hash": "50c4a34c9181281f",
+      "source": "github"
+    },
+    {
+      "name": "meeting-notes",
+      "hash": "537f386c7ad22ade",
+      "source": "github"
+    },
+    {
+      "name": "migrate-to-parallel",
+      "hash": "90863cedae94f298",
+      "source": "github"
+    },
+    {
+      "name": "n8n-agents-official",
+      "hash": "c8bb027cc2d6eb85",
+      "source": "github"
+    },
+    {
+      "name": "n8n-code-nodes-official",
+      "hash": "8fce7000fdd99a80",
+      "source": "github"
+    },
+    {
+      "name": "n8n-debugging-official",
+      "hash": "f465ee230fda5fb0",
+      "source": "github"
+    },
+    {
+      "name": "n8n-workflow",
+      "hash": "3923e1fbf10b8b53",
+      "source": "github"
+    },
+    {
+      "name": "n8n-workflow-lifecycle-official",
+      "hash": "0f340c6788fb2ebe",
+      "source": "github"
+    },
+    {
+      "name": "nda-generator",
+      "hash": "21f5410d204b23cf",
+      "source": "github"
+    },
+    {
+      "name": "neon-postgres",
+      "hash": "af41bab4ecbf2e65",
+      "source": "github"
+    },
+    {
+      "name": "news-monitor",
+      "hash": "c096a1630cfbb3e4",
+      "source": "github"
+    },
+    {
+      "name": "notion-automation",
+      "hash": "72c8c2f2dc76b257",
+      "source": "github"
+    },
+    {
+      "name": "novelty-assessment",
+      "hash": "232745e9ebc3dea8",
+      "source": "github"
+    },
+    {
+      "name": "offers",
+      "hash": "4e49425fc003bfc1",
+      "source": "github"
+    },
+    {
+      "name": "office-mcp",
+      "hash": "50f55faef29ff1e3",
+      "source": "github"
+    },
+    {
+      "name": "office-to-md",
+      "hash": "3d947ab7538c8437",
+      "source": "github"
+    },
+    {
+      "name": "onboarding",
+      "hash": "634b9ba0a4446d93",
+      "source": "github"
+    },
+    {
+      "name": "paper-assembly",
+      "hash": "289b5f07b267adc4",
+      "source": "github"
+    },
+    {
+      "name": "paper-compilation",
+      "hash": "b78c9158124dcb5d",
+      "source": "github"
+    },
+    {
+      "name": "paper-revision",
+      "hash": "d308f7dcabd93d5a",
+      "source": "github"
+    },
+    {
+      "name": "paper-to-code",
+      "hash": "220a37db104c115a",
+      "source": "github"
+    },
+    {
+      "name": "paper-writing-section",
+      "hash": "c546c79e7593bbd7",
+      "source": "github"
+    },
+    {
+      "name": "parallel-cli-setup",
+      "hash": "e8edb94072fd361c",
+      "source": "github"
+    },
+    {
+      "name": "parallel-data-enrichment",
+      "hash": "c41056eefa19af8d",
+      "source": "github"
+    },
+    {
+      "name": "parallel-deep-research",
+      "hash": "73e5099d3889c422",
+      "source": "github"
+    },
+    {
+      "name": "parallel-findall",
+      "hash": "5f96e7009c6a5246",
+      "source": "github"
+    },
+    {
+      "name": "parallel-memory",
+      "hash": "143613f3fe519733",
+      "source": "github"
+    },
+    {
+      "name": "parallel-monitor",
+      "hash": "1d7b74748846140d",
+      "source": "github"
+    },
+    {
+      "name": "parallel-web-extract",
+      "hash": "17586084b519ed22",
+      "source": "github"
+    },
+    {
+      "name": "parallel-web-search",
+      "hash": "8ae953104313fcc8",
+      "source": "github"
+    },
+    {
+      "name": "paywalls",
+      "hash": "1f0b8d15770d2e77",
+      "source": "github"
+    },
+    {
+      "name": "pdf",
+      "hash": "cfbc539377088ca7",
+      "source": "github"
+    },
+    {
+      "name": "pdf-extraction",
+      "hash": "b747452a0366e63d",
+      "source": "github"
+    },
+    {
+      "name": "pdf-to-docx",
+      "hash": "48ff79d9f3c0bb21",
+      "source": "github"
+    },
+    {
+      "name": "persuasion-principles",
+      "hash": "88a8dd24ccebdf8e",
+      "source": "github"
+    },
+    {
+      "name": "popups",
+      "hash": "95c5cb45dcbb0536",
+      "source": "github"
+    },
+    {
+      "name": "postgresql-code-review",
+      "hash": "1167ec9449aa866e",
+      "source": "github"
+    },
+    {
+      "name": "ppt-visual",
+      "hash": "1fae810acf92ef6c",
+      "source": "github"
+    },
+    {
+      "name": "pptx",
+      "hash": "82eaf5daede5a177",
+      "source": "github"
+    },
+    {
+      "name": "pptx-manipulation",
+      "hash": "86e57f8a26c136c0",
+      "source": "github"
+    },
+    {
+      "name": "pricing",
+      "hash": "b413a03fe63cb2c0",
+      "source": "github"
+    },
+    {
+      "name": "prisma-database-setup",
+      "hash": "6a991a2530a6da71",
+      "source": "github"
+    },
+    {
+      "name": "product-marketing",
+      "hash": "b8a9cd747705923a",
+      "source": "github"
+    },
+    {
+      "name": "programmatic-seo",
+      "hash": "0bbdcbacfbe46fd7",
+      "source": "github"
+    },
+    {
+      "name": "proposal-writer",
+      "hash": "b373110690294733",
+      "source": "github"
+    },
+    {
+      "name": "prospecting",
+      "hash": "f7b35b4f30367988",
+      "source": "github"
+    },
+    {
+      "name": "public-relations",
+      "hash": "1b13653b478b4904",
+      "source": "github"
+    },
+    {
+      "name": "python-mcp-server-generator",
+      "hash": "2b598920b5fdc807",
+      "source": "github"
+    },
+    {
+      "name": "python-performance-optimization",
+      "hash": "5a0e5ccd00cd8e85",
+      "source": "github"
+    },
+    {
+      "name": "python-testing-patterns",
+      "hash": "1306eea409e7eff2",
+      "source": "github"
+    },
+    {
+      "name": "rebuttal-writing",
+      "hash": "e4c2a2cc38f6c442",
+      "source": "github"
+    },
+    {
+      "name": "referrals",
+      "hash": "1b9228f8c74abd2a",
+      "source": "github"
+    },
+    {
+      "name": "related-work-writing",
+      "hash": "0f3e1b6a03824890",
+      "source": "github"
+    },
+    {
+      "name": "report-generator",
+      "hash": "a1d8f43dcdb5fd1d",
+      "source": "github"
+    },
+    {
+      "name": "research-planning",
+      "hash": "d92381023294d1f3",
+      "source": "github"
+    },
+    {
+      "name": "result",
+      "hash": "3372f666f11bc18d",
+      "source": "github"
+    },
+    {
+      "name": "resume-tailor",
+      "hash": "ff501a55ad92e727",
+      "source": "github"
+    },
+    {
+      "name": "revops",
+      "hash": "3ed71e1704d4c27f",
+      "source": "github"
+    },
+    {
+      "name": "ruflo",
+      "hash": "a7877513acac695f",
+      "source": "github"
+    },
+    {
+      "name": "saas-metrics",
+      "hash": "ef23572e0f6e8442",
+      "source": "github"
+    },
+    {
+      "name": "sales-enablement",
+      "hash": "554e501e3c5926ec",
+      "source": "github"
+    },
+    {
+      "name": "scalability-distributed-systems",
+      "hash": "33ac11b6c0d240ba",
+      "source": "github"
+    },
+    {
+      "name": "schema",
+      "hash": "2f4807070c77b5c5",
+      "source": "github"
+    },
+    {
+      "name": "security-and-hardening",
+      "hash": "93c5cdb9dc08fd59",
+      "source": "github"
+    },
+    {
+      "name": "security-review",
+      "hash": "ec9792f5fd065e02",
+      "source": "github"
+    },
+    {
+      "name": "self-review",
+      "hash": "7d42fa65b2fe57bf",
+      "source": "github"
+    },
+    {
+      "name": "seo-audit",
+      "hash": "f2dc521301890689",
+      "source": "github"
+    },
+    {
+      "name": "seo-optimizer",
+      "hash": "3369143281e3ca22",
+      "source": "github"
+    },
+    {
+      "name": "setup-api-key",
+      "hash": "4f84e985d464b970",
+      "source": "github"
+    },
+    {
+      "name": "setup-webhook",
+      "hash": "06488a1b3187a24a",
+      "source": "github"
+    },
+    {
+      "name": "sheets-automation",
+      "hash": "59bbe5beab5cad9d",
+      "source": "github"
+    },
+    {
+      "name": "shopify-automation",
+      "hash": "6372770b5e5ad0dc",
+      "source": "github"
+    },
+    {
+      "name": "signup",
+      "hash": "9efbe9bc357581a9",
+      "source": "github"
+    },
+    {
+      "name": "simulations",
+      "hash": "31195c7ec8d8da74",
+      "source": "github"
+    },
+    {
+      "name": "site-architecture",
+      "hash": "48a38c5e2b000d13",
+      "source": "github"
+    },
+    {
+      "name": "skill-creator",
+      "hash": "5ea13a6d9f0d4bb6",
+      "source": "github"
+    },
+    {
+      "name": "skill-name",
+      "hash": "3d703ba83ffebde8",
+      "source": "github"
+    },
+    {
+      "name": "skillopt-sleep",
+      "hash": "a0dcb03dd4aca46b",
+      "source": "github"
+    },
+    {
+      "name": "slack-workflows",
+      "hash": "67885cfe1466be43",
+      "source": "github"
+    },
+    {
+      "name": "slide-generation",
+      "hash": "a869a73c26ff0b89",
+      "source": "github"
+    },
+    {
+      "name": "smart-ocr",
+      "hash": "31c5bd5513224fcb",
+      "source": "github"
+    },
+    {
+      "name": "sms",
+      "hash": "289111572055b6dd",
+      "source": "github"
+    },
+    {
+      "name": "social",
+      "hash": "906a0529e4ee506c",
+      "source": "github"
+    },
+    {
+      "name": "social-media",
+      "hash": "ede71a9ae8de94bb",
+      "source": "github"
+    },
+    {
+      "name": "social-media-analyzer",
+      "hash": "657a6fd0685d8581",
+      "source": "github"
+    },
+    {
+      "name": "social-media-generator",
+      "hash": "1a13abe6cbd7e3f9",
+      "source": "github"
+    },
+    {
+      "name": "social-media-image-sizes",
+      "hash": "7d060f8a6f28a2b0",
+      "source": "github"
+    },
+    {
+      "name": "social-publisher",
+      "hash": "3f4a60ea1a380ada",
+      "source": "github"
+    },
+    {
+      "name": "software-architecture-design",
+      "hash": "29d8995c006d958a",
+      "source": "github"
+    },
+    {
+      "name": "sql-code-review",
+      "hash": "7dd337a327138123",
+      "source": "github"
+    },
+    {
+      "name": "status",
+      "hash": "c1c7f696665dbf27",
+      "source": "github"
+    },
+    {
+      "name": "stock-analysis",
+      "hash": "b3f1c83317db3162",
+      "source": "github"
+    },
+    {
+      "name": "subscription-management",
+      "hash": "55365507e7c8b383",
+      "source": "github"
+    },
+    {
+      "name": "survey-generation",
+      "hash": "e3099679a50a8cc4",
+      "source": "github"
+    },
+    {
+      "name": "symbolic-equation",
+      "hash": "e52ef86c4f3be7a8",
+      "source": "github"
+    },
+    {
+      "name": "system-design",
+      "hash": "7232be91ba616822",
+      "source": "github"
+    },
+    {
+      "name": "table-extractor",
+      "hash": "32b7fb8822c2c74a",
+      "source": "github"
+    },
+    {
+      "name": "table-generation",
+      "hash": "1a121f47f2df64fe",
+      "source": "github"
+    },
+    {
+      "name": "tdd",
+      "hash": "e753a5da75292bbe",
+      "source": "github"
+    },
+    {
+      "name": "telegram-bot",
+      "hash": "8c9554098e2f9c4b",
+      "source": "github"
+    },
+    {
+      "name": "template-engine",
+      "hash": "20d5f4ddad9d41ee",
+      "source": "github"
+    },
+    {
+      "name": "thought-based-reasoning",
+      "hash": "15358ade86da843b",
+      "source": "github"
+    },
+    {
+      "name": "tiktok-marketing",
+      "hash": "a032f7707e062005",
+      "source": "github"
+    },
+    {
+      "name": "vapi-bootstrap-framework",
+      "hash": "0c0945d8e01b630b",
+      "source": "github"
+    },
+    {
+      "name": "vapi-prompt-builder",
+      "hash": "e1d07d5e7535f304",
+      "source": "github"
+    },
+    {
+      "name": "video",
+      "hash": "53f7082208785054",
+      "source": "github"
+    },
+    {
+      "name": "video-edit",
+      "hash": "8db3460bb7f1d42e",
+      "source": "github"
+    },
+    {
+      "name": "video-editing",
+      "hash": "f44c45ed71dec68c",
+      "source": "github"
+    },
+    {
+      "name": "video-inpainting",
+      "hash": "4f8fc23e62048678",
+      "source": "github"
+    },
+    {
+      "name": "viral-hooks",
+      "hash": "bc483172fbf5455b",
+      "source": "github"
+    },
+    {
+      "name": "web-artifacts-builder",
+      "hash": "d52d422ead3fa268",
+      "source": "github"
+    },
+    {
+      "name": "web-component-design",
+      "hash": "784a5a753400c545",
+      "source": "github"
+    },
+    {
+      "name": "web-design-engineer",
+      "hash": "82e5bd4aec3752c4",
+      "source": "github"
+    },
+    {
+      "name": "web-design-guidelines",
+      "hash": "f3bc47f890f42a44",
+      "source": "github"
+    },
+    {
+      "name": "web-design-reviewer",
+      "hash": "4a05e32553a1dc91",
+      "source": "github"
+    },
+    {
+      "name": "web-search",
+      "hash": "ec4bd9f90f8e7aea",
+      "source": "github"
+    },
+    {
+      "name": "webapp-testing",
+      "hash": "ad5b1fc52807e9af",
+      "source": "github"
+    },
+    {
+      "name": "weekly-report",
+      "hash": "090dc136f2afde6f",
+      "source": "github"
+    },
+    {
+      "name": "whatsapp-automation",
+      "hash": "e2d1e6e888803e24",
+      "source": "github"
+    },
+    {
+      "name": "workflow-automation",
+      "hash": "319735806dfa030f",
+      "source": "github"
+    },
+    {
+      "name": "xcode-project-setup",
+      "hash": "0adf19113be8a196",
+      "source": "github"
+    },
+    {
+      "name": "xlsx",
+      "hash": "f5945e6e76dc7c17",
+      "source": "github"
+    },
+    {
+      "name": "xlsx-manipulation",
+      "hash": "8ff345006ea94c56",
+      "source": "github"
+    }
+  ],
+  "skill_count": 328,
+  "mcp_servers": [
+    "figma",
+    "firecrawl",
+    "playwright",
+    "workflowhub"
+  ],
+  "container_images_referenced": [
+    "ghcr.io/semgrep/semgrep:latest",
+    "projectdiscovery/nuclei:latest"
+  ],
+  "lock_compare": {
+    "undeclared": [],
+    "drifted": []
+  }
+}

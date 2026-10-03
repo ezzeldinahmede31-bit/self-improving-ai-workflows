@@ -1,0 +1,6 @@
+# Production runtime dependencies (minimal surface).
+# Derived by AST scan: every root/orchestrator module imports stdlib + ONLY
+# these. Everything else (streamlit/portal, media skills, playwright, openai
+# SDKs) is DEV/OPS/test surface, never imported by the production path
+# (proven by tests/test_p0d_production_isolation.py).
+PyYAML==6.0.3

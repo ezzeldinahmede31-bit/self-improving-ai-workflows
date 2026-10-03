@@ -77,3 +77,71 @@ def test_bad_policy_rejected():
         PolicyEngine({"rules": [{"id": "x"}]})
     with pytest.raises(TypeError):
         PolicyEngine("not-a-dict")
+
+
+# ---- policy_gate wrapper + orchestrator step-0d (deny-branch anchors) ----
+# These exist because a mutant forcing the WRAPPER to allow-all must fail.
+
+def test_gate_wrapper_propagates_deny():
+    import platform_wiring
+    prof = platform_wiring.EnforcementProfile(
+        policy={"default": "deny", "rules": []})
+    v = platform_wiring.policy_gate(prof, agent="orchestrator",
+                                    action="workflow.execute")
+    assert v["enforced"] is True
+    assert v["allowed"] is False
+
+
+def test_gate_wrapper_propagates_allow():
+    import platform_wiring
+    prof = platform_wiring.EnforcementProfile(
+        policy={"default": "allow", "rules": []})
+    v = platform_wiring.policy_gate(prof, agent="orchestrator",
+                                    action="workflow.execute")
+    assert v["enforced"] is True
+    assert v["allowed"] is True
+
+
+def test_gate_unconfigured_passes_through_unenforced():
+    import platform_wiring
+    v = platform_wiring.policy_gate(None, agent="x", action="y")
+    assert v == {"enforced": False, "allowed": True,
+                 "needs_approval": False, "rule": "",
+                 "reason": "no policy configured"}
+
+
+def test_orchestrator_step0d_deny_routes_to_hitl(tmp_path):
+    import platform_wiring
+    from master_system_orchestrator import SystemOrchestrator
+    orch = SystemOrchestrator(
+        budget_usd=5.0,
+        enforcement=platform_wiring.EnforcementProfile(
+            policy={"default": "deny", "rules": []},
+            egress=platform_wiring.EgressPolicy(allow_public_internet=True),
+        ),
+        evidence_dir=str(tmp_path),
+        elide_output=True,
+    )
+    res = orch.execute_workflow_task(
+        "denied by policy", {"nodes": [], "connections": {}}, daily_reqs=1)
+    assert res["status"] == "PENDING_HUMAN_REVIEW"
+    assert "policy denial" in res["reason"]
+    assert "hitl_request_id" in res
+
+
+def test_orchestrator_step0d_allow_passes_gate(tmp_path):
+    import platform_wiring
+    from master_system_orchestrator import SystemOrchestrator
+    orch = SystemOrchestrator(
+        budget_usd=5.0,
+        enforcement=platform_wiring.EnforcementProfile(
+            policy={"default": "allow", "rules": []},
+            egress=platform_wiring.EgressPolicy(allow_public_internet=True),
+        ),
+        evidence_dir=str(tmp_path),
+        elide_output=True,
+    )
+    res = orch.execute_workflow_task(
+        "allowed by policy", {"nodes": [], "connections": {}}, daily_reqs=1)
+    # allow must NOT route to a policy-denial HITL
+    assert "policy denial" not in res.get("reason", "")

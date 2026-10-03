@@ -40,6 +40,17 @@ authority, scarcity, unity) via `influence-psychology` / `clinic-buyer-psycholog
 Every sales message must name its principle + its canon source. No principle
 without a mechanism, no mechanism without a source.
 
+### Citation-honesty contract (binding on every message)
+
+Every psychological claim carries three fields: **Mechanism → Evidence strength
+(strong / moderate / inspired-by) → Exact source**. Forbidden overclaims:
+- Stating loss aversion as a fixed numeric law ("2x") — say "losses loom larger", strength: strong direction.
+- Calling a rhetorical question ("حصلت معاك؟") research-grade "commitment" — it raises engagement and self-recall; strength: moderate/inspired-by. Real commitment = an actual small yes (reply, demo request).
+- Presenting any price comparison as lab-grade "anchoring" — call it reference-point/value framing unless citing an actual anchoring study; strength: moderate.
+- Using category-wide social proof ("العيادات الغالية اللي فهمت") without real cases — FORBIDDEN. Allowed: "العيادات اللي مش عايزة تخسر عميل..." (category behavior, no fabricated adopters) or named real cases only.
+- Audience facts ("عميل كل شهر") need our data or hedging (ممكن/أغلب); absolutes ("مبيرجعش تاني") must be softened ("ممكن ببساطة ما يرجعش").
+- Open loops create attention but do NOT guarantee action (Zeigarnik is nuanced, not a strategy law) — pair intrigue with a soft, non-push next step where the user allows it.
+
 ## Pairs with
 
 - `clinic-buyer-psychology` (buyer profile) · `clinic-organic-sales-content` (distribution)

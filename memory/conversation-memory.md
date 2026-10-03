@@ -2131,3 +2131,8 @@ Opened existing "Make" window (eu1.make.com/2862717/agent-profiles/8074 toolbox 
 - FINAL: 1033 passed, 1 skipped, 8 deselected, 0 failed; zero-gap gate PASS.
   Residuals: SUPPLY-PINS (MEDIUM, no pip lock), AUDIT-OUTAGE flagged
   (LOW), legacy dev mode (LOW), n8n-live/dr/model-full/sbom unverified.
+
+## Claims review gate + final script APPROVED (Sep 18 2026)
+- External review graded script 8.5/10 but citations 5.5/10 (over-attribution). Fixed at roots in 5 skills (all gates green).
+- New `scripts/claims_review.py`: FAIL on absolutes/push-CTAs/fixed-ratios/fabricated-proof; WARN on unhedged frequency. Proven: old script FAIL (4 findings), new script PASS exit 0.
+- Final 2 fixes applied (ممكن hook, behavior-framed scene 5). OS skill now mandates claims_review PASS before publishing.

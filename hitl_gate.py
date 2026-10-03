@@ -24,6 +24,8 @@ from pathlib import Path
 from typing import Any, Callable, Optional
 
 from egress_firewall import check_url as _check_url, EgressPolicy
+from egress_firewall import fetch_pinned as _fetch_pinned
+from egress_firewall import PinnedFetchBlocked as _PinnedBlocked
 
 DEFAULT_TIMEOUT_MINUTES = 15
 DEFAULT_DB_PATH = Path(__file__).parent / "audit.db"
@@ -198,10 +200,44 @@ class HITLGate:
             """, (new_state, _utcnow(), reason, request_id))
             conn.commit()
 
+    def _is_expired(self, req: HITLRequest,
+                    now: datetime | None = None) -> bool:
+        """True when the request is past expires_at (unparseable counts as
+        expired — fail closed on malformed timestamps)."""
+        try:
+            expires = datetime.fromisoformat(req.expires_at)
+        except (ValueError, TypeError):
+            return True
+        if expires.tzinfo is None:
+            expires = expires.replace(tzinfo=timezone.utc)
+        ref = now or datetime.now(timezone.utc)
+        return expires < ref
+
+    @staticmethod
+    def _declared_tenant(req: HITLRequest) -> Optional[str]:
+        payload = req.payload
+        if isinstance(payload, dict) and payload.get("tenant") is not None:
+            return str(payload["tenant"])
+        return None
+
     # ---------- human decision verbs ----------
 
-    def approve(self, request_id: str, token: str) -> dict:
-        """Approve a pending request ONLY with a valid security token."""
+    def approve(self, request_id: str, token: str, *,
+                actor: str | None = None,
+                tenant: str | None = None) -> dict:
+        """Approve a pending request ONLY with a valid security token.
+
+        Hard rules (all fail-closed, all tested):
+        - unknown id -> NOT_FOUND; non-PENDING -> current state (no flip:
+          replay/duplicate approvals and approve-after-reject are inert).
+        - past expires_at (or unparseable timestamp) -> EXPIRED_REJECTED,
+          enforced HERE, never delegated to a background sweeper.
+        - wrong token -> INVALID_TOKEN (constant-time compare).
+        - tenant declared on the request payload and mismatched ->
+          WRONG_TENANT (cross-tenant approval impossible when declared).
+        The actor (who approved) is recorded in decision_reason; the raw
+        token is never stored (sha256 hash only).
+        """
         req = self.get(request_id)
         if req is None:
             return {"status": "NOT_FOUND", "request_id": request_id}
@@ -210,10 +246,21 @@ class HITLGate:
             return {"status": req.state, "request_id": request_id,
                     "reason": req.decision_reason}
 
+        if self._is_expired(req):
+            self._transition(request_id, HITLState.EXPIRED,
+                             "expired_default_deny")
+            return {"status": HITLState.EXPIRED, "request_id": request_id,
+                    "reason": "expired_default_deny"}
+
         if self.security_token is None or not hmac.compare_digest(
             token, self.security_token or ""
         ):
             return {"status": "INVALID_TOKEN", "request_id": request_id}
+
+        declared = self._declared_tenant(req)
+        if declared is not None and tenant != declared:
+            return {"status": "WRONG_TENANT", "request_id": request_id,
+                    "reason": f"request belongs to tenant {declared!r}"}
 
         # Record token hash so it's provable later (never store raw token)
         with self._connect() as conn:
@@ -222,7 +269,8 @@ class HITLGate:
                 (_hash_token(token), request_id),
             )
             conn.commit()
-        self._transition(request_id, HITLState.APPROVED, "human_approval")
+        who = f"human_approval:{actor}" if actor else "human_approval"
+        self._transition(request_id, HITLState.APPROVED, who)
         return {"status": HITLState.APPROVED, "request_id": request_id}
 
     def reject(self, request_id: str, reason: str = "") -> dict:
@@ -277,7 +325,13 @@ class HITLGate:
               f"telebot_reject {req.request_id} <reason>")
 
     def notify_telegram(self, bot_token: str, chat_id: str) -> Callable[[HITLRequest], None]:
-        """Build a notification handler that posts to Telegram."""
+        """Build a notification handler that posts to Telegram.
+
+        Transport is connection-pinned (fetch_pinned POST): the destination
+        is validated AND the socket opens the authorized IP literally, so a
+        DNS change between check and connect cannot reroute the approval
+        ping. POST body only — no secret/token in URL, query, or logs.
+        """
         def handler(req: HITLRequest) -> None:
             text = (
                 f"⚠️ HITL Approval Required\n"
@@ -289,19 +343,16 @@ class HITLGate:
                 f"Reject: /reject_{req.request_id}"
             )
             url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
-            if self.egress_policy is not None:
-                verdict = _check_url(url, self.egress_policy)
-                if not verdict.allowed:
-                    print(f"[HITL][Telegram] egress blocked: {verdict.reason}", file=sys.stderr)
-                    return
+            policy = self.egress_policy or EgressPolicy(
+                allow_public_internet=True)
             data = urllib.parse.urlencode({"chat_id": chat_id, "text": text}).encode()
-            # POST with a form body (never GET query-string): keeps chat_id +
-            # text out of URL logs/proxies. The bot token stays in the path
-            # (Telegram API shape) and must never be logged on failure.
-            req = urllib.request.Request(url, data=data, method="POST")
             try:
-                with urllib.request.urlopen(req, timeout=10) as resp:
-                    resp.read()
+                _fetch_pinned(url, policy, method="POST", data=data,
+                              headers={"Content-Type":
+                                       "application/x-www-form-urlencoded"},
+                              timeout_s=10)
+            except _PinnedBlocked as e:
+                print(f"[HITL][Telegram] egress blocked: {e}", file=sys.stderr)
             except Exception as e:
                 print("[HITL][Telegram] notify failed: "
                       f"{e.__class__.__name__}", file=sys.stderr)

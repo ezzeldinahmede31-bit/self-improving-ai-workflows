@@ -55,10 +55,18 @@ class CredentialHealth:
 
 
 class DependencyHealth:
-    """Named TCP probes with timeouts; dependents gate on results."""
+    """Named TCP/connect probes with timeouts; dependents gate on results.
 
-    def __init__(self, *, timeout_s: float = 3.0):
+    Pass egress_policy to pin probes behind the firewall: the registered
+    host is validated with check_host() (same DNS + IP-classification core
+    as URLs) before any socket opens, so a misconfigured/poisoned endpoint
+    name cannot turn a health check into an SSRF probe. Without a policy
+    (default) behavior is unchanged — operator-registered names only.
+    """
+
+    def __init__(self, *, timeout_s: float = 3.0, egress_policy=None):
         self._timeout = float(timeout_s)
+        self._egress_policy = egress_policy
         self._deps: dict[str, dict] = {}
 
     def add(self, name: str, host: str, port: int) -> None:
@@ -71,6 +79,13 @@ class DependencyHealth:
         if spec is None:
             return {"dependency": str(name), "up": False,
                     "reason": "unregistered"}
+        if self._egress_policy is not None:
+            from egress_firewall import check_host as _check_host
+            verdict = _check_host(spec["host"], spec["port"],
+                                  self._egress_policy)
+            if not verdict.allowed:
+                return {"dependency": str(name), "up": False,
+                        "reason": f"egress blocked: {verdict.reason}"}
         try:
             sock = socket.create_connection(
                 (spec["host"], spec["port"]), timeout=self._timeout)

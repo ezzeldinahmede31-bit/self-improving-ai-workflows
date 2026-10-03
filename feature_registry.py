@@ -316,13 +316,18 @@ def build_registry() -> list[Feature]:
            T + "test_p1b_idem_chaos.py", T + "test_p1b_idem_chaos.py",
            T + "test_adversarial_full_stack.py", "INTEGRATED",
            "restore proven in test env; prod DR remains LIVE_UNVERIFIED"),
-        _F("F043", "n8n-integration", "n8n_integration.py",
-           "trigger_and_verify via webhook",
-           "master_system_orchestrator.py[4]", "5-consecutive-pass gate",
-           "C5-egress", "tests/test_e2e_live_n8n.py",
-           "tests/test_e2e_live_n8n.py", "tests/test_n8n_gates_parity.py",
-           "LIVE_UNVERIFIED",
-           "architecturally integrated; live run needs RUN_LIVE_E2E=1"),
+         _F("F043", "n8n-integration", "n8n_integration.py",
+            "trigger_and_verify via webhook",
+            "master_system_orchestrator.py[4]", "5-consecutive-pass gate",
+            "C5-egress", "tests/test_e2e_live_n8n.py",
+            "tests/test_e2e_live_n8n.py", "tests/test_n8n_gates_parity.py",
+            "VERIFIED",
+            "LIVE 12/12 on real instance: ephemeral no-op workflow "
+            "created+activated+5/5 stable passes+duplicates+deactivated+"
+            "deleted+verified-gone; bad-key/unknown-id/egress/capability "
+            "refusals live-proven (FINAL_AUDIT/n8n_live_evidence.json). "
+            "Residual: timeout/cancel paths not exercised live (no-op "
+            "finishes instantly; forcing them would risk prod)."),
         _F("F044", "security-gate-quality-gate-verifier",
            "security_gate.py+quality_gate.py+verifier_engine.py",
            "verify_and_route safety+quality gates",

@@ -271,6 +271,34 @@ class RemoteAPIClient:
             if hit is not None:
                 raise EgressBlockedError(
                     f"Egress to non-global target blocked: {hit}")
+            # When an egress policy is set, the TARGET gets the same DNS +
+            # IP-classification screening as the URL: a router mapping (or
+            # any host swap between url and target) must not smuggle a
+            # private/loopback/metadata destination past the url check.
+            if self.egress_policy is not None:
+                from egress_firewall import check_url as _check_target
+                tverdict = _check_target(target, self.egress_policy,
+                                         resolve=self.egress_resolve)
+                if not tverdict.allowed:
+                    raise EgressBlockedError(
+                        f"Egress firewall blocked connection target "
+                        f"{target}: {tverdict.reason}")
+        else:
+            # Mock plane: the target is operator-configured loopback. Pin
+            # it to loopback literally — a mapping that resolves anywhere
+            # else is refused instead of followed.
+            target_host = (urllib.parse.urlparse(target).hostname or "")
+            try:
+                import ipaddress as _ip
+                _tip = _ip.ip_address(target_host)
+                if not _tip.is_loopback:
+                    raise EgressBlockedError(
+                        "mock target must be loopback: "
+                        f"{target_host}")
+            except ValueError:
+                raise EgressBlockedError(
+                    f"mock target must be a loopback literal, not a DNS "
+                    f"name: {target_host}")
         service = urllib.parse.urlparse(url).netloc
         retries = 0
 

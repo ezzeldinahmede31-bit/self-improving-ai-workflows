@@ -80,7 +80,7 @@ class TestTriggerWorkflowExecution:
             status_code = 500
             text = "boom"
 
-        monkeypatch.setattr(sv.requests, "post", lambda *a, **k: _Resp())
+        monkeypatch.setattr(sv, "_http_post", lambda *a, **k: _Resp())
         res = sv.trigger_workflow_execution("wf1", {"x": 1})
         assert res["success"] is False
         assert "500" in res["reason"]
@@ -95,7 +95,7 @@ class TestTriggerWorkflowExecution:
                 return {"data": {"resultData": {"error": {"message": "oops",
                                                           "node": {"name": "Fetch Homepage"}}}}}
 
-        monkeypatch.setattr(sv.requests, "post", lambda *a, **k: _Resp())
+        monkeypatch.setattr(sv, "_http_post", lambda *a, **k: _Resp())
         res = sv.trigger_workflow_execution("wf1", {})
         assert res["success"] is False
         assert res["node_failed"] == "Fetch Homepage"
@@ -109,7 +109,7 @@ class TestTriggerWorkflowExecution:
             def json(self):
                 return {"data": {"finished": False, "resultData": {}}}
 
-        monkeypatch.setattr(sv.requests, "post", lambda *a, **k: _Resp())
+        monkeypatch.setattr(sv, "_http_post", lambda *a, **k: _Resp())
         res = sv.trigger_workflow_execution("wf1", {})
         assert res["success"] is False
         assert "did not finish" in res["reason"]
@@ -123,30 +123,26 @@ class TestTriggerWorkflowExecution:
                 return {"data": {"finished": True,
                                  "resultData": {"runData": {"out": [1]}}}}
 
-        monkeypatch.setattr(sv.requests, "post", lambda *a, **k: _Resp())
+        monkeypatch.setattr(sv, "_http_post", lambda *a, **k: _Resp())
         res = sv.trigger_workflow_execution("wf1", {"in": 1})
         assert res["success"] is True
         assert res["output"] == {"out": [1]}
         assert res["duration_sec"] >= 0
 
     def test_timeout(self, monkeypatch):
-        import requests
-
         def _raise(*a, **k):
-            raise requests.exceptions.Timeout()
+            raise sv._HttpTimeout()
 
-        monkeypatch.setattr(sv.requests, "post", _raise)
+        monkeypatch.setattr(sv, "_http_post", _raise)
         res = sv.trigger_workflow_execution("wf1", {})
         assert res["success"] is False
         assert "Timed out" in res["reason"]
 
     def test_connection_error(self, monkeypatch):
-        import requests
-
         def _raise(*a, **k):
-            raise requests.exceptions.ConnectionError("refused")
+            raise sv._HttpConnectionError("refused")
 
-        monkeypatch.setattr(sv.requests, "post", _raise)
+        monkeypatch.setattr(sv, "_http_post", _raise)
         res = sv.trigger_workflow_execution("wf1", {})
         assert res["success"] is False
         assert "Cannot reach" in res["reason"]
@@ -277,7 +273,7 @@ class TestExecutionMethodAndWebhook:
             def json(self):
                 return {"id": "wf1", "nodes": []}
 
-        monkeypatch.setattr(sv.requests, "get", lambda *a, **k: _Resp())
+        monkeypatch.setattr(sv, "_http_get", lambda *a, **k: _Resp())
         monkeypatch.setattr(sv, "N8N_API_KEY", "k")
         assert sv.fetch_workflow("wf1")["id"] == "wf1"
 
@@ -292,7 +288,7 @@ class TestExecutionMethodAndWebhook:
             def json(self):
                 return {}
 
-        monkeypatch.setattr(sv.requests, "get", lambda *a, **k: _Resp())
+        monkeypatch.setattr(sv, "_http_get", lambda *a, **k: _Resp())
         monkeypatch.setattr(sv, "N8N_API_KEY", "k")
         assert sv.fetch_workflow("wf1") == {}
 
@@ -340,8 +336,8 @@ class TestTriggerWebhook:
                                 "lastNodeExecuted": "Double"}}}
                 return {"data": []}
 
-        monkeypatch.setattr(sv.requests, "post", lambda *a, **k: _PostResp())
-        monkeypatch.setattr(sv.requests, "get", lambda *a, **k: _GetResp())
+        monkeypatch.setattr(sv, "_http_post", lambda *a, **k: _PostResp())
+        monkeypatch.setattr(sv, "_http_get", lambda *a, **k: _GetResp())
         res = sv.trigger_workflow_execution("wf1", {"in": 1}, method="webhook",
                                             webhook_path="/stability-test")
         assert res["success"] is True
@@ -353,7 +349,7 @@ class TestTriggerWebhook:
             status_code = 403
             text = "forbidden"
 
-        monkeypatch.setattr(sv.requests, "post", lambda *a, **k: _PostResp())
+        monkeypatch.setattr(sv, "_http_post", lambda *a, **k: _PostResp())
         res = sv.trigger_workflow_execution("wf1", {}, method="webhook",
                                             webhook_path="/x")
         assert res["success"] is False
@@ -375,7 +371,7 @@ class TestTriggerWebhook:
                     "data": {"resultData": {"error": {"message": "boom",
                                                       "node": {"name": "N"}}}}}
 
-        monkeypatch.setattr(sv.requests, "post", lambda *a, **k: _PostResp())
+        monkeypatch.setattr(sv, "_http_post", lambda *a, **k: _PostResp())
         monkeypatch.setattr(sv, "_latest_execution_id", _latest)
         monkeypatch.setattr(sv, "_fetch_execution", _fetch)
         monkeypatch.setattr(sv, "time", _FakeClock())
@@ -390,7 +386,7 @@ class TestTriggerWebhook:
             status_code = 200
             text = ""
 
-        monkeypatch.setattr(sv.requests, "post", lambda *a, **k: _PostResp())
+        monkeypatch.setattr(sv, "_http_post", lambda *a, **k: _PostResp())
         monkeypatch.setattr(sv, "_latest_execution_id", lambda *a, **k: 1)
         monkeypatch.setattr(sv, "_fetch_execution", lambda *a, **k: {"id": 1, "finished": False})
         monkeypatch.setattr(sv, "time", _FakeClock())
@@ -405,12 +401,10 @@ class TestTriggerWebhook:
         assert "shell access" in res["reason"]
 
     def test_webhook_timeout(self, monkeypatch):
-        import requests
-
         def _raise(*a, **k):
-            raise requests.exceptions.Timeout()
+            raise sv._HttpTimeout()
 
-        monkeypatch.setattr(sv.requests, "post", _raise)
+        monkeypatch.setattr(sv, "_http_post", _raise)
         res = sv.trigger_workflow_execution("wf1", {}, method="webhook",
                                             webhook_path="/x")
         assert res["success"] is False

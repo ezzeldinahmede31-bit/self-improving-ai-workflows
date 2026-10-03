@@ -22,17 +22,113 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urlsplit
 
-import requests
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from egress_firewall import (EgressPolicy, fetch_pinned, PinnedFetchBlocked)
 
 REQUIRED_CONSECUTIVE_PASSES = 5
 MAX_TOTAL_ATTEMPTS = 15
 TIMEOUT_PER_EXECUTION = 30
 ROOT = Path(__file__).resolve().parent.parent
 ERROR_LOG_PATH = ROOT / "memory" / "n8n_error_patterns.md"
+
+
+class _HttpTimeout(Exception):
+    """Pinned transport timed out (maps to the old requests Timeout path)."""
+
+
+class _HttpConnectionError(Exception):
+    """Pinned transport unreachable/refused (maps to the old requests
+    ConnectionError path, including firewall refusals)."""
+
+
+class _PinnedResp:
+    """Minimal response shape (status_code / json() / text) over bytes."""
+
+    def __init__(self, status: int, body: bytes):
+        self.status_code = int(status)
+        self._body = body or b""
+
+    def json(self):
+        return json.loads(self._body.decode("utf-8"))
+
+    @property
+    def text(self) -> str:
+        return self._body.decode("utf-8", "replace")
+
+
+def _gate_policy_for(base_url: str) -> EgressPolicy:
+    """Pin gate traffic to the OPERATOR-configured n8n host:port.
+
+    The base URL comes from N8N_BASE_URL env (operator config, never
+    workflow input). The policy allow-lists exactly that host — including
+    an explicit loopback allowance when the operator points at their own
+    local instance — plus its port. Anything else (redirects included) is
+    re-validated per hop by fetch_pinned.
+    """
+    parts = urlsplit(base_url or "")
+    host = (parts.hostname or "localhost").lower().rstrip(".")
+    try:
+        port = parts.port
+    except ValueError:
+        port = None
+    ports = {80, 443, 5678}
+    if port:
+        ports.add(port)
+    import ipaddress as _ip
+    loop: tuple[str, ...] = ()
+    try:
+        if _ip.ip_address(host).is_loopback:
+            loop = (host,)
+    except ValueError:
+        if host == "localhost":
+            loop = ("localhost",)
+    return EgressPolicy(allow_public_internet=True,
+                        allowed_domains=(host,),
+                        allowed_ports=tuple(sorted(ports)),
+                        allow_loopback_hosts=loop)
+
+
+def _http_get(url: str, headers: dict | None = None,
+              timeout: int = TIMEOUT_PER_EXECUTION) -> _PinnedResp:
+    """Pinned GET against the configured n8n host. Raises _HttpTimeout /
+    _HttpConnectionError (never returns a forgery)."""
+    policy = _gate_policy_for(N8N_BASE_URL)
+    try:
+        out = fetch_pinned(url, policy, method="GET",
+                           headers=headers or {}, timeout_s=timeout)
+    except PinnedFetchBlocked as e:
+        raise _HttpConnectionError(f"egress refused: {e}")
+    except TimeoutError as e:
+        raise _HttpTimeout(str(e))
+    except OSError as e:
+        raise _HttpConnectionError(str(e))
+    return _PinnedResp(out.get("status", 0), out.get("body", b""))
+
+
+def _http_post(url: str, headers: dict | None = None,
+               payload: dict | None = None,
+               timeout: int = TIMEOUT_PER_EXECUTION) -> _PinnedResp:
+    """Pinned POST against the configured n8n host. Same error contract."""
+    policy = _gate_policy_for(N8N_BASE_URL)
+    try:
+        out = fetch_pinned(url, policy, method="POST",
+                           data=json.dumps(payload or {}).encode(),
+                           headers={"Content-Type": "application/json",
+                                    **(headers or {})},
+                           timeout_s=timeout)
+    except PinnedFetchBlocked as e:
+        raise _HttpConnectionError(f"egress refused: {e}")
+    except TimeoutError as e:
+        raise _HttpTimeout(str(e))
+    except OSError as e:
+        raise _HttpConnectionError(str(e))
+    return _PinnedResp(out.get("status", 0), out.get("body", b""))
 
 
 def _env_or_dotenv(name: str, default: str = "") -> str:
@@ -95,12 +191,12 @@ def fetch_workflow(workflow_id: str, base_url: str | None = None,
     if not api_key:
         return {}
     try:
-        resp = requests.get(f"{base_url}/api/v1/workflows/{workflow_id}",
-                            headers={"X-N8N-API-KEY": api_key},
-                            timeout=TIMEOUT_PER_EXECUTION)
+        resp = _http_get(f"{base_url}/api/v1/workflows/{workflow_id}",
+                         headers={"X-N8N-API-KEY": api_key},
+                         timeout=TIMEOUT_PER_EXECUTION)
         if resp.status_code == 200:
             return resp.json()
-    except requests.RequestException:
+    except (_HttpTimeout, _HttpConnectionError):
         pass
     return {}
 
@@ -142,14 +238,14 @@ def _latest_execution_id(workflow_id: str, base_url: str, api_key: str):
     """Latest execution id for a workflow via GET /api/v1/executions?workflowId=
     (the public-API read used to verify a webhook run actually completed)."""
     try:
-        resp = requests.get(
+        resp = _http_get(
             f"{base_url}/api/v1/executions?workflowId={workflow_id}&limit=1",
             headers={"X-N8N-API-KEY": api_key}, timeout=TIMEOUT_PER_EXECUTION)
         if resp.status_code == 200:
             items = resp.json().get("data", [])
             if items:
                 return items[0].get("id")
-    except requests.RequestException:
+    except (_HttpTimeout, _HttpConnectionError):
         pass
     return None
 
@@ -158,12 +254,12 @@ def _fetch_execution(execution_id: int, base_url: str, api_key: str) -> dict:
     """Full execution payload via GET /api/v1/executions/{id} (includeData=true
     is required for the public API to return resultData/runData)."""
     try:
-        resp = requests.get(f"{base_url}/api/v1/executions/{execution_id}?includeData=true",
-                            headers={"X-N8N-API-KEY": api_key},
-                            timeout=TIMEOUT_PER_EXECUTION)
+        resp = _http_get(f"{base_url}/api/v1/executions/{execution_id}?includeData=true",
+                         headers={"X-N8N-API-KEY": api_key},
+                         timeout=TIMEOUT_PER_EXECUTION)
         if resp.status_code == 200:
             return resp.json()
-    except requests.RequestException:
+    except (_HttpTimeout, _HttpConnectionError):
         pass
     return {}
 
@@ -188,12 +284,12 @@ def _trigger_via_webhook(workflow_id: str, test_input: dict, base_url: str,
     before = _latest_execution_id(workflow_id, base_url, api_key)
     url = f"{base_url.rstrip('/')}/webhook/{webhook_path.lstrip('/')}"
     try:
-        resp = requests.post(url, json=test_input, timeout=TIMEOUT_PER_EXECUTION)
-    except requests.exceptions.Timeout:
+        resp = _http_post(url, payload=test_input, timeout=TIMEOUT_PER_EXECUTION)
+    except _HttpTimeout:
         return {"success": False, "reason": f"Timed out after {TIMEOUT_PER_EXECUTION}s "
                 "(webhook POST)", "node_failed": None,
                 "duration_sec": TIMEOUT_PER_EXECUTION}
-    except requests.exceptions.ConnectionError as e:
+    except _HttpConnectionError as e:
         return {"success": False, "reason": f"Cannot reach n8n webhook: {e}",
                 "node_failed": None, "duration_sec": 0}
     if resp.status_code not in (200, 201, 202):
@@ -257,11 +353,11 @@ def trigger_workflow_execution(workflow_id: str, test_input: dict,
                           "`n8n execute --id=<workflow_id>` manually instead",
                 "node_failed": None, "duration_sec": 0}
     url = f"{base_url}/api/v1/workflows/{workflow_id}/execute"
-    headers = {"X-N8N-API-KEY": api_key, "Content-Type": "application/json"}
+    headers = {"X-N8N-API-KEY": api_key}
     start = time.time()
     try:
-        resp = requests.post(url, headers=headers, json={"data": test_input},
-                             timeout=TIMEOUT_PER_EXECUTION)
+        resp = _http_post(url, headers=headers, payload={"data": test_input},
+                          timeout=TIMEOUT_PER_EXECUTION)
         duration = time.time() - start
         if resp.status_code != 200:
             return {"success": False,
@@ -284,10 +380,10 @@ def trigger_workflow_execution(workflow_id: str, test_input: dict,
         return {"success": True,
                 "output": (data.get("resultData") or {}).get("runData"),
                 "duration_sec": duration}
-    except requests.exceptions.Timeout:
+    except _HttpTimeout:
         return {"success": False, "reason": f"Timed out after {TIMEOUT_PER_EXECUTION}s",
                 "node_failed": None, "duration_sec": TIMEOUT_PER_EXECUTION}
-    except requests.exceptions.ConnectionError as e:
+    except _HttpConnectionError as e:
         return {"success": False, "reason": f"Cannot reach n8n instance: {e}",
                 "node_failed": None, "duration_sec": 0}
 

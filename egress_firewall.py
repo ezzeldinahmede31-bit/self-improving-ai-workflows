@@ -47,6 +47,13 @@ class EgressPolicy:
     allowed_schemes: tuple[str, ...] = ("http", "https")
     extra_blocked_hosts: tuple[str, ...] = ()
     dns_timeout_s: float = 3.0
+    # --- Explicit loopback allowance (named hosts only) ---
+    # Loopback is DENIED by default everywhere. An operator may name
+    # specific local endpoints (e.g. their own n8n on localhost) that are
+    # allowed DESPITE resolving to loopback. This is an explicit,
+    # auditable opt-in — never a blanket "allow 127/8". Matching is exact
+    # (after lowercasing + trailing-dot strip), never suffix.
+    allow_loopback_hosts: tuple[str, ...] = ()
     # --- DNS cache policy (GAP-02 closure) ---
     # No cached DNS entry may live longer than max_dns_ttl_s, no matter what
     # TTL a resolver claims. Entries claiming less than min_dns_ttl_s are
@@ -285,33 +292,23 @@ def _domain_allowed(host: str, allowed: tuple[str, ...]) -> bool:
     return False
 
 
-def check_url(url: str, policy: EgressPolicy | None = None,
-               resolve=None, dns_cache: DnsCache | None = None,
-               resolve_ttl_s: float | None = None) -> EgressVerdict:
-    """Validate one outbound URL. Returns (allowed, reason, resolved_ips).
+def _check_host_core(host: str, policy: EgressPolicy,
+                       resolve=None, dns_cache: DnsCache | None = None,
+                       resolve_ttl_s: float | None = None,
+                       check_domain: bool = True) -> EgressVerdict:
+    """Shared host-resolution + IP-classification core.
 
-    When `dns_cache` is supplied, DNS answers flow through it (TTL clamped
-    to policy); otherwise resolution is direct. `resolve_ttl_s` carries the
-    TTL the resolver claims for this answer (tests / TTL-aware resolvers).
+    Used by check_url() (after scheme/userinfo/port screening) and by
+    check_host() (for non-URL destinations such as raw TCP probes). Reason
+    strings are stable: tests assert on them.
     """
-    policy = policy or EgressPolicy()
-    try:
-        parts = urlsplit(url)
-    except ValueError:
-        return EgressVerdict(False, "unparseable URL", ())
-    if parts.scheme.lower() not in policy.allowed_schemes:
-        return EgressVerdict(False, f"scheme not allowed: {parts.scheme}", ())
-    host = (parts.hostname or "").lower()
+    host = (host or "").lower().rstrip(".")
     if not host:
         return EgressVerdict(False, "empty host", ())
-    if "@" in (parts.netloc or "") and parts.username:
-        return EgressVerdict(False, "userinfo in URL (credential smuggle)", ())
     if host in METADATA_HOSTS or host in policy.extra_blocked_hosts:
         return EgressVerdict(False, f"blocked host: {host}", ())
-    port = parts.port
-    if port is not None and port not in policy.allowed_ports:
-        return EgressVerdict(False, f"port not allowed: {port}", ())
-
+    allowed_loop = {str(h).lower().rstrip(".")
+                    for h in policy.allow_loopback_hosts}
     candidates: list[str] = []
     numeric = _normalize_numeric_ip(host)
     if numeric is not None:
@@ -343,9 +340,15 @@ def check_url(url: str, policy: EgressPolicy | None = None,
             return EgressVerdict(False, f"bad resolved address: {cand}", ())
         hit = _ip_blocked(ip)
         if hit is not None:
-            return EgressVerdict(False, f"{hit}: {cand}", tuple(candidates))
+            # Named loopback allowance: an operator-pinned local endpoint
+            # (their own n8n on localhost) survives ONLY when the requested
+            # host itself is on the explicit allow list. Anything else —
+            # including suffix lookalikes — stays denied.
+            if not (ip.is_loopback and host in allowed_loop):
+                return EgressVerdict(False, f"{hit}: {cand}",
+                                     tuple(candidates))
         resolved.append(cand)
-    if policy.allowed_domains and not _domain_allowed(host, policy.allowed_domains):
+    if check_domain and policy.allowed_domains and not _domain_allowed(host, policy.allowed_domains):
         return EgressVerdict(False, f"domain outside allow-list: {host}",
                              tuple(resolved))
     if not policy.allowed_domains and not policy.allow_public_internet:
@@ -353,6 +356,51 @@ def check_url(url: str, policy: EgressPolicy | None = None,
             return EgressVerdict(False, "public internet not opted in",
                                  tuple(resolved))
     return EgressVerdict(True, "ok", tuple(resolved))
+
+
+def check_host(host: str, port: int | None = None,
+               policy: EgressPolicy | None = None, resolve=None,
+               dns_cache: DnsCache | None = None) -> EgressVerdict:
+    """Validate a non-URL destination (raw TCP probe, Vault addr host, ...).
+
+    Same DNS + IP-classification core as check_url(); port (when given)
+    is screened against policy.allowed_ports. No scheme/userinfo layer
+    applies — callers pass the bare hostname or literal.
+    """
+    policy = policy or EgressPolicy()
+    host = (host or "").lower().rstrip(".")
+    if port is not None and port not in policy.allowed_ports:
+        return EgressVerdict(False, f"port not allowed: {port}", ())
+    return _check_host_core(host, policy, resolve=resolve, dns_cache=dns_cache)
+
+
+def check_url(url: str, policy: EgressPolicy | None = None,
+               resolve=None, dns_cache: DnsCache | None = None,
+               resolve_ttl_s: float | None = None) -> EgressVerdict:
+    """Validate one outbound URL. Returns (allowed, reason, resolved_ips).
+
+    When `dns_cache` is supplied, DNS answers flow through it (TTL clamped
+    to policy); otherwise resolution is direct. `resolve_ttl_s` carries the
+    TTL the resolver claims for this answer (tests / TTL-aware resolvers).
+    URL-layer screening (scheme/userinfo/port) runs first; host resolution
+    shares the _check_host_core path with check_host().
+    """
+    policy = policy or EgressPolicy()
+    try:
+        parts = urlsplit(url)
+    except ValueError:
+        return EgressVerdict(False, "unparseable URL", ())
+    if parts.scheme.lower() not in policy.allowed_schemes:
+        return EgressVerdict(False, f"scheme not allowed: {parts.scheme}", ())
+    host = (parts.hostname or "").lower()
+    if "@" in (parts.netloc or "") and parts.username:
+        return EgressVerdict(False, "userinfo in URL (credential smuggle)", ())
+    port = parts.port
+    if port is not None and port not in policy.allowed_ports:
+        return EgressVerdict(False, f"port not allowed: {port}", ())
+    return _check_host_core(host, policy, resolve=resolve,
+                            dns_cache=dns_cache,
+                            resolve_ttl_s=resolve_ttl_s)
 
 
 # ---------------------------------------------------------------------------

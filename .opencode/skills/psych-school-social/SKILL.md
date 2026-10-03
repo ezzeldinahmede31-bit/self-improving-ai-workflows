@@ -26,6 +26,9 @@ why peer evidence moves owners.
 2. Stories first, numbers second; numbers support, stories persuade.
 3. Seed tribe spaces: dental Facebook groups, not our page alone.
 4. Never fabricate a case: one invented testimonial kills the tribe's trust forever.
+   Category claims ("clinics like yours do X") are FORBIDDEN unless you have real
+   named cases; use behavior framing instead ("clinics that don't want to lose
+   patients stopped relying on memory").
 
 ## Verification
 

@@ -5,12 +5,17 @@ a callable interface for the orchestrator. It does NOT add new logic —
 it exposes the existing verifier as an async-compatible call with
 the same strict gates (5 consecutive passes, 15 total attempts).
 
+Transport is connection-pinned stdlib (fetch_pinned): every call is
+egress-validated AND the socket opens the authorized IP literally, so
+DNS between check and connect cannot reroute API or webhook traffic.
+No `requests` dependency — stdlib only.
+
 Usage:
     n8n = N8NIntegration(base_url, api_key, egress_policy=...)
     result = n8n.trigger_and_verify(workflow_id, webhook_path, payload, expected_output)
     # result = {"ok": bool, "runs": [...], "status": "stable|flat|flaky|timeout"}
 
-Only stdlib + requests. No new dependencies.
+Only stdlib. No new dependencies.
 """
 
 from __future__ import annotations
@@ -23,9 +28,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable, Optional
 
-import requests
-
-from egress_firewall import check_url as _check_url, EgressPolicy
+from egress_firewall import (check_url as _check_url, EgressPolicy,
+                             fetch_pinned as _fetch_pinned,
+                             PinnedFetchBlocked as _PinnedBlocked)
 
 REQUIRED_CONSECUTIVE_PASSES = 5
 MAX_TOTAL_ATTEMPTS = 15
@@ -80,15 +85,18 @@ class N8NIntegration:
             api_key=_load_env("N8N_API_KEY", ""),
             webhook_base=_load_env("N8N_WEBHOOK_BASE", ""),
         )
-        self.session = requests.Session()
-        if self.config.api_key:
-            self.session.headers.update({"X-N8N-API-KEY": self.config.api_key})
         self.egress_policy = egress_policy
         self.capability_issuer = capability_issuer
         self.capability_token = capability_token
 
-    def _fetch_workflow(self, workflow_id: str) -> dict | None:
-        url = f"{self.config.base_url}/api/v1/workflows/{workflow_id}"
+    def _api_headers(self) -> dict:
+        headers = {"Accept": "application/json"}
+        if self.config.api_key:
+            headers["X-N8N-API-KEY"] = self.config.api_key
+        return headers
+
+    def _gates(self, url: str, base_url: str) -> None:
+        """Egress + capability gates. Raises RuntimeError on refusal."""
         if self.egress_policy is not None:
             verdict = _check_url(url, self.egress_policy)
             if not verdict.allowed:
@@ -98,97 +106,72 @@ class N8NIntegration:
         if self.capability_issuer is not None and self.capability_token:
             from platform_wiring import check_capability as _check_cap
             import urllib.parse
-            host = urllib.parse.urlparse(self.config.base_url).hostname or ""
+            host = urllib.parse.urlparse(base_url).hostname or ""
             chk = _check_cap(self.capability_issuer, self.capability_token,
                              action="net.fetch", resource=host or "*")
             if not chk["ok"]:
                 raise RuntimeError(f"Capability rejected: {chk['reason']}")
         elif self.strict:
             raise RuntimeError("strict mode: task capability missing")
+
+    def _pinned_policy(self) -> EgressPolicy:
+        # Pinned transport always runs under A policy: the configured one,
+        # else the default deny-by-default policy (tolerant legacy shape —
+        # denials surface as None/False, never as unfirewalled fetches).
+        return self.egress_policy or EgressPolicy()
+
+    def _get_json(self, url: str) -> dict | None:
+        self._gates(url, self.config.base_url)
         try:
-            resp = self.session.get(url, timeout=TIMEOUT_PER_EXECUTION)
-            if resp.status_code == 200:
-                return resp.json()
+            out = _fetch_pinned(url, self._pinned_policy(), method="GET",
+                                headers=self._api_headers(),
+                                timeout_s=TIMEOUT_PER_EXECUTION)
+        except _PinnedBlocked as e:
+            if self.strict:
+                raise RuntimeError(f"Egress blocked: {e}")
+            return None
         except Exception:
-            pass
-        return None
+            return None
+        if out.get("status") != 200:
+            return None
+        try:
+            body = out.get("body", b"")
+            return json.loads(body.decode("utf-8"))
+        except (ValueError, UnicodeDecodeError):
+            return None
+
+    def _fetch_workflow(self, workflow_id: str) -> dict | None:
+        url = f"{self.config.base_url}/api/v1/workflows/{workflow_id}"
+        return self._get_json(url)
 
     def _latest_execution_id(self, workflow_id: str) -> str | None:
         url = f"{self.config.base_url}/api/v1/executions?workflowId={workflow_id}&limit=1"
-        if self.egress_policy is not None:
-            verdict = _check_url(url, self.egress_policy)
-            if not verdict.allowed:
-                raise RuntimeError(f"Egress blocked: {verdict.reason}")
-        elif self.strict:
-            raise RuntimeError("strict mode: egress gate missing")
-        if self.capability_issuer is not None and self.capability_token:
-            from platform_wiring import check_capability as _check_cap
-            import urllib.parse
-            host = urllib.parse.urlparse(self.config.base_url).hostname or ""
-            chk = _check_cap(self.capability_issuer, self.capability_token,
-                             action="net.fetch", resource=host or "*")
-            if not chk["ok"]:
-                raise RuntimeError(f"Capability rejected: {chk['reason']}")
-        elif self.strict:
-            raise RuntimeError("strict mode: task capability missing")
-        try:
-            resp = self.session.get(url, timeout=TIMEOUT_PER_EXECUTION)
-            if resp.status_code == 200:
-                data = resp.json()
-                if data.get("data"):
-                    return data["data"][0].get("id")
-        except Exception:
-            pass
+        data = self._get_json(url)
+        if data and data.get("data"):
+            return data["data"][0].get("id")
         return None
 
     def _fetch_execution(self, execution_id: str) -> dict | None:
         url = f"{self.config.base_url}/api/v1/executions/{execution_id}?includeData=true"
-        if self.egress_policy is not None:
-            verdict = _check_url(url, self.egress_policy)
-            if not verdict.allowed:
-                raise RuntimeError(f"Egress blocked: {verdict.reason}")
-        elif self.strict:
-            raise RuntimeError("strict mode: egress gate missing")
-        if self.capability_issuer is not None and self.capability_token:
-            from platform_wiring import check_capability as _check_cap
-            import urllib.parse
-            host = urllib.parse.urlparse(self.config.base_url).hostname or ""
-            chk = _check_cap(self.capability_issuer, self.capability_token,
-                             action="net.fetch", resource=host or "*")
-            if not chk["ok"]:
-                raise RuntimeError(f"Capability rejected: {chk['reason']}")
-        elif self.strict:
-            raise RuntimeError("strict mode: task capability missing")
-        try:
-            resp = self.session.get(url, timeout=TIMEOUT_PER_EXECUTION)
-            if resp.status_code == 200:
-                return resp.json()
-        except Exception:
-            pass
-        return None
+        return self._get_json(url)
 
     def _trigger_via_webhook(self, webhook_path: str, payload: dict) -> bool:
         """POST to webhook. Returns True if HTTP 2xx, else False."""
         url = f"{self.config.webhook_base or self.config.base_url}/webhook/{webhook_path}"
-        if self.egress_policy is not None:
-            verdict = _check_url(url, self.egress_policy)
-            if not verdict.allowed:
-                raise RuntimeError(f"Egress blocked: {verdict.reason}")
-        elif self.strict:
-            raise RuntimeError("strict mode: egress gate missing")
-        if self.capability_issuer is not None and self.capability_token:
-            from platform_wiring import check_capability as _check_cap
-            import urllib.parse
-            host = urllib.parse.urlparse(self.config.webhook_base or self.config.base_url).hostname or ""
-            chk = _check_cap(self.capability_issuer, self.capability_token,
-                             action="net.fetch", resource=host or "*")
-            if not chk["ok"]:
-                raise RuntimeError(f"Capability rejected: {chk['reason']}")
-        elif self.strict:
-            raise RuntimeError("strict mode: task capability missing")
+        self._gates(url,
+                    self.config.webhook_base or self.config.base_url)
         try:
-            resp = self.session.post(url, json=payload, timeout=TIMEOUT_PER_EXECUTION)
-            return 200 <= resp.status_code < 300
+            out = _fetch_pinned(
+                url, self._pinned_policy(), method="POST",
+                data=json.dumps(payload).encode("utf-8"),
+                headers={**self._api_headers(),
+                         "Content-Type": "application/json"},
+                timeout_s=TIMEOUT_PER_EXECUTION)
+            return 200 <= int(out.get("status", 0)) < 300
+        except _PinnedBlocked as e:
+            if self.strict:
+                raise RuntimeError(f"Egress blocked: {e}")
+            return False
         except Exception:
             return False
 

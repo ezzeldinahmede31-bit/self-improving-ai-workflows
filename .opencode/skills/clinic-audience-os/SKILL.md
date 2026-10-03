@@ -55,6 +55,12 @@ what to say. Single purpose: ORCHESTRATE the binding.
 Every output must contain: client profile line, ≥2 cited books (rank+title),
 pillar name, slot time, lever names, offer step, script. Missing item = rerun
 the step. No invented stats, no fake scarcity, no anonymous proof.
+Citation format per claim: Mechanism → strength (strong/moderate/inspired-by)
+→ exact source. Audience facts need our data or hedging (ممكن/أغلب); never
+present a copywriting illustration as a research finding.
+7. **CLAIMS GATE before publishing**: every sales copy MUST pass
+   `venv/bin/python scripts/claims_review.py --text <file>` with VERDICT PASS
+   (exit 0). FAIL = rewrite, never publish. WARN = human decides.
 
 ## Pairs with
 

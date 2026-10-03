@@ -1,5 +1,8 @@
 """Feature registry integrity: stable IDs, honest counts, valid statuses."""
 
+import json
+import os
+
 from feature_registry import build_registry, status_counts, CHAINS
 
 
@@ -38,5 +41,20 @@ def test_every_feature_has_tests():
 def test_n8n_honestly_classified():
     reg = build_registry()
     n8n = next(f for f in reg if f.fid == "F043")
-    assert n8n.status == "LIVE_UNVERIFIED", \
-        "n8n must stay LIVE_UNVERIFIED until a live run passes"
+    # Either honest state is allowed — but VERIFIED requires live evidence
+    # on disk proving the 5-pass gate ran against a real instance.
+    assert n8n.status in ("LIVE_UNVERIFIED", "VERIFIED"), \
+        "n8n must never claim readiness without a live run"
+    if n8n.status == "VERIFIED":
+        ev_path = os.path.join(os.path.dirname(
+            os.path.dirname(os.path.abspath(__file__))), "FINAL_AUDIT",
+            "n8n_live_evidence.json")
+        assert os.path.exists(ev_path), "VERIFIED needs live evidence file"
+        ev = json.load(open(ev_path, encoding="utf-8"))
+        steps = ev.get("steps", [])
+        assert len(steps) >= 12 and all(s.get("ok") for s in steps), \
+            "live evidence must show all steps green"
+        gate = ev.get("gate", {})
+        assert gate.get("ok") is True and gate.get("status") == "stable" \
+            and gate.get("consecutive", 0) >= 5, \
+            "live evidence must show 5 consecutive stable passes"

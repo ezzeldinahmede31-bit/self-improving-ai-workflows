@@ -65,15 +65,23 @@ class CapabilityIssuer:
         acts = [str(a) for a in actions]
         if not acts:
             raise ValueError("actions allow-list must be non-empty")
-        if ttl_s <= 0:
+        try:
+            ttl = int(ttl_s)  # type: ignore[arg-type]
+        except (TypeError, ValueError, OverflowError):
+            raise ValueError(f"ttl_s must be an integer number of seconds, "
+                             f"got {ttl_s!r}")
+        if isinstance(ttl_s, float) and (ttl_s != ttl_s or ttl_s in
+                                         (float("inf"), float("-inf"))):
+            raise ValueError(f"ttl_s must be finite, got {ttl_s!r}")
+        if ttl <= 0:
             raise ValueError("ttl_s must be positive")
-        if int(ttl_s) > MAX_TTL_S:
+        if ttl > MAX_TTL_S:
             raise ValueError(
-                f"ttl_s={int(ttl_s)} exceeds maximum {MAX_TTL_S}s: mint "
+                f"ttl_s={ttl} exceeds maximum {MAX_TTL_S}s: mint "
                 "short-lived tokens and re-issue instead of long grants")
         now = int(time.time())
         body = {"v": 1, "id": secrets.token_hex(8), "act": acts,
-                "res": str(resource), "iat": now, "exp": now + int(ttl_s),
+                "res": str(resource), "iat": now, "exp": now + ttl,
                 "meta": dict(meta or {})}
         raw = json.dumps(body, sort_keys=True,
                          separators=(",", ":")).encode("utf-8")

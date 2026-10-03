@@ -1,0 +1,80 @@
+{
+ "base_host": "ezzeldin8n.ezzeldin8n.cfd",
+ "steps": [
+  {
+   "step": "credentials+api-live",
+   "ok": true,
+   "detail": "keys=['data', 'nextCursor']"
+  },
+  {
+   "step": "bad-key-refused",
+   "ok": true,
+   "detail": "401/denied -> None, no exception leak"
+  },
+  {
+   "step": "unknown-workflow-error-shape",
+   "ok": true,
+   "detail": "Workflow does-not-exist not found"
+  },
+  {
+   "step": "egress-blocked-loud",
+   "ok": true,
+   "detail": "Egress blocked: public internet not opted in"
+  },
+  {
+   "step": "capability-refused-loud",
+   "ok": true,
+   "detail": "Capability rejected: bad signature"
+  },
+  {
+   "step": "create-probe-workflow",
+   "ok": true,
+   "detail": "id=OLNxr2dn5YtMgi6K"
+  },
+  {
+   "step": "activate",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "step": "five-pass-stable",
+   "ok": true,
+   "detail": "5 passes / 5 attempts / 18.8s"
+  },
+  {
+   "step": "duplicate-triggers-accepted",
+   "ok": true,
+   "detail": "True,True"
+  },
+  {
+   "step": "deactivate",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "step": "delete",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "step": "verify-deleted",
+   "ok": true,
+   "detail": "None"
+  }
+ ],
+ "gate": {
+  "ok": true,
+  "status": "stable",
+  "consecutive": 5,
+  "attempts": 5
+ },
+ "exec_ids": [
+  "4826",
+  "4827",
+  "4828",
+  "4829",
+  "4830"
+ ],
+ "note": "ephemeral no-op workflow created+activated+triggered(5x)+deactivated+deleted; output-match vacuous (expected={}) \u2014 stability proof only",
+ "stderr_tail": ""
+}

@@ -19,6 +19,8 @@ import os
 import re
 import time
 
+from egress_firewall import (fetch_pinned, EgressPolicy, PinnedFetchBlocked)
+
 LICENSE_ALLOW = {"MIT", "Apache-2.0", "BSD-2-Clause", "BSD-3-Clause", "ISC"}
 LICENSE_REVIEW = {"GPL-2.0", "GPL-3.0", "AGPL-3.0", "LGPL-2.1", "LGPL-3.0",
                   "MPL-2.0", "EPL-2.0", "CDDL-1.0"}
@@ -234,8 +236,13 @@ def research_task_contracts(topics: list[dict]) -> list[dict]:
 
 
 def verify_license_live(github_url: str, timeout_s: int = 20) -> str | None:
-    """Deterministic re-check of a repo license via public GitHub API."""
-    import urllib.request
+    """Deterministic re-check of a repo license via public GitHub API.
+
+    Transport is connection-pinned: api.github.com is validated AND the
+    socket opens the authorized IP literally (no DNS-rebind reroute of an
+    opt-in live check). The candidate URL shape is allow-listed to
+    owner/name — anything else returns None without touching the network.
+    """
     m = github_url.startswith("https://github.com/")
     if not m:
         return None
@@ -243,13 +250,20 @@ def verify_license_live(github_url: str, timeout_s: int = 20) -> str | None:
     if repo.count("/") != 1:
         return None
     try:
-        req = urllib.request.Request(
+        out = fetch_pinned(
             f"https://api.github.com/repos/{repo}",
+            EgressPolicy(allow_public_internet=True,
+                         allowed_domains=("api.github.com",)),
+            method="GET",
             headers={"User-Agent": "orchestrator-verify",
-                     "Accept": "application/vnd.github+json"})
-        with urllib.request.urlopen(req, timeout=timeout_s) as r:
-            doc = json.loads(r.read().decode())
+                     "Accept": "application/vnd.github+json"},
+            timeout_s=timeout_s)
+        if out.get("status") != 200:
+            return None
+        doc = json.loads(out["body"].decode())
         return ((doc.get("license") or {}).get("spdx_id"))
+    except (PinnedFetchBlocked, OSError, ValueError, UnicodeDecodeError):
+        return None
     except Exception:  # noqa: BLE001 - unverifiable means unverified
         return None
 

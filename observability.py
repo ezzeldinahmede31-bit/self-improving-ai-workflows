@@ -246,15 +246,33 @@ class AlertManager:
         return None
 
 
-def telegram_alert_handler(bot_token: str, chat_id: str) -> Callable[[str, str, dict], None]:
+def telegram_alert_handler(bot_token: str, chat_id: str,
+                           egress_policy=None) -> Callable[[str, str, dict], None]:
+    """Alert callback posting to Telegram via pinned POST transport.
+
+    POST body only (the previous GET shape dropped the payload entirely and
+    left the token in the URL path for proxies to log). When `egress_policy`
+    is None a default public-internet policy gates the fixed Telegram
+    endpoint — alerting is never an open egress. Failures are silent by
+    design here (alerting must not crash the process) but carry no secrets.
+    """
+    from egress_firewall import (fetch_pinned as _fetch_pinned,
+                                 EgressPolicy as _EgressPolicy,
+                                 PinnedFetchBlocked as _PinnedBlocked)
+
     def handler(rule: str, metric: str, ctx: dict) -> None:
         msg = (f"🚨 JIT ALERT [{rule}]\nmetric={metric} "
-               f"value={ctx.get('value')} threshold={ctx.get('threshold')}")
+                f"value={ctx.get('value')} threshold={ctx.get('threshold')}")
         url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+        policy = egress_policy or _EgressPolicy(allow_public_internet=True)
         data = urllib.parse.urlencode({"chat_id": chat_id, "text": msg}).encode()
         try:
-            with urllib.request.urlopen(url, timeout=5) as resp:
-                resp.read()
+            _fetch_pinned(url, policy, method="POST", data=data,
+                          headers={"Content-Type":
+                                   "application/x-www-form-urlencoded"},
+                          timeout_s=5)
+        except _PinnedBlocked:
+            pass  # egress-denied alert: process continues, nothing secret leaks
         except Exception:
             pass  # alerting must not crash the process
     return handler
