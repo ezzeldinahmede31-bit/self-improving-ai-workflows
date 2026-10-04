@@ -267,7 +267,19 @@ def main():
             _sh.copy(sc['image_file'], img)
         else:
             print('scene %d/%d img...' % (i + 1, len(scenes)), flush=True)
-            gen_img(sc['image'], img)
+            for attempt in range(5):
+                try:
+                    gen_img(sc['image'], img)
+                    break
+                except RuntimeError:
+                    if attempt == 4:
+                        raise
+                    wait = 150 * (attempt + 1)
+                    print('scene %d img 402/quota, waiting %ds (try %d/5)...'
+                          % (i + 1, wait, attempt + 2), flush=True)
+                    time.sleep(wait)
+            if i + 1 < len(scenes):
+                time.sleep(15)  # free-tier token bucket: space out image calls
         if not a.no_voice:
             print('scene %d/%d voice...' % (i + 1, len(scenes)), flush=True)
             if a.engine == 'gemini':
