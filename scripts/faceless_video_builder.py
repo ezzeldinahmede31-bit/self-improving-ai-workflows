@@ -54,12 +54,21 @@ def getenv(name, default=''):
 
 
 def gen_image_pollinations(prompt, out):
-    url = ('https://image.pollinations.ai/prompt/%s?width=720&height=1280&nologo=true&model=flux&seed=%d'
-           % (urllib.parse.quote(prompt[:400]), SEED))
-    req = urllib.request.Request(url, headers={'User-Agent': 'clinic-builder/1.0'})
-    data = urllib.request.urlopen(req, timeout=180).read()
-    assert data[:4] != b'<htm' and len(data) > 10000, 'pollinations failed'
-    open(out, 'wb').write(data)
+    # Oct 2026: pollinations free tier = width<=512, height<=768 (bigger -> 402).
+    # Generate 512x768 free, ffmpeg upscales/crops to 720x1280 downstream.
+    for model in ('turbo', 'flux'):
+        url = ('https://image.pollinations.ai/prompt/%s?width=512&height=768&nologo=true&model=%s&seed=%d'
+               % (urllib.parse.quote(prompt[:400]), model, SEED))
+        req = urllib.request.Request(url, headers={'User-Agent': 'clinic-builder/1.0'})
+        try:
+            data = urllib.request.urlopen(req, timeout=180).read()
+        except Exception:
+            continue  # paid-gate (402) or transient -> try next model
+        if data[:4] == b'<htm' or len(data) <= 10000:
+            continue
+        open(out, 'wb').write(data)
+        return
+    raise RuntimeError('pollinations turbo+flux both failed (free tier may be down)')
 
 
 def gen_image_gemini(prompt, out):
