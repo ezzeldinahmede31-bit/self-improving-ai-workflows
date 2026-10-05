@@ -1,25 +1,26 @@
 #!/usr/bin/env python3
 """
-discover_skills.py — محرك الاكتشاف الخارجي (Internet skill discovery).
+discover_skills.py — external discovery engine (internet skill discovery).
 
-ضمن دورة التطوير الذاتي (بعد "اه"): يشتق كلمات بحث من شغل اليوم، يدور على
-https://skills.sh عبر `npx skills find`، يجيب المرشحين، يظبط ملفاتهم برمجيًا
-(frontmatter + paths + adapter wrapper للأنظمة غير المعمولة كمهارة)، يفحصهم
-أمنيًا، ثم إما يعتمد (trusted + نظيف + --auto-adopt) أو يخزن للمراجعة.
+Inside the self-improvement cycle: derives search queries from today's work,
+searches https://skills.sh via `npx skills find`, fetches candidates,
+adapts their files programmatically (frontmatter + paths + adapter wrapper for
+systems not built as skills), security-scans them, then either adopts
+(trusted + clean + --auto-adopt) or stages for review.
 
 Usage:
     venv/bin/python scripts/discover_skills.py [--queries q1 q2 ...]
         [--auto-adopt] [--max-queries 5] [--max-installs 3]
         [--lookback-hours 24] [--dry-run] [--gates]
 
-- --dry-run: اشتقاق + بحث فقط، بدون جلب أو تثبيت (read-only).
-- --auto-adopt: اعتماد تلقائي فقط للمصادر الموثوقة النظيفة. غير ذلك staging.
-- --gates: تشغيل build_gates_pipeline على المهارات المعتمدة (بطيء، opt-in).
+- --dry-run: derive + search only, no fetch or install (read-only).
+- --auto-adopt: auto-adopt trusted clean sources only. Otherwise staging.
+- --gates: run build_gates_pipeline on adopted skills (slow, opt-in).
 
-الأمان (إلزامي، لا يمكن تخطيه):
-- رفض أي محتوى فيه أسرار مكشوفة (API keys, tokens, private keys).
-- رفض أي سكريبت فيه subprocess/eval/exec/os.system/pipe-to-shell.
-- حد حجم: SKILL.md > 500 سطر = تحذير، مجلد المهارة > 2MB = رفض.
+Security (mandatory, cannot be skipped):
+- Reject any content with exposed secrets (API keys, tokens, private keys).
+- Reject any script with subprocess/eval/exec/os.system/pipe-to-shell.
+- Size caps: SKILL.md > 500 lines = warning, skill dir > 2MB = reject.
 """
 
 import json
@@ -34,7 +35,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from security_scan import scan_security  # الفحص الأمني المشترك (مصدر واحد للحقيقة)
+from security_scan import scan_security  # shared security scan (single source of truth)
 
 ROOT = Path(__file__).resolve().parent.parent
 VENV_PY = ROOT / "venv" / "bin" / "python"
@@ -68,10 +69,13 @@ skill skills error errors file files code using used use get set new add make
 run test tests testing failed fail work working works need needs want like just
 also even still back well much many long too very really thing things something
 error failed failure bug bugs issue issues problem problems fix fixed fixing
-please help thanks thankしよう task tasks session day today tonight yesterday
+please help thanks thank task tasks session day today tonight yesterday
 file path directory folder script output result results data value values
 """.split())
 
+# Session-signal detection data (kept multilingual on purpose: the operator's
+# sessions mix English and Arabic, and mining must catch failure/wish signals
+# in both — this is detection data, not UI prose).
 FAILURE_SIGNALS = [
     "error", "failed", "failure", "traceback", "exception", "not working",
     "فشل", "مش شغال", "غلط", "خرب", "broken", "bug", "timeout", "rejected",
@@ -81,7 +85,7 @@ WISH_SIGNALS = [
     "عايز مهارة", "how do i", "can you do", "wish we had",
 ]
 
-# (أنماط الفحص الأمني في scripts/security_scan.py — مصدر واحد للحقيقة)
+# (security scan patterns live in scripts/security_scan.py — single source of truth)
 PATH_REWRITES = [
     ("~/.claude/skills", ".opencode/skills"),
     ("~/.claude", "<project-root>"),
@@ -95,36 +99,36 @@ description: "{description}"
 
 # {title} (external adapter)
 
-> **مصدر خارجي مُكيَّف**: جُلب من `{source}` ({installs} installs) عبر
-> `discover_skills.py` بتاريخ {date}، وظُبطت مساراته وملفاته برمجيًا ليعمل
-> داخل هذا المشروع. الأصل غير معمول لهذا النظام — هذا الملف **adapter**
-> يشرح كيف نستخدمه هنا.
+> **Adapted external source**: fetched from `{source}` ({installs} installs) via
+> `discover_skills.py` on {date}; its paths and files were programmatically
+> adjusted to work in this project. The origin was not built for this system —
+> this file is an **adapter** explaining how to use it here.
 
-## ما هو
+## What it is
 
 {summary}
 
-- **المصدر**: https://skills.sh/{source_url}
-- **المالك**: `{owner}` (موثوق: {trusted})
-- **الحالة الأمنية**: فحص أسرار + فحص كود خطر = نظيف بتاريخ {date}
+- **Source**: https://skills.sh/{source_url}
+- **Owner**: `{owner}` (trusted: {trusted})
+- **Security status**: secret scan + dangerous-code scan = clean as of {date}
 
-## كيف تستخدمه هنا
+## How to use it here
 
-الأصل مثبت في `.agents/skills/{orig_dir}/`. هذه النسخة في
-`.opencode/skills/{slug}/` بعد التعديلات:
+The origin is installed at `.agents/skills/{orig_dir}/`. This copy at
+`.opencode/skills/{slug}/` includes the adjustments:
 
 {rewrites}
 
-## خطوات الاستخدام
+## Usage steps
 
 {usage}
 
-## تحقق
+## Verify
 
-- [ ] frontmatter صالح (`name` == اسم المجلد)
-- [ ] لا أسرار مكشوفة
-- [ ] لا استدعاءات خطرة في السكريبتات المرفقة
-- [ ] مسجلة في الراوتر (`scripts/router_register.py {slug}`)
+- [ ] valid frontmatter (`name` == directory name)
+- [ ] no exposed secrets
+- [ ] no dangerous calls in bundled scripts
+- [ ] registered in the router (`scripts/router_register.py {slug}`)
 
 ## Pairs with
 
@@ -193,7 +197,7 @@ def installed_skill_tokens():
 
 
 def mine_queries(lookback_hours, max_queries, watch_domains):
-    """اشتقاق كلمات بحث من جلسات اليوم + watch domains."""
+    """Derive search queries from today's sessions + watch domains."""
     cutoff = datetime.now() - timedelta(hours=lookback_hours)
     owned = installed_skill_tokens()
     weighted = Counter()
@@ -231,7 +235,7 @@ def mine_queries(lookback_hours, max_queries, watch_domains):
                         continue
                     weighted[tok] += w
 
-    # يوم هادئ بلا إشارات فشل/احتياج: خذ المواضيع العامة الغالبة (وزن 1)
+    # quiet day with no failure/need signals: take dominant general topics (weight 1)
     if not weighted and sessions_read:
         general = Counter()
         for jf in SLEEP_HOME.glob("projects/*/*.jsonl"):
@@ -257,7 +261,7 @@ def mine_queries(lookback_hours, max_queries, watch_domains):
                 weighted[tok] = cnt
 
     queries = [t for t, _ in weighted.most_common(max_queries * 3)]
-    # دمج watch domains (تكملة، لا استبدال لإشارة اليوم)
+    # merge watch domains (supplement, never replace today's signal)
     for dom in watch_domains:
         if len(queries) >= max_queries * 2:
             break
@@ -297,12 +301,12 @@ def skills_find(query, timeout=60):
 # ---------------------------------------------------------------- fetch
 
 def skills_add(source, skill, timeout=240):
-    """جلب مهارة لمنطقة الحجر (.agents/skills). يعيد مسار المجلد أو None."""
+    """Fetch a skill into quarantine (.agents/skills). Returns dir path or None."""
     res = run(["npx", "--yes", "skills", "add", source,
                "-s", skill, "-y", "--copy"], timeout=timeout)
     if res.returncode != 0:
         return None, (res.stderr or res.stdout or "")[-500:]
-    # حدد المجلد الجديد في .agents/skills
+    # locate the newest dir in .agents/skills
     if AGENTS_SKILLS.exists():
         cands = sorted(
             [d for d in AGENTS_SKILLS.iterdir() if d.is_dir()],
@@ -347,7 +351,7 @@ def dir_size_mb(skill_dir):
 
 
 def adapt_skill(fetched_dir, slug, source_meta):
-    """تظبيط برمجي: frontmatter + paths. يعيد (skill_md_path, rewrites[], warnings[])."""
+    """Programmatic adaptation: frontmatter + paths. Returns (skill_md_path, rewrites[], warnings[])."""
     rewrites, warnings = [], []
     md_files = list(fetched_dir.glob("SKILL.md")) or list(fetched_dir.rglob("SKILL.md"))
     if not md_files:
@@ -391,7 +395,7 @@ def adapt_skill(fetched_dir, slug, source_meta):
 
 
 def build_adapter(fetched_dir, slug, source_meta, rewrites):
-    """تغليف نظام غير معمول كمهارة داخل SKILL.md adapter."""
+    """Wrap a system not built as a skill inside an adapter SKILL.md."""
     orig_name = fetched_dir.name
     readme = ""
     for cand in ("README.md", "readme.md", "README", "index.md"):
@@ -404,10 +408,10 @@ def build_adapter(fetched_dir, slug, source_meta, rewrites):
                 pass
     summary = (readme.split("\n\n")[0][:800] if readme else
                f"External system from {source_meta['source']}, wrapped as a local adapter.")
-    usage = ("1. الأصل في `.agents/skills/" + orig_name + "/`.\n"
-             "2. اقرأ README الأصل قبل الاستخدام.\n"
-             "3. أي مسار خارجي حوّله لمسار مشروع نسبي.\n"
-             "4. سجّل أي درس جديد عبر `contribute_knowledge`.")
+    usage = ("1. The origin lives at `.agents/skills/" + orig_name + "/`.\n"
+             "2. Read the origin README before use.\n"
+             "3. Convert any external path to a project-relative path.\n"
+             "4. Record any new lesson via `contribute_knowledge`.")
     body = ADAPTER_TEMPLATE.format(
         slug=slug, title=orig_name,
         description=f"Adapter for external system {orig_name} ({source_meta['installs_raw']} installs). "
@@ -446,7 +450,7 @@ def main():
     stage_dir = STAGING_ROOT / ts
     stage_dir.mkdir(parents=True, exist_ok=True)
 
-    print("🔍 [discover] Internet skill discovery — stage: derive queries")
+    print("[discover] Internet skill discovery — stage: derive queries")
     if args.queries:
         queries = args.queries[: args.max_queries]
         sessions_read, top_terms = 0, []
@@ -463,7 +467,7 @@ def main():
     installs_done = 0
 
     for q in queries:
-        print(f"\n🔎 [search] {q!r}")
+        print(f"\n[search] {q!r}")
         try:
             cands = skills_find(q)
         except Exception as e:
@@ -475,12 +479,12 @@ def main():
             slug = slugify(c["skill"])
             verdict = {"query": q, **c, "slug": slug}
 
-            # dedupe: installed already?
+            # dedupe: already installed?
             if (OPENCODE_SKILLS / slug).exists() or slug in state.get("adopted", []):
                 verdict.update(status="skipped", reason="already installed")
                 results.append(verdict)
                 continue
-            # dedupe: rejected recently (7 days)?
+            # dedupe: recently rejected (7 days)?
             rej = state.get("rejected", {}).get(src)
             if rej:
                 try:
@@ -512,7 +516,7 @@ def main():
                 continue
 
             # ---- fetch
-            print(f"   ⬇️  fetching {src} ...")
+            print(f"   fetching {src} ...")
             fetched, err = skills_add(src, c["skill"])
             if not fetched:
                 verdict.update(status="fetch-failed", reason=err)
@@ -520,7 +524,7 @@ def main():
                 continue
             installs_done += 1
 
-            # ---- security scan (mandatory)
+            # ---- mandatory security scan
             flags, _ = scan_security(fetched)
             size_mb = dir_size_mb(fetched)
             if size_mb > cfg["max_skill_dir_mb"]:
@@ -529,11 +533,11 @@ def main():
                 verdict.update(status="rejected", reason="; ".join(flags[:5]))
                 state.setdefault("rejected", {})[src] = {"at": datetime.now().isoformat(), "reason": verdict["reason"]}
                 shutil.rmtree(fetched, ignore_errors=True)
-                print(f"   ⛔ rejected: {verdict['reason']}")
+                print(f"   rejected: {verdict['reason']}")
                 results.append(verdict)
                 continue
 
-            # ---- adapt programmatically
+            # ---- programmatic adaptation
             md_path, rewrites, warnings = adapt_skill(fetched, slug, c)
             adapter_built = False
             if md_path is None:
@@ -560,7 +564,7 @@ def main():
                     g = run([str(VENV_PY), "scripts/build_gates_pipeline.py",
                              str(dest / "SKILL.md"), "--no-hitl"], timeout=600)
                     verdict["gates_exit"] = g.returncode
-                print(f"   ✅ adopted → .opencode/skills/{slug}/")
+                print(f"   adopted → .opencode/skills/{slug}/")
             else:
                 sdir = stage_dir / slug
                 if sdir.exists():
@@ -573,7 +577,7 @@ def main():
                                else "(auto-adopt off — run with --auto-adopt)")),
                     stage_path=str(sdir.relative_to(ROOT)),
                 )
-                print(f"   📦 staged → {verdict['stage_path']}")
+                print(f"   staged → {verdict['stage_path']}")
             results.append(verdict)
 
     save_json(STATE_PATH, state)
@@ -597,9 +601,9 @@ def main():
         lines.append(f"- **{r.get('source', r.get('query'))}** → `{r.get('status')}` — {r.get('reason', '')}")
     (stage_dir / "report.md").write_text("\n".join(lines), encoding="utf-8")
 
-    print(f"\n{'='*60}\n✅ done in {elapsed:.1f} min | " +
+    print(f"\n{'='*60}\ndone in {elapsed:.1f} min | " +
           " ".join(f"{k}={v}" for k, v in sorted(counts.items())))
-    print(f"📄 report: {stage_dir.relative_to(ROOT)}/report.md")
+    print(f"report: {stage_dir.relative_to(ROOT)}/report.md")
     return 0
 
 

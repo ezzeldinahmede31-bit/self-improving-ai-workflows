@@ -49,7 +49,7 @@ jobs:
 
       - name: Check for breaking changes
         run: |
-          # مهارات محذوفة أو معاد تسميتها بدون migration
+          # deleted or renamed skills without a migration note
           DELETED_SKILLS=$(git diff --name-only --diff-filter=D origin/main | grep "^\.opencode/skills/.*/SKILL\.md$" || true)
           if [ -n "$DELETED_SKILLS" ]; then
             echo "⚠️  Deleted skills detected:"
@@ -61,9 +61,9 @@ jobs:
         run: |
           find scripts -name "*.py" -exec python -m py_compile {} \;
 
-  # ملاحظة: لا دمج تلقائي لأي PR — مساهمات العملاء (وكل PR) تتطلب
-  # مراجعة بشرية إلزامية قبل الدمج، حتى لو كل الفحوص خضراء.
-  # السبب: الفحوص الآلية لا تكشف حقن التعليمات في النصوص (prompt injection).
+  # Note: no auto-merge for any PR — client contributions (and every PR)
+  # require mandatory human review before merge, even when all checks are green.
+  # Reason: automated checks cannot detect prompt injection in prose.
 
   notify:
     name: Notify on Failure

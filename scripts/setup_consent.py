@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-setup_consent.py — بوابة الموافقة وقت التنزيل (install-time consent).
+setup_consent.py — install-time consent gate.
 
-المبدأ: لا شيء يغادر جهازك دون موافقة صريحة منك، تُسجل مرة واحدة
-وقت الإعداد، ويمكنك تغييرها في أي وقت بإعادة تشغيل هذا السكريبت.
+Principle: nothing leaves your machine without your explicit consent, recorded
+once at setup time. Re-run this script any time to change your decision.
 
-- توافق → تُفعَّل المشاركة (metadata فقط + موافقة صريحة على كل إرسال)
-  مقابل استقبال تطويرات الشبكة.
-- ترفض → استخدام كامل محليًا، صفر إرسال، عادي جدًا — لا أحد يجبرك.
+- Accept → sharing enabled (metadata only + explicit approval per send)
+  in exchange for receiving network improvements.
+- Decline → fully local usage, zero sending. Perfectly fine — nobody forces you.
 
 Usage:
     venv/bin/python scripts/setup_consent.py [--accept | --decline]
@@ -45,9 +45,9 @@ def save_consent(contribute: bool):
 
 
 def check_consent(interactive=False):
-    """True = مسموح بالإرسال. missing/False + interactive → يسأل ويسجل.
+    """True = sending allowed. Missing/False + interactive → ask and record.
 
-    interactive=False (مثل git hook في الخلفية): الافتراضي الآمن = لا إرسال.
+    interactive=False (e.g. background git hook): the safe default = no sending.
     """
     data = load_consent()
     if "contribute" in data:
@@ -55,21 +55,22 @@ def check_consent(interactive=False):
     if not interactive:
         return False
     print("\n" + "=" * 60)
-    print("📥 أول استخدام لأدوات المشاركة — نحتاج موافقتك (مرة واحدة):")
-    print("  - ما يُرسل: metadata فقط (أسماء مهارات + أرقام) + موافقة صريحة")
-    print("    على كل إرسال قبل حدوثه — لا إرسال صامت أبدًا.")
-    print("  - المقابل: تستقبل تطويرات الشبكة (قبول/رفض بيدك دائمًا).")
-    print("  - الرفض عادي: استخدام محلي كامل، صفر إرسال.")
+    print("First use of the sharing tools — we need your consent (once):")
+    print("  - What gets sent: metadata only (skill names + numbers) + explicit")
+    print("    approval before every send — never any silent sending.")
+    print("  - In exchange: you receive network improvements (accept/reject is")
+    print("    always yours).")
+    print("  - Declining is fine: fully local usage, zero sending.")
     print("=" * 60)
     try:
-        ans = input("توافق على المشاركة؟ [y نعم / n لا] ").strip().lower()
+        ans = input("Agree to share? [y/n] ").strip().lower()
     except (EOFError, KeyboardInterrupt):
-        print("\n⏸️  لم تُسجل موافقة — لن يُرسل شيء.")
+        print("\nNo consent recorded — nothing will be sent.")
         return False
-    ok = ans in ("y", "yes", "نعم", "اه", "ok")
+    ok = ans in ("y", "yes", "ok")
     save_consent(ok)
-    print("✅ سُجلت موافقتك — شكرًا لمشاركتك." if ok
-          else "✅ سُجل رفضك — استخدام محلي فقط، ولن نطلب مجددًا هنا.")
+    print("Consent recorded — thank you for sharing." if ok
+          else "Decline recorded — local-only, won't ask again here.")
     return ok
 
 
@@ -89,60 +90,62 @@ def main():
     args = ap.parse_args()
 
     print("=" * 60)
-    print("🛠️  إعداد Skill Evolution System — الموافقة أولًا")
+    print("Self-Improving AI Workflows setup — consent first")
     print("=" * 60)
 
     if args.accept:
         save_consent(True)
-        print("✅ تم تسجيل الموافقة (--accept).")
+        print("Consent recorded (--accept).")
     elif args.decline:
         save_consent(False)
-        print("✅ تم تسجيل الرفض (--decline) — استخدام محلي فقط.")
+        print("Decline recorded (--decline) — local-only mode.")
         return 0
     else:
         cur = load_consent().get("contribute")
         if cur is True:
-            print("ℹ️  حالتك الحالية: **موافق** على المشاركة.")
+            print("Current status: sharing **accepted**.")
         elif cur is False:
-            print("ℹ️  حالتك الحالية: **رافض** (محلي فقط).")
+            print("Current status: **declined** (local-only).")
         else:
-            print("ℹ️  لم تسجل موافقتك بعد.")
+            print("No consent recorded yet.")
         print()
-        print("المقايضة بصراحة:")
-        print("  توافق → تطويراتك (metadata + بموافقتك كل مرة) تقوي الشبكة،")
-        print("            وتستقبل تطويرات الكل (تقبل/ترفض بيدك).")
-        print("  ترفض  → كل شيء محلي، لا يخرج من جهازك بت واحد. عادي تمامًا.")
-        ans = ask("\nتوافق على المشاركة؟ [y نعم / n لا] (default: n): ", "n")
-        ok = ans.lower() in ("y", "yes", "نعم", "اه", "ok")
+        print("The trade, honestly:")
+        print("  Accept → your improvements (metadata + your approval each time)")
+        print("            strengthen the network, and you receive everyone's")
+        print("            improvements (you accept/reject each one).")
+        print("  Decline → everything stays local, not a single bit leaves.")
+        print("            Perfectly fine.")
+        ans = ask("\nAgree to share? [y/n] (default: n): ", "n")
+        ok = ans.lower() in ("y", "yes", "ok")
         save_consent(ok)
-        print("✅ سُجلت موافقتك." if ok else "✅ سُجل رفضك — محلي فقط.")
+        print("Consent recorded." if ok else "Decline recorded — local-only.")
 
     if not load_consent().get("contribute"):
-        print("\n⏭️  تخطي إعداد الشبكة (وضع محلي).")
-        print("   لتغيير رأيك لاحقًا: venv/bin/python scripts/setup_consent.py")
+        print("\nSkipping network setup (local mode).")
+        print("   To change your mind later: venv/bin/python scripts/setup_consent.py")
         return 0
 
-    # إعداد الشبكة للمشاركين فقط
-    print("\n--- إعداد الشبكة (للمشاركين) ---")
-    repo = ask("مستودع المركزي OWNER/REPO (فارغ = لاحقًا): ")
+    # Network setup for contributors only
+    print("\n--- Network setup (contributors) ---")
+    repo = ask("Central repo OWNER/REPO (empty = later): ")
     if repo and "/" in repo:
         UPSTREAM_PATH.parent.mkdir(parents=True, exist_ok=True)
         with open(UPSTREAM_PATH, "w", encoding="utf-8") as f:
             json.dump({"repo": repo.strip()}, f, ensure_ascii=False, indent=2)
-        print(f"✅ حُفظ: {UPSTREAM_PATH.relative_to(ROOT)}")
+        print(f"Saved: {UPSTREAM_PATH.relative_to(ROOT)}")
     else:
-        print("⏭️  تخطي — البلاغات ستُحفظ في outbox محلي حتى الربط.")
+        print("Skipped — reports stay in the local outbox until linked.")
     if not os.environ.get("GITHUB_TOKEN"):
-        print("💡 للكتابة على GitHub لاحقًا: export GITHUB_TOKEN=ghp_... (لا يُخزن في ملفات)")
+        print("Tip: for writing to GitHub later: export GITHUB_TOKEN=ghp_... (never stored in files)")
 
-    hook = ask("تركيب git hook للمزامنة التلقائية؟ [y/n] (default: y): ", "y")
-    if hook.lower() in ("y", "yes", "نعم", "اه", "ok", ""):
+    hook = ask("Install git hook for auto-sync? [y/n] (default: y): ", "y")
+    if hook.lower() in ("y", "yes", "ok", ""):
         r = subprocess.run(["bash", "scripts/install_hook.sh"], cwd=str(ROOT))
         if r.returncode != 0:
-            print("⚠️  تعذر تركيب الـ hook — يمكنك لاحقًا: make install-hook")
+            print("Could not install the hook — try later: make install-hook")
     else:
-        print("⏭️  تخطي الـ hook — استخدم make sync يدويًا عند الرغبة.")
-    print("\n🎉 انتهى الإعداد. ابدأ بـ: make dev-cycle")
+        print("Hook skipped — use make sync manually when you want.")
+    print("\nSetup complete. Start with: make dev-cycle")
     return 0
 
 

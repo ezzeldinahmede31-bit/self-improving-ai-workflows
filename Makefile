@@ -93,7 +93,7 @@ discover-dry:
 discover-adopt:
 	venv/bin/python scripts/discover_skills.py --auto-adopt --max-queries 5 --max-installs 3
 
-# Full development cycle (what runs after "اه")
+# Full development cycle (runs after you're done for the day)
 dev-cycle: sleep-run evolve discover sync
 	@echo "✅ Full dev cycle complete: sleep + evolve + discover + sync"
 

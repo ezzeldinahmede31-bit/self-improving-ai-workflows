@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
 """
-report_update.py — عميل → GitHub: إشعار بتحديث محلي (metadata فقط افتراضيًا).
+report_update.py — client → GitHub: local-update notification (metadata only by default).
 
-المبادئ (بعد مراجعة التصميم):
-  1. التطوعية: المساهمة اختيارية ومفعلة افتراضيًا — عطّلها بأي وقت
-     ([skip-sync] في رسالة الـ commit أو عدم تشغيل هذا السكريبت).
-  2. metadata فقط افتراضيًا: يُرسل أسماء المهارات + إحصائيات + قائمة ملفات
-     (بلا diffs، بلا محتوى، بلا CLAUDE.md/ذاكرة).
-  3. موافقة صريحة: يعرض ما سيُرسل حرفيًا ويطلب [y/n] — لا إرسال صامت أبدًا،
-     إلا مع --yes (أتمتة واعية).
-  4. --send-content: يرفق محتوى ملفات المهارات *الجديدة فقط* بعد فحص أمني +
-     إصلاح تلقائي — ويستبعد دائمًا: memory/‎، CLAUDE.md، .env، الأسرار.
+Principles (post design review):
+  1. Voluntary: sharing is optional and on by default — turn it off any time
+     ([skip-sync] in a commit message, or simply don't run this script).
+  2. Metadata only by default: sends skill names + stats + file list
+     (no diffs, no content, no CLAUDE.md/memory).
+  3. Explicit approval: shows exactly what will be sent and asks [y/n] — never
+     any silent sending, except with --yes (conscious automation).
+  4. --send-content: attaches *new* skill files only, after a security scan +
+     autofix — and always excludes: memory/, CLAUDE.md, .env, secrets.
 
-بدون `gh` CLI: يستخدم GitHub REST API عبر urllib + GITHUB_TOKEN.
-بدون إعداد upstream: يحفظ البلاغ في outbox محليًا حتى يتم الربط.
+Without the `gh` CLI: uses the GitHub REST API via urllib + GITHUB_TOKEN.
+Without upstream setup: saves the report to a local outbox until linked.
 
 Usage:
     venv/bin/python scripts/report_update.py [--force] [--yes] [--send-content]
@@ -31,13 +31,13 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
-from setup_consent import check_consent  # بوابة الموافقة — لا إرسال بلا موافقة
+from setup_consent import check_consent  # consent gate — no sending without consent
 UPSTREAM_PATH = ROOT / "memory" / ".skillopt-sleep" / "upstream.json"
 UPDATES_STATE = ROOT / "memory" / ".skillopt-sleep" / "updates-state.json"
 OUTBOX = ROOT / ".skillopt-sleep" / "outbox"
 WATCH_PREFIXES = (".opencode/skills", "scripts/")
 
-# لا يغادر الجهاز أبدًا حتى مع --send-content
+# never leaves the machine, even with --send-content
 NEVER_SEND = ("memory/", "CLAUDE.md", ".env", ".operator/",
               ".skillopt-sleep/", "venv/", ".git/")
 
@@ -70,7 +70,7 @@ def client_fingerprint():
 
 
 def collect_metadata(since_sha):
-    """metadata فقط: أسماء مهارات + إحصائيات — بلا محتوى ولا diffs."""
+    """Metadata only: skill names + stats — no content, no diffs."""
     if since_sha:
         stat = run(["git", "diff", "--numstat", f"{since_sha}..HEAD"])
         status = run(["git", "diff", "--name-status", f"{since_sha}..HEAD"])
@@ -103,7 +103,7 @@ def collect_metadata(since_sha):
 
 
 def collect_content(skills):
-    """محتوى ملفات المهارات الجديدة فقط — بعد فحص أمني وإصلاح. يعيد (نص, ملفات)."""
+    """New skill files only — after security scan + fix. Returns (text, files)."""
     sys.path.insert(0, str(ROOT / "scripts"))
     from security_scan import scan_tree, autofix_tree
     chunks, included = [], []
@@ -115,8 +115,8 @@ def collect_content(skills):
         findings = scan_tree(md)
         blocking = [f for f in findings if f["kind"] == "blocking"]
         if blocking:
-            return None, [f"⛔ {skill}: حاجب أمني — لن يُرسل ({blocking[0]['label']})"]
-        autofix_tree(md.parent, findings)  # يحجب الأسرار قبل الإرسال
+            return None, [f"BLOCKED {skill}: security gate — will not send ({blocking[0]['label']})"]
+        autofix_tree(md.parent, findings)  # redact secrets before sending
         try:
             text = md.read_text(encoding="utf-8", errors="ignore")
         except Exception:
@@ -132,9 +132,9 @@ def build_body(fp, skills, files, head_sha, content, included):
     total_add = sum(int(f["added"]) for f in files if str(f["added"]).isdigit())
     total_del = sum(int(f["deleted"]) for f in files if str(f["deleted"]).isdigit())
     lines = [
-        "## 📡 Client Update Report (metadata)",
+        "## Client Update Report (metadata)",
         "",
-        f"- **Client**: `{fp}` (بصمة مجهولة المصدر)",
+        f"- **Client**: `{fp}` (anonymous fingerprint)",
         f"- **At**: {datetime.now().isoformat()}",
         f"- **HEAD**: `{head_sha[:12]}`",
         f"- **Skills**: {', '.join(f'`{s}`' for s in skills) or '(none)'}",
@@ -153,9 +153,9 @@ def build_body(fp, skills, files, head_sha, content, included):
     lines += [
         "",
         "### Reviews (automation)",
-        "- `verify_update.yml` سيفحص الإضافات أمنيًا، ويحجب الأسرار تلقائيًا، ويوقف الدمج عند أي حاجب.",
-        "- **الدمج يتطلب مراجعة بشرية — لا دمج تلقائي لمساهمات العملاء.**",
-        "- بعد النشر كـ Release، لكل مستخدم حق **القبول أو الرفض** (`make check-updates`).",
+        "- `verify_update.yml` will security-scan the additions, auto-redact secrets, and stop the merge on any blocker.",
+        "- **Merging requires human review — no auto-merge for client contributions.**",
+        "- After publishing as a Release, every user has the **accept or reject** right (`make check-updates`).",
         "",
         "_Auto-generated by `scripts/report_update.py` (metadata-only mode)._",
     ]
@@ -164,18 +164,18 @@ def build_body(fp, skills, files, head_sha, content, included):
 
 def ask_approval(preview):
     print("\n" + "=" * 60)
-    print("📤 ما سيُرسل إلى GitHub (راجعه قبل الموافقة):")
+    print("What will be sent to GitHub (review before approving):")
     print("=" * 60)
     print(preview[:3000])
     if len(preview) > 3000:
-        print(f"… (+{len(preview) - 3000} chars)")
+        print(f"... (+{len(preview) - 3000} chars)")
     print("=" * 60)
     try:
-        ans = input("إرسال هذا البلاغ؟ [y إرسال / n إلغاء] ").strip().lower()
+        ans = input("Send this report? [y/n] ").strip().lower()
     except (EOFError, KeyboardInterrupt):
-        print("\n⏸️  أُلغي — لن يُرسل شيء.")
+        print("\nCancelled — nothing will be sent.")
         return False
-    return ans in ("y", "yes", "نعم", "اه", "ok")
+    return ans in ("y", "yes", "ok")
 
 
 def post_issue(repo, token, title, body):
@@ -197,19 +197,19 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--force", action="store_true")
     ap.add_argument("--yes", action="store_true",
-                    help="تخطي سؤال الموافقة (أتمتة واعية فقط)")
+                    help="skip the approval question (conscious automation only)")
     ap.add_argument("--send-content", action="store_true",
-                    help="إرفاق محتوى المهارات الجديدة بعد الفحص الأمني")
+                    help="attach new skill content after the security scan")
     args = ap.parse_args()
 
     if not (ROOT / ".git").exists():
         print("❌ Not a git repository")
         return 1
 
-    # بوابة الموافقة وقت التنزيل: رفض = صفر إرسال، عادي
+    # install-time consent gate: decline = zero sending, fine
     if not check_consent(interactive=True):
-        print("⛔ المشاركة متوقفة (لم توافق) — لن يُرسل شيء.")
-        print("   لتغيير رأيك: venv/bin/python scripts/setup_consent.py")
+        print("Sharing is off (no consent) — nothing will be sent.")
+        print("   To change your mind: venv/bin/python scripts/setup_consent.py")
         return 0
 
     state = load_json(UPDATES_STATE, {})
@@ -227,18 +227,18 @@ def main():
         else:
             content, included = collect_content(skills)
             if content is None:
-                print("\n".join(included))  # أسباب الحجب
-                print("❌ محتوى محجوب أمنيًا — أُرسل metadata فقط أو أصلح أولًا.")
+                print("\n".join(included))  # block reasons
+                print("Content blocked by security — send metadata only or fix first.")
                 content = None
-                # تابع كـ metadata فقط بعد موافقة جديدة
+                # continue as metadata-only after fresh approval
     fp = client_fingerprint()
-    title = f"📡 Client update {fp} — {datetime.now().strftime('%Y-%m-%d %H:%M')}"
+    title = f"Client update {fp} — {datetime.now().strftime('%Y-%m-%d %H:%M')}"
     body = build_body(fp, skills, files, head, content, included)
 
-    # بوابة الموافقة — إلزامية ما لم --yes
+    # approval gate — mandatory unless --yes
     if not args.yes:
         if not ask_approval(f"# {title}\n\n{body}"):
-            print("✅ أُلغي بطلبك — لم يُرسل شيء ولم يُحفظ شيء.")
+            print("Cancelled on your request — nothing sent, nothing saved.")
             return 0
 
     upstream = load_json(UPSTREAM_PATH, {})

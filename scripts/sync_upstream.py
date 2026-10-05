@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """
-sync_upstream.py — يجمع التغييرات المحلية ويرسلها كـ PR للمستودع المركزي.
+sync_upstream.py — collect local changes and send them as a PR to the central repo.
 
-يشتغل تلقائيًا بعد كل دورة تطوير ذاتي (skillopt-sleep + autonomous-model-self-evolver).
+Runs automatically after each self-improvement cycle
+(skillopt-sleep + autonomous-model-self-evolver).
 """
 
 import os
@@ -16,7 +17,7 @@ from typing import List, Dict, Optional
 
 REPO_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
-from setup_consent import check_consent  # بوابة الموافقة — الخلفية لا ترسل بلا موافقة
+from setup_consent import check_consent  # consent gate — background never sends without consent
 GITIGNORE_PATHS = [
     ".env", "*.env", ".env.*",
     "venv/", ".venv/", "env/",
@@ -32,7 +33,7 @@ GITIGNORE_PATHS = [
 
 
 def run(cmd: List[str], cwd: Path = None, capture: bool = True) -> subprocess.CompletedProcess:
-    """تشغيل أمر مع معالجة أخطاء نظيفة."""
+    """Run a command with clean error handling."""
     try:
         return subprocess.run(
             cmd, cwd=cwd or REPO_ROOT,
@@ -44,18 +45,18 @@ def run(cmd: List[str], cwd: Path = None, capture: bool = True) -> subprocess.Co
 
 
 def get_changed_files() -> List[str]:
-    """ملفات متغيرة منذ آخر sync (tracked + untracked skills/memory)."""
+    """Changed files since last sync (tracked + untracked skills/memory)."""
     # tracked changes
     res = run(["git", "status", "--porcelain"])
     tracked = [line[3:].strip() for line in res.stdout.splitlines() if line.strip()]
 
-    # untracked skills/memory فقط
+    # untracked skills/memory only
     res = run(["git", "ls-files", "--others", "--exclude-standard"])
     untracked = [f for f in res.stdout.splitlines()
                  if f.startswith((".opencode/skills/", "memory/", "CLAUDE.md", "scripts/"))]
 
     all_changes = list(set(tracked + untracked))
-    # فلترة gitignore
+    # gitignore filter
     filtered = []
     for f in all_changes:
         if not any(f.startswith(ign.rstrip("/")) or f.endswith(ign.lstrip("*")) for ign in GITIGNORE_PATHS):
@@ -64,7 +65,7 @@ def get_changed_files() -> List[str]:
 
 
 def has_meaningful_changes(files: List[str]) -> bool:
-    """هل فيه تغييرات تستحق PR؟ (مش مجرد whitespace)."""
+    """Any changes worth a PR? (not just whitespace)."""
     if not files:
         return False
     for f in files:
@@ -74,13 +75,13 @@ def has_meaningful_changes(files: List[str]) -> bool:
 
 
 def create_pr_branch() -> str:
-    """اسم فرع فريد للـ PR."""
+    """A unique branch name for the PR."""
     timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
     return f"community-contributions/{timestamp}"
 
 
 def commit_and_push(branch: str, files: List[str]) -> bool:
-    """كوميت + Push للفرع."""
+    """Commit + push the branch."""
     # Add
     for f in files:
         run(["git", "add", f])
@@ -111,7 +112,7 @@ def commit_and_push(branch: str, files: List[str]) -> bool:
 
 
 def create_pr(branch: str) -> Optional[str]:
-    """يفتح PR عبر gh CLI."""
+    """Open a PR via the gh CLI."""
     title = f"🤖 Community sync: {datetime.now().strftime('%Y-%m-%d %H:%M')}"
     body = f"""## Community Evolution Sync
 
@@ -158,23 +159,23 @@ Automated PR from local skill evolution cycle.
 def main():
     print("🔄 Starting upstream sync...")
 
-    # تحقق إننا في git repo
+    # must be a git repo
     if not (REPO_ROOT / ".git").exists():
         print("❌ Not a git repository")
         sys.exit(1)
 
-    # بوابة الموافقة (وضع خلفية = غير تفاعلي: الافتراضي الآمن لا إرسال)
+    # consent gate (background mode = non-interactive: safe default is no send)
     if not check_consent(interactive=False):
-        print("⏭️  المشاركة متوقفة (لا موافقة مسجلة) — تخطي المزامنة.")
+        print("Sharing is off (no recorded consent) — skipping sync.")
         sys.exit(0)
 
-    # تحقق إن فيه remote
+    # must have a remote
     res = run(["git", "remote", "get-url", "origin"])
     if res.returncode != 0:
         print("❌ No 'origin' remote configured")
         sys.exit(1)
 
-    # جمع التغييرات
+    # collect changes
     changed = get_changed_files()
     print(f"📝 Found {len(changed)} changed files:")
     for f in sorted(changed):
@@ -184,9 +185,9 @@ def main():
         print("ℹ️  No meaningful changes to sync")
         sys.exit(0)
 
-    # إنشاء فرع + Push
+    # create branch + push
     branch = create_pr_branch()
-    print(f"🌿 Creating branch: {branch}")
+    print(f"Creating branch: {branch}")
 
     # Switch to new branch
     run(["git", "checkout", "-b", branch])
@@ -195,7 +196,7 @@ def main():
         print("❌ Sync failed at commit/push stage")
         sys.exit(1)
 
-    # إنشاء PR
+    # open the PR
     pr_url = create_pr(branch)
     if pr_url:
         print(f"🎉 Sync complete! PR: {pr_url}")

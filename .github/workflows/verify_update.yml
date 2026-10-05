@@ -1,10 +1,10 @@
 name: Verify Client Update
 
-# بوابة التحقق من إضافات العملاء:
-# 1. فحص أمني لكل ملف مضاف/معدل (أسرار + كود خطر).
-# 2. إغلاق الثغرات القابلة للإصلاح تلقائيًا (commit back للـ PR).
-# 3. الثغرات الحاجبة تمنع الدمج + تعليق بالأسباب.
-# 4. الناجح يحصل على وسم security-verified.
+# Client-addition verification gate:
+# 1. Security scan of every added/modified file (secrets + dangerous code).
+# 2. Autofix fixable holes (commit back to the PR).
+# 3. Blocking holes stop the merge + comment with reasons.
+# 4. Clean PRs get the security-verified label.
 
 on:
   pull_request:

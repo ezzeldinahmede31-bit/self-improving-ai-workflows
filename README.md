@@ -1,218 +1,212 @@
 # Self-Improving AI Workflows
 
 > **Build production workflows & AI agents that get better every night.**
-> منصة مفتوحة المصدر (MIT) لبناء الـ workflows ووكلاء الذكاء الاصطناعي — تتعلم من شغلك اليومي، وتطور نفسها تلقائيًا، وتتشارك التطوير عبر الشبكة.
+> An open-source (MIT) platform for building workflows and AI agents — it learns from your daily work, improves itself automatically, and shares improvements across the network.
 
 ## Why this system
 
-| الميزة | التفاصيل الحقيقية |
-|--------|-------------------|
-| **مكتبة جاهزة ضخمة** | 1240+ مهارة مثبتة، منها 35 مهارة متخصصة في n8n (agents, RAG, error handling, deployment) |
-| **بوابات بناء إلزامية** | أي workflow أو agent يمر على 7 مراحل فحص (أمن → جودة → سلامة → منطق → HITL → تدقيق) قبل التسليم — لا شيء غير مُثبت يُسلَّم |
-| **تسليم مُتحقق منه** | لا يُسلَّم workflow لم يُنفَّذ فعليًا end-to-end مع دليل — سياسة مكتوبة لا شعار |
-| **تطوير ذاتي ليلي** | بعد انتهاء شغلك: تحديث الذاكرة والمهارات + قواعد جديدة من أخطاء اليوم + اكتشاف مهارات من الإنترنت وتكييفها — 25-35 دقيقة والجهاز مفتوح |
-| **تشارك آمن بالموافقة** | المساهمة تطوعية بموافقة وقت التنزيل، البلاغات metadata فقط وبموافقة صريحة، فحص أمني + مراجعة بشرية إلزامية، ولكل مستخدم حق قبول/رفض أي تحديث |
+| Feature | The verified reality |
+|---------|---------------------|
+| **Huge ready-made library** | 1240+ installed skills, including 35 specialized n8n skills (agents, RAG, error handling, deployment) |
+| **Mandatory build gates** | Every workflow or agent passes 7 inspection stages (security → quality → integrity → logic → HITL → audit) before delivery — nothing unproven gets shipped |
+| **Verified delivery** | No workflow is delivered unless it actually ran end-to-end with evidence — a written policy, not a slogan |
+| **Nightly self-improvement** | After you finish work: memory + skill updates, new rules from the day's mistakes, internet skill discovery and adaptation — 25-35 minutes with the machine on |
+| **Consent-based sharing** | Voluntary contribution with install-time consent, metadata-only reports with explicit approval, security scanning + mandatory human review, and every user's right to accept/reject any update |
 
 ## How a weak model beats frontier here
 
-معظم أنظمة الوكلاء **تستأجر الذكاء** بالتوكن. هذا النظام **يبنيه**: هيكل تعويضي
-(compensatory scaffolding) يحيط بالنموذج الضعيف/المجاني ويحول نقاط ضعفه إلى
-إجراءات إجبارية — فتخرج شغلًا بمستوى يتحدى النماذج الرائدة:
+Most agent systems **rent intelligence** per token. This one **builds it**: a compensatory scaffolding around weak/free-tier models turns their weaknesses into mandatory procedures — producing work that challenges leading models:
 
-1. **توجيه معرفي قبل أي استدعاء** (`cognitive-task-triager`): كل مهمة تُصنف لطبقة
-   النموذج المناسب — لا هدر للغالي على التافه، ولا إرسال للمعقد إلى الضعيف.
-2. **تفكير عميق إجباري** (`frontier-deep-reasoner`): سلم تحليل صريح قبل أي إجابة
-   غير بديهية — يمنع القفز لأول تخمين معقول.
-3. **التحقق لا التوليد** (`elite-verifier-delegation`, `llm-council`,
-   `adversarial-self-falsifier`): التوليد رخيص هنا، والحكم للنموذج الأقوى —
-   كل ناتج يُهاجم قبل تسليمه.
-4. **الإثبات بالتنفيذ لا بالادعاء** (`tdd-sandbox-proof-engine`,
-   `code-execution-guided-swemaster`): الكود لا يُقبل بقول "يعمل" — يُنفذ
-   وتُقاس نتائجه، والإصلاح الجراحي بلا كسر للموجود.
-5. **التطور الليلي المُقاس** (`skillopt-sleep`, `autonomous-model-self-evolver`):
-   كل فشل يتحول لقاعدة `rules.json` تُفرض runtime على كل تشغيل لاحق —
-   والنظام يصحو أقوى مما نام عليه.
-6. **القياس لا الأوهام** (`self-benchmark-runner`, `model-benchmark-harness`):
-   الأداء يُقاس على معايير عامة (AIME/MATH-500/...) مقابل درجات منشورة،
-   والفجوة ضد النموذج القائد تُقاس بنداءات حية — لا ترقية لقاعدة دون إثبات.
+1. **Cognitive routing before any call** (`cognitive-task-triager`): every task is classified to the right model tier — no frontier waste on trivia, no hard reasoning sent to a weak model.
+2. **Forced deep reasoning** (`frontier-deep-reasoner`): an explicit decomposition ladder before any non-trivial answer — no jumping to the first plausible guess.
+3. **Verification over generation** (`elite-verifier-delegation`, `llm-council`, `adversarial-self-falsifier`): generation is cheap here, judgment belongs to the stronger model — every output is attacked before delivery.
+4. **Proof by execution, not by claim** (`tdd-sandbox-proof-engine`, `code-execution-guided-swemaster`): code is never accepted on "it works" — it runs, its results are measured, and fixes are surgical with no regressions.
+5. **Measured nightly evolution** (`skillopt-sleep`, `autonomous-model-self-evolver`): every failure becomes a `rules.json` rule enforced at runtime on all later runs — the system wakes up stronger than it slept.
+6. **Measurement, not illusions** (`self-benchmark-runner`, `model-benchmark-harness`): performance is measured on public benchmarks (AIME/MATH-500/...) against published scores, and the gap vs the leading model is measured with live calls — no rule is promoted without proof.
 
-> ملاحظة أمانة: أي رقم مقارنة يُذكر عن هذا المستودع يجب أن يأتي من تشغيل
-> الـ harness محليًا (`self-benchmark-runner`) على جهازك — الآلية فوق حقيقية
-> ومُسلَّمة في الكود، والأرقام تُقاس ولا تُدَّعى.
+> Honesty note: any comparison number cited for this repo must come from running the harness locally (`self-benchmark-runner`) on your machine — the mechanism above is real and shipped in code; numbers are measured, never claimed.
 
-## الفكرة باختصار
+## The idea in short
 
-نظام يتعلم من استخدامك اليومي، يطور مهاراته وقواعده تلقائيًا، **ويرجع التحسينات لمستودع مركزي** يستفيد منه جميع المستخدمين مجانًا.
+A system that learns from your daily usage, improves its skills and rules automatically, **and returns improvements to a central repo** that all users benefit from — free.
 
 ```
-جلساتك اليومية
+Your daily sessions
        ↓
-make dev-cycle (بعد "اه"، 25-35 دقيقة):
-  sleep-run → يحدث CLAUDE.md + SKILL.md
-  evolve    → يولد rules.json من رفضات HITL
-  discover  → يجلب مهارات/أنظمة من الإنترنت + يظبطها + يفحصها
+make dev-cycle (after you're done, 25-35 min):
+  sleep-run → updates CLAUDE.md + SKILL.md from today's sessions
+  evolve    → generates rules.json from today's HITL rejections
+  discover  → fetches skills/systems from the internet + adapts + scans them
        ↓
-report_update.py → إشعار للمستودع المركزي (Issue بوسم client-update + التفاصيل)
+report_update.py → notifies the central repo (client-update Issue + details)
        ↓
-sync_upstream.py → Push PR للمستودع المركزي
+sync_upstream.py → pushes a PR to the central repo
        ↓
-verify_update.yml → فحص أمني للإضافات + إغلاق الثغرات تلقائيًا قبل الدمج
-  (الثغرات الحاجبة توقف الدمج حتى يصلحها بشر)
+verify_update.yml → security scan of additions + autofix before merge
+  (blocking findings stop the merge until a human fixes them)
        ↓
-Maintainer ينشر Release
+Maintainer publishes a Release
        ↓
-check_updates.py → كل مستخدم يرى سجل التغييرات ويحق له **قبول أو رفض** التحديث
-  (القبول يطبق بعد فحص أمني محلي + نسخة احتياطية — الرفض يُسجل ولا يُسأل مجددًا)
+check_updates.py → every user sees the changelog and may **accept or reject**
+  (accept applies after a local security scan + backup — reject is recorded forever)
        ↓
-الكل يستفيد في الدورة الجاية
+Everyone benefits in the next cycle
 ```
 
 ---
 
-## 🚀 البداية السريعة
+## Quickstart
 
 ```bash
-# 1. استنساخ
+# 1. Clone
 git clone https://github.com/ezzeldinahmede31-bit/self-improving-ai-workflows.git
 cd self-improving-ai-workflows
 
-# 2. إعداد البيئة
+# 2. Environment
 python -m venv venv
 source venv/bin/activate
 pip install -e .[dev]
 
-# 3. الإعداد الأول: الموافقة + الربط + الـ hook (يسألك وتختار — الرفض عادي)
+# 3. First-time setup: consent + link + hook (it asks, you choose — declining is fine)
 make setup
 
-# 4. شغل دورة تطوير كاملة (بعد ما تخلص شغلك وتقول "اه")
+# 4. Run a full improvement cycle (after you finish work for the day)
 make dev-cycle
 ```
 
-### 🔔 إعداد التحديثات (مرة واحدة — `make setup` يرشدك)
+### Update setup (once — `make setup` walks you through it)
 
 ```bash
-make setup   # 1) موافقتك (قبول/رفض — الرفض عادي)  2) ربط OWNER/REPO  3) تركيب hook
-export GITHUB_TOKEN=ghp_...   # للكتابة على GitHub — من البيئة فقط، لا يُخزن في ملفات
+make setup   # 1) your consent (accept/decline — declining is fine)  2) link OWNER/REPO  3) install hook
+export GITHUB_TOKEN=ghp_...   # for writing to GitHub — from the environment only, never stored in files
 
-# على GitHub: أنشئ الوسوم مرة واحدة (Settings → Labels)
+# On GitHub: create the labels once (Settings → Labels)
 # client-update / security-verified / needs-fix
 ```
 
-**حقوقك كمستخدم (غير قابلة للتفاوض):**
-- `make check-updates` — ترى الجديد **بدون أي تغيير** في جهازك.
-- `make apply-update` — تقبل (يطبق بعد فحص أمني محلي + نسخة احتياطية `backup/pre-update-*`) أو ترفض (يُسجل ولا تُسأل مجددًا).
-- لا شيء يُطبق تلقائيًا أبدًا — القبول قرارك وحدك.
+**Your rights as a user (non-negotiable):**
+- `make check-updates` — see what's new with **zero changes** to your machine.
+- `make apply-update` — accept (applies after a local security scan + `backup/pre-update-*` snapshot) or reject (recorded, never asked again).
+- Nothing is ever applied automatically — acceptance is yours alone.
 
 ---
 
-## ⚙️ المكونات الأساسية
+## Core components
 
-| المكون | الدور | التوقيت |
-|----------|-------|---------|
-| **skillopt-sleep** | يستخلص أنماط من جلسات اليوم، يحدث الذاكرة والمهارات | كرون 03:47 أو `make sleep-run` |
-| **autonomous-model-self-evolver** | يقيس أداء النموذج، يولد قواعد أمان من رفضات اليوم | كرون 04:00 أو `make evolve` |
-| **sync_upstream.py** | يرسل التغييرات كـ PR للمستودع المركزي | تلقائي بعد كل commit (hook) |
-| **report_update.py** | يبلّغ GitHub بتحديث عميل (Issue + التفاصيل، بدون أسرار) | `make report-update` (ضمن dev-cycle) |
-| **verify_update.yml** | فحص أمني للإضافات + إغلاق الثغرات تلقائيًا قبل الدمج | على كل PR |
-| **check_updates.py** | يعرض التحديثات الجديدة — **حق القبول/الرفض للمستخدم** | `make check-updates` / `make apply-update` |
-| **security_scan.py** | الفحص الأمني المشترك (أسرار + كود خطر + autofix) | `make sec-scan P=<path> FIX=1` |
-| **GitHub Actions CI** | يتحقق من الجودة، يدمج تلقائي لو أخضر | على كل PR |
+| Component | Role | Timing |
+|-----------|------|--------|
+| **skillopt-sleep** | Extracts patterns from today's sessions, updates memory + skills | cron 03:47 or `make sleep-run` |
+| **autonomous-model-self-evolver** | Measures model performance, generates safety rules from today's rejections | cron 04:00 or `make evolve` |
+| **discover_skills.py** | Finds skills/systems on the internet from today's work, adapts them programmatically, security-scans them | inside `make dev-cycle` or `make discover` (~5-10 min) |
+| **sync_upstream.py** | Sends changes as a PR to the central repo | automatic after each commit (hook) |
+| **report_update.py** | Notifies GitHub of a client update (Issue + details, no secrets) | `make report-update` |
+| **verify_update.yml** | Security scan of additions + autofix before merge | on every PR |
+| **check_updates.py** | Shows new updates — **the user's accept/reject right** | `make check-updates` / `make apply-update` |
+| **security_scan.py** | Shared security scan (secrets + dangerous code + autofix) | `make sec-scan P=<path> FIX=1` |
+| **GitHub Actions CI** | Verifies quality on every PR — merge always requires human review, never automatic | on every PR |
 
 ---
 
-## 📋 الأوامر المفيدة
+## Useful commands
 
 ```bash
-# دورة تطوير كاملة (ما تشغلها بعد "اه")
+# Full improvement cycle (run it after you're done for the day)
 make dev-cycle
 
-# كل مكون لوحده
-make sleep-run      # skillopt-sleep فقط
-make evolve         # self-evolver فقط
-make sync           # مزامنة يدوية
+# Each component alone
+make sleep-run      # skillopt-sleep only
+make evolve         # self-evolver only
+make discover       # internet discovery only
+make sync           # manual sync
 
-# اختبار وتحقق
-make test           # تجارب التحقق (held-out gate)
+# Test and verify
+make test           # validation experiments (held-out gate)
 make validate       # build gates pipeline
 
-# جدولة ليلية تلقائية
-make schedule       # يضيف كرون 03:47 + 04:00
-make unschedule     # يحذف الكرون
+# Nightly scheduling
+make schedule       # adds 03:47 + 04:00 cron entries
+make unschedule     # removes them
 
-# صيانة
-make clean          # ينظف الكاش والملفات المؤقتة
+# Updates (your right: accept or reject)
+make check-updates  # list only, no changes
+make apply-update   # interactive accept/reject
+
+# Maintenance
+make clean          # cleans caches and temp files
 ```
 
 ---
 
-## 🔄 كيف يعمل التعاون (تطوعي — مفعل افتراضيًا)
+## How collaboration works (voluntary — on by default)
 
-> **المساهمة اختيارية** (MIT). الشبكة تقوى بالمشاركة، والمشاركة مفعلة افتراضيًا
-> لسهولتها — وتوقفها بـ `[skip-sync]` أو بعدم تشغيل أدوات الإرسال. **لا إرسال صامت أبدًا**:
-> `report_update.py` يعرض ما سيُرسل (metadata فقط افتراضيًا) ويطلب موافقتك.
+> **Contribution is voluntary** (MIT). The network grows stronger by sharing, and sharing is on by default for ease — turn it off with `[skip-sync]` or by not running the send tools. **Never any silent sending**: `report_update.py` shows what will be sent (metadata only by default) and asks your approval.
 
-1. **تركب الـ hook مرة واحدة** (اختياري): `make install-hook`
-2. **تشتغل طبيعي** — تطور مهارات، تضيف قواعد، تحدث CLAUDE.md
-3. **تقول "اه" → تشغل `make dev-cycle`** (25-35 دقيقة، الجهاز مفتوح):
-   - `sleep-run` — تحديث الذاكرة والمهارات من جلسات اليوم (~15-30 دقيقة)
-   - `evolve` — قواعد جديدة من رفضات اليوم (~3-5 دقائق)
-   - `discover` — بحث إنترنت عن مهارات/أنظمة جديدة + تظبيطها برمجيًا + فحص أمني (~5-10 دقائق)
-4. **(بموافقتك)** `report_update` يبلّغ + `sync` يفتح PR → فحص أمني + إغلاق ثغرات
-5. **مراجعة بشرية إلزامية** → دمج → Release (لا دمج تلقائي أبدًا)
-6. **الكل يستفيد** في الدورة الجاية — وكل مستخدم يقبل/يرفض (`make check-updates`)
+1. **Install the hook once** (optional): `make install-hook`
+2. **Work normally** — improve skills, add rules, update CLAUDE.md
+3. **When done → run `make dev-cycle`** (25-35 minutes, machine stays on):
+   - `sleep-run` — memory + skill updates from today's sessions (~15-30 min)
+   - `evolve` — new rules from today's rejections (~3-5 min)
+   - `discover` — internet search for new skills/systems + programmatic adaptation + security scan (~5-10 min)
+4. **(With your approval)** `report_update` notifies + `sync` opens a PR → security scan + hole closing
+5. **Mandatory human review** → merge → Release (never any auto-merge)
+6. **Everyone benefits** in the next cycle — and every user accepts/rejects (`make check-updates`)
 
 ---
 
-## 📁 هيكل المشروع
+## Project structure
 
 ```
-├── .opencode/skills/          # المهارات (تطور ذاتي)
-├── memory/                    # الذاكرة المضغوطة + sleep staging
-├── scripts/                   # محركات التطوير
-│   ├── sync_upstream.py      # المزامنة للمستودع المركزي
-│   ├── discover_skills.py    # اكتشاف مهارات/أنظمة من الإنترنت + تظبيطها + فحصها
-│   ├── install_hook.sh       # تركيب git hook
+├── .opencode/skills/          # skills (self-evolving)
+├── memory/                    # compressed memory + sleep staging
+├── scripts/                   # improvement engines
+│   ├── sync_upstream.py      # sync to the central repo
+│   ├── discover_skills.py    # discover internet skills/systems + adapt + scan
+│   ├── report_update.py      # notify GitHub (metadata-only + approval)
+│   ├── check_updates.py      # accept/reject upstream updates
+│   ├── security_scan.py      # shared security gate
+│   ├── setup_consent.py      # install-time consent gate
+│   ├── install_hook.sh       # install git hook
 │   ├── build_gates_pipeline.py
 │   └── ...
-├── .github/workflows/ci.yml   # CI/CD للتحقق التلقائي
-├── CONTRIBUTING.md            # قواعد التعاون (إلزامية)
+├── .github/workflows/         # ci.yml + verify_update.yml (no auto-merge, ever)
+├── CONTRIBUTING.md            # collaboration rules (voluntary)
 ├── LICENSE                    # MIT License
-├── Makefile                   # أوامر مختصرة
-└── README.md                  # هذا الملف
+├── Makefile                   # shortcuts
+└── README.md                  # this file
 ```
 
 ---
 
-## 🛡️ الأمان والخصوصية
+## Security and privacy
 
-**ما لا يغادر جهازك أبدًا** (في `.gitignore`):
-- `.env`، مفاتيح API، أسرار
-- جلسات شخصية (`memory/.sessions/`, `.operator/`)
-- قواعد بيانات محلية (`*.db`)
-- بيئات افتراضية (`venv/`)
+**Never leaves your machine** (in `.gitignore`):
+- `.env`, API keys, secrets
+- personal sessions (`memory/.sessions/`, `.operator/`)
+- local databases (`*.db`)
+- virtual environments (`venv/`)
 
-**ما يُرسل** (تحسينات فقط):
-- مهارات جديدة/محدثة (`.opencode/skills/*/SKILL.md`)
-- قواعد أمان (`rules.json`)
-- ذاكرة مشروع (`CLAUDE.md`, `memory/conversation-memory.md`)
-- سكريبتات محسنة (`scripts/*.py`)
-
----
-
-## 🤝 المساهمة
-
-راجع [CONTRIBUTING.md](CONTRIBUTING.md) — القاعدة الأساسية: **ما يتطور على جهازك يعود للأصل**.
+**What gets sent** (improvements only, with your approval):
+- new/updated skills (`.opencode/skills/*/SKILL.md`)
+- safety rules (`rules.json`)
+- project memory (`CLAUDE.md`, `memory/conversation-memory.md`)
+- improved scripts (`scripts/*.py`)
 
 ---
 
-## 📄 الترخيص
+## Contributing
 
-[MIT License](LICENSE) — مجاني للاستخدام التجاري والتعديل والتوزيع.
+See [CONTRIBUTING.md](CONTRIBUTING.md) — the standing rule for those who choose to share: **what evolves on your machine returns to the origin**.
 
 ---
 
-## 🙏 شكرًا
+## License
 
-باستخدامك هذا النظام، أنت جزء من **شبكة تعلم جماعي**. كل جلسة عندك تقوي النظام للكل، وكل جلسة عند غيرك تقوي نظامك أنت.
+[MIT License](LICENSE) — free for commercial use, modification, and distribution.
 
-> **"التطوير الحقيقي مش بيحصل في الكود... بيحصل في المشاركة."**
+---
+
+## Thank you
+
+By using this system, you are part of a **collective learning network**. Every session on your machine strengthens the system for everyone, and every session elsewhere strengthens yours.
+
+> **"Real improvement doesn't happen in code... it happens in sharing."**

@@ -1,118 +1,122 @@
-# Contributing to Skill Evolution System
+# Contributing to Self-Improving AI Workflows
 
-> **المساهمة تطوعية** (رخصة MIT — بلا شروط). المساهمة **مفعلة افتراضيًا** لأن الشبكة تقوى
-> بمشاركة الجميع، ويمكنك إيقافها في أي وقت: أضف `[skip-sync]` لرسالة الـ commit،
-> أو لا تشغل `report_update.py`/`sync_upstream.py`. لا أحد يراقب، ولا أحد يجبر.
-
----
-
-## القاعدة الذهبية (لمن يختار المشاركة)
-
-**ما يتطور على جهازك → يعود للأصل → يستفيد منه الكل**
-
-للمشاركين (بعد `make setup` والموافقة): السكريبت `sync_upstream.py` يشتغل
-تلقائيًا بعد كل commit عبر الـ hook ويرسل التغييرات كـ Pull Request —
-و`report_update.py` **يطلب موافقتك الصريحة** على ما سيُرسل (metadata فقط
-افتراضيًا) قبل أي إرسال. غيّرت رأيك؟ أعد `make setup` واختر الرفض.
+> **Contribution is voluntary** (MIT license — no strings attached). Sharing is
+> **on by default** because the network grows stronger when everyone shares, and
+> you can turn it off at any time: add `[skip-sync]` to a commit message, or
+> simply don't run `report_update.py`/`sync_upstream.py`. Nobody watches, nobody forces.
 
 ---
 
-## كيف يعمل (تلقائي، لا تدخل يدوي)
+## The golden rule (for those who choose to share)
+
+**What evolves on your machine → returns to the origin → everyone benefits.**
+
+For contributors (after `make setup` + consent): `sync_upstream.py` runs automatically
+after each commit via the hook and sends changes as a Pull Request — and
+`report_update.py` **asks your explicit approval** of what will be sent
+(metadata only by default) before anything leaves your machine. Changed your
+mind? Re-run `make setup` and decline.
+
+---
+
+## How it works (automatic, no manual steps)
 
 ```
-1. أنت تخلص شغلك اليومي → تقول "اه"
-2. النظام يشغل دورتين في الخلفية (25-35 دقيقة):
-   - skillopt-sleep: يحدث CLAUDE.md + SKILL.md من جلسات اليوم
-   - autonomous-model-self-evolver: يولد rules.json جديدة من رفضات HITL
-3. sync_upstream.py يجمع التغييرات الجديدة
-4. يفتح PR على فرع `community-contributions`
-5. GitHub Actions يشغل الاختبارات (validate_workflow + experiments)
-6. لو تمر → Merge تلقائي → الكل يستفيد في الدورة الجاية
+1. You finish your daily work
+2. The system runs its cycle in the background (25-35 minutes):
+   - skillopt-sleep: updates CLAUDE.md + SKILL.md from today's sessions
+   - autonomous-model-self-evolver: generates new rules.json from HITL rejections
+   - discover_skills.py: fetches internet skills + adapts + security-scans them
+3. sync_upstream.py collects the new changes
+4. Opens a PR on a `community-contributions/*` branch
+5. GitHub Actions runs the checks (experiments + security gate)
+6. A human maintainer reviews → merge → everyone benefits in the next cycle
+   (never any auto-merge — automated checks cannot detect prompt injection)
 ```
 
 ---
 
-## ما يُرسل تلقائيًا (لا حاجة تحدد)
+## What gets sent (you approve it first)
 
-| نوع التغيير | مثال |
-|------------|------|
-| مهارة جديدة (`.opencode/skills/*/SKILL.md`) | أضفت مهارة `new-skill` |
-| تعديل مهارة موجودة | حسّنت `n8n-rag-vector-qa` |
-| `rules.json` جديد من self-evolver | قاعدة أمان جديدة من رفض HITL |
-| تحديث `CLAUDE.md` | تفضيلات جديدة، أنماط متكررة |
-| تحديث `memory/conversation-memory.md` | دروس مستخلصة |
-| مهارة مكتشفة من الإنترنت (`discover_skills.py`) | جُلبت من skills.sh + اتظبطت برمجيًا + فحص أمني نظيف |
+| Change type | Example |
+|-------------|---------|
+| New skill (`.opencode/skills/*/SKILL.md`) | you added skill `new-skill` |
+| Modified skill | you improved `n8n-rag-vector-qa` |
+| New `rules.json` from self-evolver | a new safety rule from a HITL rejection |
+| `CLAUDE.md` update | new preferences, recurring patterns |
+| `memory/conversation-memory.md` update | distilled lessons |
+| Internet-discovered skill (`discover_skills.py`) | fetched from skills.sh + programmatically adapted + clean security scan |
 
-**ما لا يُرسل**: `.env`، مفاتيح API، جلسات شخصية، `venv/`، `.operator/`، `memory/.sessions/` — كلها في `.gitignore`.
-
----
-
-## ما نوصي به (اختياري بالكامل)
-
-1. **اترك الجهاز مفتوح 25-35 دقيقة** بعد قول "اه" لتستفيد أنت أولًا من التطوير الذاتي.
-2. **للمشاركة**: أبقِ الـ hook يعمل (`make install-hook`) — ووافق على البلاغات عندما تُعرض عليك.
-3. **للانسحاب**: `[skip-sync]` في أي commit، أو احذف الـ hook — بلا أسئلة وبلا ذنب.
-4. **لو PR فشل** — النظام يبلغك، تصلحه يدويًا مرة واحدة، والباقي تلقائي.
-
-## خصوصيتك أولًا (ضمانات الإبلاغ)
-
-1. **افتراضيًا metadata فقط**: أسماء مهارات + أرقام — بلا diffs، بلا محتوى، بلا ذاكرة.
-2. **موافقة صريحة إلزامية**: `report_update.py` يعرض النص الكامل لما سيُرسل ويسألك `[y/n]` — لا إرسال صامت أبدًا.
-3. **حتى مع `--send-content`**: تُرفق ملفات المهارات *الجديدة فقط* بعد فحص أمني + حجب أسرار — و`memory/` و`CLAUDE.md` و`.env` **لا تغادر الجهاز أبدًا**.
-4. **بلا upstream = بلا إرسال**: بدون إعداد المستودع المركزي، البلاغات تُحفظ في outbox محلي فقط.
-
-## حقوقك كمستخدم (التحديثات القادمة من المركزي)
-
-1. **حق المعرفة**: `make check-updates` يعرض كل إصدار جديد بسجل تغييراته — بدون أي تغيير في جهازك.
-2. **حق القبول أو الرفض**: `make apply-update` يسألك لكل إصدار `[y قبول / n رفض]`.
-   - **القبول** = فحص أمني محلي (`security_scan.py`) + نسخة احتياطية (`backup/pre-update-*`) + تطبيق + تسجيل في الراوتر.
-   - **الرفض** = يُسجل القرار ولا تُسأل عن هذا الإصدار مجددًا أبدًا.
-3. **لا تطبيق تلقائي**: ممنوع منعًا باتًا تطبيق أي تحديث على جهازك دون موافقتك الصريحة.
-4. **حق التراجع**: أي تحديث مطبق له فرع نسخة احتياطية — `git checkout backup/pre-update-<ts> -- <paths>` يرجعك.
-
-## دورة حياة تحديث العميل (عميل → مركزي → عملاء)
-
-1. **بلاغ**: `report_update.py` يفتح Issue بوسم `client-update` (بصمة عميل مجهولة + ملفات + مهارات — بلا أسرار).
-2. **تحقق**: `verify_update.yml` يفحص كل ملف مضاف/معدل:
-   - أسرار مكشوفة → تُحجب تلقائيًا (`[REDACTED:*]`) وتُعاد للـ PR.
-   - كود خطر → **حاجب**: يوقف الدمج + وسم `needs-fix` + تعليق بالأسباب (يحتاج بشرًا).
-   - نظيف → وسم `security-verified` + تعليق بالملخص.
-3. **نشر**: Maintainer يدمج وينشر Release بسجل تغييرات.
-4. **توزيع**: كل مستخدم يقرر (قبول/رفض) عبر `check_updates.py`.
+**Never sent**: `.env`, API keys, personal sessions, `venv/`, `.operator/`, `memory/.sessions/` — all in `.gitignore`.
 
 ---
 
-## لو عايز تشارك يدويًا (اختياري)
+## Recommendations (fully optional)
+
+1. **Leave the machine on 25-35 minutes** after you're done, so you benefit first from the self-improvement.
+2. **To share**: keep the hook installed (`make install-hook`) — and approve reports when shown to you.
+3. **To opt out**: `[skip-sync]` in any commit, or remove the hook — no questions, no guilt.
+4. **If a PR fails checks** — the system tells you; fix it once manually, the rest is automatic.
+
+## Your privacy first (reporting guarantees)
+
+1. **Metadata only by default**: skill names + numbers — no diffs, no content, no memory.
+2. **Mandatory explicit approval**: `report_update.py` shows the full text of what will be sent and asks `[y/n]` — never any silent sending.
+3. **Even with `--send-content`**: only *new* skill files are attached after a security scan + secret redaction — `memory/`, `CLAUDE.md`, and `.env` **never leave the machine**.
+4. **No upstream = no sending**: without central-repo setup, reports stay in a local outbox only.
+
+## Your rights as a user (updates coming from central)
+
+1. **Right to know**: `make check-updates` shows every new release with its changelog — zero changes to your machine.
+2. **Right to accept or reject**: `make apply-update` asks per release.
+   - **Accept** = local security scan (`security_scan.py`) + backup (`backup/pre-update-*`) + apply + router registration.
+   - **Reject** = the decision is recorded and that release is never offered again.
+3. **No automatic applying**: applying any update to your machine without your explicit consent is strictly forbidden.
+4. **Right to roll back**: every applied update has a backup branch — `git checkout backup/pre-update-<ts> -- <paths>` takes you back.
+
+## Client update lifecycle (client → central → clients)
+
+1. **Report**: `report_update.py` opens a `client-update` Issue (anonymous client fingerprint + files + skills — no secrets).
+2. **Verify**: `verify_update.yml` scans every added/modified file:
+   - exposed secrets → auto-redacted (`[REDACTED:*]`) and committed back to the PR.
+   - dangerous code → **blocking**: stops the merge + `needs-fix` label + comment with reasons (needs a human).
+   - clean → `security-verified` label + summary comment.
+3. **Publish**: maintainer merges (human review, always) and publishes a Release with a changelog.
+4. **Distribute**: every user decides (accept/reject) via `check_updates.py`.
+
+---
+
+## Sharing manually (optional)
 
 ```bash
-# تشغل المزامنة يدويًا لو عايز
+# Run the sync manually if you want
 venv/bin/python scripts/sync_upstream.py
 
-# أو تشوف التغييرات قبل الإرسال
+# Or inspect changes before sending
 git status
 git diff
 ```
 
 ---
 
-## مراجعة الكود (Code Review)
+## Code review
 
-- **Maintainers**: يراجعون PRs أسبوعيًا
-- **Auto-merge**: لو CI أخضر + لا تعارضات → Merge تلقائي
-- **Breaking changes**: تحتاج approval من maintainer واحد على الأقل
-
----
-
-## الإبلاغ عن مشاكل
-
-- **Bug في المهارة**: افتح Issue مع `skill:` prefix
-- **تحسين مقترح**: افتح Discussion
-- **Security**: راسل `security@` مباشرة
+- **Maintainers**: review PRs weekly.
+- **No auto-merge, ever**: even green checks require a human review (prompt injection is invisible to automation).
+- **Breaking changes**: need approval from at least one maintainer.
 
 ---
 
-## شكرًا! 🙏
+## Reporting issues
 
-باستخدامك هذا النظام مجانًا، أنت جزء من **شبكة تعلم جماعي** — كل جلسة عندك تقوي النظام للكل، وكل جلسة عند غيرك تقوي نظامك أنت.
+- **Skill bug**: open an Issue with the `skill:` prefix.
+- **Suggested improvement**: open a Discussion.
+- **Security**: contact `security@` directly.
 
-> **"التطوير الحقيقي مش بيحصل في الكود... بيحصل في المشاركة."**
+---
+
+## Thank you!
+
+By using this system for free, you are part of a **collective learning network** — every session on your machine strengthens the system for everyone, and every session elsewhere strengthens yours.
+
+> **"Real improvement doesn't happen in code... it happens in sharing."**

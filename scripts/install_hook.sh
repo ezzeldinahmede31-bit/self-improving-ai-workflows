@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 #
-# install_hook.sh — يركب git hook يشغل sync_upstream.py بعد كل commit
-# يعمل auto-sync للمهارات المطورة محلياً للمستودع المركزي.
+# install_hook.sh — install a git hook that runs sync_upstream.py after each commit
+# for auto-sync of locally-improved skills to the central repo.
 #
 # Usage: bash scripts/install_hook.sh
-#        أو: make install-hook
+#        or: make install-hook
 
 set -euo pipefail
 
@@ -14,19 +14,19 @@ SYNC_SCRIPT="$REPO_ROOT/scripts/sync_upstream.py"
 
 echo "🔧 Installing post-commit hook for auto-sync..."
 
-# تحقق إننا في git repo
+# must be a git repo
 if [[ ! -d "$REPO_ROOT/.git" ]]; then
     echo "❌ Not a git repository: $REPO_ROOT"
     exit 1
 fi
 
-# تحقق إن sync_upstream.py موجود
+# sync_upstream.py must exist
 if [[ ! -f "$SYNC_SCRIPT" ]]; then
     echo "❌ sync_upstream.py not found at $SYNC_SCRIPT"
     exit 1
 fi
 
-# إنشاء الـ hook
+# create the hook
 cat > "$HOOK_FILE" << 'EOF'
 #!/usr/bin/env bash
 #
@@ -34,7 +34,7 @@ cat > "$HOOK_FILE" << 'EOF'
 # Runs sync_upstream.py after each commit to push community contributions.
 #
 
-# لا تشغل لو في rebase/merge/cherry-pick
+# don't run during rebase/merge/cherry-pick
 if [[ -n "${GIT_DIR:-}" && -f "$GIT_DIR/REBASE_HEAD" ]]; then
     exit 0
 fi
@@ -45,36 +45,36 @@ if [[ -n "${GIT_DIR:-}" && -f "$GIT_DIR/CHERRY_PICK_HEAD" ]]; then
     exit 0
 fi
 
-# لا تشغل لو الـ commit message فيه [skip-sync]
+# don't run when the commit message has [skip-sync]
 COMMIT_MSG=$(git log -1 --pretty=%B)
 if [[ "$COMMIT_MSG" == *"[skip-sync]"* ]]; then
-    echo "⏭️  Skipping sync (commit has [skip-sync])"
+    echo "Skipping sync (commit has [skip-sync])"
     exit 0
 fi
 
-# شغل sync في الخلفية (لا يحول المستخدم)
-echo "🔄 Auto-sync triggered..."
+# run sync in the background (never blocks the user)
+echo "Auto-sync triggered..."
 nohup "$REPO_ROOT/venv/bin/python" "$REPO_ROOT/scripts/sync_upstream.py" \
     >> "$REPO_ROOT/logs/sync_upstream.log" 2>&1 &
 
-echo "✅ Sync started in background (PID: $!)"
+echo "Sync started in background (PID: $!)"
 echo "   Logs: $REPO_ROOT/logs/sync_upstream.log"
 EOF
 
 chmod +x "$HOOK_FILE"
 
-# إنشاء مجلد اللوجز
+# create the logs dir
 mkdir -p "$REPO_ROOT/logs"
 
-echo "✅ Hook installed at $HOOK_FILE"
+echo "Hook installed at $HOOK_FILE"
 echo ""
-echo "📋 How it works:"
+echo "How it works:"
 echo "   1. You commit changes (skills, rules, CLAUDE.md, etc.)"
 echo "   2. Hook triggers sync_upstream.py in background"
 echo "   3. Script collects changes, pushes branch, opens PR"
-echo "   4. GitHub Actions validates + auto-merges if green"
+echo "   4. GitHub Actions validates; a human maintainer reviews and merges"
 echo ""
-echo "🛑 To skip sync for a commit:"
+echo "To skip sync for a commit:"
 echo "   git commit -m 'your message [skip-sync]'"
 echo ""
-echo "📝 Logs: $REPO_ROOT/logs/sync_upstream.log"
+echo "Logs: $REPO_ROOT/logs/sync_upstream.log"

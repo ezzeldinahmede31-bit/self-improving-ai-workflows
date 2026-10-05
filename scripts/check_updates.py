@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
 """
-check_updates.py — GitHub → عميل: فحص التحديثات + حق القبول أو الرفض.
+check_updates.py — GitHub → client: check updates + the accept/reject right.
 
-المبدأ: لا شيء يُطبق تلقائيًا على جهاز المستخدم. كل إصدار جديد يُعرض
-مع سجل التغييرات، والمستخدم يقبل (يطبق بعد فحص أمني محلي) أو يرفض
-(يُسجل القرار ولا يُسأل عنه مجددًا).
+Principle: nothing is ever applied automatically to the user's machine. Every
+new release is shown with its changelog, and the user accepts (applies after a
+local security scan) or rejects (the decision is recorded, never asked again).
 
-بدون `gh` CLI: يستخدم GitHub REST API عبر urllib + GITHUB_TOKEN (اختياري
-للقراءة العامة). التطبيق عبر git fetch للـ tag.
+Without the `gh` CLI: uses the GitHub REST API via urllib + GITHUB_TOKEN
+(optional for public reads). Applying is done via git fetch of the tag.
 
 Usage:
     venv/bin/python scripts/check_updates.py [--check-only]
-        [--yes (قبول الكل)] [--apply <tag>] [--reject <tag>]
+        [--yes (accept all)] [--apply <tag>] [--reject <tag>]
 
-الحالة: memory/.skillopt-sleep/updates-state.json
+State: memory/.skillopt-sleep/updates-state.json
     {"current": "<tag>", "decided": {"<tag>": "accepted|rejected"}}
 """
 
@@ -88,13 +88,13 @@ def pending_releases(releases, state):
         out.append(r)
         if tag == current:
             break
-    # إن لم يوجد current مسجل: اعرض الكل ما عدا المحسوم
+    # no recorded current: show everything undecided
     return out
 
 
 def apply_release(repo, tag, state):
-    """يطبق إصدارًا بعد فحص أمني محلي + نسخة احتياطية. يعيد True عند النجاح."""
-    print(f"\n📥 Applying {tag} ...")
+    """Apply a release after a local security scan + backup. True on success."""
+    print(f"\nApplying {tag} ...")
     dirty = run(["git", "status", "--porcelain"] + APPLY_PATHS)
     if (dirty.stdout or "").strip():
         print("❌ Working tree has local changes in update paths. Commit/stash first.")
@@ -107,14 +107,14 @@ def apply_release(repo, tag, state):
 
     f = run(["git", "fetch", "origin", "tag", tag])
     if f.returncode != 0:
-        # قد لا توجد tags عن بُعد بعد — جرّب fetch عام
+        # remote tags may not exist yet — try a general fetch
         f = run(["git", "fetch", "origin", "--tags"])
     c = run(["git", "checkout", tag, "--"] + APPLY_PATHS)
     if c.returncode != 0:
         print(f"❌ checkout failed: {(c.stderr or '')[:300]}")
         return False
 
-    # فحص أمني محلي لما سيُطبق
+    # local security scan of what would be applied
     sys.path.insert(0, str(ROOT / "scripts"))
     from security_scan import scan_tree
     findings = []
@@ -124,13 +124,13 @@ def apply_release(repo, tag, state):
             findings += scan_tree(target)
     blocking = [x for x in findings if x["kind"] == "blocking"]
     if blocking:
-        print("⛔ Update contains BLOCKING findings — NOT applied, rolled back:")
+        print("Update contains BLOCKING findings — NOT applied, rolled back:")
         for b in blocking[:10]:
             print(f"   - {b['label']} in {b['file']}:{b['line']}")
         run(["git", "checkout", "HEAD", "--"] + APPLY_PATHS)
         return False
 
-    # تسجيل المهارات الجديدة في الراوتر
+    # register new skills in the router
     skills_dir = ROOT / ".opencode" / "skills"
     if skills_dir.exists():
         for d in sorted(skills_dir.iterdir()):
@@ -142,7 +142,7 @@ def apply_release(repo, tag, state):
     save_json(UPDATES_STATE, state)
     run(["git", "add"] + APPLY_PATHS)
     run(["git", "commit", "-m", f"chore: accept upstream update {tag}\n\nBackup: {backup}"])
-    print(f"✅ {tag} applied and committed (backup: {backup})")
+    print(f"{tag} applied and committed (backup: {backup})")
     return True
 
 
@@ -184,7 +184,7 @@ def main():
         print(f"✅ Up to date (current: {state.get('current', '(unknown)')}).")
         return 0
 
-    print(f"🆕 {len(pending)} update(s) available:\n")
+    print(f"{len(pending)} update(s) available:\n")
     for r in pending:
         print(f"--- {r.get('tag_name')} ({(r.get('published_at') or '')[:10]}) ---")
         print((r.get("body") or "(no changelog)")[:1200])
@@ -199,13 +199,13 @@ def main():
             ans = "y"
         else:
             try:
-                ans = input(f"Accept update {tag}? [y قبول / n رفض] ").strip().lower()
+                ans = input(f"Accept update {tag}? [y/n] ").strip().lower()
             except (EOFError, KeyboardInterrupt):
-                print("\n⏸️  Deferred — will ask again next time.")
+                print("\nDeferred — will ask again next time.")
                 return 0
-        if ans in ("y", "yes", "نعم", "اه"):
+        if ans in ("y", "yes", "ok"):
             if not apply_release(repo, tag, state):
-                print(f"⚠️  {tag} NOT applied (see above). Stopping.")
+                print(f"{tag} NOT applied (see above). Stopping.")
                 return 1
         else:
             state.setdefault("decided", {})[tag] = "rejected"

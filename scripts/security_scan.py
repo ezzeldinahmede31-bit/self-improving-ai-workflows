@@ -1,24 +1,24 @@
 #!/usr/bin/env python3
 """
-security_scan.py — الفحص الأمني المشترك لكل محتوى قادم من الخارج.
+security_scan.py — shared security scan for all externally-sourced content.
 
-يُستخدم في:
-  1. discover_skills.py — قبل اعتماد أي مهارة من الإنترنت.
-  2. .github/workflows/verify_update.yml — التحقق من إضافات العملاء قبل الدمج.
-  3. check_updates.py — فحص التحديثات القادمة من GitHub قبل التطبيق محليًا.
+Used by:
+  1. discover_skills.py — before adopting any internet skill.
+  2. .github/workflows/verify_update.yml — verify client additions before merge.
+  3. check_updates.py — scan GitHub updates before applying locally.
 
-السياسة:
-  - أسرار مكشوفة (API keys/tokens/private keys) → قابلة للإصلاح التلقائي
-    (استبدال بقيمة عنصر نائب + وسم needs-review).
-  - كود خطر (subprocess/eval/exec/pipe-to-shell/rm -rf /) → حاجب (blocking)،
-    لا إصلاح تلقائي له (قرار دلالي يحتاج بشرًا).
-  - حد حجم اختياري للمجلدات.
+Policy:
+  - Exposed secrets (API keys/tokens/private keys) → auto-fixable
+    (replaced with a placeholder value).
+  - Dangerous code (subprocess/eval/exec/pipe-to-shell/rm -rf /) → blocking,
+    never auto-fixed (a semantic decision needing a human).
+  - Optional directory size cap.
 
 Usage:
     venv/bin/python scripts/security_scan.py <path> [--autofix] [--json]
       [--max-mb 2]
 
-Exit codes: 0 نظيف | 1 ثغرات أُصلحت تلقائيًا (غير حاجبة) | 2 ثغرات حاجبة متبقية.
+Exit codes: 0 clean | 1 holes auto-fixed (non-blocking) | 2 blocking holes remain.
 """
 
 import json
@@ -67,7 +67,7 @@ def iter_files(root: Path):
 
 
 def scan_tree(root: Path, max_mb: float = 0):
-    """يفحص شجرة ملفات. يعيد قائمة findings: {kind,file,line,label,match}."""
+    """Scan a file tree. Returns findings: {kind,file,line,label,match}."""
     findings = []
     if max_mb and root.is_dir():
         total = sum(p.stat().st_size for p in root.rglob("*") if p.is_file())
@@ -104,7 +104,7 @@ def scan_tree(root: Path, max_mb: float = 0):
 
 
 def autofix_tree(root: Path, findings):
-    """يصلّح الثغرات القابلة للإصلاح (الأسرار فقط). يعيد (fixed, remaining)."""
+    """Fix auto-fixable holes (secrets only). Returns (fixed, remaining)."""
     fixed, remaining = 0, []
     by_file = {}
     for f in findings:
@@ -136,7 +136,7 @@ def format_flags(findings):
 
 
 def scan_security(root):
-    """واجهة توافق مع discover_skills.py — تعيد (flags[], notes[])."""
+    """Compat interface for discover_skills.py — returns (flags[], notes[])."""
     root = Path(root)
     return format_flags(scan_tree(root)), []
 
