@@ -19,3 +19,13 @@ __pycache__/
 .pytest_cache/
 node_modules/
 .eslintcache
+
+# logs
+logs/
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo

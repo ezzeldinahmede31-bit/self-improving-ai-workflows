@@ -1,0 +1,134 @@
+name: Verify Client Update
+
+# بوابة التحقق من إضافات العملاء:
+# 1. فحص أمني لكل ملف مضاف/معدل (أسرار + كود خطر).
+# 2. إغلاق الثغرات القابلة للإصلاح تلقائيًا (commit back للـ PR).
+# 3. الثغرات الحاجبة تمنع الدمج + تعليق بالأسباب.
+# 4. الناجح يحصل على وسم security-verified.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - ".opencode/skills/**"
+      - "scripts/**"
+      - "memory/**/*.md"
+      - "CLAUDE.md"
+      - "*.md"
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  security_verify:
+    name: Security Verify + Autofix
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout PR head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: List changed files in scope
+        id: changed
+        run: |
+          git diff --name-only --diff-filter=ACM \
+            ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} \
+            -- '.opencode/skills/**' 'scripts/**' 'memory/**/*.md' 'CLAUDE.md' '*.md' \
+            > /tmp/changed.txt || true
+          echo "count=$(wc -l < /tmp/changed.txt)" >> "$GITHUB_OUTPUT"
+          cat /tmp/changed.txt
+
+      - name: Security scan (autofix secrets)
+        id: scan
+        run: |
+          BLOCKING=0
+          FIXED_TOTAL=0
+          : > /tmp/scan_report.txt
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            if [ ! -f "$f" ]; then continue; fi
+            OUT=$(python scripts/security_scan.py "$f" --autofix 2>&1)
+            CODE=$?
+            echo "### $f (exit=$CODE)" >> /tmp/scan_report.txt
+            echo "$OUT" >> /tmp/scan_report.txt
+            if [ "$CODE" -eq 2 ]; then BLOCKING=1; fi
+          done < /tmp/changed.txt
+          echo "blocking=$BLOCKING" >> "$GITHUB_OUTPUT"
+          cat /tmp/scan_report.txt
+
+      - name: Commit autofixes back to PR
+        if: always()
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add -A
+            git commit -m "fix(security): autofix redacted secrets in client update
+
+            Automated by verify_update.yml — secrets replaced with [REDACTED:*] placeholders.
+            Set values via environment, never in files."
+            git push origin HEAD:${{ github.event.pull_request.head.ref }}
+            echo "🔧 Autofix committed back to PR branch"
+          else
+            echo "No autofix changes"
+          fi
+
+      - name: Label security-verified
+        if: steps.scan.outputs.blocking == '0'
+        continue-on-error: true
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.addLabels({
+              issue_number: context.payload.pull_request.number,
+              owner: context.repo.owner, repo: context.repo.repo,
+              labels: ['security-verified']
+            });
+
+      - name: Label needs-fix + comment (blocking)
+        if: steps.scan.outputs.blocking != '0'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('/tmp/scan_report.txt', 'utf8').slice(0, 6000);
+            github.rest.issues.addLabels({
+              issue_number: context.payload.pull_request.number,
+              owner: context.repo.owner, repo: context.repo.repo,
+              labels: ['needs-fix']
+            }).catch(() => {});
+            github.rest.issues.createComment({
+              issue_number: context.payload.pull_request.number,
+              owner: context.repo.owner, repo: context.repo.repo,
+              body: '⛔ **Security gate: BLOCKING findings** — merge is stopped until a human fixes these (dangerous code cannot be autofixed):\n\n```\n' + report + '\n```'
+            });
+
+      - name: Comment success summary
+        if: steps.scan.outputs.blocking == '0'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('/tmp/scan_report.txt', 'utf8').slice(0, 4000);
+            github.rest.issues.createComment({
+              issue_number: context.payload.pull_request.number,
+              owner: context.repo.owner, repo: context.repo.repo,
+              body: '✅ **Security gate: PASSED** — no blocking findings. Fixable secrets (if any) were redacted automatically and committed back.\n\n```\n' + report + '\n```\n\n⛔ **No auto-merge**: community updates require mandatory human review before merge — automated checks cannot detect prompt injection in prose. After merge + Release, every user keeps the right to **accept or reject** this update (`make check-updates`).'
+            });
+
+      - name: Fail on blocking findings
+        if: steps.scan.outputs.blocking != '0'
+        run: |
+          echo "⛔ Blocking security findings — merge stopped."
+          exit 1

@@ -355,6 +355,12 @@
       "skillPath": "ads-copywriter/SKILL.md",
       "computedHash": "143d60166187d611c5ef943ccb440252934306e0ea5e9615ce2a064e5ea4b7f8"
     },
+    "agent-browser": {
+      "source": "vercel-labs/agent-browser",
+      "sourceType": "github",
+      "skillPath": "skills/agent-browser/SKILL.md",
+      "computedHash": "80161e6836b3b40f4e83730a290deb40ac14d877d38c97ad5f6d71be37ce74c3"
+    },
     "agentic-eval": {
       "source": "github/awesome-copilot",
       "sourceType": "github",
