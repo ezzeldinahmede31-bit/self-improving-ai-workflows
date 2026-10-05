@@ -29,3 +29,4 @@ logs/
 .idea/
 *.swp
 *.swo.env.gateway
+.playwright-mcp/
