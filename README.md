@@ -13,6 +13,14 @@
 | **Nightly self-improvement** | After you finish work: memory + skill updates, new rules from the day's mistakes, internet skill discovery and adaptation — 25-35 minutes with the machine on |
 | **Consent-based sharing** | Voluntary contribution with install-time consent, metadata-only reports with explicit approval, security scanning + mandatory human review, and every user's right to accept/reject any update |
 
+## Featured skills (from 1240+ in `.opencode/skills/`)
+
+**AI Automation — the system's backbone:**
+`build-gates-pipeline` · `gate-first-pass-builder` · `n8n-delivery-verification-gate` · `n8n-schema-guardrail` · `n8n-syntax-v2-enforcer` · `automation-known-issues-compass` · `n8n-agents-official` · `n8n-rag-vector-qa` · `n8n-error-boundary-architect` · `n8n-subworkflow-modularizer` · `n8n-workflow-lifecycle-official` · `n8n-e2e-test-runner` · `n8n-deployment-ops-guard` · `n8n-oom-crash-recovery` · `best-practice-first-designer` · `ai-automation-master-blueprint` · `ai-automation-security-governance` · `autonomous-ai-workers` · `enterprise-multi-agent-systems` · `zapier-system-cloner`
+
+**Programming — the quality bar:**
+`tdd` · `tdd-sandbox-proof-engine` · `test-driven-development` · `clean-code` · `clean-architecture` · `code-review` · `refactoring-improving-design` · `systematic-debugging` · `root-cause-post-mortem-analyzer` · `code-execution-guided-swemaster` · `swe-workflow` · `python-performance-optimization` · `python-testing-patterns` · `async-python-patterns` · `effective-python` · `api-design-patterns` · `verification-before-completion`
+
 ## How a weak model beats frontier here
 
 Most agent systems **rent intelligence** per token. This one **builds it**: a compensatory scaffolding around weak/free-tier models turns their weaknesses into mandatory procedures — producing work that challenges leading models:
