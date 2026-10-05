@@ -46,8 +46,8 @@ check_updates.py → كل مستخدم يرى سجل التغييرات ويحق
 
 ```bash
 # 1. استنساخ
-git clone https://github.com/ezzeldin/skill-evolution-system.git
-cd skill-evolution-system
+git clone https://github.com/ezzeldinahmede31-bit/self-improving-ai-workflows.git
+cd self-improving-ai-workflows
 
 # 2. إعداد البيئة
 python -m venv venv
