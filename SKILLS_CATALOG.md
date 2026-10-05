@@ -1,18 +1,18 @@
 # Skills Catalog — Programming, AI Automation & Custom-Built
 
-> Full index of this repo's `293 programming` + `253 AI automation` skills plus our custom-built engines — every entry shows a **clear display name**, its machine `slug`, and a one-line description taken from the skill itself. Generated 2026-10-05 by `scripts/build_skills_catalog.py`.
+> Full index of this repo's `292 programming` + `253 AI automation` skills plus our custom-built engines — every entry shows a **clear display name**, its machine `slug`, and a one-line description taken from the skill itself. Generated 2026-10-05 by `scripts/build_skills_catalog.py`.
 
-- **Programming: 293** · **AI Automation: 253** · **Custom-built: 8**
+- **Programming: 292** · **AI Automation: 253** · **Custom-built: 8**
 
 ---
 
 ## Part 1 — Programming Skills
 
-### Testing & Quality (106)
+### Testing & Quality (105)
 
 - [Abstraction Quality Gate](.opencode/skills/abstraction-quality-gate/SKILL.md) (`abstraction-quality-gate`) — Enforces A Philosophy of Software Design's core principle: complexity management through deep modules and shallow interfaces.
 - [Acceptance Test Driven](.opencode/skills/acceptance-test-driven/SKILL.md) (`acceptance-test-driven`) — Acceptance test-driven development distilled.
-- [Accessibility Wcag Testing](.opencode/skills/accessibility-wcag-testing/SKILL.md) (`accessibility-wcag-testing`) — Accessibility WCAG testing distilled.
+- [Accessibility WCAG Testing](.opencode/skills/accessibility-wcag-testing/SKILL.md) (`accessibility-wcag-testing`) — Accessibility WCAG testing distilled.
 - [Advanced Testing](.opencode/skills/advanced-testing/SKILL.md) (`advanced-testing`) — Advanced testing skill (property/metamorphic/differential/mutation/negative aides, seeded and shrinking).
 - [Agile Testing Quadrants Deep](.opencode/skills/agile-testing-quadrants-deep/SKILL.md) (`agile-testing-quadrants-deep`) — Agile testing quadrants deep distilled.
 - [AI Powered Testing Patterns](.opencode/skills/ai-powered-testing-patterns/SKILL.md) (`ai-powered-testing-patterns`) — AI-powered testing distilled.
@@ -25,7 +25,6 @@
 - [Beizer Domain Testing](.opencode/skills/beizer-domain-testing/SKILL.md) (`beizer-domain-testing`) — Tests input domains ruthlessly: boundaries, closures, and multidimensional edges.
 - [Black Risk Based Testing](.opencode/skills/black-risk-based-testing/SKILL.md) (`black-risk-based-testing`) — Manages testing by risk: analysis, priorities, and process control.
 - [Blockchain Contract Testing](.opencode/skills/blockchain-contract-testing/SKILL.md) (`blockchain-contract-testing`) — Blockchain smart contract testing distilled.
-- [Caples Tested Advertising](.opencode/skills/caples-tested-advertising/SKILL.md) (`caples-tested-advertising`) — Writes ads from tested methods: headline formulas and curiosity with payoff.
 - [Cdn Cache Testing](.opencode/skills/cdn-cache-testing/SKILL.md) (`cdn-cache-testing`) — CDN and cache testing distilled.
 - [Chaos Testing Patterns](.opencode/skills/chaos-testing-patterns/SKILL.md) (`chaos-testing-patterns`) — Chaos testing patterns distilled.
 - [Claessen Property Testing](.opencode/skills/claessen-property-testing/SKILL.md) (`claessen-property-testing`) — Tests properties not examples: generators, invariants, and shrinking.
@@ -127,7 +126,7 @@
 - [Fluent Python](.opencode/skills/fluent-python/SKILL.md) (`fluent-python`) — Applies Luciano Ramalho's Fluent Python to write Python that uses the language the way it was designed: the data model and special methods, sequence and mapping protocols, functions as first-class objects, descriptors....
 - [Hands On AI Python](.opencode/skills/hands-on-ai-python/SKILL.md) (`hands-on-ai-python`) — Applies Prateek Joshi's Artificial Intelligence with Python to implement classic AI algorithms from scratch in Python — search (BFS, DFS, A*), constraint satisfaction, adversarial game search (minimax, alpha-beta), kn....
 - [High Performance Python](.opencode/skills/high-performance-python/SKILL.md) (`high-performance-python`) — Applies High Performance Python by Micha Gorelick and Ian Ozsvald to make Python fast with evidence, not guesses: profile first, choose the right algorithm and data structure, vectorize with numpy, use multiprocessing....
-- [Mit Intro Cs Python](.opencode/skills/mit-intro-cs-python/SKILL.md) (`mit-intro-cs-python`) — Teaches computation from zero the MIT 6.0001 way: state, control flow, decomposition, and growth rates.
+- [MIT Intro CS Python](.opencode/skills/mit-intro-cs-python/SKILL.md) (`mit-intro-cs-python`) — Teaches computation from zero the MIT 6.0001 way: state, control flow, decomposition, and growth rates.
 - [Natural Language Processing Python](.opencode/skills/natural-language-processing-python/SKILL.md) (`natural-language-processing-python`) — Applies Bird, Klein & Loper's Natural Language Processing with Python to do practical NLP with the NLTK toolkit: accessing corpora, processing raw text, POS tagging, chunking, parsing, semantic analysis, and classific....
 - [Python Backend Architecture Review](.opencode/skills/python-backend-architecture-review/SKILL.md) (`python-backend-architecture-review`) — Comprehensive Python backend architecture review.
 - [Python Cookbook](.opencode/skills/python-cookbook/SKILL.md) (`python-cookbook`) — Applies the Python Cookbook by David Beazley and Brian K.

@@ -38,6 +38,9 @@ AUTO_PAT = re.compile(
     r"bot-|orchestrat|integrat|schedul|cron",
     re.IGNORECASE)
 
+# slugs excluded from the catalog (off-topic strays matching a keyword by accident)
+EXCLUDE = {"caples-tested-advertising"}
+
 # overlap members that belong to Programming despite matching automation pattern
 PROG_OVERRIDE = {
     "code-coverage-mastery", "dast-sast-integration", "jit-pragmatic-architect",
@@ -80,6 +83,7 @@ ACRONYMS = {"n8n": "n8n", "ai": "AI", "llm": "LLM", "api": "API", "rag": "RAG",
             "tts": "TTS", "ocr": "OCR", "gpu": "GPU", "tpu": "TPU",
             "sso": "SSO", "rbac": "RBAC", "mtls": "mTLS", "hmac": "HMAC",
             "owasp": "OWASP", "sast": "SAST", "dast": "DAST", "ssrf": "SSRF",
+    "wcag": "WCAG", "mit": "MIT", "cs": "CS",
             "xss": "XSS", "csrf": "CSRF", "pii": "PII", "kpi": "KPI"}
 
 CUSTOM = [
@@ -145,6 +149,8 @@ def load_collection():
                       if d.is_dir() and (d / "SKILL.md").exists())
     prog, auto = [], []
     for slug in all_dirs:
+        if slug in EXCLUDE:
+            continue
         in_prog = bool(PROG_PAT.search(slug))
         in_auto = bool(AUTO_PAT.search(slug))
         if slug in PROG_OVERRIDE:

@@ -21,6 +21,8 @@
 **Programming — the quality bar:**
 `tdd` · `tdd-sandbox-proof-engine` · `test-driven-development` · `clean-code` · `clean-architecture` · `code-review` · `refactoring-improving-design` · `systematic-debugging` · `root-cause-post-mortem-analyzer` · `code-execution-guided-swemaster` · `swe-workflow` · `python-performance-optimization` · `python-testing-patterns` · `async-python-patterns` · `effective-python` · `api-design-patterns` · `verification-before-completion`
 
+> Full index with clear display names: **[SKILLS_CATALOG.md](SKILLS_CATALOG.md)** — all 292 programming + 253 AI automation skills plus our 8 custom-built engines, each with a one-line description. Regenerate any time with `venv/bin/python scripts/build_skills_catalog.py`.
+
 ## How a weak model beats frontier here
 
 Most agent systems **rent intelligence** per token. This one **builds it**: a compensatory scaffolding around weak/free-tier models turns their weaknesses into mandatory procedures — producing work that challenges leading models:
