@@ -149,10 +149,11 @@ def t_r7():
 
 
 def t_r8():
-    from device_state import write as swrite
+    from device_state import write as swrite, _path as spath
     from device_loop import load
     swrite("sessions/rt-corrupt.json", {"broken": True})
-    (ROOT / "state" / "sessions" / "rt-corrupt.json").write_text("{not json")
+    # corrupt at the RESOLVED (durable) root, not a hardcoded legacy path
+    spath("sessions/rt-corrupt.json").write_text("{not json")
     try:
         load("rt-corrupt")
         rec("R8_state_corruption", False, "corrupt session loaded (BAD)")
