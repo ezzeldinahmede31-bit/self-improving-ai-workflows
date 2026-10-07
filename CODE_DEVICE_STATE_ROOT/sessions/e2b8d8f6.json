@@ -1,0 +1,93 @@
+{
+ "id": "e2b8d8f6",
+ "task": "task",
+ "plan": {
+  "steps": [
+   {
+    "id": "a",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "t10-a"
+    ],
+    "verify": {
+     "contains": "t10-a"
+    },
+    "_token": "cc1b6fa0a1b8b5f9"
+   },
+   {
+    "id": "b",
+    "tool": "write",
+    "path": "/tmp/e2e_t10.txt",
+    "text": "t10",
+    "verify": {
+     "file_contains": {
+      "path": "/tmp/e2e_t10.txt",
+      "text": "t10"
+     }
+    },
+    "_token": "590df4c183bd1ffb"
+   }
+  ]
+ },
+ "done": [
+  "a",
+  "b"
+ ],
+ "failed": null,
+ "status": "done",
+ "log": [
+  {
+   "step": "a",
+   "task": "task",
+   "session": "e2b8d8f6",
+   "parent": null,
+   "ts": 1791375042.571054,
+   "tool": "bash",
+   "permission": "ask",
+   "rule": "{'reason': 'no-rule:ask'}",
+   "status": "NEEDS_APPROVAL",
+   "msg": "needs approval token: echo t10-a"
+  },
+  {
+   "step": "a",
+   "task": "task",
+   "session": "e2b8d8f6",
+   "parent": null,
+   "ts": 1791375042.642124,
+   "tool": "bash",
+   "permission": "ask",
+   "rule": "{'reason': 'no-rule:ask'}",
+   "token_used": true,
+   "verify": "verified",
+   "status": "OK",
+   "msg": "verified :: t10-a\n"
+  },
+  {
+   "step": "b",
+   "task": "task",
+   "session": "e2b8d8f6",
+   "parent": null,
+   "ts": 1791375042.648375,
+   "tool": "write",
+   "permission": "ask",
+   "status": "NEEDS_APPROVAL",
+   "msg": "needs approval token: /tmp/e2e_t10.txt"
+  },
+  {
+   "step": "b",
+   "task": "task",
+   "session": "e2b8d8f6",
+   "parent": null,
+   "ts": 1791375042.7003517,
+   "tool": "write",
+   "permission": "ask",
+   "verify": "verified",
+   "status": "OK",
+   "msg": "verified :: wrote /tmp/e2e_t10.txt"
+  }
+ ],
+ "started": 1791375042.5703397,
+ "deadline": 1791375942.57034,
+ "children": []
+}

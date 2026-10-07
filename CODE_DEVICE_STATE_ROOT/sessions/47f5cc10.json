@@ -1,0 +1,46 @@
+{
+ "id": "47f5cc10",
+ "task": "dbg",
+ "plan": {
+  "steps": [
+   {
+    "id": "w",
+    "tool": "write",
+    "path": "/tmp/dbg.txt",
+    "text": "x"
+   },
+   {
+    "id": "evil",
+    "tool": "bash",
+    "args": [
+     "rm",
+     "-rf",
+     "/tmp/nope"
+    ]
+   }
+  ]
+ },
+ "done": [],
+ "failed": {
+  "step": "w",
+  "why": "needs approval token: /tmp/dbg.txt",
+  "class": "NEEDS_APPROVAL"
+ },
+ "status": "paused",
+ "log": [
+  {
+   "step": "w",
+   "task": "dbg",
+   "session": "47f5cc10",
+   "parent": null,
+   "ts": 1791373816.9064903,
+   "tool": "write",
+   "permission": "ask",
+   "status": "NEEDS_APPROVAL",
+   "msg": "needs approval token: /tmp/dbg.txt"
+  }
+ ],
+ "started": 1791373816.9055982,
+ "deadline": 1791374716.9055984,
+ "children": []
+}

@@ -1,0 +1,68 @@
+{
+ "id": "c66bdc80",
+ "task": "task",
+ "plan": {
+  "steps": [
+   {
+    "id": "a",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "t10-a"
+    ],
+    "verify": {
+     "contains": "t10-a"
+    }
+   },
+   {
+    "id": "b",
+    "tool": "write",
+    "path": "/tmp/e2e_t10.txt",
+    "text": "t10",
+    "verify": {
+     "file_contains": {
+      "path": "/tmp/e2e_t10.txt",
+      "text": "t10"
+     }
+    },
+    "_token": "dde93d6cbb361f0e"
+   }
+  ]
+ },
+ "done": [],
+ "failed": {
+  "step": "a",
+  "why": "needs approval token: echo t10-a",
+  "class": "NEEDS_APPROVAL"
+ },
+ "status": "paused",
+ "log": [
+  {
+   "step": "a",
+   "task": "task",
+   "session": "c66bdc80",
+   "parent": null,
+   "ts": 1791374386.268259,
+   "tool": "bash",
+   "permission": "ask",
+   "rule": "{'reason': 'no-rule:ask'}",
+   "status": "NEEDS_APPROVAL",
+   "msg": "needs approval token: echo t10-a"
+  },
+  {
+   "step": "a",
+   "task": "task",
+   "session": "c66bdc80",
+   "parent": null,
+   "ts": 1791374386.3255038,
+   "tool": "bash",
+   "permission": "ask",
+   "rule": "{'reason': 'no-rule:ask'}",
+   "status": "NEEDS_APPROVAL",
+   "msg": "needs approval token: echo t10-a"
+  }
+ ],
+ "started": 1791374386.2675338,
+ "deadline": 1791375286.267534,
+ "children": []
+}

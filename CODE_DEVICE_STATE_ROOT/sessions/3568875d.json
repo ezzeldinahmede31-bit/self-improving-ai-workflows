@@ -1,0 +1,56 @@
+{
+ "id": "3568875d",
+ "task": "task",
+ "plan": {
+  "steps": [
+   {
+    "id": "s4",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "w4"
+    ],
+    "verify": {
+     "contains": "w4"
+    },
+    "_token": "b324a1f66c861df0"
+   }
+  ]
+ },
+ "done": [
+  "s4"
+ ],
+ "failed": null,
+ "status": "done",
+ "log": [
+  {
+   "step": "s4",
+   "task": "task",
+   "session": "3568875d",
+   "parent": null,
+   "ts": 1791376643.3216584,
+   "tool": "bash",
+   "permission": "ask",
+   "rule": "{'reason': 'no-rule:ask'}",
+   "status": "NEEDS_APPROVAL",
+   "msg": "needs approval token: echo w4"
+  },
+  {
+   "step": "s4",
+   "task": "task",
+   "session": "3568875d",
+   "parent": null,
+   "ts": 1791376643.4231558,
+   "tool": "bash",
+   "permission": "ask",
+   "rule": "{'reason': 'no-rule:ask'}",
+   "token_used": true,
+   "verify": "verified",
+   "status": "OK",
+   "msg": "verified :: w4\n"
+  }
+ ],
+ "started": 1791376643.320785,
+ "deadline": 1791377543.3207858,
+ "children": []
+}

@@ -1,0 +1,68 @@
+{
+ "id": "fb640f9f",
+ "task": "task",
+ "plan": {
+  "steps": [
+   {
+    "id": "s1",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "w1"
+    ],
+    "verify": {
+     "contains": "w1"
+    },
+    "_token": "877d300806981510"
+   }
+  ]
+ },
+ "done": [
+  "s1"
+ ],
+ "failed": null,
+ "status": "done",
+ "log": [
+  {
+   "step": "s1",
+   "task": "task",
+   "session": "fb640f9f",
+   "parent": null,
+   "ts": 1791376643.3465471,
+   "tool": "bash",
+   "permission": "ask",
+   "rule": "{'reason': 'no-rule:ask'}",
+   "status": "NEEDS_APPROVAL",
+   "msg": "needs approval token: echo w1"
+  },
+  {
+   "step": "s1",
+   "task": "task",
+   "session": "fb640f9f",
+   "parent": null,
+   "ts": 1791376643.4192371,
+   "tool": "bash",
+   "permission": "ask",
+   "rule": "{'reason': 'no-rule:ask'}",
+   "status": "NEEDS_APPROVAL",
+   "msg": "needs approval token: echo w1"
+  },
+  {
+   "step": "s1",
+   "task": "task",
+   "session": "fb640f9f",
+   "parent": null,
+   "ts": 1791376643.4722533,
+   "tool": "bash",
+   "permission": "ask",
+   "rule": "{'reason': 'no-rule:ask'}",
+   "token_used": true,
+   "verify": "verified",
+   "status": "OK",
+   "msg": "verified :: w1\n"
+  }
+ ],
+ "started": 1791376643.344216,
+ "deadline": 1791377543.3442166,
+ "children": []
+}

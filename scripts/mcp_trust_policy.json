@@ -1,0 +1,53 @@
+{
+  "_note": "MCP trust allowlist. Editing this file (add server, widen caps/tools, change pin) IS a re-authorization event: record it in git + audit. Unknown servers are DENY by default; nothing here falls back to allow.",
+  "servers": {
+    "workflowhub": {
+      "endpoint": "https://mcp.workflowhub.work/mcp",
+      "hostname": "mcp.workflowhub.work",
+      "transport": "remote-streamable-http",
+      "authentication": "api-key header X-Api-Key (env WORKFLOWHUB_API_KEY, never logged)",
+      "status": "trusted",
+      "capabilities": ["work-items", "queues", "workflows", "knowledge-read"],
+      "allowed_tools": ["*"],
+      "trust_level": "high (first-party platform gateway)",
+      "pin_sha256": null,
+      "notes": "Org-scoped; caller identity forwarded per request."
+    },
+    "playwright": {
+      "endpoint": "local-stdio npx @playwright/mcp",
+      "hostname": null,
+      "transport": "local-stdio",
+      "authentication": "local process (no network credential)",
+      "status": "trusted",
+      "capabilities": ["browser-navigate", "browser-act", "browser-observe"],
+      "allowed_tools": ["*"],
+      "trust_level": "high (local, disposable profiles in tests)",
+      "pin_sha256": null,
+      "notes": "Production logins use persistent profiles; tests MUST use disposable tmp profiles."
+    },
+    "firecrawl": {
+      "endpoint": "https://mcp.firecrawl.dev/v2/mcp",
+      "hostname": "mcp.firecrawl.dev",
+      "transport": "remote-keyless",
+      "authentication": "none (rate-limited keyless tier)",
+      "status": "trusted",
+      "capabilities": ["web-scrape", "web-search", "doc-parse"],
+      "allowed_tools": ["firecrawl_scrape", "firecrawl_search", "firecrawl_parse"],
+      "trust_level": "medium (third-party; results are UNTRUSTED until verified)",
+      "pin_sha256": "PIN-FIRECRAWL",
+      "notes": "Keyless tier: no credential to leak. Tool RESULTS still go through verify-before-commit."
+    },
+    "figma": {
+      "endpoint": "https://mcp.figma.com/mcp",
+      "hostname": "mcp.figma.com",
+      "transport": "remote",
+      "authentication": "token header (env FIGMA_API_KEY)",
+      "status": "disabled",
+      "capabilities": [],
+      "allowed_tools": [],
+      "trust_level": "none (disabled in opencode.jsonc)",
+      "pin_sha256": null,
+      "notes": "Disabled until needed; enabling requires explicit re-authorization."
+    }
+  }
+}

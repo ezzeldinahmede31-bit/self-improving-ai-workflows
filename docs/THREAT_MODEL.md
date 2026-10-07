@@ -21,7 +21,12 @@
 | Concurrent double-exec | idempotency keys + done[] skip | R6, T18 |
 | Oversized input DoS | caps (arg scan <5s on 5MB; file 1MB; hits 500) | R10 |
 | Runaway agents | caps: 50 steps, deadlines, monitor/cron caps | T23 |
+| Hostile child agent (15 vectors) | same policy+sandbox+verify+audit path; token session-binding; fd/env sanitization | hostile suite 25/25 |
+| MCP server spoofing/capability creep | allowlist + pin/hostname/expiry/revocation; new caps ASK | mcp trust 11/11 |
+| Forged tool results | independent verify specs + ResultVerifier journal | V12, T15 |
+| Sandbox escape (mount/proc/dev/fd/net) | containment + clean env + netns + close_fds | escape suite 10/10 |
 
 ## Out of scope (stated, not hidden)
 Kernel exploits, malicious MCP *server binary* (only results are gated),
-human coercion, hardware attacks.
+human coercion, hardware attacks. bwrap is isolation, NOT a MAC boundary
+(AppArmor/seccomp/systemd depth optional, graceful fallback when absent).

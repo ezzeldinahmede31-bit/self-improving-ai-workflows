@@ -1,0 +1,41 @@
+{
+ "id": "6109a4f1",
+ "task": "task",
+ "plan": {
+  "steps": [
+   {
+    "id": "evil",
+    "tool": "bash",
+    "args": [
+     "rm",
+     "-rf",
+     "/tmp/t14"
+    ]
+   }
+  ]
+ },
+ "done": [],
+ "failed": {
+  "step": "evil",
+  "why": "policy denied: {'reason': 'dangerous:\\\\brm\\\\s+.*-[a-z]*r'}",
+  "class": "DENIED"
+ },
+ "status": "failed",
+ "log": [
+  {
+   "step": "evil",
+   "task": "task",
+   "session": "6109a4f1",
+   "parent": null,
+   "ts": 1791374386.6024716,
+   "tool": "bash",
+   "permission": "deny",
+   "rule": "{'reason': 'dangerous:\\\\brm\\\\s+.*-[a-z]*r'}",
+   "status": "DENIED",
+   "msg": "policy denied: {'reason': 'dangerous:\\\\brm\\\\s+.*-[a-z]*r'}"
+  }
+ ],
+ "started": 1791374386.6017334,
+ "deadline": 1791375286.6017337,
+ "children": []
+}

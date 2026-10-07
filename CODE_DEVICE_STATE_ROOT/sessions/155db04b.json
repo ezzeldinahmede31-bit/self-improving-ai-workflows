@@ -1,0 +1,74 @@
+{
+ "id": "155db04b",
+ "task": "selftest",
+ "plan": {
+  "steps": [
+   {
+    "id": "w",
+    "tool": "write",
+    "path": "/tmp/loop2.txt",
+    "text": "v2-ok",
+    "verify": {
+     "file_contains": {
+      "path": "/tmp/loop2.txt",
+      "text": "v2-ok"
+     }
+    },
+    "_token": "b547b4bd8dd39e6e"
+   },
+   {
+    "id": "evil",
+    "tool": "bash",
+    "args": [
+     "rm",
+     "-rf",
+     "/tmp/nope"
+    ]
+   }
+  ]
+ },
+ "done": [],
+ "failed": {
+  "step": "w",
+  "why": "needs approval token: /tmp/loop2.txt",
+  "class": "NEEDS_APPROVAL"
+ },
+ "status": "paused",
+ "log": [
+  {
+   "step": "w",
+   "task": "selftest",
+   "session": "155db04b",
+   "parent": null,
+   "ts": 1791373794.1549766,
+   "tool": "write",
+   "permission": "ask",
+   "status": "NEEDS_APPROVAL",
+   "msg": "needs approval token: /tmp/loop2.txt"
+  },
+  {
+   "step": "w",
+   "task": "selftest",
+   "session": "155db04b",
+   "parent": null,
+   "ts": 1791373794.1595106,
+   "tool": "write",
+   "status": "FAILED",
+   "msg": "write error: 'int' object is not subscriptable"
+  },
+  {
+   "step": "w",
+   "task": "selftest",
+   "session": "155db04b",
+   "parent": null,
+   "ts": 1791373796.160289,
+   "tool": "write",
+   "permission": "ask",
+   "status": "NEEDS_APPROVAL",
+   "msg": "needs approval token: /tmp/loop2.txt"
+  }
+ ],
+ "started": 1791373794.1541793,
+ "deadline": 1791374694.1541798,
+ "children": []
+}

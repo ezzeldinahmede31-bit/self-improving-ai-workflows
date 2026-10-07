@@ -1,0 +1,79 @@
+{
+ "id": "fe8eb2cd",
+ "task": "selftest",
+ "plan": {
+  "steps": [
+   {
+    "id": "w",
+    "tool": "write",
+    "path": "/tmp/loop2.txt",
+    "text": "v2-ok",
+    "verify": {
+     "file_contains": {
+      "path": "/tmp/loop2.txt",
+      "text": "v2-ok"
+     }
+    },
+    "_token": "f33b4ff9f508dbbc"
+   },
+   {
+    "id": "evil",
+    "tool": "bash",
+    "args": [
+     "rm",
+     "-rf",
+     "/tmp/nope"
+    ]
+   }
+  ]
+ },
+ "done": [
+  "w"
+ ],
+ "failed": {
+  "step": "evil",
+  "why": "policy denied: {'reason': 'dangerous:\\\\brm\\\\s+.*-[a-z]*r'}",
+  "class": "DENIED"
+ },
+ "status": "failed",
+ "log": [
+  {
+   "step": "w",
+   "task": "selftest",
+   "session": "fe8eb2cd",
+   "parent": null,
+   "ts": 1791376348.9588442,
+   "tool": "write",
+   "permission": "ask",
+   "status": "NEEDS_APPROVAL",
+   "msg": "needs approval token: /tmp/loop2.txt"
+  },
+  {
+   "step": "w",
+   "task": "selftest",
+   "session": "fe8eb2cd",
+   "parent": null,
+   "ts": 1791376348.9626284,
+   "tool": "write",
+   "permission": "ask",
+   "verify": "verified",
+   "status": "OK",
+   "msg": "verified :: wrote /tmp/loop2.txt"
+  },
+  {
+   "step": "evil",
+   "task": "selftest",
+   "session": "fe8eb2cd",
+   "parent": null,
+   "ts": 1791376348.9659443,
+   "tool": "bash",
+   "permission": "deny",
+   "rule": "{'reason': 'dangerous:\\\\brm\\\\s+.*-[a-z]*r'}",
+   "status": "DENIED",
+   "msg": "policy denied: {'reason': 'dangerous:\\\\brm\\\\s+.*-[a-z]*r'}"
+  }
+ ],
+ "started": 1791376348.958174,
+ "deadline": 1791377248.9581745,
+ "children": []
+}

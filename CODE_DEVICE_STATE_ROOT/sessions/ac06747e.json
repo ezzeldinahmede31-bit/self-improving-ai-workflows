@@ -1,0 +1,497 @@
+{
+ "id": "ac06747e",
+ "task": "task",
+ "plan": {
+  "steps": [
+   {
+    "id": "s0",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s1",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s2",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s3",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s4",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s5",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s6",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s7",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s8",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s9",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s10",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s11",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s12",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s13",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s14",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s15",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s16",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s17",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s18",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s19",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s20",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s21",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s22",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s23",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s24",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s25",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s26",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s27",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s28",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s29",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s30",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s31",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s32",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s33",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s34",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s35",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s36",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s37",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s38",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s39",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s40",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s41",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s42",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s43",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s44",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s45",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s46",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s47",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s48",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s49",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s50",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s51",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s52",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s53",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s54",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s55",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s56",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s57",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s58",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   },
+   {
+    "id": "s59",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "x"
+    ]
+   }
+  ]
+ },
+ "done": [],
+ "failed": {
+  "why": "plan exceeds MAX_STEPS"
+ },
+ "status": "failed",
+ "log": [],
+ "started": 1791376674.1674106,
+ "deadline": 1791377574.1674109,
+ "children": []
+}

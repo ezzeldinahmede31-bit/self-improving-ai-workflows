@@ -1,0 +1,17 @@
+{
+ "tasks": [
+  {
+   "id": "b5a04262",
+   "cmd": [
+    "echo",
+    "hi"
+   ],
+   "run_at": 1791374206.6522257,
+   "every_s": 0,
+   "created": 1791374206.6522279,
+   "last_run": null,
+   "runs": 0,
+   "armed": "ask"
+  }
+ ]
+}

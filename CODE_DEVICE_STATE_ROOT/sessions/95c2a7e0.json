@@ -1,0 +1,53 @@
+{
+ "id": "95c2a7e0",
+ "task": "task",
+ "plan": {
+  "steps": [
+   {
+    "id": "d",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "t6"
+    ],
+    "_token": "d8e3b870f45bd414"
+   }
+  ]
+ },
+ "done": [
+  "d"
+ ],
+ "failed": null,
+ "status": "done",
+ "log": [
+  {
+   "step": "d",
+   "task": "task",
+   "session": "95c2a7e0",
+   "parent": null,
+   "ts": 1791376466.8653824,
+   "tool": "bash",
+   "permission": "ask",
+   "rule": "{'reason': 'no-rule:ask'}",
+   "status": "NEEDS_APPROVAL",
+   "msg": "needs approval token: echo t6"
+  },
+  {
+   "step": "d",
+   "task": "task",
+   "session": "95c2a7e0",
+   "parent": null,
+   "ts": 1791376466.927103,
+   "tool": "bash",
+   "permission": "ask",
+   "rule": "{'reason': 'no-rule:ask'}",
+   "token_used": true,
+   "verify": "no verify spec",
+   "status": "OK",
+   "msg": "no verify spec :: t6\n"
+  }
+ ],
+ "started": 1791376466.8641024,
+ "deadline": 1791377366.864103,
+ "children": []
+}

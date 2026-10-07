@@ -1,0 +1,25 @@
+{
+ "id": "6a3b5fb0",
+ "task": "task",
+ "plan": {
+  "steps": [
+   {
+    "id": "long",
+    "tool": "monitor_wait",
+    "args": [
+     "/usr/bin/python3",
+     "-c",
+     "import time;time.sleep(60)"
+    ],
+    "timeout": 60
+   }
+  ]
+ },
+ "done": [],
+ "failed": null,
+ "status": "running",
+ "log": [],
+ "started": 1791375043.360935,
+ "deadline": 1791375943.360936,
+ "children": []
+}

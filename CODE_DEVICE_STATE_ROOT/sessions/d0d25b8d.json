@@ -1,0 +1,56 @@
+{
+ "id": "d0d25b8d",
+ "task": "task",
+ "plan": {
+  "steps": [
+   {
+    "id": "s3",
+    "tool": "bash",
+    "args": [
+     "echo",
+     "w3"
+    ],
+    "verify": {
+     "contains": "w3"
+    },
+    "_token": "65c33036730c64a8"
+   }
+  ]
+ },
+ "done": [
+  "s3"
+ ],
+ "failed": null,
+ "status": "done",
+ "log": [
+  {
+   "step": "s3",
+   "task": "task",
+   "session": "d0d25b8d",
+   "parent": null,
+   "ts": 1791374661.2065306,
+   "tool": "bash",
+   "permission": "ask",
+   "rule": "{'reason': 'no-rule:ask'}",
+   "status": "NEEDS_APPROVAL",
+   "msg": "needs approval token: echo w3"
+  },
+  {
+   "step": "s3",
+   "task": "task",
+   "session": "d0d25b8d",
+   "parent": null,
+   "ts": 1791374661.2913997,
+   "tool": "bash",
+   "permission": "ask",
+   "rule": "{'reason': 'no-rule:ask'}",
+   "token_used": true,
+   "verify": "verified",
+   "status": "OK",
+   "msg": "verified :: w3\n"
+  }
+ ],
+ "started": 1791374661.2054708,
+ "deadline": 1791375561.2054713,
+ "children": []
+}

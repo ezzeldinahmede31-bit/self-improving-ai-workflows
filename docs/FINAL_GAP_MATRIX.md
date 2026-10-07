@@ -30,3 +30,22 @@
 
 Residual YELLOW (4, all documented): browser-write autonomy, full LSP,
 malicious-child adversarial test, latency baselines.
+
+## Hardening round 2026-10-07 (this mission) — deltas
+| Gap | Status | Proof |
+|---|---|---|
+| Volatile /tmp state | CLOSED | persistent root (XDG_STATE_HOME or ~/.local/state), atomic tmp+fsync+rename, fcntl locks, checksums, schema v1 + migrations, 0700/0600 enforced; tests/test_device_state_durable.py 10/10 |
+| Backup/restore naive | CLOSED | deterministic scrubbed backups + manifest, verify_backup, atomic restore w/ rollback, 5 generations; roundtrip/corruption/atomic/no-raw-secrets tests |
+| once() duplicate grant race | CLOSED (bug found by bench) | single-LOCK_EX read-modify-write; concurrent-once test: exactly 1 grant |
+| _repair_perms O(tree) per write | CLOSED (bug found by bench) | throttled to 1/hour; p50 load-100 back to ~2.3s parallel |
+| Malicious-child test | CLOSED | tests/adversarial/test_hostile_child_agent.py: 25 real vectors, 0 FAIL_OPEN; hostile_child_report.json |
+| Browser-write autonomy | CLOSED (safe scope) | tests/e2e/test_browser_write_safe.py on isolated fixture app (disposable profile/account): 19/19 PASS/BLOCKED; production T4 autonomy boundary UNCHANGED (still BLOCKED by user scope) |
+| Latency baselines | CLOSED | benchmarks/device_latency.py + latency_report.json (permission/state/audit/sandbox/browser/screenshot) |
+| Concurrency to 100 | CLOSED | benchmarks/device_concurrency.py: 80 rows (5 modes x 6 loads x reps), 0 errors/lost/corrupt/dup/deadlock; concurrency_report.json |
+| MCP trust = TLS only | CLOSED | scripts/mcp_trust.py + allowlist policy: unknown DENY, new ASK, trusted ALLOW-in-grant, cap widening needs re-auth; pin/hostname/expiry/revocation; tests/security/test_mcp_trust.py 11/11; mcp_trust_report.json |
+| bwrap depth | CLOSED (honest scope) | sanitized env, NEVER_WORKDIRS, prlimit AS+CPU (NPROC omitted: breaks userns here, documented), close_fds; escape suite 10/10; "isolation, NOT MAC" stated |
+| Secrets in state/backups/audit | CLOSED | backup scrub->references, audit redaction, sweep test; test_secret_protection.py |
+| Full LSP | OPTIONAL / NOT REQUIRED | device_symbols.py (AST defs/info/refs) serves every current workflow (T22, bench mixed mode); no workflow needs rename/workspace-symbols/type-info; no full LSP built (scope discipline) |
+
+Residual YELLOW (1, documented): full LSP (optional, not required by current
+workload). No RED. No known undocumented bypasses.

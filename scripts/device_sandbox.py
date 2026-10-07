@@ -1,11 +1,21 @@
 #!/usr/bin/env python3
 """device_sandbox.py — run untrusted commands inside bubblewrap (bwrap).
 
+SCOPE HONESTY: bwrap provides unprivileged namespace/mount isolation. It is
+NOT a complete MAC/security boundary (no SELinux/AppArmor policy, no seccomp
+filter here, kernel attack surface remains). See docs/SECURITY_MODEL.md.
+Optional OS-level depth (AppArmor profile, systemd sandboxing, dedicated
+unprivileged user) is documented there and degrades gracefully when absent.
+
 Proven bind set on this box (bubblewrap 0.9.0, unprivileged userns=1):
   --ro-bind /usr /usr --ro-bind /lib /lib --ro-bind /lib64 /lib64
   --ro-bind /etc/ld.so.cache ... --tmpfs /tmp --proc /proc --dev /dev
   --unshare-net   (no network egress at all)
   --bind <workdir> <workdir>  (only dir the command may write)
+
+Plus: sanitized child env (no secret/env-var injection), prlimit caps
+(1GB AS, 120s CPU; NPROC cap omitted — breaks userns on this kernel),
+close_fds, symlink-resolving containment, --die-with-parent.
 
 Usage:
   device_sandbox.py -- sbatch-command...            # net ON, workdir rw
@@ -14,6 +24,7 @@ Usage:
   device_sandbox.py selftest
 Exit code = the command's exit code. Refuses when bwrap is missing.
 """
+import os
 import shutil
 import subprocess
 import sys
@@ -36,14 +47,31 @@ OUT_CAP = 100 * 1024
 
 SAFE_WORK_PARENTS = [Path("/tmp").resolve()]
 
+# Defense-in-depth additions (hardening round 2026-10-07):
+# - CLEAN_ENV: the child never inherits the parent environment (no secret
+#   leakage, no LD_PRELOAD / PYTHONPATH / BASH_ENV injection).
+# - NEVER_WORKDIRS: pseudo-filesystems and roots that must never be a workdir.
+CLEAN_ENV_KEYS = ("PATH", "LANG", "LC_ALL", "TZ")
+NEVER_WORKDIRS = (Path("/"), Path("/usr"), Path("/etc"), Path("/lib"),
+                  Path("/lib64"), Path("/proc"), Path("/sys"), Path("/dev"))
+
+
+def clean_env(workdir):
+    env = {k: v for k, v in os.environ.items() if k in CLEAN_ENV_KEYS}
+    env.setdefault("PATH", "/usr/bin:/bin")
+    env.setdefault("LANG", "C.UTF-8")
+    env["HOME"] = workdir  # contained scratch, never the real $HOME
+    return env
+
 
 def contained(workdir):
     try:
-        wd = Path(workdir).resolve()
+        wd = Path(workdir).resolve()  # resolves symlinks: escape collapses
     except Exception:
         return False
-    if wd in (Path("/"), Path("/usr"), Path("/etc"), Path("/lib"),
-              Path("/lib64"), Path.home().resolve()):
+    if wd in NEVER_WORKDIRS or wd == Path.home().resolve():
+        return False
+    if wd in (Path("/proc"), Path("/sys"), Path("/dev")):
         return False
     try:
         wd.relative_to(Path.cwd().resolve())
@@ -74,9 +102,15 @@ def run(cmd, workdir=".", no_net=True, read_only=False, timeout=120):
     args += ["--die-with-parent", "--bind", workdir, workdir,
              "--chdir", workdir, "--"] + cmd
     if shutil.which("prlimit"):
-        args = ["prlimit", "--as=1073741824"] + args  # 1GB address space
+        # NOTE: --nproc is deliberately NOT set: on this kernel an NPROC cap
+        # breaks unprivileged userns creation outright ("Resource temporarily
+        # unavailable"). Fork pressure is bounded by timeout + die-with-parent
+        # + plan MAX_STEPS instead. Verified 2026-10-07.
+        args = ["prlimit", "--as=1073741824", "--cpu=120"] + args
     try:
-        p = subprocess.run(args, capture_output=True, text=True, timeout=timeout)
+        p = subprocess.run(args, capture_output=True, text=True,
+                           timeout=timeout, env=clean_env(workdir),
+                           close_fds=True)
     except subprocess.TimeoutExpired:
         print(f"TIMEOUT after {timeout}s: {' '.join(cmd)}", file=sys.stderr)
         return 124

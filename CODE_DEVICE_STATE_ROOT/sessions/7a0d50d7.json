@@ -1,0 +1,68 @@
+{
+ "id": "7a0d50d7",
+ "task": "dbg",
+ "plan": {
+  "steps": [
+   {
+    "id": "w",
+    "tool": "write",
+    "path": "/tmp/dbg2.txt",
+    "text": "x",
+    "_token": "b902b8470daeeefe"
+   },
+   {
+    "id": "evil",
+    "tool": "bash",
+    "args": [
+     "rm",
+     "-rf",
+     "/tmp/nope"
+    ]
+   }
+  ]
+ },
+ "done": [],
+ "failed": {
+  "step": "w",
+  "why": "needs approval token: /tmp/dbg2.txt",
+  "class": "NEEDS_APPROVAL"
+ },
+ "status": "paused",
+ "log": [
+  {
+   "step": "w",
+   "task": "dbg",
+   "session": "7a0d50d7",
+   "parent": null,
+   "ts": 1791373845.8717315,
+   "tool": "write",
+   "permission": "ask",
+   "status": "NEEDS_APPROVAL",
+   "msg": "needs approval token: /tmp/dbg2.txt"
+  },
+  {
+   "step": "w",
+   "task": "dbg",
+   "session": "7a0d50d7",
+   "parent": null,
+   "ts": 1791373845.8753748,
+   "tool": "write",
+   "status": "FAILED",
+   "msg": "write error: 'int' object is not subscriptable"
+  },
+  {
+   "step": "w",
+   "task": "dbg",
+   "session": "7a0d50d7",
+   "parent": null,
+   "ts": 1791373847.8762572,
+   "tool": "write",
+   "permission": "ask",
+   "status": "NEEDS_APPROVAL",
+   "msg": "needs approval token: /tmp/dbg2.txt"
+  }
+ ],
+ "started": 1791373845.8710186,
+ "deadline": 1791374745.8710194,
+ "children": []
+}

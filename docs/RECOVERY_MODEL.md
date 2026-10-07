@@ -16,3 +16,17 @@
 Rules: destructive ops never retried; resume never re-executes completed
 destructive steps (idempotency); recovery never performs a destructive op
 twice (R6). Cancel stops children (pgid) and persists canceled status.
+
+## Durable state + backup (hardening round 2026-10-07)
+- Authoritative root: `$DEVICE_STATE_ROOT`, else `$XDG_STATE_HOME/opencode-device`,
+  else `~/.local/state/opencode-device` (persistent, 0700; files 0600).
+  Legacy /tmp state migrated once; /tmp is NOT authoritative (transient only).
+- Write path: tmp + fsync + atomic rename + dir fsync, fcntl per-file locks,
+  .sha256 sidecars, schema envelope v1; failures quarantine + fail closed.
+- Backup: `device_state.py backup` -> deterministic dir (scrubbed state +
+  manifest.json w/ checksums + schema). `verify-backup <dir>`, `list-backups`
+  (keeps 5 generations). Restore: candidate -> full validate -> promote with
+  rollback park; invalid backup NEVER touches live state.
+- Reboot proof: process A writes -> dies -> process B loads+continues
+  (test_state_survives_process_restart / _simulated_reboot); restart-safe
+  resume via idempotency keys (exactly-once grants under concurrency).

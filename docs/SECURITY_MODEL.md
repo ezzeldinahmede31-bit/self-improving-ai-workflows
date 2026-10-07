@@ -21,3 +21,24 @@
 
 Limitations (explicit): no kernel MAC beyond bwrap; no eBPF egress meter
 (URL gate covers metadata/private-IP); MCP transport trust = TLS only.
+
+## Hardening round 2026-10-07 (additive, no boundary weakened)
+10. **Durable state, same fail-closed semantics**: persistent root with
+    checksums + schema envelope; corrupt/mismatched/future-schema -> quarantine
+    + RuntimeError, never silent load. once() grants are atomic under one
+    exclusive lock (bench-found race fixed: N racers -> exactly 1 grant).
+11. **Sandbox depth**: child env sanitized (PATH/LANG/TZ only, HOME=workdir;
+    no secret/LD_PRELOAD inheritance), pseudo-fs workdirs refused,
+    symlink-resolving containment, prlimit AS 1GB + CPU 120s (NPROC cap
+    omitted: breaks unprivileged userns on this kernel — documented, not
+    silently missing), close_fds. bwrap REMAINS isolation, NOT a MAC boundary.
+12. **MCP explicit trust** (scripts/mcp_trust.py + allowlist policy):
+    unknown server DENY; new/pending server ASK; trusted server ALLOW only
+    within granted capabilities/tools; new capability ASK (re-authorization);
+    hostname/pin/expiry/revocation enforced; disabled server DENY.
+    MCP RESULTS remain untrusted data -> verify-before-commit (ResultVerifier).
+13. **Tool-result trust**: execute -> observe -> INDEPENDENTLY verify
+    (file_exists/file_contains/exit/contains specs; ResultVerifier journal).
+    Forged success claims fail verification, never commit.
+14. **Secrets**: backup scrubs secret-shaped values to references (never raw);
+    audit redacts pre-write; sweep test guards state/backups/audit.

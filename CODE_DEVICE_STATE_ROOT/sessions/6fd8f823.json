@@ -1,0 +1,78 @@
+{
+ "id": "6fd8f823",
+ "task": "task",
+ "plan": {
+  "steps": [
+   {
+    "id": "s",
+    "tool": "symbols",
+    "args": [
+     "info",
+     "scripts/device_cron.py",
+     "cmd_add"
+    ],
+    "verify": {
+     "contains": "cmd_add"
+    }
+   },
+   {
+    "id": "r",
+    "tool": "write",
+    "path": "/tmp/e2e_t25.txt",
+    "text": "report: cmd_add found",
+    "verify": {
+     "file_contains": {
+      "path": "/tmp/e2e_t25.txt",
+      "text": "cmd_add"
+     }
+    },
+    "_token": "b4371f5440720809"
+   }
+  ]
+ },
+ "done": [
+  "s",
+  "r"
+ ],
+ "failed": null,
+ "status": "done",
+ "log": [
+  {
+   "step": "s",
+   "task": "task",
+   "session": "6fd8f823",
+   "parent": null,
+   "ts": 1791374692.2143939,
+   "tool": "symbols",
+   "verify": "verified",
+   "status": "OK",
+   "msg": "verified :: {\n \"kind\": \"func\",\n \"name\": \"cmd_add\",\n \"line\": 35,\n \"args\": [\n  \"args\"\n ],\n \"doc\": \"\"\n}\n"
+  },
+  {
+   "step": "r",
+   "task": "task",
+   "session": "6fd8f823",
+   "parent": null,
+   "ts": 1791374692.2536583,
+   "tool": "write",
+   "permission": "ask",
+   "status": "NEEDS_APPROVAL",
+   "msg": "needs approval token: /tmp/e2e_t25.txt"
+  },
+  {
+   "step": "r",
+   "task": "task",
+   "session": "6fd8f823",
+   "parent": null,
+   "ts": 1791374692.313205,
+   "tool": "write",
+   "permission": "ask",
+   "verify": "verified",
+   "status": "OK",
+   "msg": "verified :: wrote /tmp/e2e_t25.txt"
+  }
+ ],
+ "started": 1791374692.2137105,
+ "deadline": 1791375592.2137105,
+ "children": []
+}

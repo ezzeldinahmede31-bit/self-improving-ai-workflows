@@ -33,3 +33,24 @@
 Browser-write autonomy (boundary), full LSP (LSP-lite honest),
 malicious-child adversarial test, full latency tables.
 No RED. No known bypasses undocumented.
+
+## Hardening round 2026-10-07 (additive; architecture unchanged)
+- pytest baseline re-verified 1126 passed / 1 skipped BEFORE any edit
+  (pre_hardening_baseline.json); no regression allowed after.
+- device_state.py: persistent root, atomic+fsync writes, fcntl locks,
+  checksums, schema v1, 0700/0600, backup/verify/restore w/ rollback.
+- Bugs found BY the new evidence (honest list):
+  1. once() read-modify-write race -> duplicate grants under concurrency
+     (bench duplicate_once=True; fixed with single-LOCK_EX; regression test).
+  2. _repair_perms O(tree) on every write -> p50 4s at load 100
+     (fixed: throttle 1/hour).
+  3. prlimit --nproc=64 breaks unprivileged userns on this kernel
+     (dropped; documented).
+  4. tbw fixture login compared tuple to list (test-only bug, fixed).
+  5. Hostile/forgery vectors first used unmatched commands that stop at
+     ask-first before reaching verify (reworked to allowed commands).
+- Reports: hostile_child_report.json (25 vectors, 0 FAIL_OPEN),
+  browser_write_report.json (19 checks), latency_report.json,
+  concurrency_report.json (80 rows PASS), mcp_trust_report.json (11 vectors).
+- LSP verdict: P2 OPTIONAL / NOT REQUIRED BY CURRENT WORKLOAD (no build).
+- bwrap verdict: isolation, NOT MAC (stated in code + SECURITY_MODEL).
