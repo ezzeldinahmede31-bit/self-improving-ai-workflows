@@ -95,3 +95,15 @@ is not done.
   recurring (`--every S`) tasks, session-scoped JSON.
 - `device_symbols.py defs/info/refs` → LSP-lite over Python `ast`
   (definitions+docstrings+name references; no import resolution claimed).
+
+## 7. Unified loop + full-system benchmark (proven COWORK_GRADE 5/5)
+
+- `device_loop.py run/resume/approve/status` → the agent loop:
+  PLAN → inspect → choose tool → PERMISSION CHECK → execute → VERIFY →
+  recover/retry → DONE. Unapproved/denied steps pause fail-closed, never
+  auto-approved. State per step in `/tmp/opencode-device/sessions/`
+  → kill + `resume` continues (proven across processes).
+- `device_e2e.py` → T1 software (REST+tests+commit in /tmp) / T2 browser
+  read-only / T3 desktop (DISPLAY+windows+screenshot) / T4 recovery
+  (net-cut→retry) / T5 attack (5 injection channels → all DENY + loop
+  pauses + marker absent). Report: `/tmp/opencode-device/e2e_report.json`.

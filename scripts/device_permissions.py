@@ -29,6 +29,7 @@ POLICY_FILE = HERE / "device_policy.json"
 DEFAULT_POLICY = {
     "rules": [
         {"tool": "Bash", "pattern": "rm -rf *", "tier": "deny"},
+        {"tool": "Bash", "pattern": "sudo rm*", "tier": "deny"},
         {"tool": "Bash", "pattern": "sudo *", "tier": "ask"},
         {"tool": "Bash", "pattern": "git push --force*", "tier": "deny"},
         {"tool": "Bash", "pattern": "git status*", "tier": "allow"},

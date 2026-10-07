@@ -2192,3 +2192,18 @@ Opened existing "Make" window (eu1.make.com/2862717/agent-profiles/8074 toolbox 
   read. Full suite now **1123 passed, 1 skipped, 8 deselected** (was 1 FAILED).
 - Note: MonkeyCode bridge auto-committed mid-session (HEAD c205761 holds the
   new scripts) — I did not run git commit myself.
+
+## Full-system E2E: COWORK_GRADE 5/5 (Oct 7 session 2)
+- User demanded the 16-gap table be closed E2E, not with more tools. Built:
+- `scripts/device_loop.py` — unified loop (plan→permission→execute→verify→
+  recover→done; ASK/DENY pause fail-closed; per-step state ->
+  resume/approve across processes). Selftest OK (incl. approved-flag fix
+  for write path found by its own test).
+- `scripts/device_e2e.py` — T1 REST+tests+commit in /tmp/e2e-sw, T2 read-only
+  fetch, T3 desktop (3 wins/chrome/195KB shot), T4 no-net-cut→retry,
+  T5 5 injection channels. First run 4/5: `sudo rm -rf /` was ASK not DENY
+  -> hardened policy with `sudo rm*` deny (right call: never merely ask).
+  Reran: **5/5 COWORK_GRADE**, report at /tmp/opencode-device/e2e_report.json.
+- Resume proven across processes: session 70f46837 paused (a done, b ASK) ->
+  new process `approve` -> done, /tmp/e2e_resume.txt written.
+- Full pytest still green after orchestrator edits (rerun).
