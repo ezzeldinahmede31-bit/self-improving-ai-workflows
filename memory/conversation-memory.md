@@ -2163,3 +2163,32 @@ Opened existing "Make" window (eu1.make.com/2862717/agent-profiles/8074 toolbox 
 - Pollinations free-tier boundary mapped live: short prompts (~55 chars) 200 OK; 100+ chars or 720x1280 -> 402; per-IP token bucket (~1 img then 402 until ~150s wait). Builder now: 512x768 turbo-first + 15s spacing + 5x retry with 150/300/450/600s backoff.
 - v2 `output/faceless_20261004-101634.mp4` (78.78s, 720x1280, h264+aac): S1 worried receptionist on phone / S2 sad lonely woman sitting alone / S3 smiling male nurse with smartphone / S4 mother+child / S5 young man pointing CTA. All 5 frames eyeballed, distinct + script-matched.
 - Keepers: memory/briefs/expr_v2/ (keep1/3/4/5.jpg); scenes: clinic_expr_v3.json.
+
+## Device-use gap closure: built the 4 missing tools (Oct 7 session)
+- User: "نفذ الأشياء الناقصة بنفسك لو ملقتهاش على الإنترنت". Web pass FIRST:
+  Monitor clones online = usage dashboards only (NOT the tool); permission
+  engines exist (opencode native, agentperm, agent-permissions-mcp) but no
+  local pre-flight checker; no LSP-lite/cron scripts. Built 4, all selftest OK:
+- `scripts/device_permissions.py` — Claude-order Deny>Ask>Allow, Tool(spec)
+  wildcards, policy file auto-created; fixed own trap (bare Ask(Bash) shadows
+  specific allows — unmatched now falls to default ASK). 9/9 PASS.
+- `scripts/device_sandbox.py` — bwrap jail, proven bind set (usr/lib/lib64/
+  ld.so.cache+tmpfs/proc/dev), --unshare-net kills egress (verified: python
+  socket to 8.8.8.8 blocked), --ro mode. SELFTEST OK.
+- `scripts/device_monitor.py` — start/poll/stop/list, JSONL line feed,
+  forked collector, 5min default/30min max deadline + one end notice. OK.
+- `scripts/device_cron.py` — one-shot --in + recurring --every, due/ack/del,
+  one-shot ack removes, recurring ack reschedules. OK.
+- `scripts/device_symbols.py` — ast defs/info/refs (honest LSP-lite, no import
+  resolution claimed). OK.
+- `opencode.jsonc` gained native Ask-first `permission` block (bash/edit/read/
+  webfetch; rm -rf + push --force denied). JSONC validated.
+- `claude-device-use` SKILL.md §6 documents all five companions.
+- Proof: LinkedIn entered from USER's own Chrome (wmctrl+typo lesson: first
+  attempt typed into OpenCode window — screenshot caught it; fixed via
+  hide→focus→verify→type; logged in as Ezzeldin Mohamed, feed verified).
+- Drive-by fix: `TaskScopedJITRAG` lacked `ingest()` (test called it) +
+  post-purge query raised OperationalError → added adapter + fail-closed []
+  read. Full suite now **1123 passed, 1 skipped, 8 deselected** (was 1 FAILED).
+- Note: MonkeyCode bridge auto-committed mid-session (HEAD c205761 holds the
+  new scripts) — I did not run git commit myself.
