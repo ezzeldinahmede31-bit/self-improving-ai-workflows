@@ -2234,3 +2234,16 @@ Opened existing "Make" window (eu1.make.com/2862717/agent-profiles/8074 toolbox 
 - P2 LSP: OPTIONAL/NOT REQUIRED (device_symbols.py serves all workflows; no build).
 - Security: mcp_trust.py + allowlist policy (unknown DENY/new ASK/trusted-in-grant; 11/11); sandbox clean-env + NEVER_WORKDIRS + AS/CPU caps + close_fds (escape 10/10; bwrap=isolation NOT MAC); secret sweep green.
 - Regression: full pytest 1141 passed/1 skipped/0 failed; redteam 10/10 (R8 retargeted to resolved root); E2E 24/1 blocked; health READY. Docs: all 7 updated.
+
+## Standing agreement: managing user's accounts (LinkedIn/GitHub/Upwork)
+Agreed 2026-10-07 (user, Egyptian Arabic): agent MAY do everything read-side
+autonomously (read feed/notifications/messages, navigate, inspect, draft).
+ANY write on a real user account (post/comment/apply/send/message) requires the
+user's EXPLICIT personal approval on that action (Ask-first, per-action or
+approved batch — pending user's answer). Production T4 autonomy stays BLOCKED;
+safe-fixture write proof does not widen scope. First login per site = user
+types creds/2FA on screen once; session persists in isolated profile
+(site-login-session-registry). PENDING (asked, awaiting answers): which
+platform (default LinkedIn), which account/first-login?, exact tasks, approval
+mode (per-action vs batch), hard-forbidden actions (e.g. deletes, financial),
+reporting style + session persistence, start with trial read task (default yes).
