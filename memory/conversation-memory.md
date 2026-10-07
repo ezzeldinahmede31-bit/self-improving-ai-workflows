@@ -2223,3 +2223,14 @@ Opened existing "Make" window (eu1.make.com/2862717/agent-profiles/8074 toolbox 
 - Artifacts: /tmp/opencode-device/final_{device_audit,security_report,e2e_report}.json.
 - Residual YELLOW (documented): browser-write autonomy, full LSP, malicious-child
   test, latency tables. No RED.
+
+## Hardening round 2026-10-07 (P0/P1/P2 + security, architecture unchanged)
+- Baseline re-verified BEFORE edits: 1126 passed/1 skipped (pre_hardening_baseline.json).
+- P0-A durable state: scripts/device_state.py now persistent root ($DEVICE_STATE_ROOT else $XDG_STATE_HOME else ~/.local/state; here /home/ezzeldin/.config/ai.opencode.desktop/opencode-device), atomic tmp+fsync+rename, fcntl locks, .sha256 sidecars, schema v1 envelope, 0700/0600, legacy /tmp migrated once. P0-B backup: deterministic scrubbed backups + manifest, verify_backup, atomic restore w/ rollback, 5 generations. Tests: tests/test_device_state_durable.py 10/10.
+- Real bugs found BY new evidence (fixed): (1) once() RMW race -> duplicate grants (single-LOCK_EX fix); (2) _repair_perms O(tree)/write -> 4s p50 (throttle 1/h); (3) prlimit --nproc breaks userns here (dropped, documented); (4) tbw login tuple/list + (5) hostile vectors hitting ask-first before verify (reworked).
+- P0-C hostile child: tests/adversarial/test_hostile_child_agent.py — 25 REAL loop-session vectors, 0 FAIL_OPEN (hostile_child_report.json).
+- P1 browser write: tests/e2e/ (tbw_app.py fixture + test_browser_write_safe.py) — 19/19 on disposable profile/account, server-side verified (browser_write_report.json). Production T4 autonomy still BLOCKED (boundary unchanged).
+- P1 bench: benchmarks/device_latency.py + device_concurrency.py — 80 rows (5 modes x 1..100), 0 err/lost/corrupt/dup/deadlock (reports in /tmp/opencode-device/).
+- P2 LSP: OPTIONAL/NOT REQUIRED (device_symbols.py serves all workflows; no build).
+- Security: mcp_trust.py + allowlist policy (unknown DENY/new ASK/trusted-in-grant; 11/11); sandbox clean-env + NEVER_WORKDIRS + AS/CPU caps + close_fds (escape 10/10; bwrap=isolation NOT MAC); secret sweep green.
+- Regression: full pytest 1141 passed/1 skipped/0 failed; redteam 10/10 (R8 retargeted to resolved root); E2E 24/1 blocked; health READY. Docs: all 7 updated.
