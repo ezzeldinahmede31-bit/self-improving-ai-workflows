@@ -2207,3 +2207,19 @@ Opened existing "Make" window (eu1.make.com/2862717/agent-profiles/8074 toolbox 
 - Resume proven across processes: session 70f46837 paused (a done, b ASK) ->
   new process `approve` -> done, /tmp/e2e_resume.txt written.
 - Full pytest still green after orchestrator edits (rerun).
+
+## FINAL round: production-grade device platform (Oct 7 session 3)
+- Full audit first (docs/FINAL_GAP_MATRIX_BEFORE.md, 40+ findings via subagent).
+- Hardened: permissions v2 (compound-split, normalization, symlink-safe secrets,
+  scoped single-use approvals, fail-closed), loop v2 (metadata, cancel, bounded
+  retry, idempotency, audit), sandbox (net-OFF default, containment, gate),
+  monitor v2 (pgid kill, deadline kills, GC), cron v2 (gated, caps, atomic),
+  symbols v2 (gated, capped). New: device_audit (hash chain+flock+redaction),
+  device_state (atomic+backup/idempotency), device_redteam (10/10),
+  device_health (READY 10/10), device_e2e T1-T25 (24/0/1).
+- Real bugs fixed: write_text[:0] token confusion, cmd_log stdout pollution,
+  audit append race (T18 exposed), .env regex gap (R1 exposed).
+- pytest: **1126 passed** (1123+3 new), regression green. 8 docs written.
+- Artifacts: /tmp/opencode-device/final_{device_audit,security_report,e2e_report}.json.
+- Residual YELLOW (documented): browser-write autonomy, full LSP, malicious-child
+  test, latency tables. No RED.
