@@ -19,6 +19,10 @@ import subprocess
 import sys
 from pathlib import Path
 
+HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE))
+from device_permissions import evaluate  # noqa: E402
+
 BASE_BINDS = [
     "--ro-bind", "/usr", "/usr",
     "--ro-bind", "/lib", "/lib",
@@ -28,46 +32,84 @@ BASE_BINDS = [
     "--proc", "/proc",
     "--dev", "/dev",
 ]
+OUT_CAP = 100 * 1024
+
+SAFE_WORK_PARENTS = [Path("/tmp").resolve()]
 
 
-def run(cmd, workdir=".", no_net=False, read_only=False, timeout=120):
+def contained(workdir):
+    try:
+        wd = Path(workdir).resolve()
+    except Exception:
+        return False
+    if wd in (Path("/"), Path("/usr"), Path("/etc"), Path("/lib"),
+              Path("/lib64"), Path.home().resolve()):
+        return False
+    try:
+        wd.relative_to(Path.cwd().resolve())
+        return True
+    except ValueError:
+        pass
+    return any(str(wd).startswith(str(p) + "/") or wd == p
+               for p in SAFE_WORK_PARENTS)
+
+
+def run(cmd, workdir=".", no_net=True, read_only=False, timeout=120):
     if not shutil.which("bwrap"):
         print("DENIED: bwrap not installed", file=sys.stderr)
         return 127
+    if not contained(workdir):
+        print(f"DENIED: workdir outside containment: {workdir}", file=sys.stderr)
+        return 20
+    tier, rule = evaluate("Bash", " ".join(cmd))
+    if tier == "deny":
+        print(f"DENIED by policy: {rule}", file=sys.stderr)
+        return 20
     workdir = str(Path(workdir).resolve())
     args = ["bwrap"] + BASE_BINDS
     if no_net:
         args += ["--unshare-net"]
     if read_only:
         args += ["--remount-ro", "/"]
-    args += ["--bind", workdir, workdir, "--chdir", workdir, "--"] + cmd
+    args += ["--die-with-parent", "--bind", workdir, workdir,
+             "--chdir", workdir, "--"] + cmd
+    if shutil.which("prlimit"):
+        args = ["prlimit", "--as=1073741824"] + args  # 1GB address space
     try:
         p = subprocess.run(args, capture_output=True, text=True, timeout=timeout)
     except subprocess.TimeoutExpired:
         print(f"TIMEOUT after {timeout}s: {' '.join(cmd)}", file=sys.stderr)
         return 124
-    sys.stdout.write(p.stdout)
-    sys.stderr.write(p.stderr)
+    out = (p.stdout or "")[:OUT_CAP]
+    err = (p.stderr or "")[:OUT_CAP]
+    sys.stdout.write(out)
+    sys.stderr.write(err)
     return p.returncode
 
 
 def main(argv):
     if len(argv) == 2 and argv[1] == "selftest":
-        rc1 = run(["/usr/bin/echo", "SANDBOX_ECHO_OK"], timeout=15)
+        import tempfile
+        work = tempfile.mkdtemp(prefix="sbx-")
+        rc1 = run(["/usr/bin/echo", "SANDBOX_ECHO_OK"], workdir=work, timeout=15)
+        out_ok = rc1 == 0
         r = subprocess.run(
-            ["venv/bin/python", "scripts/device_sandbox.py", "--no-net",
+            [sys.executable, "scripts/device_sandbox.py",
              "--", "/usr/bin/python3", "-c",
              "import socket;socket.create_connection(('8.8.8.8',53),timeout=5)"],
             capture_output=True, text=True, timeout=30,
         )
         net_blocked = r.returncode != 0
-        print(f"net-isolated(no-net python egress blocked) = {net_blocked}")
-        ok = rc1 == 0 and net_blocked
+        print(f"echo contained = {out_ok}, net-isolated = {net_blocked}")
+        rc_bad = run(["/usr/bin/echo", "x"], workdir="/", timeout=10)
+        contained_ok = rc_bad == 20
+        print(f"workdir / refused = {contained_ok}")
+        ok = out_ok and net_blocked and contained_ok
         print("SELFTEST " + ("OK" if ok else "FAILED"))
         return 0 if ok else 1
-    no_net = "--no-net" in argv
+    no_net = "--net" not in argv       # net OFF by default (least privilege)
     read_only = "--ro" in argv
-    argv = [a for a in argv[1:] if a not in ("--no-net", "--ro")]
+    argv = [a for a in argv[1:] if a not in ("--net", "--ro")]
     if argv and argv[0] == "--":
         argv = argv[1:]
     if not argv:

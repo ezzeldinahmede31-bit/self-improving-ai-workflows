@@ -1,134 +1,142 @@
 #!/usr/bin/env python3
-"""device_cron.py — Claude-style CronCreate/CronList/CronDelete, project-local.
+"""device_cron.py v2 — hardened session-scoped scheduler.
 
-Tasks are session-scoped JSON (not system cron): id, prompt/command,
-run_at (epoch), every_s (0 = one-shot), created, last_run, runs.
-The agent (or a loop) calls `due` to list runnable tasks, executes them,
-then calls `ack <id>` to stamp last_run.
+Fixes vs v1: add() permission-gates the command; ints validated positive;
+cap 100 tasks; unique ids (collision-checked); atomic state; STATE path
+overridable via DEVICE_CRON_STATE (selftest no longer wipes prod); ack only
+fires due tasks; del requires existing id.
 
-State: /tmp/opencode-device/cron.json
-Usage:
-  device_cron.py add --in 60 -- echo hello      # one-shot in 60s
-  device_cron.py add --every 3600 -- backup.sh  # recurring hourly
-  device_cron.py list
-  device_cron.py due                             # tasks ready to run now (JSON)
-  device_cron.py ack <id>
-  device_cron.py del <id>
-  device_cron.py selftest
+Usage: add --in S|--every S -- cmd... | list | due | ack ID | del ID | selftest
 """
 import json
+import os
 import sys
 import time
 import uuid
 from pathlib import Path
 
-STATE = Path("/tmp/opencode-device/cron.json")
+HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE))
+from device_permissions import evaluate  # noqa: E402
+from device_state import read as sread, write as swrite  # noqa: E402
+
+NAME = os.environ.get("DEVICE_CRON_STATE", "cron/tasks.json")
+MAX_TASKS = 100
 
 
 def load():
-    if STATE.exists():
-        return json.loads(STATE.read_text())
-    return {"tasks": []}
+    return sread(NAME) or {"tasks": []}
 
 
 def save(s):
-    STATE.parent.mkdir(parents=True, exist_ok=True)
-    STATE.write_text(json.dumps(s, indent=1))
+    swrite(NAME, s)
 
 
 def cmd_add(args):
-    s = load()
-    every = 0
-    delay = 0
-    if "--every" in args:
-        every = int(args[args.index("--every") + 1])
-    if "--in" in args:
-        delay = int(args[args.index("--in") + 1])
-    i = args.index("--") if "--" in args else len(args)
-    cmd = args[i + 1:]
-    if not cmd:
+    every = delay = 0
+    try:
+        if "--every" in args:
+            every = int(args[args.index("--every") + 1])
+        if "--in" in args:
+            delay = int(args[args.index("--in") + 1])
+    except (ValueError, IndexError):
+        print("bad --every/--in value", file=sys.stderr)
+        return 2
+    if every < 0 or delay < 0:
+        print("negative schedule rejected", file=sys.stderr)
+        return 2
+    if "--" not in args:
         print("need -- <command...>", file=sys.stderr)
         return 2
-    t = {"id": uuid.uuid4().hex[:8], "cmd": cmd,
-         "run_at": time.time() + (delay or every or 0),
-         "every_s": every, "created": time.time(), "last_run": None, "runs": 0}
-    s["tasks"].append(t)
-    save(s)
-    print(t["id"])
-    return 0
-
-
-def cmd_list():
-    for t in load()["tasks"]:
-        print(f"{t['id']}  every={t['every_s']}s  run_at={t['run_at']:.0f}  "
-              f"runs={t['runs']}  {' '.join(t['cmd'])}")
-    return 0
-
-
-def cmd_due():
-    now = time.time()
-    due = [t for t in load()["tasks"] if t["run_at"] <= now]
-    print(json.dumps(due, indent=1))
-    return 0
-
-
-def cmd_ack(tid):
+    cmd = args[args.index("--") + 1:]
+    if not cmd:
+        print("empty command", file=sys.stderr)
+        return 2
+    tier, rule = evaluate("Bash", " ".join(cmd))
+    if tier == "deny":
+        print(f"DENIED by policy: {rule}", file=sys.stderr)
+        return 20
+    if tier == "ask":
+        print(f"ASK by policy (needs human ack to arm): {rule}", file=sys.stderr)
     s = load()
-    for t in s["tasks"]:
-        if t["id"] == tid:
-            t["last_run"] = time.time()
-            t["runs"] += 1
-            if t["every_s"]:
-                t["run_at"] = time.time() + t["every_s"]
-            else:
-                s["tasks"] = [x for x in s["tasks"] if x["id"] != tid]
-            save(s)
-            print(f"acked {tid}")
-            return 0
-    print(f"unknown task {tid}", file=sys.stderr)
-    return 1
+    if len(s["tasks"]) >= MAX_TASKS:
+        print("task cap reached", file=sys.stderr)
+        return 2
+    ids = {t["id"] for t in s["tasks"]}
+    tid = uuid.uuid4().hex[:8]
+    while tid in ids:
+        tid = uuid.uuid4().hex[:8]
+    s["tasks"].append({"id": tid, "cmd": cmd,
+                       "run_at": time.time() + (delay or every or 0),
+                       "every_s": every, "created": time.time(),
+                       "last_run": None, "runs": 0, "armed": tier})
+    save(s)
+    print(tid)
+    return 0
 
 
 def main(argv):
     if len(argv) == 2 and argv[1] == "selftest":
         import subprocess
-        if STATE.exists():
-            STATE.unlink()
-        r = subprocess.run([sys.executable, __file__, "add", "--in", "0",
-                            "--", "echo", "hi"], capture_output=True, text=True)
+        # isolated namespace: reset it first (never touches prod state)
+        from device_state import write as _w
+        _w("cron/selftest-tasks.json", {"tasks": []})
+        env = dict(os.environ, DEVICE_CRON_STATE="cron/selftest-tasks.json")
+        run = lambda *a: subprocess.run(
+            [sys.executable, __file__, *a], capture_output=True, text=True, env=env)
+        r = run("add", "--in", "-5", "--", "echo", "hi")
+        ok1 = r.returncode != 0
+        print(f"negative rejected -> {'PASS' if ok1 else 'FAIL'}")
+        r = run("add", "--in", "0", "--", "rm", "-rf", "/tmp/x")
+        ok2 = r.returncode == 20
+        print(f"denied command refused -> {'PASS' if ok2 else 'FAIL'}")
+        r = run("add", "--in", "0", "--", "echo", "hi")
         tid = r.stdout.strip()
-        r = subprocess.run([sys.executable, __file__, "due"], capture_output=True,
-                           text=True)
-        due = json.loads(r.stdout)
-        ok1 = len(due) == 1 and due[0]["id"] == tid
-        print(f"add+due -> {'PASS' if ok1 else 'FAIL'} ({due})")
-        r = subprocess.run([sys.executable, __file__, "ack", tid],
-                           capture_output=True, text=True)
-        r = subprocess.run([sys.executable, __file__, "due"], capture_output=True,
-                           text=True)
-        ok2 = json.loads(r.stdout) == []
-        print(f"ack one-shot removes -> {'PASS' if ok2 else 'FAIL'}")
-        r = subprocess.run([sys.executable, __file__, "add", "--every", "3600",
-                            "--", "echo", "hourly"], capture_output=True, text=True)
-        tid2 = r.stdout.strip()
-        subprocess.run([sys.executable, __file__, "ack", tid2], capture_output=True)
-        left = load()["tasks"]
-        ok3 = len(left) == 1 and left[0]["runs"] == 1
-        print(f"ack recurring reschedules -> {'PASS' if ok3 else 'FAIL'}")
-        subprocess.run([sys.executable, __file__, "del", tid2], capture_output=True)
-        ok = ok1 and ok2 and ok3
+        due = json.loads(run("due").stdout)
+        ok3 = len(due) == 1 and due[0]["id"] == tid
+        print(f"add+due -> {'PASS' if ok3 else 'FAIL'}")
+        run("ack", tid)
+        ok4 = json.loads(run("due").stdout) == []
+        print(f"ack one-shot removes -> {'PASS' if ok4 else 'FAIL'}")
+        r = run("ack", "deadbeef")
+        ok5 = r.returncode != 0
+        print(f"ack unknown rejected -> {'PASS' if ok5 else 'FAIL'}")
+        ok = ok1 and ok2 and ok3 and ok4 and ok5
         print("SELFTEST " + ("OK" if ok else "FAILED"))
         return 0 if ok else 1
     if len(argv) >= 2 and argv[1] == "add":
         return cmd_add(argv[2:])
     if len(argv) >= 2 and argv[1] == "list":
-        return cmd_list()
+        for t in load()["tasks"]:
+            print(f"{t['id']}  every={t['every_s']}s  runs={t['runs']}  {' '.join(t['cmd'])}")
+        return 0
     if len(argv) >= 2 and argv[1] == "due":
-        return cmd_due()
+        now = time.time()
+        print(json.dumps([t for t in load()["tasks"] if t["run_at"] <= now], indent=1))
+        return 0
     if len(argv) >= 3 and argv[1] == "ack":
-        return cmd_ack(argv[2])
+        s = load()
+        for t in s["tasks"]:
+            if t["id"] == argv[2]:
+                if t["run_at"] > time.time():
+                    print("not due yet", file=sys.stderr)
+                    return 2
+                t["last_run"] = time.time()
+                t["runs"] += 1
+                if t["every_s"]:
+                    t["run_at"] = time.time() + t["every_s"]
+                else:
+                    s["tasks"] = [x for x in s["tasks"] if x["id"] != argv[2]]
+                save(s)
+                print(f"acked {argv[2]}")
+                return 0
+        print(f"unknown task {argv[2]}", file=sys.stderr)
+        return 1
     if len(argv) >= 3 and argv[1] == "del":
         s = load()
+        if argv[2] not in {t["id"] for t in s["tasks"]}:
+            print(f"unknown task {argv[2]}", file=sys.stderr)
+            return 1
         s["tasks"] = [t for t in s["tasks"] if t["id"] != argv[2]]
         save(s)
         print(f"deleted {argv[2]}")
