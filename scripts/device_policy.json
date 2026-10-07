@@ -1,0 +1,99 @@
+{
+  "rules": [
+    {
+      "tool": "Bash",
+      "pattern": "rm -rf *",
+      "tier": "deny"
+    },
+    {
+      "tool": "Bash",
+      "pattern": "sudo *",
+      "tier": "ask"
+    },
+    {
+      "tool": "Bash",
+      "pattern": "git push --force*",
+      "tier": "deny"
+    },
+    {
+      "tool": "Bash",
+      "pattern": "git status*",
+      "tier": "allow"
+    },
+    {
+      "tool": "Bash",
+      "pattern": "git diff*",
+      "tier": "allow"
+    },
+    {
+      "tool": "Bash",
+      "pattern": "git log*",
+      "tier": "allow"
+    },
+    {
+      "tool": "Bash",
+      "pattern": "ls*",
+      "tier": "allow"
+    },
+    {
+      "tool": "Bash",
+      "pattern": "pwd",
+      "tier": "allow"
+    },
+    {
+      "tool": "Bash",
+      "pattern": "wmctrl -l*",
+      "tier": "allow"
+    },
+    {
+      "tool": "Bash",
+      "pattern": "git push*",
+      "tier": "ask"
+    },
+    {
+      "tool": "Read",
+      "pattern": "*.env",
+      "tier": "deny"
+    },
+    {
+      "tool": "Read",
+      "pattern": "*.env.*",
+      "tier": "deny"
+    },
+    {
+      "tool": "Read",
+      "pattern": "~/.ssh/*",
+      "tier": "deny"
+    },
+    {
+      "tool": "Read",
+      "pattern": "memory/.sessions/*",
+      "tier": "deny"
+    },
+    {
+      "tool": "Read",
+      "pattern": "*",
+      "tier": "allow"
+    },
+    {
+      "tool": "Edit",
+      "pattern": "*",
+      "tier": "ask"
+    },
+    {
+      "tool": "Write",
+      "pattern": "*",
+      "tier": "ask"
+    },
+    {
+      "tool": "WebFetch",
+      "pattern": "*",
+      "tier": "allow"
+    }
+  ],
+  "default": {
+    "Read": "allow",
+    "Glob": "allow",
+    "Grep": "allow"
+  }
+}

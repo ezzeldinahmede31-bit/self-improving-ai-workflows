@@ -80,3 +80,18 @@ Report: what tool path was used (native/browser/screen), the exact
 commands with exit codes, before/after screenshot paths for screen work,
 and session-reuse note for logins. A device claim without this evidence
 is not done.
+
+## 6. Built companions (scripts/, all self-tested green)
+
+- `device_permissions.py check --tool Bash --input "<cmd>"` → pre-flight
+  gate (exit 0=ALLOW, 10=ASK, 20=DENY). Policy: `scripts/device_policy.json`
+  (Deny > Ask > Allow; unmatched Bash/Edit/Write = ASK = Ask-first).
+  Native enforcement lives in `opencode.jsonc` → `permission` block.
+- `device_sandbox.py [--no-net] [--ro] -- <cmd>` → bwrap jail (proven
+  bind set + `--unshare-net` kills egress; exit = command's exit).
+- `device_monitor.py start/poll/stop/list` → background watch with
+  per-line JSONL feed + 5min default / 30min max deadline + one end notice.
+- `device_cron.py add/list/due/ack/del` → one-shot (`--in S`) and
+  recurring (`--every S`) tasks, session-scoped JSON.
+- `device_symbols.py defs/info/refs` → LSP-lite over Python `ast`
+  (definitions+docstrings+name references; no import resolution claimed).
