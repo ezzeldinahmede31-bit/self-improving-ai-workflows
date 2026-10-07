@@ -171,6 +171,12 @@ class TaskScopedJITRAG:
         conn.commit()
         conn.close()
 
+    def ingest(self, doc_id: str, content: str, doc_type: str = "") -> int:
+        """Single-doc adapter over ingest_jit_docs (test + caller convenience)."""
+        return self.ingest_jit_docs(
+            [{"source": doc_id, "doc_type": doc_type, "content": content}]
+        )
+
     def ingest_jit_docs(self, docs: list[dict]):
         conn = sqlite3.connect(self.db_path)
         for doc in docs:
@@ -185,15 +191,21 @@ class TaskScopedJITRAG:
         return len(docs)
 
     def query_context(self, keyword: str, limit: int = 5) -> list[dict]:
+        if not os.path.exists(self.db_path):
+            return []  # purged/destroyed store reads as empty, never raises
         conn = sqlite3.connect(self.db_path)
         conn.row_factory = sqlite3.Row
-        rows = conn.execute(
-            "SELECT source, doc_type, content, keywords FROM ephemeral_docs "
-            "WHERE content LIKE ? OR keywords LIKE ? LIMIT ?",
-            (f"%{keyword}%", f"%{keyword}%", limit),
-        ).fetchall()
-        conn.close()
-        return [dict(r) for r in rows]
+        try:
+            rows = conn.execute(
+                "SELECT source, doc_type, content, keywords FROM ephemeral_docs "
+                "WHERE content LIKE ? OR keywords LIKE ? LIMIT ?",
+                (f"%{keyword}%", f"%{keyword}%", limit),
+            ).fetchall()
+            return [dict(r) for r in rows]
+        except sqlite3.OperationalError:
+            return []  # table gone (e.g. legacy/corrupt store) reads as empty
+        finally:
+            conn.close()
 
     def purge_context(self):
         if os.path.exists(self.db_path):
