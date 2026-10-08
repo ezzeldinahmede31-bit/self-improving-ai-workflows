@@ -331,3 +331,13 @@
 {"ts": 1791474110.3312497, "model": "meta/llama-3.2-11b-vision-instruct", "success": false, "latency_ms": 0, "error": "probe 429", "tier_idx": 0}
 {"ts": 1791474110.3313115, "model": "meta/llama-3.2-11b-vision-instruct", "success": false, "latency_ms": 0, "error": "probe 429", "tier_idx": 0}
 {"ts": 1791474110.331373, "model": "meta/llama-3.2-11b-vision-instruct", "success": false, "latency_ms": 0, "error": "probe 429", "tier_idx": 0}
+{"ts": 1791475787.738531, "model": "meta/llama-3.2-11b-vision-instruct", "success": false, "latency_ms": 0, "error": "probe 429", "tier_idx": 0}
+{"ts": 1791475787.7387154, "model": "meta/llama-3.2-11b-vision-instruct", "success": false, "latency_ms": 0, "error": "probe 429", "tier_idx": 0}
+{"ts": 1791475787.7387984, "model": "meta/llama-3.2-11b-vision-instruct", "success": false, "latency_ms": 0, "error": "probe 429", "tier_idx": 0}
+{"ts": 1791475787.7388546, "model": "meta/llama-3.2-11b-vision-instruct", "success": false, "latency_ms": 0, "error": "probe 429", "tier_idx": 0}
+{"ts": 1791475787.738901, "model": "meta/llama-3.2-11b-vision-instruct", "success": false, "latency_ms": 0, "error": "probe 429", "tier_idx": 0}
+{"ts": 1791475787.7469633, "model": "meta/llama-3.2-11b-vision-instruct", "success": false, "latency_ms": 0, "error": "probe 429", "tier_idx": 0}
+{"ts": 1791475787.747718, "model": "meta/llama-3.2-11b-vision-instruct", "success": false, "latency_ms": 0, "error": "probe 429", "tier_idx": 0}
+{"ts": 1791475787.7478278, "model": "meta/llama-3.2-11b-vision-instruct", "success": false, "latency_ms": 0, "error": "probe 429", "tier_idx": 0}
+{"ts": 1791475787.7479107, "model": "meta/llama-3.2-11b-vision-instruct", "success": false, "latency_ms": 0, "error": "probe 429", "tier_idx": 0}
+{"ts": 1791475787.7479863, "model": "meta/llama-3.2-11b-vision-instruct", "success": false, "latency_ms": 0, "error": "probe 429", "tier_idx": 0}
