@@ -24,6 +24,10 @@ node_modules/
 logs/
 *.log
 
+# generated per-run gate audit trail (local evidence, unbounded growth —
+# 1415 files / 23MB; nothing reads history back, tests clean up their own)
+memory/audits/
+
 # IDE
 .vscode/
 .idea/
