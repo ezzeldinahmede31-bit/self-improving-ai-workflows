@@ -180,6 +180,19 @@ def grade_exact_ctx(output: str, ctx: dict) -> tuple[bool, str]:
     return (True, "") if output.strip() == want else (False, f"got {output.strip()[:80]!r}")
 
 
+def grade_exact_dual(raw: str, output: str, ctx: dict) -> tuple[bool, bool, bool, str]:
+    """v1.1.1 value/format split for exact tasks: value = expected string
+    present anywhere in the normalized output; format = strict equality.
+    Returns (strict_ok, value_ok, format_ok, note)."""
+    want = str(ctx.get("expected", ctx.get(ctx.get("expected_key", ""), "")))
+    norm = (output or "").strip()
+    if norm == want:
+        return True, True, True, ""
+    if want and want in norm:
+        return False, True, False, "VALUE_OK_FORMAT_BAD: correct value wrapped in extra text"
+    return False, False, False, f"VALUE_WRONG: got {norm[:80]!r}"
+
+
 def grade_exec_ctx(output: str, ctx: dict) -> tuple[bool, str]:
     """ctx: {func: name, cases: [[args_list, want], ...], float_tol}."""
     name = ctx.get("func", "solve")
@@ -264,12 +277,12 @@ def grade_fileset_ctx(files: dict, ctx: dict) -> tuple[bool, str]:
     for name, subs in (ctx.get("contains", {}) or {}).items():
         body = (files or {}).get(name, "")
         for s in subs:
-            if s not in body:
+            if s.lower() not in body.lower():
                 return False, f"{name} lacks {s!r}"
     for name, refs in (ctx.get("contains_ctx", {}) or {}).items():
         body = (files or {}).get(name, "")
         for s in _resolve_refs(refs, ctx):
-            if not s or s not in body:
+            if not s or s.lower() not in body.lower():
                 return False, f"{name} lacks ctx value {s!r}"
     return True, ""
 

@@ -112,7 +112,14 @@ def _extract_text_events(raw: str) -> tuple[list[str], int, list[str], dict, lis
     errors: list[str] = []
     usage: dict = {}
     keys_seen: list[str] = []
+    coerced = False
+    if isinstance(raw, (bytes, bytearray)):
+        raw = bytes(raw).decode("utf-8", "replace")
+        coerced = True
     for line in raw.splitlines():
+        if isinstance(line, (bytes, bytearray)):
+            line = bytes(line).decode("utf-8", "replace")
+            coerced = True
         line = line.strip()
         if not line.startswith("{"):
             continue
@@ -150,6 +157,8 @@ def _extract_text_events(raw: str) -> tuple[list[str], int, list[str], dict, lis
                         stack.append(v)
             elif isinstance(cur, list):
                 stack.extend(cur)
+    if coerced and "stream_coerced_bytes" not in keys_seen:
+        keys_seen.append("stream_coerced_bytes")
     return texts, tool_uses, errors, usage, keys_seen
 
 

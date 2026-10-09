@@ -1,0 +1,7 @@
+task,mode,variant,model,rep,ok,value_ok,format_ok,first_pass_ok,recovered,wall_s,tool_uses,token_status,needed_normalization,note
+FV-C01,A,same_capability,opencode/muse-spark-1.3-contributor-free,0,True,True,True,True,False,7.61,0,UNMEASURED,False,
+FV-C01,B,same_capability,opencode/muse-spark-1.3-contributor-free,0,True,True,True,True,False,6.71,0,UNMEASURED,False,
+FV-C01,C,same_capability,opencode/muse-spark-1.3-contributor-free,0,True,True,True,True,False,5.94,0,UNMEASURED,False,
+FV-A01,A,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,False,False,False,False,20.44,5,UNMEASURED,False,VALUE_WRONG: got 'Adding up every amount across the three CSVs.\n10873'
+FV-A01,B,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,False,False,False,False,73.33,5,UNMEASURED,False,VALUE_WRONG: got 'Summing your Q1–Q3 sales — pulling the total now.\n10873'
+FV-A01,C,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,False,False,False,False,16.2,4,UNMEASURED,False,VALUE_WRONG: got 'Adding up every amount across the three quarterly files.\n10873'

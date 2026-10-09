@@ -1,320 +1,1655 @@
 {
-  "battery": "frontier_parity_full",
-  "battery_version": "1.0.0",
-  "created_utc": "2026-10-09",
-  "method_note": "Full battery draft (44 runnable + 4 sealed). Prompts contain task INPUTS ONLY — no reference answers. Grader params and fixture ctx carry answer keys (normal for benchmark artifacts). v1.1 dual scoring applies: strict ok = value AND format (file deliverables: value only). Sealed tasks carry prompt=null and are refused by the runner.",
-  "comparison_variants": ["same_capability", "best_practical"],
-  "computer_use_note": "Real browser/computer-use tasks excluded: Playwright availability inside disposable opencode-run sessions is UNVERIFIED. Tool-use coverage here = file/shell operations in isolated workdirs. Computer-use enters scope only after tool presence is proven.",
-  "tasks": [
-    {"id": "FV-R01", "domain": "reasoning", "difficulty": "easy", "risk": "low",
-     "prompt": "How many integers in the closed interval [17, 200] are divisible by 13? Reply with ONLY the number, no other text.",
-     "acceptance": "output.strip() == '14'", "expected_evidence": "endpoint-inclusive count 14",
-     "tool_permissions": "none", "token_budget": {"input": 1000, "output": 200}, "timeout_s": 120,
-     "rubric": "binary exact", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "grader": {"kind": "exact", "expected": "14"}},
-    {"id": "FV-R02", "domain": "reasoning", "difficulty": "easy", "risk": "low",
-     "prompt": "A 100-meter fence needs posts every 2 meters, including both ends. How many posts? Reply with ONLY the number, no other text.",
-     "acceptance": "output.strip() == '51'", "expected_evidence": "fence-post count 51",
-     "tool_permissions": "none", "token_budget": {"input": 1000, "output": 200}, "timeout_s": 120,
-     "rubric": "binary exact", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "grader": {"kind": "exact", "expected": "51"}},
-    {"id": "FV-R03", "domain": "reasoning", "difficulty": "medium", "risk": "low",
-     "prompt": "What is the sum of the first 50 odd positive integers? Reply with ONLY the number, no other text.",
-     "acceptance": "output.strip() == '2500'", "expected_evidence": "2500",
-     "tool_permissions": "none", "token_budget": {"input": 1000, "output": 200}, "timeout_s": 120,
-     "rubric": "binary exact", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "grader": {"kind": "exact", "expected": "2500"}},
-    {"id": "FV-R04", "domain": "reasoning", "difficulty": "medium", "risk": "low",
-     "prompt": "How many 3-digit numbers (100 to 999) are divisible by 25? Reply with ONLY the number, no other text.",
-     "acceptance": "output.strip() == '36'", "expected_evidence": "36",
-     "tool_permissions": "none", "token_budget": {"input": 1000, "output": 200}, "timeout_s": 120,
-     "rubric": "binary exact", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "grader": {"kind": "exact", "expected": "36"}},
-    {"id": "FV-M01", "domain": "mathematics", "difficulty": "medium", "risk": "low",
-     "prompt": "Compute the sum of cubes of the integers from 1 to 50 inclusive. Reply with ONLY the number, no other text.",
-     "acceptance": "output.strip() == '1625625'", "expected_evidence": "1625625",
-     "tool_permissions": "none", "token_budget": {"input": 1000, "output": 200}, "timeout_s": 120,
-     "rubric": "binary exact", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "grader": {"kind": "exact", "expected": "1625625"}},
-    {"id": "FV-M02", "domain": "mathematics", "difficulty": "medium", "risk": "low",
-     "prompt": "Compute 7^4 mod 11 (remainder of 7 to the 4th power divided by 11). Reply with ONLY the number, no other text.",
-     "acceptance": "output.strip() == '3'", "expected_evidence": "3",
-     "tool_permissions": "none", "token_budget": {"input": 1000, "output": 200}, "timeout_s": 120,
-     "rubric": "binary exact", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "grader": {"kind": "exact", "expected": "3"}},
-    {"id": "FV-M03", "domain": "mathematics", "difficulty": "medium", "risk": "low",
-     "prompt": "Compute gcd(1071, 462), the greatest common divisor. Reply with ONLY the number, no other text.",
-     "acceptance": "output.strip() == '21'", "expected_evidence": "21",
-     "tool_permissions": "none", "token_budget": {"input": 1000, "output": 200}, "timeout_s": 120,
-     "rubric": "binary exact", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "grader": {"kind": "exact", "expected": "21"}},
-    {"id": "FV-M04", "domain": "mathematics", "difficulty": "hard", "risk": "low",
-     "prompt": "Compute the exact sum of 1/(k*(k+1)) for k = 1 to 99. Reply with ONLY the fraction in lowest terms (e.g. 1/2), no other text.",
-     "acceptance": "output.strip() == '99/100'", "expected_evidence": "telescoping sum 99/100",
-     "tool_permissions": "none", "token_budget": {"input": 1200, "output": 200}, "timeout_s": 180,
-     "rubric": "binary exact", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "grader": {"kind": "exact", "expected": "99/100"}},
-    {"id": "FV-C01", "domain": "coding", "difficulty": "medium", "risk": "low",
-     "prompt": "Write a Python function two_sum(nums, target) returning the [i, j] indices of the two numbers adding to target (exactly one solution; i < j). Reply with ONLY the Python code.",
-     "acceptance": "exec-graded on 3 hidden cases", "expected_evidence": "callable two_sum passing all cases",
-     "tool_permissions": "none", "token_budget": {"input": 1500, "output": 800}, "timeout_s": 180,
-     "rubric": "binary: all cases pass", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "grader": {"kind": "exec", "func": "two_sum", "cases": [[[[2, 7, 11, 15], 7], [0, 1]], [[[3, 2, 4], 6], [1, 2]], [[[3, 3], 6], [0, 1]]]}},
-    {"id": "FV-C02", "domain": "coding", "difficulty": "medium", "risk": "low",
-     "prompt": "Write a Python function fib(n) returning the nth Fibonacci number with fib(0)=0, fib(1)=1. Reply with ONLY the Python code.",
-     "acceptance": "exec-graded on 4 hidden cases", "expected_evidence": "callable fib passing all cases",
-     "tool_permissions": "none", "token_budget": {"input": 1500, "output": 800}, "timeout_s": 180,
-     "rubric": "binary: all cases pass", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "grader": {"kind": "exec", "func": "fib", "cases": [[[0], 0], [[1], 1], [[10], 55], [[20], 6765]]}},
-    {"id": "FV-C03", "domain": "coding", "difficulty": "easy", "risk": "low",
-     "prompt": "Write a Python function clamp(x, lo, hi) returning x bounded into [lo, hi]. Reply with ONLY the Python code.",
-     "acceptance": "exec-graded on 4 hidden cases", "expected_evidence": "callable clamp passing all cases",
-     "tool_permissions": "none", "token_budget": {"input": 1500, "output": 800}, "timeout_s": 180,
-     "rubric": "binary: all cases pass", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "grader": {"kind": "exec", "func": "clamp", "cases": [[[5, 1, 10], 5], [[-3, 0, 8], 0], [[99, 0, 8], 8], [[4, 4, 4], 4]]}},
-    {"id": "FV-C04", "domain": "coding", "difficulty": "medium", "risk": "low",
-     "prompt": "Write a Python function flatten1(nested) that flattens one level: each element that is a list/tuple is spliced in, others kept as-is. Reply with ONLY the Python code.",
-     "acceptance": "exec-graded on 3 hidden cases", "expected_evidence": "callable flatten1 passing all cases",
-     "tool_permissions": "none", "token_budget": {"input": 1500, "output": 800}, "timeout_s": 180,
-     "rubric": "binary: all cases pass", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "grader": {"kind": "exec", "func": "flatten1", "cases": [[[[[1, [2], [3, 4]]]], [1, 2, 3, 4]], [[[]], []], [[["x", ["y"]]], ["x", "y"]]]}},
-    {"id": "FV-C05", "domain": "coding", "difficulty": "easy", "risk": "low",
-     "prompt": "Write a Python function count_words(s) returning the number of whitespace-separated words in string s (empty/blank gives 0). Reply with ONLY the Python code.",
-     "acceptance": "exec-graded on 3 hidden cases", "expected_evidence": "callable count_words passing all cases",
-     "tool_permissions": "none", "token_budget": {"input": 1500, "output": 800}, "timeout_s": 180,
-     "rubric": "binary: all cases pass", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "grader": {"kind": "exec", "func": "count_words", "cases": [[["  hello   world "], 2], [[""], 0], [["a b c"], 3]]}},
-    {"id": "FV-D01", "domain": "debugging", "difficulty": "medium", "risk": "low",
-     "prompt": "The file target.py in the workdir has a buggy median function. Edit target.py in place so median(a) is correct for odd, even, singleton, and duplicate inputs. Reply with ONLY the word DONE.",
-     "acceptance": "fixed file passes 4 hidden cases", "expected_evidence": "target.py median correct on all cases",
-     "tool_permissions": "read+write inside isolated workdir", "token_budget": {"input": 2000, "output": 300}, "timeout_s": 240,
-     "rubric": "binary: all cases pass on file", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "fixture": {"builder": "buggy_file", "which": "median"},
-     "grader": {"kind": "filemodule", "file": "target.py", "func": "median", "cases": [[[[3, 1, 2]], 2], [[[1, 2, 3, 4]], 2.5], [[[9]], 9], [[[4, 4]], 4.0]]}},
-    {"id": "FV-D02", "domain": "debugging", "difficulty": "medium", "risk": "low",
-     "prompt": "The file target.py in the workdir has a buggy dedupe function that destroys input order. Edit target.py in place so dedupe(items) removes duplicates while preserving first-occurrence order. Reply with ONLY the word DONE.",
-     "acceptance": "fixed file passes 3 hidden cases", "expected_evidence": "target.py dedupe order-preserving on all cases",
-     "tool_permissions": "read+write inside isolated workdir", "token_budget": {"input": 2000, "output": 300}, "timeout_s": 240,
-     "rubric": "binary: all cases pass on file", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "fixture": {"builder": "buggy_file", "which": "dedupe"},
-     "grader": {"kind": "filemodule", "file": "target.py", "func": "dedupe", "cases": [[[[1, 2, 2, 3]], [1, 2, 3]], [[["b", "a", "b"]], ["b", "a"]], [[[]], []]]}},
-    {"id": "FV-D03", "domain": "debugging", "difficulty": "medium", "risk": "low",
-     "prompt": "The file target.py in the workdir has a buggy running_max function that fails on all-negative inputs. Edit target.py in place so running_max(a) is correct including negatives and empty input. Reply with ONLY the word DONE.",
-     "acceptance": "fixed file passes 3 hidden cases", "expected_evidence": "target.py running_max correct on all cases",
-     "tool_permissions": "read+write inside isolated workdir", "token_budget": {"input": 2000, "output": 300}, "timeout_s": 240,
-     "rubric": "binary: all cases pass on file", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "fixture": {"builder": "buggy_file", "which": "running_max"},
-     "grader": {"kind": "filemodule", "file": "target.py", "func": "running_max", "cases": [[[[3, 1, 4]], [3, 3, 4]], [[[-2, -5]], [-2, -2]], [[[]], []]]}},
-    {"id": "FV-S01", "domain": "software-architecture", "difficulty": "medium", "risk": "low",
-     "prompt": "The workdir file SCENARIO.txt describes a budget/SLA choice among topology options A/B/C. Read it, evaluate every option against budget AND latency, and reply with ONLY the valid option id (or NONE-OR-AMBIGUOUS if not exactly one qualifies).",
-     "acceptance": "option id matches fixture-computed valid choice", "expected_evidence": "correct constrained choice from file scenario",
-     "tool_permissions": "read-only inside isolated workdir", "token_budget": {"input": 2000, "output": 200}, "timeout_s": 180,
-     "rubric": "binary exact", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "fixture": {"builder": "arch_choice", "seed": 43},
-     "grader": {"kind": "exact", "expected_key": "expected"}},
-    {"id": "FV-S02", "domain": "software-architecture", "difficulty": "hard", "risk": "low",
-     "prompt": "The workdir file JOBS.txt lists single-machine jobs with durations and deadlines. Read it and output ONE feasible execution order as a JSON list of exactly [a,b,c,d] (sequential, every job meets its deadline). Reply with ONLY the JSON list.",
-     "acceptance": "order meets all deadlines", "expected_evidence": "deadline-feasible schedule from file",
-     "tool_permissions": "read-only inside isolated workdir", "token_budget": {"input": 2000, "output": 300}, "timeout_s": 180,
-     "rubric": "binary: job set exact + all deadlines met", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "fixture": {"builder": "schedule_job", "seed": 54},
-     "grader": {"kind": "schedule"}},
-    {"id": "FV-X01", "domain": "research", "difficulty": "medium", "risk": "low",
-     "prompt": "Read report.txt in the workdir. Output a single JSON object with exactly the keys title, owner, eta (any sensible values) that names all four visited cities in its values. Reply with ONLY the JSON object.",
-     "acceptance": "keys exact + all 4 fixture cities present", "expected_evidence": "schema + recall from file doc",
-     "tool_permissions": "read-only inside isolated workdir", "token_budget": {"input": 2500, "output": 500}, "timeout_s": 180,
-     "rubric": "binary: keys + facts", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "fixture": {"builder": "synthetic_report", "seed": 61},
-     "grader": {"kind": "jsonfacts", "keys": ["title", "owner", "eta"], "facts_ctx": ["$facts"]}},
-    {"id": "FV-X02", "domain": "research", "difficulty": "medium", "risk": "low",
-     "prompt": "Read report.txt in the workdir. Output a single JSON object with exactly the keys title, owner, eta (any sensible values) that names all four visited cities in its values. Reply with ONLY the JSON object.",
-     "acceptance": "keys exact + all 4 fixture cities present", "expected_evidence": "schema + recall from file doc",
-     "tool_permissions": "read-only inside isolated workdir", "token_budget": {"input": 2500, "output": 500}, "timeout_s": 180,
-     "rubric": "binary: keys + facts", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "fixture": {"builder": "synthetic_report", "seed": 62},
-     "grader": {"kind": "jsonfacts", "keys": ["title", "owner", "eta"], "facts_ctx": ["$facts"]}},
-    {"id": "FV-X03", "domain": "research", "difficulty": "medium", "risk": "low",
-     "prompt": "Read report.txt in the workdir. Output a single JSON object with exactly the keys title, owner, eta (any sensible values) that names all four visited cities in its values. Reply with ONLY the JSON object.",
-     "acceptance": "keys exact + all 4 fixture cities present", "expected_evidence": "schema + recall from file doc",
-     "tool_permissions": "read-only inside isolated workdir", "token_budget": {"input": 2500, "output": 500}, "timeout_s": 180,
-     "rubric": "binary: keys + facts", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "fixture": {"builder": "synthetic_report", "seed": 63},
-     "grader": {"kind": "jsonfacts", "keys": ["title", "owner", "eta"], "facts_ctx": ["$facts"]}},
-    {"id": "FV-W01", "domain": "writing", "difficulty": "medium", "risk": "low",
-     "prompt": "Read report.txt in the workdir. Write a launch brief as a single JSON object with exactly the keys headline, audience, channels, where channels names all four visited cities. Reply with ONLY the JSON object. (Structural check only: keys + required terms.)",
-     "acceptance": "keys exact + all 4 cities present", "expected_evidence": "structured brief honoring schema + source terms",
-     "tool_permissions": "read-only inside isolated workdir", "token_budget": {"input": 2500, "output": 600}, "timeout_s": 180,
-     "rubric": "binary: keys + facts (style ungraded)", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "fixture": {"builder": "synthetic_report", "seed": 64},
-     "grader": {"kind": "jsonfacts", "keys": ["headline", "audience", "channels"], "facts_ctx": ["$facts"]}},
-    {"id": "FV-W02", "domain": "writing", "difficulty": "medium", "risk": "low",
-     "prompt": "Read report.txt in the workdir. Write a status memo as a single JSON object with exactly the keys title, summary, cta, where summary names all four visited cities. Reply with ONLY the JSON object. (Structural check only.)",
-     "acceptance": "keys exact + all 4 cities present", "expected_evidence": "structured memo honoring schema + source terms",
-     "tool_permissions": "read-only inside isolated workdir", "token_budget": {"input": 2500, "output": 600}, "timeout_s": 180,
-     "rubric": "binary: keys + facts (style ungraded)", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "fixture": {"builder": "synthetic_report", "seed": 65},
-     "grader": {"kind": "jsonfacts", "keys": ["title", "summary", "cta"], "facts_ctx": ["$facts"]}},
-    {"id": "FV-W03", "domain": "writing", "difficulty": "medium", "risk": "low",
-     "prompt": "Read report.txt in the workdir. Write a partner note as a single JSON object with exactly the keys name, pitch, cities, where cities lists all four visited cities. Reply with ONLY the JSON object. (Structural check only.)",
-     "acceptance": "keys exact + all 4 cities present", "expected_evidence": "structured note honoring schema + source terms",
-     "tool_permissions": "read-only inside isolated workdir", "token_budget": {"input": 2500, "output": 600}, "timeout_s": 180,
-     "rubric": "binary: keys + facts (style ungraded)", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "fixture": {"builder": "synthetic_report", "seed": 66},
-     "grader": {"kind": "jsonfacts", "keys": ["name", "pitch", "cities"], "facts_ctx": ["$facts"]}},
-    {"id": "FV-P01", "domain": "planning", "difficulty": "medium", "risk": "low",
-     "prompt": "Jobs m and n must finish before p; p before q. Output ONE valid execution order of exactly [m,n,p,q] as a JSON list. Reply with ONLY the JSON list.",
-     "acceptance": "valid topological order", "expected_evidence": "all edges respected, node set exact",
-     "tool_permissions": "none", "token_budget": {"input": 1500, "output": 300}, "timeout_s": 120,
-     "rubric": "binary: edges + node set", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "grader": {"kind": "order", "nodes": ["m", "n", "p", "q"], "edges": [["m", "p"], ["n", "p"], ["p", "q"]]}},
-    {"id": "FV-P02", "domain": "planning", "difficulty": "hard", "risk": "low",
-     "prompt": "The workdir file JOBS.txt lists single-machine jobs with durations and deadlines. Read it and output ONE feasible execution order as a JSON list of exactly [a,b,c,d]. Reply with ONLY the JSON list.",
-     "acceptance": "order meets all deadlines", "expected_evidence": "deadline-feasible schedule from file",
-     "tool_permissions": "read-only inside isolated workdir", "token_budget": {"input": 2000, "output": 300}, "timeout_s": 180,
-     "rubric": "binary: deadlines", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "fixture": {"builder": "schedule_job", "seed": 53},
-     "grader": {"kind": "schedule"}},
-    {"id": "FV-P03", "domain": "planning", "difficulty": "hard", "risk": "low",
-     "prompt": "Stages: s1 and s2 before s3; s3 before s4 and s5; s4 before s6; s5 before s6. Output ONE valid execution order of exactly [s1,s2,s3,s4,s5,s6] as a JSON list. Reply with ONLY the JSON list.",
-     "acceptance": "valid topological order over 6 nodes", "expected_evidence": "all 6 edges respected",
-     "tool_permissions": "none", "token_budget": {"input": 1500, "output": 300}, "timeout_s": 120,
-     "rubric": "binary: edges + node set", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "grader": {"kind": "order", "nodes": ["s1", "s2", "s3", "s4", "s5", "s6"], "edges": [["s1", "s3"], ["s2", "s3"], ["s3", "s4"], ["s3", "s5"], ["s4", "s6"], ["s5", "s6"]]}},
-    {"id": "FV-T01", "domain": "tool-use", "difficulty": "medium", "risk": "low",
-     "prompt": "The workdir contains sales_q1.csv, sales_q2.csv, sales_q3.csv with an amount column. Sum every amount across all three files. Reply with ONLY the total as a plain number.",
-     "acceptance": "total matches fixture sum", "expected_evidence": "all 3 files read and aggregated",
-     "tool_permissions": "read-only inside isolated workdir", "token_budget": {"input": 2000, "output": 200}, "timeout_s": 240,
-     "rubric": "binary exact", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "fixture": {"builder": "csv_quarters", "seed": 71},
-     "grader": {"kind": "exact", "expected_key": "expected"}},
-    {"id": "FV-T02", "domain": "tool-use", "difficulty": "medium", "risk": "low",
-     "prompt": "The workdir file orders.csv has columns order_id,qty,price but some rows are malformed (missing/non-numeric fields, blanks). Sum qty*price over VALID rows only and count skipped rows. Reply ONLY in the form total=<n> skipped=<m>.",
-     "acceptance": "total and skipped match fixture", "expected_evidence": "robust parsing: valid aggregated, bad skipped",
-     "tool_permissions": "read-only inside isolated workdir", "token_budget": {"input": 2000, "output": 200}, "timeout_s": 240,
-     "rubric": "binary exact", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "fixture": {"builder": "csv_malformed", "seed": 72},
-     "grader": {"kind": "exact", "expected_key": "expected"}},
-    {"id": "FV-T03", "domain": "tool-use", "difficulty": "easy", "risk": "low",
-     "prompt": "The workdir file zxtool.1 documents a fictional CLI (read it; it is the only source). Report its max priority, max drain limit, and the exit code for a missing queue. Reply ONLY in the form PRIORITY_MAX=<n> LIMIT_MAX=<n> MISSING_CODE=<n>.",
-     "acceptance": "matches fixture answer key", "expected_evidence": "doc-grounded values from unfamiliar tool",
-     "tool_permissions": "read-only inside isolated workdir", "token_budget": {"input": 2000, "output": 200}, "timeout_s": 180,
-     "rubric": "binary exact", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "fixture": {"builder": "man_page", "seed": 1},
-     "grader": {"kind": "exact", "expected_key": "expected"}},
-    {"id": "FV-T04", "domain": "tool-use", "difficulty": "hard", "risk": "low",
-     "prompt": "The workdir has BLOB.txt (base64 of UTF-8 JSON XORed with a repeating 2-byte key) and KEY.txt (the key). Decode them, extract the due field. Reply with ONLY that value.",
-     "acceptance": "due value matches fixture", "expected_evidence": "correct base64+XOR+JSON chain from files (no dedicated skill)",
-     "tool_permissions": "read-only inside isolated workdir", "token_budget": {"input": 2000, "output": 200}, "timeout_s": 240,
-     "rubric": "binary exact", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "fixture": {"builder": "cipher_blob", "seed": 73},
-     "grader": {"kind": "exact", "expected_key": "expected"}},
-    {"id": "FV-N01", "domain": "novel-cross-domain", "difficulty": "hard", "risk": "low",
-     "prompt": "Decode this payload: base64 of UTF-8 JSON whose bytes were XORed with repeating 2-byte key 'EO'. Extract the due field. Reply with ONLY that value.\n\nBLOB:\nPm0vICdtf29nPSAsJCMpbWlvZyswKmd1ZW13f3d5aH50YnR6ZzI=",
-     "acceptance": "output.strip() == '2026-11-15'", "expected_evidence": "fresh cipher solved without skill",
-     "tool_permissions": "none", "token_budget": {"input": 1500, "output": 200}, "timeout_s": 180,
-     "rubric": "binary exact", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "grader": {"kind": "exact", "expected": "2026-11-15"}},
-    {"id": "FV-N02", "domain": "novel-cross-domain", "difficulty": "hard", "risk": "low",
-     "prompt": "Two-part unfamiliar task. (1) The workdir file zxtool.1 documents a fictional CLI — find the exit code for a missing queue. (2) Decode this blob: base64 of UTF-8 JSON XORed with repeating 2-byte key 'IM'; take its due field. Reply ONLY in the form <due> <code>.\n\nBLOB:\nMm8jIitvc21rLDwpIDlrYWlvLTgsb3Nta395f39geH9kf3pvNA==",
-     "acceptance": "both parts correct", "expected_evidence": "doc grounding + cipher chain combined",
-     "tool_permissions": "read-only inside isolated workdir", "token_budget": {"input": 2500, "output": 200}, "timeout_s": 240,
-     "rubric": "binary exact", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "fixture": {"builder": "man_page", "seed": 1},
-     "grader": {"kind": "exact", "expected": "2026-12-23 3"}},
-    {"id": "FV-L01", "domain": "long-horizon-multi-step", "difficulty": "hard", "risk": "low",
-     "prompt": "Multi-step, workdir-scoped. (1) Read report.txt; (2) read orders.csv (some rows malformed); (3) write SUMMARY.md containing the line total=<valid qty*price sum> skipped=<bad row count> AND naming all four visited cities; (4) reply with ONLY the word DONE.",
-     "acceptance": "SUMMARY.md has totals line + all cities", "expected_evidence": "chained read-compute-write across two sources",
-     "tool_permissions": "read+write inside isolated workdir", "token_budget": {"input": 3000, "output": 300}, "timeout_s": 300,
-     "rubric": "binary: file contains computed line + facts", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "fixture": {"builders": [{"builder": "synthetic_report", "seed": 81}, {"builder": "csv_malformed", "seed": 82}]},
-     "grader": {"kind": "fileset", "required": ["SUMMARY.md"], "contains_ctx": {"SUMMARY.md": ["$expected", "$facts"]}}},
-    {"id": "FV-L02", "domain": "long-horizon-multi-step", "difficulty": "hard", "risk": "low",
-     "prompt": "Multi-step, workdir-scoped. (1) Read SCENARIO.txt (budget/SLA choice among A/B/C); (2) write DECISION.json with EXACTLY the keys choice and reason, where choice is the valid option id; (3) reply with ONLY the word DONE.",
-     "acceptance": "DECISION.json choice equals fixture-valid option", "expected_evidence": "evaluate-then-record chain in files",
-     "tool_permissions": "read+write inside isolated workdir", "token_budget": {"input": 3000, "output": 300}, "timeout_s": 300,
-     "rubric": "binary: exact pair match", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "fixture": {"builder": "arch_choice", "seed": 52},
-     "grader": {"kind": "filejson", "file": "DECISION.json", "keys": ["choice", "reason"], "pairs": {"choice": "$expected"}}},
-    {"id": "FV-L03", "domain": "long-horizon-multi-step", "difficulty": "hard", "risk": "low",
-     "prompt": "Multi-step, workdir-scoped. (1) Read BLOB.txt and KEY.txt; decode the XOR+base64 JSON; (2) write DUE.txt containing ONLY the due value; (3) reply with ONLY the word DONE.",
-     "acceptance": "DUE.txt holds the due value", "expected_evidence": "decode-then-persist chain in files",
-     "tool_permissions": "read+write inside isolated workdir", "token_budget": {"input": 3000, "output": 300}, "timeout_s": 300,
-     "rubric": "binary: file content exact", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "fixture": {"builder": "cipher_blob", "seed": 83},
-     "grader": {"kind": "fileset", "required": ["DUE.txt"], "contains_ctx": {"DUE.txt": ["$expected"]}}},
-    {"id": "FV-E01", "domain": "error-recovery", "difficulty": "medium", "risk": "low",
-     "prompt": "The workdir file orders.csv has columns order_id,qty,price but several rows are malformed (missing/non-numeric fields, blank lines, stray text). A brittle parser would crash — yours must not. Sum qty*price over VALID rows, count skipped rows. Reply ONLY in the form total=<n> skipped=<m>.",
-     "acceptance": "total and skipped match fixture", "expected_evidence": "graceful handling of dirty input",
-     "tool_permissions": "read-only inside isolated workdir", "token_budget": {"input": 2000, "output": 200}, "timeout_s": 240,
-     "rubric": "binary exact", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "fixture": {"builder": "csv_malformed", "seed": 84},
-     "grader": {"kind": "exact", "expected_key": "expected"}},
-    {"id": "FV-E02", "domain": "error-recovery", "difficulty": "medium", "risk": "low",
-     "prompt": "The file target.py in the workdir has a buggy running_max function. A colleague suggests best should start at 0 and not to overthink it — verify against ALL inputs yourself instead of trusting the hint. Edit target.py in place so running_max(a) is correct including negatives and empty input. Reply with ONLY the word DONE.",
-     "acceptance": "fixed file passes 3 hidden cases incl. negatives", "expected_evidence": "misleading-hint resistance + correct fix",
-     "tool_permissions": "read+write inside isolated workdir", "token_budget": {"input": 2000, "output": 300}, "timeout_s": 240,
-     "rubric": "binary: all cases pass on file", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "fixture": {"builder": "buggy_file", "which": "running_max"},
-     "grader": {"kind": "filemodule", "file": "target.py", "func": "running_max", "cases": [[[[3, 1, 4]], [3, 3, 4]], [[[-2, -5]], [-2, -2]], [[[]], []]]}},
-    {"id": "FV-A01", "domain": "data-analysis", "difficulty": "medium", "risk": "low",
-     "prompt": "The workdir contains sales_q1.csv, sales_q2.csv, sales_q3.csv with an amount column. Sum every amount across all three files. Reply with ONLY the total as a plain number.",
-     "acceptance": "total matches fixture sum", "expected_evidence": "full aggregation across files",
-     "tool_permissions": "read-only inside isolated workdir", "token_budget": {"input": 2000, "output": 200}, "timeout_s": 240,
-     "rubric": "binary exact", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "fixture": {"builder": "csv_quarters", "seed": 85},
-     "grader": {"kind": "exact", "expected_key": "expected"}},
-    {"id": "FV-A02", "domain": "data-analysis", "difficulty": "medium", "risk": "low",
-     "prompt": "The workdir file orders.csv has columns order_id,qty,price with some malformed rows. Sum qty*price over VALID rows, count skipped rows. Reply ONLY in the form total=<n> skipped=<m>.",
-     "acceptance": "total and skipped match fixture", "expected_evidence": "valid-only aggregation + skip count",
-     "tool_permissions": "read-only inside isolated workdir", "token_budget": {"input": 2000, "output": 200}, "timeout_s": 240,
-     "rubric": "binary exact", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "fixture": {"builder": "csv_malformed", "seed": 86},
-     "grader": {"kind": "exact", "expected_key": "expected"}},
-    {"id": "FV-A03", "domain": "data-analysis", "difficulty": "easy", "risk": "low",
-     "prompt": "The workdir contains sales_q1.csv, sales_q2.csv, sales_q3.csv with header rows. Count DATA rows only (exclude headers) across all three files. Reply with ONLY the number.",
-     "acceptance": "count matches fixture nrows", "expected_evidence": "header-aware row count",
-     "tool_permissions": "read-only inside isolated workdir", "token_budget": {"input": 2000, "output": 200}, "timeout_s": 240,
-     "rubric": "binary exact", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "fixture": {"builder": "csv_quarters", "seed": 87},
-     "grader": {"kind": "exact", "expected_key": "nrows"}},
-    {"id": "FV-U01", "domain": "unfamiliar-tasks", "difficulty": "easy", "risk": "low",
-     "prompt": "The workdir file zxtool.1 documents a fictional CLI you have never seen (read it; only it counts). What is the default drain limit, and which exit code means bad arguments? Reply with ONLY the two numbers separated by a space.",
-     "acceptance": "output.strip() == '25 2'", "expected_evidence": "doc-grounded answers for unseen tool",
-     "tool_permissions": "read-only inside isolated workdir", "token_budget": {"input": 2000, "output": 200}, "timeout_s": 180,
-     "rubric": "binary exact", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "fixture": {"builder": "man_page", "seed": 1},
-     "grader": {"kind": "exact", "expected": "25 2"}},
-    {"id": "FV-U02", "domain": "unfamiliar-tasks", "difficulty": "hard", "risk": "low",
-     "prompt": "Decode this payload: base64 of UTF-8 JSON whose bytes were XORed with repeating 2-byte key 'GD'. Extract the due field. Reply with ONLY that value.\n\nBLOB:\nPGYtKyVmfWRlNz4qJGZrZGUgMiFlfmdmdXR1cmp1dml2fGU5",
-     "acceptance": "output.strip() == '2026-11-18'", "expected_evidence": "fresh cipher solved without skill",
-     "tool_permissions": "none", "token_budget": {"input": 1500, "output": 200}, "timeout_s": 180,
-     "rubric": "binary exact", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "grader": {"kind": "exact", "expected": "2026-11-18"}},
-    {"id": "FV-U03", "domain": "unfamiliar-tasks", "difficulty": "medium", "risk": "low",
-     "prompt": "The blob below is base64 of the REVERSE of the answer string (reverse, then base64 — no JSON, no XOR). Recover the answer. Reply with ONLY the answer.\n\nBLOB:\nOTAtZWNpdHRhbC1yb2JyYWg=",
-     "acceptance": "output.strip() == 'harbor-lattice-09'", "expected_evidence": "novel transform inverted without skill",
-     "tool_permissions": "none", "token_budget": {"input": 1500, "output": 200}, "timeout_s": 180,
-     "rubric": "binary exact", "repeat_policy": "2 pilot / 5 full", "held_out": false,
-     "grader": {"kind": "exact", "expected": "harbor-lattice-09"}},
-    {"id": "FV-H01", "domain": "withheld", "difficulty": "unknown", "risk": "low",
-     "prompt": null, "acceptance": "sealed until final evaluation", "expected_evidence": "sealed",
-     "tool_permissions": "sealed", "token_budget": {"input": 0, "output": 0}, "timeout_s": 0,
-     "rubric": "sealed", "repeat_policy": "final eval only", "held_out": true,
-     "seal_note": "Prompt sealed: must not be used for design/tuning. Runner refuses sealed tasks."},
-    {"id": "FV-H02", "domain": "withheld", "difficulty": "unknown", "risk": "low",
-     "prompt": null, "acceptance": "sealed until final evaluation", "expected_evidence": "sealed",
-     "tool_permissions": "sealed", "token_budget": {"input": 0, "output": 0}, "timeout_s": 0,
-     "rubric": "sealed", "repeat_policy": "final eval only", "held_out": true,
-     "seal_note": "Prompt sealed: must not be used for design/tuning. Runner refuses sealed tasks."},
-    {"id": "FV-H03", "domain": "withheld", "difficulty": "unknown", "risk": "low",
-     "prompt": null, "acceptance": "sealed until final evaluation", "expected_evidence": "sealed",
-     "tool_permissions": "sealed", "token_budget": {"input": 0, "output": 0}, "timeout_s": 0,
-     "rubric": "sealed", "repeat_policy": "final eval only", "held_out": true,
-     "seal_note": "Prompt sealed: must not be used for design/tuning. Runner refuses sealed tasks."},
-    {"id": "FV-H04", "domain": "withheld", "difficulty": "unknown", "risk": "low",
-     "prompt": null, "acceptance": "sealed until final evaluation", "expected_evidence": "sealed",
-     "tool_permissions": "sealed", "token_budget": {"input": 0, "output": 0}, "timeout_s": 0,
-     "rubric": "sealed", "repeat_policy": "final eval only", "held_out": true,
-     "seal_note": "Prompt sealed: must not be used for design/tuning. Runner refuses sealed tasks."}
-  ]
+ "battery": "frontier_parity_full",
+ "battery_version": "1.0.0",
+ "created_utc": "2026-10-09",
+ "method_note": "Full battery draft (44 runnable + 4 sealed). Prompts contain task INPUTS ONLY \u2014 no reference answers. Grader params and fixture ctx carry answer keys (normal for benchmark artifacts). v1.1 dual scoring applies: strict ok = value AND format (file deliverables: value only). Sealed tasks carry prompt=null and are refused by the runner.",
+ "comparison_variants": [
+  "same_capability",
+  "best_practical"
+ ],
+ "computer_use_note": "Real browser/computer-use tasks excluded: Playwright availability inside disposable opencode-run sessions is UNVERIFIED. Tool-use coverage here = file/shell operations in isolated workdirs. Computer-use enters scope only after tool presence is proven.",
+ "tasks": [
+  {
+   "id": "FV-R01",
+   "domain": "reasoning",
+   "difficulty": "easy",
+   "risk": "low",
+   "prompt": "How many integers in the closed interval [17, 200] are divisible by 13? Reply with ONLY the number, no other text.",
+   "acceptance": "output.strip() == '14'",
+   "expected_evidence": "endpoint-inclusive count 14",
+   "tool_permissions": "none",
+   "token_budget": {
+    "input": 1000,
+    "output": 200
+   },
+   "timeout_s": 120,
+   "rubric": "binary exact",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "grader": {
+    "kind": "exact",
+    "expected": "14"
+   }
+  },
+  {
+   "id": "FV-R02",
+   "domain": "reasoning",
+   "difficulty": "easy",
+   "risk": "low",
+   "prompt": "A 100-meter fence needs posts every 2 meters, including both ends. How many posts? Reply with ONLY the number, no other text.",
+   "acceptance": "output.strip() == '51'",
+   "expected_evidence": "fence-post count 51",
+   "tool_permissions": "none",
+   "token_budget": {
+    "input": 1000,
+    "output": 200
+   },
+   "timeout_s": 120,
+   "rubric": "binary exact",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "grader": {
+    "kind": "exact",
+    "expected": "51"
+   }
+  },
+  {
+   "id": "FV-R03",
+   "domain": "reasoning",
+   "difficulty": "medium",
+   "risk": "low",
+   "prompt": "What is the sum of the first 50 odd positive integers? Reply with ONLY the number, no other text.",
+   "acceptance": "output.strip() == '2500'",
+   "expected_evidence": "2500",
+   "tool_permissions": "none",
+   "token_budget": {
+    "input": 1000,
+    "output": 200
+   },
+   "timeout_s": 120,
+   "rubric": "binary exact",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "grader": {
+    "kind": "exact",
+    "expected": "2500"
+   }
+  },
+  {
+   "id": "FV-R04",
+   "domain": "reasoning",
+   "difficulty": "medium",
+   "risk": "low",
+   "prompt": "How many 3-digit numbers (100 to 999) are divisible by 25? Reply with ONLY the number, no other text.",
+   "acceptance": "output.strip() == '36'",
+   "expected_evidence": "36",
+   "tool_permissions": "none",
+   "token_budget": {
+    "input": 1000,
+    "output": 200
+   },
+   "timeout_s": 120,
+   "rubric": "binary exact",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "grader": {
+    "kind": "exact",
+    "expected": "36"
+   }
+  },
+  {
+   "id": "FV-M01",
+   "domain": "mathematics",
+   "difficulty": "medium",
+   "risk": "low",
+   "prompt": "Compute the sum of cubes of the integers from 1 to 50 inclusive. Reply with ONLY the number, no other text.",
+   "acceptance": "output.strip() == '1625625'",
+   "expected_evidence": "1625625",
+   "tool_permissions": "none",
+   "token_budget": {
+    "input": 1000,
+    "output": 200
+   },
+   "timeout_s": 120,
+   "rubric": "binary exact",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "grader": {
+    "kind": "exact",
+    "expected": "1625625"
+   }
+  },
+  {
+   "id": "FV-M02",
+   "domain": "mathematics",
+   "difficulty": "medium",
+   "risk": "low",
+   "prompt": "Compute 7^4 mod 11 (remainder of 7 to the 4th power divided by 11). Reply with ONLY the number, no other text.",
+   "acceptance": "output.strip() == '3'",
+   "expected_evidence": "3",
+   "tool_permissions": "none",
+   "token_budget": {
+    "input": 1000,
+    "output": 200
+   },
+   "timeout_s": 120,
+   "rubric": "binary exact",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "grader": {
+    "kind": "exact",
+    "expected": "3"
+   }
+  },
+  {
+   "id": "FV-M03",
+   "domain": "mathematics",
+   "difficulty": "medium",
+   "risk": "low",
+   "prompt": "Compute gcd(1071, 462), the greatest common divisor. Reply with ONLY the number, no other text.",
+   "acceptance": "output.strip() == '21'",
+   "expected_evidence": "21",
+   "tool_permissions": "none",
+   "token_budget": {
+    "input": 1000,
+    "output": 200
+   },
+   "timeout_s": 120,
+   "rubric": "binary exact",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "grader": {
+    "kind": "exact",
+    "expected": "21"
+   }
+  },
+  {
+   "id": "FV-M04",
+   "domain": "mathematics",
+   "difficulty": "hard",
+   "risk": "low",
+   "prompt": "Compute the exact sum of 1/(k*(k+1)) for k = 1 to 99. Reply with ONLY the fraction in lowest terms (e.g. 1/2), no other text.",
+   "acceptance": "output.strip() == '99/100'",
+   "expected_evidence": "telescoping sum 99/100",
+   "tool_permissions": "none",
+   "token_budget": {
+    "input": 1200,
+    "output": 200
+   },
+   "timeout_s": 180,
+   "rubric": "binary exact",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "grader": {
+    "kind": "exact",
+    "expected": "99/100"
+   }
+  },
+  {
+   "id": "FV-C01",
+   "domain": "coding",
+   "difficulty": "medium",
+   "risk": "low",
+   "prompt": "Write a Python function two_sum(nums, target) returning the [i, j] indices of the two numbers adding to target (exactly one solution; i < j). Reply with ONLY the Python code.",
+   "acceptance": "exec-graded on 3 hidden cases",
+   "expected_evidence": "callable two_sum passing all cases",
+   "tool_permissions": "none",
+   "token_budget": {
+    "input": 1500,
+    "output": 800
+   },
+   "timeout_s": 180,
+   "rubric": "binary: all cases pass",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "grader": {
+    "kind": "exec",
+    "func": "two_sum",
+    "cases": [
+     [
+      [
+       [
+        2,
+        7,
+        11,
+        15
+       ],
+       9
+      ],
+      [
+       0,
+       1
+      ]
+     ],
+     [
+      [
+       [
+        3,
+        2,
+        4
+       ],
+       6
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     [
+      [
+       [
+        3,
+        3
+       ],
+       6
+      ],
+      [
+       0,
+       1
+      ]
+     ]
+    ],
+    "repair_cases": [
+     [
+      [
+       [
+        3,
+        3
+       ],
+       6
+      ],
+      [
+       0,
+       1
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "id": "FV-C02",
+   "domain": "coding",
+   "difficulty": "medium",
+   "risk": "low",
+   "prompt": "Write a Python function fib(n) returning the nth Fibonacci number with fib(0)=0, fib(1)=1. Reply with ONLY the Python code.",
+   "acceptance": "exec-graded on 4 hidden cases",
+   "expected_evidence": "callable fib passing all cases",
+   "tool_permissions": "none",
+   "token_budget": {
+    "input": 1500,
+    "output": 800
+   },
+   "timeout_s": 180,
+   "rubric": "binary: all cases pass",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "grader": {
+    "kind": "exec",
+    "func": "fib",
+    "cases": [
+     [
+      [
+       0
+      ],
+      0
+     ],
+     [
+      [
+       1
+      ],
+      1
+     ],
+     [
+      [
+       10
+      ],
+      55
+     ],
+     [
+      [
+       20
+      ],
+      6765
+     ]
+    ],
+    "repair_cases": [
+     [
+      [
+       10
+      ],
+      55
+     ]
+    ]
+   }
+  },
+  {
+   "id": "FV-C03",
+   "domain": "coding",
+   "difficulty": "easy",
+   "risk": "low",
+   "prompt": "Write a Python function clamp(x, lo, hi) returning x bounded into [lo, hi]. Reply with ONLY the Python code.",
+   "acceptance": "exec-graded on 4 hidden cases",
+   "expected_evidence": "callable clamp passing all cases",
+   "tool_permissions": "none",
+   "token_budget": {
+    "input": 1500,
+    "output": 800
+   },
+   "timeout_s": 180,
+   "rubric": "binary: all cases pass",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "grader": {
+    "kind": "exec",
+    "func": "clamp",
+    "cases": [
+     [
+      [
+       5,
+       1,
+       10
+      ],
+      5
+     ],
+     [
+      [
+       -3,
+       0,
+       8
+      ],
+      0
+     ],
+     [
+      [
+       99,
+       0,
+       8
+      ],
+      8
+     ],
+     [
+      [
+       4,
+       4,
+       4
+      ],
+      4
+     ]
+    ],
+    "repair_cases": [
+     [
+      [
+       99,
+       0,
+       8
+      ],
+      8
+     ]
+    ]
+   }
+  },
+  {
+   "id": "FV-C04",
+   "domain": "coding",
+   "difficulty": "medium",
+   "risk": "low",
+   "prompt": "Write a Python function flatten1(nested) that flattens one level: each element that is a list/tuple is spliced in, others kept as-is. Reply with ONLY the Python code.",
+   "acceptance": "exec-graded on 3 hidden cases",
+   "expected_evidence": "callable flatten1 passing all cases",
+   "tool_permissions": "none",
+   "token_budget": {
+    "input": 1500,
+    "output": 800
+   },
+   "timeout_s": 180,
+   "rubric": "binary: all cases pass",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "grader": {
+    "kind": "exec",
+    "func": "flatten1",
+    "cases": [
+     [
+      [
+       [
+        [
+         1,
+         [
+          2
+         ],
+         [
+          3,
+          4
+         ]
+        ]
+       ]
+      ],
+      [
+       1,
+       2,
+       3,
+       4
+      ]
+     ],
+     [
+      [
+       []
+      ],
+      []
+     ],
+     [
+      [
+       [
+        "x",
+        [
+         "y"
+        ]
+       ]
+      ],
+      [
+       "x",
+       "y"
+      ]
+     ]
+    ],
+    "repair_cases": [
+     [
+      [
+       [
+        [],
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       1
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "id": "FV-C05",
+   "domain": "coding",
+   "difficulty": "easy",
+   "risk": "low",
+   "prompt": "Write a Python function count_words(s) returning the number of whitespace-separated words in string s (empty/blank gives 0). Reply with ONLY the Python code.",
+   "acceptance": "exec-graded on 3 hidden cases",
+   "expected_evidence": "callable count_words passing all cases",
+   "tool_permissions": "none",
+   "token_budget": {
+    "input": 1500,
+    "output": 800
+   },
+   "timeout_s": 180,
+   "rubric": "binary: all cases pass",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "grader": {
+    "kind": "exec",
+    "func": "count_words",
+    "cases": [
+     [
+      [
+       "  hello   world "
+      ],
+      2
+     ],
+     [
+      [
+       ""
+      ],
+      0
+     ],
+     [
+      [
+       "a b c"
+      ],
+      3
+     ]
+    ],
+    "repair_cases": [
+     [
+      [
+       "a b c"
+      ],
+      3
+     ]
+    ]
+   }
+  },
+  {
+   "id": "FV-D01",
+   "domain": "debugging",
+   "difficulty": "medium",
+   "risk": "low",
+   "prompt": "The file target.py in the workdir has a buggy median function. Edit target.py in place so median(a) is correct for odd, even, singleton, and duplicate inputs. Reply with ONLY the word DONE.",
+   "acceptance": "fixed file passes 4 hidden cases",
+   "expected_evidence": "target.py median correct on all cases",
+   "tool_permissions": "read+write inside isolated workdir",
+   "token_budget": {
+    "input": 2000,
+    "output": 300
+   },
+   "timeout_s": 240,
+   "rubric": "binary: all cases pass on file",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "fixture": {
+    "builder": "buggy_file",
+    "which": "median"
+   },
+   "grader": {
+    "kind": "filemodule",
+    "file": "target.py",
+    "func": "median",
+    "cases": [
+     [
+      [
+       [
+        3,
+        1,
+        2
+       ]
+      ],
+      2
+     ],
+     [
+      [
+       [
+        1,
+        2,
+        3,
+        4
+       ]
+      ],
+      2.5
+     ],
+     [
+      [
+       [
+        9
+       ]
+      ],
+      9
+     ],
+     [
+      [
+       [
+        4,
+        4
+       ]
+      ],
+      4.0
+     ]
+    ]
+   }
+  },
+  {
+   "id": "FV-D02",
+   "domain": "debugging",
+   "difficulty": "medium",
+   "risk": "low",
+   "prompt": "The file target.py in the workdir has a buggy dedupe function that destroys input order. Edit target.py in place so dedupe(items) removes duplicates while preserving first-occurrence order. Reply with ONLY the word DONE.",
+   "acceptance": "fixed file passes 3 hidden cases",
+   "expected_evidence": "target.py dedupe order-preserving on all cases",
+   "tool_permissions": "read+write inside isolated workdir",
+   "token_budget": {
+    "input": 2000,
+    "output": 300
+   },
+   "timeout_s": 240,
+   "rubric": "binary: all cases pass on file",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "fixture": {
+    "builder": "buggy_file",
+    "which": "dedupe"
+   },
+   "grader": {
+    "kind": "filemodule",
+    "file": "target.py",
+    "func": "dedupe",
+    "cases": [
+     [
+      [
+       [
+        1,
+        2,
+        2,
+        3
+       ]
+      ],
+      [
+       1,
+       2,
+       3
+      ]
+     ],
+     [
+      [
+       [
+        "b",
+        "a",
+        "b"
+       ]
+      ],
+      [
+       "b",
+       "a"
+      ]
+     ],
+     [
+      [
+       []
+      ],
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "id": "FV-D03",
+   "domain": "debugging",
+   "difficulty": "medium",
+   "risk": "low",
+   "prompt": "The file target.py in the workdir has a buggy running_max function that fails on all-negative inputs. Edit target.py in place so running_max(a) is correct including negatives and empty input. Reply with ONLY the word DONE.",
+   "acceptance": "fixed file passes 3 hidden cases",
+   "expected_evidence": "target.py running_max correct on all cases",
+   "tool_permissions": "read+write inside isolated workdir",
+   "token_budget": {
+    "input": 2000,
+    "output": 300
+   },
+   "timeout_s": 240,
+   "rubric": "binary: all cases pass on file",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "fixture": {
+    "builder": "buggy_file",
+    "which": "running_max"
+   },
+   "grader": {
+    "kind": "filemodule",
+    "file": "target.py",
+    "func": "running_max",
+    "cases": [
+     [
+      [
+       [
+        3,
+        1,
+        4
+       ]
+      ],
+      [
+       3,
+       3,
+       4
+      ]
+     ],
+     [
+      [
+       [
+        -2,
+        -5
+       ]
+      ],
+      [
+       -2,
+       -2
+      ]
+     ],
+     [
+      [
+       []
+      ],
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "id": "FV-S01",
+   "domain": "software-architecture",
+   "difficulty": "medium",
+   "risk": "low",
+   "prompt": "The workdir file SCENARIO.txt describes a budget/SLA choice among topology options A/B/C. Read it, evaluate every option against budget AND latency, and reply with ONLY the valid option id (or NONE-OR-AMBIGUOUS if not exactly one qualifies).",
+   "acceptance": "option id matches fixture-computed valid choice",
+   "expected_evidence": "correct constrained choice from file scenario",
+   "tool_permissions": "read-only inside isolated workdir",
+   "token_budget": {
+    "input": 2000,
+    "output": 200
+   },
+   "timeout_s": 180,
+   "rubric": "binary exact",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "fixture": {
+    "builder": "arch_choice",
+    "seed": 43
+   },
+   "grader": {
+    "kind": "exact",
+    "expected_key": "expected"
+   }
+  },
+  {
+   "id": "FV-S02",
+   "domain": "software-architecture",
+   "difficulty": "hard",
+   "risk": "low",
+   "prompt": "The workdir file JOBS.txt lists single-machine jobs with durations and deadlines. Read it and output ONE feasible execution order as a JSON list of exactly [a,b,c,d] (sequential, every job meets its deadline). Reply with ONLY the JSON list.",
+   "acceptance": "order meets all deadlines",
+   "expected_evidence": "deadline-feasible schedule from file",
+   "tool_permissions": "read-only inside isolated workdir",
+   "token_budget": {
+    "input": 2000,
+    "output": 300
+   },
+   "timeout_s": 180,
+   "rubric": "binary: job set exact + all deadlines met",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "fixture": {
+    "builder": "schedule_job",
+    "seed": 54
+   },
+   "grader": {
+    "kind": "schedule"
+   }
+  },
+  {
+   "id": "FV-X01",
+   "domain": "research",
+   "difficulty": "medium",
+   "risk": "low",
+   "prompt": "Read report.txt in the workdir. Output a single JSON object with exactly the keys title, owner, eta (any sensible values) that names all four visited cities in its values. Reply with ONLY the JSON object.",
+   "acceptance": "keys exact + all 4 fixture cities present",
+   "expected_evidence": "schema + recall from file doc",
+   "tool_permissions": "read-only inside isolated workdir",
+   "token_budget": {
+    "input": 2500,
+    "output": 500
+   },
+   "timeout_s": 180,
+   "rubric": "binary: keys + facts",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "fixture": {
+    "builder": "synthetic_report",
+    "seed": 61
+   },
+   "grader": {
+    "kind": "jsonfacts",
+    "keys": [
+     "title",
+     "owner",
+     "eta"
+    ],
+    "facts_ctx": [
+     "$facts"
+    ]
+   }
+  },
+  {
+   "id": "FV-X02",
+   "domain": "research",
+   "difficulty": "medium",
+   "risk": "low",
+   "prompt": "Read report.txt in the workdir. Output a single JSON object with exactly the keys title, owner, eta (any sensible values) that names all four visited cities in its values. Reply with ONLY the JSON object.",
+   "acceptance": "keys exact + all 4 fixture cities present",
+   "expected_evidence": "schema + recall from file doc",
+   "tool_permissions": "read-only inside isolated workdir",
+   "token_budget": {
+    "input": 2500,
+    "output": 500
+   },
+   "timeout_s": 180,
+   "rubric": "binary: keys + facts",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "fixture": {
+    "builder": "synthetic_report",
+    "seed": 62
+   },
+   "grader": {
+    "kind": "jsonfacts",
+    "keys": [
+     "title",
+     "owner",
+     "eta"
+    ],
+    "facts_ctx": [
+     "$facts"
+    ]
+   }
+  },
+  {
+   "id": "FV-X03",
+   "domain": "research",
+   "difficulty": "medium",
+   "risk": "low",
+   "prompt": "Read report.txt in the workdir. Output a single JSON object with exactly the keys title, owner, eta (any sensible values) that names all four visited cities in its values. Reply with ONLY the JSON object.",
+   "acceptance": "keys exact + all 4 fixture cities present",
+   "expected_evidence": "schema + recall from file doc",
+   "tool_permissions": "read-only inside isolated workdir",
+   "token_budget": {
+    "input": 2500,
+    "output": 500
+   },
+   "timeout_s": 180,
+   "rubric": "binary: keys + facts",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "fixture": {
+    "builder": "synthetic_report",
+    "seed": 63
+   },
+   "grader": {
+    "kind": "jsonfacts",
+    "keys": [
+     "title",
+     "owner",
+     "eta"
+    ],
+    "facts_ctx": [
+     "$facts"
+    ]
+   }
+  },
+  {
+   "id": "FV-W01",
+   "domain": "writing",
+   "difficulty": "medium",
+   "risk": "low",
+   "prompt": "Read report.txt in the workdir. Write a launch brief as a single JSON object with exactly the keys headline, audience, channels, where channels names all four visited cities. Reply with ONLY the JSON object. (Structural check only: keys + required terms.)",
+   "acceptance": "keys exact + all 4 cities present",
+   "expected_evidence": "structured brief honoring schema + source terms",
+   "tool_permissions": "read-only inside isolated workdir",
+   "token_budget": {
+    "input": 2500,
+    "output": 600
+   },
+   "timeout_s": 180,
+   "rubric": "binary: keys + facts (style ungraded)",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "fixture": {
+    "builder": "synthetic_report",
+    "seed": 64
+   },
+   "grader": {
+    "kind": "jsonfacts",
+    "keys": [
+     "headline",
+     "audience",
+     "channels"
+    ],
+    "facts_ctx": [
+     "$facts"
+    ]
+   }
+  },
+  {
+   "id": "FV-W02",
+   "domain": "writing",
+   "difficulty": "medium",
+   "risk": "low",
+   "prompt": "Read report.txt in the workdir. Write a status memo as a single JSON object with exactly the keys title, summary, cta, where summary names all four visited cities. Reply with ONLY the JSON object. (Structural check only.)",
+   "acceptance": "keys exact + all 4 cities present",
+   "expected_evidence": "structured memo honoring schema + source terms",
+   "tool_permissions": "read-only inside isolated workdir",
+   "token_budget": {
+    "input": 2500,
+    "output": 600
+   },
+   "timeout_s": 180,
+   "rubric": "binary: keys + facts (style ungraded)",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "fixture": {
+    "builder": "synthetic_report",
+    "seed": 65
+   },
+   "grader": {
+    "kind": "jsonfacts",
+    "keys": [
+     "title",
+     "summary",
+     "cta"
+    ],
+    "facts_ctx": [
+     "$facts"
+    ]
+   }
+  },
+  {
+   "id": "FV-W03",
+   "domain": "writing",
+   "difficulty": "medium",
+   "risk": "low",
+   "prompt": "Read report.txt in the workdir. Write a partner note as a single JSON object with exactly the keys name, pitch, cities, where cities lists all four visited cities. Reply with ONLY the JSON object. (Structural check only.)",
+   "acceptance": "keys exact + all 4 cities present",
+   "expected_evidence": "structured note honoring schema + source terms",
+   "tool_permissions": "read-only inside isolated workdir",
+   "token_budget": {
+    "input": 2500,
+    "output": 600
+   },
+   "timeout_s": 180,
+   "rubric": "binary: keys + facts (style ungraded)",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "fixture": {
+    "builder": "synthetic_report",
+    "seed": 66
+   },
+   "grader": {
+    "kind": "jsonfacts",
+    "keys": [
+     "name",
+     "pitch",
+     "cities"
+    ],
+    "facts_ctx": [
+     "$facts"
+    ]
+   }
+  },
+  {
+   "id": "FV-P01",
+   "domain": "planning",
+   "difficulty": "medium",
+   "risk": "low",
+   "prompt": "Jobs m and n must finish before p; p before q. Output ONE valid execution order of exactly [m,n,p,q] as a JSON list. Reply with ONLY the JSON list.",
+   "acceptance": "valid topological order",
+   "expected_evidence": "all edges respected, node set exact",
+   "tool_permissions": "none",
+   "token_budget": {
+    "input": 1500,
+    "output": 300
+   },
+   "timeout_s": 120,
+   "rubric": "binary: edges + node set",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "grader": {
+    "kind": "order",
+    "nodes": [
+     "m",
+     "n",
+     "p",
+     "q"
+    ],
+    "edges": [
+     [
+      "m",
+      "p"
+     ],
+     [
+      "n",
+      "p"
+     ],
+     [
+      "p",
+      "q"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "FV-P02",
+   "domain": "planning",
+   "difficulty": "hard",
+   "risk": "low",
+   "prompt": "The workdir file JOBS.txt lists single-machine jobs with durations and deadlines. Read it and output ONE feasible execution order as a JSON list of exactly [a,b,c,d]. Reply with ONLY the JSON list.",
+   "acceptance": "order meets all deadlines",
+   "expected_evidence": "deadline-feasible schedule from file",
+   "tool_permissions": "read-only inside isolated workdir",
+   "token_budget": {
+    "input": 2000,
+    "output": 300
+   },
+   "timeout_s": 180,
+   "rubric": "binary: deadlines",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "fixture": {
+    "builder": "schedule_job",
+    "seed": 53
+   },
+   "grader": {
+    "kind": "schedule"
+   }
+  },
+  {
+   "id": "FV-P03",
+   "domain": "planning",
+   "difficulty": "hard",
+   "risk": "low",
+   "prompt": "Stages: s1 and s2 before s3; s3 before s4 and s5; s4 before s6; s5 before s6. Output ONE valid execution order of exactly [s1,s2,s3,s4,s5,s6] as a JSON list. Reply with ONLY the JSON list.",
+   "acceptance": "valid topological order over 6 nodes",
+   "expected_evidence": "all 6 edges respected",
+   "tool_permissions": "none",
+   "token_budget": {
+    "input": 1500,
+    "output": 300
+   },
+   "timeout_s": 120,
+   "rubric": "binary: edges + node set",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "grader": {
+    "kind": "order",
+    "nodes": [
+     "s1",
+     "s2",
+     "s3",
+     "s4",
+     "s5",
+     "s6"
+    ],
+    "edges": [
+     [
+      "s1",
+      "s3"
+     ],
+     [
+      "s2",
+      "s3"
+     ],
+     [
+      "s3",
+      "s4"
+     ],
+     [
+      "s3",
+      "s5"
+     ],
+     [
+      "s4",
+      "s6"
+     ],
+     [
+      "s5",
+      "s6"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "FV-T01",
+   "domain": "tool-use",
+   "difficulty": "medium",
+   "risk": "low",
+   "prompt": "The workdir contains sales_q1.csv, sales_q2.csv, sales_q3.csv with an amount column. Sum every amount across all three files. Reply with ONLY the total as a plain number.",
+   "acceptance": "total matches fixture sum",
+   "expected_evidence": "all 3 files read and aggregated",
+   "tool_permissions": "read-only inside isolated workdir",
+   "token_budget": {
+    "input": 2000,
+    "output": 200
+   },
+   "timeout_s": 240,
+   "rubric": "binary exact",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "fixture": {
+    "builder": "csv_quarters",
+    "seed": 71
+   },
+   "grader": {
+    "kind": "exact",
+    "expected_key": "expected"
+   }
+  },
+  {
+   "id": "FV-T02",
+   "domain": "tool-use",
+   "difficulty": "medium",
+   "risk": "low",
+   "prompt": "The workdir file orders.csv has columns order_id,qty,price but some rows are malformed (missing/non-numeric fields, blanks). Sum qty*price over VALID rows only and count skipped rows. Reply ONLY in the form total=<n> skipped=<m>.",
+   "acceptance": "total and skipped match fixture",
+   "expected_evidence": "robust parsing: valid aggregated, bad skipped",
+   "tool_permissions": "read-only inside isolated workdir",
+   "token_budget": {
+    "input": 2000,
+    "output": 200
+   },
+   "timeout_s": 240,
+   "rubric": "binary exact",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "fixture": {
+    "builder": "csv_malformed",
+    "seed": 72
+   },
+   "grader": {
+    "kind": "exact",
+    "expected_key": "expected"
+   }
+  },
+  {
+   "id": "FV-T03",
+   "domain": "tool-use",
+   "difficulty": "easy",
+   "risk": "low",
+   "prompt": "The workdir file zxtool.1 documents a fictional CLI (read it; it is the only source). Report its max priority, max drain limit, and the exit code for a missing queue. Reply ONLY in the form PRIORITY_MAX=<n> LIMIT_MAX=<n> MISSING_CODE=<n>.",
+   "acceptance": "matches fixture answer key",
+   "expected_evidence": "doc-grounded values from unfamiliar tool",
+   "tool_permissions": "read-only inside isolated workdir",
+   "token_budget": {
+    "input": 2000,
+    "output": 200
+   },
+   "timeout_s": 180,
+   "rubric": "binary exact",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "fixture": {
+    "builder": "man_page",
+    "seed": 1
+   },
+   "grader": {
+    "kind": "exact",
+    "expected_key": "expected"
+   }
+  },
+  {
+   "id": "FV-T04",
+   "domain": "tool-use",
+   "difficulty": "hard",
+   "risk": "low",
+   "prompt": "The workdir has BLOB.txt (base64 of UTF-8 JSON XORed with a repeating 2-byte key) and KEY.txt (the key). Decode them, extract the due field. Reply with ONLY that value.",
+   "acceptance": "due value matches fixture",
+   "expected_evidence": "correct base64+XOR+JSON chain from files (no dedicated skill)",
+   "tool_permissions": "read-only inside isolated workdir",
+   "token_budget": {
+    "input": 2000,
+    "output": 200
+   },
+   "timeout_s": 240,
+   "rubric": "binary exact",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "fixture": {
+    "builder": "cipher_blob",
+    "seed": 73
+   },
+   "grader": {
+    "kind": "exact",
+    "expected_key": "expected"
+   }
+  },
+  {
+   "id": "FV-N01",
+   "domain": "novel-cross-domain",
+   "difficulty": "hard",
+   "risk": "low",
+   "prompt": "Decode this payload: base64 of UTF-8 JSON whose bytes were XORed with repeating 2-byte key 'EO'. Extract the due field. Reply with ONLY that value.\n\nBLOB:\nPm0vICdtf29nPSAsJCMpbWlvZyswKmd1ZW13f3d5aH50YnR6ZzI=",
+   "acceptance": "output.strip() == '2026-11-15'",
+   "expected_evidence": "fresh cipher solved without skill",
+   "tool_permissions": "none",
+   "token_budget": {
+    "input": 1500,
+    "output": 200
+   },
+   "timeout_s": 180,
+   "rubric": "binary exact",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "grader": {
+    "kind": "exact",
+    "expected": "2026-11-15"
+   }
+  },
+  {
+   "id": "FV-N02",
+   "domain": "novel-cross-domain",
+   "difficulty": "hard",
+   "risk": "low",
+   "prompt": "Two-part unfamiliar task. (1) The workdir file zxtool.1 documents a fictional CLI \u2014 find the exit code for a missing queue. (2) Decode this blob: base64 of UTF-8 JSON XORed with repeating 2-byte key 'IM'; take its due field. Reply ONLY in the form <due> <code>.\n\nBLOB:\nMm8jIitvc21rLDwpIDlrYWlvLTgsb3Nta395f39geH9kf3pvNA==",
+   "acceptance": "both parts correct",
+   "expected_evidence": "doc grounding + cipher chain combined",
+   "tool_permissions": "read-only inside isolated workdir",
+   "token_budget": {
+    "input": 2500,
+    "output": 200
+   },
+   "timeout_s": 240,
+   "rubric": "binary exact",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "fixture": {
+    "builder": "man_page",
+    "seed": 1
+   },
+   "grader": {
+    "kind": "exact",
+    "expected": "2026-12-23 3"
+   }
+  },
+  {
+   "id": "FV-L01",
+   "domain": "long-horizon-multi-step",
+   "difficulty": "hard",
+   "risk": "low",
+   "prompt": "Multi-step, workdir-scoped. (1) Read report.txt; (2) read orders.csv (some rows malformed); (3) write SUMMARY.md containing the line total=<valid qty*price sum> skipped=<bad row count> AND naming all four visited cities; (4) reply with ONLY the word DONE.",
+   "acceptance": "SUMMARY.md has totals line + all cities",
+   "expected_evidence": "chained read-compute-write across two sources",
+   "tool_permissions": "read+write inside isolated workdir",
+   "token_budget": {
+    "input": 3000,
+    "output": 300
+   },
+   "timeout_s": 300,
+   "rubric": "binary: file contains computed line + facts",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "fixture": {
+    "builders": [
+     {
+      "builder": "synthetic_report",
+      "seed": 81
+     },
+     {
+      "builder": "csv_malformed",
+      "seed": 82
+     }
+    ]
+   },
+   "grader": {
+    "kind": "fileset",
+    "required": [
+     "SUMMARY.md"
+    ],
+    "contains_ctx": {
+     "SUMMARY.md": [
+      "$expected",
+      "$facts"
+     ]
+    }
+   }
+  },
+  {
+   "id": "FV-L02",
+   "domain": "long-horizon-multi-step",
+   "difficulty": "hard",
+   "risk": "low",
+   "prompt": "Multi-step, workdir-scoped. (1) Read SCENARIO.txt (budget/SLA choice among A/B/C); (2) write DECISION.json with EXACTLY the keys choice and reason, where choice is the valid option id; (3) reply with ONLY the word DONE.",
+   "acceptance": "DECISION.json choice equals fixture-valid option",
+   "expected_evidence": "evaluate-then-record chain in files",
+   "tool_permissions": "read+write inside isolated workdir",
+   "token_budget": {
+    "input": 3000,
+    "output": 300
+   },
+   "timeout_s": 300,
+   "rubric": "binary: exact pair match",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "fixture": {
+    "builder": "arch_choice",
+    "seed": 52
+   },
+   "grader": {
+    "kind": "filejson",
+    "file": "DECISION.json",
+    "keys": [
+     "choice",
+     "reason"
+    ],
+    "pairs": {
+     "choice": "$expected"
+    }
+   }
+  },
+  {
+   "id": "FV-L03",
+   "domain": "long-horizon-multi-step",
+   "difficulty": "hard",
+   "risk": "low",
+   "prompt": "Multi-step, workdir-scoped. (1) Read BLOB.txt and KEY.txt; decode the XOR+base64 JSON; (2) write DUE.txt containing ONLY the due value; (3) reply with ONLY the word DONE.",
+   "acceptance": "DUE.txt holds the due value",
+   "expected_evidence": "decode-then-persist chain in files",
+   "tool_permissions": "read+write inside isolated workdir",
+   "token_budget": {
+    "input": 3000,
+    "output": 300
+   },
+   "timeout_s": 300,
+   "rubric": "binary: file content exact",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "fixture": {
+    "builder": "cipher_blob",
+    "seed": 83
+   },
+   "grader": {
+    "kind": "fileset",
+    "required": [
+     "DUE.txt"
+    ],
+    "contains_ctx": {
+     "DUE.txt": [
+      "$expected"
+     ]
+    }
+   }
+  },
+  {
+   "id": "FV-E01",
+   "domain": "error-recovery",
+   "difficulty": "medium",
+   "risk": "low",
+   "prompt": "The workdir file orders.csv has columns order_id,qty,price but several rows are malformed (missing/non-numeric fields, blank lines, stray text). A brittle parser would crash \u2014 yours must not. Sum qty*price over VALID rows, count skipped rows. Reply ONLY in the form total=<n> skipped=<m>.",
+   "acceptance": "total and skipped match fixture",
+   "expected_evidence": "graceful handling of dirty input",
+   "tool_permissions": "read-only inside isolated workdir",
+   "token_budget": {
+    "input": 2000,
+    "output": 200
+   },
+   "timeout_s": 240,
+   "rubric": "binary exact",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "fixture": {
+    "builder": "csv_malformed",
+    "seed": 84
+   },
+   "grader": {
+    "kind": "exact",
+    "expected_key": "expected"
+   }
+  },
+  {
+   "id": "FV-E02",
+   "domain": "error-recovery",
+   "difficulty": "medium",
+   "risk": "low",
+   "prompt": "The file target.py in the workdir has a buggy running_max function. A colleague suggests best should start at 0 and not to overthink it \u2014 verify against ALL inputs yourself instead of trusting the hint. Edit target.py in place so running_max(a) is correct including negatives and empty input. Reply with ONLY the word DONE.",
+   "acceptance": "fixed file passes 3 hidden cases incl. negatives",
+   "expected_evidence": "misleading-hint resistance + correct fix",
+   "tool_permissions": "read+write inside isolated workdir",
+   "token_budget": {
+    "input": 2000,
+    "output": 300
+   },
+   "timeout_s": 240,
+   "rubric": "binary: all cases pass on file",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "fixture": {
+    "builder": "buggy_file",
+    "which": "running_max"
+   },
+   "grader": {
+    "kind": "filemodule",
+    "file": "target.py",
+    "func": "running_max",
+    "cases": [
+     [
+      [
+       [
+        3,
+        1,
+        4
+       ]
+      ],
+      [
+       3,
+       3,
+       4
+      ]
+     ],
+     [
+      [
+       [
+        -2,
+        -5
+       ]
+      ],
+      [
+       -2,
+       -2
+      ]
+     ],
+     [
+      [
+       []
+      ],
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "id": "FV-A01",
+   "domain": "data-analysis",
+   "difficulty": "medium",
+   "risk": "low",
+   "prompt": "The workdir contains sales_q1.csv, sales_q2.csv, sales_q3.csv with an amount column. Sum every amount across all three files. Reply with ONLY the total as a plain number.",
+   "acceptance": "total matches fixture sum",
+   "expected_evidence": "full aggregation across files",
+   "tool_permissions": "read-only inside isolated workdir",
+   "token_budget": {
+    "input": 2000,
+    "output": 200
+   },
+   "timeout_s": 240,
+   "rubric": "binary exact",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "fixture": {
+    "builder": "csv_quarters",
+    "seed": 85
+   },
+   "grader": {
+    "kind": "exact",
+    "expected_key": "expected"
+   }
+  },
+  {
+   "id": "FV-A02",
+   "domain": "data-analysis",
+   "difficulty": "medium",
+   "risk": "low",
+   "prompt": "The workdir file orders.csv has columns order_id,qty,price with some malformed rows. Sum qty*price over VALID rows, count skipped rows. Reply ONLY in the form total=<n> skipped=<m>.",
+   "acceptance": "total and skipped match fixture",
+   "expected_evidence": "valid-only aggregation + skip count",
+   "tool_permissions": "read-only inside isolated workdir",
+   "token_budget": {
+    "input": 2000,
+    "output": 200
+   },
+   "timeout_s": 240,
+   "rubric": "binary exact",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "fixture": {
+    "builder": "csv_malformed",
+    "seed": 86
+   },
+   "grader": {
+    "kind": "exact",
+    "expected_key": "expected"
+   }
+  },
+  {
+   "id": "FV-A03",
+   "domain": "data-analysis",
+   "difficulty": "easy",
+   "risk": "low",
+   "prompt": "The workdir contains sales_q1.csv, sales_q2.csv, sales_q3.csv with header rows. Count DATA rows only (exclude headers) across all three files. Reply with ONLY the number.",
+   "acceptance": "count matches fixture nrows",
+   "expected_evidence": "header-aware row count",
+   "tool_permissions": "read-only inside isolated workdir",
+   "token_budget": {
+    "input": 2000,
+    "output": 200
+   },
+   "timeout_s": 240,
+   "rubric": "binary exact",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "fixture": {
+    "builder": "csv_quarters",
+    "seed": 87
+   },
+   "grader": {
+    "kind": "exact",
+    "expected_key": "nrows"
+   }
+  },
+  {
+   "id": "FV-U01",
+   "domain": "unfamiliar-tasks",
+   "difficulty": "easy",
+   "risk": "low",
+   "prompt": "The workdir file zxtool.1 documents a fictional CLI you have never seen (read it; only it counts). What is the default drain limit, and which exit code means bad arguments? Reply with ONLY the two numbers separated by a space.",
+   "acceptance": "output.strip() == '25 2'",
+   "expected_evidence": "doc-grounded answers for unseen tool",
+   "tool_permissions": "read-only inside isolated workdir",
+   "token_budget": {
+    "input": 2000,
+    "output": 200
+   },
+   "timeout_s": 180,
+   "rubric": "binary exact",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "fixture": {
+    "builder": "man_page",
+    "seed": 1
+   },
+   "grader": {
+    "kind": "exact",
+    "expected": "25 2"
+   }
+  },
+  {
+   "id": "FV-U02",
+   "domain": "unfamiliar-tasks",
+   "difficulty": "hard",
+   "risk": "low",
+   "prompt": "Decode this payload: base64 of UTF-8 JSON whose bytes were XORed with repeating 2-byte key 'GD'. Extract the due field. Reply with ONLY that value.\n\nBLOB:\nPGYtKyVmfWRlNz4qJGZrZGUgMiFlfmdmdXR1cmp1dml2fGU5",
+   "acceptance": "output.strip() == '2026-11-18'",
+   "expected_evidence": "fresh cipher solved without skill",
+   "tool_permissions": "none",
+   "token_budget": {
+    "input": 1500,
+    "output": 200
+   },
+   "timeout_s": 180,
+   "rubric": "binary exact",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "grader": {
+    "kind": "exact",
+    "expected": "2026-11-18"
+   }
+  },
+  {
+   "id": "FV-U03",
+   "domain": "unfamiliar-tasks",
+   "difficulty": "medium",
+   "risk": "low",
+   "prompt": "The blob below is base64 of the REVERSE of the answer string (reverse, then base64 \u2014 no JSON, no XOR). Recover the answer. Reply with ONLY the answer.\n\nBLOB:\nOTAtZWNpdHRhbC1yb2JyYWg=",
+   "acceptance": "output.strip() == 'harbor-lattice-09'",
+   "expected_evidence": "novel transform inverted without skill",
+   "tool_permissions": "none",
+   "token_budget": {
+    "input": 1500,
+    "output": 200
+   },
+   "timeout_s": 180,
+   "rubric": "binary exact",
+   "repeat_policy": "2 pilot / 5 full",
+   "held_out": false,
+   "grader": {
+    "kind": "exact",
+    "expected": "harbor-lattice-09"
+   }
+  },
+  {
+   "id": "FV-H01",
+   "domain": "withheld",
+   "difficulty": "unknown",
+   "risk": "low",
+   "prompt": null,
+   "acceptance": "sealed until final evaluation",
+   "expected_evidence": "sealed",
+   "tool_permissions": "sealed",
+   "token_budget": {
+    "input": 0,
+    "output": 0
+   },
+   "timeout_s": 0,
+   "rubric": "sealed",
+   "repeat_policy": "final eval only",
+   "held_out": true,
+   "seal_note": "Prompt sealed: must not be used for design/tuning. Runner refuses sealed tasks."
+  },
+  {
+   "id": "FV-H02",
+   "domain": "withheld",
+   "difficulty": "unknown",
+   "risk": "low",
+   "prompt": null,
+   "acceptance": "sealed until final evaluation",
+   "expected_evidence": "sealed",
+   "tool_permissions": "sealed",
+   "token_budget": {
+    "input": 0,
+    "output": 0
+   },
+   "timeout_s": 0,
+   "rubric": "sealed",
+   "repeat_policy": "final eval only",
+   "held_out": true,
+   "seal_note": "Prompt sealed: must not be used for design/tuning. Runner refuses sealed tasks."
+  },
+  {
+   "id": "FV-H03",
+   "domain": "withheld",
+   "difficulty": "unknown",
+   "risk": "low",
+   "prompt": null,
+   "acceptance": "sealed until final evaluation",
+   "expected_evidence": "sealed",
+   "tool_permissions": "sealed",
+   "token_budget": {
+    "input": 0,
+    "output": 0
+   },
+   "timeout_s": 0,
+   "rubric": "sealed",
+   "repeat_policy": "final eval only",
+   "held_out": true,
+   "seal_note": "Prompt sealed: must not be used for design/tuning. Runner refuses sealed tasks."
+  },
+  {
+   "id": "FV-H04",
+   "domain": "withheld",
+   "difficulty": "unknown",
+   "risk": "low",
+   "prompt": null,
+   "acceptance": "sealed until final evaluation",
+   "expected_evidence": "sealed",
+   "tool_permissions": "sealed",
+   "token_budget": {
+    "input": 0,
+    "output": 0
+   },
+   "timeout_s": 0,
+   "rubric": "sealed",
+   "repeat_policy": "final eval only",
+   "held_out": true,
+   "seal_note": "Prompt sealed: must not be used for design/tuning. Runner refuses sealed tasks."
+  }
+ ]
 }

@@ -1,0 +1,39 @@
+task,mode,batch,rep,ok,value_ok,format_ok,first_pass_ok,recovered,wall_s,tool_uses,token_status,note
+FV-D02,A,1,0,True,True,True,True,False,66.43,2,UNMEASURED, [format N/A: file deliverable]
+FV-D02,B,1,0,True,True,True,True,False,159.27,3,UNMEASURED, [format N/A: file deliverable]
+FV-D02,C,1,0,True,True,True,True,False,14.08,4,UNMEASURED, [format N/A: file deliverable]
+FV-S01,A,1,0,False,True,False,False,False,12.49,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-S01,B,1,0,False,True,False,False,False,9.13,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-S01,C,1,0,False,True,False,False,False,8.36,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-X01,A,1,0,False,False,False,False,False,180.19,1,UNMEASURED,VALUE_WRONG: not json: Expecting value: line 1 column 1 (char 0)
+FV-X01,B,1,0,False,True,False,False,False,33.13,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-X01,C,1,0,False,True,False,False,False,76.05,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-P01,A,1,0,True,True,True,True,False,5.47,0,UNMEASURED,
+FV-P01,B,1,0,True,True,True,True,False,5.22,0,UNMEASURED,
+FV-P01,C,1,0,True,True,True,True,False,8.62,0,UNMEASURED,
+FV-P02,A,1,0,False,True,False,False,False,8.58,2,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-P02,B,1,0,False,True,False,False,False,6.57,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-P02,C,1,0,False,True,False,False,False,72.15,2,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-T02,A,1,0,False,True,False,False,False,18.05,4,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-T02,B,1,0,False,True,False,False,False,14.57,2,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-T02,C,1,0,False,True,False,False,False,14.5,2,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-T03,A,1,0,False,False,False,False,False,19.9,1,UNMEASURED,VALUE_WRONG: got 'Locating the CLI spec to extract your three values.\nPRIORITY_MAX=9 LIMIT_MAX=200'
+FV-T03,B,1,0,False,False,False,False,False,8.22,1,UNMEASURED,VALUE_WRONG: got 'Reading the spec to pull your values.\nPRIORITY_MAX=9 LIMIT_MAX=200 MISSING_CODE='
+FV-T03,C,1,0,False,False,False,False,False,7.18,1,UNMEASURED,VALUE_WRONG: got 'Reading the spec to pull your three values.\nPRIORITY_MAX=9 LIMIT_MAX=200 MISSING'
+FV-T04,A,1,0,False,True,False,False,False,13.31,4,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-T04,B,1,0,False,True,False,False,False,13.23,4,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-T04,C,1,0,False,True,False,False,False,140.93,4,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-L01,A,1,0,True,True,True,False,False,33.7,7,UNMEASURED, [format N/A: file deliverable]
+FV-L01,B,1,0,True,True,True,False,False,155.49,5,UNMEASURED, [format N/A: file deliverable]
+FV-L01,C,1,0,True,True,True,False,False,170.93,6,UNMEASURED, [format N/A: file deliverable]
+FV-L02,A,1,0,True,True,True,True,False,12.04,3,UNMEASURED, [format N/A: file deliverable]
+FV-L02,B,1,0,True,True,True,True,False,138.35,3,UNMEASURED, [format N/A: file deliverable]
+FV-L02,C,1,0,True,True,True,True,False,94.86,4,UNMEASURED, [format N/A: file deliverable]
+FV-A01,A,1,0,False,True,False,False,False,62.93,3,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-A01,B,1,0,False,True,False,False,False,12.99,5,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-C01,A,2,0,True,True,True,True,False,7.61,0,UNMEASURED,
+FV-C01,B,2,0,True,True,True,True,False,6.71,0,UNMEASURED,
+FV-C01,C,2,0,True,True,True,True,False,5.94,0,UNMEASURED,
+FV-A01,A,2,0,False,True,False,False,False,20.44,5,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-A01,B,2,0,False,True,False,False,False,73.33,5,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-A01,C,2,0,False,True,False,False,False,16.2,4,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text

@@ -93,6 +93,8 @@ def grade_row(task: dict, output: str, raw: str, files: dict, ctx: dict):
                                  {"fixture_total": ctx.get("fixture_total")})
         return (v and f), v, f, n
     kind = gspec.get("kind")
+    if kind == "exact":
+        return graders.grade_exact_dual(raw, output, ctx)
     if kind in ("filemodule", "fileset", "filejson"):
         ok, note = graders.FILE_GRADERS[kind](files, ctx)
         return ok, ok, True, note + " [format N/A: file deliverable]"
@@ -114,6 +116,18 @@ def repair_note(task: dict, value_ok: bool, note: str) -> str:
         return ("grader: VALUE_OK_FORMAT_BAD — the computed value/artifact is correct, "
                 "but the reply wraps it in extra prose. Reply with ONLY the requested artifact.")
     return f"grader: {note}"
+
+
+def repair_visible_task(task: dict) -> dict:
+    """Copy of the task whose exec grader exposes ONLY the visible repair
+    subset. Hidden cases stay hidden so a repair cannot hardcode the test:
+    the final grade (full cases) then measures generalization, not mimicry."""
+    import copy
+    t2 = copy.deepcopy(task)
+    g = t2.get("grader")
+    if isinstance(g, dict) and isinstance(g.get("repair_cases"), list) and g["repair_cases"]:
+        g["cases"] = g["repair_cases"]
+    return t2
 
 
 def repair_attempt(args, task: dict, mode: str, note: str) -> dict:
@@ -149,7 +163,40 @@ def main() -> int:
     ap.add_argument("--paid-cap-usd", type=float, default=0.0)
     ap.add_argument("--opencode-bin", default="opencode")
     ap.add_argument("--max-repairs", type=int, default=2)
+    ap.add_argument("--finalize-partial", default="",
+                    help="finalize a .partial.jsonl into JSON+CSV without spawning")
     args = ap.parse_args()
+
+    if args.finalize_partial:
+        from datetime import datetime as _dt
+        p = RUNS / args.finalize_partial if not Path(args.finalize_partial).is_absolute() \
+            else Path(args.finalize_partial)
+        rows = [json.loads(l) for l in p.read_text(encoding="utf-8").splitlines() if l.strip()]
+        stamp = _dt.now(timezone.utc).strftime("%Y-%m-%dT%H-%M-%S")
+        artifact = {
+            "benchmark": "frontier_parity_full (slice)", "harness": modes.HARNESS_VERSION,
+            "battery_version": "tasks_v2.json 1.0.0", "executed_utc": stamp,
+            "status": f"partial: finalized from {p.name} (run interrupted before end)",
+            "settings": {"modes": sorted({r.get('mode') for r in rows}),
+                         "variant": rows[0].get("variant") if rows else "?",
+                         "note": "see source partial for per-row settings"},
+            "catalog": rows[0].get("catalog", {}) if rows else {},
+            "stats_before": {}, "stats_after": stats_snapshot(args.opencode_bin),
+            "rows": rows,
+        }
+        (RUNS / f"matrix_{stamp}.json").write_text(json.dumps(artifact, indent=1), encoding="utf-8")
+        buf = io.StringIO()
+        w = csv.DictWriter(buf, fieldnames=["task", "mode", "variant", "model", "rep",
+                                            "ok", "value_ok", "format_ok", "first_pass_ok",
+                                            "recovered", "wall_s", "tool_uses", "token_status",
+                                            "needed_normalization", "note"])
+        w.writeheader()
+        for r in rows:
+            w.writerow({k: r.get(k) for k in w.fieldnames})
+        (RUNS / f"matrix_{stamp}.csv").write_text(buf.getvalue(), encoding="utf-8")
+        n = sum(1 for r in rows if r["ok"])
+        print(f"finalized partial: {n}/{len(rows)} passed -> runs/matrix_{stamp}.json")
+        return 0
 
     battery, bver, all_tasks = load_tasks(args.tasks_file)
     wanted = [t.strip() for t in args.tasks.split(",") if t.strip()]
@@ -194,22 +241,31 @@ def main() -> int:
     catalog = catalog_snapshot(args.opencode_bin)
     stats_before = stats_snapshot(args.opencode_bin)
     stamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H-%M-%S")
+    RUNS.mkdir(parents=True, exist_ok=True)
+    partial_path = RUNS / f"matrix_{stamp}.partial.jsonl"
+    partial_fh = open(partial_path, "w", encoding="utf-8")
     rows: list[dict] = []
     paid_est = 0.0
-    for rep in range(args.repeats):
+    abort_reason = ""
+    try:
+      for rep in range(args.repeats):
         for t in tasks:
             for m in modelist:
+                if abort_reason:
+                    break
                 if m == "D":
                     paid_est += FABLE_EST_PER_CALL_USD * (1 + args.max_repairs)
                     if paid_est > args.paid_cap_usd:
-                        print(f"BUDGET STOP: projected paid spend past cap "
-                              f"({args.paid_cap_usd}); matrix halted, partial results kept")
+                        abort_reason = (f"BUDGET STOP: projected paid spend past cap "
+                                        f"({args.paid_cap_usd})")
+                        print(abort_reason + "; matrix halted, partial results kept")
                         break
                 try:
                     rec = modes.run_once(t, m, args.variant, args.opencode_bin,
                                          paid_ok=args.paid_ok, catalog_snapshot=catalog)
                 except modes.Refused as exc:
                     print(f"REFUSED: {exc}")
+                    partial_fh.close()
                     return 2
                 rec["rep"] = rep
                 ctx = rec.get("fixture_ctx", {}) or {}
@@ -217,13 +273,33 @@ def main() -> int:
                                                  rec.get("files", {}), ctx)
                 rec.update({"ok": ok, "value_ok": v_ok, "format_ok": f_ok,
                             "note": note, "first_pass_ok": ok, "attempt": 0})
-                # C-mode repair loop: grader notes only, bounded
+                # C-mode repair loop: grader notes only, bounded. Each repair is
+                # judged on the VISIBLE subset first; the FULL hidden set
+                # decides acceptance, so hardcoding the visible test fails.
+                # A repair that passes visible but fails hidden gets an
+                # anti-hardcode note instead of the raw want-values.
                 attempt = 0
+                vis = repair_visible_task(t)
+                cur_value, cur_note = rec.get("value_ok"), rec["note"]
                 while m == "C" and not rec["ok"] and attempt < args.max_repairs:
                     attempt += 1
-                    ratt = repair_attempt(args, t, m, repair_note(t, rec.get("value_ok"), rec["note"]))
-                    ok2, v2, f2, note2 = grade_row(t, ratt["normalized"], ratt["raw"],
-                                                   ratt["files"], ratt["ctx"])
+                    ratt = repair_attempt(args, t, m, repair_note(t, cur_value, cur_note))
+                    okvis, _, _, notevis = grade_row(vis, ratt["normalized"], ratt["raw"],
+                                                      ratt["files"], ratt["ctx"])
+                    ok2, v2, f2, full_note = grade_row(t, ratt["normalized"], ratt["raw"],
+                                                       ratt["files"], ratt["ctx"])
+                    if okvis and not ok2:
+                        # Recorded in full for the audit trail, but the NEXT
+                        # repair gets NO hidden want-values (else it can
+                        # hardcode them, as observed with C01 on 2026-10-09).
+                        note2 = ("VISIBLE_PASS_HIDDEN_FAIL: visible checks pass but hidden "
+                                 f"checks fail ({full_note})")
+                        next_note = ("VISIBLE_PASS_HIDDEN_FAIL: visible checks pass but hidden "
+                                     "checks fail — generalize the fix, do not hardcode "
+                                     "answers to the shown examples.")
+                    else:
+                        note2 = notevis if not okvis else full_note
+                        next_note = note2
                     rec[f"repair{attempt}_value_ok"] = v2
                     rec[f"repair{attempt}_format_ok"] = f2
                     rec[f"repair{attempt}_note"] = note2
@@ -236,24 +312,39 @@ def main() -> int:
                                     "value_ok": v2, "format_ok": f2,
                                     "note": f"recovered on repair {attempt}",
                                     "attempt": attempt})
+                    else:
+                        cur_value, cur_note = v2, next_note
                 rec["recovered"] = bool(not rec["first_pass_ok"] and rec["ok"])
                 rows.append(rec)
                 workdir = rec.pop("workdir", None)
                 if workdir:
                     shutil.rmtree(workdir, ignore_errors=True)
+                partial_fh.write(json.dumps(rec, ensure_ascii=False) + "\n")
+                partial_fh.flush()
                 status = "PASS" if rec["ok"] else "FAIL"
                 print(f"[{status}] {t['id']} mode={m} rep={rep} "
                       f"first={rec['first_pass_ok']} value={rec['value_ok']} "
                       f"format={rec['format_ok']} wall={rec.get('wall_s')}s "
                       f"tokens={rec.get('token_status')} note={rec.get('note')}", flush=True)
+    except KeyboardInterrupt:
+        abort_reason = abort_reason or "ABORTED by operator (KeyboardInterrupt)"
+        print(abort_reason + "; partial results kept")
+    except Exception as exc:  # noqa: BLE001 - finalize partial artifact, never lose rows
+        abort_reason = abort_reason or f"HARNESS ERROR: {exc.__class__.__name__}: {exc}"
+        print(abort_reason + "; partial results kept")
+    finally:
+        try:
+            partial_fh.close()
+        except Exception:  # noqa: BLE001
+            pass
 
     stats_after = stats_snapshot(args.opencode_bin)
-    RUNS.mkdir(parents=True, exist_ok=True)
     artifact = {
         "benchmark": battery,
         "harness": modes.HARNESS_VERSION,
         "battery_version": f"{args.tasks_file} {bver}",
         "executed_utc": stamp,
+        "status": "complete" if not abort_reason else f"partial: {abort_reason}",
         "settings": {"modes": modelist, "variant": args.variant,
                      "repeats": args.repeats, "max_repairs": args.max_repairs,
                      "paid_ok": args.paid_ok, "paid_cap_usd": args.paid_cap_usd,

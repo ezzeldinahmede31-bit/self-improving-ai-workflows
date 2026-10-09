@@ -116,8 +116,10 @@ EXIT CODES
 
 
 def man_page() -> tuple[dict, dict]:
+    # expected matches the T03 reply contract exactly:
+    # 'PRIORITY_MAX=<n> LIMIT_MAX=<n> MISSING_CODE=<n>'
     return ({"zxtool.1": FAKE_MAN},
-            {"expected": "priority-max=9 limit-max=200 missing=3"})
+            {"expected": "PRIORITY_MAX=9 LIMIT_MAX=200 MISSING_CODE=3"})
 
 
 def arch_choice(seed: int) -> tuple[dict, dict]:
