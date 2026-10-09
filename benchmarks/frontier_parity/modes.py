@@ -153,15 +153,88 @@ def _extract_text_events(raw: str) -> tuple[list[str], int, list[str], dict, lis
     return texts, tool_uses, errors, usage, keys_seen
 
 
-def normalize_output(task_id: str, raw: str) -> tuple[str, bool]:
+def setup_workdir(task: dict) -> tuple[str, dict]:
+    """Create isolated workdir + write deterministic fixtures.
+
+    Returns (workdir, fixture_ctx). Supports legacy v1 T01 and v2 `fixture`
+    specs ({builder, seed, ...}). Fixture files are task input, never answers.
+    """
+    import sys as _sys
+    _sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parent))
+    workdir = tempfile.mkdtemp(prefix="fp_")
+    ctx: dict = {}
+    if task.get("needs_workdir_fixtures"):
+        ctx["fixture_total"] = make_t01_fixtures(workdir)
+    spec = task.get("fixture")
+    if spec:
+        from fixtures import build_fixtures as _build
+        files, fctx = _build(spec)
+        for name, content in files.items():
+            safe = os.path.basename(name)
+            with open(os.path.join(workdir, safe), "w", encoding="utf-8") as fh:
+                fh.write(content)
+        ctx.update(fctx)
+    # task-level grader params (cases/keys/edges...) also ride in ctx
+    if isinstance(task.get("grader"), dict):
+        for k, v in task["grader"].items():
+            if k != "kind":
+                ctx.setdefault(k, v)
+    return workdir, ctx
+
+
+def snapshot_workdir(workdir: str, cap_bytes: int = 20000) -> tuple[dict, bool]:
+    """Capture agent-written files for file-artifact grading. Capped."""
+    files: dict = {}
+    total = 0
+    truncated = False
+    for name in sorted(os.listdir(workdir)):
+        p = os.path.join(workdir, name)
+        if not os.path.isfile(p):
+            continue
+        try:
+            with open(p, encoding="utf-8", errors="replace") as fh:
+                content = fh.read(40000)
+        except OSError:
+            continue
+        total += len(content.encode("utf-8", "ignore"))
+        if total > cap_bytes:
+            truncated = True
+            break
+        files[name] = content
+    return files, truncated
+
+
+def _needs_code_fence(task_id: str, task: dict | None) -> bool:
+    if task_id in ("FP-C01", "FP-D01"):
+        return True
+    return bool(task and isinstance(task.get("grader"), dict)
+                and task["grader"].get("kind") == "exec")
+
+
+def _needs_brackets(task_id: str, task: dict | None, kind: str) -> bool:
+    if task_id in ("FP-P01",) and kind == "[":
+        return True
+    if task_id in ("FP-X01",) and kind == "{":
+        return True
+    if task and isinstance(task.get("grader"), dict):
+        gk = task["grader"].get("kind")
+        if kind == "[" and gk in ("order", "schedule"):
+            return True
+        if kind == "{" and gk == "jsonfacts":
+            return True
+    return False
+
+
+def normalize_output(task_id: str, raw: str, task: dict | None = None) -> tuple[str, bool]:
     """Mechanical normalization applied IDENTICALLY to every mode.
 
-    - code tasks (C01/D01): first ```python fenced block if present
-    - P01/X01: first [...] / {...} span if present
+    - exec/code tasks: first ``` fenced block if present
+    - order/schedule tasks: first [...] span if present
+    - jsonfacts tasks: first {...} span if present
     Returns (normalized, changed_flag).
     """
     text = (raw or "").strip()
-    if task_id in ("FP-C01", "FP-D01") and "```" in text:
+    if _needs_code_fence(task_id, task) and "```" in text:
         parts = text.split("```")
         for i in range(1, len(parts), 2):
             block = parts[i]
@@ -171,15 +244,31 @@ def normalize_output(task_id: str, raw: str) -> tuple[str, bool]:
             cand = "\n".join(lines).strip()
             if cand:
                 return cand, True
-    if task_id == "FP-P01":
+    if _needs_brackets(task_id, task, "["):
         s, e = text.find("["), text.rfind("]")
         if 0 <= s < e:
             return text[s:e + 1].strip(), (s != 0 or e != len(text) - 1)
-    if task_id == "FP-X01":
+    if _needs_brackets(task_id, task, "{"):
         s, e = text.find("{"), text.rfind("}")
         if 0 <= s < e:
             return text[s:e + 1].strip(), (s != 0 or e != len(text) - 1)
     return text, False
+
+
+def spawn_attempt(opencode_bin: str, model: str, prompt: str, workdir: str,
+                   title: str, timeout_s: int) -> dict:
+    """Spawn one disposable `opencode run` session; parse its event stream."""
+    argv = [opencode_bin, "run", "--dir", workdir, "-m", model,
+            "--format", "json", "--title", title, prompt]
+    t0 = time.time()
+    try:
+        proc = subprocess.run(argv, capture_output=True, text=True, timeout=timeout_s)
+        wall = round(time.time() - t0, 2)
+        return {"raw_out": proc.stdout or "", "rc": proc.returncode,
+                "err": (proc.stderr or "")[-1000:], "wall": wall}
+    except subprocess.TimeoutExpired as exc:
+        return {"raw_out": exc.stdout or "", "rc": 124,
+                "err": "WORKER_TIMEOUT", "wall": round(time.time() - t0, 2)}
 
 
 def run_once(task: dict, mode: str, variant: str = "same_capability",
@@ -195,25 +284,16 @@ def run_once(task: dict, mode: str, variant: str = "same_capability",
     if model == FABLE_51 and not paid_ok:
         raise Refused("Fable 5.1 is PAID: pass paid_ok=True with budget approval")
     prompt = build_prompt(mode, task, variant)
-    workdir = tempfile.mkdtemp(prefix="fp_")
-    fixture_total = None
+    workdir, fixture_ctx = setup_workdir(task)
+    fixture_total = fixture_ctx.get("fixture_total")
     try:
-        if task.get("needs_workdir_fixtures"):
-            fixture_total = make_t01_fixtures(workdir)
-        argv = [opencode_bin, "run", "--dir", workdir, "-m", model,
-                "--format", "json", "--title", f"fp-{task['id']}-{mode}", prompt]
-        t0 = time.time()
-        try:
-            proc = subprocess.run(argv, capture_output=True, text=True,
-                                  timeout=task.get("timeout_s", 180))
-            wall = round(time.time() - t0, 2)
-            raw_out, rc, err = proc.stdout or "", proc.returncode, (proc.stderr or "")[-1000:]
-        except subprocess.TimeoutExpired as exc:
-            wall = round(time.time() - t0, 2)
-            raw_out, rc, err = (exc.stdout or ""), 124, "WORKER_TIMEOUT"
+        att = spawn_attempt(opencode_bin, model, prompt, workdir,
+                            f"fp-{task['id']}-{mode}", task.get("timeout_s", 180))
+        raw_out, rc, err, wall = att["raw_out"], att["rc"], att["err"], att["wall"]
         texts, tool_uses, errors, usage, keys_seen = _extract_text_events(raw_out)
         raw_text = "\n".join(texts).strip()
-        normalized, changed = normalize_output(task["id"], raw_text)
+        normalized, changed = normalize_output(task["id"], raw_text, task)
+        files, files_truncated = snapshot_workdir(workdir)
         measured = bool(usage)
         return {
             "task": task["id"], "mode": mode, "variant": variant,
@@ -228,6 +308,8 @@ def run_once(task: dict, mode: str, variant: str = "same_capability",
             "token_status": "MEASURED" if measured else "UNMEASURED",
             "telemetry_keys_seen": keys_seen[:20],
             "fixture_total": fixture_total,
+            "fixture_ctx": fixture_ctx,
+            "files": files, "files_truncated": files_truncated,
             "catalog": catalog_snapshot or {},
             "workdir": workdir,  # caller cleans up after grading extras if needed
         }

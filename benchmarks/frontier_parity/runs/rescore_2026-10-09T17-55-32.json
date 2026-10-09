@@ -1,0 +1,499 @@
+{
+ "rescored_utc": "2026-10-09T17-55-32",
+ "source": "matrix_2026-10-09T14-06-55.json",
+ "harness": "v1.1-rescore",
+ "strict": {
+  "A": "10/16",
+  "B": "12/16",
+  "C": "12/16"
+ },
+ "value": {
+  "A": "15/16",
+  "B": "16/16",
+  "C": "16/16"
+ },
+ "strict_rate": 0.7083,
+ "value_rate": 0.9792,
+ "rows": [
+  {
+   "task": "FP-R01",
+   "mode": "A",
+   "rep": 0,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-R01",
+   "mode": "B",
+   "rep": 0,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-R01",
+   "mode": "C",
+   "rep": 0,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-M01",
+   "mode": "A",
+   "rep": 0,
+   "old_ok": false,
+   "strict_ok": false,
+   "value_ok": false,
+   "format_ok": false,
+   "note": "VALUE_WRONG"
+  },
+  {
+   "task": "FP-M01",
+   "mode": "B",
+   "rep": 0,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-M01",
+   "mode": "C",
+   "rep": 0,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": "UNVERIFIABLE-post-hoc",
+   "note": " [recovered row: format taken as measured]"
+  },
+  {
+   "task": "FP-C01",
+   "mode": "A",
+   "rep": 0,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-C01",
+   "mode": "B",
+   "rep": 0,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-C01",
+   "mode": "C",
+   "rep": 0,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-D01",
+   "mode": "A",
+   "rep": 0,
+   "old_ok": true,
+   "strict_ok": false,
+   "value_ok": true,
+   "format_ok": false,
+   "note": "VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text"
+  },
+  {
+   "task": "FP-D01",
+   "mode": "B",
+   "rep": 0,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-D01",
+   "mode": "C",
+   "rep": 0,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-P01",
+   "mode": "A",
+   "rep": 0,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-P01",
+   "mode": "B",
+   "rep": 0,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-P01",
+   "mode": "C",
+   "rep": 0,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-T01",
+   "mode": "A",
+   "rep": 0,
+   "old_ok": false,
+   "strict_ok": false,
+   "value_ok": true,
+   "format_ok": false,
+   "note": "VALUE_OK_FORMAT_BAD"
+  },
+  {
+   "task": "FP-T01",
+   "mode": "B",
+   "rep": 0,
+   "old_ok": false,
+   "strict_ok": false,
+   "value_ok": true,
+   "format_ok": false,
+   "note": "VALUE_OK_FORMAT_BAD"
+  },
+  {
+   "task": "FP-T01",
+   "mode": "C",
+   "rep": 0,
+   "old_ok": false,
+   "strict_ok": false,
+   "value_ok": true,
+   "format_ok": false,
+   "note": "VALUE_OK_FORMAT_BAD"
+  },
+  {
+   "task": "FP-N01",
+   "mode": "A",
+   "rep": 0,
+   "old_ok": false,
+   "strict_ok": false,
+   "value_ok": true,
+   "format_ok": false,
+   "note": "VALUE_OK_FORMAT_BAD"
+  },
+  {
+   "task": "FP-N01",
+   "mode": "B",
+   "rep": 0,
+   "old_ok": false,
+   "strict_ok": false,
+   "value_ok": true,
+   "format_ok": false,
+   "note": "VALUE_OK_FORMAT_BAD"
+  },
+  {
+   "task": "FP-N01",
+   "mode": "C",
+   "rep": 0,
+   "old_ok": false,
+   "strict_ok": false,
+   "value_ok": true,
+   "format_ok": false,
+   "note": "VALUE_OK_FORMAT_BAD"
+  },
+  {
+   "task": "FP-X01",
+   "mode": "A",
+   "rep": 0,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-X01",
+   "mode": "B",
+   "rep": 0,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-X01",
+   "mode": "C",
+   "rep": 0,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-R01",
+   "mode": "A",
+   "rep": 1,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-R01",
+   "mode": "B",
+   "rep": 1,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-R01",
+   "mode": "C",
+   "rep": 1,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-M01",
+   "mode": "A",
+   "rep": 1,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-M01",
+   "mode": "B",
+   "rep": 1,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-M01",
+   "mode": "C",
+   "rep": 1,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-C01",
+   "mode": "A",
+   "rep": 1,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-C01",
+   "mode": "B",
+   "rep": 1,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-C01",
+   "mode": "C",
+   "rep": 1,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-D01",
+   "mode": "A",
+   "rep": 1,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-D01",
+   "mode": "B",
+   "rep": 1,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-D01",
+   "mode": "C",
+   "rep": 1,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-P01",
+   "mode": "A",
+   "rep": 1,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-P01",
+   "mode": "B",
+   "rep": 1,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-P01",
+   "mode": "C",
+   "rep": 1,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-T01",
+   "mode": "A",
+   "rep": 1,
+   "old_ok": false,
+   "strict_ok": false,
+   "value_ok": true,
+   "format_ok": false,
+   "note": "VALUE_OK_FORMAT_BAD"
+  },
+  {
+   "task": "FP-T01",
+   "mode": "B",
+   "rep": 1,
+   "old_ok": false,
+   "strict_ok": false,
+   "value_ok": true,
+   "format_ok": false,
+   "note": "VALUE_OK_FORMAT_BAD"
+  },
+  {
+   "task": "FP-T01",
+   "mode": "C",
+   "rep": 1,
+   "old_ok": false,
+   "strict_ok": false,
+   "value_ok": true,
+   "format_ok": false,
+   "note": "VALUE_OK_FORMAT_BAD"
+  },
+  {
+   "task": "FP-N01",
+   "mode": "A",
+   "rep": 1,
+   "old_ok": false,
+   "strict_ok": false,
+   "value_ok": true,
+   "format_ok": false,
+   "note": "VALUE_OK_FORMAT_BAD"
+  },
+  {
+   "task": "FP-N01",
+   "mode": "B",
+   "rep": 1,
+   "old_ok": false,
+   "strict_ok": false,
+   "value_ok": true,
+   "format_ok": false,
+   "note": "VALUE_OK_FORMAT_BAD"
+  },
+  {
+   "task": "FP-N01",
+   "mode": "C",
+   "rep": 1,
+   "old_ok": false,
+   "strict_ok": false,
+   "value_ok": true,
+   "format_ok": false,
+   "note": "VALUE_OK_FORMAT_BAD"
+  },
+  {
+   "task": "FP-X01",
+   "mode": "A",
+   "rep": 1,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-X01",
+   "mode": "B",
+   "rep": 1,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  },
+  {
+   "task": "FP-X01",
+   "mode": "C",
+   "rep": 1,
+   "old_ok": true,
+   "strict_ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": ""
+  }
+ ]
+}

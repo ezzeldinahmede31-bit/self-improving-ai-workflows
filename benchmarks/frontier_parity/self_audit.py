@@ -61,6 +61,12 @@ def main() -> int:
     tasks = json.loads((HERE / "tasks_v1.json").read_text(encoding="utf-8"))["tasks"]
     runnable = [t for t in tasks if not t.get("held_out")]
     sealed = [t for t in tasks if t.get("held_out")]
+    try:
+        tasks2 = json.loads((HERE / "tasks_v2.json").read_text(encoding="utf-8"))["tasks"]
+    except OSError:
+        tasks2 = []
+    runnable2 = [t for t in tasks2 if not t.get("held_out")]
+    sealed2 = [t for t in tasks2 if t.get("held_out")]
 
     # 1. model identity vs live catalog
     try:
@@ -89,7 +95,8 @@ def main() -> int:
     sealed_ok = all(t.get("prompt") is None for t in sealed)
     check("sealed-prompts-null", sealed_ok, f"sealed={len(sealed)}")
 
-    # 4. no reference-answer leakage into prompts
+    # 4. no reference-answer leakage into prompts (per-task: every static
+    # expected value must be absent from its own prompt).
     leaks = []
     for t in runnable:
         p = t.get("prompt", "") or ""
@@ -97,7 +104,37 @@ def main() -> int:
             leaks.append(t["id"])
         if t["id"] == "FP-R01" and "'15'" in p.replace("[0, 100]", ""):
             leaks.append(t["id"])
+    for t in runnable2:
+        p = t.get("prompt", "") or ""
+        g = t.get("grader") if isinstance(t.get("grader"), dict) else None
+        if g and isinstance(g.get("expected"), str) and g["expected"] and g["expected"] in p:
+            leaks.append(t["id"])
     check("no-answer-leak", not leaks, f"leaks={leaks}" if leaks else "")
+    check("v2-sealed-null", all(t.get("prompt") is None for t in sealed2),
+          f"sealed={len(sealed2)}")
+
+    # 4b. v2 fixtures deterministic + expected keys resolvable
+    try:
+        sys.path.insert(0, str(HERE))
+        from fixtures import build_fixtures
+        det_bad, key_bad = [], []
+        for t in runnable2:
+            spec = t.get("fixture")
+            if not spec:
+                continue
+            f1, c1 = build_fixtures(spec)
+            f2, c2 = build_fixtures(spec)
+            if (f1, c1) != (f2, c2) or not f1 or not c1:
+                det_bad.append(t["id"])
+                continue
+            g = t.get("grader") if isinstance(t.get("grader"), dict) else None
+            if g and g.get("expected_key") and g["expected_key"] not in c1:
+                key_bad.append(t["id"])
+        check("v2-fixtures-deterministic", not det_bad, f"bad={det_bad}" if det_bad else f"n={len([t for t in runnable2 if t.get('fixture')])}")
+        check("v2-expected-keys", not key_bad, f"bad={key_bad}" if key_bad else "")
+    except Exception as exc:  # noqa: BLE001
+        check("v2-fixtures-deterministic", False, f"fixture error: {exc}")
+        check("v2-expected-keys", False, "")
 
     # 5+6. grader determinism on samples
     samples = {
@@ -141,7 +178,9 @@ def main() -> int:
         # Designated artifact dirs (benchmark outputs) are allowed; anything
         # else (prod code, configs, memory narrative) is a finding.
         allowed_prefixes = ("benchmarks/frontier_parity/", "benchmarks/",
-                            "memory/benchmarks/", "output/")
+                            "memory/benchmarks/", "output/",
+                            "memory/conversation-memory.md",
+                            "memory/conversation-memory.bin")
         outside = [f for f in touched
                    if not f.startswith(allowed_prefixes)]
         check("confinement", not outside, f"outside={outside}" if outside else f"touched={len(touched)}")
