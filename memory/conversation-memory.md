@@ -2247,3 +2247,8 @@ types creds/2FA on screen once; session persists in isolated profile
 platform (default LinkedIn), which account/first-login?, exact tasks, approval
 mode (per-action vs batch), hard-forbidden actions (e.g. deletes, financial),
 reporting style + session persistence, start with trial read task (default yes).
+
+## Frontier-parity pilot 2026-10-09 (COMMAND 3, free modes only — user-approved)
+- Verified live catalog (85 models): muse-spark-1.3-contributor-free = free/1M ctx primary; claude-fable-5-1 = active, PAID 10/50 per 1M, no temperature. D-mode deferred (user: free-only).
+- Harness benchmarks/frontier_parity/ (tasks_v1 8+4 sealed, graders, modes A/B/C/D, run_matrix paid-gated, self_audit, acceptance_v1 FROZEN): dry-run 32/32, self-audit PASS.
+- Pilot MEASURED (48 live sessions, free tier, $0): strict A 11/16, B 12/16, C 12/16 (1 recovery); VALUE-correct 47/48 — only genuine miss M01-A-r0. N01+T01 strict-0/12 are format artifacts (values right, chatty preamble). Tokens UNMEASURED (event stream has no usage keys); stats snapshots captured wrong panel (fix queued). Verdict: NOT YET VERIFIED (pilot-scale, no D). Next: grader v1.1 value/format split + full-battery draft (pending user go).

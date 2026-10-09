@@ -1,0 +1,3463 @@
+{
+ "benchmark": "frontier_parity_pilot",
+ "harness": "1.0.0",
+ "batter_version": "tasks_v1 1.0.0",
+ "executed_utc": "2026-10-09T14-06-55",
+ "settings": {
+  "modes": [
+   "A",
+   "B",
+   "C"
+  ],
+  "variant": "same_capability",
+  "repeats": 2,
+  "max_repairs": 2,
+  "paid_ok": false,
+  "paid_cap_usd": 0.0,
+  "paid_est_usd": 0.0
+ },
+ "catalog": {
+  "opencode/claude-fable-5-1": {
+   "status": "active",
+   "cost": {
+    "input": 10,
+    "output": 50,
+    "cache": {
+     "read": 0.25,
+     "write": 12.5
+    }
+   },
+   "limit": {
+    "context": 1000000,
+    "output": 128000
+   },
+   "toolcall": true,
+   "reasoning": true,
+   "temperature": false
+  },
+  "opencode/muse-spark-1.3-contributor-free": {
+   "status": "active",
+   "cost": {
+    "input": 0,
+    "output": 0,
+    "cache": {
+     "read": 0,
+     "write": 0
+    }
+   },
+   "limit": {
+    "context": 1048576,
+    "output": 131072
+   },
+   "toolcall": true,
+   "reasoning": true,
+   "temperature": true
+  }
+ },
+ "stats_before": {
+  "ok": true,
+  "text": "              \u2588                     33 ( 0.2%)    \u2502\n\u2502 n8n_n8n_test_wor.. \u2588                     26 ( 0.2%)    \u2502\n\u2502 n8n_n8n_health_c.. \u2588                     24 ( 0.1%)    \u2502\n\u2502 n8n_validate_node  \u2588                     24 ( 0.1%)    \u2502\n\u2502 firecrawl_firecr.. \u2588                     23 ( 0.1%)    \u2502\n\u2502 playwright_brows.. \u2588                     23 ( 0.1%)    \u2502\n\u2502 playwright_brows.. \u2588                     23 ( 0.1%)    \u2502\n\u2502 n8n_n8n_create_w.. \u2588                     22 ( 0.1%)    \u2502\n\u2502 invalid            \u2588                     21 ( 0.1%)    \u2502\n\u2502 gh_grep_searchGi.. \u2588                     18 ( 0.1%)    \u2502\n\u2502 firecrawl_firecr.. \u2588                     15 ( 0.1%)    \u2502\n\u2502 n8n_n8n_list_wor.. \u2588                     14 ( 0.1%)    \u2502\n\u2502 n8n_tools_docume.. \u2588                     11 ( 0.1%)    \u2502\n\u2502 playwright_brows.. \u2588                     11 ( 0.1%)    \u2502\n\u2502 n8n_n8n_delete_w.. \u2588                      8 ( 0.0%)    \u2502\n\u2502 n8n_search_nodes   \u2588                      7 ( 0.0%)    \u2502\n\u2502 yt-transcript_ge.. \u2588                      6 ( 0.0%)    \u2502\n\u2502 youtube-transcri.. \u2588                      5 ( 0.0%)    \u2502\n\u2502 n8n_search_templ.. \u2588                      4 ( 0.0%)    \u2502\n\u2502 playwright_brows.. \u2588                      4 ( 0.0%)    \u2502\n\u2502 playwright_brows.. \u2588                      4 ( 0.0%)    \u2502\n\u2502 playwright_brows.. \u2588                      4 ( 0.0%)    \u2502\n\u2502 playwright_brows.. \u2588                      4 ( 0.0%)    \u2502\n\u2502 n8n_get_template   \u2588                      3 ( 0.0%)    \u2502\n\u2502 n8n_n8n_workflow.. \u2588                      3 ( 0.0%)    \u2502\n\u2502 apify_search-act.. \u2588                      2 ( 0.0%)    \u2502\n\u2502 context7_resolve.. \u2588                      2 ( 0.0%)    \u2502\n\u2502 context7_query-d.. \u2588                      2 ( 0.0%)    \u2502\n\u2502 apify_apify--rag.. \u2588                      1 ( 0.0%)    \u2502\n\u2502 apify_get-datase.. \u2588                      1 ( 0.0%)    \u2502\n\u2502 apify_fetch-acto.. \u2588                      1 ( 0.0%)    \u2502\n\u2502 playwright_brows.. \u2588                      1 ( 0.0%)    \u2502\n\u2502 playwright_brows.. \u2588                      1 ( 0.0%)    \u2502\n\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n\n"
+ },
+ "stats_after": {
+  "ok": true,
+  "text": "              \u2588                     33 ( 0.2%)    \u2502\n\u2502 n8n_n8n_test_wor.. \u2588                     26 ( 0.2%)    \u2502\n\u2502 n8n_n8n_health_c.. \u2588                     24 ( 0.1%)    \u2502\n\u2502 n8n_validate_node  \u2588                     24 ( 0.1%)    \u2502\n\u2502 firecrawl_firecr.. \u2588                     23 ( 0.1%)    \u2502\n\u2502 playwright_brows.. \u2588                     23 ( 0.1%)    \u2502\n\u2502 playwright_brows.. \u2588                     23 ( 0.1%)    \u2502\n\u2502 n8n_n8n_create_w.. \u2588                     22 ( 0.1%)    \u2502\n\u2502 invalid            \u2588                     21 ( 0.1%)    \u2502\n\u2502 gh_grep_searchGi.. \u2588                     18 ( 0.1%)    \u2502\n\u2502 firecrawl_firecr.. \u2588                     15 ( 0.1%)    \u2502\n\u2502 n8n_n8n_list_wor.. \u2588                     14 ( 0.1%)    \u2502\n\u2502 n8n_tools_docume.. \u2588                     11 ( 0.1%)    \u2502\n\u2502 playwright_brows.. \u2588                     11 ( 0.1%)    \u2502\n\u2502 n8n_n8n_delete_w.. \u2588                      8 ( 0.0%)    \u2502\n\u2502 n8n_search_nodes   \u2588                      7 ( 0.0%)    \u2502\n\u2502 yt-transcript_ge.. \u2588                      6 ( 0.0%)    \u2502\n\u2502 youtube-transcri.. \u2588                      5 ( 0.0%)    \u2502\n\u2502 n8n_search_templ.. \u2588                      4 ( 0.0%)    \u2502\n\u2502 playwright_brows.. \u2588                      4 ( 0.0%)    \u2502\n\u2502 playwright_brows.. \u2588                      4 ( 0.0%)    \u2502\n\u2502 playwright_brows.. \u2588                      4 ( 0.0%)    \u2502\n\u2502 playwright_brows.. \u2588                      4 ( 0.0%)    \u2502\n\u2502 n8n_get_template   \u2588                      3 ( 0.0%)    \u2502\n\u2502 n8n_n8n_workflow.. \u2588                      3 ( 0.0%)    \u2502\n\u2502 apify_search-act.. \u2588                      2 ( 0.0%)    \u2502\n\u2502 context7_resolve.. \u2588                      2 ( 0.0%)    \u2502\n\u2502 context7_query-d.. \u2588                      2 ( 0.0%)    \u2502\n\u2502 apify_apify--rag.. \u2588                      1 ( 0.0%)    \u2502\n\u2502 apify_get-datase.. \u2588                      1 ( 0.0%)    \u2502\n\u2502 apify_fetch-acto.. \u2588                      1 ( 0.0%)    \u2502\n\u2502 playwright_brows.. \u2588                      1 ( 0.0%)    \u2502\n\u2502 playwright_brows.. \u2588                      1 ( 0.0%)    \u2502\n\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n\n"
+ },
+ "rows": [
+  {
+   "task": "FP-R01",
+   "mode": "A",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "cd4d26162db41c3c",
+   "prompt_chars": 112,
+   "raw_text": "15",
+   "output": "15",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 6.56,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 0,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-R01",
+   "mode": "B",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "e3b5c8f861c5972b",
+   "prompt_chars": 522,
+   "raw_text": "15",
+   "output": "15",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 5.77,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 0,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-R01",
+   "mode": "C",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "3bf29a51d1149f53",
+   "prompt_chars": 700,
+   "raw_text": "15",
+   "output": "15",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 6.25,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 0,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-M01",
+   "mode": "A",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "78c8ccf0f0712275",
+   "prompt_chars": 111,
+   "raw_text": "I'll survey the repo layout and verify the sum directly.",
+   "output": "I'll survey the repo layout and verify the sum directly.",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 7.38,
+   "tool_uses": 1,
+   "errors": [],
+   "stderr_tail": "\u001b[93m\u001b[1m! \u001b[0mpermission requested: external_directory (/*); auto-rejecting\n",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 0,
+   "attempt": 0,
+   "ok": false,
+   "note": "got \"I'll survey the repo layout and verify the sum directly.\"",
+   "first_pass_ok": false,
+   "recovered": false
+  },
+  {
+   "task": "FP-M01",
+   "mode": "B",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "af5acdfdf078dcd1",
+   "prompt_chars": 521,
+   "raw_text": "333833500",
+   "output": "333833500",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 7.63,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 0,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-M01",
+   "mode": "C",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "bb503f27656fb253",
+   "prompt_chars": 699,
+   "raw_text": "Sum computed; verifying quickly before replying.\n333833500",
+   "output": "333833500",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 8.22,
+   "tool_uses": 1,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 0,
+   "attempt": 1,
+   "ok": true,
+   "note": "recovered on repair 1",
+   "first_pass_ok": false,
+   "repair1_ok": true,
+   "repair1_note": "",
+   "repair1_wall_s": 6.03,
+   "repair1_tool_uses": 0,
+   "recovered": true
+  },
+  {
+   "task": "FP-C01",
+   "mode": "A",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "5bbd4822dff63538",
+   "prompt_chars": 153,
+   "raw_text": "def median(nums):\n    s = sorted(nums)\n    n = len(s)\n    mid = n // 2\n    if n % 2 == 1:\n        return s[mid]\n    return (s[mid - 1] + s[mid]) / 2",
+   "output": "def median(nums):\n    s = sorted(nums)\n    n = len(s)\n    mid = n // 2\n    if n % 2 == 1:\n        return s[mid]\n    return (s[mid - 1] + s[mid]) / 2",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 8.04,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 0,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-C01",
+   "mode": "B",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "9b64e9fbf2ccc972",
+   "prompt_chars": 563,
+   "raw_text": "def median(nums):\n    s = sorted(nums)\n    n = len(s)\n    mid = n // 2\n    if n % 2 == 1:\n        return s[mid]\n    return (s[mid - 1] + s[mid]) / 2",
+   "output": "def median(nums):\n    s = sorted(nums)\n    n = len(s)\n    mid = n // 2\n    if n % 2 == 1:\n        return s[mid]\n    return (s[mid - 1] + s[mid]) / 2",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 8.03,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 0,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-C01",
+   "mode": "C",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "a4d615d32147aebc",
+   "prompt_chars": 741,
+   "raw_text": "def median(numbers):\n    s = sorted(numbers)\n    n = len(s)\n    mid = n // 2\n    if n % 2 == 1:\n        return s[mid]\n    return (s[mid - 1] + s[mid]) / 2",
+   "output": "def median(numbers):\n    s = sorted(numbers)\n    n = len(s)\n    mid = n // 2\n    if n % 2 == 1:\n        return s[mid]\n    return (s[mid - 1] + s[mid]) / 2",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 8.01,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 0,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-D01",
+   "mode": "A",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "84111328d7ebbc0c",
+   "prompt_chars": 404,
+   "raw_text": "```python\ndef find(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x:\n            lo = mid + 1\n        else:\n            hi = mid\n    if lo < len(a) and a[lo] == x:\n        return lo\n    return -1\n```",
+   "output": "def find(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x:\n            lo = mid + 1\n        else:\n            hi = mid\n    if lo < len(a) and a[lo] == x:\n        return lo\n    return -1",
+   "needed_normalization": true,
+   "rc": 0,
+   "wall_s": 6.42,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 0,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-D01",
+   "mode": "B",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "c64b72f1c0ac93fc",
+   "prompt_chars": 814,
+   "raw_text": "def find(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x:\n            lo = mid + 1\n        else:\n            hi = mid\n    return lo if lo < len(a) and a[lo] == x else -1",
+   "output": "def find(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x:\n            lo = mid + 1\n        else:\n            hi = mid\n    return lo if lo < len(a) and a[lo] == x else -1",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 20.31,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 0,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-D01",
+   "mode": "C",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "b9635f6583e542a5",
+   "prompt_chars": 992,
+   "raw_text": "def find(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x:\n            lo = mid + 1\n        else:\n            hi = mid\n    if lo < len(a) and a[lo] == x:\n        return lo\n    return -1",
+   "output": "def find(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x:\n            lo = mid + 1\n        else:\n            hi = mid\n    if lo < len(a) and a[lo] == x:\n        return lo\n    return -1",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 7.3,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 0,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-P01",
+   "mode": "A",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "6682f6c8520f7630",
+   "prompt_chars": 202,
+   "raw_text": "[\"b\",\"c\",\"a\",\"d\",\"e\",\"f\"]",
+   "output": "[\"b\",\"c\",\"a\",\"d\",\"e\",\"f\"]",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 40.36,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 0,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-P01",
+   "mode": "B",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "b09de79a60fd3787",
+   "prompt_chars": 612,
+   "raw_text": "[\"b\",\"c\",\"a\",\"d\",\"e\",\"f\"]",
+   "output": "[\"b\",\"c\",\"a\",\"d\",\"e\",\"f\"]",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 7.54,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 0,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-P01",
+   "mode": "C",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "4e54dd6ddc0e1eab",
+   "prompt_chars": 790,
+   "raw_text": "[\"b\",\"c\",\"a\",\"d\",\"e\",\"f\"]",
+   "output": "[\"b\",\"c\",\"a\",\"d\",\"e\",\"f\"]",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 6.99,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 0,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-T01",
+   "mode": "A",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "a5c22f94bb35e17a",
+   "prompt_chars": 242,
+   "raw_text": "Your three sales files are in sight \u2014 I'll total every amount now.\nI've got all three quarters loaded \u2014 now I'll add them up for an exact total.\n10643",
+   "output": "Your three sales files are in sight \u2014 I'll total every amount now.\nI've got all three quarters loaded \u2014 now I'll add them up for an exact total.\n10643",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 13.93,
+   "tool_uses": 5,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": 10643,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 0,
+   "attempt": 0,
+   "ok": false,
+   "note": "got \"Your three sales files are in sight \u2014 I'll total every amount now.\\nI've got all three quarters loaded \u2014 now I'll add them up for an exact total.\\n10643\" want '10643'",
+   "first_pass_ok": false,
+   "recovered": false
+  },
+  {
+   "task": "FP-T01",
+   "mode": "B",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "a2564cd4b8282f69",
+   "prompt_chars": 652,
+   "raw_text": "Adding Q1\u2013Q3 amounts \u2014 pulling your total now.\nI've got the line items \u2014 now verifying the sum for an exact total.\n10643",
+   "output": "Adding Q1\u2013Q3 amounts \u2014 pulling your total now.\nI've got the line items \u2014 now verifying the sum for an exact total.\n10643",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 41.77,
+   "tool_uses": 5,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": 10643,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 0,
+   "attempt": 0,
+   "ok": false,
+   "note": "got \"Adding Q1\u2013Q3 amounts \u2014 pulling your total now.\\nI've got the line items \u2014 now verifying the sum for an exact total.\\n10643\" want '10643'",
+   "first_pass_ok": false,
+   "recovered": false
+  },
+  {
+   "task": "FP-T01",
+   "mode": "C",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "51103d5eccccb631",
+   "prompt_chars": 830,
+   "raw_text": "Adding every amount across the three quarterly files.\n10643",
+   "output": "Adding every amount across the three quarterly files.\n10643",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 15.63,
+   "tool_uses": 4,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": 10643,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 0,
+   "attempt": 0,
+   "ok": false,
+   "note": "got 'Adding every amount across the three quarterly files.\\n10643' want '10643'",
+   "first_pass_ok": false,
+   "repair1_ok": false,
+   "repair1_note": "got 'Verifying the total before replying with the plain number.\\n10643' want '10643'",
+   "repair1_wall_s": 17.6,
+   "repair1_tool_uses": 1,
+   "repair2_ok": false,
+   "repair2_note": "got 'Summing the quarterly amounts \u2014 replying with just the total.\\n10643' want '10643'",
+   "repair2_wall_s": 16.13,
+   "repair2_tool_uses": 5,
+   "recovered": false
+  },
+  {
+   "task": "FP-N01",
+   "mode": "A",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "09157e94698972c7",
+   "prompt_chars": 241,
+   "raw_text": "Decoding the payload to extract the due value.\n2026-10-09",
+   "output": "Decoding the payload to extract the due value.\n2026-10-09",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 9.78,
+   "tool_uses": 1,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 0,
+   "attempt": 0,
+   "ok": false,
+   "note": "decode wrong",
+   "first_pass_ok": false,
+   "recovered": false
+  },
+  {
+   "task": "FP-N01",
+   "mode": "B",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "6ac8feea6017dd23",
+   "prompt_chars": 651,
+   "raw_text": "Decoding your payload to extract the due field.\n2026-10-09",
+   "output": "Decoding your payload to extract the due field.\n2026-10-09",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 8.44,
+   "tool_uses": 1,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 0,
+   "attempt": 0,
+   "ok": false,
+   "note": "decode wrong",
+   "first_pass_ok": false,
+   "recovered": false
+  },
+  {
+   "task": "FP-N01",
+   "mode": "C",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "3991573ca79f4cc6",
+   "prompt_chars": 829,
+   "raw_text": "Decoding your payload to extract the due value.\n2026-10-09",
+   "output": "Decoding your payload to extract the due value.\n2026-10-09",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 8.62,
+   "tool_uses": 1,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 0,
+   "attempt": 0,
+   "ok": false,
+   "note": "decode wrong",
+   "first_pass_ok": false,
+   "repair1_ok": false,
+   "repair1_note": "decode wrong",
+   "repair1_wall_s": 11.58,
+   "repair1_tool_uses": 2,
+   "repair2_ok": false,
+   "repair2_note": "decode wrong",
+   "repair2_wall_s": 9.02,
+   "repair2_tool_uses": 1,
+   "recovered": false
+  },
+  {
+   "task": "FP-X01",
+   "mode": "A",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "00c6d0be40abe8d1",
+   "prompt_chars": 250,
+   "raw_text": "{\"title\": \"Paris, Berlin, Madrid Trip\", \"owner\": \"Traveler\", \"eta\": \"2026-10-15\"}",
+   "output": "{\"title\": \"Paris, Berlin, Madrid Trip\", \"owner\": \"Traveler\", \"eta\": \"2026-10-15\"}",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 13.46,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 0,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-X01",
+   "mode": "B",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "b3a2bacb8c5d60a1",
+   "prompt_chars": 660,
+   "raw_text": "{\"title\": \"Paris Berlin Madrid itinerary\", \"owner\": \"Alice\", \"eta\": \"2026-10-15\"}",
+   "output": "{\"title\": \"Paris Berlin Madrid itinerary\", \"owner\": \"Alice\", \"eta\": \"2026-10-15\"}",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 6.01,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 0,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-X01",
+   "mode": "C",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "e3dbf1fcc95dd174",
+   "prompt_chars": 838,
+   "raw_text": "{\"title\": \"Paris Berlin Madrid trip summary\", \"owner\": \"travel desk\", \"eta\": \"2026-10-15\"}",
+   "output": "{\"title\": \"Paris Berlin Madrid trip summary\", \"owner\": \"travel desk\", \"eta\": \"2026-10-15\"}",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 6.5,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 0,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-R01",
+   "mode": "A",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "cd4d26162db41c3c",
+   "prompt_chars": 112,
+   "raw_text": "15",
+   "output": "15",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 6.31,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 1,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-R01",
+   "mode": "B",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "e3b5c8f861c5972b",
+   "prompt_chars": 522,
+   "raw_text": "15",
+   "output": "15",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 8.74,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 1,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-R01",
+   "mode": "C",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "3bf29a51d1149f53",
+   "prompt_chars": 700,
+   "raw_text": "15",
+   "output": "15",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 5.86,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 1,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-M01",
+   "mode": "A",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "78c8ccf0f0712275",
+   "prompt_chars": 111,
+   "raw_text": "333833500",
+   "output": "333833500",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 6.4,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 1,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-M01",
+   "mode": "B",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "af5acdfdf078dcd1",
+   "prompt_chars": 521,
+   "raw_text": "333833500",
+   "output": "333833500",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 6.17,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 1,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-M01",
+   "mode": "C",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "bb503f27656fb253",
+   "prompt_chars": 699,
+   "raw_text": "333833500",
+   "output": "333833500",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 6.53,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 1,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-C01",
+   "mode": "A",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "5bbd4822dff63538",
+   "prompt_chars": 153,
+   "raw_text": "def median(numbers):\n    s = sorted(numbers)\n    n = len(s)\n    mid = n // 2\n    if n % 2 == 1:\n        return s[mid]\n    else:\n        return (s[mid - 1] + s[mid]) / 2",
+   "output": "def median(numbers):\n    s = sorted(numbers)\n    n = len(s)\n    mid = n // 2\n    if n % 2 == 1:\n        return s[mid]\n    else:\n        return (s[mid - 1] + s[mid]) / 2",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 7.24,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 1,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-C01",
+   "mode": "B",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "9b64e9fbf2ccc972",
+   "prompt_chars": 563,
+   "raw_text": "def median(numbers):\n    s = sorted(numbers)\n    n = len(s)\n    mid = n // 2\n    if n % 2 == 1:\n        return s[mid]\n    return (s[mid - 1] + s[mid]) / 2",
+   "output": "def median(numbers):\n    s = sorted(numbers)\n    n = len(s)\n    mid = n // 2\n    if n % 2 == 1:\n        return s[mid]\n    return (s[mid - 1] + s[mid]) / 2",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 8.97,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 1,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-C01",
+   "mode": "C",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "a4d615d32147aebc",
+   "prompt_chars": 741,
+   "raw_text": "def median(nums):\n    s = sorted(nums)\n    n = len(s)\n    mid = n // 2\n    if n % 2 == 1:\n        return s[mid]\n    return (s[mid - 1] + s[mid]) / 2",
+   "output": "def median(nums):\n    s = sorted(nums)\n    n = len(s)\n    mid = n // 2\n    if n % 2 == 1:\n        return s[mid]\n    return (s[mid - 1] + s[mid]) / 2",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 8.87,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 1,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-D01",
+   "mode": "A",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "84111328d7ebbc0c",
+   "prompt_chars": 404,
+   "raw_text": "def find(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x:\n            lo = mid + 1\n        else:\n            hi = mid\n    if lo < len(a) and a[lo] == x:\n        return lo\n    return -1",
+   "output": "def find(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x:\n            lo = mid + 1\n        else:\n            hi = mid\n    if lo < len(a) and a[lo] == x:\n        return lo\n    return -1",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 10.46,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 1,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-D01",
+   "mode": "B",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "c64b72f1c0ac93fc",
+   "prompt_chars": 814,
+   "raw_text": "def find(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x:\n            lo = mid + 1\n        else:\n            hi = mid\n    if lo < len(a) and a[lo] == x:\n        return lo\n    return -1",
+   "output": "def find(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x:\n            lo = mid + 1\n        else:\n            hi = mid\n    if lo < len(a) and a[lo] == x:\n        return lo\n    return -1",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 8.84,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 1,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-D01",
+   "mode": "C",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "b9635f6583e542a5",
+   "prompt_chars": 992,
+   "raw_text": "def find(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x:\n            lo = mid + 1\n        else:\n            hi = mid\n    if lo < len(a) and a[lo] == x:\n        return lo\n    return -1",
+   "output": "def find(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x:\n            lo = mid + 1\n        else:\n            hi = mid\n    if lo < len(a) and a[lo] == x:\n        return lo\n    return -1",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 6.87,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 1,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-P01",
+   "mode": "A",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "6682f6c8520f7630",
+   "prompt_chars": 202,
+   "raw_text": "[\"b\",\"c\",\"a\",\"d\",\"e\",\"f\"]",
+   "output": "[\"b\",\"c\",\"a\",\"d\",\"e\",\"f\"]",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 7.41,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 1,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-P01",
+   "mode": "B",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "b09de79a60fd3787",
+   "prompt_chars": 612,
+   "raw_text": "[\"b\",\"c\",\"a\",\"d\",\"e\",\"f\"]",
+   "output": "[\"b\",\"c\",\"a\",\"d\",\"e\",\"f\"]",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 6.27,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 1,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-P01",
+   "mode": "C",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "4e54dd6ddc0e1eab",
+   "prompt_chars": 790,
+   "raw_text": "[\"b\",\"c\",\"a\",\"d\",\"e\",\"f\"]",
+   "output": "[\"b\",\"c\",\"a\",\"d\",\"e\",\"f\"]",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 8.7,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 1,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-T01",
+   "mode": "A",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "a5c22f94bb35e17a",
+   "prompt_chars": 242,
+   "raw_text": "Your three sales files are in sight \u2014 I'll total every amount now.\nI've read all three quarters \u2014 now I'll verify the final sum.\n10643",
+   "output": "Your three sales files are in sight \u2014 I'll total every amount now.\nI've read all three quarters \u2014 now I'll verify the final sum.\n10643",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 13.84,
+   "tool_uses": 5,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": 10643,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 1,
+   "attempt": 0,
+   "ok": false,
+   "note": "got \"Your three sales files are in sight \u2014 I'll total every amount now.\\nI've read all three quarters \u2014 now I'll verify the final sum.\\n10643\" want '10643'",
+   "first_pass_ok": false,
+   "recovered": false
+  },
+  {
+   "task": "FP-T01",
+   "mode": "B",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "a2564cd4b8282f69",
+   "prompt_chars": 652,
+   "raw_text": "Adding up every amount across all three quarters.\nI\u2019ve got the individual sums \u2014 now verifying the combined total.\n10643",
+   "output": "Adding up every amount across all three quarters.\nI\u2019ve got the individual sums \u2014 now verifying the combined total.\n10643",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 13.92,
+   "tool_uses": 5,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": 10643,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 1,
+   "attempt": 0,
+   "ok": false,
+   "note": "got 'Adding up every amount across all three quarters.\\nI\u2019ve got the individual sums \u2014 now verifying the combined total.\\n10643' want '10643'",
+   "first_pass_ok": false,
+   "recovered": false
+  },
+  {
+   "task": "FP-T01",
+   "mode": "C",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "51103d5eccccb631",
+   "prompt_chars": 830,
+   "raw_text": "Summing Q1\u2013Q3 amounts \u2014 pulling your total.\nVerified file contents \u2014 now computing the final sum.\n10643",
+   "output": "Summing Q1\u2013Q3 amounts \u2014 pulling your total.\nVerified file contents \u2014 now computing the final sum.\n10643",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 13.47,
+   "tool_uses": 5,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": 10643,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 1,
+   "attempt": 0,
+   "ok": false,
+   "note": "got 'Summing Q1\u2013Q3 amounts \u2014 pulling your total.\\nVerified file contents \u2014 now computing the final sum.\\n10643' want '10643'",
+   "first_pass_ok": false,
+   "repair1_ok": false,
+   "repair1_note": "got 'Computing Q1\u2013Q3 total \u2014 replying with only the number.\\n10643' want '10643'",
+   "repair1_wall_s": 15.06,
+   "repair1_tool_uses": 3,
+   "repair2_ok": false,
+   "repair2_note": "got 'Total confirmed \u2014 replying with the plain number.\\n10643' want '10643'",
+   "repair2_wall_s": 12.87,
+   "repair2_tool_uses": 4,
+   "recovered": false
+  },
+  {
+   "task": "FP-N01",
+   "mode": "A",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "09157e94698972c7",
+   "prompt_chars": 241,
+   "raw_text": "Decoding the XORed payload to extract the due field.\n2026-10-09",
+   "output": "Decoding the XORed payload to extract the due field.\n2026-10-09",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 9.65,
+   "tool_uses": 1,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 1,
+   "attempt": 0,
+   "ok": false,
+   "note": "decode wrong",
+   "first_pass_ok": false,
+   "recovered": false
+  },
+  {
+   "task": "FP-N01",
+   "mode": "B",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "6ac8feea6017dd23",
+   "prompt_chars": 651,
+   "raw_text": "Decoding the payload to extract the due field.\n2026-10-09",
+   "output": "Decoding the payload to extract the due field.\n2026-10-09",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 8.7,
+   "tool_uses": 1,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 1,
+   "attempt": 0,
+   "ok": false,
+   "note": "decode wrong",
+   "first_pass_ok": false,
+   "recovered": false
+  },
+  {
+   "task": "FP-N01",
+   "mode": "C",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "3991573ca79f4cc6",
+   "prompt_chars": 829,
+   "raw_text": "Decoding your payload to extract the due field.\n2026-10-09",
+   "output": "Decoding your payload to extract the due field.\n2026-10-09",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 9.42,
+   "tool_uses": 1,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 1,
+   "attempt": 0,
+   "ok": false,
+   "note": "decode wrong",
+   "first_pass_ok": false,
+   "repair1_ok": false,
+   "repair1_note": "decode wrong",
+   "repair1_wall_s": 9.99,
+   "repair1_tool_uses": 1,
+   "repair2_ok": false,
+   "repair2_note": "decode wrong",
+   "repair2_wall_s": 9.35,
+   "repair2_tool_uses": 1,
+   "recovered": false
+  },
+  {
+   "task": "FP-X01",
+   "mode": "A",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "00c6d0be40abe8d1",
+   "prompt_chars": 250,
+   "raw_text": "{\"title\": \"Paris Berlin Madrid summer trip\", \"owner\": \"Traveler\", \"eta\": \"September\"}",
+   "output": "{\"title\": \"Paris Berlin Madrid summer trip\", \"owner\": \"Traveler\", \"eta\": \"September\"}",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 82.18,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 1,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-X01",
+   "mode": "B",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "b3a2bacb8c5d60a1",
+   "prompt_chars": 660,
+   "raw_text": "{\"title\": \"Paris Berlin Madrid trip\", \"owner\": \"Alex\", \"eta\": \"2026-10-10\"}",
+   "output": "{\"title\": \"Paris Berlin Madrid trip\", \"owner\": \"Alex\", \"eta\": \"2026-10-10\"}",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 23.82,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 1,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  },
+  {
+   "task": "FP-X01",
+   "mode": "C",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "e3dbf1fcc95dd174",
+   "prompt_chars": 838,
+   "raw_text": "{\"title\": \"Paris in June\", \"owner\": \"Berlin in July\", \"eta\": \"Madrid in August\"}",
+   "output": "{\"title\": \"Paris in June\", \"owner\": \"Berlin in July\", \"eta\": \"Madrid in August\"}",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 7.85,
+   "tool_uses": 0,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 1,
+   "attempt": 0,
+   "ok": true,
+   "note": "",
+   "first_pass_ok": true,
+   "recovered": false
+  }
+ ]
+}

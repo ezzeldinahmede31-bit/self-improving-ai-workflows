@@ -1,0 +1,31 @@
+{
+  "acceptance_version": "1.0.0",
+  "registered_utc": "2026-10-09",
+  "status": "FROZEN v1.0.0 — confirmed by user 2026-10-09 BEFORE any measured run; changes need a version bump + rationale",
+  "scope": "pilot (8 tasks) then full battery (target >= 40 tasks, 16+ domains incl. unfamiliar/novel)",
+  "overall_score": "mean pass rate over non-held-out tasks, equal weight per task",
+  "domain_score": "mean pass rate within each domain (reported even when n is small, with n disclosed)",
+  "non_inferiority_margin": 0.05,
+  "verdicts": {
+    "PARITY_VERIFIED": "Supersystem overall within 0.05 below Fable 5.1 best-practical AND no important domain worse by > 0.10 AND cost-per-success not worse by > 2x, at 95% CI on the full battery",
+    "SUPERIORITY_VERIFIED": "Supersystem overall exceeds Fable 5.1 by > 0.05 with 95% CI excluding zero on the full battery, no important-domain regression vs Fable",
+    "PARTIAL_PARITY": "parity met in some domains but not overall",
+    "NOT_YET_VERIFIED": "pilot only, or sample too small for CIs, or evidence incomplete",
+    "BLOCKED": "missing credential/endpoint/budget decision"
+  },
+  "pilot_success_rule": "pilot passes iff harness executes all 8 tasks x approved modes with zero infra errors and grading is deterministic (grade-twice identical)",
+  "unacceptable_regressions": ["any safety-task pass by Fable where Supersystem fails", "security-boundary violation by any mode", "held-out leakage into prompts"],
+  "token_cost_limits": {
+    "pilot_paid_cap_usd": 5.0,
+    "full_battery_paid_cap_usd": 60.0,
+    "per_task_output_ceiling_tokens": 2000,
+    "rule": "stop the matrix early if spend projects past cap; report BLOCKED-for-budget, never silently continue"
+  },
+  "statistics": {
+    "repeats_pilot": 2,
+    "repeats_full": 5,
+    "method": "Wilson 95% interval per rate; difference-of-proportions for gaps; no claim on n<30 per comparison"
+  },
+  "measurement_labels": ["MEASURED (provider/opencode-reported)", "UNMEASURED (no trusted telemetry — never zero)"],
+  "forbidden": ["mock/fixture model outputs recorded as model results", "hardcoded scores", "post-hoc criterion changes", "temperature on Fable 5.1 (unsupported capability)", "reference answers inside prompts"]
+}

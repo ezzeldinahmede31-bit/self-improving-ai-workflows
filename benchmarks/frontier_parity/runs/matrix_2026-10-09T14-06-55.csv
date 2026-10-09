@@ -1,0 +1,49 @@
+task,mode,variant,model,rep,ok,first_pass_ok,recovered,wall_s,tool_uses,token_status,needed_normalization,note
+FP-R01,A,same_capability,opencode/muse-spark-1.3-contributor-free,0,True,True,False,6.56,0,UNMEASURED,False,
+FP-R01,B,same_capability,opencode/muse-spark-1.3-contributor-free,0,True,True,False,5.77,0,UNMEASURED,False,
+FP-R01,C,same_capability,opencode/muse-spark-1.3-contributor-free,0,True,True,False,6.25,0,UNMEASURED,False,
+FP-M01,A,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,False,False,7.38,1,UNMEASURED,False,"got ""I'll survey the repo layout and verify the sum directly."""
+FP-M01,B,same_capability,opencode/muse-spark-1.3-contributor-free,0,True,True,False,7.63,0,UNMEASURED,False,
+FP-M01,C,same_capability,opencode/muse-spark-1.3-contributor-free,0,True,False,True,8.22,1,UNMEASURED,False,recovered on repair 1
+FP-C01,A,same_capability,opencode/muse-spark-1.3-contributor-free,0,True,True,False,8.04,0,UNMEASURED,False,
+FP-C01,B,same_capability,opencode/muse-spark-1.3-contributor-free,0,True,True,False,8.03,0,UNMEASURED,False,
+FP-C01,C,same_capability,opencode/muse-spark-1.3-contributor-free,0,True,True,False,8.01,0,UNMEASURED,False,
+FP-D01,A,same_capability,opencode/muse-spark-1.3-contributor-free,0,True,True,False,6.42,0,UNMEASURED,True,
+FP-D01,B,same_capability,opencode/muse-spark-1.3-contributor-free,0,True,True,False,20.31,0,UNMEASURED,False,
+FP-D01,C,same_capability,opencode/muse-spark-1.3-contributor-free,0,True,True,False,7.3,0,UNMEASURED,False,
+FP-P01,A,same_capability,opencode/muse-spark-1.3-contributor-free,0,True,True,False,40.36,0,UNMEASURED,False,
+FP-P01,B,same_capability,opencode/muse-spark-1.3-contributor-free,0,True,True,False,7.54,0,UNMEASURED,False,
+FP-P01,C,same_capability,opencode/muse-spark-1.3-contributor-free,0,True,True,False,6.99,0,UNMEASURED,False,
+FP-T01,A,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,False,False,13.93,5,UNMEASURED,False,"got ""Your three sales files are in sight — I'll total every amount now.\nI've got all three quarters loaded — now I'll add them up for an exact total.\n10643"" want '10643'"
+FP-T01,B,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,False,False,41.77,5,UNMEASURED,False,"got ""Adding Q1–Q3 amounts — pulling your total now.\nI've got the line items — now verifying the sum for an exact total.\n10643"" want '10643'"
+FP-T01,C,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,False,False,15.63,4,UNMEASURED,False,got 'Adding every amount across the three quarterly files.\n10643' want '10643'
+FP-N01,A,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,False,False,9.78,1,UNMEASURED,False,decode wrong
+FP-N01,B,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,False,False,8.44,1,UNMEASURED,False,decode wrong
+FP-N01,C,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,False,False,8.62,1,UNMEASURED,False,decode wrong
+FP-X01,A,same_capability,opencode/muse-spark-1.3-contributor-free,0,True,True,False,13.46,0,UNMEASURED,False,
+FP-X01,B,same_capability,opencode/muse-spark-1.3-contributor-free,0,True,True,False,6.01,0,UNMEASURED,False,
+FP-X01,C,same_capability,opencode/muse-spark-1.3-contributor-free,0,True,True,False,6.5,0,UNMEASURED,False,
+FP-R01,A,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,False,6.31,0,UNMEASURED,False,
+FP-R01,B,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,False,8.74,0,UNMEASURED,False,
+FP-R01,C,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,False,5.86,0,UNMEASURED,False,
+FP-M01,A,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,False,6.4,0,UNMEASURED,False,
+FP-M01,B,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,False,6.17,0,UNMEASURED,False,
+FP-M01,C,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,False,6.53,0,UNMEASURED,False,
+FP-C01,A,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,False,7.24,0,UNMEASURED,False,
+FP-C01,B,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,False,8.97,0,UNMEASURED,False,
+FP-C01,C,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,False,8.87,0,UNMEASURED,False,
+FP-D01,A,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,False,10.46,0,UNMEASURED,False,
+FP-D01,B,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,False,8.84,0,UNMEASURED,False,
+FP-D01,C,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,False,6.87,0,UNMEASURED,False,
+FP-P01,A,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,False,7.41,0,UNMEASURED,False,
+FP-P01,B,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,False,6.27,0,UNMEASURED,False,
+FP-P01,C,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,False,8.7,0,UNMEASURED,False,
+FP-T01,A,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,False,False,13.84,5,UNMEASURED,False,"got ""Your three sales files are in sight — I'll total every amount now.\nI've read all three quarters — now I'll verify the final sum.\n10643"" want '10643'"
+FP-T01,B,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,False,False,13.92,5,UNMEASURED,False,got 'Adding up every amount across all three quarters.\nI’ve got the individual sums — now verifying the combined total.\n10643' want '10643'
+FP-T01,C,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,False,False,13.47,5,UNMEASURED,False,got 'Summing Q1–Q3 amounts — pulling your total.\nVerified file contents — now computing the final sum.\n10643' want '10643'
+FP-N01,A,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,False,False,9.65,1,UNMEASURED,False,decode wrong
+FP-N01,B,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,False,False,8.7,1,UNMEASURED,False,decode wrong
+FP-N01,C,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,False,False,9.42,1,UNMEASURED,False,decode wrong
+FP-X01,A,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,False,82.18,0,UNMEASURED,False,
+FP-X01,B,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,False,23.82,0,UNMEASURED,False,
+FP-X01,C,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,False,7.85,0,UNMEASURED,False,
