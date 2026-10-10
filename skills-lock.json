@@ -1579,6 +1579,12 @@
       "skillPath": "resume-tailor/SKILL.md",
       "computedHash": "ff501a55ad92e727dc707a0fb92fb7ecb5d37dcf5de13c6fcc2853da0a36e6b5"
     },
+    "reverse-engineer-anything": {
+      "source": "morluto/rea",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/reverse-engineer-anything/SKILL.md",
+      "computedHash": "f8e7b7890b4de155158733509a773ae77da22d87d963686bd31fd456d33962ed"
+    },
     "revops": {
       "source": "coreyhaines31/marketingskills",
       "sourceType": "github",
