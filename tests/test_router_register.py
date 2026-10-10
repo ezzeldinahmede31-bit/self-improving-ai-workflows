@@ -18,7 +18,7 @@ sys.path.insert(0, str(ROOT))
 
 from scripts.router_register import (
     read_frontmatter, classify, ensure_routing_row, ensure_registry_entry,
-    bump_total, _truncate_word_boundary, FALLBACK_BUCKET,
+    bump_total, recount_registry, _truncate_word_boundary, FALLBACK_BUCKET,
 )
 
 
@@ -218,6 +218,18 @@ def test_bump_total_by_n():
 def test_bump_total_noop_when_n_zero():
     txt = bump_total(_router_text(), 0)
     assert "10 installed" in txt
+
+
+def test_recount_registry_heals_drifted_header():
+    # G2: header says 10 but only 3 entries exist (post-removal drift) —
+    # recount must set the header to the measured truth, not increment.
+    txt = recount_registry(_router_text())
+    assert "3 installed" in txt
+
+
+def test_recount_registry_noop_when_accurate():
+    txt = _router_text().replace("10 installed", "3 installed")
+    assert recount_registry(txt) == txt
 
 
 # ---------------------------------------------------------------------------

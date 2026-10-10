@@ -161,6 +161,23 @@ def bump_total(router_txt, n=1):
     return router_txt
 
 
+def recount_registry(router_txt):
+    """G2: self-healing header — set the 'N installed' count to the ACTUAL
+    number of unique skill entries in the registry section instead of blindly
+    incrementing. Skill removals, manual edits, and out-of-band installs
+    otherwise leave the header permanently drifted (seen: 1305 vs 1300)."""
+    m = re.search(r"## Full skill registry \(complete inventory — (\d+) installed\)", router_txt)
+    if not m:
+        return router_txt
+    section = router_txt.split("## Full skill registry", 1)[1]
+    names = set(re.findall(r"`([a-z0-9][a-z0-9_.\-/]*)`", section))
+    names = {n.split("/")[-1] for n in names}
+    true_count = len(names)
+    if true_count != int(m.group(1)):
+        router_txt = router_txt.replace(m.group(0), m.group(0).replace(m.group(1), str(true_count)), 1)
+    return router_txt
+
+
 def main(names=None):
     if names is None:
         names = sys.argv[1:]
@@ -187,6 +204,7 @@ def main(names=None):
             new_skills.append(name)
         print(f"[ok] {name} -> bucket '{bucket}' (row={'yes' if row_added else 'no'}, registry={'yes' if reg_added else 'no'})")
     router_txt = bump_total(router_txt, len(new_skills))
+    router_txt = recount_registry(router_txt)  # G2: reconcile header to truth
     ROUTER.write_text(router_txt, encoding="utf-8")
     print(f"new: +{len(new_skills)} skill(s) ({', '.join(new_skills) if new_skills else 'none'})")
     if new_skills:
