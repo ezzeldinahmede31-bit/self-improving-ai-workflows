@@ -252,7 +252,9 @@ def test_main_full_run_adds_row_registry_and_total(tmp_path, monkeypatch):
     out = router_path.read_text(encoding="utf-8")
     assert "(Auto-registered)" in out
     assert "### Automation (per-tool) (3)" in out
-    assert "11 installed" in out
+    # G2: header reconciled to measured truth (3 fixture entries + zznew = 4),
+    # not blind-incremented from the intentionally drifted fixture header (10).
+    assert "4 installed" in out
 
 
 def test_main_idempotent_rerun_is_noop(tmp_path, monkeypatch):
@@ -271,7 +273,7 @@ def test_main_idempotent_rerun_is_noop(tmp_path, monkeypatch):
 
     out = router_path.read_text(encoding="utf-8")
     assert out.count("(Auto-registered)") == 1
-    assert "11 installed" in out  # not 12
+    assert "4 installed" in out  # reconciled truth, not 5 and not drifted 11/12
 
 
 def test_main_multi_add_bumps_total_by_exact_count(tmp_path, monkeypatch):
@@ -289,7 +291,7 @@ def test_main_multi_add_bumps_total_by_exact_count(tmp_path, monkeypatch):
     assert rr.main(["zznew", "zzsec"]) == 0
 
     out = router_path.read_text(encoding="utf-8")
-    assert "12 installed" in out
+    assert "5 installed" in out  # 3 fixture entries + 2 new, reconciled
     assert "`zznew` (D)" in out
     assert "`zzsec` (D)" in out
 
@@ -306,6 +308,8 @@ def test_main_skips_missing_skill(tmp_path, monkeypatch, capsys):
 
     assert rr.main(["ghost-skill"]) == 0
     out = router_path.read_text(encoding="utf-8")
-    assert "10 installed" in out
+    # G2: even with zero additions the drifted fixture header (10) is healed
+    # to the measured entry count (3).
+    assert "3 installed" in out
     assert "ghost-skill" not in out
     assert "[skip] ghost-skill: not found" in capsys.readouterr().out
