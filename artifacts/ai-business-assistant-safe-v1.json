@@ -1,0 +1,130 @@
+{
+  "active": false,
+  "connections": {
+    "Classify Business Request": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Build Structured Response",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Normalize Input Text": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Validate Input Fields",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Start Test Message": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Normalize Input Text",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Validate Input Fields": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Classify Business Request",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "name": "AI Business Assistant - Safe v1",
+  "nodes": [
+    {
+      "id": "safe-v1-start",
+      "name": "Start Test Message",
+      "parameters": {},
+      "position": [
+        0,
+        0
+      ],
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1
+    },
+    {
+      "id": "safe-v1-normalize",
+      "name": "Normalize Input Text",
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst src = (items[0] && items[0].json) || {};\nconst rawMsg = typeof src.message === 'string' ? src.message : '';\nconst rawId = typeof src.request_id === 'string' ? src.request_id : '';\nreturn [{ json: {\n  message: rawMsg.trim(),\n  request_id: rawId.trim() || 'demo-unknown',\n  had_input: items.length > 0 && rawMsg.trim().length > 0\n}}];",
+        "mode": "runOnceForAllItems"
+      },
+      "position": [
+        220,
+        0
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "safe-v1-validate",
+      "name": "Validate Input Fields",
+      "parameters": {
+        "jsCode": "const d = $input.first().json;\nif (!d.message) {\n  return [{ json: { ...d, valid: false, error: 'EMPTY_MESSAGE: message is missing or empty after trimming' } }];\n}\nif (d.message.length > 2000) {\n  return [{ json: { ...d, valid: false, error: 'MESSAGE_TOO_LONG: limit is 2000 characters' } }];\n}\nreturn [{ json: { ...d, valid: true, error: null } }];",
+        "mode": "runOnceForAllItems"
+      },
+      "position": [
+        440,
+        0
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "safe-v1-classify",
+      "name": "Classify Business Request",
+      "parameters": {
+        "jsCode": "const d = $input.first().json;\nconst base = { ...d, category: 'unknown', intent: 'invalid_input', priority: 'low', needs_human_review: true, summary: '', suggested_actions: [] };\nif (!d.valid) return [{ json: base }];\nconst text = d.message.toLowerCase();\nconst hasAny = (...words) => words.some((w) => text.includes(w));\nconst CATEGORY_RULES = [\n  ['sales', ['price', 'quote', 'proposal', 'discount', 'lead', 'deal', 'pipeline', 'order', 'سعر', 'عرض سعر', 'عميل محتمل', 'صفقة']],\n  ['marketing', ['campaign', 'ad', 'seo', 'content', 'brand', 'social media', 'launch', 'حملة', 'إعلان', 'تسويق', 'محتوى']],\n  ['operations', ['task', 'organize', 'schedule', 'process', 'inventory', 'operations', 'workflow', 'مهمة', 'مهام', 'تنظيم', 'مخزون', 'تشغيل']],\n  ['customer_support', ['support', 'help', 'issue', 'complaint', 'refund request', 'ticket', 'دعم', 'مساعدة', 'مشكلة', 'شكوى']],\n  ['finance', ['invoice', 'payment', 'billing', 'budget', 'expense', 'refund', 'salary', 'فاتورة', 'دفع', 'ميزانية', 'مصروف', 'استرداد']]\n];\nconst EXTERNAL_VERBS = ['send', 'post', 'publish', 'email', 'message ', 'notify', 'book', 'schedule a call', 'pay', 'charge', 'refund ', 'delete', 'remove', 'cancel ', 'call ', 'أرسل', 'احجز', 'ادفع', 'احذف', 'اتصل'];\nconst URGENT_WORDS = ['urgent', 'asap', 'immediately', 'critical', 'outage', 'crisis', 'emergency', 'عاجل', 'فوري', 'طارئ'];\nlet category = 'general';\nfor (const [cat, words] of CATEGORY_RULES) {\n  if (hasAny(...words)) { category = cat; break; }\n}\nconst wantsExternal = hasAny(...EXTERNAL_VERBS);\nconst wordCount = d.message.trim().split(/\\s+/).filter(Boolean).length;\nconst matchedKnown = category !== 'general';\nlet intent = 'request_info';\nif (wantsExternal) intent = 'request_action';\nelse if (hasAny('complaint', 'angry', 'terrible', 'worst', 'شكوى', 'غاضب')) intent = 'complaint';\nelse if (!matchedKnown && wordCount < 4) intent = 'vague';\nlet priority = 'normal';\nif (hasAny(...URGENT_WORDS)) priority = 'high';\nelse if (category === 'finance' && hasAny('fraud', 'loss', 'refund', 'overdue', 'احتيال', 'خسارة', 'متأخر')) priority = 'high';\nelse if (intent === 'vague' || intent === 'invalid_input') priority = 'low';\nconst needs_human_review = intent === 'vague' || intent === 'invalid_input' || wantsExternal;\nif (intent === 'vague') category = 'unknown';\nconst summary = d.message.length > 120 ? d.message.slice(0, 120) + '…' : d.message;\nconst SUGGESTIONS = {\n  sales: ['draft a quote reply', 'create a follow-up task', 'escalate hot lead to owner'],\n  marketing: ['draft a content outline', 'create a campaign task', 'escalate to owner'],\n  operations: ['break the request into tasks', 'create a task list', 'escalate to owner'],\n  customer_support: ['draft an acknowledgement reply', 'open a support ticket draft', 'escalate to owner'],\n  finance: ['prepare the figures for review', 'create a review task', 'escalate to owner'],\n  general: ['draft a reply', 'create a task', 'escalate to owner'],\n  unknown: ['ask a clarifying question', 'escalate to owner']\n};\nreturn [{ json: { ...d, category, intent, priority, needs_human_review, summary, suggested_actions: (SUGGESTIONS[category] || SUGGESTIONS.unknown).slice(0, 3) } }];",
+        "mode": "runOnceForAllItems"
+      },
+      "position": [
+        660,
+        0
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "safe-v1-respond",
+      "name": "Build Structured Response",
+      "parameters": {
+        "jsCode": "const d = $input.first().json;\nlet status = 'ok';\nif (!d.valid) status = 'rejected';\nelse if (d.needs_human_review) status = 'needs_review';\nlet reply = '';\nif (!d.valid) {\n  reply = 'I could not process this request: ' + (d.error || 'invalid input') + '. Please send a non-empty message.';\n} else if (d.intent === 'vague') {\n  reply = 'Your message is a bit unclear. Could you describe what you need (e.g. sales, support, or organizing tasks)? No action was taken.';\n} else if (d.intent === 'request_action') {\n  reply = 'Understood (' + d.category + '). I did not execute any external action. Suggested next step: ' + (d.suggested_actions[0] || 'review manually') + '. A human should approve before anything is sent, booked, or changed.';\n} else {\n  reply = 'Classified as ' + d.category + ' (' + d.intent + ', ' + d.priority + ' priority). Summary: ' + d.summary;\n}\nreturn [{ json: {\n  request_id: d.request_id,\n  status,\n  category: d.category,\n  intent: d.intent,\n  priority: d.priority,\n  summary: d.summary,\n  suggested_actions: d.suggested_actions,\n  reply,\n  needs_human_review: d.needs_human_review,\n  error: d.error || null\n}}];",
+        "mode": "runOnceForAllItems"
+      },
+      "position": [
+        880,
+        0
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    }
+  ],
+  "pinData": {
+    "Start Test Message": [
+      {
+        "json": {
+          "message": "Help me organize my business tasks",
+          "request_id": "demo-001"
+        }
+      }
+    ]
+  },
+  "settings": {}
+}

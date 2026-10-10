@@ -90,5 +90,9 @@
   },
   "g_bad.json": {
     "NODE_OR_FIELD_NOT_IN_LIVE_SCHEMA::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 2
+  },
+  "ai-business-assistant-safe-v1.json": {
+    "SECURITY_VIOLATION_REQUIRES_HUMAN::[PII_EXPOSURE] Credit-card-like number embedded in artifact — sensitive disclosure (OWASP LLM02); tokenize or vault it, ": 1,
+    "QUALITY_BELOW_THRESHOLD::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 1
   }
 }
