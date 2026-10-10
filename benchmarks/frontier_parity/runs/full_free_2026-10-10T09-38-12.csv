@@ -1,0 +1,231 @@
+task,mode,batch,rep,ok,value_ok,format_ok,first_pass_ok,recovered,wall_s,tool_uses,token_status,note
+FV-D02,A,1,0,True,True,True,True,False,66.43,2,UNMEASURED, [format N/A: file deliverable]
+FV-D02,B,1,0,True,True,True,True,False,159.27,3,UNMEASURED, [format N/A: file deliverable]
+FV-D02,C,1,0,True,True,True,True,False,14.08,4,UNMEASURED, [format N/A: file deliverable]
+FV-S01,A,1,0,False,True,False,False,False,12.49,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-S01,B,1,0,False,True,False,False,False,9.13,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-S01,C,1,0,False,True,False,False,False,8.36,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-X01,A,1,0,False,False,False,False,False,180.19,1,UNMEASURED,VALUE_WRONG: not json: Expecting value: line 1 column 1 (char 0)
+FV-X01,B,1,0,False,True,False,False,False,33.13,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-X01,C,1,0,False,True,False,False,False,76.05,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-P01,A,1,0,True,True,True,True,False,5.47,0,UNMEASURED,
+FV-P01,B,1,0,True,True,True,True,False,5.22,0,UNMEASURED,
+FV-P01,C,1,0,True,True,True,True,False,8.62,0,UNMEASURED,
+FV-P02,A,1,0,False,True,False,False,False,8.58,2,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-P02,B,1,0,False,True,False,False,False,6.57,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-P02,C,1,0,False,True,False,False,False,72.15,2,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-T02,A,1,0,False,True,False,False,False,18.05,4,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-T02,B,1,0,False,True,False,False,False,14.57,2,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-T02,C,1,0,False,True,False,False,False,14.5,2,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-T03,A,1,0,False,True,False,False,False,19.9,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-T03,B,1,0,False,True,False,False,False,8.22,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-T03,C,1,0,False,True,False,False,False,7.18,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-T04,A,1,0,False,True,False,False,False,13.31,4,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-T04,B,1,0,False,True,False,False,False,13.23,4,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-T04,C,1,0,False,True,False,False,False,140.93,4,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-L01,A,1,0,True,True,True,False,False,33.7,7,UNMEASURED, [format N/A: file deliverable]
+FV-L01,B,1,0,True,True,True,False,False,155.49,5,UNMEASURED, [format N/A: file deliverable]
+FV-L01,C,1,0,True,True,True,False,False,170.93,6,UNMEASURED, [format N/A: file deliverable]
+FV-L02,A,1,0,True,True,True,True,False,12.04,3,UNMEASURED, [format N/A: file deliverable]
+FV-L02,B,1,0,True,True,True,True,False,138.35,3,UNMEASURED, [format N/A: file deliverable]
+FV-L02,C,1,0,True,True,True,True,False,94.86,4,UNMEASURED, [format N/A: file deliverable]
+FV-A01,A,1,0,False,True,False,False,False,62.93,3,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-A01,B,1,0,False,True,False,False,False,12.99,5,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-C01,A,1,0,True,True,True,True,False,7.61,0,UNMEASURED,
+FV-C01,B,1,0,True,True,True,True,False,6.71,0,UNMEASURED,
+FV-C01,C,1,0,True,True,True,True,False,5.94,0,UNMEASURED,
+FV-A01,A,1,0,False,True,False,False,False,20.44,5,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-A01,B,1,0,False,True,False,False,False,73.33,5,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-A01,C,1,0,False,True,False,False,False,16.2,4,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-R01,A,2,0,True,True,True,True,False,24.13,0,UNMEASURED,
+FV-R01,B,2,0,True,True,True,True,False,66.73,0,UNMEASURED,
+FV-R01,C,2,0,True,True,True,True,False,8.4,0,UNMEASURED,
+FV-R02,A,2,0,True,True,True,True,False,15.12,0,UNMEASURED,
+FV-R02,B,2,0,True,True,True,True,False,6.56,0,UNMEASURED,
+FV-R02,C,2,0,True,True,True,True,False,5.91,0,UNMEASURED,
+FV-R03,A,2,0,True,True,True,True,False,6.22,0,UNMEASURED,
+FV-R03,B,2,0,True,True,True,True,False,6.37,0,UNMEASURED,
+FV-R03,C,2,0,True,True,True,True,False,19.03,0,UNMEASURED,
+FV-R04,A,2,0,True,True,True,True,False,6.56,0,UNMEASURED,
+FV-R04,B,2,0,True,True,True,True,False,6.84,0,UNMEASURED,
+FV-R04,C,2,0,True,True,True,True,False,6.22,0,UNMEASURED,
+FV-M01,A,2,0,True,True,True,True,False,6.76,0,UNMEASURED,
+FV-M01,B,2,0,True,True,True,True,False,6.78,0,UNMEASURED,
+FV-M01,C,2,0,True,True,True,True,False,7.45,0,UNMEASURED,
+FV-M02,A,2,0,True,True,True,True,False,6.24,0,UNMEASURED,
+FV-M02,B,2,0,True,True,True,True,False,5.93,0,UNMEASURED,
+FV-M02,C,2,0,True,True,True,True,False,6.22,0,UNMEASURED,
+FV-M03,A,2,0,True,True,True,True,False,6.36,0,UNMEASURED,
+FV-M03,B,2,0,True,True,True,True,False,6.62,0,UNMEASURED,
+FV-M03,C,2,0,True,True,True,True,False,11.41,0,UNMEASURED,
+FV-M04,A,2,0,True,True,True,True,False,6.6,0,UNMEASURED,
+FV-M04,B,2,0,True,True,True,True,False,6.16,0,UNMEASURED,
+FV-M04,C,2,0,True,True,True,True,False,5.52,0,UNMEASURED,
+FV-C02,A,2,0,True,True,True,True,False,7.76,0,UNMEASURED,
+FV-C02,B,2,0,True,True,True,True,False,66.42,0,UNMEASURED,
+FV-C02,C,2,0,True,True,True,True,False,6.97,0,UNMEASURED,
+FV-C03,A,2,0,True,True,True,True,False,54.76,0,UNMEASURED,
+FV-C03,B,2,0,True,True,True,True,False,7.21,0,UNMEASURED,
+FV-C03,C,2,0,True,True,True,True,False,6.94,0,UNMEASURED,
+FV-C04,A,2,0,False,False,False,False,False,6.4,0,UNMEASURED,"VALUE_WRONG: flatten1([[[1, [2], [3, 4]]]]) want [1, 2, 3, 4]"
+FV-C04,B,2,0,False,False,False,False,False,66.94,0,UNMEASURED,"VALUE_WRONG: flatten1([[[1, [2], [3, 4]]]]) want [1, 2, 3, 4]"
+FV-C04,C,2,0,False,False,False,False,False,7.26,0,UNMEASURED,"VALUE_WRONG: flatten1([[[1, [2], [3, 4]]]]) want [1, 2, 3, 4]"
+FV-R01,A,2,1,True,True,True,True,False,8.06,0,UNMEASURED,
+FV-R01,B,2,1,True,True,True,True,False,6.9,0,UNMEASURED,
+FV-R01,C,2,1,True,True,True,True,False,6.19,0,UNMEASURED,
+FV-R02,A,2,1,True,True,True,True,False,6.65,0,UNMEASURED,
+FV-R02,B,2,1,True,True,True,True,False,7.62,0,UNMEASURED,
+FV-R02,C,2,1,True,True,True,True,False,7.35,0,UNMEASURED,
+FV-R03,A,2,1,True,True,True,True,False,13.47,0,UNMEASURED,
+FV-R03,B,2,1,True,True,True,True,False,5.95,0,UNMEASURED,
+FV-R03,C,2,1,True,True,True,True,False,6.28,0,UNMEASURED,
+FV-R04,A,2,1,True,True,True,True,False,6.9,0,UNMEASURED,
+FV-R04,B,2,1,True,True,True,True,False,5.88,0,UNMEASURED,
+FV-R04,C,2,1,True,True,True,True,False,34.19,0,UNMEASURED,
+FV-M01,A,2,1,True,True,True,True,False,6.42,0,UNMEASURED,
+FV-M01,B,2,1,True,True,True,True,False,6.28,0,UNMEASURED,
+FV-M01,C,2,1,True,True,True,True,False,7.54,0,UNMEASURED,
+FV-M02,A,2,1,True,True,True,True,False,5.96,0,UNMEASURED,
+FV-M02,B,2,1,True,True,True,True,False,6.22,0,UNMEASURED,
+FV-M02,C,2,1,True,True,True,True,False,6.12,0,UNMEASURED,
+FV-M03,A,2,1,False,True,False,False,False,10.87,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-M03,B,2,1,True,True,True,True,False,6.02,0,UNMEASURED,
+FV-M03,C,2,1,True,True,True,True,False,6.74,0,UNMEASURED,
+FV-M04,A,2,1,False,True,False,False,False,9.43,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-M04,B,2,1,True,True,True,True,False,9.89,0,UNMEASURED,
+FV-M04,C,2,1,True,True,True,True,False,6.02,0,UNMEASURED,
+FV-C02,A,2,1,True,True,True,True,False,6.91,0,UNMEASURED,
+FV-C02,B,2,1,True,True,True,True,False,7.44,0,UNMEASURED,
+FV-C02,C,2,1,True,True,True,True,False,12.41,0,UNMEASURED,
+FV-C03,A,2,1,False,True,False,False,False,7.13,0,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-C03,B,2,1,True,True,True,True,False,7.18,0,UNMEASURED,
+FV-C03,C,2,1,True,True,True,True,False,6.67,0,UNMEASURED,
+FV-C04,A,2,1,False,False,False,False,False,6.77,0,UNMEASURED,"VALUE_WRONG: flatten1([[[1, [2], [3, 4]]]]) want [1, 2, 3, 4]"
+FV-C04,B,2,1,False,False,False,False,False,9.45,0,UNMEASURED,"VALUE_WRONG: flatten1([[[1, [2], [3, 4]]]]) want [1, 2, 3, 4]"
+FV-C04,C,2,1,False,False,False,False,False,7.07,0,UNMEASURED,"VALUE_WRONG: flatten1([[[1, [2], [3, 4]]]]) want [1, 2, 3, 4]"
+FV-C05,A,3,0,True,True,True,True,False,7.29,0,UNMEASURED,
+FV-C05,B,3,0,False,True,False,False,False,6.08,0,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-C05,C,3,0,True,True,True,True,False,5.34,0,UNMEASURED,
+FV-D01,A,3,0,True,True,True,True,False,11.88,2,UNMEASURED, [format N/A: file deliverable]
+FV-D01,B,3,0,True,True,True,True,False,10.91,3,UNMEASURED, [format N/A: file deliverable]
+FV-D01,C,3,0,True,True,True,True,False,9.52,2,UNMEASURED, [format N/A: file deliverable]
+FV-D03,A,3,0,True,True,True,True,False,12.22,3,UNMEASURED, [format N/A: file deliverable]
+FV-D03,B,3,0,True,True,True,True,False,10.18,2,UNMEASURED, [format N/A: file deliverable]
+FV-D03,C,3,0,True,True,True,True,False,10.11,2,UNMEASURED, [format N/A: file deliverable]
+FV-S02,A,3,0,False,True,False,False,False,9.91,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-S02,B,3,0,False,True,False,False,False,10.21,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-S02,C,3,0,False,True,False,False,False,9.74,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-X02,A,3,0,False,True,False,False,False,9.37,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-X02,B,3,0,False,True,False,False,False,9.44,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-X02,C,3,0,False,True,False,False,False,10.68,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-X03,A,3,0,False,True,False,False,False,9.17,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-X03,B,3,0,False,True,False,False,False,10.56,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-X03,C,3,0,False,True,False,False,False,15.17,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-W01,A,3,0,False,True,False,False,False,27.84,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-W01,B,3,0,False,True,False,False,False,7.19,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-W01,C,3,0,False,True,False,False,False,14.94,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-W02,A,3,0,False,True,False,False,False,7.37,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-W02,B,3,0,False,True,False,False,False,10.84,2,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-W02,C,3,0,False,True,False,False,False,7.67,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-W03,A,3,0,False,True,False,False,False,10.07,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-W03,B,3,0,False,True,False,False,False,10.43,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-W03,C,3,0,False,True,False,False,False,8.71,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-P03,A,3,0,True,True,True,True,False,6.15,0,UNMEASURED,
+FV-P03,B,3,0,True,True,True,True,False,6.25,0,UNMEASURED,
+FV-P03,C,3,0,True,True,True,True,False,6.73,0,UNMEASURED,
+FV-T01,A,3,0,False,True,False,False,False,11.26,3,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-T01,B,3,0,False,True,False,False,False,11.6,5,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-T01,C,3,0,False,True,False,False,False,11.9,3,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-C05,A,3,1,True,True,True,True,False,6.11,0,UNMEASURED,
+FV-C05,B,3,1,True,True,True,True,False,6.96,0,UNMEASURED,
+FV-C05,C,3,1,True,True,True,True,False,6.77,0,UNMEASURED,
+FV-D01,A,3,1,True,True,True,True,False,140.54,4,UNMEASURED, [format N/A: file deliverable]
+FV-D01,B,3,1,True,True,True,True,False,10.94,3,UNMEASURED, [format N/A: file deliverable]
+FV-D01,C,3,1,True,True,True,True,False,17.81,3,UNMEASURED, [format N/A: file deliverable]
+FV-D03,A,3,1,True,True,True,False,False,12.12,3,UNMEASURED, [format N/A: file deliverable]
+FV-D03,B,3,1,True,True,True,True,False,23.22,2,UNMEASURED, [format N/A: file deliverable]
+FV-D03,C,3,1,True,True,True,True,False,12.59,3,UNMEASURED, [format N/A: file deliverable]
+FV-S02,A,3,1,False,True,False,False,False,9.33,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-S02,B,3,1,False,True,False,False,False,7.25,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-S02,C,3,1,False,True,False,False,False,11.78,2,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-X02,A,3,1,False,True,False,False,False,8.92,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-X02,B,3,1,False,True,False,False,False,15.18,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-X02,C,3,1,False,True,False,False,False,9.41,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-X03,A,3,1,False,True,False,False,False,11.25,2,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-X03,B,3,1,False,True,False,False,False,10.63,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-X03,C,3,1,False,True,False,False,False,9.48,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-W01,A,3,1,False,True,False,False,False,11.73,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-W01,B,3,1,False,True,False,False,False,9.91,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-W01,C,3,1,False,True,False,False,False,9.33,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-W02,A,3,1,False,True,False,False,False,13.44,2,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-W02,B,3,1,False,True,False,False,False,8.65,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-W02,C,3,1,False,True,False,False,False,8.83,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-W03,A,3,1,False,True,False,False,False,9.82,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-W03,B,3,1,False,True,False,False,False,11.76,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-W03,C,3,1,False,True,False,False,False,9.53,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-P03,A,3,1,True,True,True,True,False,7.1,0,UNMEASURED,
+FV-P03,B,3,1,True,True,True,True,False,6.69,0,UNMEASURED,
+FV-P03,C,3,1,True,True,True,True,False,7.16,0,UNMEASURED,
+FV-T01,A,3,1,False,True,False,False,False,16.18,5,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-T01,B,3,1,False,True,False,False,False,20.2,3,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-T01,C,3,1,False,True,False,False,False,21.65,3,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-N01,A,4,0,False,True,False,False,False,8.43,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-N01,B,4,0,False,True,False,False,False,8.97,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-N01,C,4,0,False,True,False,False,False,14.65,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-N02,A,4,0,False,True,False,False,False,12.59,3,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-N02,B,4,0,False,True,False,False,False,48.58,3,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-N02,C,4,0,False,True,False,False,False,13.86,3,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-L03,A,4,0,True,True,True,True,False,13.49,5,UNMEASURED, [format N/A: file deliverable]
+FV-L03,B,4,0,True,True,True,True,False,13.89,5,UNMEASURED, [format N/A: file deliverable]
+FV-L03,C,4,0,True,True,True,True,False,16.75,6,UNMEASURED, [format N/A: file deliverable]
+FV-E01,A,4,0,False,True,False,False,False,62.89,3,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-E01,B,4,0,False,True,False,False,False,12.37,2,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-E01,C,4,0,False,True,False,False,False,17.09,4,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-E02,A,4,0,True,True,True,True,False,12.91,3,UNMEASURED, [format N/A: file deliverable]
+FV-E02,B,4,0,True,True,True,True,False,12.7,3,UNMEASURED, [format N/A: file deliverable]
+FV-E02,C,4,0,True,True,True,True,False,11.53,2,UNMEASURED, [format N/A: file deliverable]
+FV-A02,A,4,0,False,True,False,False,False,24.05,3,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-A02,B,4,0,False,True,False,False,False,41.71,3,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-A02,C,4,0,False,True,False,False,False,22.91,4,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-A03,A,4,0,False,False,False,False,False,13.59,2,UNMEASURED,VALUE_WRONG: got 'Counting your sales rows — excluding headers.\n32'
+FV-A03,B,4,0,False,False,False,False,False,11.23,4,UNMEASURED,VALUE_WRONG: got 'Counting data rows across the three quarterly files.\nFiles confirmed — now tally'
+FV-A03,C,4,0,False,False,False,False,False,13.94,2,UNMEASURED,VALUE_WRONG: got 'Counting data rows across the three sales files.\n32'
+FV-U01,A,4,0,False,True,False,False,False,11.67,2,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-U01,B,4,0,False,True,False,False,False,14.26,2,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-U01,C,4,0,False,True,False,False,False,11.01,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-U02,A,4,0,False,True,False,False,False,10.43,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-U02,B,4,0,False,False,False,False,False,180.19,1,UNMEASURED,VALUE_WRONG: got 'Decoding your payload to extract the due value.'
+FV-U02,C,4,0,False,False,False,False,False,180.16,0,UNMEASURED,VALUE_WRONG: got ''
+FV-U03,A,4,0,False,False,False,False,False,180.18,0,UNMEASURED,VALUE_WRONG: got ''
+FV-U03,B,4,0,False,False,False,False,False,180.19,0,UNMEASURED,VALUE_WRONG: got ''
+FV-U03,C,4,0,False,False,False,False,False,180.19,0,UNMEASURED,VALUE_WRONG: got ''
+FV-N01,A,4,1,False,False,False,False,False,180.18,0,UNMEASURED,VALUE_WRONG: got ''
+FV-N01,B,4,1,False,False,False,False,False,180.19,0,UNMEASURED,VALUE_WRONG: got ''
+FV-N01,C,4,1,False,False,False,False,False,180.18,0,UNMEASURED,VALUE_WRONG: got ''
+FV-N02,A,4,1,False,False,False,False,False,240.15,0,UNMEASURED,VALUE_WRONG: got ''
+FV-N02,B,5,1,False,True,False,False,False,14.9,3,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-N02,C,5,1,False,True,False,False,False,14.96,3,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-L03,A,5,1,True,True,True,True,False,57.82,7,UNMEASURED, [format N/A: file deliverable]
+FV-L03,B,5,1,True,True,True,True,False,71.08,5,UNMEASURED, [format N/A: file deliverable]
+FV-L03,C,5,1,True,True,True,True,False,27.45,5,UNMEASURED, [format N/A: file deliverable]
+FV-E01,A,5,1,False,True,False,False,False,46.07,4,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-E01,B,5,1,False,True,False,False,False,38.34,5,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-E01,C,5,1,False,True,False,False,False,23.18,3,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-E02,A,5,1,True,True,True,True,False,16.8,3,UNMEASURED, [format N/A: file deliverable]
+FV-E02,B,5,1,True,True,True,True,False,91.32,4,UNMEASURED, [format N/A: file deliverable]
+FV-E02,C,5,1,True,True,True,True,False,20.16,3,UNMEASURED, [format N/A: file deliverable]
+FV-A02,A,5,1,False,True,False,False,False,42.06,4,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-A02,B,5,1,False,True,False,False,False,15.02,3,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-A02,C,5,1,False,True,False,False,False,24.33,3,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-A03,A,5,1,False,False,False,False,False,14.16,2,UNMEASURED,"VALUE_WRONG: got ""Counting data rows across the three files.\nFound all three files — now I'll tall"""
+FV-A03,B,5,1,False,False,False,False,False,24.16,4,UNMEASURED,VALUE_WRONG: got 'Counting rows across the three CSVs.\nTotal is 35 lines minus headers — verifying'
+FV-A03,C,5,1,False,False,False,False,False,27.79,3,UNMEASURED,VALUE_WRONG: got 'Counting data rows across your three sales files.\n32'
+FV-U01,A,5,1,False,True,False,False,False,12.2,2,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-U01,B,5,1,False,True,False,False,False,13.65,2,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-U01,C,5,1,False,True,False,False,False,12.25,2,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-U02,A,5,1,False,True,False,False,False,8.97,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-U02,B,5,1,False,True,False,False,False,9.5,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-U02,C,5,1,False,True,False,False,False,11.88,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-U03,A,5,1,False,True,False,False,False,8.79,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-U03,B,5,1,True,True,True,True,False,45.42,0,UNMEASURED,
+FV-U03,C,5,1,False,True,False,False,False,9.11,1,UNMEASURED,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text

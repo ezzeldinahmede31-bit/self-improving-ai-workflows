@@ -17,7 +17,12 @@ _SAFE_BUILTINS = {"sorted": sorted, "len": len, "range": range,
                   "enumerate": enumerate, "Exception": Exception,
                   "set": set, "dict": dict, "list": list, "tuple": tuple,
                   "str": str, "int": int, "float": float, "bool": bool,
-                  "zip": zip, "reversed": reversed, "all": all, "any": any}
+                  "zip": zip, "reversed": reversed, "all": all, "any": any,
+                  "isinstance": isinstance, "type": type, "iter": iter,
+                  "next": next, "StopIteration": StopIteration,
+                  "ValueError": ValueError, "KeyError": KeyError,
+                  "TypeError": TypeError, "IndexError": IndexError,
+                  "AttributeError": AttributeError}
 
 
 def _exec_fn(code: str, name: str):
@@ -175,8 +180,17 @@ def repair_note_for(task_id: str, raw: str, normalized: str,
 # prompts. kinds: exact | exec | order | jsonfacts | filemodule | fileset
 # ---------------------------------------------------------------------------
 
+def _want_of(ctx: dict) -> str:
+    # expected_key takes PRECEDENCE: fixtures always carry an `expected`
+    # (their own contract), which must not shadow the task's pinned key.
+    key = ctx.get("expected_key")
+    if isinstance(key, str) and key and key in ctx:
+        return str(ctx[key])
+    return str(ctx.get("expected", ""))
+
+
 def grade_exact_ctx(output: str, ctx: dict) -> tuple[bool, str]:
-    want = str(ctx.get("expected", ctx.get(ctx.get("expected_key", ""), "")))
+    want = _want_of(ctx)
     return (True, "") if output.strip() == want else (False, f"got {output.strip()[:80]!r}")
 
 
@@ -184,7 +198,7 @@ def grade_exact_dual(raw: str, output: str, ctx: dict) -> tuple[bool, bool, bool
     """v1.1.1 value/format split for exact tasks: value = expected string
     present anywhere in the normalized output; format = strict equality.
     Returns (strict_ok, value_ok, format_ok, note)."""
-    want = str(ctx.get("expected", ctx.get(ctx.get("expected_key", ""), "")))
+    want = _want_of(ctx)
     norm = (output or "").strip()
     if norm == want:
         return True, True, True, ""
@@ -237,7 +251,7 @@ def grade_jsonfacts_ctx(output: str, ctx: dict) -> tuple[bool, str]:
     for k in ctx.get("keys", []):
         if k not in d:
             return False, f"key missing: {k}"
-    low = json.dumps(d).lower()
+    low = json.dumps(d, ensure_ascii=False).lower()
     for fact in ctx.get("facts", []):
         if str(fact).lower() not in low:
             return False, f"missing {fact}"
@@ -301,7 +315,7 @@ def grade_filejson_ctx(files: dict, ctx: dict) -> tuple[bool, str]:
     for k in ctx.get("keys", []):
         if k not in d:
             return False, f"key missing: {k}"
-    low = json.dumps(d).lower()
+    low = json.dumps(d, ensure_ascii=False).lower()
     for fact in list(ctx.get("facts", [])) + _resolve_refs(ctx.get("facts_ctx", []), ctx):
         if str(fact).lower() not in low:
             return False, f"missing {fact}"

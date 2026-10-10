@@ -1,0 +1,27 @@
+task,mode,variant,model,rep,ok,value_ok,format_ok,first_pass_ok,recovered,wall_s,tool_uses,token_status,needed_normalization,note
+FV-N02,B,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,True,False,False,False,14.9,3,UNMEASURED,False,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-N02,C,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,True,False,False,False,14.96,3,UNMEASURED,False,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-L03,A,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,True,True,False,57.82,7,UNMEASURED,False, [format N/A: file deliverable]
+FV-L03,B,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,True,True,False,71.08,5,UNMEASURED,False, [format N/A: file deliverable]
+FV-L03,C,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,True,True,False,27.45,5,UNMEASURED,False, [format N/A: file deliverable]
+FV-E01,A,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,True,False,False,False,46.07,4,UNMEASURED,False,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-E01,B,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,True,False,False,False,38.34,5,UNMEASURED,False,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-E01,C,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,True,False,False,False,23.18,3,UNMEASURED,False,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-E02,A,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,True,True,False,16.8,3,UNMEASURED,False, [format N/A: file deliverable]
+FV-E02,B,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,True,True,False,91.32,4,UNMEASURED,False, [format N/A: file deliverable]
+FV-E02,C,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,True,True,False,20.16,3,UNMEASURED,False, [format N/A: file deliverable]
+FV-A02,A,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,True,False,False,False,42.06,4,UNMEASURED,False,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-A02,B,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,True,False,False,False,15.02,3,UNMEASURED,False,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-A02,C,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,True,False,False,False,24.33,3,UNMEASURED,False,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-A03,A,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,False,False,False,False,14.16,2,UNMEASURED,False,"VALUE_WRONG: got ""Counting data rows across the three files.\nFound all three files — now I'll tall"""
+FV-A03,B,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,False,False,False,False,24.16,4,UNMEASURED,False,VALUE_WRONG: got 'Counting rows across the three CSVs.\nTotal is 35 lines minus headers — verifying'
+FV-A03,C,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,False,False,False,False,27.79,3,UNMEASURED,False,VALUE_WRONG: got 'Counting data rows across your three sales files.\n32'
+FV-U01,A,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,True,False,False,False,12.2,2,UNMEASURED,False,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-U01,B,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,True,False,False,False,13.65,2,UNMEASURED,False,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-U01,C,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,True,False,False,False,12.25,2,UNMEASURED,False,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-U02,A,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,True,False,False,False,8.97,1,UNMEASURED,False,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-U02,B,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,True,False,False,False,9.5,1,UNMEASURED,False,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-U02,C,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,True,False,False,False,11.88,1,UNMEASURED,False,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-U03,A,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,True,False,False,False,8.79,1,UNMEASURED,False,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-U03,B,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,True,True,False,45.42,0,UNMEASURED,False,
+FV-U03,C,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,True,False,False,False,9.11,1,UNMEASURED,False,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text

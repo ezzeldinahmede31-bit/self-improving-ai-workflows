@@ -165,6 +165,9 @@ def main() -> int:
     ap.add_argument("--max-repairs", type=int, default=2)
     ap.add_argument("--finalize-partial", default="",
                     help="finalize a .partial.jsonl into JSON+CSV without spawning")
+    ap.add_argument("--resume-from", default="",
+                    help="skip (task,mode,rep) combos already in this .partial.jsonl; "
+                         "new rows go to a fresh stamp (merge with combine later)")
     args = ap.parse_args()
 
     if args.finalize_partial:
@@ -247,10 +250,22 @@ def main() -> int:
     rows: list[dict] = []
     paid_est = 0.0
     abort_reason = ""
+    done: set[tuple] = set()
+    if args.resume_from:
+        rp = RUNS / args.resume_from if not Path(args.resume_from).is_absolute() \
+            else Path(args.resume_from)
+        for line in rp.read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                d = json.loads(line)
+                done.add((d.get("task"), d.get("mode"), d.get("rep")))
+        print(f"resume: skipping {len(done)} completed combos from {rp.name}")
     try:
       for rep in range(args.repeats):
         for t in tasks:
             for m in modelist:
+                if (t["id"], m, rep) in done:
+                    print(f"[SKIP] {t['id']} mode={m} rep={rep} (already in resume file)", flush=True)
+                    continue
                 if abort_reason:
                     break
                 if m == "D":

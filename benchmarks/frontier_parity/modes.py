@@ -183,11 +183,14 @@ def setup_workdir(task: dict) -> tuple[str, dict]:
             with open(os.path.join(workdir, safe), "w", encoding="utf-8") as fh:
                 fh.write(content)
         ctx.update(fctx)
-    # task-level grader params (cases/keys/edges...) also ride in ctx
+    # task-level grader params (cases/keys/edges...) OVERWRITE fixture ctx:
+    # same key in both means the task author pins the check (e.g. W-tasks
+    # pin keys=[headline,...] over the fixture's default keys). Fixture-only
+    # keys (expected/schedule/facts/...) survive untouched.
     if isinstance(task.get("grader"), dict):
         for k, v in task["grader"].items():
             if k != "kind":
-                ctx.setdefault(k, v)
+                ctx[k] = v
     return workdir, ctx
 
 

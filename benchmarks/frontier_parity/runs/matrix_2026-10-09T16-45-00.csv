@@ -1,0 +1,67 @@
+task,mode,variant,model,rep,ok,value_ok,format_ok,first_pass_ok,recovered,wall_s,tool_uses,token_status,needed_normalization,note
+FV-C05,A,same_capability,opencode/muse-spark-1.3-contributor-free,0,True,True,True,True,False,7.29,0,UNMEASURED,False,
+FV-C05,B,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,True,False,False,False,6.08,0,UNMEASURED,True,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-C05,C,same_capability,opencode/muse-spark-1.3-contributor-free,0,True,True,True,True,False,5.34,0,UNMEASURED,False,
+FV-D01,A,same_capability,opencode/muse-spark-1.3-contributor-free,0,True,True,True,True,False,11.88,2,UNMEASURED,False, [format N/A: file deliverable]
+FV-D01,B,same_capability,opencode/muse-spark-1.3-contributor-free,0,True,True,True,True,False,10.91,3,UNMEASURED,False, [format N/A: file deliverable]
+FV-D01,C,same_capability,opencode/muse-spark-1.3-contributor-free,0,True,True,True,True,False,9.52,2,UNMEASURED,False, [format N/A: file deliverable]
+FV-D03,A,same_capability,opencode/muse-spark-1.3-contributor-free,0,True,True,True,True,False,12.22,3,UNMEASURED,False, [format N/A: file deliverable]
+FV-D03,B,same_capability,opencode/muse-spark-1.3-contributor-free,0,True,True,True,True,False,10.18,2,UNMEASURED,False, [format N/A: file deliverable]
+FV-D03,C,same_capability,opencode/muse-spark-1.3-contributor-free,0,True,True,True,True,False,10.11,2,UNMEASURED,False, [format N/A: file deliverable]
+FV-S02,A,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,True,False,False,False,9.91,1,UNMEASURED,True,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-S02,B,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,True,False,False,False,10.21,1,UNMEASURED,True,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-S02,C,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,True,False,False,False,9.74,1,UNMEASURED,True,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-X02,A,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,True,False,False,False,9.37,1,UNMEASURED,True,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-X02,B,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,True,False,False,False,9.44,1,UNMEASURED,True,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-X02,C,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,True,False,False,False,10.68,1,UNMEASURED,True,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-X03,A,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,False,False,False,False,9.17,1,UNMEASURED,True,VALUE_WRONG: missing gdańsk
+FV-X03,B,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,False,False,False,False,10.56,1,UNMEASURED,True,VALUE_WRONG: missing gdańsk
+FV-X03,C,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,False,False,False,False,15.17,1,UNMEASURED,True,VALUE_WRONG: missing gdańsk
+FV-W01,A,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,False,False,False,False,27.84,1,UNMEASURED,True,VALUE_WRONG: key missing: title
+FV-W01,B,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,False,False,False,False,7.19,1,UNMEASURED,True,VALUE_WRONG: key missing: title
+FV-W01,C,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,False,False,False,False,14.94,1,UNMEASURED,True,VALUE_WRONG: key missing: title
+FV-W02,A,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,False,False,False,False,7.37,1,UNMEASURED,True,VALUE_WRONG: key missing: owner
+FV-W02,B,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,False,False,False,False,10.84,2,UNMEASURED,True,VALUE_WRONG: key missing: owner
+FV-W02,C,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,False,False,False,False,7.67,1,UNMEASURED,True,VALUE_WRONG: key missing: owner
+FV-W03,A,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,False,False,False,False,10.07,1,UNMEASURED,True,VALUE_WRONG: key missing: title
+FV-W03,B,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,False,False,False,False,10.43,1,UNMEASURED,True,VALUE_WRONG: key missing: title
+FV-W03,C,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,False,False,False,False,8.71,1,UNMEASURED,True,VALUE_WRONG: key missing: title
+FV-P03,A,same_capability,opencode/muse-spark-1.3-contributor-free,0,True,True,True,True,False,6.15,0,UNMEASURED,False,
+FV-P03,B,same_capability,opencode/muse-spark-1.3-contributor-free,0,True,True,True,True,False,6.25,0,UNMEASURED,False,
+FV-P03,C,same_capability,opencode/muse-spark-1.3-contributor-free,0,True,True,True,True,False,6.73,0,UNMEASURED,False,
+FV-T01,A,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,True,False,False,False,11.26,3,UNMEASURED,False,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-T01,B,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,True,False,False,False,11.6,5,UNMEASURED,False,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-T01,C,same_capability,opencode/muse-spark-1.3-contributor-free,0,False,True,False,False,False,11.9,3,UNMEASURED,False,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-C05,A,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,True,True,False,6.11,0,UNMEASURED,False,
+FV-C05,B,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,True,True,False,6.96,0,UNMEASURED,False,
+FV-C05,C,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,True,True,False,6.77,0,UNMEASURED,False,
+FV-D01,A,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,True,True,False,140.54,4,UNMEASURED,False, [format N/A: file deliverable]
+FV-D01,B,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,True,True,False,10.94,3,UNMEASURED,False, [format N/A: file deliverable]
+FV-D01,C,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,True,True,False,17.81,3,UNMEASURED,False, [format N/A: file deliverable]
+FV-D03,A,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,False,True,False,False,12.12,3,UNMEASURED,False,exec/grade raised: name 'StopIteration' is not defined [format N/A: file deliverable]
+FV-D03,B,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,True,True,False,23.22,2,UNMEASURED,False, [format N/A: file deliverable]
+FV-D03,C,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,True,True,False,12.59,3,UNMEASURED,False, [format N/A: file deliverable]
+FV-S02,A,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,True,False,False,False,9.33,1,UNMEASURED,True,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-S02,B,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,True,False,False,False,7.25,1,UNMEASURED,True,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-S02,C,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,True,False,False,False,11.78,2,UNMEASURED,True,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-X02,A,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,True,False,False,False,8.92,1,UNMEASURED,True,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-X02,B,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,True,False,False,False,15.18,1,UNMEASURED,True,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-X02,C,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,True,False,False,False,9.41,1,UNMEASURED,True,VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text
+FV-X03,A,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,False,False,False,False,11.25,2,UNMEASURED,True,VALUE_WRONG: missing gdańsk
+FV-X03,B,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,False,False,False,False,10.63,1,UNMEASURED,True,VALUE_WRONG: missing gdańsk
+FV-X03,C,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,False,False,False,False,9.48,1,UNMEASURED,True,VALUE_WRONG: missing gdańsk
+FV-W01,A,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,False,False,False,False,11.73,1,UNMEASURED,True,VALUE_WRONG: key missing: title
+FV-W01,B,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,False,False,False,False,9.91,1,UNMEASURED,True,VALUE_WRONG: key missing: title
+FV-W01,C,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,False,False,False,False,9.33,1,UNMEASURED,True,VALUE_WRONG: key missing: title
+FV-W02,A,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,False,False,False,False,13.44,2,UNMEASURED,True,VALUE_WRONG: key missing: owner
+FV-W02,B,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,False,False,False,False,8.65,1,UNMEASURED,True,VALUE_WRONG: key missing: owner
+FV-W02,C,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,False,False,False,False,8.83,1,UNMEASURED,True,VALUE_WRONG: key missing: owner
+FV-W03,A,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,False,False,False,False,9.82,1,UNMEASURED,True,VALUE_WRONG: key missing: title
+FV-W03,B,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,False,False,False,False,11.76,1,UNMEASURED,True,VALUE_WRONG: key missing: title
+FV-W03,C,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,False,False,False,False,9.53,1,UNMEASURED,True,VALUE_WRONG: key missing: title
+FV-P03,A,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,True,True,False,7.1,0,UNMEASURED,False,
+FV-P03,B,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,True,True,False,6.69,0,UNMEASURED,False,
+FV-P03,C,same_capability,opencode/muse-spark-1.3-contributor-free,1,True,True,True,True,False,7.16,0,UNMEASURED,False,
+FV-T01,A,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,True,False,False,False,16.18,5,UNMEASURED,False,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-T01,B,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,True,False,False,False,20.2,3,UNMEASURED,False,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
+FV-T01,C,same_capability,opencode/muse-spark-1.3-contributor-free,1,False,True,False,False,False,21.65,3,UNMEASURED,False,VALUE_OK_FORMAT_BAD: correct value wrapped in extra text
