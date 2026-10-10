@@ -6,6 +6,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 PY = ROOT / "venv" / "bin" / "python"
@@ -35,7 +37,13 @@ def test_redteam():
     assert "REDTEAM: PASS (10/10)" in r.stdout
 
 
+@pytest.mark.e2e
 def test_e2e_report_green():
+    """G3: live desktop E2E — requires a real desktop session (wmctrl/Chrome),
+    external network (example.com probes), and a prior `scripts/device_e2e.py`
+    run that writes /tmp/opencode-device/e2e_report.json. Deselected by
+    default per pytest.ini (`-m "not e2e"`); run with RUN_LIVE_E2E=1 on a
+    real desktop. The artifact assertion itself is unchanged."""
     import json
     rep = json.loads(Path("/tmp/opencode-device/e2e_report.json").read_text())
     assert rep["verdict"] == "COWORK_GRADE", rep
