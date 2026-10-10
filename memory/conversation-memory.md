@@ -2308,3 +2308,13 @@ reporting style + session persistence, start with trial read task (default yes).
 - Verdict: LOCAL INTEGRATION PASS (code+gates+skills wire together; clean ships,
   malicious blocked). LIVE DEPLOY readiness: BLOCKED pending sandbox execution
   proof. No Production Ready claimed.
+
+## Social-intel skill intake (4 links, Oct 10 2026)
+- User asked to add skills/systems from 2 FB + 2 TikTok links into TWO places: (1) serving-system slot, (2) callable registry for any task.
+- Grounded first: FB posts read via Playwright (fetchers/yt-dlp blocked); TikTok transcripts unobtainable (anti-bot, yt-dlp impersonation error even with chrome cookies).
+- Found: REA morluto/rea (reverse engineering via agents, MCP, ~50k stars MIT) + Impeccable pbakaus/impeccable (AI design language, 24 cmds, 60-rule detector, ~77.8k stars Apache, supports OpenCode) + OpenBot = CopilotKit/openbot (AI coworkers, own computer per Bot, AG-UI, MIT) + Humam 7-AI-tools video (partial intel only).
+- Contract confirmed via questions (all-4, no direct router edits, callable registry, REA legal-only, opencode provider, tiktok search+user fill-in, gates block on fail).
+- Place 1: .opencode/skills/reverse-engineer-anything (official + house legal gate) + openbot-ai-coworkers (custom) + seven-ai-tools-humam (custom tracker) + impeccable (pre-existing verified); registered via router_register.py only (rows+registry, library refreshed to 1243).
+- Gates: 3/4 READY_FOR_DEPLOYMENT; impeccable BLOCKED-documented-false-positive (counting heuristic fires on prose 'at most/at least'; workflow checks misapplied to prose skill; official content NOT reshaped per no-workaround policy).
+- Place 2: memory/skills-docs/<4>.md + memory/skills-library.md + memory/social-intel-registry.json (unified map).
+- Open from user: exact 7 tool names/links from Humam video + item-6 MS 3D tool name + any DM-gated links.
