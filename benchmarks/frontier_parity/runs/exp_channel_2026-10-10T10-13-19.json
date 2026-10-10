@@ -1,0 +1,675 @@
+{
+ "experiment": "E2-result-channel",
+ "executed_utc": "2026-10-10T10-13-19",
+ "treatment": "mode-R (task + RESULT_CONTRACT_V1), free Muse",
+ "gates": {
+  "G1": "R strict >= baseline-A strict + 0.25",
+  "G2": "R value >= baseline-A value - 0.05",
+  "G3": "every R strict PASS via channel=result_json+valid",
+  "G4": "no rc outside (0,124)"
+ },
+ "rows": [
+  {
+   "task": "FV-A01",
+   "mode": "R",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "d6d4c76eee6c91f9",
+   "prompt_chars": 550,
+   "raw_text": "Your total is incoming \u2014 adding every amount across the three files.\n10873",
+   "output": "10873",
+   "chat_output": "Your total is incoming \u2014 adding every amount across the three files.\n10873",
+   "channel": "result_json",
+   "result_json_status": "valid",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 19.26,
+   "tool_uses": 5,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": 10873,
+   "fixture_ctx": {
+    "fixture_total": 10873,
+    "expected": "10873",
+    "nrows": 39,
+    "expected_key": "expected"
+   },
+   "files": {
+    "RESULT.json": "{\"output\": \"10873\"}",
+    "sales_q1.csv": "id,amount\n1,364\n2,319\n3,424\n4,59\n5,169\n6,468\n7,489\n8,103\n9,118\n10,241\n11,403\n",
+    "sales_q2.csv": "id,amount\n1,303\n2,118\n3,353\n4,197\n5,279\n6,439\n7,438\n8,280\n9,119\n10,402\n11,355\n12,305\n13,312\n",
+    "sales_q3.csv": "id,amount\n1,316\n2,225\n3,66\n4,7\n5,354\n6,292\n7,42\n8,225\n9,245\n10,322\n11,354\n12,236\n13,404\n14,477\n15,251\n"
+   },
+   "files_truncated": false,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 0,
+   "ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": "",
+   "outcome": "PASS"
+  },
+  {
+   "task": "FV-T02",
+   "mode": "R",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "d1e87d0e6bbbf1ec",
+   "prompt_chars": 609,
+   "raw_text": "Malformed rows need filtering \u2014 summing the valid orders now.\nCounted 15 valid rows and 5 skipped \u2014 writing the final result.\ntotal=7977 skipped=5",
+   "output": "total=7977 skipped=5",
+   "chat_output": "Malformed rows need filtering \u2014 summing the valid orders now.\nCounted 15 valid rows and 5 skipped \u2014 writing the final result.\ntotal=7977 skipped=5",
+   "channel": "result_json",
+   "result_json_status": "valid",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 28.43,
+   "tool_uses": 6,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "fixture_ctx": {
+    "expected": "total=7977 skipped=5",
+    "expected_key": "expected"
+   },
+   "files": {
+    "RESULT.json": "{\"output\": \"total=7977 skipped=5\"}",
+    "orders.csv": "order_id,qty,price\n1\n2,9,168\n3,3,189\n4,4,107\n5,NaN\n6,4,126\n7,8,27\n8,2,139\n9,1,116\n10,5,98\n11,6,134\n12,6,161\n13,3,86\n14,6,49\n15,4,20\n\n17,NaN\n18,3,86\n\n20,9,134\n"
+   },
+   "files_truncated": false,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 0,
+   "ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": "",
+   "outcome": "PASS"
+  },
+  {
+   "task": "FV-S01",
+   "mode": "R",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "fd33869656608684",
+   "prompt_chars": 621,
+   "raw_text": "Picking the single valid topology \u2014 checking budget and latency.\nOnly one option meets both limits \u2014 writing the graded result.\nC",
+   "output": "C",
+   "chat_output": "Picking the single valid topology \u2014 checking budget and latency.\nOnly one option meets both limits \u2014 writing the graded result.\nC",
+   "channel": "result_json",
+   "result_json_status": "valid",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 9.8,
+   "tool_uses": 2,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "fixture_ctx": {
+    "expected": "C",
+    "scenario": "Budget $36/mo. p95 must be <= 180ms. Options: A: cost $24, p95 229ms; B: cost $41, p95 118ms; C: cost $31, p95 142ms. Reply with ONLY the valid option id, or NONE-OR-AMBIGUOUS if not exactly one qualifies.",
+    "expected_key": "expected"
+   },
+   "files": {
+    "RESULT.json": "{\"output\": \"C\"}",
+    "SCENARIO.txt": "Budget $36/mo. p95 must be <= 180ms. Options: A: cost $24, p95 229ms; B: cost $41, p95 118ms; C: cost $31, p95 142ms. Reply with ONLY the valid option id, or NONE-OR-AMBIGUOUS if not exactly one qualifies."
+   },
+   "files_truncated": false,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 0,
+   "ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": "",
+   "outcome": "PASS"
+  },
+  {
+   "task": "FV-N01",
+   "mode": "R",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "13f61f482ced0d3a",
+   "prompt_chars": 587,
+   "raw_text": "Decoding your payload to extract the due date.\nDone",
+   "output": "2026-11-15",
+   "chat_output": "Decoding your payload to extract the due date.\nDone",
+   "channel": "result_json",
+   "result_json_status": "valid",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 19.06,
+   "tool_uses": 4,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "fixture_ctx": {
+    "expected": "2026-11-15"
+   },
+   "files": {
+    "RESULT.json": "{\"output\": \"2026-11-15\"}"
+   },
+   "files_truncated": false,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 0,
+   "ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": "",
+   "outcome": "PASS"
+  },
+  {
+   "task": "FV-A01",
+   "mode": "R",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "d6d4c76eee6c91f9",
+   "prompt_chars": 550,
+   "raw_text": "Summing your quarterly sales \u2014 calculating the total.\n10873",
+   "output": "10873",
+   "chat_output": "Summing your quarterly sales \u2014 calculating the total.\n10873",
+   "channel": "result_json",
+   "result_json_status": "valid",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 12.69,
+   "tool_uses": 4,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": 10873,
+   "fixture_ctx": {
+    "fixture_total": 10873,
+    "expected": "10873",
+    "nrows": 39,
+    "expected_key": "expected"
+   },
+   "files": {
+    "RESULT.json": "{\"output\": \"10873\"}",
+    "sales_q1.csv": "id,amount\n1,364\n2,319\n3,424\n4,59\n5,169\n6,468\n7,489\n8,103\n9,118\n10,241\n11,403\n",
+    "sales_q2.csv": "id,amount\n1,303\n2,118\n3,353\n4,197\n5,279\n6,439\n7,438\n8,280\n9,119\n10,402\n11,355\n12,305\n13,312\n",
+    "sales_q3.csv": "id,amount\n1,316\n2,225\n3,66\n4,7\n5,354\n6,292\n7,42\n8,225\n9,245\n10,322\n11,354\n12,236\n13,404\n14,477\n15,251\n"
+   },
+   "files_truncated": false,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 1,
+   "ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": "",
+   "outcome": "PASS"
+  },
+  {
+   "task": "FV-T02",
+   "mode": "R",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "d1e87d0e6bbbf1ec",
+   "prompt_chars": 609,
+   "raw_text": "Computing your valid order totals \u2014 inspecting the file for malformed rows.\nValid rows total 7977 with 5 skipped \u2014 writing the final result.\ntotal=7977 skipped=5",
+   "output": "total=7977 skipped=5",
+   "chat_output": "Computing your valid order totals \u2014 inspecting the file for malformed rows.\nValid rows total 7977 with 5 skipped \u2014 writing the final result.\ntotal=7977 skipped=5",
+   "channel": "result_json",
+   "result_json_status": "valid",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 31.97,
+   "tool_uses": 7,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "fixture_ctx": {
+    "expected": "total=7977 skipped=5",
+    "expected_key": "expected"
+   },
+   "files": {
+    "RESULT.json": "{\"output\": \"total=7977 skipped=5\"}",
+    "orders.csv": "order_id,qty,price\n1\n2,9,168\n3,3,189\n4,4,107\n5,NaN\n6,4,126\n7,8,27\n8,2,139\n9,1,116\n10,5,98\n11,6,134\n12,6,161\n13,3,86\n14,6,49\n15,4,20\n\n17,NaN\n18,3,86\n\n20,9,134\n"
+   },
+   "files_truncated": false,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 1,
+   "ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": "",
+   "outcome": "PASS"
+  },
+  {
+   "task": "FV-S01",
+   "mode": "R",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "fd33869656608684",
+   "prompt_chars": 621,
+   "raw_text": "Validating topology options against budget and latency \u2014 writing your answer to RESULT.json.\nDone.",
+   "output": "C",
+   "chat_output": "Validating topology options against budget and latency \u2014 writing your answer to RESULT.json.\nDone.",
+   "channel": "result_json",
+   "result_json_status": "valid",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 9.71,
+   "tool_uses": 3,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "fixture_ctx": {
+    "expected": "C",
+    "scenario": "Budget $36/mo. p95 must be <= 180ms. Options: A: cost $24, p95 229ms; B: cost $41, p95 118ms; C: cost $31, p95 142ms. Reply with ONLY the valid option id, or NONE-OR-AMBIGUOUS if not exactly one qualifies.",
+    "expected_key": "expected"
+   },
+   "files": {
+    "RESULT.json": "{\"output\": \"C\"}",
+    "SCENARIO.txt": "Budget $36/mo. p95 must be <= 180ms. Options: A: cost $24, p95 229ms; B: cost $41, p95 118ms; C: cost $31, p95 142ms. Reply with ONLY the valid option id, or NONE-OR-AMBIGUOUS if not exactly one qualifies."
+   },
+   "files_truncated": false,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 1,
+   "ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": "",
+   "outcome": "PASS"
+  },
+  {
+   "task": "FV-N01",
+   "mode": "R",
+   "variant": "same_capability",
+   "model": "opencode/muse-spark-1.3-contributor-free",
+   "harness": "1.0.0",
+   "prompt_sha": "13f61f482ced0d3a",
+   "prompt_chars": 587,
+   "raw_text": "XOR-decoding your payload to extract the due date.\n2026-11-15",
+   "output": "2026-11-15",
+   "chat_output": "XOR-decoding your payload to extract the due date.\n2026-11-15",
+   "channel": "result_json",
+   "result_json_status": "valid",
+   "needed_normalization": false,
+   "rc": 0,
+   "wall_s": 14.56,
+   "tool_uses": 4,
+   "errors": [],
+   "stderr_tail": "",
+   "tokens": {},
+   "token_status": "UNMEASURED",
+   "telemetry_keys_seen": [
+    "type",
+    "timestamp",
+    "sessionID",
+    "part"
+   ],
+   "fixture_total": null,
+   "fixture_ctx": {
+    "expected": "2026-11-15"
+   },
+   "files": {
+    "RESULT.json": "{\"output\": \"2026-11-15\"}"
+   },
+   "files_truncated": false,
+   "catalog": {
+    "opencode/claude-fable-5-1": {
+     "status": "active",
+     "cost": {
+      "input": 10,
+      "output": 50,
+      "cache": {
+       "read": 0.25,
+       "write": 12.5
+      }
+     },
+     "limit": {
+      "context": 1000000,
+      "output": 128000
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": false
+    },
+    "opencode/muse-spark-1.3-contributor-free": {
+     "status": "active",
+     "cost": {
+      "input": 0,
+      "output": 0,
+      "cache": {
+       "read": 0,
+       "write": 0
+      }
+     },
+     "limit": {
+      "context": 1048576,
+      "output": 131072
+     },
+     "toolcall": true,
+     "reasoning": true,
+     "temperature": true
+    }
+   },
+   "rep": 1,
+   "ok": true,
+   "value_ok": true,
+   "format_ok": true,
+   "note": "",
+   "outcome": "PASS"
+  }
+ ]
+}
