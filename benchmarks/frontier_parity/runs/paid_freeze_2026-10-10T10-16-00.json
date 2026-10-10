@@ -1,0 +1,53 @@
+{
+  "decision": "PAID_EXECUTION_DECLINED",
+  "decided_utc": "2026-10-10T10-16-00",
+  "decided_by": "user directive: FREEZE PAID EXECUTION — PRESERVE ALL EVIDENCE",
+  "standing_verdict": "NOT YET VERIFIED (unchanged; not upgraded by this decision)",
+  "paid_execution": {
+    "declined": true,
+    "d_mode_executed": false,
+    "new_paid_calls_authorized": 0,
+    "paid_calls_made_during_this_operation": 0,
+    "billing_checks_performed": "none (no endpoints invoked, no catalog queries)"
+  },
+  "execution_guard": {
+    "mechanism": "run_matrix.py requires explicit per-invocation --paid-ok AND --paid-cap-usd > 0 for mode D; modes.run_once refuses Fable 5.1 without paid_ok=True",
+    "default_state": "paid DISABLED by default (paid_ok=False, paid_cap_usd=0.0)",
+    "verified": true,
+    "verification": [
+      "dry-run --modes D (no flags) -> REFUSED exit 2, nothing spawned",
+      "dry-run --modes D --paid-ok (no cap) -> REFUSED exit 2, nothing spawned"
+    ],
+    "code_change_made": false,
+    "code_change_rationale": "existing guard already enforces disabled-by-default with explicit per-run approval; no file change required, repository left untouched"
+  },
+  "evidence_preserved": {
+    "modified": false,
+    "deleted": false,
+    "regenerated": false,
+    "note": "no historical artifact was written, renamed, or recomputed during this operation",
+    "checksums_sha256": {
+      "benchmarks/frontier_parity/tasks_v1.json": "f7e8df07b1733b2473ee341c200bbcca08141eda77c54878fbd593fb86fd71f8",
+      "benchmarks/frontier_parity/tasks_v2.json": "2ce862ad7eb6afca645c9ab22f87cf116016749f1e4202787a3a4c7d10aa3bd1",
+      "benchmarks/frontier_parity/acceptance_v1.json": "278506260359b6238a22e2831354d8fc65814763afb04cee1429327c75d686a6",
+      "benchmarks/frontier_parity/runs/full_free_2026-10-10T09-40-36.json": "296905b853a2d9e2e3afcca0bc67ab3836666af05ebd9dd5ea2e3929598e55e3",
+      "benchmarks/frontier_parity/runs/exp_channel_2026-10-10T10-13-19.json": "dd3bcb3c4b0ba09d76e978340fee09c70306c57fc1e83a9e0140cd0e86ef3bbf",
+      "benchmarks/frontier_parity/runs/exp_format_2026-10-10T09-43-57.json": "455e158d532de98a56b974d4b485264e495be3bde833635c7d5485474a20a55f",
+      "benchmarks/frontier_parity/runs/matrix_2026-10-09T14-06-55.json": "8078fc19ee9049a3a61815f0d6a102b20c3bb80415c2d201fa062e2f1343c20f",
+      "benchmarks/frontier_parity/runs/slice_final_2026-10-09T20-08-39.json": "3563576c384e5b8b859c529d606079166c87e960b75d8d07c0fbeeb907499984",
+      "memory/conversation-memory.md": "99883a5c796233c3cd9b7bcc5b128ce8b8c0069cb90ff0abc86d59358fa94bc8"
+    }
+  },
+  "outstanding_verification_gaps": [
+    "D-mode (Claude Fable 5.1) unexecuted: no model-gap measurement exists",
+    "per-task token usage UNMEASURED on all 230+ free rows (vehicle exposes no usage keys)",
+    "sealed held-out tasks (8) unused",
+    "browser/computer-use, multi-turn, temperature-sensitive tasks out of scope",
+    "C-mode repair efficacy at scale unproven (0 conversions post-split)",
+    "full 1100-test suite not re-run (relevant 126/126 pass)"
+  ],
+  "files_changed_by_this_operation": [
+    "benchmarks/frontier_parity/runs/paid_freeze_2026-10-10T10-16-00.json (this artifact; new file only)"
+  ],
+  "correction_note": "the E2 artifact is runs/exp_channel_2026-10-10T10-13-19.json (an earlier prose citation used the log timestamp 09-43-57; metrics were computed from file content and are unaffected)"
+}
