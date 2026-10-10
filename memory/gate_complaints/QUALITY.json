@@ -1,41 +1,5 @@
 [
   {
-    "id": "quality-1789838198084",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:16:38.084394+00:00",
-    "resolved_at": "2026-09-19T17:16:41.285234+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789838202327",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:16:42.327429+00:00",
-    "resolved_at": "2026-09-19T17:16:45.283240+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
     "id": "quality-1789838205454",
     "gate": "QUALITY",
     "kind": "SKILL_GAP",
@@ -3597,6 +3561,42 @@
     "created_at": "2026-10-10T10:50:31.419368+00:00",
     "resolved_at": "2026-10-10T10:50:34.136879+00:00",
     "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791630631679",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
+    "keywords": [
+      "pinneddata",
+      "primary",
+      "unit-test",
+      "instantly"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "OPEN",
+    "created_at": "2026-10-10T11:10:31.679110+00:00",
+    "resolved_at": null,
+    "resolution": null,
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791630632240",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Isolated/unreachable nodes: ['Steal Metadata']",
+    "keywords": [
+      "isolated",
+      "unreachable",
+      "steal",
+      "metadata"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "OPEN",
+    "created_at": "2026-10-10T11:10:32.240657+00:00",
+    "resolved_at": null,
+    "resolution": null,
     "search_hits": []
   }
 ]

@@ -2266,3 +2266,45 @@ reporting style + session persistence, start with trial read task (default yes).
 - FIXED (TDD, with regression tests): (1) capability-namespace mismatch — mint task:* never matched hostname checks, dead-ending all enforced external-URL workflows at step 2d → mint `*` (egress stays host authority); (2) test_e2e_integration.py collected 0 tests → 7 stage-asserting tests now run; (3) malformed invariant specs crashed worker → fail-closed PENDING. Collateral: authed webhook variant, isolated skill registry in C, probe recorder in E, corrected F expectation.
 - Security/reliability slices all green (218 + 133 + 42 + 4); bounded latency bench run; live n8n E2E stays BLOCKED (no key/isolated instance; remote prod off-limits) → final verdict BLOCKED (narrow), unblock cmd in memory/audits/final_integration_closure_2026-10-10.md. Audit records: memory/audits/phase1_discovery_*, phase2_repair_*, phase3_phase4_*, final_integration_closure_*.
 - Note: background MonkeyCode sync auto-committed the work (3ab366f); nothing pushed.
+
+## Integration audit 2026-10-10 (skills+gates coexistence)
+- Request: verify whole system (skills, gates, extras) integrates to ship a full
+  software / AI-automation / agent / workflow project.
+- Contract: all project types, comprehensive depth, fix confirmed defects,
+  run gates on proof samples. Constraints: no n8n touch/create/delete/execute,
+  no remote/external actions, fixtures+mocks+isolated local only, TDD on fixes,
+  mocks are NOT live proof, no acceptance-criteria changes, keep prior reports,
+  BLOCKED where live proof needs instance access, no Production Ready without
+  full evidence.
+- Evidence (commands+results):
+  - `venv/bin/python -m pytest` → 1182 passed, 1 skipped, 9 deselected, exit 0
+    (101s). Re-ran affected subset after fix
+    (test_build_gates_pipeline + gate_complaints + avoidlist + p0d isolation)
+    → all dots, no failures.
+  - Gates on isolated proofs (/tmp/opencode, --no-hitl --no-resolve):
+    proof_software.py → READY_FOR_DEPLOYMENT exit 0;
+    proof_workflow.json (webhook+auth+pinnedData) → READY_FOR_DEPLOYMENT exit 0;
+    proof_malicious.json (169.254 SSRF) → REJECTED_SECURITY_RISK exit 1.
+    Gates discriminate clean vs malicious correctly.
+  - Skills wiring: found 2 empty skill dirs
+    (building-llm-powered-applications, fine-tuning-llms-lora — dupes of
+    building-llm-powered-apps / fine-tuning-llms) + 4 stale docs
+    (data-intensive-application-design, designing-machine-learning-systems,
+    devops-handbook-flow, sre-reliability-engineering). Removed empties (rmdir)
+    + removed 4 stale docs, regenerated via skills_docs_generator.py →
+    1240 dirs = 1240 docs = 1240 library entries (was 1242/1244/1240).
+  - Frontmatter scan: all remaining dirs have name+description; 21 skills
+    exceed 500-line progressive-disclosure guideline (incl. compensatory-router
+    1191 lines) — warning only, not blocking.
+  - Imports: security_gate, quality_gate, hitl_gate, verifier_engine,
+    master_system_orchestrator all import OK. Avoidlist live from
+    memory/n8n_error_patterns.json (top: missing pinnedData x159, no
+    --skills-loaded x158, no error handling x143).
+- BLOCKED (by constraint, not by defect): live n8n delivery proof
+  (n8n-delivery-verification-gate phase 3: real execution on the instance +
+  agreed output). Smallest safe step: user duplicates a workflow to a sandbox
+  n8n (or grants a test instance URL+key), then run n8n-e2e-test-runner against
+  the sandbox webhook only.
+- Verdict: LOCAL INTEGRATION PASS (code+gates+skills wire together; clean ships,
+  malicious blocked). LIVE DEPLOY readiness: BLOCKED pending sandbox execution
+  proof. No Production Ready claimed.

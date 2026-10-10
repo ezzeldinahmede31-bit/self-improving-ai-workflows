@@ -2,30 +2,30 @@
   {
     "gate": "quality",
     "pattern": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "count": 156,
+    "count": 160,
     "first_seen": "2026-08-15T01:45:33.866641+00:00",
-    "last_seen": "2026-10-10T10:50:34.150490+00:00"
+    "last_seen": "2026-10-10T11:11:25.313667+00:00"
   },
   {
     "gate": "skills",
     "pattern": "no --skills-loaded manifest — actual agent loads are NOT verifiable headless; readiness (installed + frontmatter + routable) verified only",
-    "count": 155,
+    "count": 159,
     "first_seen": "2026-08-24T13:18:28.258531+00:00",
-    "last_seen": "2026-10-10T10:50:34.162683+00:00"
+    "last_seen": "2026-10-10T11:11:25.318061+00:00"
   },
   {
     "gate": "quality",
     "pattern": "No Error Trigger node and no continueOnFail on any node",
-    "count": 140,
+    "count": 144,
     "first_seen": "2026-08-15T01:45:33.866459+00:00",
-    "last_seen": "2026-10-10T10:50:34.148595+00:00"
+    "last_seen": "2026-10-10T11:11:25.312434+00:00"
   },
   {
     "gate": "dry_run",
     "pattern": "no dry-run evidence: nodes carry no pinned data and no expected_result from a trial run — run the workflow on the n8n instance (n8n-pinned-data-mocking) before delivery",
-    "count": 50,
+    "count": 54,
     "first_seen": "2026-08-17T06:06:55.931702+00:00",
-    "last_seen": "2026-10-10T10:50:34.164594+00:00"
+    "last_seen": "2026-10-10T11:11:25.318683+00:00"
   },
   {
     "gate": "quality",
@@ -68,6 +68,13 @@
     "count": 5,
     "first_seen": "2026-08-24T13:18:28.249444+00:00",
     "last_seen": "2026-08-24T13:49:55.788827+00:00"
+  },
+  {
+    "gate": "security",
+    "pattern": "Metadata/SSRF target `169.254.169.254` in flow",
+    "count": 5,
+    "first_seen": "2026-08-15T01:47:44.265583+00:00",
+    "last_seen": "2026-10-10T11:11:25.302323+00:00"
   },
   {
     "gate": "quality",
@@ -474,13 +481,6 @@
     "count": 1,
     "first_seen": "2026-08-15T01:47:44.264740+00:00",
     "last_seen": "2026-08-15T01:47:44.264776+00:00"
-  },
-  {
-    "gate": "security",
-    "pattern": "Metadata/SSRF target `169.254.169.254` in flow",
-    "count": 1,
-    "first_seen": "2026-08-15T01:47:44.265583+00:00",
-    "last_seen": "2026-08-15T01:47:44.265591+00:00"
   },
   {
     "gate": "precision",
