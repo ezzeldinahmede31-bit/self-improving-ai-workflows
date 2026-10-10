@@ -820,7 +820,7 @@ class SystemOrchestrator:
             # an external URL at step 2d. Per-host authority stays with the
             # egress policy (allowed_domains); the capability still enforces
             # action scope + expiry + signature + revocation. See
-            # tests/test_e2e_integration.py::test_D_reaches_invariant_stage.
+            # tests/test_e2e_integration.py::test_D_wrong_doctor_fails_at_invariant_stage.
             cap = platform_wiring.mint_task_capability(
                 self.enforcement, actions=["net.fetch", "code.execute"],
                 resource="*", ttl_s=900)
