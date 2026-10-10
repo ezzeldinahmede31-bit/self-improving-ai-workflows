@@ -30,6 +30,20 @@ MUSE_FREE = "opencode/muse-spark-1.3-contributor-free"
 FABLE_51 = "opencode/claude-fable-5-1"
 ALLOWLIST = {MUSE_FREE, FABLE_51}
 
+RESULT_FILE = "RESULT.json"
+
+# Machine-readable result channel (E2): when the contract asks for it, the
+# agent writes {"output": "<exact artifact>"} to RESULT.json in the workdir.
+# Chat narration may say anything; the FILE is graded. Unavailable natively
+# in `opencode run`, so this deterministic adapter provides the separation.
+RESULT_CONTRACT_V1 = (
+    "# Machine result channel (v1): write the file RESULT.json in the working "
+    "directory containing exactly {\"output\": \"<your complete answer and nothing else>\"} "
+    "as the SOLE content of that file (valid JSON object, one string field named output). "
+    "Your chat reply may say anything; ONLY RESULT.json is graded. If you do not write "
+    "a valid RESULT.json, your chat reply is graded instead."
+)
+
 ROUTER_BLOCK_V1 = (
     "# Router guidance (v1, fixed for reproducibility)\n"
     "- Solve the task directly and completely; do not ask clarifying questions.\n"
@@ -69,6 +83,11 @@ def build_prompt(mode: str, task: dict, variant: str = "same_capability",
         if variant not in ("same_capability", "best_practical"):
             raise Refused(f"unknown variant {variant}")
         p = base  # pilot: identical prompt; difference is the model itself
+    elif mode == "R":
+        # RESULT-channel mode (E2): same task prompt + machine-channel
+        # contract; free-tier Muse. Narration allowed in chat; only the
+        # file is graded.
+        p = base + "\n\n" + RESULT_CONTRACT_V1
     else:
         raise Refused(f"unknown mode {mode}")
     if repair_note:
@@ -78,7 +97,7 @@ def build_prompt(mode: str, task: dict, variant: str = "same_capability",
 
 
 def model_for(mode: str) -> str:
-    if mode in ("A", "B", "C"):
+    if mode in ("A", "B", "C", "R"):
         return MUSE_FREE
     if mode == "D":
         return FABLE_51
@@ -194,6 +213,52 @@ def setup_workdir(task: dict) -> tuple[str, dict]:
     return workdir, ctx
 
 
+def read_result_channel(files: dict) -> tuple[str, str]:
+    """Deterministic machine-channel reader over a workdir snapshot.
+
+    Returns (status, content):
+      absent               — no RESULT.json written; grade the chat text.
+      valid                — parsed object with string field `output`.
+      malformed:<reason>   — present but unusable (not JSON / not an object /
+                             output missing or not a string). Fail closed at
+                             grade time: chat is graded instead AND the status
+                             is recorded, never silently dropped.
+    """
+    if RESULT_FILE not in (files or {}):
+        return "absent", ""
+    raw = files[RESULT_FILE]
+    try:
+        doc = json.loads(raw)
+    except ValueError as exc:
+        return f"malformed:not-json:{exc}", ""
+    if not isinstance(doc, dict):
+        return "malformed:not-an-object", ""
+    if "output" not in doc:
+        return "malformed:missing-output-field", ""
+    if not isinstance(doc["output"], str):
+        return "malformed:output-not-a-string", ""
+    return "valid", doc["output"]
+
+
+def classify_outcome(rec: dict) -> str:
+    """Six-way outcome taxonomy (deterministic, audit-friendly).
+
+    PASS | VALUE_ONLY | TIMEOUT | NO_OUTPUT | VALUE_WRONG | ERROR.
+    Timeouts and infra errors can never read as success: PASS requires ok.
+    """
+    if rec.get("ok"):
+        return "PASS"
+    if rec.get("rc") == 124:
+        return "TIMEOUT"
+    if rec.get("rc") not in (0, None):
+        return "ERROR"
+    if not (rec.get("raw_text") or "").strip() and rec.get("channel", "chat") == "chat":
+        return "NO_OUTPUT"
+    if rec.get("value_ok"):
+        return "VALUE_ONLY"
+    return "VALUE_WRONG"
+
+
 def snapshot_workdir(workdir: str, cap_bytes: int = 20000) -> tuple[dict, bool]:
     """Capture agent-written files for file-artifact grading. Capped."""
     files: dict = {}
@@ -304,15 +369,25 @@ def run_once(task: dict, mode: str, variant: str = "same_capability",
         raw_out, rc, err, wall = att["raw_out"], att["rc"], att["err"], att["wall"]
         texts, tool_uses, errors, usage, keys_seen = _extract_text_events(raw_out)
         raw_text = "\n".join(texts).strip()
-        normalized, changed = normalize_output(task["id"], raw_text, task)
         files, files_truncated = snapshot_workdir(workdir)
+        # Machine channel: a valid RESULT.json becomes the graded candidate
+        # (narration separation). Anything else -> chat text, recorded.
+        # Either candidate goes through the SAME mechanical normalization.
+        chan_status, chan_content = read_result_channel(files)
+        if chan_status == "valid":
+            cand_raw, channel = chan_content.strip(), "result_json"
+        else:
+            cand_raw, channel = raw_text, "chat"
+        normalized, changed = normalize_output(task["id"], cand_raw, task)
         measured = bool(usage)
         return {
             "task": task["id"], "mode": mode, "variant": variant,
             "model": model, "harness": HARNESS_VERSION,
             "prompt_sha": prompt_hash(prompt),
             "prompt_chars": len(prompt),
-            "raw_text": raw_text[:4000], "output": normalized,
+            "raw_text": raw_text[:4000], "output": normalized[:4000],
+            "chat_output": normalize_output(task["id"], raw_text, task)[0][:4000],
+            "channel": channel, "result_json_status": chan_status,
             "needed_normalization": changed,
             "rc": rc, "wall_s": wall, "tool_uses": tool_uses,
             "errors": errors[:5], "stderr_tail": err,

@@ -107,7 +107,8 @@ def main() -> int:
             r["orig_ok"], r["orig_value_ok"], r["orig_format_ok"], r["orig_note"] = (
                 r.get("ok"), r.get("value_ok"), r.get("format_ok"), r.get("note"))
             r["ok"], r["value_ok"], r["format_ok"], r["note"] = ok, v, fm, note
-            r["batch"] = bi
+            r.setdefault("batch", bi)  # never collapse an existing batch tag
+            r["src"] = Path(f).name
             rows.append(r)
 
     by_mode_s = defaultdict(lambda: [0, 0])

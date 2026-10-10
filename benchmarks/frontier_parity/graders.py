@@ -139,30 +139,51 @@ def grade(task_id: str, output: str, ctx: dict | None = None) -> tuple[bool, str
 # wasting calls on correctly-computed answers wrapped in chatter.
 # ---------------------------------------------------------------------------
 
-def grade2(task_id: str, raw: str, normalized: str,
-           ctx: dict | None = None) -> tuple[bool, bool, str]:
-    """Returns (value_ok, format_ok, note). Pure function, no model, no network."""
-    ctx = ctx or {}
-    raw_s, norm_s = (raw or "").strip(), (normalized or "").strip()
+def _format_ok(raw: str, normalized: str, ctx: dict, changed: bool | None = None) -> bool:
+    """Channel-aware format rule. Chat channel: reply must BE the artifact.
+    result_json channel: the file content must need no extraction (narration
+    may say anything — that is the separation working as designed)."""
+    if (ctx or {}).get("channel") == "result_json":
+        if changed is None:
+            changed = (normalized or "").strip() != (normalized or "").strip()
+        return not changed
+    return (raw or "").strip() == (normalized or "").strip()
+
+
+def _split_value(task_id: str, norm_s: str, ctx: dict) -> tuple[bool, str]:
+    """Value-only check for v1 tasks. Returns (value_ok, want_description)."""
     if task_id == "FP-R01":
-        return ("15" in norm_s, raw_s == "15",
-                "" if raw_s == "15" else ("VALUE_OK_FORMAT_BAD" if "15" in norm_s else "VALUE_WRONG"))
+        return ("15" in norm_s, "'15'")
     if task_id == "FP-M01":
-        return ("333833500" in norm_s, raw_s == "333833500",
-                "" if raw_s == "333833500" else ("VALUE_OK_FORMAT_BAD" if "333833500" in norm_s else "VALUE_WRONG"))
+        return ("333833500" in norm_s, "'333833500'")
     if task_id == "FP-T01":
         want = str(ctx.get("fixture_total", ""))
-        return (want and want in norm_s, raw_s == want,
-                "" if raw_s == want else ("VALUE_OK_FORMAT_BAD" if (want and want in norm_s) else "VALUE_WRONG"))
+        return (bool(want) and want in norm_s, repr(want))
     if task_id == "FP-N01":
-        return ("2026-10-09" in norm_s, raw_s == "2026-10-09",
-                "" if raw_s == "2026-10-09" else ("VALUE_OK_FORMAT_BAD" if "2026-10-09" in norm_s else "VALUE_WRONG"))
-    # semantic tasks: value = grader pass on normalized; format = raw needed no extraction
-    ok, note = grade(task_id, normalized, ctx)
-    if not ok:
-        return False, False, f"VALUE_WRONG: {note}"
-    changed = norm_s != raw_s
-    return True, not changed, ("" if not changed else "VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text")
+        return ("2026-10-09" in norm_s, "'2026-10-09'")
+    ok, note = grade(task_id, norm_s, ctx)
+    return (ok, f"grader:{note}" if not ok else "grader-pass")
+
+
+def grade2(task_id: str, raw: str, normalized: str,
+           ctx: dict | None = None, changed: bool = False) -> tuple[bool, bool, str]:
+    """Returns (value_ok, format_ok, note). Pure function, no model, no network.
+
+    `changed` = whether mechanical normalization altered the graded candidate
+    (caller-computed). Format is channel-aware via _format_ok.
+    """
+    ctx = ctx or {}
+    raw_s, norm_s = (raw or "").strip(), (normalized or "").strip()
+    v_ok, _want = _split_value(task_id, norm_s, ctx)
+    if not v_ok:
+        return False, False, f"VALUE_WRONG: want {_want}"
+    f_ok = _format_ok(raw_s, norm_s, ctx, changed)
+    if f_ok:
+        return True, True, ""
+    if ctx.get("channel") == "result_json":
+        return True, False, ("VALUE_OK_FORMAT_BAD: RESULT.json content needed "
+                             "extraction; write the bare artifact")
+    return True, False, "VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text"
 
 
 def repair_note_for(task_id: str, raw: str, normalized: str,
@@ -194,15 +215,37 @@ def grade_exact_ctx(output: str, ctx: dict) -> tuple[bool, str]:
     return (True, "") if output.strip() == want else (False, f"got {output.strip()[:80]!r}")
 
 
+def _value_present(want: str, norm: str) -> bool:
+    """Numeric expectations match whole tokens only ('15' not found in '150');
+    non-numeric expectations match as substrings."""
+    import re as _re
+    if not want:
+        return False
+    if _re.fullmatch(r"-?\d+(?:\.\d+)?", want):
+        return _re.search(r"(?<!\d)" + _re.escape(want) + r"(?!\d)", norm) is not None
+    return want in norm
+
+
 def grade_exact_dual(raw: str, output: str, ctx: dict) -> tuple[bool, bool, bool, str]:
-    """v1.1.1 value/format split for exact tasks: value = expected string
-    present anywhere in the normalized output; format = strict equality.
+    """Value/format split for exact tasks: value = expected present in the
+    normalized candidate (token-aware for numbers); format = channel-aware.
     Returns (strict_ok, value_ok, format_ok, note)."""
+    ctx = ctx or {}
     want = _want_of(ctx)
     norm = (output or "").strip()
+    changed = ctx.get("candidate_changed")
+    if changed is None:
+        changed = (raw or "").strip() != norm
+    v_ok = _value_present(want, norm)
+    # Format for exact tasks = the graded candidate IS EXACTLY the artifact.
+    # (No extraction is defined for exact tasks, so `changed` is irrelevant;
+    # the result_json channel wins by selecting the file as the candidate.)
     if norm == want:
         return True, True, True, ""
-    if want and want in norm:
+    if v_ok:
+        if ctx.get("channel") == "result_json":
+            return False, True, False, ("VALUE_OK_FORMAT_BAD: RESULT.json content "
+                                        "is not exactly the artifact; write only it")
         return False, True, False, "VALUE_OK_FORMAT_BAD: correct value wrapped in extra text"
     return False, False, False, f"VALUE_WRONG: got {norm[:80]!r}"
 

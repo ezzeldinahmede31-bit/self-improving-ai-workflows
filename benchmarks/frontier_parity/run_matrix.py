@@ -105,9 +105,15 @@ def grade_row(task: dict, output: str, raw: str, files: dict, ctx: dict):
         ok, note = graders.grade_generic(kind, output, ctx)
     if not ok:
         return False, False, False, f"VALUE_WRONG: {note}"
-    fmt = ((raw or "").strip() == (output or "").strip())
-    if fmt:
+    ctx = ctx or {}
+    changed = ctx.get("candidate_changed")
+    if changed is None:
+        changed = (raw or "").strip() != (output or "").strip()
+    if graders._format_ok(raw, output, ctx, changed):
         return True, True, True, ""
+    if ctx.get("channel") == "result_json":
+        return False, True, False, ("VALUE_OK_FORMAT_BAD: RESULT.json content "
+                                    "needed extraction; write the bare artifact")
     return False, True, False, "VALUE_OK_FORMAT_BAD: correct artifact wrapped in extra text"
 
 
@@ -116,6 +122,22 @@ def repair_note(task: dict, value_ok: bool, note: str) -> str:
         return ("grader: VALUE_OK_FORMAT_BAD — the computed value/artifact is correct, "
                 "but the reply wraps it in extra prose. Reply with ONLY the requested artifact.")
     return f"grader: {note}"
+
+
+def next_repair_note(okvis: bool, ok2: bool, notevis: str, full_note: str) -> tuple[str, str]:
+    """Split the audit record from the next attempt's feedback.
+
+    Returns (record_note, next_feedback). When visible checks pass but hidden
+    checks fail, the record keeps the full detail while the next feedback
+    carries NO hidden want-values (else the repair can hardcode the test, as
+    observed with C01 on 2026-10-09)."""
+    if okvis and not ok2:
+        return (f"VISIBLE_PASS_HIDDEN_FAIL: visible checks pass but hidden checks fail ({full_note})",
+                "VISIBLE_PASS_HIDDEN_FAIL: visible checks pass but hidden checks fail — "
+                "generalize the fix, do not hardcode answers to the shown examples.")
+    if not okvis:
+        return notevis, notevis
+    return full_note, full_note
 
 
 def repair_visible_task(task: dict) -> dict:
@@ -284,6 +306,8 @@ def main() -> int:
                     return 2
                 rec["rep"] = rep
                 ctx = rec.get("fixture_ctx", {}) or {}
+                ctx["channel"] = rec.get("channel", "chat")
+                ctx["candidate_changed"] = rec.get("needed_normalization", False)
                 ok, v_ok, f_ok, note = grade_row(t, rec["output"], rec.get("raw_text", ""),
                                                  rec.get("files", {}), ctx)
                 rec.update({"ok": ok, "value_ok": v_ok, "format_ok": f_ok,
@@ -303,18 +327,7 @@ def main() -> int:
                                                       ratt["files"], ratt["ctx"])
                     ok2, v2, f2, full_note = grade_row(t, ratt["normalized"], ratt["raw"],
                                                        ratt["files"], ratt["ctx"])
-                    if okvis and not ok2:
-                        # Recorded in full for the audit trail, but the NEXT
-                        # repair gets NO hidden want-values (else it can
-                        # hardcode them, as observed with C01 on 2026-10-09).
-                        note2 = ("VISIBLE_PASS_HIDDEN_FAIL: visible checks pass but hidden "
-                                 f"checks fail ({full_note})")
-                        next_note = ("VISIBLE_PASS_HIDDEN_FAIL: visible checks pass but hidden "
-                                     "checks fail — generalize the fix, do not hardcode "
-                                     "answers to the shown examples.")
-                    else:
-                        note2 = notevis if not okvis else full_note
-                        next_note = note2
+                    note2, next_note = next_repair_note(okvis, ok2, notevis, full_note)
                     rec[f"repair{attempt}_value_ok"] = v2
                     rec[f"repair{attempt}_format_ok"] = f2
                     rec[f"repair{attempt}_note"] = note2
