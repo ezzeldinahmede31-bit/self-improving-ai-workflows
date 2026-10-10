@@ -229,6 +229,23 @@ def test_no_counting_clean_pass():
     assert reason["status"] == "PASS"
 
 
+def test_math_expected_result_dict_does_not_crash():
+    # G1: dict-valued _gates.expected_result (e.g. a stability expected_result
+    # object) must never crash the MATH gate with TypeError — verdict only.
+    res = MathLogicGate().run({"expected_result": {"ok": True}}, '{"ok": true}')
+    assert res["status"] in ("PASS", "FAIL", "SKIP", "NEEDS_REVIEW")
+    assert any(c["gate"] == "expected_text_parity" for c in res["checks"])
+
+
+def test_pipeline_dict_expected_result_returns_verdict():
+    # G1 end-to-end: a workflow whose _gates carry structured (dict) values
+    # must produce a verdict dict, never raise.
+    wf = _wf([_node("Fetch", "n8n-nodes-base.httpRequest", url="https://example.com")],
+             extra={"_gates": {"expected_result": {"ok": True}}})
+    res = _run(wf)
+    assert isinstance(res, dict) and "verdict" in res
+
+
 # ---------------------------------------------------------------------------
 # Stage 6: HITL
 # ---------------------------------------------------------------------------

@@ -585,7 +585,18 @@ class MathLogicGate:
 
         if gates.get("expected_result"):
             er = gates["expected_result"]
-            hit = er in full_text
+            # G1: expected_result may be a structured value (dict/list/number
+            # from a stability-style _gates block), not just a string. Never
+            # crash the pipeline on user-influenced input — compare against a
+            # deterministic canonical form instead.
+            if isinstance(er, str):
+                hit = er in full_text
+            else:
+                try:
+                    canonical = json.dumps(er, sort_keys=True, default=str)
+                except Exception:
+                    canonical = str(er)
+                hit = canonical in full_text
             checks.append({"gate": "expected_text_parity", "ok": hit})
             if not hit:
                 failed.append(f"expected result {er!r} not present in artifact")

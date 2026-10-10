@@ -84,5 +84,11 @@
   },
   "smoke_artifact.json": {
     "NODE_OR_FIELD_NOT_IN_LIVE_SCHEMA::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 3
+  },
+  "g_good.json": {
+    "NODE_OR_FIELD_NOT_IN_LIVE_SCHEMA::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 3
+  },
+  "g_bad.json": {
+    "NODE_OR_FIELD_NOT_IN_LIVE_SCHEMA::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 2
   }
 }
