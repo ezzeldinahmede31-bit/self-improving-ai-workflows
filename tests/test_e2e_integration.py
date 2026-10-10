@@ -17,12 +17,23 @@ from master_system_orchestrator import SystemOrchestrator
 from platform_wiring import EnforcementProfile, EgressPolicy
 
 
-def _sample_workflow() -> dict:
-    """A minimal valid n8n workflow with a webhook and expected output."""
+def _sample_workflow(authed: bool = False) -> dict:
+    """A minimal valid n8n workflow with a webhook and expected output.
+
+    authed=True sets webhook authentication so the chain can proceed past
+    the security gate (R5 WEBHOOK_NO_AUTH) to the later stages under test.
+    No credentials are embedded and no external traffic is performed by any
+    scenario (the n8n step is skipped without an API key; tool probes are
+    localhost/docker-inspect only).
+    """
+    webhook_params = {"path": "test-e2e",
+                      "pinnedData": {"1": {"json": {}}}}
+    if authed:
+        webhook_params["authentication"] = "headerAuth"
     return {
         "nodes": [
             {"name": "Webhook", "type": "n8n-nodes-base.webhook",
-             "parameters": {"path": "test-e2e", "pinnedData": {"1": {"json": {}}}}},
+             "parameters": webhook_params},
             {"name": "HTTP Request", "type": "n8n-nodes-base.httpRequest",
              "parameters": {"url": "https://httpbin.org/post", "method": "POST"}},
         ],
@@ -68,7 +79,7 @@ def run_scenario_A_valid_execution():
                     allowed_domains=("httpbin.org",))),
             evidence_dir=tmp,
         )
-        wf = _sample_workflow()
+        wf = _sample_workflow(authed=True)
         res = orch.execute_workflow_task(
             task_prompt="E2E valid booking flow",
             workflow_json=wf,
@@ -103,32 +114,36 @@ def run_scenario_B_policy_denial():
 
 
 def run_scenario_C_untrusted_skill():
-    """Scenario C: Untrusted skill rejected at skill-trust gate."""
+    """Scenario C: Untrusted skill held for review at the skill-trust gate.
+
+    Uses a fully isolated registry directory (never a fixed /tmp path, so
+    parallel runs cannot collide). Returns the actual registry verdict.
+    """
     with tempfile.TemporaryDirectory() as tmp:
+        import os
+        reg_dir = os.path.join(tmp, "skill-trust")
+        secret = b"trust-secret-32-bytes-minimum-length"
         orch = SystemOrchestrator(
             budget_usd=100.0,
             enforcement=EnforcementProfile(
                 policy={"default": "allow"},
-                trust_registry_path="/tmp/skill-trust-test",
-                trust_secret=b"trust-secret-32-bytes-minimum-length",
+                trust_registry_path=reg_dir,
+                trust_secret=secret,
             ),
             evidence_dir=tmp,
         )
-        # The skill trust hook would reject untrusted skills
-        # (we can't fully test without a real registry, but we verify
-        # the hook is invoked by checking the skill_trust event in audit)
-        from orchestrator.skills import SkillRecord
+        assert orch is not None  # wiring constructed; verdict comes from registry
         from skill_trust import TrustRegistry
-        with tempfile.TemporaryDirectory() as td:
-            reg = TrustRegistry("/tmp/skill-trust-test", b"trust-secret-32-bytes-minimum-length")
-            sk = tempfile.NamedTemporaryFile(suffix=".md", delete=False, dir=td)
-            sk.write(b"# test\nname: malicious\n")
-            sk.close()
-            reg.register(skill_id="malicious", version="1", author="attacker",
-                         source="unknown", skill_md_path=sk.name,
-                         permissions=["*"], risk="high")
-            # The trust hook should reject this
-        return {"status": "tested"}
+        reg = TrustRegistry(reg_dir, secret)
+        sk = tempfile.NamedTemporaryFile(suffix=".md", delete=False, dir=tmp)
+        sk.write(b"# test\nname: malicious\n")
+        sk.close()
+        reg.register(skill_id="malicious", version="1", author="attacker",
+                     source="unknown", skill_md_path=sk.name,
+                     permissions=["*"], risk="high")
+        verdict, reason = reg.check_load("malicious", sk.name)
+        return {"status": "tested", "verdict": verdict, "reason": reason,
+                "sealed": reg.sealed_ok}
 
 
 def run_scenario_D_verification_failure():
@@ -145,14 +160,16 @@ def run_scenario_D_verification_failure():
             evidence_dir=tmp,
         )
         wf = _sample_workflow()
-        # Business checks with WRONG doctor
+        # Business checks with WRONG doctor (well-formed 3-tuple specs:
+        # (name, fn, doc) — malformed specs are a separate fail-closed test).
         bad_business = {
             "domain": "clinic",
             "payload": {"appointment": {"doctor": "Dr. Wrong", "timezone": "Africa/Cairo"},
                         "price": 800},
             "checks": [
                 ("doctor-match",
-                 lambda p: (p["appointment"]["doctor"] == "Dr. Samy", "wrong doctor")),
+                 lambda p: (p["appointment"]["doctor"] == "Dr. Samy", "wrong doctor"),
+                 "requested doctor only"),
             ],
         }
         res = orch.execute_workflow_task(
@@ -160,7 +177,9 @@ def run_scenario_D_verification_failure():
             workflow_json=dict(
                 {"nodes": [
                     {"name": "Webhook", "type": "n8n-nodes-base.webhook",
-                     "parameters": {"path": "test-invariant", "pinnedData": {"1": {"json": {}}}}},
+                     "parameters": {"path": "test-invariant",
+                                    "authentication": "headerAuth",
+                                    "pinnedData": {"1": {"json": {}}}}},
                     {"name": "HTTP Request", "type": "n8n-nodes-base.httpRequest",
                      "parameters": {"url": "https://httpbin.org/post", "method": "POST"}},
                 ],
@@ -189,13 +208,21 @@ def run_scenario_E_deployment_failure():
                 ),
             evidence_dir=tmp,
         )
-        wf = _sample_workflow()
+        wf = _sample_workflow(authed=True)
+        probe_calls: list = []
+
+        def _recording_probe(stage: int, ok: bool):
+            def _probe():
+                probe_calls.append(stage)
+                return ok, {"err": 0.0 if ok else 0.5}
+            return _probe
+
         orch.set_deployment_probes(
             probes={
-                1: lambda: (True, {"err": 0.0}),
-                10: lambda: (True, {"err": 0.0}),
-                50: lambda: (False, {"err": 0.5}),
-                100: lambda: (True, {}),
+                1: _recording_probe(1, True),
+                10: _recording_probe(10, True),
+                50: _recording_probe(50, False),
+                100: _recording_probe(100, True),
             },
             promote_fn=lambda stage: None,
         )
@@ -205,6 +232,8 @@ def run_scenario_E_deployment_failure():
             daily_reqs=10,
             business=_business_checks(),
         )
+        res = dict(res)
+        res["probe_calls"] = probe_calls
         return res
 
 
@@ -239,8 +268,110 @@ def run_scenario_F_incident_recovery():
             {"agent": "a", "session": "s", "kind": "api", "ts": base + 9},
         ]
         corr = correlate(alerts)
+        # All 3 alerts share (agent, session) inside the window with >=2
+        # kinds, so they fuse into exactly 1 incident and nothing is lonely.
         return {"correlated": len(corr["incidents"]) == 1,
-                "lonely_kept": len(corr["lonely"]) == 1}
+                "lonely_kept": len(corr["lonely"]) == 0}
+
+
+# ---------------------------------------------------------------------------
+# pytest entry points — these are what the suite actually collects and runs.
+# Before 2026-10-10 this module exposed zero test_ functions, so none of the
+# six scenarios below ever executed in CI despite the file living in tests/.
+# Each test asserts the stage the scenario names (not a vacuous "ok").
+# Evidence class: COMPONENT_INTEGRATION_TEST (mocked transports, real chain).
+# ---------------------------------------------------------------------------
+
+def test_A_valid_execution_passes_capability_and_security_gates():
+    """A: allowed policy + allow-listed egress must NOT stop at step 2d.
+
+    Regression for the capability-namespace defect (mint resource="task:*"
+    could never match the hostname check at step 2d, dead-ending every
+    enforced workflow with an external URL). Asserts the chain proceeds past
+    egress/capability into verification and seals a decided outcome.
+    """
+    res = run_scenario_A_valid_execution()
+    assert res.get("status") == "READY_FOR_DEPLOYMENT", res
+    assert "Egress/capability" not in str(res.get("reason", "")), res
+    assert res.get("decision", {}).get("status") == "READY_FOR_DEPLOYMENT", res
+    assert res.get("snapshot_version"), "version snapshot must be recorded"
+
+
+def test_B_policy_denial_blocks_before_spend():
+    """B: deny-all policy fails closed to human review with the rule named."""
+    res = run_scenario_B_policy_denial()
+    assert res.get("status") == "PENDING_HUMAN_REVIEW", res
+    assert "deny-all" in str(res.get("reason", "")), res
+    assert res.get("hitl_request_id"), "denial must open a HITL request"
+
+
+def test_C_high_risk_skill_held_for_review():
+    """C: a high-risk '*' permission skill must never verify as 'ok'."""
+    res = run_scenario_C_untrusted_skill()
+    assert res.get("verdict") == "review", res
+    assert res.get("verdict") != "ok"
+    assert res.get("sealed") is True, "registry integrity seal must hold"
+
+
+def test_D_wrong_doctor_fails_at_invariant_stage():
+    """D: chain must reach the invariant stage and name the failing check.
+
+    Regression pair of test_A: proves execution was NOT stopped earlier at
+    egress/capability (the pre-fix behaviour), and that a technically green
+    delivery with wrong domain truth fails closed instead of deploying.
+    """
+    res = run_scenario_D_verification_failure()
+    assert res.get("status") == "PENDING_HUMAN_REVIEW", res
+    assert res.get("reason") == "Business invariant failure", res
+    failed = [f["name"] for f in res.get("invariants", {}).get("failed", [])]
+    assert "doctor-match" in failed, res
+
+
+def test_D_malformed_check_spec_fails_closed_without_raise():
+    """Malformed business-check specs must fail closed, never raise.
+
+    Regression for the unpack-ValueError escape: a non-callable check fn
+    used to propagate a ValueError out of execute_workflow_task and crash
+    the caller. (Well-formed 2-tuples are normalized with doc=""; anything
+    else seals PENDING_HUMAN_REVIEW with the cause named.)
+    """
+    import io
+    import contextlib
+    with tempfile.TemporaryDirectory() as tmp:
+        orch = SystemOrchestrator(
+            budget_usd=100.0,
+            enforcement=EnforcementProfile(
+                policy={"default": "allow"},
+                capability_secret=b"cap-secret-32-bytes-minimum-length-here",
+                egress=EgressPolicy(allow_public_internet=True,
+                                    allowed_domains=("httpbin.org",))),
+            evidence_dir=tmp,
+        )
+        bad = {"domain": "clinic",
+               "payload": {"appointment": {"doctor": "Dr. Samy"}, "price": 800},
+               "checks": [("doctor-match", "not-a-function",
+                            "corrupted spec")]}  # fn not callable: malformed
+        with contextlib.redirect_stdout(io.StringIO()):
+            res = orch.execute_workflow_task(
+                task_prompt="malformed invariant spec",
+                workflow_json=_sample_workflow(authed=True),
+                daily_reqs=10, business=bad)
+    assert res.get("status") == "PENDING_HUMAN_REVIEW", res
+    assert res.get("reason") == "Business invariant spec malformed", res
+
+
+def test_E_failing_canary_stops_rollout():
+    """E: the failing 50%-stage probe must halt promotion (no 100% probe)."""
+    res = run_scenario_E_deployment_failure()
+    assert res.get("probe_calls") == [1, 10, 50], res
+    assert 100 not in (res.get("probe_calls") or []), "rollout must stop"
+
+
+def test_F_incident_correlates_and_leaves_nothing_lonely():
+    """F: 3 same-session alerts fuse into 1 incident; lonely set is empty."""
+    res = run_scenario_F_incident_recovery()
+    assert res.get("correlated") is True, res
+    assert res.get("lonely_kept") is True, res
 
 
 def run_all_scenarios():

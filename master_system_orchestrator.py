@@ -813,9 +813,17 @@ class SystemOrchestrator:
                      "policy": {k: v for k, v in verdict.items()
                                 if k != "token"}},
                     task_prompt, workflow_json)
+            # Capability resource namespace MUST match the verification sites:
+            # step 2d and n8n_integration._gates() both verify
+            # resource=<hostname> (fnmatch). A "task:*" pattern can never
+            # match a hostname, which dead-ends EVERY enforced workflow with
+            # an external URL at step 2d. Per-host authority stays with the
+            # egress policy (allowed_domains); the capability still enforces
+            # action scope + expiry + signature + revocation. See
+            # tests/test_e2e_integration.py::test_D_reaches_invariant_stage.
             cap = platform_wiring.mint_task_capability(
                 self.enforcement, actions=["net.fetch", "code.execute"],
-                resource="task:*", ttl_s=900)
+                resource="*", ttl_s=900)
             self._task_capability = cap
             # Update n8n integration with the new capability
             if self.n8n is not None:
@@ -1000,7 +1008,31 @@ class SystemOrchestrator:
             if decision["status"] == "READY_FOR_DEPLOYMENT" and business:
                 from business_invariants import InvariantEngine
                 engine = InvariantEngine()
-                for name, fn, doc in business.get("checks", []) or []:
+                for spec in business.get("checks", []) or []:
+                    # Trust-boundary validation: a malformed check spec must
+                    # fail closed to human review, never crash the worker with
+                    # an unpack ValueError. Accept (name, fn[, doc]).
+                    if (not isinstance(spec, (tuple, list))
+                            or len(spec) not in (2, 3)
+                            or not callable(spec[1])):
+                        req = self.hitl.create_pending(
+                            raw_input=task_prompt,
+                            risk_score=60,
+                            violations=["business invariant spec malformed"],
+                            payload={"business": {
+                                k: v for k, v in business.items()
+                                if k != "checks"}},
+                        )
+                        self.metrics.inc("pending_hitl")
+                        return self._seal_result(
+                            {"status": "PENDING_HUMAN_REVIEW",
+                             "reason": "Business invariant spec malformed",
+                             "hitl_request_id": req.request_id,
+                             "scope": scope, "audit": audit},
+                            task_prompt, workflow_json, scope, audit,
+                            decision)
+                    name, fn = spec[0], spec[1]
+                    doc = spec[2] if len(spec) == 3 else ""
                     engine.register(business.get("domain", "default"),
                                     name, fn, doc or "")
                 inv = engine.evaluate(business.get("domain", "default"),
