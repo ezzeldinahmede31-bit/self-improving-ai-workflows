@@ -7,7 +7,7 @@ for the full doc of the chosen skill. Grouping matches the router
 registry buckets (`compensatory-router/SKILL.md`), so new skills that were
 registered in the router appear under the same family here automatically.
 
-## Automation (per-tool) (417)
+## Automation (per-tool) (422)
 
 - **a2a-agent-interop** — Connect n8n agents to the open Agent-to-Agent (A2A) protocol: publish Agent Cards, drive the task lifecycle (message, polling, streaming, push), authenticate pe…
 - **abstraction-quality-gate** — Enforces A Philosophy of Software Design's core principle: complexity management through deep modules and shallow interfaces.
@@ -67,6 +67,7 @@ registered in the router appear under the same family here automatically.
 - **bias-fairness-mitigation-strategies** — Applies Bias, Fairness, and Mitigation Strategies in Automated Decision Systems to production: distilled patterns, anti-patterns, and checklists for building re…
 - **biz-school-growth** — Modern growth and leadership distilled for scaling the clinic agency: habits, teams, content loops.
 - **bpm-robotic-automation-synergy** — Applies Business Process Management and Robotic Automation Synergy to production: distilled patterns, anti-patterns, and checklists for building reliable busine…
+- **brand-guidelines** — Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel.
 - **browser-automation-scale-v2** — Applies Browser Automation at Scale with Selenium, Playwright, and Puppeteer to production: distilled patterns, anti-patterns, and checklists for building relia…
 - **building-ml-powered-applications** — Applies Emmanuel Ameisen's Building Machine Learning Powered Applications to ship ML products end-to-end, not just notebooks — define the application's success…
 - **business-invariants** — Business invariant skill (domain predicates per delivery, fail-closed crashes, equals/one-of factories).
@@ -90,6 +91,7 @@ registered in the router appear under the same family here automatically.
 - **code-smell-detector** — Detects code smells in n8n workflows based on Martin Fowler's catalog of 70+ smells from 'Refactoring' (1999).
 - **cognitive-automation-bridging-v2** — Applies Cognitive Automation: Bridging AI, RPA, and Intelligent Document Processing to production: distilled patterns, anti-patterns, and checklists for buildin…
 - **combinatorial-testing-t-way** — Combinatorial t-way testing distilled.
+- **competitive-ads-extractor** — Extracts and analyzes competitors' ads from ad libraries (Facebook, LinkedIn, etc.) to understand what messaging, problems, and creative approaches are working.
 - **competitor-social-fetcher** — Social lane of competitor watch: YouTube winners via yt-dlp, imitable formats digest.
 - **compliance-regulatory-ai-automation** — Applies Compliance and Regulatory Frameworks for AI Automation to production: distilled patterns, anti-patterns, and checklists for building reliable compliance…
 - **computer-vision-algorithms-applications** — Applies Richard Szeliski's Computer Vision: Algorithms and Applications to build vision systems: image formation and filtering, feature detection and matching,…
@@ -201,6 +203,7 @@ registered in the router appear under the same family here automatically.
 - **introduction-to-deep-learning** — Applies Eugene Charniak's Introduction to Deep Learning to understand the field through probabilistic and linguistic examples: the architecture of neural networ…
 - **introduction-to-statistical-learning** — Applies James, Witten, Hastie and Tibshirani's An Introduction to Statistical Learning to apply modern statistical learning methods with practical intuition: th…
 - **invoice-automation** — Automate invoice generation, sending, tracking, and payment reconciliation across accounting platforms
+- **invoice-organizer** — Automatically organizes invoices and receipts for tax preparation by reading messy files, extracting key information, renaming them consistently, and sorting th…
 - **iot-edge-agent-integration** — Applies IoT and Edge Agent Integration for Smart Environments to production: distilled patterns, anti-patterns, and checklists for building reliable iot and edg…
 - **ip-protection-copyright-ai-v2** — Applies Intellectual Property Protection and Copyright Compliance in AI Automations to production: distilled patterns, anti-patterns, and checklists for buildin…
 - **jira-automation** — Automate Jira project management workflows, sprint planning, issue tracking, and reporting
@@ -404,6 +407,7 @@ registered in the router appear under the same family here automatically.
 - **trello-automation** — Automate Trello board management, card workflows, power-ups, and team collaboration
 - **trigger-design-selection** — Picks trigger type by freshness, cost, reliability: webhook, schedule, poll, queue, manual.
 - **twilio-sms-automation** — Automate SMS communications, two-way messaging, notifications, and voice workflows with Twilio
+- **twitter-algorithm-optimizer** — Analyze and optimize tweets for maximum reach using Twitter's open-source algorithm insights.
 - **twitter-x-automation** — Automate Twitter/X social media workflows including posting, engagement, analytics, and audience growth
 - **uipath-aa-blueprism-advanced-bot** — Applies UiPath, Automation Anywhere, and Blue Prism: Advanced Bot Architecture to production: distilled patterns, anti-patterns, and checklists for building rel…
 - **unattended-vs-attended-automation-v2** — Applies Unattended vs.
@@ -424,6 +428,7 @@ registered in the router appear under the same family here automatically.
 - **world-class-design-review** — Grade any n8n workflow 0-100 against the world-class scorecard: input contracts, idempotency, error handling, security, observability, cost control, maintainabi…
 - **xlsx** — Use this skill any time a spreadsheet file is the primary input or output.
 - **youtube-automation** — Automate YouTube content workflows including video management, analytics, scheduling, and channel optimization
+- **youtube-downloader** — Download YouTube videos with customizable quality and format options.
 - **zendesk-automation** — Automate customer support workflows with Zendesk ticket management, routing, and analytics
 - **zero-trust-agentic-workflows-v2** — Applies Zero Trust Architecture for Autonomous Agentic Workflows to production: distilled patterns, anti-patterns, and checklists for building reliable zero tru…
 
@@ -439,7 +444,7 @@ registered in the router appear under the same family here automatically.
 - **zapier-sdk** — Zapier SDK for TypeScript.
 - **zapier-system-cloner** — Replicates any Zapier (Zap) system — especially premium/expensive ones — with identical outputs and quality on n8n or code, using different (free/local) tools w…
 
-## Marketing/SEO/Growth (104)
+## Marketing/SEO/Growth (107)
 
 - **agile-testing-quadrants-deep** — Agile testing quadrants deep distilled.
 - **apify-audience-analysis** — Understand audience demographics, preferences, behavior patterns, and engagement quality across Facebook, Instagram, YouTube, and TikTok.
@@ -477,6 +482,7 @@ registered in the router appear under the same family here automatically.
 - **environment-promotion-config** — Moves workflows across dev/stage/prod with scoped config, never copy-paste.
 - **espresso-xcuitest-mobile** — Native mobile testing with Espresso and XCUITest distilled.
 - **figma-generate-design** — Use this skill alongside figma-use when the task involves translating an application page, view, or multi-section layout into Figma.
+- **file-organizer** — Intelligently organizes your files and folders across your computer by understanding context, finding duplicates, suggesting better structures, and automating c…
 - **firecrawl-scraper** — Web scraping skill using Firecrawl API for deep content extraction, format conversion, and page interaction.
 - **firecrawl-website-design-clone** — Extract any website's design system into an agent-ready DESIGN.md using Firecrawl scrape evidence.
 - **foley-computer-graphics** — Builds correct rendering: transforms, viewing, rasterization, and shading.
@@ -539,20 +545,23 @@ registered in the router appear under the same family here automatically.
 - **sugarman-adweek-triggers** — Triggers buying with direct-response psychology: slippery slides and buying emotions.
 - **swim-gossip-membership** — Spreads information and tracks membership epidemically: gossip, SWIM, and anti-entropy.
 - **the-agency-agents** — Use the 77 installed Agency specialist agents (marketing, sales, product, testing, support + healthcare/workflow/MCP picks) from msitarzewski/agency-agents.
+- **theme-factory** — Toolkit for styling artifacts with a theme.
 - **tiktok-marketing** — TikTok content strategy, video creation workflows, posting optimization, and analytics.
+- **ui-component-libraries** — Build web UI from ready-made design resources: 21st.dev sections, ReactBits animations, DESIGN.md brand systems (getdesign.md), and Claude Design systems.
 - **vapi-bootstrap-framework** — Opt-in recreation of the Bun + TypeScript framework used to build Vapi's landing-page voice agents from a ROUGH_DRAFT.md spec, including a scenario registry, la…
 - **vaynerchuk-jab-hook** — Wins social with give-give-ask: native storytelling per platform.
 - **viral-hooks** — Expert in creating opening lines, thumbnails, and hooks that stop the scroll.
 - **visual-regression-deep** — Visual regression testing deep distilled.
 - **winand-sql-indexing** — Indexes SQL correctly across vendors: B-trees, concatenation order, and execution plans.
 
-## Video/Media (13)
+## Video/Media (14)
 
 - **audio-whisper-transcriber** — Transcribes extracted audio files (mp3/wav) into text using local OpenAI Whisper / faster-whisper — no per-use API cost, no network upload, runs fully on-device…
 - **dicks-storyworthy** — Crafts true stories worth telling: homework for life and five-second moments.
 - **faceless-video-builder** — Free faceless video pipeline: 1 AI image per scene + Arabic voiceover + captions + assembly.
 - **fundamentals-speech-recognition** — Applies Rabiner & Juang's Fundamentals of Speech Recognition to build speech systems on the classic foundations: the speech signal and its representation, the h…
 - **media-downloader-extractor** — Downloads and extracts video/audio streams from social-media links (Facebook Reels, YouTube, TikTok, Instagram) using yt-dlp — bypassing browser scrapers, Cloud…
+- **meeting-insights-analyzer** — Analyzes meeting transcripts and recordings to uncover behavioral patterns, communication insights, and actionable feedback.
 - **penetration-test-planning** — Penetration test planning distilled.
 - **snyder-save-the-cat** — Structures screenplays and video scripts: beats, genres, and loglines.
 - **video** — When the user wants to create, generate, or produce video content using AI tools or programmatic frameworks.
@@ -802,7 +811,7 @@ registered in the router appear under the same family here automatically.
 - **windows-internals-russinovich** — Understands Windows from the kernel up: processes, memory, I/O, and security.
 - **xss-csrf-testing** — XSS and CSRF testing distilled.
 
-## Agents/Architecture (64)
+## Agents/Architecture (65)
 
 - **agent-arch-system-design** — Expert system architecture design: patterns, scalability planning, ADRs, C4 diagrams, technology trade-offs, non-functional requirements.
 - **agent-reach** — Read and search external sources through Agent Reach channels (YouTube, GitHub, Reddit, Twitter, Facebook, Instagram, LinkedIn, RSS, web).
@@ -865,6 +874,7 @@ registered in the router appear under the same family here automatically.
 - **systems-design-methodology** — Use when the /systems-design mode is active.
 - **terraform-up-and-running** — Applies Terraform: Up and Running (Yevgeniy Brikman) to infrastructure provisioning: treat every resource as code that is plan-able, reviewable, and reproducibl…
 - **test-strategy-architecture** — Test strategy architecture distilled.
+- **tester-army-e2e** — Write agentic end-to-end tests with tester-army/e2e (agent.act/agent.assert + classic locators, web + mobile, smart replay without model calls).
 - **vapi-prompt-builder** — Create, improve, or audit Vapi voice agent and Squad system prompts for production phone and web based voice agents.
 - **web-component-design** — Master React, Vue, and Svelte component patterns including CSS-in-JS, composition strategies, and reusable component architecture.
 - **webapp-testing** — Toolkit for interacting with and testing local web applications using Playwright.
@@ -992,12 +1002,13 @@ registered in the router appear under the same family here automatically.
 - **zeller-why-programs-fail** — Debugs systematically like a scientist: reproduce, hypothesize, predict, experiment.
 - **zero-trust-modular-decomposer** — Enforces strict modular architecture, breaking implementations into single-responsibility files (7-10 modules) with zero-trust isolation boundaries.
 
-## Browser/Device (30)
+## Browser/Device (31)
 
 - **ai-powered-testing-patterns** — AI-powered testing distilled.
 - **analogy** — Forced Analogy / Structural Transplant — map the problem onto a structurally similar system from a distant domain (immune system, air-traffic control, restauran…
 - **apple-ui-designer** — Redesign mobile app UI to feel unmistakably Apple-like, iOS-forward, and native.
 - **bach-session-exploratory** — James Bach session-based exploratory testing distilled.
+- **canvas-design** — Create beautiful visual art in .png and .pdf documents using design philosophy.
 - **claude-code-style-web-login** — Brows the web and logs into websites with the USER'S OWN accounts on THEIR device, replicating exactly how Claude Code does it — a visible local browser (Playwr…
 - **concept-fan** — Edward de Bono's Concept Fan — climb from the current solution to the concept it serves by asking "what is this a way of doing?", then fan out alternative conce…
 - **creative-problem-solver** — Generate a compact five-tier strategy portfolio when the next task is choosing among materially different paths.
@@ -1208,7 +1219,7 @@ registered in the router appear under the same family here automatically.
 - **high-end-visual-design** — Teaches the AI to design like a high-end agency.
 - **liquid-glass** — Build and migrate iOS, macOS, iPadOS, watchOS, tvOS, and visionOS apps with Apple's Liquid Glass design system (iOS 26+, macOS 26 Tahoe+).
 
-## Auto-installed (find-skills) (72)
+## Auto-installed (find-skills) (73)
 
 - **agentic-eval** — Patterns and techniques for evaluating and improving AI agent outputs.
 - **api-testing-contract-patterns** — API testing patterns distilled.
@@ -1220,6 +1231,7 @@ registered in the router appear under the same family here automatically.
 - **boyd-convex-optimization** — Solves optimization the Boyd way: convex formulation, duality, and first-order methods.
 - **candor-radical-feedback** — Gives feedback that works: care personally, challenge directly.
 - **cdn-cache-testing** — CDN and cache testing distilled.
+- **changelog-generator** — Automatically creates user-facing changelogs from git commits by analyzing commit history, categorizing changes, and transforming technical commits into clear,…
 - **compliance-testing-patterns** — Compliance testing patterns distilled.
 - **copeland-pairwise-testing** — Covers input combinations efficiently: pairwise and combinatorial design.
 - **cypress-component-patterns** — Cypress testing patterns distilled.
@@ -1314,8 +1326,9 @@ registered in the router appear under the same family here automatically.
 - **chinchilla-scaling-laws** — Plans large-model training with scaling laws: compute-optimal size, data mix, and emergent behavior.
 - **pbft-hotstuff-bft** — Reaches agreement with adversaries present: BFT protocols from PBFT to HotStuff.
 
-## Social media (2)
+## Social media (3)
 
+- **image-enhancer** — Improves the quality of images, especially screenshots, by enhancing resolution, sharpness, and clarity.
 - **seven-ai-tools-humam** — Multi-engine AI answer collection in n8n via Scrapeless Official (7 engines: ChatGPT, Copilot, Gemini, Google AI Mode, Google AI Overview, Grok, Perplexity) wit…
 - **shoham-multiagent-systems** — Designs strategic multi-agent systems: game forms, social choice, and protocols.
 
@@ -1324,4 +1337,4 @@ registered in the router appear under the same family here automatically.
 - **speech-language-processing** — Applies Jurafsky & Martin's Speech and Language Processing (SLP) to build NLP systems on textbook foundations: regular expressions and text normalization, n-gra…
 
 ---
-*Auto-generated by `scripts/skills_docs_generator.py` on 2026-10-11 12:31 — 1244 skills, 24 families*
+*Auto-generated by `scripts/skills_docs_generator.py` on 2026-10-11 13:03 — 1257 skills, 24 families*
