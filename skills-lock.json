@@ -1855,6 +1855,12 @@
       "skillPath": "template-engine/SKILL.md",
       "computedHash": "20d5f4ddad9d41ee56d2d3eb5e0b4c4a15180ada9a877a434ff535c0bb3c20f2"
     },
+    "text-optimizer": {
+      "source": "kochetkov-ma/claude-brewcode",
+      "sourceType": "github",
+      "skillPath": "skills/text-optimizer/SKILL.md",
+      "computedHash": "a7349ef7d469858c308d34d097ad29b91b2d8f370c222bd6d90bafe17b19b97c"
+    },
     "thought-based-reasoning": {
       "source": "guia-matthieu/clawfu-skills",
       "sourceType": "github",
