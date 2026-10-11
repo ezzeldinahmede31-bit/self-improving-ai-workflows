@@ -2392,3 +2392,6 @@ reporting style + session persistence, start with trial read task (default yes).
 ## 2026-10-11 — NVIDIA key retest (user fixed key, asked to switch off OpenRouter)
 - Key lists 80 models incl kimi-k3/k2.6, but chat completions UNSERVABLE: kimi-k3 timeout x4, kimi-k2.6 404, kimi-k2-instruct-0905 404, deepseek-v4.1-flash timeout, mistral-large-2 404, nemotron-70b 404, llama-3.3 410 Gone. 7 failures total.
 - Decision: NO switch (would break proven team). Team stays on OpenRouter kimi-k2-0905 (live). Kimi-K3 blocked both paths (OR 402, NV timeout). Paths forward: build.nvidia.com tier check, or $5 OR credits for full trio.
+
+## 2026-10-11 — team workflows DELETED per user order
+- Removed all 5 (team-gui, startup-mgr/dev/sales/qa) + their webhooks + executions from n8n DB. Verified 404 on all endpoints. Original 48 workflows untouched. Builder JSONs kept in /tmp/team-backup/ (rebuildable). TEAM_TOKEN env left inert in container.
