@@ -2416,3 +2416,6 @@ reporting style + session persistence, start with trial read task (default yes).
 - LinkedIn: STRONG — Egyptian dev (Apex Team) actively selling clinic booking automation in Egyptian Arabic (missed calls, no-shows, self-booking till midnight). Direct competitor + proven messaging.
 - X: live Egyptian timeline accessible; vezeeta chatter is generic/student talk, not buyer intent.
 - Verdict stands: demand validated; wedge = WhatsApp AI, Arabic-first, no commissions, cheaper than HumAI 4-12k/mo.
+
+## STANDING RULE (user 2026-10-11): deep-research pre-authorization
+- When user asks for deep research, agent is PRE-APPROVED for: joining PUBLIC groups (read access), reading posts/comments, searches. NO posting/commenting/messaging/liking/following without separate approval. NO spend, NO production publishes. Report results with evidence.
