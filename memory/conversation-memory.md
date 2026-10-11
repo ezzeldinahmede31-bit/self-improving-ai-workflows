@@ -2430,3 +2430,10 @@ reporting style + session persistence, start with trial read task (default yes).
 - Recalled: clinic dental booking system (Telegram receptionist, 25 JSON in memory/workflows) — main 59-node agent + cal book/cancel/resched/check/find + eng lanes + voice STT + KB + escalation + queue + staff console + reminder engine (2-min cron) + recall via clinic_visits_log + review form + global error audit + trend/audience/competitor radars. History: WhatsApp v1 gated READY, Telegram rebuild, live E2E exec 623, NVIDIA 410→lightning-30b fix, world-class battery in memory/test_matrix.md.
 - Clarify-before-execute: asked 5 Q (source/dest/scope/overwrite/purpose); answers: source=memory/workflows, dest=delete+recreate نظام-الحجز same name, scope=workflows+README, overwrite=all, purpose=handover.
 - Delivered: deleted + recreated /home/ezzeldin/Desktop/نظام-الحجز, copied 25 clinic_*.json (md5 25/25 match), wrote Arabic handover README.md (7KB). Total 26 files.
+
+## 2026-10-11 — clinic receptionist MISSION (spec phases 1-10)
+- Phase1: 25 clinic JSONs in memory/workflows (326 nodes), git clean, backups verified (tgz 128MB + 48 exports). Live: 48 workflows, 23 creds, clinic ones mostly INACTIVE.
+- Phase2 defects CONFIRMED+FIXED in FINAL_AUDIT/fixed/ (originals untouched): dead success path wired, ev: index source fixed, DEMO address removed, ownership gates + denial audit, idempotency gate, resched saga compensation, agenda parser fixed (found 2nd colon bug via tests), day-queue tally, 15 approval flags stripped (documented), KB fallback rule appended.
+- Phase3: 3 parallel research teams (NexHealth/Weave/Jane, OpenDental/Dentrix/CareStack, Doctolib/Zocdoc/Vezeeta) with cited briefs -> COMPETITOR_RESEARCH.md.
+- Tests: static clean, 13/13 logic + 4/4 adversarial (node harness), live Redis race on isolated container, read-only n8n checks. Live calendar/Telegram/LLM marked BLOCKED (need test env from user).
+- Security: threat model + Egypt PDPL (151/2020+816/2025) from official sources, no legal certificate issued. 9 delivery files in FINAL_AUDIT/. Rating: NOT production-ready; ready for isolated test env after user provides test calendar+chat.

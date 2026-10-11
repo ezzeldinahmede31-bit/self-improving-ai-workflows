@@ -1,0 +1,258 @@
+{
+  "name": "Clinic Engine Postvisit Lane",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "record",
+              "type": "string"
+            },
+            {
+              "name": "needsInfo",
+              "type": "string"
+            },
+            {
+              "name": "needsRemind",
+              "type": "string"
+            },
+            {
+              "name": "needsEscalation",
+              "type": "string"
+            },
+            {
+              "name": "needsCleanup",
+              "type": "string"
+            },
+            {
+              "name": "needsPostVisit",
+              "type": "string"
+            },
+            {
+              "name": "offerKey",
+              "type": "string"
+            },
+            {
+              "name": "offer",
+              "type": "string"
+            }
+          ]
+        },
+        "pinnedData": [
+          {
+            "json": {
+              "record": {
+                "chatId": "772001000",
+                "patientName": "Pin",
+                "appointmentISO": "2026-09-20T07:00:00Z",
+                "bookedDate": "2026-09-14",
+                "leadHours": 24,
+                "doctor": "Dr. Samir",
+                "service": "General exam",
+                "date": "2026-09-20",
+                "time": "10:00",
+                "slotKey": "slot:pin",
+                "queueNumber": 1,
+                "infoSentAt": 0,
+                "remindedAt": 0,
+                "confirmedAt": 0,
+                "escalatedAt": 0,
+                "followedUp": 0
+              },
+              "needsInfo": false,
+              "needsRemind": true,
+              "needsEscalation": false,
+              "needsCleanup": false,
+              "needsPostVisit": false,
+              "offerKey": "",
+              "offer": null
+            }
+          }
+        ]
+      },
+      "id": "en-pos-0",
+      "name": "Receive Lane Item",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Lane entry: unpack the routed Split item (self-contained; no cross-workflow refs).\nconst inp = $input.first().json;\nreturn [{ json: { record: inp.record || {}, needsInfo: !!inp.needsInfo, needsRemind: !!inp.needsRemind,\n  needsEscalation: !!inp.needsEscalation, needsCleanup: !!inp.needsCleanup, needsPostVisit: !!inp.needsPostVisit,\n  offerKey: inp.offerKey || '', offer: inp.offer || null } }];"
+      },
+      "id": "en-pos-1",
+      "name": "Unpack Reminder Item",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $input.item.json.record.chatId }}",
+        "text": "=شكرا لزيارتك عيادة النور 🌟 نتمنى أن تكون بخير. قيّمنا هنا من فضلك:\nhttps://ezzeldin8n.ezzeldin8n.cfd/form/clinic-review-noor-2026\nوساعدنا نخدمك أفضل.",
+        "additionalFields": {
+          "appendAttribution": false
+        },
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "⭐",
+                    "additionalFields": {
+                      "callback_data": "rate:1"
+                    }
+                  },
+                  {
+                    "text": "⭐⭐",
+                    "additionalFields": {
+                      "callback_data": "rate:2"
+                    }
+                  },
+                  {
+                    "text": "⭐⭐⭐",
+                    "additionalFields": {
+                      "callback_data": "rate:3"
+                    }
+                  },
+                  {
+                    "text": "⭐⭐⭐⭐",
+                    "additionalFields": {
+                      "callback_data": "rate:4"
+                    }
+                  },
+                  {
+                    "text": "⭐⭐⭐⭐⭐",
+                    "additionalFields": {
+                      "callback_data": "rate:5"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "id": "eng-234",
+      "name": "Send Post-Visit Thanks",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        700,
+        900
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "DLlemykGQ7Zm867F",
+          "name": "Telegram account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const rec = ($('Unpack Reminder Item').item.json.record || {});\nif (!rec || !rec.chatId) { return []; }\nreturn [{ json: { ...rec, followedUp: Date.now() } }];"
+      },
+      "id": "eng-235",
+      "name": "Mark Followed-Up",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        920,
+        900
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=remind:{{ $input.item.json.chatId }}:{{ $input.item.json.slotKey }}",
+        "value": "={{ JSON.stringify($input.item.json) }}"
+      },
+      "id": "eng-236",
+      "name": "Store Followed-Up",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1140,
+        900
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "content": "## Post-visit Lane\nThanks + form link + stars → marks followedUp.",
+        "height": 320,
+        "width": 440,
+        "color": 4
+      },
+      "id": "sticky-10",
+      "name": "Lane Docs",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        -220
+      ]
+    }
+  ],
+  "connections": {
+    "Receive Lane Item": {
+      "main": [
+        [
+          {
+            "node": "Unpack Reminder Item",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Unpack Reminder Item": {
+      "main": [
+        [
+          {
+            "node": "Send Post-Visit Thanks",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Mark Followed-Up",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Followed-Up": {
+      "main": [
+        [
+          {
+            "node": "Store Followed-Up",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {}
+}

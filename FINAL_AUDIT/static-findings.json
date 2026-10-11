@@ -1,0 +1,17 @@
+{
+ "exec-unresolved": [
+  "clinic_receptionist_telegram: Call Escalation Sub->{'mode': 'list', 'value': '4sfcxJL7rF14JXWt'}",
+  "clinic_receptionist_telegram: Transcribe Voice Note->{'mode': 'list', 'value': 'mABfupZqeGQ0Rpgn'}",
+  "clinic_reminder_engine: Call Remind Lane->{'mode': 'list', 'value': 'CQFLfV4ozsI62id9'}",
+  "clinic_reminder_engine: Call Info Lane->{'mode': 'list', 'value': 'YrA8ZAXhw80QwyW7'}",
+  "clinic_reminder_engine: Call Escalate Lane->{'mode': 'list', 'value': 'QalQeexQ2jz7TfMs'}",
+  "clinic_reminder_engine: Call Cleanup Lane->{'mode': 'list', 'value': 'qldAIMCqGbmdNXaF'}",
+  "clinic_reminder_engine: Call Postvisit Lane->{'mode': 'list', 'value': 'qgcyB6HzsylAANlt'}",
+  "clinic_reminder_engine: Call Offers Lane->{'mode': 'list', 'value': 'OR2bSrNu7nxnSkpS'}",
+  "clinic_sub_calendar_booking: Call Book Lane->{'mode': 'list', 'value': 'c0lcuMSsBafCU2EQ'}",
+  "clinic_sub_calendar_booking: Call Cancel Lane->{'mode': 'list', 'value': 'mEfKlXcSjfkFyGDm'}",
+  "clinic_sub_calendar_booking: Call Find Lane->{'mode': 'list', 'value': 'nq8HOsxsaE0alVqR'}",
+  "clinic_sub_calendar_booking: Call Resched Lane->{'mode': 'list', 'value': 'kT9EB420Yqy7DYeA'}",
+  "clinic_sub_calendar_booking: Call Check Lane->{'mode': 'list', 'value': 'vNs81YmYZfUxjbqv'}"
+ ]
+}

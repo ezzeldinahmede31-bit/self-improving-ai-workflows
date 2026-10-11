@@ -1,0 +1,285 @@
+{
+  "name": "Clinic Engine Escalate Lane",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "record",
+              "type": "string"
+            },
+            {
+              "name": "needsInfo",
+              "type": "string"
+            },
+            {
+              "name": "needsRemind",
+              "type": "string"
+            },
+            {
+              "name": "needsEscalation",
+              "type": "string"
+            },
+            {
+              "name": "needsCleanup",
+              "type": "string"
+            },
+            {
+              "name": "needsPostVisit",
+              "type": "string"
+            },
+            {
+              "name": "offerKey",
+              "type": "string"
+            },
+            {
+              "name": "offer",
+              "type": "string"
+            }
+          ]
+        },
+        "pinnedData": [
+          {
+            "json": {
+              "record": {
+                "chatId": "772001000",
+                "patientName": "Pin",
+                "appointmentISO": "2026-09-20T07:00:00Z",
+                "bookedDate": "2026-09-14",
+                "leadHours": 24,
+                "doctor": "Dr. Samir",
+                "service": "General exam",
+                "date": "2026-09-20",
+                "time": "10:00",
+                "slotKey": "slot:pin",
+                "queueNumber": 1,
+                "infoSentAt": 0,
+                "remindedAt": 0,
+                "confirmedAt": 0,
+                "escalatedAt": 0,
+                "followedUp": 0
+              },
+              "needsInfo": false,
+              "needsRemind": true,
+              "needsEscalation": false,
+              "needsCleanup": false,
+              "needsPostVisit": false,
+              "offerKey": "",
+              "offer": null
+            }
+          }
+        ]
+      },
+      "id": "en-esc-0",
+      "name": "Receive Lane Item",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Lane entry: unpack the routed Split item (self-contained; no cross-workflow refs).\nconst inp = $input.first().json;\nreturn [{ json: { record: inp.record || {}, needsInfo: !!inp.needsInfo, needsRemind: !!inp.needsRemind,\n  needsEscalation: !!inp.needsEscalation, needsCleanup: !!inp.needsCleanup, needsPostVisit: !!inp.needsPostVisit,\n  offerKey: inp.offerKey || '', offer: inp.offer || null } }];"
+      },
+      "id": "en-esc-1",
+      "name": "Unpack Reminder Item",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "key": "=noshow:{{ $input.item.json.record.chatId }}"
+      },
+      "id": "eng-241",
+      "name": "Read No-Show Tally",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        700,
+        1240
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Merge escalation record with the patient's prior no-show tally.\nconst cnt = $input.first().json;\nconst rec = $('Unpack Reminder Item').item.json.record;\nconst n = Number(cnt.value !== undefined ? cnt.value : (cnt.data !== undefined ? cnt.data : 0)) || 0;\nreturn [{ json: { record: rec, risk: n } }];"
+      },
+      "id": "eng-343",
+      "name": "Attach Risk",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        920,
+        1240
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $env.TELEGRAM_NURSE_CHAT_ID || $env.TELEGRAM_STAFF_CHAT_ID || '-100123456789' }}",
+        "text": "=📞 مكالمة مطلوبة: {{ $('Attach Risk').item.json.record.patientName }} (شات {{ $('Attach Risk').item.json.record.chatId }}) — ميعاده اليوم {{ $('Attach Risk').item.json.record.time }} مع {{ $('Attach Risk').item.json.record.doctor }} ({{ $('Attach Risk').item.json.record.service }})، لم يؤكد بعد التذكير. سوابق تغيب: {{ $('Attach Risk').item.json.risk }}. اتصلي به هاتفيا من فضلك.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "en-ne",
+      "name": "Notify Nurse Unconfirmed",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1720,
+        760
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "8YZmGiJXc70srNgA",
+          "name": "Secretary Bot API"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const rec = ($('Unpack Reminder Item').item.json.record || {});\nif (!rec || !rec.chatId) { return []; }\nreturn [{ json: { ...rec, escalatedAt: Date.now() } }];"
+      },
+      "id": "en-me",
+      "name": "Mark Escalated Record",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1920,
+        760
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=remind:{{ $input.item.json.chatId }}:{{ $input.item.json.slotKey }}",
+        "value": "={{ JSON.stringify($input.item.json) }}"
+      },
+      "id": "en-se",
+      "name": "Store Escalated Record",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        2120,
+        760
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "content": "## Escalate Lane\nReads no-show tally → nurse ping with risk → marks escalatedAt.",
+        "height": 320,
+        "width": 440,
+        "color": 4
+      },
+      "id": "sticky-8",
+      "name": "Lane Docs",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        -220
+      ]
+    }
+  ],
+  "connections": {
+    "Receive Lane Item": {
+      "main": [
+        [
+          {
+            "node": "Unpack Reminder Item",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Unpack Reminder Item": {
+      "main": [
+        [
+          {
+            "node": "Read No-Show Tally",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Escalated Record": {
+      "main": [
+        [
+          {
+            "node": "Store Escalated Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notify Nurse Unconfirmed": {
+      "main": [
+        [
+          {
+            "node": "Mark Escalated Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read No-Show Tally": {
+      "main": [
+        [
+          {
+            "node": "Attach Risk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Attach Risk": {
+      "main": [
+        [
+          {
+            "node": "Notify Nurse Unconfirmed",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Mark Escalated Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {}
+}

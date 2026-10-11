@@ -1,0 +1,673 @@
+{
+ "clinic_audience_pulse": {
+  "file": "clinic_audience_pulse.json",
+  "n8n_name": "clinic_audience_pulse",
+  "nodes": 10,
+  "triggers": [
+   "Run Daily Schedule:scheduleTrigger",
+   "Run On Demand Webhook:webhook",
+   "Report Pulse Errors:errorTrigger"
+  ],
+  "creds": [
+   "httpHeaderAuth:Clinic Webhook Header Auth",
+   "nvidiaApi:NVIDIA Nemotron account",
+   "telegramApi:Trend Radar Bot"
+  ],
+  "exec_refs": [],
+  "err_wf": null,
+  "orphans": [],
+  "dangling": [],
+  "demo_hits": [],
+  "secret_hits": 0,
+  "redis_keys": [],
+  "no_retry": [],
+  "no_timeout": []
+ },
+ "clinic_competitor_watch": {
+  "file": "clinic_competitor_watch.json",
+  "n8n_name": "clinic_competitor_watch",
+  "nodes": 9,
+  "triggers": [
+   "Run Weekly Schedule:scheduleTrigger",
+   "Run On Demand Webhook:webhook",
+   "Report Watch Errors:errorTrigger"
+  ],
+  "creds": [
+   "httpHeaderAuth:Clinic Webhook Header Auth",
+   "nvidiaApi:NVIDIA Nemotron account",
+   "telegramApi:Trend Radar Bot"
+  ],
+  "exec_refs": [],
+  "err_wf": null,
+  "orphans": [],
+  "dangling": [],
+  "demo_hits": [],
+  "secret_hits": 0,
+  "redis_keys": [],
+  "no_retry": [],
+  "no_timeout": []
+ },
+ "clinic_global_error_audit": {
+  "file": "clinic_global_error_audit.json",
+  "n8n_name": "clinic_global_error_audit",
+  "nodes": 4,
+  "triggers": [
+   "Catch Workflow Failure:errorTrigger"
+  ],
+  "creds": [
+   "telegramApi:Developer Bot API",
+   "telegramApi:Secretary Bot API"
+  ],
+  "exec_refs": [],
+  "err_wf": null,
+  "orphans": [],
+  "dangling": [],
+  "demo_hits": [],
+  "secret_hits": 0,
+  "redis_keys": [],
+  "no_retry": [],
+  "no_timeout": []
+ },
+ "clinic_recall": {
+  "file": "clinic_recall.json",
+  "n8n_name": "Clinic Recall Weekly (DEMO)",
+  "nodes": 7,
+  "triggers": [
+   "Weekly Recall Tick:scheduleTrigger"
+  ],
+  "creds": [
+   "httpHeaderAuth:n8n Local API",
+   "redis:Redis account",
+   "telegramApi:Telegram account"
+  ],
+  "exec_refs": [],
+  "err_wf": null,
+  "orphans": [],
+  "dangling": [],
+  "demo_hits": [],
+  "secret_hits": 0,
+  "redis_keys": [
+   "stats:recall"
+  ],
+  "no_retry": [],
+  "no_timeout": []
+ },
+ "clinic_receptionist_telegram": {
+  "file": "clinic_receptionist_telegram.json",
+  "n8n_name": "AI Clinic Receptionist - Telegram Inbound (Enterprise)",
+  "nodes": 59,
+  "triggers": [
+   "Receive Telegram Update:webhook"
+  ],
+  "creds": [
+   "httpHeaderAuth:Clinic Telegram Header Auth",
+   "httpHeaderAuth:n8n Local API",
+   "nvidiaApi:NVIDIA Nemotron account",
+   "redis:Redis account",
+   "telegramApi:Telegram account"
+  ],
+  "exec_refs": [
+   "Call Escalation Sub->{'mode': 'list', 'value': '4sfcxJL7rF14JXWt'}",
+   "Transcribe Voice Note->{'mode': 'list', 'value': 'mABfupZqeGQ0Rpgn'}"
+  ],
+  "err_wf": null,
+  "orphans": [
+   "Check Calendar Availability",
+   "Reschedule Appointment",
+   "Get Clinic Knowledge Base",
+   "Escalate Human Emergency",
+   "Use NVIDIA Nemotron Model",
+   "Check Slot Availability",
+   "Cancel Appointment",
+   "Check Queue Position",
+   "Store Patient Session Memory",
+   "Find Patient Bookings"
+  ],
+  "dangling": [],
+  "demo_hits": [
+   "AI Clinic Receptionist Agent:",
+   "Check Calendar Availability:"
+  ],
+  "secret_hits": 0,
+  "redis_keys": [
+   "alt:none",
+   "stats:confirmed",
+   "stats:fallback"
+  ],
+  "no_retry": [],
+  "no_timeout": []
+ },
+ "clinic_reminder_engine": {
+  "file": "clinic_reminder_engine.json",
+  "n8n_name": "Clinic Reminder Engine Router (thin)",
+  "nodes": 30,
+  "triggers": [
+   "Tick Reminder Engine:scheduleTrigger"
+  ],
+  "creds": [
+   "googleCalendarOAuth2Api:Google Calendar account",
+   "redis:Redis account",
+   "telegramApi:Developer Bot API",
+   "telegramApi:Secretary Bot API"
+  ],
+  "exec_refs": [
+   "Call Remind Lane->{'mode': 'list', 'value': 'CQFLfV4ozsI62id9'}",
+   "Call Info Lane->{'mode': 'list', 'value': 'YrA8ZAXhw80QwyW7'}",
+   "Call Escalate Lane->{'mode': 'list', 'value': 'QalQeexQ2jz7TfMs'}",
+   "Call Cleanup Lane->{'mode': 'list', 'value': 'qldAIMCqGbmdNXaF'}",
+   "Call Postvisit Lane->{'mode': 'list', 'value': 'qgcyB6HzsylAANlt'}",
+   "Call Offers Lane->{'mode': 'list', 'value': 'OR2bSrNu7nxnSkpS'}"
+  ],
+  "err_wf": null,
+  "orphans": [
+   "Lane Docs"
+  ],
+  "dangling": [],
+  "demo_hits": [],
+  "secret_hits": 0,
+  "redis_keys": [
+   "health:engine",
+   "healthalerted:any",
+   "offer:*",
+   "remind:*"
+  ],
+  "no_retry": [],
+  "no_timeout": []
+ },
+ "clinic_review_form": {
+  "file": "clinic_review_form.json",
+  "n8n_name": "Clinic Review Form (DEMO)",
+  "nodes": 3,
+  "triggers": [
+   "Clinic Review Form:formTrigger"
+  ],
+  "creds": [
+   "telegramApi:Clinic Secretary Bot"
+  ],
+  "exec_refs": [],
+  "err_wf": null,
+  "orphans": [],
+  "dangling": [],
+  "demo_hits": [],
+  "secret_hits": 0,
+  "redis_keys": [],
+  "no_retry": [],
+  "no_timeout": []
+ },
+ "clinic_staff_console": {
+  "file": "clinic_staff_console.json",
+  "n8n_name": "clinic_staff_console",
+  "nodes": 26,
+  "triggers": [
+   "Receive Staff Update:webhook"
+  ],
+  "creds": [
+   "httpHeaderAuth:Clinic Secretary Header Auth",
+   "redis:Redis account",
+   "telegramApi:Secretary Bot API"
+  ],
+  "exec_refs": [],
+  "err_wf": null,
+  "orphans": [],
+  "dangling": [],
+  "demo_hits": [],
+  "secret_hits": 0,
+  "redis_keys": [
+   "remind:*",
+   "stats:booked",
+   "stats:cancelled",
+   "stats:confirmed",
+   "stats:fallback",
+   "stats:noshow"
+  ],
+  "no_retry": [],
+  "no_timeout": []
+ },
+ "clinic_sub_cal_book": {
+  "file": "clinic_sub_cal_book.json",
+  "n8n_name": "Clinic CAL Book Lane",
+  "nodes": 34,
+  "triggers": [
+   "Receive Booking Request:executeWorkflowTrigger"
+  ],
+  "creds": [
+   "googleCalendarOAuth2Api:Google Calendar account",
+   "httpHeaderAuth:n8n Local API",
+   "redis:Redis account",
+   "telegramApi:Doctor Bot API",
+   "telegramApi:Secretary Bot API"
+  ],
+  "exec_refs": [],
+  "err_wf": null,
+  "orphans": [
+   "Delete Alt Cache",
+   "Lane Docs"
+  ],
+  "dangling": [],
+  "demo_hits": [
+   "Reply Booking Confirmed:"
+  ],
+  "secret_hits": 0,
+  "redis_keys": [
+   "stats:booked"
+  ],
+  "no_retry": [],
+  "no_timeout": []
+ },
+ "clinic_sub_cal_cancel": {
+  "file": "clinic_sub_cal_cancel.json",
+  "n8n_name": "Clinic CAL Cancel Lane",
+  "nodes": 14,
+  "triggers": [
+   "Receive Booking Request:executeWorkflowTrigger"
+  ],
+  "creds": [
+   "googleCalendarOAuth2Api:Google Calendar account",
+   "redis:Redis account",
+   "telegramApi:Clinic Secretary Bot"
+  ],
+  "exec_refs": [],
+  "err_wf": null,
+  "orphans": [
+   "Lane Docs"
+  ],
+  "dangling": [],
+  "demo_hits": [],
+  "secret_hits": 0,
+  "redis_keys": [
+   "stats:cancelled"
+  ],
+  "no_retry": [],
+  "no_timeout": []
+ },
+ "clinic_sub_cal_check": {
+  "file": "clinic_sub_cal_check.json",
+  "n8n_name": "Clinic CAL Check Lane",
+  "nodes": 4,
+  "triggers": [
+   "Receive Booking Request:executeWorkflowTrigger"
+  ],
+  "creds": [
+   "googleCalendarOAuth2Api:Google Calendar account"
+  ],
+  "exec_refs": [],
+  "err_wf": null,
+  "orphans": [],
+  "dangling": [],
+  "demo_hits": [
+   "Receive Booking Request:"
+  ],
+  "secret_hits": 0,
+  "redis_keys": [
+   "10:00"
+  ],
+  "no_retry": [],
+  "no_timeout": []
+ },
+ "clinic_sub_cal_find": {
+  "file": "clinic_sub_cal_find.json",
+  "n8n_name": "Clinic CAL Find Lane",
+  "nodes": 4,
+  "triggers": [
+   "Receive Booking Request:executeWorkflowTrigger"
+  ],
+  "creds": [
+   "googleCalendarOAuth2Api:Google Calendar account"
+  ],
+  "exec_refs": [],
+  "err_wf": null,
+  "orphans": [
+   "Lane Docs"
+  ],
+  "dangling": [],
+  "demo_hits": [],
+  "secret_hits": 0,
+  "redis_keys": [],
+  "no_retry": [],
+  "no_timeout": []
+ },
+ "clinic_sub_cal_resched": {
+  "file": "clinic_sub_cal_resched.json",
+  "n8n_name": "Clinic CAL Reschedule Lane",
+  "nodes": 31,
+  "triggers": [
+   "Receive Booking Request:executeWorkflowTrigger"
+  ],
+  "creds": [
+   "googleCalendarOAuth2Api:Google Calendar account",
+   "httpHeaderAuth:n8n Local API",
+   "redis:Redis account"
+  ],
+  "exec_refs": [],
+  "err_wf": null,
+  "orphans": [
+   "Lane Docs"
+  ],
+  "dangling": [],
+  "demo_hits": [],
+  "secret_hits": 0,
+  "redis_keys": [],
+  "no_retry": [],
+  "no_timeout": []
+ },
+ "clinic_sub_calendar_booking": {
+  "file": "clinic_sub_calendar_booking.json",
+  "n8n_name": "Clinic CAL Router (thin)",
+  "nodes": 11,
+  "triggers": [
+   "Receive Booking Request:executeWorkflowTrigger"
+  ],
+  "creds": [],
+  "exec_refs": [
+   "Call Book Lane->{'mode': 'list', 'value': 'c0lcuMSsBafCU2EQ'}",
+   "Call Cancel Lane->{'mode': 'list', 'value': 'mEfKlXcSjfkFyGDm'}",
+   "Call Find Lane->{'mode': 'list', 'value': 'nq8HOsxsaE0alVqR'}",
+   "Call Resched Lane->{'mode': 'list', 'value': 'kT9EB420Yqy7DYeA'}",
+   "Call Check Lane->{'mode': 'list', 'value': 'vNs81YmYZfUxjbqv'}"
+  ],
+  "err_wf": null,
+  "orphans": [
+   "Lane Docs"
+  ],
+  "dangling": [],
+  "demo_hits": [],
+  "secret_hits": 0,
+  "redis_keys": [],
+  "no_retry": [],
+  "no_timeout": []
+ },
+ "clinic_sub_eng_cleanup": {
+  "file": "clinic_sub_eng_cleanup.json",
+  "n8n_name": "Clinic Engine Cleanup Lane",
+  "nodes": 11,
+  "triggers": [
+   "Receive Lane Item:executeWorkflowTrigger"
+  ],
+  "creds": [
+   "httpHeaderAuth:n8n Local API",
+   "redis:Redis account",
+   "telegramApi:Telegram account"
+  ],
+  "exec_refs": [],
+  "err_wf": null,
+  "orphans": [
+   "Lane Docs"
+  ],
+  "dangling": [],
+  "demo_hits": [
+   "Receive Lane Item:"
+  ],
+  "secret_hits": 0,
+  "redis_keys": [
+   "10:00",
+   "2026-09-20T07:00:00Z",
+   "slot:pin",
+   "stats:noshow"
+  ],
+  "no_retry": [],
+  "no_timeout": []
+ },
+ "clinic_sub_eng_escalate": {
+  "file": "clinic_sub_eng_escalate.json",
+  "n8n_name": "Clinic Engine Escalate Lane",
+  "nodes": 8,
+  "triggers": [
+   "Receive Lane Item:executeWorkflowTrigger"
+  ],
+  "creds": [
+   "redis:Redis account",
+   "telegramApi:Secretary Bot API"
+  ],
+  "exec_refs": [],
+  "err_wf": null,
+  "orphans": [
+   "Lane Docs"
+  ],
+  "dangling": [],
+  "demo_hits": [
+   "Receive Lane Item:"
+  ],
+  "secret_hits": 0,
+  "redis_keys": [
+   "10:00",
+   "2026-09-20T07:00:00Z",
+   "slot:pin"
+  ],
+  "no_retry": [],
+  "no_timeout": []
+ },
+ "clinic_sub_eng_info": {
+  "file": "clinic_sub_eng_info.json",
+  "n8n_name": "Clinic Engine Info Lane",
+  "nodes": 6,
+  "triggers": [
+   "Receive Lane Item:executeWorkflowTrigger"
+  ],
+  "creds": [
+   "redis:Redis account",
+   "telegramApi:Telegram account"
+  ],
+  "exec_refs": [],
+  "err_wf": null,
+  "orphans": [
+   "Lane Docs"
+  ],
+  "dangling": [],
+  "demo_hits": [
+   "Receive Lane Item:"
+  ],
+  "secret_hits": 0,
+  "redis_keys": [
+   "10:00",
+   "2026-09-20T07:00:00Z",
+   "slot:pin"
+  ],
+  "no_retry": [],
+  "no_timeout": []
+ },
+ "clinic_sub_eng_offers": {
+  "file": "clinic_sub_eng_offers.json",
+  "n8n_name": "Clinic Engine Offers Lane",
+  "nodes": 8,
+  "triggers": [
+   "Receive Lane Item:executeWorkflowTrigger"
+  ],
+  "creds": [
+   "redis:Redis account",
+   "telegramApi:Telegram account"
+  ],
+  "exec_refs": [],
+  "err_wf": null,
+  "orphans": [
+   "Lane Docs"
+  ],
+  "dangling": [],
+  "demo_hits": [
+   "Receive Lane Item:"
+  ],
+  "secret_hits": 0,
+  "redis_keys": [
+   "10:00",
+   "2026-09-20T07:00:00Z",
+   "slot:pin"
+  ],
+  "no_retry": [],
+  "no_timeout": []
+ },
+ "clinic_sub_eng_postvisit": {
+  "file": "clinic_sub_eng_postvisit.json",
+  "n8n_name": "Clinic Engine Postvisit Lane",
+  "nodes": 6,
+  "triggers": [
+   "Receive Lane Item:executeWorkflowTrigger"
+  ],
+  "creds": [
+   "redis:Redis account",
+   "telegramApi:Telegram account"
+  ],
+  "exec_refs": [],
+  "err_wf": null,
+  "orphans": [
+   "Lane Docs"
+  ],
+  "dangling": [],
+  "demo_hits": [
+   "Receive Lane Item:"
+  ],
+  "secret_hits": 0,
+  "redis_keys": [
+   "10:00",
+   "2026-09-20T07:00:00Z",
+   "rate:1",
+   "rate:2",
+   "rate:3",
+   "rate:4",
+   "rate:5",
+   "slot:pin"
+  ],
+  "no_retry": [],
+  "no_timeout": []
+ },
+ "clinic_sub_eng_remind": {
+  "file": "clinic_sub_eng_remind.json",
+  "n8n_name": "Clinic Engine Remind Lane",
+  "nodes": 6,
+  "triggers": [
+   "Receive Lane Item:executeWorkflowTrigger"
+  ],
+  "creds": [
+   "redis:Redis account",
+   "telegramApi:Telegram account"
+  ],
+  "exec_refs": [],
+  "err_wf": null,
+  "orphans": [
+   "Lane Docs"
+  ],
+  "dangling": [],
+  "demo_hits": [
+   "Receive Lane Item:"
+  ],
+  "secret_hits": 0,
+  "redis_keys": [
+   "10:00",
+   "2026-09-20T07:00:00Z",
+   "slot:pin"
+  ],
+  "no_retry": [],
+  "no_timeout": []
+ },
+ "clinic_sub_escalation": {
+  "file": "clinic_sub_escalation.json",
+  "n8n_name": "Clinic Tool - Human Escalation",
+  "nodes": 4,
+  "triggers": [
+   "Receive Escalation Request:executeWorkflowTrigger"
+  ],
+  "creds": [
+   "telegramApi:Doctor Bot API",
+   "telegramApi:Secretary Bot API"
+  ],
+  "exec_refs": [],
+  "err_wf": null,
+  "orphans": [],
+  "dangling": [],
+  "demo_hits": [],
+  "secret_hits": 0,
+  "redis_keys": [],
+  "no_retry": [],
+  "no_timeout": []
+ },
+ "clinic_sub_knowledge_base": {
+  "file": "clinic_sub_knowledge_base.json",
+  "n8n_name": "Clinic Tool - Knowledge Base & Pricing",
+  "nodes": 3,
+  "triggers": [
+   "Receive Knowledge Query:executeWorkflowTrigger"
+  ],
+  "creds": [
+   "httpHeaderAuth:n8n Local API"
+  ],
+  "exec_refs": [],
+  "err_wf": null,
+  "orphans": [],
+  "dangling": [],
+  "demo_hits": [
+   "Lookup Clinic Catalog:",
+   "Lookup Clinic Catalog:",
+   "Lookup Clinic Catalog:"
+  ],
+  "secret_hits": 0,
+  "redis_keys": [],
+  "no_retry": [],
+  "no_timeout": []
+ },
+ "clinic_sub_queue_position": {
+  "file": "clinic_sub_queue_position.json",
+  "n8n_name": "check_queue_position",
+  "nodes": 6,
+  "triggers": [
+   "Receive Queue Query:executeWorkflowTrigger"
+  ],
+  "creds": [
+   "redis:Redis account"
+  ],
+  "exec_refs": [],
+  "err_wf": null,
+  "orphans": [],
+  "dangling": [],
+  "demo_hits": [],
+  "secret_hits": 0,
+  "redis_keys": [],
+  "no_retry": [],
+  "no_timeout": []
+ },
+ "clinic_sub_voice_stt": {
+  "file": "clinic_sub_voice_stt.json",
+  "n8n_name": "Clinic Voice STT Lane",
+  "nodes": 5,
+  "triggers": [
+   "Receive Voice Task:executeWorkflowTrigger"
+  ],
+  "creds": [
+   "openAiApi:OpenAI account (working)",
+   "telegramApi:Telegram account"
+  ],
+  "exec_refs": [],
+  "err_wf": null,
+  "orphans": [
+   "Lane Docs"
+  ],
+  "dangling": [],
+  "demo_hits": [],
+  "secret_hits": 0,
+  "redis_keys": [],
+  "no_retry": [],
+  "no_timeout": []
+ },
+ "clinic_trend_radar": {
+  "file": "clinic_trend_radar.json",
+  "n8n_name": "clinic_trend_radar",
+  "nodes": 17,
+  "triggers": [
+   "Run Daily Schedule:scheduleTrigger",
+   "Run On Demand Webhook:webhook",
+   "Report Radar Errors:errorTrigger"
+  ],
+  "creds": [
+   "httpHeaderAuth:Clinic Webhook Header Auth",
+   "nvidiaApi:NVIDIA Nemotron account",
+   "redis:Redis account",
+   "telegramApi:Trend Radar Bot"
+  ],
+  "exec_refs": [],
+  "err_wf": null,
+  "orphans": [],
+  "dangling": [],
+  "demo_hits": [],
+  "secret_hits": 0,
+  "redis_keys": [],
+  "no_retry": [],
+  "no_timeout": []
+ }
+}
