@@ -2400,3 +2400,9 @@ reporting style + session persistence, start with trial read task (default yes).
 - L0: local had marketing-psychology/plan/social/ad-creative/video. Installed from coreyhaines31/marketingskills (54.1K stars, triple-pass audits, 150-224K installs each): copywriting, content-strategy, seo-audit, programmatic-seo. All VALID (appended workspace Verification/Pairs), registered, library refreshed.
 - REJECTED: 101-skills ai-video-generation (730K installs BUT 7-star repo, Socket Warn, needs paid belt CLI; local video/faceless-video-builder cover it). Skipped social-content (local `social` covers domain).
 - Sibling cross-refs (emails/cro/schema/...) mostly not installed — optional extensions, pulled on demand.
+
+## 2026-10-11 — Egypt clinic-booking market research (public layer)
+- Verdict: YES, validated need. 16k doctors on Vezeeta; patient pain (Play 130K rev, Trustpilot 3.9: no availability, fee mismatch, dead support, cancelled calls); clinic pain: no-shows ~15% ($35-130/slot), reception drowning, manual reminders, scattered channels.
+- Rivals: Vezeeta (marketplace+commission, thin EMR), CliniDo (simple), Clinit (full SaaS), Medastik (dental), HumAI Egypt (WhatsApp 4-12k EGP/mo = price anchor). Egypt needs: Arabic UI, EGP+Paymob, WhatsApp-first, go-live in days.
+- Our gap: WhatsApp AI automation (not links), cheap/fast, Arabic-first, no commissions.
+- Private layer (FB groups/IG/LinkedIn/TikTok/X) needs user's one-time browser login — offered as next step.
