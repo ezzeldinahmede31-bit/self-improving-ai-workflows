@@ -1,0 +1,1 @@
+{"danger": "\\bsubprocess\\b|\\beval\\s*\\(|\\bexec\\s*\\(|child_process", "exfil": "curl\\s+[^\\n]*\\| *(ba)?sh|pastebin\\.com|webhook\\.site|requestbin", "secret": "sk-[A-Za-z0-9]{10,}|api[_-]?key\\s*[:=]\\s*['\"][^'\"]+|password\\s*[:=]\\s*['\"][^'\"]+|BEGIN [A-Z ]*PRIVATE KEY|github_pat_[A-Za-z0-9_]+|xox[bap]-[A-Za-z0-9-]+"}
