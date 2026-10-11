@@ -2334,3 +2334,12 @@ reporting style + session persistence, start with trial read task (default yes).
 - bird + opencli SKIPPED: abandoned, unbuildable (numpy.distutils/pkg_resources). FB/IG/LinkedIn fall back to CDP browser automation (all proven logged-in).
 - gh auth: needs user PAT (interactive login not possible headless). Public repos work without.
 - Skill agent-reach channels table updated to live status; gates READY_FOR_DEPLOYMENT; docs regen'd.
+
+## 2026-10-11 — 5 FB links (4 reels + 1 post) resolved, transcribed, installed
+- Resolved all 5 via Chrome CDP raw-websocket; downloaded 4 reel audios (yt-dlp + Chrome cookies); transcribed with faster-whisper large-v3-turbo (AR).
+- r1 Tech Hamzater (1000+ Claude skills) = ComposioHQ/awesome-claude-skills -> installed 11 curated to .opencode/skills/ (brand-guidelines, changelog-generator, competitive-ads-extractor, file-organizer, image-enhancer, invoice-organizer, meeting-insights-analyzer, theme-factory, twitter-algorithm-optimizer, video-downloader, canvas-design).
+- r2 Hussein R. Atwi (5-level design stack: Claude Design, Revero/DESIGN.md, 21st.dev, ReactBits) -> new skill ui-component-libraries; 21st.dev (200) + reactbits verified live; DESIGN.md via getdesign.md/VoltAgent.
+- v1 (skill-creator w/ description optimization) + r3 (24 agent skills, ex-Google) = obra/superpowers -> added plugin line to opencode.jsonc (official .opencode/INSTALL.md method); our writing-skills lacks the description-optimization feature -> plugin brings current upstream.
+- p1 Ibrahim (new testing generation) = tester-army/e2e (Apache 2.0, Callstack) -> new skill tester-army-e2e; needed Node >=22 -> installed Node 24 via nodesource; e2e@0.19.0 verified.
+- Disk filled 100% mid-task -> freed 1.4G (npm cache + own /tmp clones); noted rm -rf blocked by opencode.jsonc perms (used python shutil).
+- All 13 skills router-registered (1257 docs); authored 2 gates READY_FOR_DEPLOYMENT.
