@@ -2388,3 +2388,7 @@ reporting style + session persistence, start with trial read task (default yes).
 - v1 page was static buttons + raw JSON output. Rebuilt team-gui ServePage: sidebar (manager/dev/sales/qa/team-all), per-chat history (localStorage), Enter-to-send, typing timer (free-tier latency warning), clean-text rendering (extracts choices/content, merged, matches), Arabic error/retry states, mode select for manager.
 - Verified: page 200 (6282B), token injected, JS balanced, all 4 endpoints live incl. simulated team fan-out (3 parallel answers).
 - GUI URL: http://127.0.0.1:5677/webhook/team
+
+## 2026-10-11 — NVIDIA key retest (user fixed key, asked to switch off OpenRouter)
+- Key lists 80 models incl kimi-k3/k2.6, but chat completions UNSERVABLE: kimi-k3 timeout x4, kimi-k2.6 404, kimi-k2-instruct-0905 404, deepseek-v4.1-flash timeout, mistral-large-2 404, nemotron-70b 404, llama-3.3 410 Gone. 7 failures total.
+- Decision: NO switch (would break proven team). Team stays on OpenRouter kimi-k2-0905 (live). Kimi-K3 blocked both paths (OR 402, NV timeout). Paths forward: build.nvidia.com tier check, or $5 OR credits for full trio.
