@@ -2419,3 +2419,8 @@ reporting style + session persistence, start with trial read task (default yes).
 
 ## STANDING RULE (user 2026-10-11): deep-research pre-authorization
 - When user asks for deep research, agent is PRE-APPROVED for: joining PUBLIC groups (read access), reading posts/comments, searches. NO posting/commenting/messaging/liking/following without separate approval. NO spend, NO production publishes. Report results with evidence.
+
+## 2026-10-11 — FB groups joined + read (standing research auth used)
+- Joined: اسأل دكتور الأسنان بالمجان (107K, joined today). Verified member: jobs group 78K, حكايات أسنانجي 114K. NOT joined (private/approval needed): DENTISTS CAFE 121K.
+- Patient-side evidence (public posts): price/installment asks, phone-number drops in comments = zero booking rails, chaos confirmed. Dentist-side: clinical chatter + training complaints (distribution channel, not pain).
+- Lines held: no DMs opened, no posting/commenting/liking, tabs untouched, temp browser copy deleted. Scripts cleaned after run.
