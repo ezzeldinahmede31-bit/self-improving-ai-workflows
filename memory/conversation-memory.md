@@ -2371,3 +2371,7 @@ reporting style + session persistence, start with trial read task (default yes).
 
 ## 2026-10-11 — image-ocr-bridge (Gemini OCR -> stronger model)
 - Proved live: google/gemini-3.5-flash-lite OCR 3/3 lines ($0.0004) -> openai/gpt-4o-mini action items. Saved as image-ocr-bridge skill (ocr_bridge.py: base64, text-only forward, usage on stderr). VALID, gates READY, registered.
+
+## 2026-10-11 — $1k/15d startup plan via multi-model pipeline (real run, $0.073)
+- GPT-5 planned (15 steps, $0.030) -> Claude Opus 4.6 critiqued (ban risk CRITICAL, EGP pricing mismatch, trust deficit; $0.037) -> Kimi merged (EGP-first tiers, warm-up caps, trust architecture, official API path; $0.006). Kimi-K3 on OpenRouter=402, NVIDIA direct flaky -> used kimi-k2-0905.
+- Key corrections: NO mass cold DMs (10-15/day caps, warm-up ladder); EGP prices (1.5k-25k); demos without installing on client numbers; 360dialog/Twilio official path for paid.
