@@ -2355,3 +2355,10 @@ reporting style + session persistence, start with trial read task (default yes).
 - Complaints solved: #1383 silent benchmarks (assert non-empty + fixed delta sign), non-triggering descriptions (trigger battery >=0.80 + budget guard), stale skills.sh index (live-verify), context bloat (<=500 lines), faith-based shipping (eval+gates required).
 - Built `.opencode/skills/skill-forge/` (SKILL.md + forge_validate/forge_eval/forge_benchmark.py + forge_patterns.json). Self-test caught 4 real bugs (self-match scan, eval words bug, `0`-epoch bug found via E2E, missing verdict field lesson reused).
 - E2E proof: forged `timestamp-convert` (eval 1.00, benchmark delta +0.8333 honest recall-vs-script, anchor+roundtrip verified). Both skills gates READY_FOR_DEPLOYMENT, router-registered, library entries live.
+
+## 2026-10-11 — router audit: 61 unregistered skills found, tested, fixed, registered
+- Diffed .opencode/skills (1261 dirs) vs router registry → 61 missing (60 real + monday.com false positive from regex + 1 empty dir).
+- forge_validate batch: 55 book-skills had BROKEN YAML frontmatter (unquoted colons) — loaders would choke. Wrote quoter fixer: repaired 257 files workspace-wide (many already-registered skills were silently broken too).
+- Fixed apple-ui-designer + ios-glass-ui-designer (added Verification/Pairs sections); removed empty agent-reach-internet/ dir; ios-design-guidelines (1076 lines) registered with documented length deviation.
+- Book-skills carry "Pairs with:" inside description (whole-library convention) — accepted as pairs-equivalent, noted.
+- Registered 59 via router_register.py (auto-bucketed) + library refreshed. Re-diff: 0 missing.
