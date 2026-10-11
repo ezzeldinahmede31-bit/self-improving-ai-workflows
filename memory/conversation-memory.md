@@ -2437,3 +2437,9 @@ reporting style + session persistence, start with trial read task (default yes).
 - Phase3: 3 parallel research teams (NexHealth/Weave/Jane, OpenDental/Dentrix/CareStack, Doctolib/Zocdoc/Vezeeta) with cited briefs -> COMPETITOR_RESEARCH.md.
 - Tests: static clean, 13/13 logic + 4/4 adversarial (node harness), live Redis race on isolated container, read-only n8n checks. Live calendar/Telegram/LLM marked BLOCKED (need test env from user).
 - Security: threat model + Egypt PDPL (151/2020+816/2025) from official sources, no legal certificate issued. 9 delivery files in FINAL_AUDIT/. Rating: NOT production-ready; ready for isolated test env after user provides test calendar+chat.
+
+## 2026-10-11 — MISSION exhaustive adversarial QA: verdict READY FOR ISOLATED TESTING
+- Permanent suite FINAL_AUDIT/qa/ (run_all.sh one-command, ENV_SETUP.md): deterministic 73/73 (functional 19, concurrency 9 live-redis incl 100-way race, comp/authz 12, security 12, ops 14, perf/files 7), mutation 5/5, AI 50 live (32 pass, 10 model-hallucinations logged+guarded, 8 infra) + 250 generated BLOCKED (free-tier 402, resume cmd ready). Spend $0.015.
+- Fixed in test copies (v03 fingerprinted): dead booking path, ev index, DEMO leaks (+2 more found: knowledge reply hours/address, pinned personas), ownership gates, idempotency, resched saga, agenda x2, day tally, 15 approval flags (each justified), PII strip on deny (found by suite).
+- 15 approval flags: removed only routine/internal with documented per-flag rationale; sensitive gates kept+tested.
+- BLOCKED needs from user: test calendar + test chat + 2nd n8n for restore test + lawyer PDPL + risk acceptance. No prod writes/sends made. Verdict file lists 17 acceptance conditions honestly.

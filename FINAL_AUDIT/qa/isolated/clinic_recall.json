@@ -1,0 +1,237 @@
+{
+  "name": "Clinic Recall Weekly (DEMO)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "weeksInterval": 1,
+              "triggerAtDay": [
+                6
+              ],
+              "triggerAtHour": 10
+            }
+          ]
+        },
+        "pinnedData": [
+          {
+            "json": {
+              "ping": "pinned-sample"
+            }
+          }
+        ]
+      },
+      "id": "wee-0",
+      "name": "Weekly Recall Tick",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Recall from the DURABLE visits log (not Redis): last visit 180d+ ago,\n// and no invite sent in the last 180d (invite-once).\nconst inp = $input.first().json;\nconst rows = (inp.error === undefined && Array.isArray(inp.data)) ? inp.data : [];\nconst now = Date.now();\nconst DAY = 86400 * 1000;\nconst lastVisit = {};\nconst lastInvite = {};\nfor (const r of rows) {\n  if (!r || !r.chatId || !r.visitISO) { continue; }\n  const t = Date.parse(r.visitISO);\n  if (isNaN(t)) { continue; }\n  if (r.kind === 'visit') {\n    if (!lastVisit[r.chatId] || t > lastVisit[r.chatId]) { lastVisit[r.chatId] = t; }\n  } else if (r.kind === 'invite') {\n    if (!lastInvite[r.chatId] || t > lastInvite[r.chatId]) { lastInvite[r.chatId] = t; }\n  }\n}\nconst out = [];\nfor (const chat of Object.keys(lastVisit)) {\n  if (now - lastVisit[chat] > 180 * DAY && (now - (lastInvite[chat] || 0)) > 180 * DAY) {\n    out.push({ json: { chatId: chat } });\n  }\n}\nreturn out;"
+      },
+      "id": "fil-2",
+      "name": "Filter Due Recall",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $input.item.json.chatId }}",
+        "text": "=وحشتنا في عيادة النور 🌟 فات 6 شهور على آخر زيارة — الفحص الدوري يحمي أسنانك. رد بـ «احجز» ونرتب لك ميعادا.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "sen-3",
+      "name": "Send Recall Invite",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        660,
+        0
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "DLlemykGQ7Zm867F",
+          "name": "Telegram account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const chat = String(($('Filter Due Recall').item.json.chatId || ''));\nif (!chat) { return []; }\nreturn [{ json: { kind: 'invite', chatId: chat, patientName: '', visitISO: new Date().toISOString(), service: '', doctor: '' } }];"
+      },
+      "id": "sta-4",
+      "name": "Stamp Recall Moment",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "incr",
+        "key": "stats:recall"
+      },
+      "id": "rc-60-tally",
+      "name": "Tally Recall Stat",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        770,
+        0
+      ],
+      "credentials": {
+        "redis": {
+          "id": "dVToMpaQ33TGQdX3",
+          "name": "Redis account"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://ezzeldin8n.ezzeldin8n.cfd/api/v1/data-tables/MuP3xIno5NkLoAyk/rows?limit=250",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "timeout": 20000
+        }
+      },
+      "id": "rc-70-read",
+      "name": "Read Visits Log",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        220,
+        0
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "UPbxJH6WuwWmlLb9",
+          "name": "n8n Local API"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://ezzeldin8n.ezzeldin8n.cfd/api/v1/data-tables/MuP3xIno5NkLoAyk/rows",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ data: [$input.item.json] }) }}",
+        "options": {
+          "timeout": 20000
+        }
+      },
+      "id": "rc-71-login",
+      "name": "Log Invite Row",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1100,
+        0
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "UPbxJH6WuwWmlLb9",
+          "name": "n8n Local API"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    }
+  ],
+  "connections": {
+    "Weekly Recall Tick": {
+      "main": [
+        [
+          {
+            "node": "Read Visits Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Due Recall": {
+      "main": [
+        [
+          {
+            "node": "Send Recall Invite",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Recall Invite": {
+      "main": [
+        [
+          {
+            "node": "Tally Recall Stat",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Stamp Recall Moment": {
+      "main": [
+        [
+          {
+            "node": "Log Invite Row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tally Recall Stat": {
+      "main": [
+        [
+          {
+            "node": "Stamp Recall Moment",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Visits Log": {
+      "main": [
+        [
+          {
+            "node": "Filter Due Recall",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {}
+}

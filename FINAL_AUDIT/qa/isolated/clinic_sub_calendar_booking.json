@@ -1,0 +1,463 @@
+{
+  "name": "Clinic CAL Router (thin)",
+  "nodes": [
+    {
+      "parameters": {
+        "pinnedData": [
+          {
+            "json": {
+              "ping": "pinned-sample"
+            }
+          }
+        ],
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "patientPhone",
+              "type": "string"
+            },
+            {
+              "name": "patientChatId",
+              "type": "string"
+            },
+            {
+              "name": "patientName",
+              "type": "string"
+            },
+            {
+              "name": "doctorName",
+              "type": "string"
+            },
+            {
+              "name": "date",
+              "type": "string"
+            },
+            {
+              "name": "time",
+              "type": "string"
+            },
+            {
+              "name": "serviceName",
+              "type": "string"
+            },
+            {
+              "name": "action",
+              "type": "string"
+            },
+            {
+              "name": "eventId",
+              "type": "string"
+            },
+            {
+              "name": "newDate",
+              "type": "string"
+            },
+            {
+              "name": "newTime",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "id": "sw1-t",
+      "name": "Receive Booking Request",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        120,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-act",
+              "leftValue": "={{ ($input.item.json.action || 'book') }}",
+              "rightValue": "book",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "cal-122",
+      "name": "Route Booking Action",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        120,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-find",
+              "leftValue": "={{ ($input.item.json.action || '') }}",
+              "rightValue": "find",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "cal-539",
+      "name": "Route Find Or Cancel",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        300,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-cr",
+              "leftValue": "={{ ($input.item.json.action || '') }}",
+              "rightValue": "cancel",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "cal-668",
+      "name": "Route Cancel Or Resched",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        300,
+        560
+      ]
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "mode": "list",
+          "value": "c0lcuMSsBafCU2EQ"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "patientChatId": "={{ $('Receive Booking Request').item.json.patientChatId }}",
+            "patientName": "={{ $('Receive Booking Request').item.json.patientName }}",
+            "doctorName": "={{ $('Receive Booking Request').item.json.doctorName }}",
+            "date": "={{ $('Receive Booking Request').item.json.date }}",
+            "time": "={{ $('Receive Booking Request').item.json.time }}",
+            "serviceName": "={{ $('Receive Booking Request').item.json.serviceName }}",
+            "eventId": "={{ $('Receive Booking Request').item.json.eventId }}",
+            "action": "={{ $('Receive Booking Request').item.json.action }}",
+            "newDate": "={{ $('Receive Booking Request').item.json.newDate }}",
+            "newTime": "={{ $('Receive Booking Request').item.json.newTime }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "cal-r-1",
+      "name": "Call Book Lane",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        300,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "mode": "list",
+          "value": "mEfKlXcSjfkFyGDm"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "patientChatId": "={{ $('Receive Booking Request').item.json.patientChatId }}",
+            "patientName": "={{ $('Receive Booking Request').item.json.patientName }}",
+            "doctorName": "={{ $('Receive Booking Request').item.json.doctorName }}",
+            "date": "={{ $('Receive Booking Request').item.json.date }}",
+            "time": "={{ $('Receive Booking Request').item.json.time }}",
+            "serviceName": "={{ $('Receive Booking Request').item.json.serviceName }}",
+            "eventId": "={{ $('Receive Booking Request').item.json.eventId }}",
+            "action": "={{ $('Receive Booking Request').item.json.action }}",
+            "newDate": "={{ $('Receive Booking Request').item.json.newDate }}",
+            "newTime": "={{ $('Receive Booking Request').item.json.newTime }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "cal-r-2",
+      "name": "Call Cancel Lane",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        300,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "mode": "list",
+          "value": "nq8HOsxsaE0alVqR"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "patientChatId": "={{ $('Receive Booking Request').item.json.patientChatId }}",
+            "patientName": "={{ $('Receive Booking Request').item.json.patientName }}",
+            "doctorName": "={{ $('Receive Booking Request').item.json.doctorName }}",
+            "date": "={{ $('Receive Booking Request').item.json.date }}",
+            "time": "={{ $('Receive Booking Request').item.json.time }}",
+            "serviceName": "={{ $('Receive Booking Request').item.json.serviceName }}",
+            "eventId": "={{ $('Receive Booking Request').item.json.eventId }}",
+            "action": "={{ $('Receive Booking Request').item.json.action }}",
+            "newDate": "={{ $('Receive Booking Request').item.json.newDate }}",
+            "newTime": "={{ $('Receive Booking Request').item.json.newTime }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "cal-r-3",
+      "name": "Call Find Lane",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        300,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "mode": "list",
+          "value": "kT9EB420Yqy7DYeA"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "patientChatId": "={{ $('Receive Booking Request').item.json.patientChatId }}",
+            "patientName": "={{ $('Receive Booking Request').item.json.patientName }}",
+            "doctorName": "={{ $('Receive Booking Request').item.json.doctorName }}",
+            "date": "={{ $('Receive Booking Request').item.json.date }}",
+            "time": "={{ $('Receive Booking Request').item.json.time }}",
+            "serviceName": "={{ $('Receive Booking Request').item.json.serviceName }}",
+            "eventId": "={{ $('Receive Booking Request').item.json.eventId }}",
+            "action": "={{ $('Receive Booking Request').item.json.action }}",
+            "newDate": "={{ $('Receive Booking Request').item.json.newDate }}",
+            "newTime": "={{ $('Receive Booking Request').item.json.newTime }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "cal-r-4",
+      "name": "Call Resched Lane",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        300,
+        620
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## CAL Router (thin, refactored Sep 14)\nRoutes by action → book/cancel/find/reschedule lane subs via Execute Workflow (inputs passed through). Same trigger contract + workflow ID as before: agent tools unchanged.",
+        "height": 320,
+        "width": 440,
+        "color": 4
+      },
+      "id": "sticky-4",
+      "name": "Lane Docs",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        -220
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-co",
+              "leftValue": "={{ ($input.item.json.action || '') }}",
+              "rightValue": "check",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "cal-r-co",
+      "name": "Route Check Or Resched",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        300,
+        780
+      ]
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "mode": "list",
+          "value": "vNs81YmYZfUxjbqv"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "patientChatId": "={{ $('Receive Booking Request').item.json.patientChatId }}",
+            "patientName": "={{ $('Receive Booking Request').item.json.patientName }}",
+            "doctorName": "={{ $('Receive Booking Request').item.json.doctorName }}",
+            "date": "={{ $('Receive Booking Request').item.json.date }}",
+            "time": "={{ $('Receive Booking Request').item.json.time }}",
+            "serviceName": "={{ $('Receive Booking Request').item.json.serviceName }}",
+            "eventId": "={{ $('Receive Booking Request').item.json.eventId }}",
+            "action": "={{ $('Receive Booking Request').item.json.action }}",
+            "newDate": "={{ $('Receive Booking Request').item.json.newDate }}",
+            "newTime": "={{ $('Receive Booking Request').item.json.newTime }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "cal-r-exec5",
+      "name": "Call Check Lane",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        500,
+        780
+      ]
+    }
+  ],
+  "connections": {
+    "Receive Booking Request": {
+      "main": [
+        [
+          {
+            "node": "Route Booking Action",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Booking Action": {
+      "main": [
+        [
+          {
+            "node": "Call Book Lane",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Route Find Or Cancel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Find Or Cancel": {
+      "main": [
+        [
+          {
+            "node": "Call Find Lane",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Route Cancel Or Resched",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Cancel Or Resched": {
+      "main": [
+        [
+          {
+            "node": "Call Cancel Lane",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Route Check Or Resched",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Check Or Resched": {
+      "main": [
+        [
+          {
+            "node": "Call Check Lane",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Call Resched Lane",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {}
+}

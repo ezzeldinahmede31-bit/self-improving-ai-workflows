@@ -1,0 +1,30 @@
+{
+ "version": "qa-20261011-03",
+ "files": {
+  "clinic_audience_pulse.json": "8fa81094fda8a8a9a19695b59e81dd9b6831d0ff336dd97a7fe907da539840be",
+  "clinic_competitor_watch.json": "a079bcd990f7ecf892df26cd44b5c697c4053f843ca153ce2b7a0d21196a37ae",
+  "clinic_global_error_audit.json": "550067434449163439e5e1b731b587d8b8d678f19bc881d129fc5a6c7db07b87",
+  "clinic_recall.json": "2e09e2fa5a489c4ade8d142ef03d4ceac1cb5aaa791080dcdf839c5b3271bc06",
+  "clinic_receptionist_telegram.json": "81f3fc5f3ff58fbb382da12c9ee62d363fe15d1a9fc67ff89213de59a9363d73",
+  "clinic_reminder_engine.json": "46b1e8d0438241f0651cc7b5ac0136ed55829f7edb2ef4d2045bf3d877c2c0eb",
+  "clinic_review_form.json": "8793c0cd63b85aff4e92411687fb53eceda8090a938d5254b62e644aca62b817",
+  "clinic_staff_console.json": "a44e649d8fd479c8214d703a47616c9455e937d4b7092af4f0271c2e5673cea3",
+  "clinic_sub_cal_book.json": "d2de9c79851e55cf8901acd583efa9bb44ac219606ab0bb6868495a686400e80",
+  "clinic_sub_cal_cancel.json": "3cea45d2634ece5f652d2e3609df6f2759fc49ecd6c5dd60bfff3bdab8332f26",
+  "clinic_sub_cal_check.json": "fc7b078da8a138208c4cc4c2277532132cc17b11f0b5bb65a42767c2e50be6e1",
+  "clinic_sub_cal_find.json": "909f11bc95e7377773549363d60a5fc256e77d768ef0e5945eeaf1120b6d9304",
+  "clinic_sub_cal_resched.json": "a5db64d1a2ecf2a6477b0851e594883fa160d603625eb59256e37a0a562eca40",
+  "clinic_sub_calendar_booking.json": "fa4aa0021113b4eb6524a25a1cdf13623ae927723d1497399297131f48ca90c5",
+  "clinic_sub_eng_cleanup.json": "74a2c79c1846aeae42db5f5f54867e56f7d5acf27e0b249c18df1fb31415874a",
+  "clinic_sub_eng_escalate.json": "89bda61e35d177b1c2515d0bf597bca3645ddd70f1dc023936ccc99639aff86e",
+  "clinic_sub_eng_info.json": "16b6339436110be45392ae51275e17bcff863a78d956d4a60c4e035f98bb7bb8",
+  "clinic_sub_eng_offers.json": "1e9f631eac3f36dd6868fc273c3fdfbb708425b229983af1d98e41f43bf7549d",
+  "clinic_sub_eng_postvisit.json": "f94c31f6300468a2813ee8356fb88127bd9c00dd210b318b008eb0da4273efa8",
+  "clinic_sub_eng_remind.json": "6a33dc8d544121233fe19a28e3bc67885a7a0ecb8a5516613e2a6aae24b6eb7a",
+  "clinic_sub_escalation.json": "a84d922b949f997e5a6b9be01aec27a61eec54a7b59ca31c31fcaf993988dce5",
+  "clinic_sub_knowledge_base.json": "ba558b04f3eb899c400e46905213ae0aff1c9d45de8b8579636b3adf644ce543",
+  "clinic_sub_queue_position.json": "325026a23249921107db05d512eb395693b2c7fc6561ec2f13e0a0f98110962d",
+  "clinic_sub_voice_stt.json": "e3e6cc10006c3c824b757cd93afc7fab389c2406a8b3148f907e7d4a4b3bcd68",
+  "clinic_trend_radar.json": "fc5d84c24f0ed4c21dbcfd8840e98094cd65d25e062767d2ac9afa62ea078113"
+ }
+}

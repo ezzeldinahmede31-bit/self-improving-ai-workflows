@@ -1,0 +1,100 @@
+{
+  "name": "Clinic Tool - Knowledge Base & Pricing",
+  "nodes": [
+    {
+      "parameters": {
+        "pinnedData": [
+          {
+            "json": {
+              "ping": "pinned-sample"
+            }
+          }
+        ],
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "query",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "id": "sw2-t",
+      "name": "Receive Knowledge Query",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        120,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://ezzeldin8n.ezzeldin8n.cfd/api/v1/data-tables/aSxUNxrTZq94Y8fi/rows",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "timeout": 15000
+        }
+      },
+      "id": "kb-10-read",
+      "name": "Read Catalog Table",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        220,
+        0
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "UPbxJH6WuwWmlLb9",
+          "name": "n8n Local API"
+        }
+      },
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Build the catalog from the Data Table (staff-editable, no code changes).\n// Falls back to the baked-in DEMO catalog when the table is unreachable.\nconst inp = $input.first().json;\nlet rows = [];\nif (inp.error === undefined) {\n  const d = Array.isArray(inp.data) ? inp.data : (Array.isArray(inp) ? inp : []);\n  rows = d.filter((r) => r && r.kind && r.name);\n}\nconst services = rows.filter((r) => r.kind === 'service').map((r) => ({\n  name: r.name, price: Number(r.price) || 0, minutes: Number(r.minutes) || 30,\n  buffer: Number(r.buffer) || 15, prep: r.prep || '' }));\nconst doctors = rows.filter((r) => r.kind === 'doctor').map((r) => {\n  const parts = String(r.info || '').split('|').map((x) => x.trim());\n  return { name: r.name, specialty: parts[0] || '', days: parts[1] || '', hours: parts[2] || '' }; });\nconst clin = rows.find((r) => r.kind === 'clinic');\nconst kv = {};\nString((clin && clin.info) || '').split('|').forEach((p) => {\n  const i = p.indexOf('='); if (i > 0) { kv[p.slice(0, i).trim()] = p.slice(i + 1).trim(); } });\nif (!services.length) {\n  return [{ json: { clinic: 'عيادة النور لطب الأسنان (DEMO)', currency: 'EGP',\n    services: [{ name: 'General exam', price: 300, minutes: 30, buffer: 15, prep: '' }],\n    doctors: [{ name: 'Dr. Samir', specialty: 'general dentistry', days: '', hours: '' }],\n    hours: '', phone: '', address: '', cancelPolicy: '', _fallback: true } }];\n}\nreturn [{ json: { clinic: (clin && clin.name) || '', currency: 'EGP', services: services,\n  doctors: doctors, hours: kv.hours || '', phone: kv.phone || '', address: kv.address || '',\n  cancelPolicy: kv.cancel || '' } }];"
+      },
+      "id": "kb-11-build",
+      "name": "Lookup Clinic Catalog",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Receive Knowledge Query": {
+      "main": [
+        [
+          {
+            "node": "Read Catalog Table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Catalog Table": {
+      "main": [
+        [
+          {
+            "node": "Lookup Clinic Catalog",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "QvodOlYfZIRV22Qn"
+  }
+}

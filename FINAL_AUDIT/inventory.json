@@ -112,16 +112,16 @@
   ],
   "err_wf": null,
   "orphans": [
-   "Check Calendar Availability",
-   "Reschedule Appointment",
-   "Get Clinic Knowledge Base",
-   "Escalate Human Emergency",
-   "Use NVIDIA Nemotron Model",
-   "Check Slot Availability",
    "Cancel Appointment",
-   "Check Queue Position",
+   "Check Calendar Availability",
    "Store Patient Session Memory",
-   "Find Patient Bookings"
+   "Use NVIDIA Nemotron Model",
+   "Find Patient Bookings",
+   "Escalate Human Emergency",
+   "Check Slot Availability",
+   "Get Clinic Knowledge Base",
+   "Check Queue Position",
+   "Reschedule Appointment"
   ],
   "dangling": [],
   "demo_hits": [

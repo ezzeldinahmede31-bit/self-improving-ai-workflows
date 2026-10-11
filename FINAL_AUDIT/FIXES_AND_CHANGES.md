@@ -15,3 +15,5 @@
 - clinic_sub_eng_cleanup.json: removed requiresHumanApproval from 1 routine/internal node(s).
 - clinic_sub_eng_offers.json: removed requiresHumanApproval from 1 routine/internal node(s).
 - clinic_reminder_engine.json: removed requiresHumanApproval from 1 routine/internal node(s).
+- receptionist: Reply Knowledge Multi hours/address now KB-driven with empty-fallback (no fabricated hours/address when table unreachable).
+- pinned fixtures: renamed demo persona to Dr. SYNTH-TEST in 7 files (test-only pinnedData).

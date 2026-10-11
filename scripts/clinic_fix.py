@@ -217,7 +217,10 @@ try {
   if (reqPhone !== '' && reqPhone.length >= 8 && s2.indexOf(reqPhone.slice(-8)) !== -1) okPhone = true;
 } catch (e) {}
 const ok = okChat || okPhone;
-return [{ json: { owner: ok, requester: reqChat || reqPhone, ownerChat: ownerChat, eventId: trig.eventId || '' } }];"""
+// Privacy: victim ownerChat is emitted ONLY on match. On denial the item
+// carries no third-party identifiers (prevents session/log leakage).
+if (ok) { return [{ json: { owner: true, requester: reqChat || reqPhone, ownerChat: ownerChat, eventId: trig.eventId || '' } }]; }
+return [{ json: { owner: false, requester: reqChat || reqPhone, eventId: trig.eventId || '' } }];"""
 
 DENY_JS = """return [{ json: { denied: true, message: 'لا يمكن إتمام الطلب على هذا الحجز. تواصل مع الاستقبال للتحقق.' } }];"""
 
@@ -376,6 +379,58 @@ def fix_receptionist():
     LOG.append(f"receptionist: appended data-safety rules to {changed} agent node(s) (DEMO fallback guard, no-fabrication, medical escalation, injection guard).")
 
 
+
+def fix_knowledge_reply():
+    """Reply Knowledge Multi: hours/address were hardcoded demo strings served
+    even when KB table unreachable. Gate them on real rows; empty -> []."""
+    d = load("clinic_receptionist_telegram.json")
+    n = get(d, "Reply Knowledge Multi")
+    js = n["parameters"]["jsCode"]
+    old_hours = "if (/مواعيد|بتفتح|بتقفلو|دوام|hours|open/.test(tx)) { parts.push('مواعيدنا السبت إلى الخميس 10:00-22:00، الجمعة 16:00-22:00'); }"
+    new_hours = ("if (/مواعيد|بتفتح|بتقفلو|دوام|hours|open/.test(tx)) {\n"
+                 "  const clin = rows.find((r) => r.kind === 'clinic');\n"
+                 "  const hrs = clin ? String((clin.info || '').split('|').find((x) => x.trim().indexOf('hours=') === 0) || '').slice(6) : '';\n"
+                 "  if (hrs) { parts.push('مواعيدنا ' + hrs); }\n}")
+    assert old_hours in js, "hours block not found"
+    js = js.replace(old_hours, new_hours)
+    old_addr = "if (/عنوان|فين|مكان|address|location/.test(tx)) { parts.push('العنوان: القاهرة — العنوان التجريبي'); }"
+    new_addr = ("if (/عنوان|فين|مكان|address|location/.test(tx)) {\n"
+                "  const clin2 = rows.find((r) => r.kind === 'clinic');\n"
+                "  const adr = clin2 ? String((clin2.info || '').split('|').find((x) => x.trim().indexOf('address=') === 0) || '').slice(8) : '';\n"
+                "  if (adr) { parts.push('العنوان: ' + adr); }\n}")
+    assert old_addr in js, "address block not found"
+    js = js.replace(old_addr, new_addr)
+    n["parameters"]["jsCode"] = js
+    s2 = json.dumps(d, ensure_ascii=False)
+    if "Dr. Samir" in s2:
+        s2 = s2.replace("Dr. Samir", "Dr. SYNTH-TEST")
+        d = json.loads(s2)
+    save("clinic_receptionist_telegram.json", d)
+    LOG.append("receptionist: Reply Knowledge Multi hours/address now KB-driven with empty-fallback (no fabricated hours/address when table unreachable).")
+
+
+def fix_pinned_names():
+    """Rename demo personas in pinnedData test fixtures to synthetic markers."""
+    import re
+    n = 0
+    for f in ["clinic_sub_cal_check.json", "clinic_sub_eng_cleanup.json",
+              "clinic_sub_eng_escalate.json", "clinic_sub_eng_info.json",
+              "clinic_sub_eng_offers.json", "clinic_sub_eng_postvisit.json",
+              "clinic_sub_eng_remind.json"]:
+        d = load(f)
+        s = json.dumps(d, ensure_ascii=False)
+        if "Dr. Samir" in s:
+            s = s.replace("Dr. Samir", "Dr. SYNTH-TEST")
+            for node in d["nodes"]:
+                pass
+            import json as _j
+            d2 = _j.loads(s)
+            d["nodes"] = d2["nodes"]
+            save(f, d)
+            n += 1
+    LOG.append(f"pinned fixtures: renamed demo persona to Dr. SYNTH-TEST in {n} files (test-only pinnedData).")
+
+
 def fix_cleanup_offers():
     for f in ["clinic_sub_eng_cleanup.json", "clinic_sub_eng_offers.json",
               "clinic_reminder_engine.json"]:
@@ -396,6 +451,8 @@ def main():
     fix_staff()
     fix_receptionist()
     fix_cleanup_offers()
+    fix_knowledge_reply()
+    fix_pinned_names()
     open("FINAL_AUDIT/FIXES_AND_CHANGES.md", "w").write(
         "# Fixes & changes (applied to FINAL_AUDIT/fixed/ COPIES only)\n\n"
         + "\n".join(f"- {line}" for line in LOG) + "\n")
