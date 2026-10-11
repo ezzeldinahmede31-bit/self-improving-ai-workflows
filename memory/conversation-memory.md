@@ -2318,3 +2318,10 @@ reporting style + session persistence, start with trial read task (default yes).
 - Gates: 3/4 READY_FOR_DEPLOYMENT; impeccable BLOCKED-documented-false-positive (counting heuristic fires on prose 'at most/at least'; workflow checks misapplied to prose skill; official content NOT reshaped per no-workaround policy).
 - Place 2: memory/skills-docs/<4>.md + memory/skills-library.md + memory/social-intel-registry.json (unified map).
 - Open from user: exact 7 tool names/links from Humam video + item-6 MS 3D tool name + any DM-gated links.
+
+## 2026-10-11 — Facebook skill links installed (Ibrahim Khalil posts)
+- Resolved 2/3 FB share links via user Chrome CDP (raw websocket CDP; 3rd reel timed out): both by Ibrahim Khalil, both promote n8nar.com products.
+- Post1 -> The Agency (msitarzewski/agency-agents, MIT): cloned /tmp/agency-agents, convert.sh --tool opencode (282), installed 77 agents to .opencode/agents/ (marketing,sales,product,testing,support + 10 specialized incl. healthcare). New skill: the-agency-agents.
+- Post2 -> Agent Reach (Panniantong/Agent-Reach, MIT): installed to ~/.agent-reach-venv (v1.5.0), safe check-only mode, yt-dlp upgraded + node runtime config, doctor 5/16 (YouTube/RSS/web/V2EX/Bili-search live). Upgraded stub skill agent-reach v1.0.0 -> v1.1.0 with REAL CLI (no `get` cmd; upstream tools direct). Proven live: YouTube title+duration+AR/EN subs extracted.
+- Both skills: router-registered, docs regen'd (1244), gates READY_FOR_DEPLOYMENT.
+- Pending user approval: --system installs (gh CLI via sudo apt, mcporter via npm -g) + login channels (Twitter/Reddit/FB/IG/LinkedIn cookies, burner accounts).
