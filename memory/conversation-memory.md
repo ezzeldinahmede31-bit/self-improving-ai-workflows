@@ -2368,3 +2368,6 @@ reporting style + session persistence, start with trial read task (default yes).
 - Proved live via OpenRouter (tiny OK probes): openai/gpt-4o-mini, anthropic/claude-haiku-4.5, moonshotai/kimi-k2-0905 ALL LIVE. No new keys/CLIs needed.
 - Token skills: 11/12 already installed; installed+registered text-optimizer (2.1K, Socket pass; Snyk Warn noted) for 20-40% prompt compression.
 - Built multi-model-pipeline skill (roles, 6 quota rules, caps, spend reporting), gates READY, registered. Note: project opencode.jsonc has unrecognized `plugins` key on opencode 1.18.10 (left untouched).
+
+## 2026-10-11 — image-ocr-bridge (Gemini OCR -> stronger model)
+- Proved live: google/gemini-3.5-flash-lite OCR 3/3 lines ($0.0004) -> openai/gpt-4o-mini action items. Saved as image-ocr-bridge skill (ocr_bridge.py: base64, text-only forward, usage on stderr). VALID, gates READY, registered.
