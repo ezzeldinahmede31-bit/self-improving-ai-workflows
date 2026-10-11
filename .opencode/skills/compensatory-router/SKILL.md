@@ -77,6 +77,9 @@ reshaping the workflow. Composes with STATE -2 video baseline, STATE 0 clarify,
 and the n8n task rows below (incremental-generation, build-gates-pipeline,
 n8n-schema-guardrail, automation-known-issues-compass).
 
+**STATE -2d — MANDATORY AUTO-PARALLEL BASELINE on EVERY request (user rule:
+عايزه تشتغل مع أي مشروع بشكل تلقائي من غير ما أطلب وده يكون دايما لحد ما أطلب تتوقف — persistent, not today-only):** `dispatching-parallel-agents` (PRIMARY) + `subagent-task-delegator` + `using-git-worktrees` fire automatically on ANY request/project without being asked. Trigger: 2+ independent parts with no shared state (per `dispatching-parallel-agents` domains). Safety: research/investigation parallel always; implementation/code edits stay SEQUENTIAL unless each worker has isolated `using-git-worktrees` workspace (per `subagent-driven-development` rule: never parallel implementation on shared files — conflicts). Announce each firing in one line: `[auto-parallel] N agents: <A, B, C>`. Stop phrase: `وقف التوازي التلقائي` (any close phrasing) disables this STATE until re-enabled. Composes with STATE -2/-2b/-2c, STATE 0 clarify, and omni; never replaces the task-specific row.
+
 **STATE 0 — MANDATORY discovery loop on ANY request (user rule, applies to
 everything):** `clarify-before-execute` FIRST — if the request is not fully
 specified, SEARCH first (web/skills.sh/codebase/memory) to ground it, then

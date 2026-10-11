@@ -2448,3 +2448,8 @@ reporting style + session persistence, start with trial read task (default yes).
 - Pinned v05 (+stable import ids; defect found via staging import). Suite green on v05. Staging n8n deployed (:5678), 25/25 imports OK, wipe->restore->identical + version rollback proven. Manifest 38 files.
 - AI: free tier still 402 (verified) -> 250 stay BLOCKED. Spend ~$0.03.
 - Open gates for PROD: D (test accounts), G-critical (medical/injection cats never run), K (owner acceptance), I (live monitoring). Report files updated + checklist + incident plan draft.
+
+## Standing user rule — AUTO-PARALLEL permanent (2026-10-11, persistent until stopped)
+- User rule (Arabic): تشتغل مع أي مشروع بشكل تلقائي من غير ما أطلب وده يكون دايما لحد ما أطلب تتوقف — مش النهاردة بس، باستمرار.
+- Contract confirmed: pack = dispatching-parallel-agents (PRIMARY) + subagent-task-delegator + using-git-worktrees; trigger = 2+ independent parts with no shared state; safety = research/investigation parallel always, code implementation SEQUENTIAL unless isolated worktree per worker (subagent-driven-development conflict rule); announce = one line `[auto-parallel] N agents: <A, B, C>`; stop phrase = `وقف التوازي التلقائي`.
+- Enforcement: STATE -2d in `.opencode/skills/compensatory-router/SKILL.md` (MANDATORY AUTO-PARALLEL BASELINE on EVERY request); this memory section is the durable flag across sessions (re-encoded to .bin).
