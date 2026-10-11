@@ -2325,3 +2325,12 @@ reporting style + session persistence, start with trial read task (default yes).
 - Post2 -> Agent Reach (Panniantong/Agent-Reach, MIT): installed to ~/.agent-reach-venv (v1.5.0), safe check-only mode, yt-dlp upgraded + node runtime config, doctor 5/16 (YouTube/RSS/web/V2EX/Bili-search live). Upgraded stub skill agent-reach v1.0.0 -> v1.1.0 with REAL CLI (no `get` cmd; upstream tools direct). Proven live: YouTube title+duration+AR/EN subs extracted.
 - Both skills: router-registered, docs regen'd (1244), gates READY_FOR_DEPLOYMENT.
 - Pending user approval: --system installs (gh CLI via sudo apt, mcporter via npm -g) + login channels (Twitter/Reddit/FB/IG/LinkedIn cookies, burner accounts).
+
+## 2026-10-11 — sudo approvals executed + login channels wired
+- gh CLI 2.45.0 (apt) + mcporter 0.9.0 (npm -g) installed; Exa configured, proven live (real search results, no key).
+- Login check via CDP in user Chrome: X=Ezzeldin Ali @ezzeldinq8td, Reddit=logged-in feed, IG=ezzeldina738, LinkedIn=Ezzeldin Mohamed, GitHub=ezzeldinahmede31-bit. ALL logged in.
+- Twitter: extracted auth_token+ct0 via raw CDP Network.getAllCookies -> `agent-reach configure twitter-cookies --sync-legacy-twitter`; twitter-cli works, whoami=Ezzeldin Ali. Temp secrets shredded.
+- Reddit: rdt-cli (PyPI) auto-authed via browser subprocess as Ezzeldin_Alawy read+write.
+- bird + opencli SKIPPED: abandoned, unbuildable (numpy.distutils/pkg_resources). FB/IG/LinkedIn fall back to CDP browser automation (all proven logged-in).
+- gh auth: needs user PAT (interactive login not possible headless). Public repos work without.
+- Skill agent-reach channels table updated to live status; gates READY_FOR_DEPLOYMENT; docs regen'd.
