@@ -2362,3 +2362,9 @@ reporting style + session persistence, start with trial read task (default yes).
 - Fixed apple-ui-designer + ios-glass-ui-designer (added Verification/Pairs sections); removed empty agent-reach-internet/ dir; ios-design-guidelines (1076 lines) registered with documented length deviation.
 - Book-skills carry "Pairs with:" inside description (whole-library convention) — accepted as pairs-equivalent, noted.
 - Registered 59 via router_register.py (auto-bucketed) + library refreshed. Re-diff: 0 missing.
+
+## 2026-10-11 — multi-model pipeline (GPT plans, Claude+Kimi refine) on user device
+- Device reality: NO OpenAI/Anthropic/Moonshot keys, NO kimi/chatgpt CLIs; claude CLI present but NOT logged in; opencode authed (Nvidia/Google/OpenRouter/DeepSeek/Cerebras/Zen).
+- Proved live via OpenRouter (tiny OK probes): openai/gpt-4o-mini, anthropic/claude-haiku-4.5, moonshotai/kimi-k2-0905 ALL LIVE. No new keys/CLIs needed.
+- Token skills: 11/12 already installed; installed+registered text-optimizer (2.1K, Socket pass; Snyk Warn noted) for 20-40% prompt compression.
+- Built multi-model-pipeline skill (roles, 6 quota rules, caps, spend reporting), gates READY, registered. Note: project opencode.jsonc has unrecognized `plugins` key on opencode 1.18.10 (left untouched).
