@@ -18,27 +18,29 @@ Give the agent eyes on the whole internet: one CLI (`agent-reach`) routes each p
 ## Discipline
 
 1. **Doctor first on failure:** run `agent-reach doctor` if any call fails; a channel can be installed but unauthenticated.
-2. **Uniform envelope:** every command returns the same output shape regardless of channel. Use `--max-tokens N` whenever the source could be long.
-3. **Never a wrapper:** call upstream tools directly when you know them (yt-dlp, gh); Agent Reach is the selector/installer/router.
+2. **Never a wrapper:** v1.5.0 has NO `get` command — Agent Reach installs/selects upstream tools, and the AGENT calls them directly (yt-dlp, gh, curl+Jina, feedparser). Agent Reach is the selector/installer/router.
+3. **Keep outputs bounded:** transcripts/feeds can be long — extract, then trim to what the task needs.
 
 ```
-agent-reach get <channel>.<command> <query> [--max-tokens N] [--limit N] [--json]
+export PATH="$HOME/.agent-reach-venv/bin:$PATH"
 agent-reach doctor                       # health check all channels
 agent-reach install --env=auto           # safe read-only check (default)
 agent-reach install --env=auto --dry-run # preview what --system would change
+agent-reach transcribe <url>             # Whisper via Groq/OpenAI (needs API key)
+agent-reach skill --install              # register SKILL.md into agent dirs
 ```
 
 ## Channels
 
 ### Live on this machine (verified via doctor)
 
-| Channel | Commands | Notes |
-|---------|----------|-------|
-| `youtube` | `get youtube.transcript <url>`, `get youtube.info <url>` | Metadata + subtitles via yt-dlp |
-| `rss` | `get rss.feed <url>` | Any RSS/Atom feed as clean text |
-| `web` | any page URL | Via Jina Reader (`https://r.jina.ai/URL`) |
-| `v2ex` | hot posts, threads, replies | Public API, no login |
-| `bilibili` | search (basic) | Full subs need `bili-cli` |
+| Channel | How the agent calls it | Notes |
+|---------|------------------------|-------|
+| `youtube` | `yt-dlp --skip-download --print "%(title)s" <url>` for info; `--write-auto-sub --sub-langs ar,en --skip-download` for subtitles | Proven live on this machine (title+duration+AR/EN subs extracted) |
+| `rss` | any feed URL via feedparser/curl | Clean text, no login |
+| `web` | `curl https://r.jina.ai/<URL>` | Jina Reader, no key |
+| `v2ex` | public API | Hot posts, threads, replies |
+| `bilibili` | search API direct | Full subs need `bili-cli` |
 
 ### Unlockable (needs approval or login)
 
