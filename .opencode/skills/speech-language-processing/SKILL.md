@@ -1,6 +1,6 @@
 ---
 name: speech-language-processing
-description: Applies Jurafsky & Martin's Speech and Language Processing (SLP) to build NLP systems on textbook foundations: regular expressions and text normalization, n-grams and language models, part-of-speech tagging, parsing, semantic analysis, information extraction, and speech processing (ASR, TTS). Use when the user says 'build an NLP system', 'language model', 'POS tagging', 'syntactic parsing', 'information extraction', 'speech recognition', 'Jurafsky', 'SLP', 'text normalization', or when a natural-language feature must be built with the standard pipeline. Pairs with: foundations-statistical-nlp, neural-network-methods-nlp, nlp-transformers-huggingface, ai-engineering-foundation-models.
+description: "Applies Jurafsky & Martin's Speech and Language Processing (SLP) to build NLP systems on textbook foundations: regular expressions and text normalization, n-grams and language models, part-of-speech tagging, parsing, semantic analysis, information extraction, and speech processing (ASR, TTS). Use when the user says 'build an NLP system', 'language model', 'POS tagging', 'syntactic parsing', 'information extraction', 'speech recognition', 'Jurafsky', 'SLP', 'text normalization', or when a natural-language feature must be built with the standard pipeline. Pairs with: foundations-statistical-nlp, neural-network-methods-nlp, nlp-transformers-huggingface, ai-engineering-foundation-models."
 ---
 # Speech and Language Processing
 

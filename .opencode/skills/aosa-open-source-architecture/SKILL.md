@@ -1,6 +1,6 @@
 ---
 name: aosa-open-source-architecture
-description: Applies the case studies of The Architecture of Open Source Applications (Brown & Wilson) to learn architecture from real, working systems: how large projects (from web servers and databases to compilers and desktop apps) structure their code, make trade-offs, and evolve, and the transferable lessons about modularity, concurrency, and maintainability. Use when the user says 'AOSA', 'architecture of open source', 'learn architecture from real projects', 'case study architecture', 'how is project X structured', 'Brown Wilson', or when real architecture examples are the best teacher.
+description: "Applies the case studies of The Architecture of Open Source Applications (Brown & Wilson) to learn architecture from real, working systems: how large projects (from web servers and databases to compilers and desktop apps) structure their code, make trade-offs, and evolve, and the transferable lessons about modularity, concurrency, and maintainability. Use when the user says 'AOSA', 'architecture of open source', 'learn architecture from real projects', 'case study architecture', 'how is project X structured', 'Brown Wilson', or when real architecture examples are the best teacher."
 ---
 
 # The Architecture of Open Source Applications (Amy Brown & Greg Wilson, ed.)

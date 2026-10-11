@@ -1,6 +1,6 @@
 ---
 name: expert-c-programming
-description: Applies Peter van der Linden's Expert C Programming to the deep semantics of C: the difference arrays versus pointers, storage classes and the extern/static split, declaration parsing with the spiral rule, struct layout and alignment, const and volatile, operator precedence, linking and the common C pitfalls, and why C is fast when its model is respected. Use when the user says 'expert C', 'array versus pointer', 'spiral rule', 'declaration parsing', 'extern static', 'struct padding', 'const volatile', 'operator precedence C', 'memory layout C', 'linking C', 'van der Linden', or when a subtle C behavior is causing a bug.
+description: "Applies Peter van der Linden's Expert C Programming to the deep semantics of C: the difference arrays versus pointers, storage classes and the extern/static split, declaration parsing with the spiral rule, struct layout and alignment, const and volatile, operator precedence, linking and the common C pitfalls, and why C is fast when its model is respected. Use when the user says 'expert C', 'array versus pointer', 'spiral rule', 'declaration parsing', 'extern static', 'struct padding', 'const volatile', 'operator precedence C', 'memory layout C', 'linking C', 'van der Linden', or when a subtle C behavior is causing a bug."
 ---
 
 # Expert C Programming: Deep C Secrets (Peter van der Linden)

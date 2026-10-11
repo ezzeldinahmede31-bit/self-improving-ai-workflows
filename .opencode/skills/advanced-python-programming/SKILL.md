@@ -1,6 +1,6 @@
 ---
 name: advanced-python-programming
-description: Applies Quan Nguyen's Advanced Python Programming to build high-performance, concurrent, and maintainable Python systems: profiling-driven optimization, threading and multiprocessing with the GIL understood, async programming, memory management, and integrating compiled extensions. Encodes the discipline of choosing the concurrency model by workload and building components that are safe, reusable, and measured. Use when the user says 'concurrency in Python', 'threads or processes or asyncio', 'build a high-performance Python service', 'GIL', 'profile and optimize', or 'integrate a C extension'.
+description: "Applies Quan Nguyen's Advanced Python Programming to build high-performance, concurrent, and maintainable Python systems: profiling-driven optimization, threading and multiprocessing with the GIL understood, async programming, memory management, and integrating compiled extensions. Encodes the discipline of choosing the concurrency model by workload and building components that are safe, reusable, and measured. Use when the user says 'concurrency in Python', 'threads or processes or asyncio', 'build a high-performance Python service', 'GIL', 'profile and optimize', or 'integrate a C extension'."
 ---
 
 # advanced-python-programming

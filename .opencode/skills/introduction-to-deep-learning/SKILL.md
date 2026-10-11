@@ -1,6 +1,6 @@
 ---
 name: introduction-to-deep-learning
-description: Applies Eugene Charniak's Introduction to Deep Learning to understand the field through probabilistic and linguistic examples: the architecture of neural networks, why deep networks generalize, word embeddings and language models, and how deep learning changed NLP — with code examples that make each idea concrete. Use when the user says 'introduction to deep learning', 'Charniak', 'word embeddings explained', 'neural language model', 'deep learning and NLP', 'learn deep learning basics', or when a concise, example-driven foundation of deep learning is needed. Pairs with: deep-learning-illustrated, neural-networks-and-deep-learning, foundations-statistical-nlp, speech-language-processing.
+description: "Applies Eugene Charniak's Introduction to Deep Learning to understand the field through probabilistic and linguistic examples: the architecture of neural networks, why deep networks generalize, word embeddings and language models, and how deep learning changed NLP — with code examples that make each idea concrete. Use when the user says 'introduction to deep learning', 'Charniak', 'word embeddings explained', 'neural language model', 'deep learning and NLP', 'learn deep learning basics', or when a concise, example-driven foundation of deep learning is needed. Pairs with: deep-learning-illustrated, neural-networks-and-deep-learning, foundations-statistical-nlp, speech-language-processing."
 ---
 # Introduction to Deep Learning
 

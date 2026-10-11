@@ -1,6 +1,6 @@
 ---
 name: computer-networking-top-down
-description: Applies Kurose & Ross' Computer Networking: A Top-Down Approach to the Internet stack as applications see it: application-layer protocols (HTTP, DNS, sockets), transport (TCP and UDP, reliable data transfer, congestion control), the network layer and IP, the link layer, and the security of the network, always grounded in the applications that use it. Use when the user says 'Kurose Ross', 'top down networking', 'HTTP', 'DNS', 'sockets', 'TCP congestion control', 'IP addressing', 'reliable data transfer', 'network security', or when a network behavior must be understood from the application's point of view.
+description: "Applies Kurose & Ross' Computer Networking: A Top-Down Approach to the Internet stack as applications see it: application-layer protocols (HTTP, DNS, sockets), transport (TCP and UDP, reliable data transfer, congestion control), the network layer and IP, the link layer, and the security of the network, always grounded in the applications that use it. Use when the user says 'Kurose Ross', 'top down networking', 'HTTP', 'DNS', 'sockets', 'TCP congestion control', 'IP addressing', 'reliable data transfer', 'network security', or when a network behavior must be understood from the application's point of view."
 ---
 
 # Computer Networking: A Top-Down Approach (Kurose & Ross)

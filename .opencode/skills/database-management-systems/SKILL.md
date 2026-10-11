@@ -1,6 +1,6 @@
 ---
 name: database-management-systems
-description: Applies Ramakrishnan & Gehrke's Database Management Systems to the internals and practice of relational database systems: relational algebra and SQL, disk and file organization, indexing (B-trees, hash indexes), query evaluation and optimization, transactions and concurrency (locking, isolation levels), and crash recovery. Use when the user says 'database management systems', 'B-tree index', 'query evaluation', 'query optimizer', 'concurrency control', 'isolation level', 'log based recovery', 'Ramakrishnan Gehrke', 'database internals', or when understanding or tuning how a database executes.
+description: "Applies Ramakrishnan & Gehrke's Database Management Systems to the internals and practice of relational database systems: relational algebra and SQL, disk and file organization, indexing (B-trees, hash indexes), query evaluation and optimization, transactions and concurrency (locking, isolation levels), and crash recovery. Use when the user says 'database management systems', 'B-tree index', 'query evaluation', 'query optimizer', 'concurrency control', 'isolation level', 'log based recovery', 'Ramakrishnan Gehrke', 'database internals', or when understanding or tuning how a database executes."
 ---
 
 # Database Management Systems (Ramakrishnan & Gehrke)

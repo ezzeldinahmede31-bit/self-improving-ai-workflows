@@ -1,6 +1,6 @@
 ---
 name: chollet-cnn-computer-vision
-description: Deep dive into the convolutional-network and computer-vision chapters of Chollet's Deep Learning with Python: convolution filters, pooling, data augmentation, the VGG/inception/resnet evolution, transfer learning with pretrained backbones, and fine-tuning for new domains. Use when the user says 'CNN architecture', 'convolution explained', 'data augmentation for images', 'transfer learning for vision', 'fine-tune a pretrained model', 'image feature extraction', or when designing a convolutional model for an image task. Pairs with: deep-learning-with-python, deep-learning-vision-systems, computer-vision-algorithms-applications, efficient-processing-deep-neural-networks.
+description: "Deep dive into the convolutional-network and computer-vision chapters of Chollet's Deep Learning with Python: convolution filters, pooling, data augmentation, the VGG/inception/resnet evolution, transfer learning with pretrained backbones, and fine-tuning for new domains. Use when the user says 'CNN architecture', 'convolution explained', 'data augmentation for images', 'transfer learning for vision', 'fine-tune a pretrained model', 'image feature extraction', or when designing a convolutional model for an image task. Pairs with: deep-learning-with-python, deep-learning-vision-systems, computer-vision-algorithms-applications, efficient-processing-deep-neural-networks."
 ---
 # CNN and Computer Vision with Chollet
 

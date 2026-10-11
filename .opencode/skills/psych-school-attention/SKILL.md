@@ -1,6 +1,6 @@
 ---
 name: psych-school-attention
-description: Attention science for faceless clinic videos: hooks, load, memory. Use when the user says "attention", "hook", "انتباه", "retention", "why viewers drop", "cognitive load", or before scripting/editing any video.
+description: "Attention science for faceless clinic videos: hooks, load, memory. Use when the user says "attention", "hook", "انتباه", "retention", "why viewers drop", "cognitive load", or before scripting/editing any video."
 ---
 
 # Attention School

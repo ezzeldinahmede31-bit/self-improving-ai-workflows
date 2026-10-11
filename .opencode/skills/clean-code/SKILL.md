@@ -1,6 +1,6 @@
 ---
 name: clean-code
-description: Applies Robert C. Martin's Clean Code to writing code that is a joy to work on: meaningful names, small functions with one responsibility, comments that explain why not what, formatting, error handling as a first-class concern, and the disciplines that keep a codebase clean as it grows. Use when the user says 'clean code', 'meaningful names', 'small functions', 'single responsibility', 'clean functions', 'Uncle Bob', 'refactor for clarity', 'readable code', 'naming', or when reviewing or improving code quality.
+description: "Applies Robert C. Martin's Clean Code to writing code that is a joy to work on: meaningful names, small functions with one responsibility, comments that explain why not what, formatting, error handling as a first-class concern, and the disciplines that keep a codebase clean as it grows. Use when the user says 'clean code', 'meaningful names', 'small functions', 'single responsibility', 'clean functions', 'Uncle Bob', 'refactor for clarity', 'readable code', 'naming', or when reviewing or improving code quality."
 ---
 
 # Clean Code (Robert C. Martin)

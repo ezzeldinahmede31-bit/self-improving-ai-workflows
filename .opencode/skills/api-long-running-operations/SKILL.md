@@ -1,6 +1,6 @@
 ---
 name: api-long-running-operations
-description: Applies the long-running operations chapter of API Design Patterns (Geewax): model asynchronous jobs correctly with a standard resource that starts, reports progress, and yields a final result — with idempotent create, operation status endpoints, polling guidance, and webhook notifications. Use when the user says 'long-running operation', 'async job', 'operation resource', 'job status', 'polling', 'webhook notification', 'asynchronous API design', 'operationId', 'start a background job', 'progress endpoint', 'cancel a job', or when an API endpoint must start work that outlives a single request. Pairs with: api-design-patterns, api-integration, api-versioning-compatibility, webhook-automation, state-machine-persistence.
+description: "Applies the long-running operations chapter of API Design Patterns (Geewax): model asynchronous jobs correctly with a standard resource that starts, reports progress, and yields a final result — with idempotent create, operation status endpoints, polling guidance, and webhook notifications. Use when the user says 'long-running operation', 'async job', 'operation resource', 'job status', 'polling', 'webhook notification', 'asynchronous API design', 'operationId', 'start a background job', 'progress endpoint', 'cancel a job', or when an API endpoint must start work that outlives a single request. Pairs with: api-design-patterns, api-integration, api-versioning-compatibility, webhook-automation, state-machine-persistence."
 ---
 
 # API Long-Running Operations

@@ -1,6 +1,6 @@
 ---
 name: mysql-query-optimization-indexing
-description: Applies the indexing and query-optimization chapters of High Performance MySQL (Schwartz, Zaitsev, Tkachov) to make queries fast: choosing the right index structure for the access path, composite index column order, covering indexes, reading EXPLAIN, and the query anti-patterns that force full table scans. Use when the user says 'slow query', 'mysql index', 'composite index', 'covering index', 'EXPLAIN', 'query plan', 'optimizer', 'index order', 'how to make this query fast', 'High Performance MySQL', or when a query must be diagnosed and made efficient.
+description: "Applies the indexing and query-optimization chapters of High Performance MySQL (Schwartz, Zaitsev, Tkachov) to make queries fast: choosing the right index structure for the access path, composite index column order, covering indexes, reading EXPLAIN, and the query anti-patterns that force full table scans. Use when the user says 'slow query', 'mysql index', 'composite index', 'covering index', 'EXPLAIN', 'query plan', 'optimizer', 'index order', 'how to make this query fast', 'High Performance MySQL', or when a query must be diagnosed and made efficient."
 ---
 
 # High Performance MySQL: Indexing and Query Optimization

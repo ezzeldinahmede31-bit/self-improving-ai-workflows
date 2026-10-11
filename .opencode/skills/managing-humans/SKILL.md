@@ -1,6 +1,6 @@
 ---
 name: managing-humans
-description: Applies Michael Lopp's Managing Humans to lead engineering teams with honesty and craft: the one-on-one as the heart of management, feedback given directly and kindly, hiring for evidence, and handling hard conversations without avoiding them. Covers delegation with trust, managing your own manager, and the rituals that keep a team healthy. Use when the user says 'be a better manager', 'run effective one-on-ones', or 'how do I give tough feedback'.
+description: "Applies Michael Lopp's Managing Humans to lead engineering teams with honesty and craft: the one-on-one as the heart of management, feedback given directly and kindly, hiring for evidence, and handling hard conversations without avoiding them. Covers delegation with trust, managing your own manager, and the rituals that keep a team healthy. Use when the user says 'be a better manager', 'run effective one-on-ones', or 'how do I give tough feedback'."
 ---
 # managing-humans
 

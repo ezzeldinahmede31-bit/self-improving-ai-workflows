@@ -1,6 +1,6 @@
 ---
 name: natural-language-processing-python
-description: Applies Bird, Klein & Loper's Natural Language Processing with Python to do practical NLP with the NLTK toolkit: accessing corpora, processing raw text, POS tagging, chunking, parsing, semantic analysis, and classification of text. Use when the user says 'NLTK', 'process text with Python', 'tokenize', 'chunk', 'named entity', 'text classification Python', 'NLP with NLTK', or when a text-processing pipeline should be built with the standard Python NLP toolkit. Pairs with: practical-natural-language-processing, natural-language-processing-action, python-cookbook, text-mining-r.
+description: "Applies Bird, Klein & Loper's Natural Language Processing with Python to do practical NLP with the NLTK toolkit: accessing corpora, processing raw text, POS tagging, chunking, parsing, semantic analysis, and classification of text. Use when the user says 'NLTK', 'process text with Python', 'tokenize', 'chunk', 'named entity', 'text classification Python', 'NLP with NLTK', or when a text-processing pipeline should be built with the standard Python NLP toolkit. Pairs with: practical-natural-language-processing, natural-language-processing-action, python-cookbook, text-mining-r."
 ---
 # Natural Language Processing with Python
 

@@ -1,6 +1,6 @@
 ---
 name: psych-school-emotion
-description: Emotion and motivation school for clinic selling: drives, habits, loyalty. Use when the user says "emotion", "motivation", "عاطفة", "habit", "loyalty", "fear", "why owners churn", or before retention/recall content.
+description: "Emotion and motivation school for clinic selling: drives, habits, loyalty. Use when the user says "emotion", "motivation", "عاطفة", "habit", "loyalty", "fear", "why owners churn", or before retention/recall content."
 ---
 
 # Emotion School

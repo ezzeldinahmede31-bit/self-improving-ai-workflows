@@ -1,6 +1,6 @@
 ---
 name: software-engineering-practitioners
-description: Applies Roger Pressman's Software Engineering: A Practitioner's Approach to the practical lifecycle: the software process and process models, agile development, requirements, design concepts, quality and testing, project management and measurement, and the engineering discipline that makes delivery predictable. Use when the user says 'software engineering', 'practitioner approach', 'Pressman', 'software process models', 'design concepts', 'software quality', 'software testing', 'project management software', 'software metrics', or when a lifecycle or practice decision needs a comprehensive reference.
+description: "Applies Roger Pressman's Software Engineering: A Practitioner's Approach to the practical lifecycle: the software process and process models, agile development, requirements, design concepts, quality and testing, project management and measurement, and the engineering discipline that makes delivery predictable. Use when the user says 'software engineering', 'practitioner approach', 'Pressman', 'software process models', 'design concepts', 'software quality', 'software testing', 'project management software', 'software metrics', or when a lifecycle or practice decision needs a comprehensive reference."
 ---
 
 # Software Engineering: A Practitioner's Approach (Roger S. Pressman)

@@ -1,6 +1,6 @@
 ---
 name: deep-learning-illustrated
-description: Applies Jon Krohn, Grant Beyleveld & Aglaé Bassens' Deep Learning Illustrated to build a clear mental model of deep learning: the intuition behind neurons, layers, cost functions, backpropagation, CNNs, RNNs, and transformers, richly illustrated and code-supported with TensorFlow/Keras. Use when the user says 'explain deep learning visually', 'deep learning illustrated', 'Krohn', 'intuition for neural networks', 'what does a CNN actually do', 'transformers explained simply', or when deep learning concepts must be communicated or understood with strong intuition. Pairs with: deep-learning-with-python, dive-into-deep-learning, grokking-deep-learning, artificial-intelligence-modern-approach.
+description: "Applies Jon Krohn, Grant Beyleveld & Aglaé Bassens' Deep Learning Illustrated to build a clear mental model of deep learning: the intuition behind neurons, layers, cost functions, backpropagation, CNNs, RNNs, and transformers, richly illustrated and code-supported with TensorFlow/Keras. Use when the user says 'explain deep learning visually', 'deep learning illustrated', 'Krohn', 'intuition for neural networks', 'what does a CNN actually do', 'transformers explained simply', or when deep learning concepts must be communicated or understood with strong intuition. Pairs with: deep-learning-with-python, dive-into-deep-learning, grokking-deep-learning, artificial-intelligence-modern-approach."
 ---
 # Deep Learning Illustrated
 

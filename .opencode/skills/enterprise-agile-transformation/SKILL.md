@@ -1,6 +1,6 @@
 ---
 name: enterprise-agile-transformation
-description: Applies David J. Anderson's Kanban and enterprise agile transformation discipline to evolving an organization's way of working with minimal disruption: start where you are, visualize work, limit work in progress, manage flow, make policies explicit, and improve collaboratively, using the system itself as the change agent. Use when the user says 'kanban', 'enterprise agile', 'work in progress limit', 'manage flow', 'visualize work', 'explicit policies', 'incremental process change', 'David Anderson', 'WIP limit', or when an organization's process must change without a big-bang disruption.
+description: "Applies David J. Anderson's Kanban and enterprise agile transformation discipline to evolving an organization's way of working with minimal disruption: start where you are, visualize work, limit work in progress, manage flow, make policies explicit, and improve collaboratively, using the system itself as the change agent. Use when the user says 'kanban', 'enterprise agile', 'work in progress limit', 'manage flow', 'visualize work', 'explicit policies', 'incremental process change', 'David Anderson', 'WIP limit', or when an organization's process must change without a big-bang disruption."
 ---
 
 # Enterprise Agile Transformation (David J. Anderson et al.) / Kanban discipline

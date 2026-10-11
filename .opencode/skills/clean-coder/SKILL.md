@@ -1,6 +1,6 @@
 ---
 name: clean-coder
-description: Applies Robert C. Martin's The Clean Coder to acting as a professional programmer: saying no to impossible demands, honest estimation, accepting responsibility, training and practice, and the disciplines (TDD, refactoring, time management) that keep a professional reliable. Use when the user says 'clean coder', 'professional programmer', 'say no', 'honest estimation', 'professionalism', 'code of conduct', 'Uncle Bob professional', 'commitment', 'craftsmanship discipline', or when the professional conduct of engineering is the question.
+description: "Applies Robert C. Martin's The Clean Coder to acting as a professional programmer: saying no to impossible demands, honest estimation, accepting responsibility, training and practice, and the disciplines (TDD, refactoring, time management) that keep a professional reliable. Use when the user says 'clean coder', 'professional programmer', 'say no', 'honest estimation', 'professionalism', 'code of conduct', 'Uncle Bob professional', 'commitment', 'craftsmanship discipline', or when the professional conduct of engineering is the question."
 ---
 
 # The Clean Coder: A Code of Conduct for Professional Programmers (Robert C. Martin)

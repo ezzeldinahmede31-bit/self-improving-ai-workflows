@@ -1,6 +1,6 @@
 ---
 name: embedded-systems-architecture
-description: Applies Tammy Noergaard's Embedded Systems Architecture to designing and programming embedded systems: the embedded development environment and toolchain, CPU and memory, devices and interrupts, and the embedded OS versus bare-metal decision, with real board-level practice. Use when the user says 'embedded systems', 'bare metal', 'embedded OS', 'RTOS', 'firmware', 'device driver embedded', 'interrupt handler', 'cross compiler', 'memory mapped I/O', 'Noergaard', or when writing software that runs on constrained hardware.
+description: "Applies Tammy Noergaard's Embedded Systems Architecture to designing and programming embedded systems: the embedded development environment and toolchain, CPU and memory, devices and interrupts, and the embedded OS versus bare-metal decision, with real board-level practice. Use when the user says 'embedded systems', 'bare metal', 'embedded OS', 'RTOS', 'firmware', 'device driver embedded', 'interrupt handler', 'cross compiler', 'memory mapped I/O', 'Noergaard', or when writing software that runs on constrained hardware."
 ---
 
 # Embedded Systems Architecture (Tammy Noergaard)

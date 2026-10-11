@@ -1,6 +1,6 @@
 ---
 name: sedgewick-algorithms
-description: Applies Sedgewick & Wayne's Algorithms to the complete standard toolkit taught with working code: fundamentals (union-find, analysis of algorithms), sorting, searching (binary search trees, red-black trees, hash tables), graphs (undirected, directed, MST, shortest paths), strings (tries, substring search, regular expressions, data compression), and the context that connects them. Use when the user says 'union-find', 'red-black tree', 'Kruskal', 'Dijkstra', 'trie', 'substring search', 'regular expression matching', 'Sedgewick', 'Algorithms book', 'standard algorithms library', or when implementing or choosing a standard algorithm from the classic catalog.
+description: "Applies Sedgewick & Wayne's Algorithms to the complete standard toolkit taught with working code: fundamentals (union-find, analysis of algorithms), sorting, searching (binary search trees, red-black trees, hash tables), graphs (undirected, directed, MST, shortest paths), strings (tries, substring search, regular expressions, data compression), and the context that connects them. Use when the user says 'union-find', 'red-black tree', 'Kruskal', 'Dijkstra', 'trie', 'substring search', 'regular expression matching', 'Sedgewick', 'Algorithms book', 'standard algorithms library', or when implementing or choosing a standard algorithm from the classic catalog."
 ---
 
 # Algorithms (Sedgewick & Wayne)

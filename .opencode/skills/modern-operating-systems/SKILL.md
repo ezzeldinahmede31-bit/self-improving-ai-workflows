@@ -1,6 +1,6 @@
 ---
 name: modern-operating-systems
-description: Applies Tanenbaum's Modern Operating Systems to the design and operation of OS-level software: processes and threads, scheduling, memory management (paging, segmentation, virtual memory), file systems, input/output, deadlock, virtualization, and distributed systems, with the trade-offs each design makes. Use when the user says 'modern operating systems', 'processes and threads', 'scheduler', 'virtual memory', 'paging', 'file system design', 'deadlock', 'OS design', 'Tanenbaum', 'kernel', 'system calls', or when reasoning about how the operating system provides or constrains a service.
+description: "Applies Tanenbaum's Modern Operating Systems to the design and operation of OS-level software: processes and threads, scheduling, memory management (paging, segmentation, virtual memory), file systems, input/output, deadlock, virtualization, and distributed systems, with the trade-offs each design makes. Use when the user says 'modern operating systems', 'processes and threads', 'scheduler', 'virtual memory', 'paging', 'file system design', 'deadlock', 'OS design', 'Tanenbaum', 'kernel', 'system calls', or when reasoning about how the operating system provides or constrains a service."
 ---
 
 # Modern Operating Systems (Andrew S. Tanenbaum)

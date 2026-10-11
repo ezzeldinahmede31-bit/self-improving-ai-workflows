@@ -1,6 +1,6 @@
 ---
 name: mongodb-definitive-guide
-description: Applies Chodorow's The Definitive Guide to MongoDB to building with the document database: the document model, CRUD operations and the query language, indexing, aggregation, replication and sharding for scale, and administration, with the operational realities of running MongoDB. Use when the user says 'MongoDB', 'document database', 'mongod', 'MongoDB aggregation', 'MongoDB index', 'sharding', 'replica set', 'Chodorow', 'NoSQL document store', or when a document model is the right fit and must be operated well.
+description: "Applies Chodorow's The Definitive Guide to MongoDB to building with the document database: the document model, CRUD operations and the query language, indexing, aggregation, replication and sharding for scale, and administration, with the operational realities of running MongoDB. Use when the user says 'MongoDB', 'document database', 'mongod', 'MongoDB aggregation', 'MongoDB index', 'sharding', 'replica set', 'Chodorow', 'NoSQL document store', or when a document model is the right fit and must be operated well."
 ---
 
 # The Definitive Guide to MongoDB (Kristina Chodorow)

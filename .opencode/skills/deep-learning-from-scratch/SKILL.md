@@ -1,6 +1,6 @@
 ---
 name: deep-learning-from-scratch
-description: Applies Seth Weidman's Deep Learning from Scratch to build deep learning systems in pure Python and numpy: the mathematical foundations, building a neural network layer by layer with forward and backward passes, implementing backpropagation, and training with real optimizers — giving full control and understanding over every component. Use when the user says 'deep learning from scratch', 'Weidman', 'implement backpropagation', 'neural network in numpy', 'build a training loop without a framework', or when a component of a deep learning system must be understood by building it. Pairs with: grokking-deep-learning, neural-networks-and-deep-learning, algorithmic-math-reasoner, tdd-sandbox-proof-engine.
+description: "Applies Seth Weidman's Deep Learning from Scratch to build deep learning systems in pure Python and numpy: the mathematical foundations, building a neural network layer by layer with forward and backward passes, implementing backpropagation, and training with real optimizers — giving full control and understanding over every component. Use when the user says 'deep learning from scratch', 'Weidman', 'implement backpropagation', 'neural network in numpy', 'build a training loop without a framework', or when a component of a deep learning system must be understood by building it. Pairs with: grokking-deep-learning, neural-networks-and-deep-learning, algorithmic-math-reasoner, tdd-sandbox-proof-engine."
 ---
 # Deep Learning from Scratch
 

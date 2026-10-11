@@ -1,6 +1,6 @@
 ---
 name: concrete-mathematics
-description: Applies Graham, Knuth & Patashnik's Concrete Mathematics to solve sums, recurrences, and discrete problems exactly: summation and summation-by-parts, recurrences and the repertoire method, integer functions and floor/ceiling, number theory, binomial coefficients and their identities, generating functions, discrete probability, and asymptotic methods. Use when the user says 'solve this sum', 'concrete mathematics', 'repertoire method', 'generating functions', 'recurrence', 'floor ceiling', 'binomial identity', 'asymptotic expansion', 'discrete probability', 'GKP', or when a discrete math expression needs an exact closed form.
+description: "Applies Graham, Knuth & Patashnik's Concrete Mathematics to solve sums, recurrences, and discrete problems exactly: summation and summation-by-parts, recurrences and the repertoire method, integer functions and floor/ceiling, number theory, binomial coefficients and their identities, generating functions, discrete probability, and asymptotic methods. Use when the user says 'solve this sum', 'concrete mathematics', 'repertoire method', 'generating functions', 'recurrence', 'floor ceiling', 'binomial identity', 'asymptotic expansion', 'discrete probability', 'GKP', or when a discrete math expression needs an exact closed form."
 ---
 
 # Concrete Mathematics (Graham, Knuth, Patashnik)

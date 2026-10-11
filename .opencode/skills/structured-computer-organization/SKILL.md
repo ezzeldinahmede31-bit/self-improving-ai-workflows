@@ -1,6 +1,6 @@
 ---
 name: structured-computer-organization
-description: Applies Tanenbaum's Structured Computer Organization to the multi-level view of computers: digital logic, microarchitecture and microprogramming, the instruction set level, the operating system machine, and assembly language, with the argument that a computer is a hierarchy of levels each implemented by the one below. Use when the user says 'structured computer organization', 'levels of abstraction computer', 'microarchitecture', 'microprogramming', 'instruction set level', 'assembly level', 'Tanenbaum structure', 'layered computer', or when explaining or designing the levels from gates to programs.
+description: "Applies Tanenbaum's Structured Computer Organization to the multi-level view of computers: digital logic, microarchitecture and microprogramming, the instruction set level, the operating system machine, and assembly language, with the argument that a computer is a hierarchy of levels each implemented by the one below. Use when the user says 'structured computer organization', 'levels of abstraction computer', 'microarchitecture', 'microprogramming', 'instruction set level', 'assembly level', 'Tanenbaum structure', 'layered computer', or when explaining or designing the levels from gates to programs."
 ---
 
 # Structured Computer Organization (Andrew S. Tanenbaum)

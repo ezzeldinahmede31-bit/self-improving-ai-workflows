@@ -1,6 +1,6 @@
 ---
 name: neural-networks-and-deep-learning
-description: Applies Michael Nielsen's free online book Neural Networks and Deep Learning to reason about neural networks from first principles: how backpropagation computes gradients, the bias-variance picture of generalization, why depth helps, and how to diagnose learning failures (slow learning, overfitting, local minima). Use when the user says 'backpropagation from scratch', 'why is my network not learning', 'weight initialization', 'cross-entropy vs quadratic loss', 'Nielsen neural networks', or when a network must be understood and fixed at the gradient level. Pairs with: deep-learning-goodfellow, deep-learning-from-scratch, grokking-deep-learning, algorithmic-math-reasoner.
+description: "Applies Michael Nielsen's free online book Neural Networks and Deep Learning to reason about neural networks from first principles: how backpropagation computes gradients, the bias-variance picture of generalization, why depth helps, and how to diagnose learning failures (slow learning, overfitting, local minima). Use when the user says 'backpropagation from scratch', 'why is my network not learning', 'weight initialization', 'cross-entropy vs quadratic loss', 'Nielsen neural networks', or when a network must be understood and fixed at the gradient level. Pairs with: deep-learning-goodfellow, deep-learning-from-scratch, grokking-deep-learning, algorithmic-math-reasoner."
 ---
 # Neural Networks and Deep Learning
 

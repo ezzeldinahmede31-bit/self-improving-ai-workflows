@@ -1,6 +1,6 @@
 ---
 name: computer-vision-multiview-stereo
-description: Applies the camera-geometry and stereo chapters of Richard Szeliski's Computer Vision: Algorithms and Applications: camera models and calibration, epipolar geometry and the fundamental matrix, stereo disparity estimation, and multi-view 3D reconstruction and structure from motion. Use when the user says 'camera calibration', 'epipolar geometry', 'stereo vision', 'disparity', 'fundamental matrix', '3D reconstruction', 'structure from motion', 'multi-view geometry', or when recovering 3D structure from two or more camera views. Pairs with: computer-vision-algorithms-applications, computer-systems-programmers-perspective, algorithmic-math-reasoner, generative-deep-learning.
+description: "Applies the camera-geometry and stereo chapters of Richard Szeliski's Computer Vision: Algorithms and Applications: camera models and calibration, epipolar geometry and the fundamental matrix, stereo disparity estimation, and multi-view 3D reconstruction and structure from motion. Use when the user says 'camera calibration', 'epipolar geometry', 'stereo vision', 'disparity', 'fundamental matrix', '3D reconstruction', 'structure from motion', 'multi-view geometry', or when recovering 3D structure from two or more camera views. Pairs with: computer-vision-algorithms-applications, computer-systems-programmers-perspective, algorithmic-math-reasoner, generative-deep-learning."
 ---
 # Multi-View Geometry and Stereo (Szeliski)
 

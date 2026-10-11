@@ -1,6 +1,6 @@
 ---
 name: psych-school-foundations
-description: Classic foundations of human nature: rhetoric, crowds, public opinion. Use when the user says "classics", "foundations", "rhetoric", "بلاغة", "first principles of persuasion", "Le Bon", "Lippmann", or when tactics feel hollow.
+description: "Classic foundations of human nature: rhetoric, crowds, public opinion. Use when the user says "classics", "foundations", "rhetoric", "بلاغة", "first principles of persuasion", "Le Bon", "Lippmann", or when tactics feel hollow."
 ---
 
 # Foundations School

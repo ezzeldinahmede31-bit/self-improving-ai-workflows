@@ -1,6 +1,6 @@
 ---
 name: efficient-dl-quantization-pruning
-description: Deep dive into model compression from Sze et al. Efficient Processing of Deep Neural Networks: weight and activation quantization, pruning and sparsity, knowledge distillation, and their combined effect on model size, latency, and accuracy. Use when the user says 'quantize the model', 'prune weights', 'model compression', '8-bit inference', 'sparsity', 'knowledge distillation', 'reduce model size', or when a model must get smaller and faster with controlled accuracy loss. Pairs with: efficient-processing-deep-neural-networks, llm-deployment-optimization, deep-learning-with-python, systems-performance-profiling.
+description: "Deep dive into model compression from Sze et al. Efficient Processing of Deep Neural Networks: weight and activation quantization, pruning and sparsity, knowledge distillation, and their combined effect on model size, latency, and accuracy. Use when the user says 'quantize the model', 'prune weights', 'model compression', '8-bit inference', 'sparsity', 'knowledge distillation', 'reduce model size', or when a model must get smaller and faster with controlled accuracy loss. Pairs with: efficient-processing-deep-neural-networks, llm-deployment-optimization, deep-learning-with-python, systems-performance-profiling."
 ---
 # Model Quantization and Pruning
 

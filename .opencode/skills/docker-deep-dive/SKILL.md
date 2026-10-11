@@ -1,6 +1,6 @@
 ---
 name: docker-deep-dive
-description: Applies Docker Deep Dive (Nigel Poulton) to containerized automation: containers are just processes with their own namespaces, and images are layered filesystems made of read-only layers with a thin writable layer. Covers images, containers, registries, networks, volumes, and the Dockerfile habits that produce small immutable images. Use when the user says 'containerize this', 'write a Dockerfile', or 'debug my container'.
+description: "Applies Docker Deep Dive (Nigel Poulton) to containerized automation: containers are just processes with their own namespaces, and images are layered filesystems made of read-only layers with a thin writable layer. Covers images, containers, registries, networks, volumes, and the Dockerfile habits that produce small immutable images. Use when the user says 'containerize this', 'write a Dockerfile', or 'debug my container'."
 ---
 # docker-deep-dive
 

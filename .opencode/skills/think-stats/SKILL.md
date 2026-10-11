@@ -1,6 +1,6 @@
 ---
 name: think-stats
-description: Applies Allen Downey's Think Stats to reason about real data with statistics and Python: distributions (PMF, CDF), exploratory data analysis, hypothesis testing and significance, correlation, regression, and estimation with resampling. A probability and statistics course built around real datasets and code. Use when the user says 'think stats', 'probability distribution', 'CDF', 'hypothesis test', 'p-value', 'correlation', 'linear regression', 'resampling', 'Downey', or when analyzing data and needs the statistical reasoning made concrete and visual. Pairs with: think-bayes, data-science-from-scratch, data-analysis, bayesian-data-analysis.
+description: "Applies Allen Downey's Think Stats to reason about real data with statistics and Python: distributions (PMF, CDF), exploratory data analysis, hypothesis testing and significance, correlation, regression, and estimation with resampling. A probability and statistics course built around real datasets and code. Use when the user says 'think stats', 'probability distribution', 'CDF', 'hypothesis test', 'p-value', 'correlation', 'linear regression', 'resampling', 'Downey', or when analyzing data and needs the statistical reasoning made concrete and visual. Pairs with: think-bayes, data-science-from-scratch, data-analysis, bayesian-data-analysis."
 ---
 # Think Stats
 

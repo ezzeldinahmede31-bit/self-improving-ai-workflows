@@ -1,6 +1,6 @@
 ---
 name: learning-with-kernels
-description: Applies Scholkopf & Smola's Learning with Kernels to build kernel methods with mathematical grounding: kernels and feature spaces, the representer theorem, RKHS, SVM and its variants, kernel ridge regression, and kernel-based learning algorithms. Use when the user says 'kernel method', 'kernel trick', 'RKHS', 'representer theorem', 'Scholkopf Smola', 'kernel ridge', 'SVM kernel', or when a kernel method needs a rigorous grounding. Pairs with: prml-kernels-gaussian-processes, gaussian-processes-machine-learning, foundations-machine-learning, algorithmic-math-reasoner.
+description: "Applies Scholkopf & Smola's Learning with Kernels to build kernel methods with mathematical grounding: kernels and feature spaces, the representer theorem, RKHS, SVM and its variants, kernel ridge regression, and kernel-based learning algorithms. Use when the user says 'kernel method', 'kernel trick', 'RKHS', 'representer theorem', 'Scholkopf Smola', 'kernel ridge', 'SVM kernel', or when a kernel method needs a rigorous grounding. Pairs with: prml-kernels-gaussian-processes, gaussian-processes-machine-learning, foundations-machine-learning, algorithmic-math-reasoner."
 ---
 # Learning with Kernels
 

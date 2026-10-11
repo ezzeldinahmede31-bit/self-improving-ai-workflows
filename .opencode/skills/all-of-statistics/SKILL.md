@@ -1,6 +1,6 @@
 ---
 name: all-of-statistics
-description: Applies Larry Wasserman's All of Statistics to use probability and statistics in data work: probability theory, random variables and expectation, statistical inference, the bootstrap, nonparametric methods, regression and classification, and graphical models. Use when the user says 'all of statistics', 'Wasserman', 'statistical inference', 'bootstrap', 'confidence set', 'nonparametric statistics', or when statistics must be applied quickly and rigorously. Pairs with: introduction-to-probability, think-stats, data-analysis, bayesian-data-analysis.
+description: "Applies Larry Wasserman's All of Statistics to use probability and statistics in data work: probability theory, random variables and expectation, statistical inference, the bootstrap, nonparametric methods, regression and classification, and graphical models. Use when the user says 'all of statistics', 'Wasserman', 'statistical inference', 'bootstrap', 'confidence set', 'nonparametric statistics', or when statistics must be applied quickly and rigorously. Pairs with: introduction-to-probability, think-stats, data-analysis, bayesian-data-analysis."
 ---
 # All of Statistics
 

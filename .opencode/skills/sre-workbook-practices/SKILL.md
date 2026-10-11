@@ -1,6 +1,6 @@
 ---
 name: sre-workbook-practices
-description: Applies The Site Reliability Workbook (Beyer et al.) to operating automation reliably: every service is defined by its SLIs and SLOs, governed by an error budget, and improved through blameless postmortems. Covers SLO construction, error-budget policy, on-call, toil elimination, and capacity planning. Use when the user says 'define an SLO', 'run an on-call rotation', or 'eliminate toil'.
+description: "Applies The Site Reliability Workbook (Beyer et al.) to operating automation reliably: every service is defined by its SLIs and SLOs, governed by an error budget, and improved through blameless postmortems. Covers SLO construction, error-budget policy, on-call, toil elimination, and capacity planning. Use when the user says 'define an SLO', 'run an on-call rotation', or 'eliminate toil'."
 ---
 # sre-workbook-practices
 

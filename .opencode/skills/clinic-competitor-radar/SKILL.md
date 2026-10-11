@@ -1,6 +1,6 @@
 ---
 name: clinic-competitor-radar
-description: Competitor intelligence for the clinic system: leaders watchlist, structure-level imitation, trend memory. Use when the user says "competitors", "المنافسين", "who leads", "نقلد مين", "trend history", "الترندات القديمة", or before copying any idea.
+description: "Competitor intelligence for the clinic system: leaders watchlist, structure-level imitation, trend memory. Use when the user says "competitors", "المنافسين", "who leads", "نقلد مين", "trend history", "الترندات القديمة", or before copying any idea."
 ---
 
 # Competitor Radar

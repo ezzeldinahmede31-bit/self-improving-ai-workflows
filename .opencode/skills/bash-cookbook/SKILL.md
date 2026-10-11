@@ -1,6 +1,6 @@
 ---
 name: bash-cookbook
-description: Applies Bash Cookbook (Carl Albing & JP Vossen) to everyday shell automation: battle-tested recipes for variables, arithmetic, functions, text processing, redirection, and safe system administration in bash. Covers configuration files, quoting pitfalls, command substitution, arrays, and security-conscious script writing. Use when the user says 'bash recipe', 'make my script safer', 'bash arrays', 'redirection tricks', or 'debug my shell script'.
+description: "Applies Bash Cookbook (Carl Albing & JP Vossen) to everyday shell automation: battle-tested recipes for variables, arithmetic, functions, text processing, redirection, and safe system administration in bash. Covers configuration files, quoting pitfalls, command substitution, arrays, and security-conscious script writing. Use when the user says 'bash recipe', 'make my script safer', 'bash arrays', 'redirection tricks', or 'debug my shell script'."
 ---
 # bash-cookbook
 

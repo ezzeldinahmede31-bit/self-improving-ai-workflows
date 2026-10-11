@@ -1,6 +1,6 @@
 ---
 name: elements-of-programming
-description: Applies Stepanov & McJones' Elements of Programming to write programs as mathematics: programs are expressions of regular, well-defined algorithms over regular types; concepts give an algorithm its precise preconditions; and generic programming decomposes an algorithm into a minimal set of requirements so one implementation serves many types. Use when the user says 'generic programming', 'concepts and axioms', 'regular types', 'iterator requirements', 'program as math', 'preconditions and postconditions', 'Stepanov', 'reusable algorithm', 'type requirements', or when a piece of code should be written once and proven, not patched for every caller.
+description: "Applies Stepanov & McJones' Elements of Programming to write programs as mathematics: programs are expressions of regular, well-defined algorithms over regular types; concepts give an algorithm its precise preconditions; and generic programming decomposes an algorithm into a minimal set of requirements so one implementation serves many types. Use when the user says 'generic programming', 'concepts and axioms', 'regular types', 'iterator requirements', 'program as math', 'preconditions and postconditions', 'Stepanov', 'reusable algorithm', 'type requirements', or when a piece of code should be written once and proven, not patched for every caller."
 ---
 
 # Elements of Programming (Stepanov & McJones)

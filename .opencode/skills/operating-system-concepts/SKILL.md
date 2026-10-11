@@ -1,6 +1,6 @@
 ---
 name: operating-system-concepts
-description: Applies Silberschatz, Galvin & Gagne's Operating System Concepts (the 'dinosaur book') to the fundamentals and practice of operating systems: process and thread management, CPU scheduling, synchronization, deadlocks, memory management, virtual memory, file systems, I/O systems, and protection and security. Use when the user says 'operating system concepts', 'dinosaur book', 'process synchronization', 'semaphore', 'monitor', 'CPU scheduling', 'deadlock', 'page replacement', 'file system', 'Silberschatz', 'Galvin', or when a system-service decision must be grounded in OS fundamentals.
+description: "Applies Silberschatz, Galvin & Gagne's Operating System Concepts (the 'dinosaur book') to the fundamentals and practice of operating systems: process and thread management, CPU scheduling, synchronization, deadlocks, memory management, virtual memory, file systems, I/O systems, and protection and security. Use when the user says 'operating system concepts', 'dinosaur book', 'process synchronization', 'semaphore', 'monitor', 'CPU scheduling', 'deadlock', 'page replacement', 'file system', 'Silberschatz', 'Galvin', or when a system-service decision must be grounded in OS fundamentals."
 ---
 
 # Operating System Concepts (Silberschatz, Galvin, Gagne)

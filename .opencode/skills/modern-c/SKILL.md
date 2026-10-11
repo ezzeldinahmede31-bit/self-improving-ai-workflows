@@ -1,6 +1,6 @@
 ---
 name: modern-c
-description: Applies Jens Gustedt's Modern C to write safe, portable, maintainable C11/C17: explicit types, bounds-aware design, memory ownership discipline, error handling as data, and checked arithmetic. Encodes the modern idioms that eliminate the classic C failure modes (silent overflow, off-by-one access, uninitialized state) so C code is correct by construction. Use when the user says 'write C code', 'C11 or C17', 'safe memory management in C', 'design a C API', 'avoid undefined behavior', or 'how should I structure this C program'.
+description: "Applies Jens Gustedt's Modern C to write safe, portable, maintainable C11/C17: explicit types, bounds-aware design, memory ownership discipline, error handling as data, and checked arithmetic. Encodes the modern idioms that eliminate the classic C failure modes (silent overflow, off-by-one access, uninitialized state) so C code is correct by construction. Use when the user says 'write C code', 'C11 or C17', 'safe memory management in C', 'design a C API', 'avoid undefined behavior', or 'how should I structure this C program'."
 ---
 
 # modern-c

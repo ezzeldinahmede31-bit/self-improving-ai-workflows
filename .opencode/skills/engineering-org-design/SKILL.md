@@ -1,6 +1,6 @@
 ---
 name: engineering-org-design
-description: Applies the organization design chapters of Camille Fournier's The Manager's Path to shape engineering teams: choose team size and structure for the work, design reporting lines and accountability, handle growth and reorgs, build effective cross-team interfaces, and manage the promotion of people into management. Use when the user says 'org design', 'how should the team be shaped', 'reorg', 'team structure', 'reporting lines', 'splitting a team', 'org chart', 'management layer', 'manage managers', 'scaling the engineering org', or when a team's structure blocks delivery. Pairs with: engineering-management-path, staff-engineer-leadership, high-output-management, elegant-puzzle-engineering-management.
+description: "Applies the organization design chapters of Camille Fournier's The Manager's Path to shape engineering teams: choose team size and structure for the work, design reporting lines and accountability, handle growth and reorgs, build effective cross-team interfaces, and manage the promotion of people into management. Use when the user says 'org design', 'how should the team be shaped', 'reorg', 'team structure', 'reporting lines', 'splitting a team', 'org chart', 'management layer', 'manage managers', 'scaling the engineering org', or when a team's structure blocks delivery. Pairs with: engineering-management-path, staff-engineer-leadership, high-output-management, elegant-puzzle-engineering-management."
 ---
 
 # Engineering Org Design

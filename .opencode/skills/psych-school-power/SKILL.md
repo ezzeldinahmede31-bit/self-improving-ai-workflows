@@ -1,6 +1,6 @@
 ---
 name: psych-school-power
-description: Power and maneuver school for clinic selling: Machiavelli, Greene, war strategy, propaganda systems. Use when the user says "power", "strategy", "مناورة", "Machiavelli", "48 laws", "negotiation", "competitors", "political", or before any negotiation/competition move.
+description: "Power and maneuver school for clinic selling: Machiavelli, Greene, war strategy, propaganda systems. Use when the user says "power", "strategy", "مناورة", "Machiavelli", "48 laws", "negotiation", "competitors", "political", or before any negotiation/competition move."
 ---
 
 # Power School

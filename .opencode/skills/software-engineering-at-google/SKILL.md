@@ -1,6 +1,6 @@
 ---
 name: software-engineering-at-google
-description: Applies Winters, Manshreck, and Wright's Software Engineering at Google to sustain code at scale: software engineering is programming integrated over time by many people, so readability, testing, code review, and deprecation are core skills. Covers the test pyramid, Hyrum's Law, change management, and keeping large codebases healthy. Use when the user says 'keep this codebase healthy', 'what is good code review', or 'how do we maintain code at scale'.
+description: "Applies Winters, Manshreck, and Wright's Software Engineering at Google to sustain code at scale: software engineering is programming integrated over time by many people, so readability, testing, code review, and deprecation are core skills. Covers the test pyramid, Hyrum's Law, change management, and keeping large codebases healthy. Use when the user says 'keep this codebase healthy', 'what is good code review', or 'how do we maintain code at scale'."
 ---
 # software-engineering-at-google
 

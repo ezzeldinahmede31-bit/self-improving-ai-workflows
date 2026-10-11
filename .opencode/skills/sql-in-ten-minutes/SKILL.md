@@ -1,6 +1,6 @@
 ---
 name: sql-in-ten-minutes
-description: Applies Ben Forta's SQL in 10 Minutes to writing correct, portable SQL fast: selecting, filtering and sorting, joins, grouping and aggregate functions, subqueries, views, transactions, and creating and altering tables, with the syntax differences across the major databases. Use when the user says 'sql in ten minutes', 'write a SQL query', 'join', 'group by', 'having', 'subquery', 'create table', 'insert update delete', 'Ben Forta', 'portable SQL', or when a SQL statement must be written or fixed quickly and correctly.
+description: "Applies Ben Forta's SQL in 10 Minutes to writing correct, portable SQL fast: selecting, filtering and sorting, joins, grouping and aggregate functions, subqueries, views, transactions, and creating and altering tables, with the syntax differences across the major databases. Use when the user says 'sql in ten minutes', 'write a SQL query', 'join', 'group by', 'having', 'subquery', 'create table', 'insert update delete', 'Ben Forta', 'portable SQL', or when a SQL statement must be written or fixed quickly and correctly."
 ---
 
 # Sams Teach Yourself SQL in 10 Minutes (Ben Forta)

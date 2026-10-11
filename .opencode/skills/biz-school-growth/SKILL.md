@@ -1,6 +1,6 @@
 ---
 name: biz-school-growth
-description: Modern growth and leadership distilled for scaling the clinic agency: habits, teams, content loops. Use when the user says "growth", "نمو", "leadership", "habits", "scaling", "team", "content engine", or before scaling anything.
+description: "Modern growth and leadership distilled for scaling the clinic agency: habits, teams, content loops. Use when the user says "growth", "نمو", "leadership", "habits", "scaling", "team", "content engine", or before scaling anything."
 ---
 
 # Business Growth School

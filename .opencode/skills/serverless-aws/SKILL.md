@@ -1,6 +1,6 @@
 ---
 name: serverless-aws
-description: Applies Sbarski's Serverless Architectures on AWS to build event-driven systems from managed services: functions that are stateless, short-lived, and event-triggered, fronted by API Gateway and backed by Step Functions, queues, and databases. Covers the patterns for fan-out, workflows, dead-lettering, and the BFF layer. Use when the user says 'design a serverless app', 'use AWS Lambda', or 'build with step functions'.
+description: "Applies Sbarski's Serverless Architectures on AWS to build event-driven systems from managed services: functions that are stateless, short-lived, and event-triggered, fronted by API Gateway and backed by Step Functions, queues, and databases. Covers the patterns for fan-out, workflows, dead-lettering, and the BFF layer. Use when the user says 'design a serverless app', 'use AWS Lambda', or 'build with step functions'."
 ---
 # serverless-aws
 

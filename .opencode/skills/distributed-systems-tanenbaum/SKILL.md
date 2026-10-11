@@ -1,6 +1,6 @@
 ---
 name: distributed-systems-tanenbaum
-description: Applies Tanenbaum & Van Steen's Distributed Systems to the principles and recurring paradigms of distributed computing: communication (RPC, message-oriented), processes and threads in a distributed setting, naming, synchronization and clock handling, consistency and replication, fault tolerance, and the classic paradigms (distributed objects, web services, peer-to-peer). Use when the user says 'distributed systems', 'RPC', 'naming service', 'logical clocks', 'consistency', 'replication', 'fault tolerance', 'peer to peer', 'Tanenbaum Van Steen', or when designing a system that spans multiple machines.
+description: "Applies Tanenbaum & Van Steen's Distributed Systems to the principles and recurring paradigms of distributed computing: communication (RPC, message-oriented), processes and threads in a distributed setting, naming, synchronization and clock handling, consistency and replication, fault tolerance, and the classic paradigms (distributed objects, web services, peer-to-peer). Use when the user says 'distributed systems', 'RPC', 'naming service', 'logical clocks', 'consistency', 'replication', 'fault tolerance', 'peer to peer', 'Tanenbaum Van Steen', or when designing a system that spans multiple machines."
 ---
 
 # Distributed Systems: Principles and Paradigms (Tanenbaum & Van Steen)

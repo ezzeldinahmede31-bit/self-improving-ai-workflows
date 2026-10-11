@@ -1,6 +1,6 @@
 ---
 name: introduction-to-probability
-description: Applies Blitzstein & Hwang's Introduction to Probability to reason about probability with intuition and rigor: counting, conditional probability, random variables, expectation, the law of large numbers, and the central limit theorem, with simulations that build understanding. Use when the user says 'conditional probability', 'random variable', 'expectation', 'law of large numbers', 'central limit theorem', 'Blitzstein', 'probability intuition', or when a probabilistic calculation must be done correctly. Pairs with: think-stats, all-of-statistics, algorithmic-math-reasoner, formal-math-logic-verification-engine.
+description: "Applies Blitzstein & Hwang's Introduction to Probability to reason about probability with intuition and rigor: counting, conditional probability, random variables, expectation, the law of large numbers, and the central limit theorem, with simulations that build understanding. Use when the user says 'conditional probability', 'random variable', 'expectation', 'law of large numbers', 'central limit theorem', 'Blitzstein', 'probability intuition', or when a probabilistic calculation must be done correctly. Pairs with: think-stats, all-of-statistics, algorithmic-math-reasoner, formal-math-logic-verification-engine."
 ---
 # Introduction to Probability
 

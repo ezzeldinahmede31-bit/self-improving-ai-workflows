@@ -1,6 +1,6 @@
 ---
 name: team-topologies
-description: Applies Skelton and Pais' Team Topologies to shape teams and the software around them: Conway's Law makes organization the primary architecture constraint, so choose four team types (stream-aligned, enabling, complicated-subsystem, platform) and three interaction modes (collaboration, X-as-a-Service, facilitation). Manages cognitive load so teams can own what they run. Use when the user says 'design our team structure', 'what team structure fits us', or 'why does our org mirror bad software'.
+description: "Applies Skelton and Pais' Team Topologies to shape teams and the software around them: Conway's Law makes organization the primary architecture constraint, so choose four team types (stream-aligned, enabling, complicated-subsystem, platform) and three interaction modes (collaboration, X-as-a-Service, facilitation). Manages cognitive load so teams can own what they run. Use when the user says 'design our team structure', 'what team structure fits us', or 'why does our org mirror bad software'."
 ---
 # team-topologies
 

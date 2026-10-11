@@ -1,6 +1,6 @@
 ---
 name: linux-administration-handbook
-description: Applies Linux Administration Handbook (Evi Nemeth, Garth Snyder, Hein R. Hein & Ben Whaley) to running Linux systems in production: the classic sysadmin reference covering boot, filesystems, processes, backup, networking, DNS, security, performance, and troubleshooting. Covers user and group management, service management, monitoring, and the operational habits that keep systems healthy. Use when the user says 'administer this Linux box', 'backup strategy', 'manage users', 'troubleshoot the server', or 'run a production Linux system'.
+description: "Applies Linux Administration Handbook (Evi Nemeth, Garth Snyder, Hein R. Hein & Ben Whaley) to running Linux systems in production: the classic sysadmin reference covering boot, filesystems, processes, backup, networking, DNS, security, performance, and troubleshooting. Covers user and group management, service management, monitoring, and the operational habits that keep systems healthy. Use when the user says 'administer this Linux box', 'backup strategy', 'manage users', 'troubleshoot the server', or 'run a production Linux system'."
 ---
 # linux-administration-handbook
 

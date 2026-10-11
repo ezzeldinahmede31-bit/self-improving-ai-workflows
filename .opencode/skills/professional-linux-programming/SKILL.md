@@ -1,6 +1,6 @@
 ---
 name: professional-linux-programming
-description: Applies Professional Linux Programming (Jon Hall, Marcelo Tosatti & Robert W. Weaver) to shipping real software on Linux: a tour of the platform as a professional developer sees it, including administration for programmers, C and GUI toolkits, scripting languages, web integration, and packaging for distribution. Covers the development environment, project structure, and the lifecycle from source tree to installed product. Use when the user says 'develop on Linux', 'package my tool', 'GUI application on Linux', 'set up a Linux dev environment', or 'ship a Linux program'.
+description: "Applies Professional Linux Programming (Jon Hall, Marcelo Tosatti & Robert W. Weaver) to shipping real software on Linux: a tour of the platform as a professional developer sees it, including administration for programmers, C and GUI toolkits, scripting languages, web integration, and packaging for distribution. Covers the development environment, project structure, and the lifecycle from source tree to installed product. Use when the user says 'develop on Linux', 'package my tool', 'GUI application on Linux', 'set up a Linux dev environment', or 'ship a Linux program'."
 ---
 # professional-linux-programming
 

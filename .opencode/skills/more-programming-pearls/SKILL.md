@@ -1,6 +1,6 @@
 ---
 name: more-programming-pearls
-description: Applies Jon Bentley's More Programming Pearls to writing, verifying, and improving programs: an end-to-end case study of a real program, writing correct programs under time pressure, profiling and empirical tuning, binary search variants, and the discipline of test case selection. Use when the user says 'more programming pearls', 'Bentley case study', 'write a program under pressure', 'profiling', 'binary search variant', 'test case selection', 'code tuning', 'second column', or when a program must be written and improved empirically rather than by speculation.
+description: "Applies Jon Bentley's More Programming Pearls to writing, verifying, and improving programs: an end-to-end case study of a real program, writing correct programs under time pressure, profiling and empirical tuning, binary search variants, and the discipline of test case selection. Use when the user says 'more programming pearls', 'Bentley case study', 'write a program under pressure', 'profiling', 'binary search variant', 'test case selection', 'code tuning', 'second column', or when a program must be written and improved empirically rather than by speculation."
 ---
 
 # More Programming Pearls (Jon Bentley)

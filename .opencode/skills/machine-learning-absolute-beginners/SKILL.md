@@ -1,6 +1,6 @@
 ---
 name: machine-learning-absolute-beginners
-description: Applies Oliver Theobald's Machine Learning for Absolute Beginners to start ML from zero: the concepts behind supervised and unsupervised learning, data preparation, model training and evaluation, and a plain-language walk through how algorithms actually work, with Python examples. Use when the user says 'machine learning for beginners', 'Theobald', 'start machine learning from scratch', 'explain supervised vs unsupervised', 'first ML project', 'machine learning basics plain language', or when the goal is a clear, non-intimidating entry into machine learning. Pairs with: introduction-to-statistical-learning, hundred-page-machine-learning-book, python-machine-learning-raschka, data-science-from-scratch.
+description: "Applies Oliver Theobald's Machine Learning for Absolute Beginners to start ML from zero: the concepts behind supervised and unsupervised learning, data preparation, model training and evaluation, and a plain-language walk through how algorithms actually work, with Python examples. Use when the user says 'machine learning for beginners', 'Theobald', 'start machine learning from scratch', 'explain supervised vs unsupervised', 'first ML project', 'machine learning basics plain language', or when the goal is a clear, non-intimidating entry into machine learning. Pairs with: introduction-to-statistical-learning, hundred-page-machine-learning-book, python-machine-learning-raschka, data-science-from-scratch."
 ---
 # Machine Learning for Absolute Beginners
 

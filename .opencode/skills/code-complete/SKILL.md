@@ -1,6 +1,6 @@
 ---
 name: code-complete
-description: Applies Steve McConnell's Code Complete to the craft of constructing software well: the construction process, design in construction, class and routine design, data and control structures, code layout, and the science of debugging, testing, and building quality in. Use when the user says 'code complete', 'McConnell', 'software construction', 'routine design', 'good practice', 'code quality', 'debugging', 'construction practices', or when the craft decisions of writing software need authoritative grounding.
+description: "Applies Steve McConnell's Code Complete to the craft of constructing software well: the construction process, design in construction, class and routine design, data and control structures, code layout, and the science of debugging, testing, and building quality in. Use when the user says 'code complete', 'McConnell', 'software construction', 'routine design', 'good practice', 'code quality', 'debugging', 'construction practices', or when the craft decisions of writing software need authoritative grounding."
 ---
 
 # Code Complete (Steve McConnell)

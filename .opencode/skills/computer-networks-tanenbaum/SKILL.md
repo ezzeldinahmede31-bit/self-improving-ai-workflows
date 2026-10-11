@@ -1,6 +1,6 @@
 ---
 name: computer-networks-tanenbaum
-description: Applies Tanenbaum's Computer Networks to the full protocol stack from the physical layer up: transmission media and encoding, link layer and Ethernet, the network layer and routing, transport and the TCP/UDP distinction, and the application layer with DNS and HTTP, plus security and network management. Use when the user says 'computer networks', 'protocol stack', 'OSI model', 'TCP/IP layers', 'routing', 'Ethernet', 'congestion control', 'DNS', 'Tanenbaum networks', 'network layers', or when a network design or protocol behavior must be understood end to end.
+description: "Applies Tanenbaum's Computer Networks to the full protocol stack from the physical layer up: transmission media and encoding, link layer and Ethernet, the network layer and routing, transport and the TCP/UDP distinction, and the application layer with DNS and HTTP, plus security and network management. Use when the user says 'computer networks', 'protocol stack', 'OSI model', 'TCP/IP layers', 'routing', 'Ethernet', 'congestion control', 'DNS', 'Tanenbaum networks', 'network layers', or when a network design or protocol behavior must be understood end to end."
 ---
 
 # Computer Networks (Andrew S. Tanenbaum)

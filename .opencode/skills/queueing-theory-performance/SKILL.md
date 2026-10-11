@@ -1,6 +1,6 @@
 ---
 name: queueing-theory-performance
-description: Applies classic queueing theory to performance modeling and capacity planning: the fundamental queueing model (arrivals, service, discipline), Little's law, the M/M/1 and M/M/c queues and their steady-state behavior, utilization and response time, and the discipline of measuring systems so the model matches reality. Use when the user says 'queueing theory', 'Little law', 'M/M/1', 'response time', 'utilization', 'arrival rate', 'service rate', 'capacity planning', 'queue length', 'performance model', or when predicting how a service behaves under load.
+description: "Applies classic queueing theory to performance modeling and capacity planning: the fundamental queueing model (arrivals, service, discipline), Little's law, the M/M/1 and M/M/c queues and their steady-state behavior, utilization and response time, and the discipline of measuring systems so the model matches reality. Use when the user says 'queueing theory', 'Little law', 'M/M/1', 'response time', 'utilization', 'arrival rate', 'service rate', 'capacity planning', 'queue length', 'performance model', or when predicting how a service behaves under load."
 ---
 
 # Queueing Theory and Performance Evaluation (various classic texts)

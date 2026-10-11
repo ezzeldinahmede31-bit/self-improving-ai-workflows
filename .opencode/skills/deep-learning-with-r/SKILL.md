@@ -1,6 +1,6 @@
 ---
 name: deep-learning-with-r
-description: Applies Chollet & Allaire's Deep Learning with R to build and train deep learning models using R with the Keras interface: the deep learning workflow, convolutional and recurrent models, and best practices for overfitting and regularization, all in the R ecosystem. Use when the user says 'deep learning with R', 'Chollet Allaire', 'Keras in R', 'train a neural network in R', 'deep learning R ecosystem', or when deep learning models must be built in R rather than Python. Pairs with: deep-learning-with-python, machine-learning-pytorch-scikit-learn, feature-engineering-machine-learning, data-analysis.
+description: "Applies Chollet & Allaire's Deep Learning with R to build and train deep learning models using R with the Keras interface: the deep learning workflow, convolutional and recurrent models, and best practices for overfitting and regularization, all in the R ecosystem. Use when the user says 'deep learning with R', 'Chollet Allaire', 'Keras in R', 'train a neural network in R', 'deep learning R ecosystem', or when deep learning models must be built in R rather than Python. Pairs with: deep-learning-with-python, machine-learning-pytorch-scikit-learn, feature-engineering-machine-learning, data-analysis."
 ---
 # Deep Learning with R
 

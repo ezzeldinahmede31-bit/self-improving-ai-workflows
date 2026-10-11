@@ -1,6 +1,6 @@
 ---
 name: tcpip-transactions-http-unix
-description: Applies Stevens' TCP/IP Illustrated Volume 3 to the specialized and application protocols around TCP: TCP for Transactions (T/TCP), the HTTP/1.0 protocol in detail, NNTP, and the UNIX domain protocol for local communication. Use when the user says 'T/TCP', 'transactional TCP', 'HTTP 1.0', 'NNTP', 'Unix domain socket', 'Stevens volume 3', 'local IPC socket', or when a specialized transport or application protocol needs precise understanding.
+description: "Applies Stevens' TCP/IP Illustrated Volume 3 to the specialized and application protocols around TCP: TCP for Transactions (T/TCP), the HTTP/1.0 protocol in detail, NNTP, and the UNIX domain protocol for local communication. Use when the user says 'T/TCP', 'transactional TCP', 'HTTP 1.0', 'NNTP', 'Unix domain socket', 'Stevens volume 3', 'local IPC socket', or when a specialized transport or application protocol needs precise understanding."
 ---
 
 # TCP/IP Illustrated, Volume 3: TCP for Transactions, HTTP, NNTP, and the UNIX Domain Protocol (Stevens)

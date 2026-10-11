@@ -1,6 +1,6 @@
 ---
 name: cloud-resilience-patterns
-description: Applies the resilience patterns of Cornelia Davis' Cloud Native Patterns to applications that must survive partial failure: circuit breakers, retries with backoff and jitter, timeouts and bulkheads, graceful degradation, steady-state behavior, and the observability that proves the system is healing. Use when the user says 'circuit breaker', 'retry with backoff', 'timeout', 'bulkhead', 'graceful degradation', 'resilient design', 'survive a dependency outage', 'cloud resilience', 'self-healing', 'retry storm', 'cascading failure', or when an app must keep serving while an upstream is down. Pairs with: cloud-native-patterns, release-it-production-hardening, rate-limit-and-cost-guard, n8n-error-boundary-architect.
+description: "Applies the resilience patterns of Cornelia Davis' Cloud Native Patterns to applications that must survive partial failure: circuit breakers, retries with backoff and jitter, timeouts and bulkheads, graceful degradation, steady-state behavior, and the observability that proves the system is healing. Use when the user says 'circuit breaker', 'retry with backoff', 'timeout', 'bulkhead', 'graceful degradation', 'resilient design', 'survive a dependency outage', 'cloud resilience', 'self-healing', 'retry storm', 'cascading failure', or when an app must keep serving while an upstream is down. Pairs with: cloud-native-patterns, release-it-production-hardening, rate-limit-and-cost-guard, n8n-error-boundary-architect."
 ---
 
 # Cloud Resilience Patterns

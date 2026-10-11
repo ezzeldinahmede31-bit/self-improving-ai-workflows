@@ -1,6 +1,6 @@
 ---
 name: computer-organization-design
-description: Applies Patterson & Hennessy's Computer Organization and Design (the classic 'Patterson-Hennessy') to reason about what a program costs on real hardware: the MIPS/RISC-V instruction set and the correspondence of C to assembly, arithmetic and data representation, the processor datapath and control, memory hierarchies (cache, DRAM, virtual memory) and performance measurement with Amdahl's law. Use when the user says 'computer organization', 'instruction set', 'MIPS', 'RISC-V', 'assembly to C', 'datapath', 'pipeline', 'cache design', 'Amdahl law', 'clock cycle', 'CPI', 'Patterson Hennessy', or when a program's real hardware cost must be understood.
+description: "Applies Patterson & Hennessy's Computer Organization and Design (the classic 'Patterson-Hennessy') to reason about what a program costs on real hardware: the MIPS/RISC-V instruction set and the correspondence of C to assembly, arithmetic and data representation, the processor datapath and control, memory hierarchies (cache, DRAM, virtual memory) and performance measurement with Amdahl's law. Use when the user says 'computer organization', 'instruction set', 'MIPS', 'RISC-V', 'assembly to C', 'datapath', 'pipeline', 'cache design', 'Amdahl law', 'clock cycle', 'CPI', 'Patterson Hennessy', or when a program's real hardware cost must be understood."
 ---
 
 # Computer Organization and Design (Patterson & Hennessy)

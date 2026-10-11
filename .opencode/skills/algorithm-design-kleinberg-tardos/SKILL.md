@@ -1,6 +1,6 @@
 ---
 name: algorithm-design-kleinberg-tardos
-description: Applies Kleinberg & Tardos' Algorithm Design to designing algorithms by stable problem families: greedy algorithms and exchange arguments, divide and conquer with recurrence analysis, dynamic programming over subproblems, network flow and its applications to matching and cuts, NP-completeness reasoning, and approximation algorithms for hard problems. Use when the user says 'design an algorithm', 'greedy', 'exchange argument', 'divide and conquer', 'dynamic programming', 'network flow', 'max flow min cut', 'NP-complete', 'approximation algorithm', 'Kleinberg Tardos', or when a problem needs a designed-and-proven algorithm rather than a guess.
+description: "Applies Kleinberg & Tardos' Algorithm Design to designing algorithms by stable problem families: greedy algorithms and exchange arguments, divide and conquer with recurrence analysis, dynamic programming over subproblems, network flow and its applications to matching and cuts, NP-completeness reasoning, and approximation algorithms for hard problems. Use when the user says 'design an algorithm', 'greedy', 'exchange argument', 'divide and conquer', 'dynamic programming', 'network flow', 'max flow min cut', 'NP-complete', 'approximation algorithm', 'Kleinberg Tardos', or when a problem needs a designed-and-proven algorithm rather than a guess."
 ---
 
 # Algorithm Design (Kleinberg & Tardos)

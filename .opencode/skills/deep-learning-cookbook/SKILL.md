@@ -1,6 +1,6 @@
 ---
 name: deep-learning-cookbook
-description: Applies Douwe Osinga's Deep Learning Cookbook to solve real problems with ready-to-adapt recipes in Keras: working with images, text, sound, and structured data; building recommendation and generative models; and transfer learning, all as concrete copy-paste-and-adapt solutions. Use when the user says 'deep learning recipe', 'Deep Learning Cookbook', 'Osinga', 'adapt a Keras example', 'build a recommendation model', 'generate text with Keras', 'cookbook for deep learning', or when a proven recipe is the fastest route to a working model. Pairs with: deep-learning-with-python, deep-learning-cookbook, machine-learning-pytorch-scikit-learn, collective-intelligence-in-action.
+description: "Applies Douwe Osinga's Deep Learning Cookbook to solve real problems with ready-to-adapt recipes in Keras: working with images, text, sound, and structured data; building recommendation and generative models; and transfer learning, all as concrete copy-paste-and-adapt solutions. Use when the user says 'deep learning recipe', 'Deep Learning Cookbook', 'Osinga', 'adapt a Keras example', 'build a recommendation model', 'generate text with Keras', 'cookbook for deep learning', or when a proven recipe is the fastest route to a working model. Pairs with: deep-learning-with-python, deep-learning-cookbook, machine-learning-pytorch-scikit-learn, collective-intelligence-in-action."
 ---
 # Deep Learning Cookbook
 

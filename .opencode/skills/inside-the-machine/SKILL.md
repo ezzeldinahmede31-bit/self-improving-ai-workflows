@@ -1,6 +1,6 @@
 ---
 name: inside-the-machine
-description: Applies Jon Stokes' Inside the Machine to understand modern processor design: the general processor architecture, RISC versus CISC, pipelining, superscalar and out-of-order execution, SIMD, memory hierarchies, and how the x86 and PowerPC families implement these ideas, written for engineers who want the real design. Use when the user says 'inside the machine', 'processor design', 'superscalar', 'out of order execution', 'pipeline', 'SIMD', 'x86 architecture', 'memory hierarchy', 'Jon Stokes', 'CPU internals', or when the design of a modern CPU explains its behavior.
+description: "Applies Jon Stokes' Inside the Machine to understand modern processor design: the general processor architecture, RISC versus CISC, pipelining, superscalar and out-of-order execution, SIMD, memory hierarchies, and how the x86 and PowerPC families implement these ideas, written for engineers who want the real design. Use when the user says 'inside the machine', 'processor design', 'superscalar', 'out of order execution', 'pipeline', 'SIMD', 'x86 architecture', 'memory hierarchy', 'Jon Stokes', 'CPU internals', or when the design of a modern CPU explains its behavior."
 ---
 
 # Inside the Machine (Jon Stokes)

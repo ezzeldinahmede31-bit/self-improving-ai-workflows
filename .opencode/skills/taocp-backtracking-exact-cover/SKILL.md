@@ -1,6 +1,6 @@
 ---
 name: taocp-backtracking-exact-cover
-description: Applies the combinatorial-search chapters of Knuth's TAOCP Volume 4A to exhaustive and backtracking algorithms: the general backtracking framework, the exact-cover problem, and the dancing-links (DLX) data structure for enumerating solutions efficiently. Covers modeling a problem as exact cover, choosing a branching heuristic, and knowing when systematic enumeration beats a cleverer algorithm. Use when the user says 'backtracking', 'exact cover', 'dancing links', 'DLX', 'n-queens', 'Latin squares', 'Sudoku solver', 'enumerate all solutions', 'combinatorial search', 'Knuth combinatorial', or when a discrete problem needs systematic enumeration.
+description: "Applies the combinatorial-search chapters of Knuth's TAOCP Volume 4A to exhaustive and backtracking algorithms: the general backtracking framework, the exact-cover problem, and the dancing-links (DLX) data structure for enumerating solutions efficiently. Covers modeling a problem as exact cover, choosing a branching heuristic, and knowing when systematic enumeration beats a cleverer algorithm. Use when the user says 'backtracking', 'exact cover', 'dancing links', 'DLX', 'n-queens', 'Latin squares', 'Sudoku solver', 'enumerate all solutions', 'combinatorial search', 'Knuth combinatorial', or when a discrete problem needs systematic enumeration."
 ---
 
 # The Art of Computer Programming: Backtracking and Exact Cover

@@ -1,6 +1,6 @@
 ---
 name: computer-architecture-quantitative
-description: Applies Hennessy & Patterson's Computer Architecture: A Quantitative Approach to architecture-level decisions with data: the quantitative principles of design, instruction-level parallelism and superscalar execution, limits of ILP, memory hierarchy design, multiprocessors and coherence, and measuring architecture with benchmark-driven evaluation. Use when the user says 'quantitative approach', 'superscalar', 'instruction level parallelism', 'ILP', 'memory hierarchy design', 'cache coherence', 'multiprocessor', 'benchmark evaluation', 'Hennessy Patterson', 'architecture analysis', or when a hardware or performance decision must be justified with measurement.
+description: "Applies Hennessy & Patterson's Computer Architecture: A Quantitative Approach to architecture-level decisions with data: the quantitative principles of design, instruction-level parallelism and superscalar execution, limits of ILP, memory hierarchy design, multiprocessors and coherence, and measuring architecture with benchmark-driven evaluation. Use when the user says 'quantitative approach', 'superscalar', 'instruction level parallelism', 'ILP', 'memory hierarchy design', 'cache coherence', 'multiprocessor', 'benchmark evaluation', 'Hennessy Patterson', 'architecture analysis', or when a hardware or performance decision must be justified with measurement."
 ---
 
 # Computer Architecture: A Quantitative Approach (Hennessy & Patterson)

@@ -1,6 +1,6 @@
 ---
 name: how-linux-works
-description: Applies How Linux Works (Brian Ward) to hands-on Linux administration and automation: a superuser's mental model of the boot process, kernel, devices, filesystems, networking, processes, and the shell, enough to find and fix real problems. Covers systemd units, the boot sequence, device handling, file permissions, processes and signals, and the core diagnostic toolchain. Use when the user says 'why does my system boot slowly', 'systemd unit', 'is that process normal', 'check my disk layout', or 'how do I debug this Linux box'.
+description: "Applies How Linux Works (Brian Ward) to hands-on Linux administration and automation: a superuser's mental model of the boot process, kernel, devices, filesystems, networking, processes, and the shell, enough to find and fix real problems. Covers systemd units, the boot sequence, device handling, file permissions, processes and signals, and the core diagnostic toolchain. Use when the user says 'why does my system boot slowly', 'systemd unit', 'is that process normal', 'check my disk layout', or 'how do I debug this Linux box'."
 ---
 # how-linux-works
 

@@ -1,6 +1,6 @@
 ---
 name: taocp-vol2-seminumerical-algorithms
-description: Applies Knuth's TAOCP Volume 2 to random-number generation and arithmetic: linear congruential generators, statistical tests of randomness, arbitrary-precision arithmetic, rational and polynomial arithmetic, and number-theoretic algorithms such as gcd and modular exponentiation. Use when the user says 'random number generation', 'PRNG', 'test randomness', 'arbitrary precision arithmetic', 'big integer math', 'polynomial arithmetic', 'gcd', 'modular exponentiation', 'Knuth random', or when a numeric algorithm must be correct and its randomness honest.
+description: "Applies Knuth's TAOCP Volume 2 to random-number generation and arithmetic: linear congruential generators, statistical tests of randomness, arbitrary-precision arithmetic, rational and polynomial arithmetic, and number-theoretic algorithms such as gcd and modular exponentiation. Use when the user says 'random number generation', 'PRNG', 'test randomness', 'arbitrary precision arithmetic', 'big integer math', 'polynomial arithmetic', 'gcd', 'modular exponentiation', 'Knuth random', or when a numeric algorithm must be correct and its randomness honest."
 ---
 
 # TAOCP Vol 2: Seminumerical Algorithms

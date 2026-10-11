@@ -1,6 +1,6 @@
 ---
 name: machine-learning-algorithmic-perspective
-description: Applies Stephen Marsland's Machine Learning: An Algorithmic Perspective to implement machine learning by understanding the algorithms: from perceptrons and multi-layer networks to backpropagation, radial basis functions, SVM, self-organizing maps, and evolutionary and reinforcement learning, with code-driven intuition. Use when the user says 'implement a learning algorithm', 'perceptron', 'backpropagation', 'self-organizing map', 'Marsland', 'algorithmic perspective', 'learn the algorithms', or when the mechanics of a learning algorithm must be understood by implementing it. Pairs with: data-science-from-scratch, python-machine-learning-raschka, algorithmic-math-reasoner, tdd-sandbox-proof-engine.
+description: "Applies Stephen Marsland's Machine Learning: An Algorithmic Perspective to implement machine learning by understanding the algorithms: from perceptrons and multi-layer networks to backpropagation, radial basis functions, SVM, self-organizing maps, and evolutionary and reinforcement learning, with code-driven intuition. Use when the user says 'implement a learning algorithm', 'perceptron', 'backpropagation', 'self-organizing map', 'Marsland', 'algorithmic perspective', 'learn the algorithms', or when the mechanics of a learning algorithm must be understood by implementing it. Pairs with: data-science-from-scratch, python-machine-learning-raschka, algorithmic-math-reasoner, tdd-sandbox-proof-engine."
 ---
 # Machine Learning: An Algorithmic Perspective
 

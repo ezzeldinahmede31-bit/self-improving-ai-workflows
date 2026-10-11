@@ -75,7 +75,7 @@ def main() -> int:
              f"(house cap; spec listing truncates at 1536)", errs)
     low = str(desc).lower()
     if not any(w in low for w in ("use when", "used when", "when the user",
-                                  "trigger")):
+                                  "use this skill when", "trigger")):
         fail("frontmatter: description lacks WHEN/trigger phrasing", errs)
     unknown = set(fm.keys()) - SPEC_SIX - HOUSE_FRONTMATTER_EXTRA
     if unknown:

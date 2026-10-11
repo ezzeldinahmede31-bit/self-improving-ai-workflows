@@ -1,6 +1,6 @@
 ---
 name: machine-learning-tensorflow
-description: Applies Tom Hope, Yehezkel Resheff & Itay Lieder's Machine Learning with TensorFlow to build machine learning models with TensorFlow: the TensorFlow programming model, linear regression and classification, neural networks, CNNs, RNNs, embeddings, and best practices for training and evaluating models at scale. Use when the user says 'machine learning with TensorFlow', 'Hope Resheff Lieder', 'build a model in TensorFlow', 'TensorFlow classification', 'embedding with TensorFlow', or when implementing machine learning directly on the TensorFlow stack. Pairs with: deep-learning-with-python, machine-learning-pytorch-scikit-learn, dive-into-deep-learning, experiment-code.
+description: "Applies Tom Hope, Yehezkel Resheff & Itay Lieder's Machine Learning with TensorFlow to build machine learning models with TensorFlow: the TensorFlow programming model, linear regression and classification, neural networks, CNNs, RNNs, embeddings, and best practices for training and evaluating models at scale. Use when the user says 'machine learning with TensorFlow', 'Hope Resheff Lieder', 'build a model in TensorFlow', 'TensorFlow classification', 'embedding with TensorFlow', or when implementing machine learning directly on the TensorFlow stack. Pairs with: deep-learning-with-python, machine-learning-pytorch-scikit-learn, dive-into-deep-learning, experiment-code."
 ---
 # Machine Learning with TensorFlow
 

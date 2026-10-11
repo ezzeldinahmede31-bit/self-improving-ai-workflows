@@ -1,6 +1,6 @@
 ---
 name: code-hidden-language
-description: Applies Charles Petzold's Code: The Hidden Language of Computer Hardware and Software to understand how computers actually work, from relays and logic gates to adders, memory, codes, and operating systems. Encodes the mental model that software is a stack of abstractions over simple hardware, so debugging and design stay grounded in what the machine really does. Use when the user says 'how do computers work', 'logic gates and binary', 'understand the hardware behind the code', 'why does my code behave this way at the machine level', or 'explain computing from the ground up'.
+description: "Applies Charles Petzold's Code: The Hidden Language of Computer Hardware and Software to understand how computers actually work, from relays and logic gates to adders, memory, codes, and operating systems. Encodes the mental model that software is a stack of abstractions over simple hardware, so debugging and design stay grounded in what the machine really does. Use when the user says 'how do computers work', 'logic gates and binary', 'understand the hardware behind the code', 'why does my code behave this way at the machine level', or 'explain computing from the ground up'."
 ---
 
 # code-hidden-language

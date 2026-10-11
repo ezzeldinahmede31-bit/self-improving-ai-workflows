@@ -1,6 +1,6 @@
 ---
 name: art-of-readable-code
-description: Applies The Art of Readable Code by Dustin Boswell and Trevor Foucher to write code that is easy to understand: pack meaning into names, reduce what a reader must remember, explain the why in comments, keep functions small, and prefer clarity over cleverness. Encodes the measurable goal that code is good when the next reader understands it quickly and correctly. Use when the user says 'make this code readable', 'better variable names', 'refactor for clarity', 'write maintainable code', 'review my code for readability', or 'simplify this function'.
+description: "Applies The Art of Readable Code by Dustin Boswell and Trevor Foucher to write code that is easy to understand: pack meaning into names, reduce what a reader must remember, explain the why in comments, keep functions small, and prefer clarity over cleverness. Encodes the measurable goal that code is good when the next reader understands it quickly and correctly. Use when the user says 'make this code readable', 'better variable names', 'refactor for clarity', 'write maintainable code', 'review my code for readability', or 'simplify this function'."
 ---
 
 # art-of-readable-code

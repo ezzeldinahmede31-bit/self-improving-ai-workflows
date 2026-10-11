@@ -1,6 +1,6 @@
 ---
 name: data-structures-analysis-cpp
-description: Applies Mark Allen Weiss' C++ data structures book to implementing and analyzing fundamental structures correctly: generic containers, lists, stacks, queues, trees (binary, AVL, splay, B-trees), hash tables with collision policies, priority queues, sorting, and graph algorithms — each with a rigorous complexity analysis in C++. Use when the user says 'implement a data structure in C++', 'AVL tree', 'splay tree', 'B-tree', 'hash table C++', 'priority queue', 'binary heap', 'Weiss data structures', 'Big-Oh C++', 'graph algorithm in C++', or when a C++ container must be chosen, implemented, or proven.
+description: "Applies Mark Allen Weiss' C++ data structures book to implementing and analyzing fundamental structures correctly: generic containers, lists, stacks, queues, trees (binary, AVL, splay, B-trees), hash tables with collision policies, priority queues, sorting, and graph algorithms — each with a rigorous complexity analysis in C++. Use when the user says 'implement a data structure in C++', 'AVL tree', 'splay tree', 'B-tree', 'hash table C++', 'priority queue', 'binary heap', 'Weiss data structures', 'Big-Oh C++', 'graph algorithm in C++', or when a C++ container must be chosen, implemented, or proven."
 ---
 
 # Data Structures and Algorithm Analysis in C++ (Mark Allen Weiss)

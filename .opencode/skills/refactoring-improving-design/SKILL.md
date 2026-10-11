@@ -1,6 +1,6 @@
 ---
 name: refactoring-improving-design
-description: Applies Martin Fowler's Refactoring to improve existing code safely: the refactoring catalog (rename, extract, inline, move, replace), the discipline of behavior-preserving transformations, and the test-driven rhythm that keeps every step safe. Use when the user says 'refactoring', 'extract method', 'extract class', 'rename', 'move method', 'improve the design of existing code', 'Fowler refactoring', 'behavior preserving change', or when existing code must be improved without breaking it.
+description: "Applies Martin Fowler's Refactoring to improve existing code safely: the refactoring catalog (rename, extract, inline, move, replace), the discipline of behavior-preserving transformations, and the test-driven rhythm that keeps every step safe. Use when the user says 'refactoring', 'extract method', 'extract class', 'rename', 'move method', 'improve the design of existing code', 'Fowler refactoring', 'behavior preserving change', or when existing code must be improved without breaking it."
 ---
 
 # Refactoring: Improving the Design of Existing Code (Martin Fowler)

@@ -1,6 +1,6 @@
 ---
 name: nand-to-tetris-elements-computing
-description: Applies Nisan & Schocken's The Elements of Computing Systems (Nand to Tetris) to build a working computer from first principles: from NAND gates through Boolean logic and the ALU, to a CPU and RAM, a machine language, a virtual machine, a compiler for a high-level language, and finally the operating system running on it. Use when the user says 'nand to tetris', 'build a computer', 'elements of computing systems', 'ALU', 'hack computer', 'virtual machine', 'compiler', 'from gates to OS', 'Nisan Schocken', or when the full stack from hardware to software must be understood by building it.
+description: "Applies Nisan & Schocken's The Elements of Computing Systems (Nand to Tetris) to build a working computer from first principles: from NAND gates through Boolean logic and the ALU, to a CPU and RAM, a machine language, a virtual machine, a compiler for a high-level language, and finally the operating system running on it. Use when the user says 'nand to tetris', 'build a computer', 'elements of computing systems', 'ALU', 'hack computer', 'virtual machine', 'compiler', 'from gates to OS', 'Nisan Schocken', or when the full stack from hardware to software must be understood by building it."
 ---
 
 # The Elements of Computing Systems (Nisan & Schocken)

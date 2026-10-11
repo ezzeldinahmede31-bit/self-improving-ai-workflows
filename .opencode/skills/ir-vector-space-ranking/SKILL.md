@@ -1,6 +1,6 @@
 ---
 name: ir-vector-space-ranking
-description: Applies the information-retrieval chapters of Jurafsky & Martin's Speech and Language Processing to rank documents for a query: the vector space model, TF-IDF weighting, cosine similarity, relevance feedback, and evaluation with precision and recall. Use when the user says 'vector space model', 'TF-IDF', 'cosine similarity', 'information retrieval ranking', 'relevance feedback', 'precision recall', or when a search or retrieval system must rank documents well. Pairs with: speech-language-processing, search-patterns, vector-databases-similarity-search, n8n-rag-vector-qa.
+description: "Applies the information-retrieval chapters of Jurafsky & Martin's Speech and Language Processing to rank documents for a query: the vector space model, TF-IDF weighting, cosine similarity, relevance feedback, and evaluation with precision and recall. Use when the user says 'vector space model', 'TF-IDF', 'cosine similarity', 'information retrieval ranking', 'relevance feedback', 'precision recall', or when a search or retrieval system must rank documents well. Pairs with: speech-language-processing, search-patterns, vector-databases-similarity-search, n8n-rag-vector-qa."
 ---
 # Vector-Space Information Retrieval and Ranking
 

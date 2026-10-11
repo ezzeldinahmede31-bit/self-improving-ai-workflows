@@ -1,6 +1,6 @@
 ---
 name: linux-security-hardening
-description: Applies Mastering Linux Security and Hardening (Donald A. Tevault) to securing Linux hosts and the automation that runs on them: a practical guide to account management, permissions, sudo, PAM, SSH hardening, firewalls, SELinux and AppArmor, and service lockdown. Covers audit and monitoring, kernel hardening, and patching discipline. Use when the user says 'harden this server', 'SSH lockdown', 'sudo policy', 'SELinux is blocking', or 'secure my Linux box'.
+description: "Applies Mastering Linux Security and Hardening (Donald A. Tevault) to securing Linux hosts and the automation that runs on them: a practical guide to account management, permissions, sudo, PAM, SSH hardening, firewalls, SELinux and AppArmor, and service lockdown. Covers audit and monitoring, kernel hardening, and patching discipline. Use when the user says 'harden this server', 'SSH lockdown', 'sudo policy', 'SELinux is blocking', or 'secure my Linux box'."
 ---
 # linux-security-hardening
 

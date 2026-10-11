@@ -1,6 +1,6 @@
 ---
 name: data-structures-analysis-java
-description: Applies Mark Allen Weiss' Java data structures book to building and analyzing structures in Java: generics and the Collections framework, lists and iterators, stacks and queues, trees (binary, AVL, splay, B-trees), hash tables, priority queues, sorting, and graph algorithms with complexity analysis. Use when the user says 'implement a data structure in Java', 'Java generics', 'Collections framework choice', 'AVL in Java', 'hash map Java', 'priority queue Java', 'Weiss Java', 'Big-Oh Java', 'graph algorithm in Java', or when a Java collection must be selected, built, or proven efficient.
+description: "Applies Mark Allen Weiss' Java data structures book to building and analyzing structures in Java: generics and the Collections framework, lists and iterators, stacks and queues, trees (binary, AVL, splay, B-trees), hash tables, priority queues, sorting, and graph algorithms with complexity analysis. Use when the user says 'implement a data structure in Java', 'Java generics', 'Collections framework choice', 'AVL in Java', 'hash map Java', 'priority queue Java', 'Weiss Java', 'Big-Oh Java', 'graph algorithm in Java', or when a Java collection must be selected, built, or proven efficient."
 ---
 
 # Data Structures and Algorithm Analysis in Java (Mark Allen Weiss)

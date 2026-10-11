@@ -1,6 +1,6 @@
 ---
 name: concrete-mathematics-recurrences
-description: Applies the recurrence methods of Graham, Knuth and Patashnik's Concrete Mathematics to solve recurrences exactly: the repertoire method, guess-and-verify with induction, summation factors, and turning recurrences into closed forms via generating functions. Covers the standard recurrence families and the discipline of checking a claimed closed form against small cases before trusting it. Use when the user says 'solve this recurrence', 'repertoire method', 'closed form', 'summation factor', 'divide and conquer recurrence', 'master theorem', 'guess and verify', 'Concrete Mathematics', 'GKP', or when a recurrence must be solved exactly rather than approximated.
+description: "Applies the recurrence methods of Graham, Knuth and Patashnik's Concrete Mathematics to solve recurrences exactly: the repertoire method, guess-and-verify with induction, summation factors, and turning recurrences into closed forms via generating functions. Covers the standard recurrence families and the discipline of checking a claimed closed form against small cases before trusting it. Use when the user says 'solve this recurrence', 'repertoire method', 'closed form', 'summation factor', 'divide and conquer recurrence', 'master theorem', 'guess and verify', 'Concrete Mathematics', 'GKP', or when a recurrence must be solved exactly rather than approximated."
 ---
 
 # Concrete Mathematics: Recurrences

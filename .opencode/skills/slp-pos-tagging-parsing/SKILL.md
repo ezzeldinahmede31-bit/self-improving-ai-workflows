@@ -1,6 +1,6 @@
 ---
 name: slp-pos-tagging-parsing
-description: Applies the sequence-labeling and parsing chapters of Jurafsky & Martin's Speech and Language Processing to tag and parse text: part-of-speech tagging with HMMs and discriminative models, the CYK parsing algorithm, probabilistic context-free grammars, and dependency parsing. Use when the user says 'POS tagging', 'CYK parsing', 'probabilistic context free grammar', 'dependency parse', 'sequence labeling', 'SLP tagging', or when text must be tagged and parsed into structure. Pairs with: speech-language-processing, linguistic-fundamentals-nlp, pgm-inference-variable-elimination, algorithmic-math-reasoner.
+description: "Applies the sequence-labeling and parsing chapters of Jurafsky & Martin's Speech and Language Processing to tag and parse text: part-of-speech tagging with HMMs and discriminative models, the CYK parsing algorithm, probabilistic context-free grammars, and dependency parsing. Use when the user says 'POS tagging', 'CYK parsing', 'probabilistic context free grammar', 'dependency parse', 'sequence labeling', 'SLP tagging', or when text must be tagged and parsed into structure. Pairs with: speech-language-processing, linguistic-fundamentals-nlp, pgm-inference-variable-elimination, algorithmic-math-reasoner."
 ---
 # Part-of-Speech Tagging and Parsing
 

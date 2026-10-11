@@ -1,6 +1,6 @@
 ---
 name: designing-web-apis
-description: Applies Jin, Sahni & Shevat's Designing Web APIs to building APIs developers will love: the API design workflow (from use case to contract), resources and endpoints, HTTP methods and status codes, authentication and authorization, versioning, pagination and error handling, and the SDKs, documentation, and developer experience that make an API a product. Use when the user says 'designing web APIs', 'API design workflow', 'design an API developers will love', 'resource design', 'authentication for APIs', 'API versioning', 'developer experience', 'Jin Sahni Shevat', or when a web API must be designed as a product, not an endpoint dump.
+description: "Applies Jin, Sahni & Shevat's Designing Web APIs to building APIs developers will love: the API design workflow (from use case to contract), resources and endpoints, HTTP methods and status codes, authentication and authorization, versioning, pagination and error handling, and the SDKs, documentation, and developer experience that make an API a product. Use when the user says 'designing web APIs', 'API design workflow', 'design an API developers will love', 'resource design', 'authentication for APIs', 'API versioning', 'developer experience', 'Jin Sahni Shevat', or when a web API must be designed as a product, not an endpoint dump."
 ---
 
 # Designing Web APIs (Brenda Jin, Saurabh Sahni, Amir Shevat)

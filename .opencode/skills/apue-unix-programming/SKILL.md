@@ -1,6 +1,6 @@
 ---
 name: apue-unix-programming
-description: Applies Stevens & Rago's APUE to real Unix/Linux system programming: file I/O and descriptors, files and directories, processes and environment, signals, terminal and advanced I/O, and interprocess communication including pipes, FIFOs, message queues, semaphores, shared memory, and sockets. Use when the user says 'Unix programming', 'file descriptors', 'process fork', 'signals', 'terminal I/O', 'poll select epoll', 'interprocess communication', 'pipes', 'shared memory', 'socket programming', 'APUE', 'Stevens', or when writing programs that talk directly to the operating system.
+description: "Applies Stevens & Rago's APUE to real Unix/Linux system programming: file I/O and descriptors, files and directories, processes and environment, signals, terminal and advanced I/O, and interprocess communication including pipes, FIFOs, message queues, semaphores, shared memory, and sockets. Use when the user says 'Unix programming', 'file descriptors', 'process fork', 'signals', 'terminal I/O', 'poll select epoll', 'interprocess communication', 'pipes', 'shared memory', 'socket programming', 'APUE', 'Stevens', or when writing programs that talk directly to the operating system."
 ---
 
 # Advanced Programming in the UNIX Environment (Stevens & Rago)

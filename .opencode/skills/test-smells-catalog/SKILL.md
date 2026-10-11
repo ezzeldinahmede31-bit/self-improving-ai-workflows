@@ -1,6 +1,6 @@
 ---
 name: test-smells-catalog
-description: Applies the test-smell catalog half of Gerard Meszaros' XUnit Test Patterns to find and fix the problems that make test suites slow, brittle, and unmaintainable: assertion-free tests, mystery guests, eager tests, fragile fixtures, slow tests, conditional test logic, and the refactorings that cure them. Use when the user says 'my tests are a mess', 'flaky test', 'test smells', 'why are my tests slow', 'fix the test suite', 'test maintainability', 'fragile test', 'obscure test', 'test pollution', 'smell catalog', or when a suite must be refactored safely. Pairs with: xunit-test-patterns, tdd-sandbox-proof-engine, unit-test-boundary-conditions, code-execution-guided-swemaster.
+description: "Applies the test-smell catalog half of Gerard Meszaros' XUnit Test Patterns to find and fix the problems that make test suites slow, brittle, and unmaintainable: assertion-free tests, mystery guests, eager tests, fragile fixtures, slow tests, conditional test logic, and the refactorings that cure them. Use when the user says 'my tests are a mess', 'flaky test', 'test smells', 'why are my tests slow', 'fix the test suite', 'test maintainability', 'fragile test', 'obscure test', 'test pollution', 'smell catalog', or when a suite must be refactored safely. Pairs with: xunit-test-patterns, tdd-sandbox-proof-engine, unit-test-boundary-conditions, code-execution-guided-swemaster."
 ---
 
 # Test Smells Catalog

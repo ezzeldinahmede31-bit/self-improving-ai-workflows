@@ -1,6 +1,6 @@
 ---
 name: principles-computer-system-design
-description: Applies Saltzer & Kaashoek's Principles of Computer System Design to design systems that behave: the fundamental principles (modularity, abstraction, naming, caching, concurrency, persistence), the techniques that implement them (client-server, virtualization, recoverability), and the recurring trade-offs, with a focus on keeping the design simple enough to reason about. Use when the user says 'system design principles', 'modularity', 'abstraction', 'naming', 'caching', 'client server', 'virtualization', 'recoverability', 'Saltzer Kaashoek', 'design for simplicity', or when a system's architecture must be principled, not ad hoc.
+description: "Applies Saltzer & Kaashoek's Principles of Computer System Design to design systems that behave: the fundamental principles (modularity, abstraction, naming, caching, concurrency, persistence), the techniques that implement them (client-server, virtualization, recoverability), and the recurring trade-offs, with a focus on keeping the design simple enough to reason about. Use when the user says 'system design principles', 'modularity', 'abstraction', 'naming', 'caching', 'client server', 'virtualization', 'recoverability', 'Saltzer Kaashoek', 'design for simplicity', or when a system's architecture must be principled, not ad hoc."
 ---
 
 # Principles of Computer System Design (Saltzer & Kaashoek)

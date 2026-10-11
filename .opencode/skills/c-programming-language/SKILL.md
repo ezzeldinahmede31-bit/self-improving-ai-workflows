@@ -1,6 +1,6 @@
 ---
 name: c-programming-language
-description: Applies Kernighan & Ritchie's The C Programming Language to write clear, portable C: types and operators, control flow, functions and the argument-passing model, pointers and arrays, structures, input and output, the standard library, and the UNIX system interface. Use when the user says 'learn C', 'K&R', 'C programming', 'pointers in C', 'structures C', 'standard library', 'write portable C', 'C idioms', 'getchar putchar', or when writing C that is correct, small, and readable.
+description: "Applies Kernighan & Ritchie's The C Programming Language to write clear, portable C: types and operators, control flow, functions and the argument-passing model, pointers and arrays, structures, input and output, the standard library, and the UNIX system interface. Use when the user says 'learn C', 'K&R', 'C programming', 'pointers in C', 'structures C', 'standard library', 'write portable C', 'C idioms', 'getchar putchar', or when writing C that is correct, small, and readable."
 ---
 
 # The C Programming Language (Kernighan & Ritchie)

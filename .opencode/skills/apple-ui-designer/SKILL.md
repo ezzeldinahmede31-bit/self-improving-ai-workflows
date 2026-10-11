@@ -127,3 +127,12 @@ For each redesigned screen:
 
 Every screen should feel like it belongs in a first-party Apple app —
 calm, confident, native, and inevitable.
+
+## Verification
+
+- Describe any mobile screen with this skill loaded: output references SF Pro typography, system materials, and safe-area behavior (not generic Material/web styling).
+
+## Pairs with
+
+- `ios-design-guidelines` — normative HIG rules behind the aesthetic.
+- `frontend-design` — cross-platform visual direction.

@@ -1,6 +1,6 @@
 ---
 name: statistical-machine-translation
-description: Applies Philipp Koehn's Statistical Machine Translation to build translation systems from data: word-based and phrase-based models, the alignment problem, language models, decoding, and evaluation with BLEU. Use when the user says 'statistical machine translation', 'phrase based MT', 'word alignment', 'Koehn', 'BLEU score', 'translation model', or when building a translation system from parallel corpora. Pairs with: speech-language-processing, foundations-statistical-nlp, nlp-transformers-huggingface, data-analysis.
+description: "Applies Philipp Koehn's Statistical Machine Translation to build translation systems from data: word-based and phrase-based models, the alignment problem, language models, decoding, and evaluation with BLEU. Use when the user says 'statistical machine translation', 'phrase based MT', 'word alignment', 'Koehn', 'BLEU score', 'translation model', or when building a translation system from parallel corpora. Pairs with: speech-language-processing, foundations-statistical-nlp, nlp-transformers-huggingface, data-analysis."
 ---
 # Statistical Machine Translation
 

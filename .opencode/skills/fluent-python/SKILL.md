@@ -1,6 +1,6 @@
 ---
 name: fluent-python
-description: Applies Luciano Ramalho's Fluent Python to write Python that uses the language the way it was designed: the data model and special methods, sequence and mapping protocols, functions as first-class objects, descriptors, decorators, operator overloading, and async pipelines. Encodes the principle that understanding the data model makes code behave predictably and read naturally. Use when the user says 'use Python idiomatically', 'special methods', 'make my class behave like a sequence', 'decorator or descriptor', 'dunder methods', or 'build a small DSL in Python'.
+description: "Applies Luciano Ramalho's Fluent Python to write Python that uses the language the way it was designed: the data model and special methods, sequence and mapping protocols, functions as first-class objects, descriptors, decorators, operator overloading, and async pipelines. Encodes the principle that understanding the data model makes code behave predictably and read naturally. Use when the user says 'use Python idiomatically', 'special methods', 'make my class behave like a sequence', 'decorator or descriptor', 'dunder methods', or 'build a small DSL in Python'."
 ---
 
 # fluent-python

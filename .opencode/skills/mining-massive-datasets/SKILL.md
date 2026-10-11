@@ -1,6 +1,6 @@
 ---
 name: mining-massive-datasets
-description: Applies Leskovec, Rajaraman & Ullman's Mining of Massive Datasets to process data too big for main memory: map-reduce and distributed algorithms, locality-sensitive hashing, frequent itemsets, clustering at scale, page-rank and link analysis, and recommendation systems. Use when the user says 'mining massive datasets', 'locality sensitive hashing', 'frequent itemsets', 'page rank', 'map reduce algorithms', 'scalable clustering', 'Rajaraman Ullman', or when a data-mining algorithm must scale to huge data. Pairs with: data-mining-practical-ml, fundamentals-of-data-engineering, data-intensive-application-design, distributed-systems-concepts-design.
+description: "Applies Leskovec, Rajaraman & Ullman's Mining of Massive Datasets to process data too big for main memory: map-reduce and distributed algorithms, locality-sensitive hashing, frequent itemsets, clustering at scale, page-rank and link analysis, and recommendation systems. Use when the user says 'mining massive datasets', 'locality sensitive hashing', 'frequent itemsets', 'page rank', 'map reduce algorithms', 'scalable clustering', 'Rajaraman Ullman', or when a data-mining algorithm must scale to huge data. Pairs with: data-mining-practical-ml, fundamentals-of-data-engineering, data-intensive-application-design, distributed-systems-concepts-design."
 ---
 # Mining of Massive Datasets
 

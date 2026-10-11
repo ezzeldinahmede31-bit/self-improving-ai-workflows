@@ -1,6 +1,6 @@
 ---
 name: applied-deep-learning-tensorflow2
-description: Applies Umberto Michelucci's Applied Deep Learning with TensorFlow 2 to build and train deep learning models with a strong mathematical foundation: the theory of neural networks, optimization, loss functions, CNNs, RNNs, and the practical design choices that make models train well, with TensorFlow 2 implementations. Use when the user says 'applied deep learning TensorFlow 2', 'Michelucci', 'TensorFlow 2 training', 'design a network architecture', 'loss function choice', 'CNN TensorFlow 2', or when building deep models on TensorFlow 2 with mathematical grounding. Pairs with: deep-learning-with-python, dive-into-deep-learning, deep-learning-cookbook, machine-learning-pytorch-scikit-learn.
+description: "Applies Umberto Michelucci's Applied Deep Learning with TensorFlow 2 to build and train deep learning models with a strong mathematical foundation: the theory of neural networks, optimization, loss functions, CNNs, RNNs, and the practical design choices that make models train well, with TensorFlow 2 implementations. Use when the user says 'applied deep learning TensorFlow 2', 'Michelucci', 'TensorFlow 2 training', 'design a network architecture', 'loss function choice', 'CNN TensorFlow 2', or when building deep models on TensorFlow 2 with mathematical grounding. Pairs with: deep-learning-with-python, dive-into-deep-learning, deep-learning-cookbook, machine-learning-pytorch-scikit-learn."
 ---
 # Applied Deep Learning with TensorFlow 2
 

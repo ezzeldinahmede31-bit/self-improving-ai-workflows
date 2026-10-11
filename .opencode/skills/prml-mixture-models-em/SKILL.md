@@ -1,6 +1,6 @@
 ---
 name: prml-mixture-models-em
-description: Applies the latent-variable and mixture-model chapters of Christopher Bishop's Pattern Recognition and Machine Learning (PRML): mixtures of Gaussians, the EM algorithm and its derivation, k-means as a limit of EM, and the use of latent variables for clustering, missing data, and representation. Use when the user says 'mixture of Gaussians', 'EM algorithm', 'expectation maximization', 'latent variable', 'k-means', 'soft clustering', 'Gaussian mixture model', 'missing data', or when clustering data that naturally comes from several groups or when some data is incomplete. Pairs with: pattern-recognition-machine-learning, machine-learning-probabilistic-perspective, data-science-from-scratch, algorithmic-math-reasoner.
+description: "Applies the latent-variable and mixture-model chapters of Christopher Bishop's Pattern Recognition and Machine Learning (PRML): mixtures of Gaussians, the EM algorithm and its derivation, k-means as a limit of EM, and the use of latent variables for clustering, missing data, and representation. Use when the user says 'mixture of Gaussians', 'EM algorithm', 'expectation maximization', 'latent variable', 'k-means', 'soft clustering', 'Gaussian mixture model', 'missing data', or when clustering data that naturally comes from several groups or when some data is incomplete. Pairs with: pattern-recognition-machine-learning, machine-learning-probabilistic-perspective, data-science-from-scratch, algorithmic-math-reasoner."
 ---
 # Mixture Models and EM (PRML)
 

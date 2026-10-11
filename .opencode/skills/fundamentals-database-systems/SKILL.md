@@ -1,6 +1,6 @@
 ---
 name: fundamentals-database-systems
-description: Applies Elmasri & Navathe's Fundamentals of Database Systems to the full database lifecycle: conceptual and logical design (ER and the extended model), relational mapping, normalization, SQL and relational algebra, object and XML models, transactions and concurrency, and databases on the web. Use when the user says 'fundamentals of database systems', 'ER model', 'extended ER', 'database design process', 'relational mapping', 'normal forms', 'Elmasri Navathe', 'database lifecycle', or when designing a database from requirements through schema.
+description: "Applies Elmasri & Navathe's Fundamentals of Database Systems to the full database lifecycle: conceptual and logical design (ER and the extended model), relational mapping, normalization, SQL and relational algebra, object and XML models, transactions and concurrency, and databases on the web. Use when the user says 'fundamentals of database systems', 'ER model', 'extended ER', 'database design process', 'relational mapping', 'normal forms', 'Elmasri Navathe', 'database lifecycle', or when designing a database from requirements through schema."
 ---
 
 # Fundamentals of Database Systems (Elmasri & Navathe)

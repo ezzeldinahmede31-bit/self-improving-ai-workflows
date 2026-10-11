@@ -1,6 +1,6 @@
 ---
 name: chollet-rnn-timeseries
-description: Deep dive into the recurrent-network and timeseries chapters of Chollet's Deep Learning with Python: RNNs and LSTM/GRU cells for sequences, the limitations of RNNs versus 1D convolutions and attention, timeseries forecasting with sliding windows, and temperature/weather forecasting examples. Use when the user says 'LSTM', 'GRU', 'recurrent network', 'timeseries forecasting with deep learning', 'sequence model', 'temperature forecasting', 'RNN vs attention', or when building a model over ordered data. Pairs with: deep-learning-with-python, deep-learning-illustrated, streaming-systems, time-series-analysis, data-pipelines-pocket-reference.
+description: "Deep dive into the recurrent-network and timeseries chapters of Chollet's Deep Learning with Python: RNNs and LSTM/GRU cells for sequences, the limitations of RNNs versus 1D convolutions and attention, timeseries forecasting with sliding windows, and temperature/weather forecasting examples. Use when the user says 'LSTM', 'GRU', 'recurrent network', 'timeseries forecasting with deep learning', 'sequence model', 'temperature forecasting', 'RNN vs attention', or when building a model over ordered data. Pairs with: deep-learning-with-python, deep-learning-illustrated, streaming-systems, time-series-analysis, data-pipelines-pocket-reference."
 ---
 # RNN and Timeseries Deep Learning
 

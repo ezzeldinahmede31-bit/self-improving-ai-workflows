@@ -1,6 +1,6 @@
 ---
 name: seeking-sre
-description: Applies the essays of Seeking SRE (Blank-Edelman, ed.) to the culture and practice of site reliability: conversations with practitioners on incident management, SLOs, on-call, monitoring, automation, and the organizational questions of building and sustaining an SRE team. Use when the user says 'seeking SRE', 'SRE culture', 'SRE team', 'on call culture', 'incident culture', 'SRE organization', 'practitioner interviews', 'Blank-Edelman', or when the human and organizational side of reliability is the question.
+description: "Applies the essays of Seeking SRE (Blank-Edelman, ed.) to the culture and practice of site reliability: conversations with practitioners on incident management, SLOs, on-call, monitoring, automation, and the organizational questions of building and sustaining an SRE team. Use when the user says 'seeking SRE', 'SRE culture', 'SRE team', 'on call culture', 'incident culture', 'SRE organization', 'practitioner interviews', 'Blank-Edelman', or when the human and organizational side of reliability is the question."
 ---
 
 # Seeking SRE (David N. Blank-Edelman, ed.)

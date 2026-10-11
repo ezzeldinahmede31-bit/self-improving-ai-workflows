@@ -1,6 +1,6 @@
 ---
 name: deep-learning-vision-systems
-description: Applies Mohamed Elgendy's Deep Learning for Vision Systems to build computer vision systems end to end: how CNNs work under the hood, image preprocessing and augmentation, object detection (YOLO, SSD, R-CNN families), semantic segmentation, and transfer learning with Keras for real vision products. Use when the user says 'deep learning for vision', 'Elgendy', 'object detection model', 'image segmentation', 'CNN architecture', 'transfer learning for images', 'build a vision system', or when building a computer vision pipeline from images to predictions. Pairs with: computer-vision-algorithms-applications, deep-learning-with-python, efficient-processing-deep-neural-networks, machine-learning-pytorch-scikit-learn.
+description: "Applies Mohamed Elgendy's Deep Learning for Vision Systems to build computer vision systems end to end: how CNNs work under the hood, image preprocessing and augmentation, object detection (YOLO, SSD, R-CNN families), semantic segmentation, and transfer learning with Keras for real vision products. Use when the user says 'deep learning for vision', 'Elgendy', 'object detection model', 'image segmentation', 'CNN architecture', 'transfer learning for images', 'build a vision system', or when building a computer vision pipeline from images to predictions. Pairs with: computer-vision-algorithms-applications, deep-learning-with-python, efficient-processing-deep-neural-networks, machine-learning-pytorch-scikit-learn."
 ---
 # Deep Learning for Vision Systems
 

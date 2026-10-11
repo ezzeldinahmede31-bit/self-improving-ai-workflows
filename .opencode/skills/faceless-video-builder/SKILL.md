@@ -1,6 +1,6 @@
 ---
 name: faceless-video-builder
-description: Free faceless video pipeline: 1 AI image per scene + Arabic voiceover + captions + assembly. Use when the user says "video builder", "فيديو ديمو", "assemble video", "مشهد لكل صورة", "render video", "Nano Banana", or before producing any faceless video.
+description: "Free faceless video pipeline: 1 AI image per scene + Arabic voiceover + captions + assembly. Use when the user says "video builder", "فيديو ديمو", "assemble video", "مشهد لكل صورة", "render video", "Nano Banana", or before producing any faceless video."
 ---
 
 # Faceless Video Builder

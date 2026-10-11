@@ -175,3 +175,12 @@ For each redesigned screen, provide:
 Every screen should feel like it belongs in a first-party Apple app:
 calm, confident, native, and inevitable—
 with glass materials applied sparingly and purposefully.
+
+## Verification
+
+- Describe an iOS screen with this skill loaded: output uses iOS material hierarchy (ultra-thin/regular/thick) and restrained glass effects with safe-area patterns.
+
+## Pairs with
+
+- `ios-design-guidelines` — normative HIG rules.
+- `apple-ui-designer` — broader Apple-native aesthetic.

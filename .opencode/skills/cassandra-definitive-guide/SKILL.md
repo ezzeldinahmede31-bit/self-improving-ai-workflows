@@ -1,6 +1,6 @@
 ---
 name: cassandra-definitive-guide
-description: Applies Eben Hewitt's Cassandra: The Definitive Guide to designing for the distributed wide-column database: the data model (column families, keyspaces, partitions), Cassandra's distribution and replication, consistency levels and tunable consistency, compaction and tombstone behavior, and the operational model of a peer-to-peer ring. Use when the user says 'Cassandra', 'wide column', 'column family', 'keyspace', 'consistency level', 'quorum', 'compaction', 'tombstone', 'partition key', 'Hewitt cassandra', or when designing a write-heavy distributed store.
+description: "Applies Eben Hewitt's Cassandra: The Definitive Guide to designing for the distributed wide-column database: the data model (column families, keyspaces, partitions), Cassandra's distribution and replication, consistency levels and tunable consistency, compaction and tombstone behavior, and the operational model of a peer-to-peer ring. Use when the user says 'Cassandra', 'wide column', 'column family', 'keyspace', 'consistency level', 'quorum', 'compaction', 'tombstone', 'partition key', 'Hewitt cassandra', or when designing a write-heavy distributed store."
 ---
 
 # Cassandra: The Definitive Guide (Eben Hewitt)

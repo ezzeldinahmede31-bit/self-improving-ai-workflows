@@ -1,6 +1,6 @@
 ---
 name: linguistic-fundamentals-nlp
-description: Applies Emily Bender's Linguistic Fundamentals for Natural Language Processing to build NLP that respects real language structure: the levels of linguistic analysis (phonology, morphology, syntax, semantics, pragmatics), part-of-speech and phrase structure, and the pitfalls of treating text as a flat bag of tokens. Use when the user says 'linguistics for NLP', 'morphology', 'syntax semantics', 'Bender', 'language structure', 'why does my NLP miss grammar', or when an NLP feature needs linguistic awareness beyond statistics. Pairs with: speech-language-processing, foundations-statistical-nlp, natural-language-processing-python, practical-natural-language-processing.
+description: "Applies Emily Bender's Linguistic Fundamentals for Natural Language Processing to build NLP that respects real language structure: the levels of linguistic analysis (phonology, morphology, syntax, semantics, pragmatics), part-of-speech and phrase structure, and the pitfalls of treating text as a flat bag of tokens. Use when the user says 'linguistics for NLP', 'morphology', 'syntax semantics', 'Bender', 'language structure', 'why does my NLP miss grammar', or when an NLP feature needs linguistic awareness beyond statistics. Pairs with: speech-language-processing, foundations-statistical-nlp, natural-language-processing-python, practical-natural-language-processing."
 ---
 # Linguistic Fundamentals for Natural Language Processing
 

@@ -1,6 +1,6 @@
 ---
 name: value-stream-mapping
-description: Applies the First Way of The DevOps Handbook (Kim, Humble, Debois, Willis) to accelerate flow: map the end-to-end value stream from request to deployed, quantify wait time versus active time at each step, shrink batch sizes, and remove handoffs and queues that lengthen lead time. Use when the user says 'value stream', 'value stream mapping', 'why is delivery slow', 'reduce lead time', 'flow efficiency', 'batch size', 'handoffs', 'queues', 'First Way', 'DevOps Handbook', 'optimize the flow', or when delivery speed is throttled by hand-offs and waiting. Pairs with: devops-handbook-flow, continuous-delivery-pipeline, the-goal-constraints, accelerate-dora-metrics.
+description: "Applies the First Way of The DevOps Handbook (Kim, Humble, Debois, Willis) to accelerate flow: map the end-to-end value stream from request to deployed, quantify wait time versus active time at each step, shrink batch sizes, and remove handoffs and queues that lengthen lead time. Use when the user says 'value stream', 'value stream mapping', 'why is delivery slow', 'reduce lead time', 'flow efficiency', 'batch size', 'handoffs', 'queues', 'First Way', 'DevOps Handbook', 'optimize the flow', or when delivery speed is throttled by hand-offs and waiting. Pairs with: devops-handbook-flow, continuous-delivery-pipeline, the-goal-constraints, accelerate-dora-metrics."
 ---
 
 # Value Stream Mapping

@@ -1,6 +1,6 @@
 ---
 name: efficient-processing-deep-neural-networks
-description: Applies Sze, Chen, Yang & Emer's Efficient Processing of Deep Neural Networks to make deep models fast, small, and energy-efficient: the computation patterns of DNNs (data reuse, tiling), pruning, quantization, low-rank factorization, and hardware-aware design (dataflow, memory hierarchy, accelerators). Use when the user says 'quantize a model', 'prune a network', 'model compression', 'inference latency', 'efficient inference on edge', 'TinyML', 'hardware-aware deep learning', or when a model must run under compute or energy constraints. Pairs with: deep-learning-with-python, systems-performance-profiling, designing-machine-learning-systems, llm-deployment-optimization, embedded-systems-architecture.
+description: "Applies Sze, Chen, Yang & Emer's Efficient Processing of Deep Neural Networks to make deep models fast, small, and energy-efficient: the computation patterns of DNNs (data reuse, tiling), pruning, quantization, low-rank factorization, and hardware-aware design (dataflow, memory hierarchy, accelerators). Use when the user says 'quantize a model', 'prune a network', 'model compression', 'inference latency', 'efficient inference on edge', 'TinyML', 'hardware-aware deep learning', or when a model must run under compute or energy constraints. Pairs with: deep-learning-with-python, systems-performance-profiling, designing-machine-learning-systems, llm-deployment-optimization, embedded-systems-architecture."
 ---
 # Efficient Processing of Deep Neural Networks
 

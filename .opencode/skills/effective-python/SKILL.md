@@ -1,6 +1,6 @@
 ---
 name: effective-python
-description: Applies Brett Slatkin's Effective Python to write clear, idiomatic, and correct Python through concrete rules: explicitness over magic, small helper functions, generators for large data, comprehensions used with restraint, exceptions that carry meaning, composition over inheritance, and disciplined testing. Encodes the rule-of-thumb checks that catch the most common Python defects before they ship. Use when the user says 'write idiomatic Python', 'python best practices', 'how should I structure this module', 'make this code maintainable', or 'what is the right Python idiom for this'.
+description: "Applies Brett Slatkin's Effective Python to write clear, idiomatic, and correct Python through concrete rules: explicitness over magic, small helper functions, generators for large data, comprehensions used with restraint, exceptions that carry meaning, composition over inheritance, and disciplined testing. Encodes the rule-of-thumb checks that catch the most common Python defects before they ship. Use when the user says 'write idiomatic Python', 'python best practices', 'how should I structure this module', 'make this code maintainable', or 'what is the right Python idiom for this'."
 ---
 
 # effective-python

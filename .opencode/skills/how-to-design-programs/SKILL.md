@@ -1,6 +1,6 @@
 ---
 name: how-to-design-programs
-description: Applies the How to Design Programs (HtDP) design recipe to any coding task: turn the problem statement into a data definition, design the function signature with a purpose statement, write examples and tests, develop the template from the data structure, fill it in, and test until the examples pass. Use when the user says 'design recipe', 'data definitions', 'signatures', 'purpose statement', 'systematic program design', 'HtDP', 'program by structure', 'design a function', 'types first', or when a program should be designed from the data up instead of improvised.
+description: "Applies the How to Design Programs (HtDP) design recipe to any coding task: turn the problem statement into a data definition, design the function signature with a purpose statement, write examples and tests, develop the template from the data structure, fill it in, and test until the examples pass. Use when the user says 'design recipe', 'data definitions', 'signatures', 'purpose statement', 'systematic program design', 'HtDP', 'program by structure', 'design a function', 'types first', or when a program should be designed from the data up instead of improvised."
 ---
 
 # How to Design Programs (Felleisen et al.)

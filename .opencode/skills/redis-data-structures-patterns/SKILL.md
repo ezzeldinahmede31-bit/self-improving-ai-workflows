@@ -1,6 +1,6 @@
 ---
 name: redis-data-structures-patterns
-description: Applies the data-structure recipes of Redis in Action (Josiah Carlson) to build real features on Redis: strings, hashes, lists, sets, and sorted sets matched to use cases such as caching, queues, leaderboards, rate limiting, and counters, plus expiration, pub/sub, persistence, and the atomicity rules that keep operations correct. Use when the user says 'Redis', 'sorted set', 'leaderboard', 'Redis cache', 'Redis queue', 'rate limiter Redis', 'pub sub', 'Redis persistence', 'Redis transactions', 'Carlson Redis', or when a feature maps naturally onto a Redis structure.
+description: "Applies the data-structure recipes of Redis in Action (Josiah Carlson) to build real features on Redis: strings, hashes, lists, sets, and sorted sets matched to use cases such as caching, queues, leaderboards, rate limiting, and counters, plus expiration, pub/sub, persistence, and the atomicity rules that keep operations correct. Use when the user says 'Redis', 'sorted set', 'leaderboard', 'Redis cache', 'Redis queue', 'rate limiter Redis', 'pub sub', 'Redis persistence', 'Redis transactions', 'Carlson Redis', or when a feature maps naturally onto a Redis structure."
 ---
 
 # Redis in Action: Data Structures and Patterns

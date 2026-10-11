@@ -1,6 +1,6 @@
 ---
 name: ctm-concepts-techniques-models
-description: Applies Van Roy & Haridi's CTM to program in the right computation model for the job: the kernel-language approach where declarative, concurrent, message-passing, and distributed models share one core, with dataflow variables, streams and laziness, agents and ports, and transactions for stateful concurrency. Use when the user says 'kernel language', 'declarative programming', 'dataflow variables', 'streams', 'lazy evaluation', 'message passing', 'concurrent programming model', 'transaction model', 'Van Roy Haridi', 'which programming model fits', or when choosing the right model (functional, concurrent, distributed) for a feature.
+description: "Applies Van Roy & Haridi's CTM to program in the right computation model for the job: the kernel-language approach where declarative, concurrent, message-passing, and distributed models share one core, with dataflow variables, streams and laziness, agents and ports, and transactions for stateful concurrency. Use when the user says 'kernel language', 'declarative programming', 'dataflow variables', 'streams', 'lazy evaluation', 'message passing', 'concurrent programming model', 'transaction model', 'Van Roy Haridi', 'which programming model fits', or when choosing the right model (functional, concurrent, distributed) for a feature."
 ---
 
 # Concepts, Techniques, and Models of Computer Programming (Van Roy & Haridi)

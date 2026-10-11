@@ -1,6 +1,6 @@
 ---
 name: gaussian-processes-machine-learning
-description: Applies Rasmussen & Williams' Gaussian Processes for Machine Learning to build probabilistic regression and classification with GPs: covariance functions, exact and approximate inference, hyperparameter learning, and the uncertainty that makes GPs trustworthy. Use when the user says 'Gaussian process', 'Rasmussen Williams', 'covariance function', 'GP regression', 'kernel hyperparameters', 'predictive uncertainty', or when a model must give calibrated uncertainty on small data. Pairs with: prml-kernels-gaussian-processes, machine-learning-probabilistic-perspective, probabilistic-graphical-models, bayesian-reasoning-machine-learning.
+description: "Applies Rasmussen & Williams' Gaussian Processes for Machine Learning to build probabilistic regression and classification with GPs: covariance functions, exact and approximate inference, hyperparameter learning, and the uncertainty that makes GPs trustworthy. Use when the user says 'Gaussian process', 'Rasmussen Williams', 'covariance function', 'GP regression', 'kernel hyperparameters', 'predictive uncertainty', or when a model must give calibrated uncertainty on small data. Pairs with: prml-kernels-gaussian-processes, machine-learning-probabilistic-perspective, probabilistic-graphical-models, bayesian-reasoning-machine-learning."
 ---
 # Gaussian Processes for Machine Learning
 

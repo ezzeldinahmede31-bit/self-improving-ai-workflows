@@ -1,6 +1,6 @@
 ---
 name: psych-school-decision
-description: Decision science for clinic selling: biases, frames, choice architecture. Use when the user says "decision", "bias", "pricing", "تسعير", "why owners hesitate", "choice", "offer structure", or before pricing/packaging anything.
+description: "Decision science for clinic selling: biases, frames, choice architecture. Use when the user says "decision", "bias", "pricing", "تسعير", "why owners hesitate", "choice", "offer structure", or before pricing/packaging anything."
 ---
 
 # Decision School

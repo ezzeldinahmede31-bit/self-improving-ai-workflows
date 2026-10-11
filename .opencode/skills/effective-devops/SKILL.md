@@ -1,6 +1,6 @@
 ---
 name: effective-devops
-description: Applies Davis and Daniels' Effective DevOps to build a humane, high-trust delivery culture: the four pillars (collaboration, affinity, tools, scaling) and the four ideals (measure, localize, standardize, automate). Treats DevOps as a cultural and organizational practice that runs on empathy and psychological safety, not just pipelines. Use when the user says 'adopt devops', 'fix our dev culture', or 'why is delivery so painful'.
+description: "Applies Davis and Daniels' Effective DevOps to build a humane, high-trust delivery culture: the four pillars (collaboration, affinity, tools, scaling) and the four ideals (measure, localize, standardize, automate). Treats DevOps as a cultural and organizational practice that runs on empathy and psychological safety, not just pipelines. Use when the user says 'adopt devops', 'fix our dev culture', or 'why is delivery so painful'."
 ---
 # effective-devops
 

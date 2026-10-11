@@ -1,6 +1,6 @@
 ---
 name: mongodb-data-modeling-aggregation
-description: Applies the modeling and aggregation guidance of MongoDB: The Definitive Guide (Chodorow) to design document schemas and query patterns: embedding versus referencing by access pattern, the aggregation pipeline stages (match, group, project, sort, unwind), and when a document model beats a relational one. Use when the user says 'MongoDB schema', 'embed or reference', 'document model', 'aggregation pipeline', 'match group project', 'unwind', 'MongoDB index', 'design a Mongo collection', 'Chodorow', or when modeling data for a document database.
+description: "Applies the modeling and aggregation guidance of MongoDB: The Definitive Guide (Chodorow) to design document schemas and query patterns: embedding versus referencing by access pattern, the aggregation pipeline stages (match, group, project, sort, unwind), and when a document model beats a relational one. Use when the user says 'MongoDB schema', 'embed or reference', 'document model', 'aggregation pipeline', 'match group project', 'unwind', 'MongoDB index', 'design a Mongo collection', 'Chodorow', or when modeling data for a document database."
 ---
 
 # MongoDB: The Definitive Guide — Modeling and Aggregation

@@ -1,6 +1,6 @@
 ---
 name: linux-kernel-memory-management
-description: Applies the memory-management chapters of Robert Love's Linux Kernel Development to understand how the kernel manages physical and virtual memory: the page allocator, the slab allocator, page tables and the TLB, and the interactions with virtual memory and the page cache. Use when the user says 'how does the kernel allocate memory', 'page allocator', 'slab allocator', 'buddy system', 'page tables', 'TLB', 'high memory', 'kmalloc versus vmalloc', 'kernel memory', 'Robert Love', or when debugging memory behavior or sizing kernel memory.
+description: "Applies the memory-management chapters of Robert Love's Linux Kernel Development to understand how the kernel manages physical and virtual memory: the page allocator, the slab allocator, page tables and the TLB, and the interactions with virtual memory and the page cache. Use when the user says 'how does the kernel allocate memory', 'page allocator', 'slab allocator', 'buddy system', 'page tables', 'TLB', 'high memory', 'kmalloc versus vmalloc', 'kernel memory', 'Robert Love', or when debugging memory behavior or sizing kernel memory."
 ---
 
 # Linux Kernel Development: Memory Management

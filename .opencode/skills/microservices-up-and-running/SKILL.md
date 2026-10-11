@@ -1,6 +1,6 @@
 ---
 name: microservices-up-and-running
-description: Applies Mitra and Nadareishvili's Microservices Up and Running to design small, independently deployable services: identify service boundaries by business capability, design contracts first, own the data behind each service, and evolve a monolith with the strangler pattern. Covers the operational side too - observability, deployment pipelines, and failure isolation. Use when the user says 'design microservices', 'split this into services', or 'how should services talk to each other'.
+description: "Applies Mitra and Nadareishvili's Microservices Up and Running to design small, independently deployable services: identify service boundaries by business capability, design contracts first, own the data behind each service, and evolve a monolith with the strangler pattern. Covers the operational side too - observability, deployment pipelines, and failure isolation. Use when the user says 'design microservices', 'split this into services', or 'how should services talk to each other'."
 ---
 # microservices-up-and-running
 

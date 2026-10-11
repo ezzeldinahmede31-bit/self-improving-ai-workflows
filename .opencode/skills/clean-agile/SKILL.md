@@ -1,6 +1,6 @@
 ---
 name: clean-agile
-description: Applies Robert C. Martin's Clean Agile to the fundamentals of agile, stripped of the ceremony: the values and principles of the Agile Manifesto, the roles of the customer and the developer, estimation and planning, teamwork and communication, and the engineering practices that make agile sustainable. Use when the user says 'clean agile', 'agile basics', 'agile manifesto', 'Uncle Bob agile', 'agile estimation', 'agile planning', 'customer collaboration', 'agile engineering practices', or when agile is being applied with too much process and too little substance.
+description: "Applies Robert C. Martin's Clean Agile to the fundamentals of agile, stripped of the ceremony: the values and principles of the Agile Manifesto, the roles of the customer and the developer, estimation and planning, teamwork and communication, and the engineering practices that make agile sustainable. Use when the user says 'clean agile', 'agile basics', 'agile manifesto', 'Uncle Bob agile', 'agile estimation', 'agile planning', 'customer collaboration', 'agile engineering practices', or when agile is being applied with too much process and too little substance."
 ---
 
 # Clean Agile: Back to Basics (Robert C. Martin)

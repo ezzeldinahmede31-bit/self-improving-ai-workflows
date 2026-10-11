@@ -1,6 +1,6 @@
 ---
 name: python-for-data-analysis
-description: Applies Wes McKinney's Python for Data Analysis to move, clean, reshape, and analyze data with pandas and NumPy: Series and DataFrame operations, indexing and selection, handling missing data, merging/joining/concatenating, grouping and aggregation, reshaping (pivot tables), and time-series analysis, plus loading data from common formats. Use when the user says 'pandas', 'DataFrame', 'groupby', 'pivot table', 'missing data', 'time series', 'merge data', 'NumPy', 'McKinney', 'data analysis in Python', or when a dataset must be cleaned, transformed, and analyzed before modeling. Pairs with: data-science-from-scratch, data-analysis, fundamentals-of-data-engineering, sheets-automation.
+description: "Applies Wes McKinney's Python for Data Analysis to move, clean, reshape, and analyze data with pandas and NumPy: Series and DataFrame operations, indexing and selection, handling missing data, merging/joining/concatenating, grouping and aggregation, reshaping (pivot tables), and time-series analysis, plus loading data from common formats. Use when the user says 'pandas', 'DataFrame', 'groupby', 'pivot table', 'missing data', 'time series', 'merge data', 'NumPy', 'McKinney', 'data analysis in Python', or when a dataset must be cleaned, transformed, and analyzed before modeling. Pairs with: data-science-from-scratch, data-analysis, fundamentals-of-data-engineering, sheets-automation."
 ---
 # Python for Data Analysis
 

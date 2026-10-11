@@ -1,6 +1,6 @@
 ---
 name: high-performance-mysql
-description: Applies Schwartz, Zaitsev & Tkachov's High Performance MySQL to schema, indexing, and query optimization for MySQL: server architecture and configuration, indexing strategies for different access patterns, query performance and the optimizer, replication, and backups, with benchmark-driven discipline. Use when the user says 'high performance mysql', 'mysql index', 'slow query', 'explain', 'query optimization mysql', 'replication mysql', 'mysql configuration', 'innodb', 'Schwartz', or when a MySQL database must be made fast and reliable.
+description: "Applies Schwartz, Zaitsev & Tkachov's High Performance MySQL to schema, indexing, and query optimization for MySQL: server architecture and configuration, indexing strategies for different access patterns, query performance and the optimizer, replication, and backups, with benchmark-driven discipline. Use when the user says 'high performance mysql', 'mysql index', 'slow query', 'explain', 'query optimization mysql', 'replication mysql', 'mysql configuration', 'innodb', 'Schwartz', or when a MySQL database must be made fast and reliable."
 ---
 
 # High Performance MySQL (Schwartz, Zaitsev, Tkachov)

@@ -1,6 +1,6 @@
 ---
 name: kubernetes-deployment-strategies
-description: Applies the deployment and operations guidance of Kubernetes: Up & Running (Beda, Hightower, Burns): choose and run the right update strategy — rolling, blue-green, or canary — with readiness and liveness probes, resource requests, and safe rollback, so application updates never take the service down. Use when the user says 'deployment strategy', 'rolling update', 'blue-green deployment', 'canary release', 'rollback', 'readiness probe', 'liveness probe', 'update a deployment', 'zero-downtime deploy', 'strategy type', 'maxUnavailable', 'replicas', or when releasing new versions of a service on Kubernetes. Pairs with: kubernetes-operations, infrastructure-as-code, cloud-native-patterns, devops-handbook-flow.
+description: "Applies the deployment and operations guidance of Kubernetes: Up & Running (Beda, Hightower, Burns): choose and run the right update strategy — rolling, blue-green, or canary — with readiness and liveness probes, resource requests, and safe rollback, so application updates never take the service down. Use when the user says 'deployment strategy', 'rolling update', 'blue-green deployment', 'canary release', 'rollback', 'readiness probe', 'liveness probe', 'update a deployment', 'zero-downtime deploy', 'strategy type', 'maxUnavailable', 'replicas', or when releasing new versions of a service on Kubernetes. Pairs with: kubernetes-operations, infrastructure-as-code, cloud-native-patterns, devops-handbook-flow."
 ---
 
 # Kubernetes Deployment Strategies

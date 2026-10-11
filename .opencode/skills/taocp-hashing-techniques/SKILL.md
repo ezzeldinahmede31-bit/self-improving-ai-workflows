@@ -1,6 +1,6 @@
 ---
 name: taocp-hashing-techniques
-description: Applies the hashing section of Knuth's TAOCP Volume 3 to design correct, fast hash tables: the choice of hash functions and their statistical behavior, open addressing with probing sequences, separate chaining with collision lists, load factors, and the analysis of expected search effort so a hash design ships with a defensible complexity argument rather than a guess. Use when the user says 'design a hash table', 'choose a hash function', 'open addressing', 'linear probing', 'double hashing', 'separate chaining', 'load factor', 'hash collision strategy', 'why is my hash map slow', 'Knuth hashing', or when a hash-based structure must be sized and analyzed.
+description: "Applies the hashing section of Knuth's TAOCP Volume 3 to design correct, fast hash tables: the choice of hash functions and their statistical behavior, open addressing with probing sequences, separate chaining with collision lists, load factors, and the analysis of expected search effort so a hash design ships with a defensible complexity argument rather than a guess. Use when the user says 'design a hash table', 'choose a hash function', 'open addressing', 'linear probing', 'double hashing', 'separate chaining', 'load factor', 'hash collision strategy', 'why is my hash map slow', 'Knuth hashing', or when a hash-based structure must be sized and analyzed."
 ---
 
 # The Art of Computer Programming: Hashing

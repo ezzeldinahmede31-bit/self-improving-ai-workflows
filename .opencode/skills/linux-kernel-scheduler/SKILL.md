@@ -1,6 +1,6 @@
 ---
 name: linux-kernel-scheduler
-description: Applies the process-scheduling chapters of Robert Love's Linux Kernel Development to understand and tune how the Linux kernel chooses which task runs: the scheduler's goals and structure, CFS and virtual runtime, preemption and context-switch cost, and the real-time scheduling classes. Use when the user says 'how does Linux schedule tasks', 'CFS', 'virtual runtime', 'scheduler', 'preemption', 'nice value', 'real-time scheduling', 'SCHED_FIFO', 'SCHED_RR', 'context switch', 'kernel scheduling', 'Robert Love', or when reasoning about which process runs and why.
+description: "Applies the process-scheduling chapters of Robert Love's Linux Kernel Development to understand and tune how the Linux kernel chooses which task runs: the scheduler's goals and structure, CFS and virtual runtime, preemption and context-switch cost, and the real-time scheduling classes. Use when the user says 'how does Linux schedule tasks', 'CFS', 'virtual runtime', 'scheduler', 'preemption', 'nice value', 'real-time scheduling', 'SCHED_FIFO', 'SCHED_RR', 'context switch', 'kernel scheduling', 'Robert Love', or when reasoning about which process runs and why."
 ---
 
 # Linux Kernel Development: The Scheduler

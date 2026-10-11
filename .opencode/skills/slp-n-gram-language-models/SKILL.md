@@ -1,6 +1,6 @@
 ---
 name: slp-n-gram-language-models
-description: Applies the language-model chapters of Jurafsky & Martin's Speech and Language Processing to build and evaluate n-gram language models: n-gram probability estimation, smoothing (Laplace, interpolation, backoff), perplexity, and the practical choices that make a language model useful. Use when the user says 'n-gram model', 'language model smoothing', 'Laplace smoothing', 'interpolation backoff', 'perplexity', 'SLP language models', or when a probabilistic language model must be built and evaluated. Pairs with: speech-language-processing, foundations-statistical-nlp, ai-engineering-foundation-models, natural-language-processing-python.
+description: "Applies the language-model chapters of Jurafsky & Martin's Speech and Language Processing to build and evaluate n-gram language models: n-gram probability estimation, smoothing (Laplace, interpolation, backoff), perplexity, and the practical choices that make a language model useful. Use when the user says 'n-gram model', 'language model smoothing', 'Laplace smoothing', 'interpolation backoff', 'perplexity', 'SLP language models', or when a probabilistic language model must be built and evaluated. Pairs with: speech-language-processing, foundations-statistical-nlp, ai-engineering-foundation-models, natural-language-processing-python."
 ---
 # n-Gram Language Models
 

@@ -1,6 +1,6 @@
 ---
 name: slp-dialogue-systems
-description: Applies the dialogue chapters of Jurafsky & Martin's Speech and Language Processing to design conversational systems: dialogue acts, dialogue state tracking, frame-based and task-oriented dialogue, response generation, and evaluation of dialogue systems. Use when the user says 'dialogue system', 'dialogue state tracking', 'task oriented dialogue', 'conversational agent', 'SLP dialogue', 'dialogue acts', or when a chatbot or voice assistant must be designed with a proper dialogue architecture. Pairs with: speech-language-processing, agentic-workflows, ai-engineering-foundation-models, n8n-agents-official.
+description: "Applies the dialogue chapters of Jurafsky & Martin's Speech and Language Processing to design conversational systems: dialogue acts, dialogue state tracking, frame-based and task-oriented dialogue, response generation, and evaluation of dialogue systems. Use when the user says 'dialogue system', 'dialogue state tracking', 'task oriented dialogue', 'conversational agent', 'SLP dialogue', 'dialogue acts', or when a chatbot or voice assistant must be designed with a proper dialogue architecture. Pairs with: speech-language-processing, agentic-workflows, ai-engineering-foundation-models, n8n-agents-official."
 ---
 # Dialogue Systems
 

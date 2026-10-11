@@ -1,6 +1,6 @@
 ---
 name: practical-natural-language-processing
-description: Applies Vajjala, Majumder, Gupta & Surana's Practical Natural Language Processing to ship production NLP applications end to end: text processing pipelines, text classification, information extraction, text generation, ML/NLP model deployment, and an NLP project lifecycle with evaluation. Use when the user says 'practical NLP', 'production NLP pipeline', 'text classification end to end', 'information extraction pipeline', 'deploy an NLP model', 'Vajjala', or when an NLP feature must go from prototype to production. Pairs with: natural-language-processing-python, natural-language-processing-action, data-pipelines-pocket-reference, designing-machine-learning-systems.
+description: "Applies Vajjala, Majumder, Gupta & Surana's Practical Natural Language Processing to ship production NLP applications end to end: text processing pipelines, text classification, information extraction, text generation, ML/NLP model deployment, and an NLP project lifecycle with evaluation. Use when the user says 'practical NLP', 'production NLP pipeline', 'text classification end to end', 'information extraction pipeline', 'deploy an NLP model', 'Vajjala', or when an NLP feature must go from prototype to production. Pairs with: natural-language-processing-python, natural-language-processing-action, data-pipelines-pocket-reference, designing-machine-learning-systems."
 ---
 # Practical Natural Language Processing
 

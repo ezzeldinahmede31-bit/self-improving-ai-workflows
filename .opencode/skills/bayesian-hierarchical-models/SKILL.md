@@ -1,6 +1,6 @@
 ---
 name: bayesian-hierarchical-models
-description: Applies the hierarchical-model chapters of Gelman et al.'s Bayesian Data Analysis: multilevel models that share strength across groups, partial pooling, group-level and individual-level parameters, and the shrinkage that improves estimates for small groups. Use when the user says 'hierarchical model', 'multilevel model', 'partial pooling', 'random effects', 'grouped data', 'shrinkage', 'small groups', or when data is grouped and each group has few observations that should borrow strength from the others. Pairs with: bayesian-data-analysis, think-bayes, data-analysis, pattern-recognition-machine-learning.
+description: "Applies the hierarchical-model chapters of Gelman et al.'s Bayesian Data Analysis: multilevel models that share strength across groups, partial pooling, group-level and individual-level parameters, and the shrinkage that improves estimates for small groups. Use when the user says 'hierarchical model', 'multilevel model', 'partial pooling', 'random effects', 'grouped data', 'shrinkage', 'small groups', or when data is grouped and each group has few observations that should borrow strength from the others. Pairs with: bayesian-data-analysis, think-bayes, data-analysis, pattern-recognition-machine-learning."
 ---
 # Hierarchical Models (BDA)
 

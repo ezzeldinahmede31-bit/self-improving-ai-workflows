@@ -1,6 +1,6 @@
 ---
 name: psych-school-social
-description: Social psychology for clinic selling: norms, tribes, conformity. Use when the user says "social proof", "tribe", "قبيلة", "testimonials", "why owners copy each other", "norms", or before using any peer proof.
+description: "Social psychology for clinic selling: norms, tribes, conformity. Use when the user says "social proof", "tribe", "قبيلة", "testimonials", "why owners copy each other", "norms", or before using any peer proof."
 ---
 
 # Social School

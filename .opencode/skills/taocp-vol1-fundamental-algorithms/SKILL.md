@@ -1,6 +1,6 @@
 ---
 name: taocp-vol1-fundamental-algorithms
-description: Applies Donald Knuth's The Art of Computer Programming Volume 1 to fundamental algorithmics: mathematical preliminaries and rigorous definitions, the MIX/MIXAL abstract machine model, information structures (stacks, queues, deques, linked lists, trees and their traversals), and the art of precise algorithm analysis. Use when the user says 'Knuth', 'TAOCP', 'fundamental algorithms', 'MIX machine', 'information structures', 'linked list versus array', 'tree traversal', 'prove this algorithm', 'asymptotic analysis the Knuth way', or when an algorithm must be defined and analyzed with textbook rigor before being coded.
+description: "Applies Donald Knuth's The Art of Computer Programming Volume 1 to fundamental algorithmics: mathematical preliminaries and rigorous definitions, the MIX/MIXAL abstract machine model, information structures (stacks, queues, deques, linked lists, trees and their traversals), and the art of precise algorithm analysis. Use when the user says 'Knuth', 'TAOCP', 'fundamental algorithms', 'MIX machine', 'information structures', 'linked list versus array', 'tree traversal', 'prove this algorithm', 'asymptotic analysis the Knuth way', or when an algorithm must be defined and analyzed with textbook rigor before being coded."
 ---
 
 # TAOCP Vol 1: Fundamental Algorithms

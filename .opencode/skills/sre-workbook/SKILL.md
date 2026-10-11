@@ -1,6 +1,6 @@
 ---
 name: sre-workbook
-description: Applies The Site Reliability Engineering Workbook (Beyer et al.) to actually running SRE: building SLOs from SLIs, designing and operating alerting, on-call, incident response, postmortem, and capacity planning practices, and running reliability experiments, with concrete exercises instead of theory. Use when the user says 'SRE workbook', 'build an SLO', 'SLI', 'alerting', 'on call', 'incident response', 'postmortem', 'capacity planning', 'reliability experiment', 'Beyer SRE', or when SRE practices must be implemented, not just described.
+description: "Applies The Site Reliability Engineering Workbook (Beyer et al.) to actually running SRE: building SLOs from SLIs, designing and operating alerting, on-call, incident response, postmortem, and capacity planning practices, and running reliability experiments, with concrete exercises instead of theory. Use when the user says 'SRE workbook', 'build an SLO', 'SLI', 'alerting', 'on call', 'incident response', 'postmortem', 'capacity planning', 'reliability experiment', 'Beyer SRE', or when SRE practices must be implemented, not just described."
 ---
 
 # The Site Reliability Engineering Workbook (Beyer, Murphy, Rensin, Kawahara, Thorne)

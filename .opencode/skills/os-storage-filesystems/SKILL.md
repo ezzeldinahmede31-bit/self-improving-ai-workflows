@@ -1,6 +1,6 @@
 ---
 name: os-storage-filesystems
-description: Applies the persistence half of OSTEP (Operating Systems: Three Easy Pieces) to understand and debug storage: disks and SSDs, filesystem data structures and the inode model, crash consistency with journaling and copy-on-write, and how filesystems use the block layer. Use when the user says 'how does a filesystem work', 'inode', 'journaling', 'ext4', 'xfs', 'crash consistency', 'block layer', 'RAID', 'filesystem design', 'OSTEP persistence', 'why did my file get corrupted', or when reasoning about data on disk.
+description: "Applies the persistence half of OSTEP (Operating Systems: Three Easy Pieces) to understand and debug storage: disks and SSDs, filesystem data structures and the inode model, crash consistency with journaling and copy-on-write, and how filesystems use the block layer. Use when the user says 'how does a filesystem work', 'inode', 'journaling', 'ext4', 'xfs', 'crash consistency', 'block layer', 'RAID', 'filesystem design', 'OSTEP persistence', 'why did my file get corrupted', or when reasoning about data on disk."
 ---
 
 # Operating Systems: Three Easy Pieces — Storage and Filesystems

@@ -1,6 +1,6 @@
 ---
 name: bpf-performance-tools
-description: Applies BPF Performance Tools (Brendan Gregg) to observability and performance analysis on Linux: using eBPF and bpftrace to inspect the kernel and applications safely and live. Covers the USE method, on-CPU and off-CPU analysis, flame graphs, latency histograms, and drilling from metrics to code paths. Use when the user says 'why is this slow', 'bpftrace', 'eBPF', 'flame graph', 'on CPU vs off CPU', or 'trace a syscall path'.
+description: "Applies BPF Performance Tools (Brendan Gregg) to observability and performance analysis on Linux: using eBPF and bpftrace to inspect the kernel and applications safely and live. Covers the USE method, on-CPU and off-CPU analysis, flame graphs, latency histograms, and drilling from metrics to code paths. Use when the user says 'why is this slow', 'bpftrace', 'eBPF', 'flame graph', 'on CPU vs off CPU', or 'trace a syscall path'."
 ---
 # bpf-performance-tools
 

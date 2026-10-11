@@ -1,6 +1,6 @@
 ---
 name: deep-learning-fastai-pytorch
-description: Applies Howard & Gugger's Deep Learning for Coders with fastai and PyTorch to train production models fast with high-level APIs while understanding the underlying mechanics: the fastai application APIs for vision, text, tabular, and collaborative filtering, transfer learning, and the top-down philosophy of learning by building. Use when the user says 'fastai', 'Howard Gugger', 'train a model fast', 'vision learner', 'text learner', 'tabular learner', 'transfer learning quick', or when rapid model building with the fastai stack is the goal. Pairs with: deep-learning-with-pytorch, deep-learning-with-python, machine-learning-pytorch-scikit-learn, building-ml-powered-applications.
+description: "Applies Howard & Gugger's Deep Learning for Coders with fastai and PyTorch to train production models fast with high-level APIs while understanding the underlying mechanics: the fastai application APIs for vision, text, tabular, and collaborative filtering, transfer learning, and the top-down philosophy of learning by building. Use when the user says 'fastai', 'Howard Gugger', 'train a model fast', 'vision learner', 'text learner', 'tabular learner', 'transfer learning quick', or when rapid model building with the fastai stack is the goal. Pairs with: deep-learning-with-pytorch, deep-learning-with-python, machine-learning-pytorch-scikit-learn, building-ml-powered-applications."
 ---
 # Deep Learning for Coders with fastai and PyTorch
 

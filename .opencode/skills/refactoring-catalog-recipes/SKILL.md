@@ -1,6 +1,6 @@
 ---
 name: refactoring-catalog-recipes
-description: Applies the refactoring catalog of Martin Fowler's Refactoring as a recipe book: match the current code smell to a named refactoring, follow its mechanical steps, and run the tests after each behavior-preserving step. Covers the recipe families for names, functions, classes, data, and conditionals with the safe-step discipline that keeps every transformation reversible. Use when the user says 'refactor this', 'extract method', 'extract variable', 'inline method', 'move method', 'replace conditional with polymorphism', 'introduce parameter object', 'Fowler refactoring catalog', or when improving existing code without changing behavior.
+description: "Applies the refactoring catalog of Martin Fowler's Refactoring as a recipe book: match the current code smell to a named refactoring, follow its mechanical steps, and run the tests after each behavior-preserving step. Covers the recipe families for names, functions, classes, data, and conditionals with the safe-step discipline that keeps every transformation reversible. Use when the user says 'refactor this', 'extract method', 'extract variable', 'inline method', 'move method', 'replace conditional with polymorphism', 'introduce parameter object', 'Fowler refactoring catalog', or when improving existing code without changing behavior."
 ---
 
 # Refactoring: Catalog Recipes

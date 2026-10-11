@@ -1,6 +1,6 @@
 ---
 name: programming-pearls
-description: Applies Jon Bentley's Programming Pearls to practical algorithm and program design: get the problem statement exactly right, use bit-level and space-efficient tricks, choose the right data structure and sort/search, prove correctness with tests, and tune performance with profiling. Use when the user says 'programming pearls', 'Bentley', 'get the problem right', 'bit vector', 'column 1', 'profiling', 'case study', 'binary search again', 'select the right structure', or when a real engineering problem needs the clean, proven solution rather than a clever new one.
+description: "Applies Jon Bentley's Programming Pearls to practical algorithm and program design: get the problem statement exactly right, use bit-level and space-efficient tricks, choose the right data structure and sort/search, prove correctness with tests, and tune performance with profiling. Use when the user says 'programming pearls', 'Bentley', 'get the problem right', 'bit vector', 'column 1', 'profiling', 'case study', 'binary search again', 'select the right structure', or when a real engineering problem needs the clean, proven solution rather than a clever new one."
 ---
 
 # Programming Pearls (Jon Bentley)

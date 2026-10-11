@@ -1,6 +1,6 @@
 ---
 name: fundamentals-speech-recognition
-description: Applies Rabiner & Juang's Fundamentals of Speech Recognition to build speech systems on the classic foundations: the speech signal and its representation, the hidden Markov model framework, acoustic modeling, language modeling, and the decoding of speech into text. Use when the user says 'speech recognition', 'Rabiner Juang', 'HMM for speech', 'acoustic model', 'feature extraction speech', 'decoding', or when building an ASR system from fundamentals. Pairs with: speech-language-processing, foundations-statistical-nlp, audio-whisper-transcriber, all-of-statistics.
+description: "Applies Rabiner & Juang's Fundamentals of Speech Recognition to build speech systems on the classic foundations: the speech signal and its representation, the hidden Markov model framework, acoustic modeling, language modeling, and the decoding of speech into text. Use when the user says 'speech recognition', 'Rabiner Juang', 'HMM for speech', 'acoustic model', 'feature extraction speech', 'decoding', or when building an ASR system from fundamentals. Pairs with: speech-language-processing, foundations-statistical-nlp, audio-whisper-transcriber, all-of-statistics."
 ---
 # Fundamentals of Speech Recognition
 

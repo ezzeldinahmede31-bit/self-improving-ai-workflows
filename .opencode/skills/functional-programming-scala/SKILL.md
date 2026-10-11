@@ -1,6 +1,6 @@
 ---
 name: functional-programming-scala
-description: Applies Chiusano & Bjarnason's Functional Programming in Scala to design pure, testable programs: referential transparency, total functions, data modeling with algebraic data types, error handling with Option and Either, strict and lazy evaluation with Streams, and the functional design of parallelism, parsers, and state handling through type-driven composition. Use when the user says 'functional programming', 'referential transparency', 'pure function', 'Option Either', 'algebraic data type', 'functional design', 'monad', 'lazy evaluation', 'property-based testing', 'Scala FP', 'Chiusano', or when a program should be composed from pure functions and made easy to test.
+description: "Applies Chiusano & Bjarnason's Functional Programming in Scala to design pure, testable programs: referential transparency, total functions, data modeling with algebraic data types, error handling with Option and Either, strict and lazy evaluation with Streams, and the functional design of parallelism, parsers, and state handling through type-driven composition. Use when the user says 'functional programming', 'referential transparency', 'pure function', 'Option Either', 'algebraic data type', 'functional design', 'monad', 'lazy evaluation', 'property-based testing', 'Scala FP', 'Chiusano', or when a program should be composed from pure functions and made easy to test."
 ---
 
 # Functional Programming in Scala (Chiusano & Bjarnason)

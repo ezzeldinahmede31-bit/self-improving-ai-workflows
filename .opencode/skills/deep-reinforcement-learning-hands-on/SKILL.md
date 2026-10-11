@@ -1,6 +1,6 @@
 ---
 name: deep-reinforcement-learning-hands-on
-description: Applies Maxim Lapan's Deep Reinforcement Learning Hands-On to build and train deep RL agents in practice: the RL framework (policies, value functions, returns), classic algorithms (DQN, DDPG, A2C, PPO) implemented in PyTorch, and the practical reality of debugging and evaluating agents in environments like OpenAI Gym. Use when the user says 'deep reinforcement learning hands-on', 'Lapan', 'train a DQN agent', 'PPO', 'A2C', 'deep RL in PyTorch', 'OpenAI Gym agent', or when implementing and debugging a deep RL algorithm. Pairs with: reinforcement-learning-introduction, algorithms-reinforcement-learning, rl-policy-gradient-actor-critic, tdd-sandbox-proof-engine.
+description: "Applies Maxim Lapan's Deep Reinforcement Learning Hands-On to build and train deep RL agents in practice: the RL framework (policies, value functions, returns), classic algorithms (DQN, DDPG, A2C, PPO) implemented in PyTorch, and the practical reality of debugging and evaluating agents in environments like OpenAI Gym. Use when the user says 'deep reinforcement learning hands-on', 'Lapan', 'train a DQN agent', 'PPO', 'A2C', 'deep RL in PyTorch', 'OpenAI Gym agent', or when implementing and debugging a deep RL algorithm. Pairs with: reinforcement-learning-introduction, algorithms-reinforcement-learning, rl-policy-gradient-actor-critic, tdd-sandbox-proof-engine."
 ---
 # Deep Reinforcement Learning Hands-On
 

@@ -1,6 +1,6 @@
 ---
 name: software-engineering-sommerville
-description: Applies Ian Sommerville's Software Engineering to the complete software process: software processes and models, agile and plan-driven development, requirements engineering, system modeling and design, architecture, testing, and software evolution, with the human, safety, and professional dimensions. Use when the user says 'software engineering', 'software process', 'requirements engineering', 'system modeling', 'software architecture', 'software testing', 'software evolution', 'Sommerville', or when a process or lifecycle decision needs textbook grounding.
+description: "Applies Ian Sommerville's Software Engineering to the complete software process: software processes and models, agile and plan-driven development, requirements engineering, system modeling and design, architecture, testing, and software evolution, with the human, safety, and professional dimensions. Use when the user says 'software engineering', 'software process', 'requirements engineering', 'system modeling', 'software architecture', 'software testing', 'software evolution', 'Sommerville', or when a process or lifecycle decision needs textbook grounding."
 ---
 
 # Software Engineering (Ian Sommerville)

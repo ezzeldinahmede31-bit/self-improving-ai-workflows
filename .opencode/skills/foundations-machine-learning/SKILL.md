@@ -1,6 +1,6 @@
 ---
 name: foundations-machine-learning
-description: Applies Mohri, Rostamizadeh & Talwalkar's Foundations of Machine Learning to reason about learning algorithms with a theoretical backbone: PAC learning, Rademacher complexity, margin-based bounds, SVM and kernels, boosting, online learning, and learning with structured outputs. Use when the user says 'Rademacher complexity', 'PAC bound', 'margin theory', 'Mohri', 'SVM theory', 'online learning', 'structured prediction', or when the theoretical guarantees of a learning algorithm matter. Pairs with: understanding-machine-learning, learning-with-kernels, algorithmic-math-reasoner, formal-math-logic-verification-engine.
+description: "Applies Mohri, Rostamizadeh & Talwalkar's Foundations of Machine Learning to reason about learning algorithms with a theoretical backbone: PAC learning, Rademacher complexity, margin-based bounds, SVM and kernels, boosting, online learning, and learning with structured outputs. Use when the user says 'Rademacher complexity', 'PAC bound', 'margin theory', 'Mohri', 'SVM theory', 'online learning', 'structured prediction', or when the theoretical guarantees of a learning algorithm matter. Pairs with: understanding-machine-learning, learning-with-kernels, algorithmic-math-reasoner, formal-math-logic-verification-engine."
 ---
 # Foundations of Machine Learning
 

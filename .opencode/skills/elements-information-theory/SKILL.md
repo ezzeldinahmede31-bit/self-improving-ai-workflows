@@ -1,6 +1,6 @@
 ---
 name: elements-information-theory
-description: Applies Cover & Thomas' Elements of Information Theory to reason about information with the standard toolbox: entropy, relative entropy, mutual information, the asymptotic equipartition property, channel capacity, and data compression. Use when the user says 'entropy', 'mutual information', 'channel capacity', 'Cover Thomas', 'KL divergence', 'data compression', 'information theoretic bound', or when an information-theoretic quantity must be defined and computed exactly. Pairs with: information-theory-inference-learning, mackay-entropy-coding-compression, algorithmic-math-reasoner, formal-math-logic-verification-engine.
+description: "Applies Cover & Thomas' Elements of Information Theory to reason about information with the standard toolbox: entropy, relative entropy, mutual information, the asymptotic equipartition property, channel capacity, and data compression. Use when the user says 'entropy', 'mutual information', 'channel capacity', 'Cover Thomas', 'KL divergence', 'data compression', 'information theoretic bound', or when an information-theoretic quantity must be defined and computed exactly. Pairs with: information-theory-inference-learning, mackay-entropy-coding-compression, algorithmic-math-reasoner, formal-math-logic-verification-engine."
 ---
 # Elements of Information Theory
 

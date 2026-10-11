@@ -1,6 +1,6 @@
 ---
 name: digital-logic-computer-design
-description: Applies Morris Mano's digital design and computer organization texts to the hardware foundations of computing: number systems, Boolean algebra, combinational and sequential logic, registers and counters, memory and the processor data path, and the organization that turns gates into a working computer. Use when the user says 'digital design', 'Boolean algebra', 'logic gates', 'flip flop', 'sequential logic', 'register', 'adder', 'decoder', 'computer organization', 'Mano', or when the gate-level truth behind hardware behavior matters.
+description: "Applies Morris Mano's digital design and computer organization texts to the hardware foundations of computing: number systems, Boolean algebra, combinational and sequential logic, registers and counters, memory and the processor data path, and the organization that turns gates into a working computer. Use when the user says 'digital design', 'Boolean algebra', 'logic gates', 'flip flop', 'sequential logic', 'register', 'adder', 'decoder', 'computer organization', 'Mano', or when the gate-level truth behind hardware behavior matters."
 ---
 
 # Digital Design and Computer Organization (M. Morris Mano)

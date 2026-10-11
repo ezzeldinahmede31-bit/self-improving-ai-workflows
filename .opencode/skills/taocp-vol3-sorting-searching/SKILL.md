@@ -1,6 +1,6 @@
 ---
 name: taocp-vol3-sorting-searching
-description: Applies Knuth's TAOCP Volume 3 to sorting and searching done right: the classic internal sorting methods (insertion, exchange, selection, merging, distribution/radix), external sorting, sequential and binary search, trees, and hashing — with precise complexity comparisons and correctness arguments. Use when the user says 'choose a sorting algorithm', 'which sort', 'binary search', 'external sort', 'radix sort', 'hash function', 'hash table design', 'Knuth sorting', 'sorting versus searching trade-offs', or when data must be ordered or looked up efficiently and correctly.
+description: "Applies Knuth's TAOCP Volume 3 to sorting and searching done right: the classic internal sorting methods (insertion, exchange, selection, merging, distribution/radix), external sorting, sequential and binary search, trees, and hashing — with precise complexity comparisons and correctness arguments. Use when the user says 'choose a sorting algorithm', 'which sort', 'binary search', 'external sort', 'radix sort', 'hash function', 'hash table design', 'Knuth sorting', 'sorting versus searching trade-offs', or when data must be ordered or looked up efficiently and correctly."
 ---
 
 # TAOCP Vol 3: Sorting and Searching

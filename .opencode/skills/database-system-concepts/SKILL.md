@@ -1,6 +1,6 @@
 ---
 name: database-system-concepts
-description: Applies Silberschatz, Korth & Sudarshan's Database System Concepts (the standard database textbook) to relational database design and use: the relational model and relational algebra, SQL, database design (ER modeling, normalization, functional dependencies), transactions and concurrency control, recovery, and query processing and optimization. Use when the user says 'database system concepts', 'relational model', 'normalization', 'functional dependency', 'ER diagram', 'transaction', 'concurrency control', 'two phase locking', 'query optimization', 'Silberschatz', or when a relational design or transaction question needs textbook grounding.
+description: "Applies Silberschatz, Korth & Sudarshan's Database System Concepts (the standard database textbook) to relational database design and use: the relational model and relational algebra, SQL, database design (ER modeling, normalization, functional dependencies), transactions and concurrency control, recovery, and query processing and optimization. Use when the user says 'database system concepts', 'relational model', 'normalization', 'functional dependency', 'ER diagram', 'transaction', 'concurrency control', 'two phase locking', 'query optimization', 'Silberschatz', or when a relational design or transaction question needs textbook grounding."
 ---
 
 # Database System Concepts (Silberschatz, Korth, Sudarshan)

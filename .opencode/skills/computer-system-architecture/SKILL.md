@@ -1,6 +1,6 @@
 ---
 name: computer-system-architecture
-description: Applies Morris Mano's Computer System Architecture to the organization of a complete computer system: register transfer logic, basic computer organization and its instruction cycle, central processor design, microprogrammed control, and memory and I/O organization. Use when the user says 'computer system architecture', 'register transfer', 'instruction cycle', 'microprogrammed control', 'basic computer', 'memory organization', 'I/O organization', 'Mano architecture', or when the internal organization of a processor must be understood or taught.
+description: "Applies Morris Mano's Computer System Architecture to the organization of a complete computer system: register transfer logic, basic computer organization and its instruction cycle, central processor design, microprogrammed control, and memory and I/O organization. Use when the user says 'computer system architecture', 'register transfer', 'instruction cycle', 'microprogrammed control', 'basic computer', 'memory organization', 'I/O organization', 'Mano architecture', or when the internal organization of a processor must be understood or taught."
 ---
 
 # Computer System Architecture (M. Morris Mano)

@@ -1,6 +1,6 @@
 ---
 name: esl-ensembles-boosting
-description: Applies the tree and ensemble chapters of Hastie, Tibshirani and Friedman's The Elements of Statistical Learning (ESL): bagging to reduce variance, random forests with feature subsampling, and boosting (AdaBoost, gradient boosting) to reduce bias — with the bias-variance reasoning that explains when each helps. Use when the user says 'bagging', 'boosting', 'AdaBoost', 'gradient boosting', 'random forest', 'ensemble methods', 'ESL ensembles', 'when to use boosting', or when combining models to beat a single strong model. Pairs with: elements-of-statistical-learning, introduction-to-statistical-learning, applied-predictive-modeling, machine-learning-design-patterns.
+description: "Applies the tree and ensemble chapters of Hastie, Tibshirani and Friedman's The Elements of Statistical Learning (ESL): bagging to reduce variance, random forests with feature subsampling, and boosting (AdaBoost, gradient boosting) to reduce bias — with the bias-variance reasoning that explains when each helps. Use when the user says 'bagging', 'boosting', 'AdaBoost', 'gradient boosting', 'random forest', 'ensemble methods', 'ESL ensembles', 'when to use boosting', or when combining models to beat a single strong model. Pairs with: elements-of-statistical-learning, introduction-to-statistical-learning, applied-predictive-modeling, machine-learning-design-patterns."
 ---
 # Ensembles and Boosting (ESL)
 

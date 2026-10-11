@@ -1,6 +1,6 @@
 ---
 name: psych-school-persuasion
-description: Persuasion school for clinic selling: Cialdini-style compliance, propaganda literacy, ad craft. Use when the user says "persuasion", "إقناع", "why they say yes", "ad copy for clinics", "propaganda", or before writing any sales message.
+description: "Persuasion school for clinic selling: Cialdini-style compliance, propaganda literacy, ad craft. Use when the user says "persuasion", "إقناع", "why they say yes", "ad copy for clinics", "propaganda", or before writing any sales message."
 ---
 
 # Persuasion School

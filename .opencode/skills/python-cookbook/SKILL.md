@@ -1,6 +1,6 @@
 ---
 name: python-cookbook
-description: Applies the Python Cookbook by David Beazley and Brian K. Jones to solve everyday programming problems with idiomatic Python: the right data structure for the job, generators and iterators that stay lazy, string and text handling, class and function design, I/O and files, and concurrency. Encodes the recipes as transferable patterns so a solution is built from proven pieces instead of invented ad hoc. Use when the user says 'how do I do this in Python', 'a recipe for', 'idiomatic Python', 'parse this text', 'iterate over that data', or 'write this class cleanly'.
+description: "Applies the Python Cookbook by David Beazley and Brian K. Jones to solve everyday programming problems with idiomatic Python: the right data structure for the job, generators and iterators that stay lazy, string and text handling, class and function design, I/O and files, and concurrency. Encodes the recipes as transferable patterns so a solution is built from proven pieces instead of invented ad hoc. Use when the user says 'how do I do this in Python', 'a recipe for', 'idiomatic Python', 'parse this text', 'iterate over that data', or 'write this class cleanly'."
 ---
 
 # python-cookbook

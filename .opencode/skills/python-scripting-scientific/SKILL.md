@@ -1,6 +1,6 @@
 ---
 name: python-scripting-scientific
-description: Applies Hans Petter Langtangen's Python Scripting for Computational Science to write scripts that drive scientific computation: use Python as the glue for compiled numerical kernels, read and write data files with standard parsers, generate plots and reports programmatically, wrap Fortran/C/C++ libraries, and structure exploratory work as reusable modules. Covers file I/O patterns, array-oriented numpy idioms, plotting, and the workflow where a short script replaces manual labor. Use when the user says 'write a script for this computation', 'scientific scripting', 'parse this data file', 'automate my simulation runs', or 'generate a report from my results'.
+description: "Applies Hans Petter Langtangen's Python Scripting for Computational Science to write scripts that drive scientific computation: use Python as the glue for compiled numerical kernels, read and write data files with standard parsers, generate plots and reports programmatically, wrap Fortran/C/C++ libraries, and structure exploratory work as reusable modules. Covers file I/O patterns, array-oriented numpy idioms, plotting, and the workflow where a short script replaces manual labor. Use when the user says 'write a script for this computation', 'scientific scripting', 'parse this data file', 'automate my simulation runs', or 'generate a report from my results'."
 ---
 
 # python-scripting-scientific

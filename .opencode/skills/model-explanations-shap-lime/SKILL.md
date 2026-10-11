@@ -1,6 +1,6 @@
 ---
 name: model-explanations-shap-lime
-description: Deep dive into the two workhorse model-agnostic explanation methods from Interpretable Machine Learning: SHAP (Shapley values, additive attributions, summary/dependence plots) and LIME (local surrogate models), with when to use each and how to validate an explanation. Use when the user says 'SHAP values', 'SHAP summary plot', 'LIME', 'explain this prediction', 'feature attribution', 'local explanation', 'why did the model predict', or when a model or prediction needs a concrete, verified explanation. Pairs with: interpretable-machine-learning, data-analysis, machine-learning-design-patterns, evidence-over-memory.
+description: "Deep dive into the two workhorse model-agnostic explanation methods from Interpretable Machine Learning: SHAP (Shapley values, additive attributions, summary/dependence plots) and LIME (local surrogate models), with when to use each and how to validate an explanation. Use when the user says 'SHAP values', 'SHAP summary plot', 'LIME', 'explain this prediction', 'feature attribution', 'local explanation', 'why did the model predict', or when a model or prediction needs a concrete, verified explanation. Pairs with: interpretable-machine-learning, data-analysis, machine-learning-design-patterns, evidence-over-memory."
 ---
 # SHAP and LIME Explanations
 

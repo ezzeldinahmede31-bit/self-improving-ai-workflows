@@ -1,6 +1,6 @@
 ---
 name: tcpip-illustrated-implementation
-description: Applies Wright & Stevens' TCP/IP Illustrated Volume 2 to the actual implementation of the BSD protocol stack: mbufs, interface layer, IP and ICMP processing, ARP, routing, and the TCP state machine with its timers, sequence handling, and the details that make the stack correct. Use when the user says 'TCP/IP implementation', 'mbuf', 'TCP state machine', 'IP processing', 'ARP cache', 'routing table BSD', 'TCP timer', 'Wright Stevens', 'BSD stack', or when the internals of the protocol stack explain a network behavior.
+description: "Applies Wright & Stevens' TCP/IP Illustrated Volume 2 to the actual implementation of the BSD protocol stack: mbufs, interface layer, IP and ICMP processing, ARP, routing, and the TCP state machine with its timers, sequence handling, and the details that make the stack correct. Use when the user says 'TCP/IP implementation', 'mbuf', 'TCP state machine', 'IP processing', 'ARP cache', 'routing table BSD', 'TCP timer', 'Wright Stevens', 'BSD stack', or when the internals of the protocol stack explain a network behavior."
 ---
 
 # TCP/IP Illustrated, Volume 2: The Implementation (Wright & Stevens)

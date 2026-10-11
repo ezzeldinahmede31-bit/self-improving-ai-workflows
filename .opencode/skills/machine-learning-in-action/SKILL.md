@@ -1,6 +1,6 @@
 ---
 name: machine-learning-in-action
-description: Applies Peter Harrington's Machine Learning in Action to implement core machine learning algorithms from scratch in Python: k-nearest neighbors, decision trees, naive Bayes, logistic regression, SVM, AdaBoost, and unsupervised methods, each built by hand with real examples. Use when the user says 'machine learning in action', 'Harrington', 'implement kNN from scratch', 'implement decision trees', 'naive Bayes implementation', 'build SVM from scratch', 'implement machine learning algorithms in Python', or when the mechanics of classic ML algorithms must be implemented and understood. Pairs with: data-science-from-scratch, algorithm-design-manual-war-stories, python-machine-learning-raschka, tdd-sandbox-proof-engine.
+description: "Applies Peter Harrington's Machine Learning in Action to implement core machine learning algorithms from scratch in Python: k-nearest neighbors, decision trees, naive Bayes, logistic regression, SVM, AdaBoost, and unsupervised methods, each built by hand with real examples. Use when the user says 'machine learning in action', 'Harrington', 'implement kNN from scratch', 'implement decision trees', 'naive Bayes implementation', 'build SVM from scratch', 'implement machine learning algorithms in Python', or when the mechanics of classic ML algorithms must be implemented and understood. Pairs with: data-science-from-scratch, algorithm-design-manual-war-stories, python-machine-learning-raschka, tdd-sandbox-proof-engine."
 ---
 # Machine Learning in Action
 

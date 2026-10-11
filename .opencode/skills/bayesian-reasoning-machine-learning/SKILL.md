@@ -1,6 +1,6 @@
 ---
 name: bayesian-reasoning-machine-learning
-description: Applies David Barber's Bayesian Reasoning and Machine Learning to build probabilistic models and reason with them: graphical models, belief propagation, sampling methods, and the Bayesian treatment of regression, classification, and latent variable models. Use when the user says 'Bayesian reasoning', 'Barber', 'belief propagation', 'probabilistic model', 'sampling', 'Bayesian regression', 'latent variable', or when a model must carry and propagate uncertainty. Pairs with: probabilistic-graphical-models, machine-learning-probabilistic-perspective, think-bayes, formal-math-logic-verification-engine.
+description: "Applies David Barber's Bayesian Reasoning and Machine Learning to build probabilistic models and reason with them: graphical models, belief propagation, sampling methods, and the Bayesian treatment of regression, classification, and latent variable models. Use when the user says 'Bayesian reasoning', 'Barber', 'belief propagation', 'probabilistic model', 'sampling', 'Bayesian regression', 'latent variable', or when a model must carry and propagate uncertainty. Pairs with: probabilistic-graphical-models, machine-learning-probabilistic-perspective, think-bayes, formal-math-logic-verification-engine."
 ---
 # Bayesian Reasoning and Machine Learning
 

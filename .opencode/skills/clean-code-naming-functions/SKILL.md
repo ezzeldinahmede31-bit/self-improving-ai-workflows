@@ -1,6 +1,6 @@
 ---
 name: clean-code-naming-functions
-description: Applies the naming and function chapters of Robert C. Martin's Clean Code to write code that reads like prose: intention-revealing names for variables, classes, and methods; small functions with a single responsibility; the rule of one level of abstraction per function; and function arguments kept minimal with side effects banished. Use when the user says 'name this better', 'write a small function', 'function too long', 'too many arguments', 'naming conventions', 'Clean Code naming', 'single responsibility function', 'one level of abstraction', or when reviewing code for readability.
+description: "Applies the naming and function chapters of Robert C. Martin's Clean Code to write code that reads like prose: intention-revealing names for variables, classes, and methods; small functions with a single responsibility; the rule of one level of abstraction per function; and function arguments kept minimal with side effects banished. Use when the user says 'name this better', 'write a small function', 'function too long', 'too many arguments', 'naming conventions', 'Clean Code naming', 'single responsibility function', 'one level of abstraction', or when reviewing code for readability."
 ---
 
 # Clean Code: Naming and Functions

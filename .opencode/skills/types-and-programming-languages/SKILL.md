@@ -1,6 +1,6 @@
 ---
 name: types-and-programming-languages
-description: Applies Benjamin C. Pierce's Types and Programming Languages to design and reason about type systems and language semantics: the untyped lambda calculus, the simply typed lambda calculus, safety (progress and preservation), references, subtyping, recursive types, and polymorphism with System F. Use when the user says 'type system', 'lambda calculus', 'simply typed', 'safety', 'progress and preservation', 'subtyping', 'recursive types', 'polymorphism', 'System F', 'Pierce', 'TAPL', 'design a typed language', or when a language or DSL needs a rigorous type discipline.
+description: "Applies Benjamin C. Pierce's Types and Programming Languages to design and reason about type systems and language semantics: the untyped lambda calculus, the simply typed lambda calculus, safety (progress and preservation), references, subtyping, recursive types, and polymorphism with System F. Use when the user says 'type system', 'lambda calculus', 'simply typed', 'safety', 'progress and preservation', 'subtyping', 'recursive types', 'polymorphism', 'System F', 'Pierce', 'TAPL', 'design a typed language', or when a language or DSL needs a rigorous type discipline."
 ---
 
 # Types and Programming Languages (Benjamin C. Pierce)

@@ -1,6 +1,6 @@
 ---
 name: linux-programming-interface
-description: Applies Michael Kerrisk's The Linux Programming Interface to systems programming on Linux: system calls and library functions, process creation and execution, memory allocation and mapping, signals, timers, threads and synchronization, sockets and network programming, and interprocess communication, with the full POSIX and Linux-specific behavior. Use when the user says 'Linux programming', 'system calls', 'mmap', 'pthreads', 'timers', 'signals', 'socket programming Linux', 'semaphores', 'Kerrisk', 'TLPI', 'Linux syscall', 'process exec', or when writing portable systems code that must handle the Linux API correctly.
+description: "Applies Michael Kerrisk's The Linux Programming Interface to systems programming on Linux: system calls and library functions, process creation and execution, memory allocation and mapping, signals, timers, threads and synchronization, sockets and network programming, and interprocess communication, with the full POSIX and Linux-specific behavior. Use when the user says 'Linux programming', 'system calls', 'mmap', 'pthreads', 'timers', 'signals', 'socket programming Linux', 'semaphores', 'Kerrisk', 'TLPI', 'Linux syscall', 'process exec', or when writing portable systems code that must handle the Linux API correctly."
 ---
 
 # The Linux Programming Interface (Michael Kerrisk)

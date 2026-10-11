@@ -1,6 +1,6 @@
 ---
 name: peopleware
-description: Applies DeMarco & Lister's Peopleware to the human side of software projects: the primacy of people over process, workspace and quiet-time design, the cost of interruptions and overtime, teams and the chemistry that makes them productive, and managing the factors that actually decide project success. Use when the user says 'peopleware', 'DeMarco Lister', 'productive teams', 'software project management people', 'quiet time', 'interruptions', 'team chemistry', 'project sociology', 'the human factor in software', or when the people dynamics of a project are the bottleneck.
+description: "Applies DeMarco & Lister's Peopleware to the human side of software projects: the primacy of people over process, workspace and quiet-time design, the cost of interruptions and overtime, teams and the chemistry that makes them productive, and managing the factors that actually decide project success. Use when the user says 'peopleware', 'DeMarco Lister', 'productive teams', 'software project management people', 'quiet time', 'interruptions', 'team chemistry', 'project sociology', 'the human factor in software', or when the people dynamics of a project are the bottleneck."
 ---
 
 # Peopleware: Productive Projects and Teams (DeMarco & Lister)

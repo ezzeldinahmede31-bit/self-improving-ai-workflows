@@ -1,6 +1,6 @@
 ---
 name: clean-code-classes-error-handling
-description: Applies the classes and error-handling chapters of Robert C. Martin's Clean Code to structure maintainable systems: classes built around cohesion and encapsulation, the Single Responsibility Principle applied to classes, and error handling as a distinct concern with exceptions, the Special Case object, and fail-fast boundaries. Use when the user says 'design my classes', 'single responsibility class', 'class too big', 'error handling', 'exceptions', 'special case object', 'fail fast', 'Clean Code classes', 'rethrow and wrap exceptions', or when reviewing class structure and error paths.
+description: "Applies the classes and error-handling chapters of Robert C. Martin's Clean Code to structure maintainable systems: classes built around cohesion and encapsulation, the Single Responsibility Principle applied to classes, and error handling as a distinct concern with exceptions, the Special Case object, and fail-fast boundaries. Use when the user says 'design my classes', 'single responsibility class', 'class too big', 'error handling', 'exceptions', 'special case object', 'fail fast', 'Clean Code classes', 'rethrow and wrap exceptions', or when reviewing class structure and error paths."
 ---
 
 # Clean Code: Classes and Error Handling

@@ -1,6 +1,6 @@
 ---
 name: grokking-deep-learning
-description: Applies Andrew Trask's Grokking Deep Learning to build neural networks from scratch with zero dependencies, gaining an intuition for every component: predictions, gradient descent, backpropagation, generalization, and modern architectures built by hand. Use when the user says 'build a neural network from scratch', 'grokking deep learning', 'Trask', 'intuition for gradient descent', 'backprop by hand', 'neural network without a framework', or when the mechanics of deep learning must be truly understood by constructing them. Pairs with: deep-learning-from-scratch, neural-networks-and-deep-learning, algorithmic-math-reasoner, tdd-sandbox-proof-engine.
+description: "Applies Andrew Trask's Grokking Deep Learning to build neural networks from scratch with zero dependencies, gaining an intuition for every component: predictions, gradient descent, backpropagation, generalization, and modern architectures built by hand. Use when the user says 'build a neural network from scratch', 'grokking deep learning', 'Trask', 'intuition for gradient descent', 'backprop by hand', 'neural network without a framework', or when the mechanics of deep learning must be truly understood by constructing them. Pairs with: deep-learning-from-scratch, neural-networks-and-deep-learning, algorithmic-math-reasoner, tdd-sandbox-proof-engine."
 ---
 # Grokking Deep Learning
 

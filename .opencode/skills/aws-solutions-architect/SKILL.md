@@ -1,6 +1,6 @@
 ---
 name: aws-solutions-architect
-description: Applies the AWS Certified Solutions Architect Official Study Guide (Joe Baron et al.) to designing cloud infrastructure: compute, storage, database, and networking services arranged for high availability, scalability, and cost control. Covers the Well-Architected pillars and the core service decisions for each workload. Use when the user says 'design an AWS architecture', 'choose EC2 or Lambda', or 'make this HA on AWS'.
+description: "Applies the AWS Certified Solutions Architect Official Study Guide (Joe Baron et al.) to designing cloud infrastructure: compute, storage, database, and networking services arranged for high availability, scalability, and cost control. Covers the Well-Architected pillars and the core service decisions for each workload. Use when the user says 'design an AWS architecture', 'choose EC2 or Lambda', or 'make this HA on AWS'."
 ---
 # aws-solutions-architect
 

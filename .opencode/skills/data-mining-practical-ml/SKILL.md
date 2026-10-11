@@ -1,6 +1,6 @@
 ---
 name: data-mining-practical-ml
-description: Applies Witten, Frank, Hall & Pal's Data Mining: Practical Machine Learning Tools and Techniques to mine data with the practical toolkit: the data-mining process, input attributes, decision trees, rules, lazy learning, Bayesian methods, clustering, and evaluation with the WEKA tools. Use when the user says 'WEKA', 'decision tree', 'data mining practical', 'attribute selection', 'Witten Frank', 'evaluate a classifier', 'clustering toolkit', or when mining a dataset with proven tools and techniques. Pairs with: mining-massive-datasets, data-mining-concepts-techniques, python-for-data-analysis, data-analysis.
+description: "Applies Witten, Frank, Hall & Pal's Data Mining: Practical Machine Learning Tools and Techniques to mine data with the practical toolkit: the data-mining process, input attributes, decision trees, rules, lazy learning, Bayesian methods, clustering, and evaluation with the WEKA tools. Use when the user says 'WEKA', 'decision tree', 'data mining practical', 'attribute selection', 'Witten Frank', 'evaluate a classifier', 'clustering toolkit', or when mining a dataset with proven tools and techniques. Pairs with: mining-massive-datasets, data-mining-concepts-techniques, python-for-data-analysis, data-analysis."
 ---
 # Data Mining: Practical Machine Learning Tools and Techniques
 

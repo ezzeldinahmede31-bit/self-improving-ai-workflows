@@ -1,6 +1,6 @@
 ---
 name: competitor-social-fetcher
-description: Social lane of competitor watch: YouTube winners via yt-dlp, imitable formats digest. Use when the user says "social competitors", "سوشيال المنافسين", "فيديوهات المنافسين", "who wins on YouTube", "add a channel", or before copying any competitor video idea.
+description: "Social lane of competitor watch: YouTube winners via yt-dlp, imitable formats digest. Use when the user says "social competitors", "سوشيال المنافسين", "فيديوهات المنافسين", "who wins on YouTube", "add a channel", or before copying any competitor video idea."
 ---
 
 # Competitor Social Fetcher

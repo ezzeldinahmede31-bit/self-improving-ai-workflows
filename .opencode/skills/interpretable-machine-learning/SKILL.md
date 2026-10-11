@@ -1,6 +1,6 @@
 ---
 name: interpretable-machine-learning
-description: Applies Christoph Molnar's Interpretable Machine Learning to explain model predictions with proven methods: interpretable models (linear, tree, rule), model-agnostic tools (SHAP, LIME, permutation importance, partial dependence), and global versus local explanations, with the honest limits of each. Use when the user says 'explain the model', 'SHAP values', 'LIME', 'feature importance', 'partial dependence', 'why did the model predict this', 'model interpretability', 'ML fairness explainability', or when a prediction or model must be justified to stakeholders. Pairs with: model-explanations-shap-lime, machine-learning-design-patterns, data-analysis, designing-machine-learning-systems, evidence-over-memory.
+description: "Applies Christoph Molnar's Interpretable Machine Learning to explain model predictions with proven methods: interpretable models (linear, tree, rule), model-agnostic tools (SHAP, LIME, permutation importance, partial dependence), and global versus local explanations, with the honest limits of each. Use when the user says 'explain the model', 'SHAP values', 'LIME', 'feature importance', 'partial dependence', 'why did the model predict this', 'model interpretability', 'ML fairness explainability', or when a prediction or model must be justified to stakeholders. Pairs with: model-explanations-shap-lime, machine-learning-design-patterns, data-analysis, designing-machine-learning-systems, evidence-over-memory."
 ---
 # Interpretable Machine Learning
 

@@ -1,6 +1,6 @@
 ---
 name: mathematics-for-machine-learning
-description: Applies Deisenroth, Faisal & Ong's Mathematics for Machine Learning to the math every ML practitioner needs: linear algebra (vectors, matrices, decompositions), analytic geometry, matrix calculus, probability and distributions, and continuous optimization, all motivated by machine learning use cases. Use when the user says 'mathematics for machine learning', 'Deisenroth', 'linear algebra for ML', 'matrix calculus', 'probability for ML', 'optimization for ML', or when an ML method must be understood through its underlying math. Pairs with: deep-learning-goodfellow, algorithmic-math-reasoner, introduction-to-probability, formal-math-logic-verification-engine.
+description: "Applies Deisenroth, Faisal & Ong's Mathematics for Machine Learning to the math every ML practitioner needs: linear algebra (vectors, matrices, decompositions), analytic geometry, matrix calculus, probability and distributions, and continuous optimization, all motivated by machine learning use cases. Use when the user says 'mathematics for machine learning', 'Deisenroth', 'linear algebra for ML', 'matrix calculus', 'probability for ML', 'optimization for ML', or when an ML method must be understood through its underlying math. Pairs with: deep-learning-goodfellow, algorithmic-math-reasoner, introduction-to-probability, formal-math-logic-verification-engine."
 ---
 # Mathematics for Machine Learning
 

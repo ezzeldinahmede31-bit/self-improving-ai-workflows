@@ -1,6 +1,6 @@
 ---
 name: real-time-systems-liu
-description: Applies Jane Liu's Real-Time Systems to hard real-time design: the characterization of real-time tasks, scheduling theory (rate-monotonic, earliest-deadline-first, fixed-priority and their schedulability analysis), priority inversion, resource access protocols, and the engineering of systems whose deadlines are part of correctness. Use when the user says 'real-time systems', 'rate monotonic', 'EDF', 'schedulability', 'deadline', 'priority inversion', 'priority ceiling', 'periodic task', 'Jane Liu', 'hard real-time', or when a system must guarantee that work finishes by a deadline.
+description: "Applies Jane Liu's Real-Time Systems to hard real-time design: the characterization of real-time tasks, scheduling theory (rate-monotonic, earliest-deadline-first, fixed-priority and their schedulability analysis), priority inversion, resource access protocols, and the engineering of systems whose deadlines are part of correctness. Use when the user says 'real-time systems', 'rate monotonic', 'EDF', 'schedulability', 'deadline', 'priority inversion', 'priority ceiling', 'periodic task', 'Jane Liu', 'hard real-time', or when a system must guarantee that work finishes by a deadline."
 ---
 
 # Real-Time Systems (Jane W. S. Liu)

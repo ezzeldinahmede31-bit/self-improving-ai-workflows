@@ -1,6 +1,6 @@
 ---
 name: bayesian-data-analysis
-description: Applies Gelman, Carlin, Stern, Dunson, Vehtari and Rubin's Bayesian Data Analysis to perform rigorous Bayesian inference on real data: probability and Bayesian modeling, one- and multi-parameter models, hierarchical models, Bayesian regression, model checking and comparison, and computation via MCMC and variational methods. The standard reference for doing Bayesian statistics properly. Use when the user says 'Bayesian data analysis', 'Gelman', 'hierarchical model', 'posterior predictive check', 'MCMC', 'Bayesian regression', 'Bayesian workflow', or when real data must be modeled with uncertainty quantified. Pairs with: think-bayes, pattern-recognition-machine-learning, information-theory-inference-learning, data-analysis.
+description: "Applies Gelman, Carlin, Stern, Dunson, Vehtari and Rubin's Bayesian Data Analysis to perform rigorous Bayesian inference on real data: probability and Bayesian modeling, one- and multi-parameter models, hierarchical models, Bayesian regression, model checking and comparison, and computation via MCMC and variational methods. The standard reference for doing Bayesian statistics properly. Use when the user says 'Bayesian data analysis', 'Gelman', 'hierarchical model', 'posterior predictive check', 'MCMC', 'Bayesian regression', 'Bayesian workflow', or when real data must be modeled with uncertainty quantified. Pairs with: think-bayes, pattern-recognition-machine-learning, information-theory-inference-learning, data-analysis."
 ---
 # Bayesian Data Analysis
 

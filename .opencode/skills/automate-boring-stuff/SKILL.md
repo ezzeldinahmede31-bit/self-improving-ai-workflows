@@ -1,6 +1,6 @@
 ---
 name: automate-boring-stuff
-description: Applies Al Sweigart's Automate the Boring Stuff with Python to eliminate repetitive computer work: batch file operations, spreadsheet and CSV processing, PDF handling, web data collection, GUI automation, and scheduled jobs that run on their own. Covers the practical toolkit (pathlib, csv, openpyxl, PyPDF2, requests, BeautifulSoup, pyautogui) and the discipline of turning a repeated manual chore into a safe, rerunnable script. Use when the user says 'automate this boring task', 'rename and organize my files', 'process this spreadsheet', 'scrape data from a page', or 'run this job on a schedule'.
+description: "Applies Al Sweigart's Automate the Boring Stuff with Python to eliminate repetitive computer work: batch file operations, spreadsheet and CSV processing, PDF handling, web data collection, GUI automation, and scheduled jobs that run on their own. Covers the practical toolkit (pathlib, csv, openpyxl, PyPDF2, requests, BeautifulSoup, pyautogui) and the discipline of turning a repeated manual chore into a safe, rerunnable script. Use when the user says 'automate this boring task', 'rename and organize my files', 'process this spreadsheet', 'scrape data from a page', or 'run this job on a schedule'."
 ---
 
 # automate-boring-stuff

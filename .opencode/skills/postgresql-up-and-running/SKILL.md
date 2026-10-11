@@ -1,6 +1,6 @@
 ---
 name: postgresql-up-and-running
-description: Applies Douglas & Obe's PostgreSQL Up and Running to using PostgreSQL productively: installation and configuration, basic and advanced SQL, indexes and query optimization, transactions, functions and procedural language (PL/pgSQL), JSON and full-text search, replication and backup, and the ecosystem of extensions. Use when the user says 'postgres', 'postgresql', 'PL/pgSQL', 'postgres index', 'postgres JSON', 'full text search postgres', 'postgres replication', 'postgres extensions', 'Douglas Obe', or when building or tuning a PostgreSQL-backed service.
+description: "Applies Douglas & Obe's PostgreSQL Up and Running to using PostgreSQL productively: installation and configuration, basic and advanced SQL, indexes and query optimization, transactions, functions and procedural language (PL/pgSQL), JSON and full-text search, replication and backup, and the ecosystem of extensions. Use when the user says 'postgres', 'postgresql', 'PL/pgSQL', 'postgres index', 'postgres JSON', 'full text search postgres', 'postgres replication', 'postgres extensions', 'Douglas Obe', or when building or tuning a PostgreSQL-backed service."
 ---
 
 # PostgreSQL Up and Running (Korry Douglas & Regina Obe)

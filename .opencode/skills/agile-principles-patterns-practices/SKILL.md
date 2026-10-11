@@ -1,6 +1,6 @@
 ---
 name: agile-principles-patterns-practices
-description: Applies Robert C. Martin's Agile Principles, Patterns, and Practices to agile development with engineering depth: the agile principles and the design principles (SRP, OCP, LSP, ISP, DIP), the design patterns applied to real problems, and the practices of test-driven development, refactoring, and iterative delivery. Use when the user says 'agile principles', 'SOLID', 'single responsibility', 'open closed', 'Liskov', 'dependency inversion', 'agile practices', 'PPP', 'Uncle Bob agile', or when agile delivery must be grounded in engineering principles.
+description: "Applies Robert C. Martin's Agile Principles, Patterns, and Practices to agile development with engineering depth: the agile principles and the design principles (SRP, OCP, LSP, ISP, DIP), the design patterns applied to real problems, and the practices of test-driven development, refactoring, and iterative delivery. Use when the user says 'agile principles', 'SOLID', 'single responsibility', 'open closed', 'Liskov', 'dependency inversion', 'agile practices', 'PPP', 'Uncle Bob agile', or when agile delivery must be grounded in engineering principles."
 ---
 
 # Agile Software Development: Principles, Patterns, and Practices (Robert C. Martin)

@@ -1,6 +1,6 @@
 ---
 name: text-mining-r
-description: Applies Silge & Robinson's Text Mining with R to analyze text with the tidytext workflow: unnesting tokens, term frequency and inverse document frequency, word relationships and correlations, topic modeling, and sentiment analysis in the tidyverse. Use when the user says 'text mining with R', 'tidytext', 'unnest tokens', 'TF-IDF R', 'topic model R', 'sentiment R', 'Silge Robinson', or when text should be analyzed with the tidyverse tools. Pairs with: python-for-data-analysis, natural-language-processing-python, data-analysis, sheets-automation.
+description: "Applies Silge & Robinson's Text Mining with R to analyze text with the tidytext workflow: unnesting tokens, term frequency and inverse document frequency, word relationships and correlations, topic modeling, and sentiment analysis in the tidyverse. Use when the user says 'text mining with R', 'tidytext', 'unnest tokens', 'TF-IDF R', 'topic model R', 'sentiment R', 'Silge Robinson', or when text should be analyzed with the tidyverse tools. Pairs with: python-for-data-analysis, natural-language-processing-python, data-analysis, sheets-automation."
 ---
 # Text Mining with R
 

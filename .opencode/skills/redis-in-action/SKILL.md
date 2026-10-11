@@ -1,6 +1,6 @@
 ---
 name: redis-in-action
-description: Applies Josiah Carlson's Redis in Action to building real features on Redis: the data structures (strings, hashes, lists, sets, sorted sets) and their use cases, expiration and caching, pub/sub, transactions, persistence (snapshot and append-only file), replication, and scripting, with the patterns that make Redis fast. Use when the user says 'redis', 'sorted set', 'redis cache', 'redis pub sub', 'redis persistence', 'redis replication', 'leaderboard', 'rate limiter redis', 'Carlson redis', or when a feature maps naturally onto a Redis data structure.
+description: "Applies Josiah Carlson's Redis in Action to building real features on Redis: the data structures (strings, hashes, lists, sets, sorted sets) and their use cases, expiration and caching, pub/sub, transactions, persistence (snapshot and append-only file), replication, and scripting, with the patterns that make Redis fast. Use when the user says 'redis', 'sorted set', 'redis cache', 'redis pub sub', 'redis persistence', 'redis replication', 'leaderboard', 'rate limiter redis', 'Carlson redis', or when a feature maps naturally onto a Redis data structure."
 ---
 
 # Redis in Action (Josiah L. Carlson)

@@ -1,6 +1,6 @@
 ---
 name: information-theory-inference-learning
-description: Applies David MacKay's Information Theory, Inference, and Learning Algorithms to connect the mathematics of information to machine learning: entropy and coding, the source-channel theorem, inference as a probability calculation, and learning algorithms viewed as inference. Use when the user says 'information theory', 'MacKay', 'entropy', 'coding theory', 'inference as probabilities', 'variational methods', or when a problem needs the information-theoretic view of learning. Pairs with: elements-information-theory, mackay-entropy-coding-compression, bayesian-reasoning-machine-learning, algorithmic-math-reasoner.
+description: "Applies David MacKay's Information Theory, Inference, and Learning Algorithms to connect the mathematics of information to machine learning: entropy and coding, the source-channel theorem, inference as a probability calculation, and learning algorithms viewed as inference. Use when the user says 'information theory', 'MacKay', 'entropy', 'coding theory', 'inference as probabilities', 'variational methods', or when a problem needs the information-theoretic view of learning. Pairs with: elements-information-theory, mackay-entropy-coding-compression, bayesian-reasoning-machine-learning, algorithmic-math-reasoner."
 ---
 # Information Theory, Inference, and Learning Algorithms
 

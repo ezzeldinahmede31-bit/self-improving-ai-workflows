@@ -1,6 +1,6 @@
 ---
 name: think-bayes
-description: Applies Allen Downey's Think Bayes to solve real problems with Bayesian statistics in Python: the Bayesian framework (prior, likelihood, posterior), representing distributions computationally, grid-computation and conjugate approaches, estimation, hypothesis comparison with Bayes factors, and hierarchical and Gaussian methods. Use when the user says 'think bayes', 'Bayesian update', 'prior and posterior', 'Bayes factor', 'grid approximation', 'Downey bayes', 'update a belief', or when updating a belief from evidence rather than computing a single point estimate. Pairs with: think-stats, bayesian-data-analysis, machine-learning-probabilistic-perspective, formal-math-logic-verification-engine.
+description: "Applies Allen Downey's Think Bayes to solve real problems with Bayesian statistics in Python: the Bayesian framework (prior, likelihood, posterior), representing distributions computationally, grid-computation and conjugate approaches, estimation, hypothesis comparison with Bayes factors, and hierarchical and Gaussian methods. Use when the user says 'think bayes', 'Bayesian update', 'prior and posterior', 'Bayes factor', 'grid approximation', 'Downey bayes', 'update a belief', or when updating a belief from evidence rather than computing a single point estimate. Pairs with: think-stats, bayesian-data-analysis, machine-learning-probabilistic-perspective, formal-math-logic-verification-engine."
 ---
 # Think Bayes
 

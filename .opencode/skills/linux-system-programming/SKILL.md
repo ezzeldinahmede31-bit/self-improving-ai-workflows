@@ -1,6 +1,6 @@
 ---
 name: linux-system-programming
-description: Applies Linux System Programming (Robert Love) to performance-conscious Linux code and automation: a fast, practical tour of the syscall interface, file I/O, buffered I/O, process management, IPC, and threads, with the performance trade-offs spelled out. Covers read/write and the stdio layer, scatter/gather and epoll, fork/exec, pipes, sockets, and pthread basics. Use when the user says 'buffered or unbuffered', 'why is file I/O slow', 'use epoll', 'scatter gather', or 'write a fast Linux utility'.
+description: "Applies Linux System Programming (Robert Love) to performance-conscious Linux code and automation: a fast, practical tour of the syscall interface, file I/O, buffered I/O, process management, IPC, and threads, with the performance trade-offs spelled out. Covers read/write and the stdio layer, scatter/gather and epoll, fork/exec, pipes, sockets, and pthread basics. Use when the user says 'buffered or unbuffered', 'why is file I/O slow', 'use epoll', 'scatter gather', or 'write a fast Linux utility'."
 ---
 # linux-system-programming
 

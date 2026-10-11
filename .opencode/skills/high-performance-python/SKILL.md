@@ -1,6 +1,6 @@
 ---
 name: high-performance-python
-description: Applies High Performance Python by Micha Gorelick and Ian Ozsvald to make Python fast with evidence, not guesses: profile first, choose the right algorithm and data structure, vectorize with numpy, use multiprocessing and asyncio for the right workload, and drop to compiled extensions for hot loops. Encodes the discipline that every optimization starts from a measured baseline and ends with a re-measurement. Use when the user says 'why is my Python slow', 'profile this code', 'vectorize with numpy', 'speed up this loop', 'parallelize my script', or 'optimize this bottleneck'.
+description: "Applies High Performance Python by Micha Gorelick and Ian Ozsvald to make Python fast with evidence, not guesses: profile first, choose the right algorithm and data structure, vectorize with numpy, use multiprocessing and asyncio for the right workload, and drop to compiled extensions for hot loops. Encodes the discipline that every optimization starts from a measured baseline and ends with a re-measurement. Use when the user says 'why is my Python slow', 'profile this code', 'vectorize with numpy', 'speed up this loop', 'parallelize my script', or 'optimize this bottleneck'."
 ---
 
 # high-performance-python

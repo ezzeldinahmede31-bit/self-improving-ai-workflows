@@ -1,6 +1,6 @@
 ---
 name: taocp-vol4a-combinatorial-algorithms
-description: Applies Knuth's TAOCP Volume 4A to combinatorial search and generation: generating permutations, combinations, and partitions, backtracking and the general combinatorial search method, exact cover and the DLX (dancing links) algorithm, and Boolean-function techniques with bitwise tricks. Use when the user says 'generate permutations', 'backtracking search', 'exact cover', 'dancing links', 'DLX', 'combinatorial generation', 'n-queens', 'Latin squares', 'bit tricks', 'satisfiability', 'Knuth combinatorial', or when a problem needs an exhaustive or smart enumeration over a discrete space.
+description: "Applies Knuth's TAOCP Volume 4A to combinatorial search and generation: generating permutations, combinations, and partitions, backtracking and the general combinatorial search method, exact cover and the DLX (dancing links) algorithm, and Boolean-function techniques with bitwise tricks. Use when the user says 'generate permutations', 'backtracking search', 'exact cover', 'dancing links', 'DLX', 'combinatorial generation', 'n-queens', 'Latin squares', 'bit tricks', 'satisfiability', 'Knuth combinatorial', or when a problem needs an exhaustive or smart enumeration over a discrete space."
 ---
 
 # TAOCP Vol 4A: Combinatorial Algorithms

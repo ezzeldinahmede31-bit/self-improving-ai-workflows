@@ -1,6 +1,6 @@
 ---
 name: immutable-infrastructure
-description: Applies Kief Morris' Infrastructure as Code principle of immutability to provision and operate environments: treat servers as disposable, build them from a golden pipeline instead of drifting configuration, promote the same artifact across environments, and replace-in-place rather than patch. Use when the user says 'immutable infrastructure', 'disposable servers', 'golden image', 'pipeline to provision', 'no config drift', 'rebuild instead of patch', 'environment promotion', 'reproducible environment', 'IaC', or when configuration drift or patch-on-patch makes environments unreproducible. Pairs with: infrastructure-as-code, continuous-delivery-pipeline, devops-handbook-flow, ansible-automation.
+description: "Applies Kief Morris' Infrastructure as Code principle of immutability to provision and operate environments: treat servers as disposable, build them from a golden pipeline instead of drifting configuration, promote the same artifact across environments, and replace-in-place rather than patch. Use when the user says 'immutable infrastructure', 'disposable servers', 'golden image', 'pipeline to provision', 'no config drift', 'rebuild instead of patch', 'environment promotion', 'reproducible environment', 'IaC', or when configuration drift or patch-on-patch makes environments unreproducible. Pairs with: infrastructure-as-code, continuous-delivery-pipeline, devops-handbook-flow, ansible-automation."
 ---
 
 # Immutable Infrastructure

@@ -1,6 +1,6 @@
 ---
 name: pgm-inference-variable-elimination
-description: Applies the inference chapters of Koller & Friedman's Probabilistic Graphical Models to answer queries from a graphical model: variable elimination and its complexity, belief propagation on trees, junction trees, approximate inference by sampling and variational methods. Use when the user says 'variable elimination', 'belief propagation', 'junction tree', 'exact inference', 'approximate inference', 'sampling inference', or when probabilities must be computed from a graphical model. Pairs with: probabilistic-graphical-models, bayesian-reasoning-machine-learning, algorithmic-math-reasoner, formal-math-logic-verification-engine.
+description: "Applies the inference chapters of Koller & Friedman's Probabilistic Graphical Models to answer queries from a graphical model: variable elimination and its complexity, belief propagation on trees, junction trees, approximate inference by sampling and variational methods. Use when the user says 'variable elimination', 'belief propagation', 'junction tree', 'exact inference', 'approximate inference', 'sampling inference', or when probabilities must be computed from a graphical model. Pairs with: probabilistic-graphical-models, bayesian-reasoning-machine-learning, algorithmic-math-reasoner, formal-math-logic-verification-engine."
 ---
 # Inference in Probabilistic Graphical Models
 

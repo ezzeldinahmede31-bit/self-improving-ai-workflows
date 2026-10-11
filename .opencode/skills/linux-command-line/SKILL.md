@@ -1,6 +1,6 @@
 ---
 name: linux-command-line
-description: Applies The Linux Command Line (William Shotts) to shell scripting and automation: a complete introduction to the bash environment, including commands, pipelines, redirection, permissions, processes, variables, control structures, and text processing with grep, sed, and awk. Covers shell grammar, expansion rules, job control, and writing robust scripts. Use when the user says 'write a bash script', 'why does my pipe fail', 'shell expansion', 'process text with awk', or 'automate the terminal'.
+description: "Applies The Linux Command Line (William Shotts) to shell scripting and automation: a complete introduction to the bash environment, including commands, pipelines, redirection, permissions, processes, variables, control structures, and text processing with grep, sed, and awk. Covers shell grammar, expansion rules, job control, and writing robust scripts. Use when the user says 'write a bash script', 'why does my pipe fail', 'shell expansion', 'process text with awk', or 'automate the terminal'."
 ---
 # linux-command-line
 

@@ -1,6 +1,6 @@
 ---
 name: terraform-up-and-running
-description: Applies Terraform: Up and Running (Yevgeniy Brikman) to infrastructure provisioning: treat every resource as code that is plan-able, reviewable, and reproducible, with a drift-free apply loop. Covers the core workflow, state management, modules, workspaces, and the composition habits that keep terraform DRY. Use when the user says 'write terraform', 'provision infrastructure as code', or 'why did my apply drift'.
+description: "Applies Terraform: Up and Running (Yevgeniy Brikman) to infrastructure provisioning: treat every resource as code that is plan-able, reviewable, and reproducible, with a drift-free apply loop. Covers the core workflow, state management, modules, workspaces, and the composition habits that keep terraform DRY. Use when the user says 'write terraform', 'provision infrastructure as code', or 'why did my apply drift'."
 ---
 # terraform-up-and-running
 

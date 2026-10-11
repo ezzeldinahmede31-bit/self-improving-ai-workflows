@@ -1,6 +1,6 @@
 ---
 name: linux-kernel-development
-description: Applies Robert Love's Linux Kernel Development to writing and understanding kernel code: kernel development basics and the coding style, process management, scheduling, system call design, kernel data structures, interrupts and bottom halves, synchronization and locking, timers, memory management, and the art of working on an existing large codebase. Use when the user says 'kernel development', 'write a system call', 'kernel module', 'bottom half', 'workqueue', 'RCU', 'kernel locking', 'kernel style', 'Robert Love', 'Linux kernel module', or when writing or reviewing code that runs in the kernel.
+description: "Applies Robert Love's Linux Kernel Development to writing and understanding kernel code: kernel development basics and the coding style, process management, scheduling, system call design, kernel data structures, interrupts and bottom halves, synchronization and locking, timers, memory management, and the art of working on an existing large codebase. Use when the user says 'kernel development', 'write a system call', 'kernel module', 'bottom half', 'workqueue', 'RCU', 'kernel locking', 'kernel style', 'Robert Love', 'Linux kernel module', or when writing or reviewing code that runs in the kernel."
 ---
 
 # Linux Kernel Development (Robert Love)

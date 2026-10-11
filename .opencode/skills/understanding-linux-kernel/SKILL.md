@@ -1,6 +1,6 @@
 ---
 name: understanding-linux-kernel
-description: Applies Bovet & Cesati's Understanding the Linux Kernel to the internals of Linux as it actually runs: kernel architecture and the role of interrupts, process and thread representation, process scheduling, memory addressing and allocation, the virtual filesystem and the page cache, and device drivers, with the 2.6-era structures that still shape today's kernel. Use when the user says 'Linux kernel internals', 'kernel architecture', 'task struct', 'process scheduling Linux', 'page allocation', 'slab', 'virtual filesystem', 'inode cache', 'kernel locking', 'Bovet Cesati', or when debugging or tuning kernel-adjacent behavior.
+description: "Applies Bovet & Cesati's Understanding the Linux Kernel to the internals of Linux as it actually runs: kernel architecture and the role of interrupts, process and thread representation, process scheduling, memory addressing and allocation, the virtual filesystem and the page cache, and device drivers, with the 2.6-era structures that still shape today's kernel. Use when the user says 'Linux kernel internals', 'kernel architecture', 'task struct', 'process scheduling Linux', 'page allocation', 'slab', 'virtual filesystem', 'inode cache', 'kernel locking', 'Bovet Cesati', or when debugging or tuning kernel-adjacent behavior."
 ---
 
 # Understanding the Linux Kernel (Bovet & Cesati)

@@ -1,6 +1,6 @@
 ---
 name: neural-network-methods-nlp
-description: Applies Yoav Goldberg's Neural Network Methods for Natural Language Processing to build neural NLP systems: representing words and sentences as vectors, the feedforward and recurrent architectures, the convolutional models, structured prediction, and the embeddings that power modern NLP. Use when the user says 'neural NLP', 'word embeddings', 'neural network for text', 'RNN for NLP', 'structured prediction', 'Goldberg', 'neural language model', or when building an NLP model with neural architectures. Pairs with: nlp-transformers-huggingface, deep-learning-from-scratch, neural-networks-and-deep-learning, ai-engineering-foundation-models.
+description: "Applies Yoav Goldberg's Neural Network Methods for Natural Language Processing to build neural NLP systems: representing words and sentences as vectors, the feedforward and recurrent architectures, the convolutional models, structured prediction, and the embeddings that power modern NLP. Use when the user says 'neural NLP', 'word embeddings', 'neural network for text', 'RNN for NLP', 'structured prediction', 'Goldberg', 'neural language model', or when building an NLP model with neural architectures. Pairs with: nlp-transformers-huggingface, deep-learning-from-scratch, neural-networks-and-deep-learning, ai-engineering-foundation-models."
 ---
 # Neural Network Methods for Natural Language Processing
 

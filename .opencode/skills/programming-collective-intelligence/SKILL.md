@@ -1,6 +1,6 @@
 ---
 name: programming-collective-intelligence
-description: Applies Toby Segaran's Programming Collective Intelligence to build recommendation and prediction systems from user data: collaborative filtering and item/item recommendation, clustering (hierarchical, k-means) for grouping users and items, searching and ranking with PageRank-like methods, and classification (naive Bayes, decision trees) applied to real-world signals. Use when the user says 'recommendation system', 'collaborative filtering', 'clustering', 'k-means', 'PageRank', 'Toby Segaran', 'collective intelligence', or when building a system that learns from many users' behavior. Pairs with: data-science-from-scratch, network-science-barabasi, social-network-analysis-wasserman, audience-psychology-analyst.
+description: "Applies Toby Segaran's Programming Collective Intelligence to build recommendation and prediction systems from user data: collaborative filtering and item/item recommendation, clustering (hierarchical, k-means) for grouping users and items, searching and ranking with PageRank-like methods, and classification (naive Bayes, decision trees) applied to real-world signals. Use when the user says 'recommendation system', 'collaborative filtering', 'clustering', 'k-means', 'PageRank', 'Toby Segaran', 'collective intelligence', or when building a system that learns from many users' behavior. Pairs with: data-science-from-scratch, network-science-barabasi, social-network-analysis-wasserman, audience-psychology-analyst."
 ---
 # Programming Collective Intelligence
 

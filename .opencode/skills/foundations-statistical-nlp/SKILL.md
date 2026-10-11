@@ -1,6 +1,6 @@
 ---
 name: foundations-statistical-nlp
-description: Applies Manning & Schutze's Foundations of Statistical Natural Language Processing to build NLP with statistical rigor: linguistic essentials, text tokenization, probability models and smoothing, collocations, n-gram models, HMM tagging, parsing with PCFGs, and statistical methods for retrieval. Use when the user says 'statistical NLP', 'Manning Schutze', 'smoothing', 'n-gram', 'HMM tagging', 'PCFG parsing', 'collocation', 'statistical language model', or when an NLP system must rest on statistically sound foundations. Pairs with: speech-language-processing, linguistic-fundamentals-nlp, probabilistic-graphical-models, all-of-statistics.
+description: "Applies Manning & Schutze's Foundations of Statistical Natural Language Processing to build NLP with statistical rigor: linguistic essentials, text tokenization, probability models and smoothing, collocations, n-gram models, HMM tagging, parsing with PCFGs, and statistical methods for retrieval. Use when the user says 'statistical NLP', 'Manning Schutze', 'smoothing', 'n-gram', 'HMM tagging', 'PCFG parsing', 'collocation', 'statistical language model', or when an NLP system must rest on statistically sound foundations. Pairs with: speech-language-processing, linguistic-fundamentals-nlp, probabilistic-graphical-models, all-of-statistics."
 ---
 # Foundations of Statistical Natural Language Processing
 

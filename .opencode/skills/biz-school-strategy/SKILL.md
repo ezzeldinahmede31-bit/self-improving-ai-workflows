@@ -1,6 +1,6 @@
 ---
 name: biz-school-strategy
-description: Modern competitive strategy distilled for clinic wars: positioning, moats, OKRs, blitzscaling. Use when the user says "strategy", "استراتيجية", "positioning", "competitors", "OKR", "moat", "category", or before any strategic decision.
+description: "Modern competitive strategy distilled for clinic wars: positioning, moats, OKRs, blitzscaling. Use when the user says "strategy", "استراتيجية", "positioning", "competitors", "OKR", "moat", "category", or before any strategic decision."
 ---
 
 # Business Strategy School

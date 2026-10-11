@@ -1,6 +1,6 @@
 ---
 name: network-security-private-communication
-description: Applies Kaufman, Perlman & Speciner's Network Security to protect communication in the real world: the goals (confidentiality, integrity, authentication), the primitives (hashes, symmetric and public-key encryption, signatures), the key-exchange protocols (Diffie-Hellman, IKE), and the practical systems (SSL/TLS, IPsec, Kerberos, SSH) with their real failure modes. Use when the user says 'network security', 'encryption', 'hash', 'digital signature', 'Diffie Hellman', 'key exchange', 'TLS', 'IPsec', 'Kerberos', 'authentication protocol', 'Kaufman Perlman', or when designing or reviewing a security protocol.
+description: "Applies Kaufman, Perlman & Speciner's Network Security to protect communication in the real world: the goals (confidentiality, integrity, authentication), the primitives (hashes, symmetric and public-key encryption, signatures), the key-exchange protocols (Diffie-Hellman, IKE), and the practical systems (SSL/TLS, IPsec, Kerberos, SSH) with their real failure modes. Use when the user says 'network security', 'encryption', 'hash', 'digital signature', 'Diffie Hellman', 'key exchange', 'TLS', 'IPsec', 'Kerberos', 'authentication protocol', 'Kaufman Perlman', or when designing or reviewing a security protocol."
 ---
 
 # Network Security: Private Communication in a Public World (Kaufman, Perlman, Speciner)

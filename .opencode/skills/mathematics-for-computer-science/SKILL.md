@@ -1,6 +1,6 @@
 ---
 name: mathematics-for-computer-science
-description: Applies the MIT 6.042 course (Lehman, Leighton, Meyer) to the mathematics that underpins computing: proof methods and well-ordering, induction, number theory and modular arithmetic, sums and recurrences, asymptotics, graph theory and trees, combinatorial analysis and probability, and random variables. Use when the user says 'prove by induction', 'number theory', 'modular arithmetic', 'recurrence', 'asymptotic growth', 'graph theory', 'combinatorics', 'probability', 'random variable', '6.042', 'Leighton', or when a proof or a probability argument is required for a computer science claim.
+description: "Applies the MIT 6.042 course (Lehman, Leighton, Meyer) to the mathematics that underpins computing: proof methods and well-ordering, induction, number theory and modular arithmetic, sums and recurrences, asymptotics, graph theory and trees, combinatorial analysis and probability, and random variables. Use when the user says 'prove by induction', 'number theory', 'modular arithmetic', 'recurrence', 'asymptotic growth', 'graph theory', 'combinatorics', 'probability', 'random variable', '6.042', 'Leighton', or when a proof or a probability argument is required for a computer science claim."
 ---
 
 # Mathematics for Computer Science (Lehman, Leighton, Meyer)

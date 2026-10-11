@@ -1,6 +1,6 @@
 ---
 name: probabilistic-graphical-models
-description: Applies Koller & Friedman's Probabilistic Graphical Models to represent and reason about uncertainty: Bayesian networks and Markov networks, the conditional-independence semantics, exact inference by variable elimination and belief propagation, learning from data, and the model families that capture structure. Use when the user says 'probabilistic graphical model', 'Bayesian network', 'Markov random field', 'variable elimination', 'belief propagation', 'graphical model learning', 'Koller', or when reasoning under uncertainty needs a structured representation. Pairs with: bayesian-reasoning-machine-learning, machine-learning-probabilistic-perspective, pattern-recognition-machine-learning, algorithmic-math-reasoner.
+description: "Applies Koller & Friedman's Probabilistic Graphical Models to represent and reason about uncertainty: Bayesian networks and Markov networks, the conditional-independence semantics, exact inference by variable elimination and belief propagation, learning from data, and the model families that capture structure. Use when the user says 'probabilistic graphical model', 'Bayesian network', 'Markov random field', 'variable elimination', 'belief propagation', 'graphical model learning', 'Koller', or when reasoning under uncertainty needs a structured representation. Pairs with: bayesian-reasoning-machine-learning, machine-learning-probabilistic-perspective, pattern-recognition-machine-learning, algorithmic-math-reasoner."
 ---
 # Probabilistic Graphical Models
 
