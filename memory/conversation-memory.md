@@ -2443,3 +2443,8 @@ reporting style + session persistence, start with trial read task (default yes).
 - Fixed in test copies (v03 fingerprinted): dead booking path, ev index, DEMO leaks (+2 more found: knowledge reply hours/address, pinned personas), ownership gates, idempotency, resched saga, agenda x2, day tally, 15 approval flags (each justified), PII strip on deny (found by suite).
 - 15 approval flags: removed only routine/internal with documented per-flag rationale; sensitive gates kept+tested.
 - BLOCKED needs from user: test calendar + test chat + 2nd n8n for restore test + lawyer PDPL + risk acceptance. No prod writes/sends made. Verdict file lists 17 acceptance conditions honestly.
+
+## 2026-10-11 — PRODUCTION mission verdict: NOT READY FOR PRODUCTION (staging-ready)
+- Pinned v05 (+stable import ids; defect found via staging import). Suite green on v05. Staging n8n deployed (:5678), 25/25 imports OK, wipe->restore->identical + version rollback proven. Manifest 38 files.
+- AI: free tier still 402 (verified) -> 250 stay BLOCKED. Spend ~$0.03.
+- Open gates for PROD: D (test accounts), G-critical (medical/injection cats never run), K (owner acceptance), I (live monitoring). Report files updated + checklist + incident plan draft.

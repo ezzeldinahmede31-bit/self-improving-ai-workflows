@@ -1,5 +1,30 @@
 # Fixes & changes (applied to FINAL_AUDIT/fixed/ COPIES only)
 
+- clinic_audience_pulse: assigned stable import id (was missing -> import failed with NOT NULL).
+- clinic_competitor_watch: assigned stable import id (was missing -> import failed with NOT NULL).
+- clinic_global_error_audit: assigned stable import id (was missing -> import failed with NOT NULL).
+- clinic_recall: assigned stable import id (was missing -> import failed with NOT NULL).
+- clinic_receptionist_telegram: assigned stable import id (was missing -> import failed with NOT NULL).
+- clinic_reminder_engine: assigned stable import id (was missing -> import failed with NOT NULL).
+- clinic_review_form: assigned stable import id (was missing -> import failed with NOT NULL).
+- clinic_staff_console: assigned stable import id (was missing -> import failed with NOT NULL).
+- clinic_sub_cal_book: assigned stable import id (was missing -> import failed with NOT NULL).
+- clinic_sub_cal_cancel: assigned stable import id (was missing -> import failed with NOT NULL).
+- clinic_sub_cal_check: assigned stable import id (was missing -> import failed with NOT NULL).
+- clinic_sub_cal_find: assigned stable import id (was missing -> import failed with NOT NULL).
+- clinic_sub_cal_resched: assigned stable import id (was missing -> import failed with NOT NULL).
+- clinic_sub_calendar_booking: assigned stable import id (was missing -> import failed with NOT NULL).
+- clinic_sub_eng_cleanup: assigned stable import id (was missing -> import failed with NOT NULL).
+- clinic_sub_eng_escalate: assigned stable import id (was missing -> import failed with NOT NULL).
+- clinic_sub_eng_info: assigned stable import id (was missing -> import failed with NOT NULL).
+- clinic_sub_eng_offers: assigned stable import id (was missing -> import failed with NOT NULL).
+- clinic_sub_eng_postvisit: assigned stable import id (was missing -> import failed with NOT NULL).
+- clinic_sub_eng_remind: assigned stable import id (was missing -> import failed with NOT NULL).
+- clinic_sub_escalation: assigned stable import id (was missing -> import failed with NOT NULL).
+- clinic_sub_knowledge_base: assigned stable import id (was missing -> import failed with NOT NULL).
+- clinic_sub_queue_position: assigned stable import id (was missing -> import failed with NOT NULL).
+- clinic_sub_voice_stt: assigned stable import id (was missing -> import failed with NOT NULL).
+- clinic_trend_radar: assigned stable import id (was missing -> import failed with NOT NULL).
 - Copied 25 clinic files to FINAL_AUDIT/fixed/ (originals untouched).
 - book: removed requiresHumanApproval from 4 routine lock/cache nodes (were stalling headless runs; patient-visible safety kept via staff alerts).
 - book: Store Event Index now keys on Create Calendar Event output id (was reading unwired Reply node -> empty ev: keys).

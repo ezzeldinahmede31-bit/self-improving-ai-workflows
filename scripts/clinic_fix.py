@@ -107,9 +107,17 @@ def strip_approval(d, names):
 
 
 def setup():
+    import hashlib
+    import uuid as _uuid
     DST.mkdir(parents=True, exist_ok=True)
     for f in sorted(SRC.glob("clinic_*.json")):
-        (DST / f.name).write_text(f.read_text(encoding="utf-8"),
+        d = json.loads(f.read_text(encoding="utf-8"))
+        if not d.get("id"):
+            # stable deterministic id (import requires it; same input -> same id)
+            digest = hashlib.sha256(f.stem.encode()).hexdigest()
+            d["id"] = str(_uuid.UUID(digest[:32]))
+            LOG.append(f"{f.stem}: assigned stable import id (was missing -> import failed with NOT NULL).")
+        (DST / f.name).write_text(json.dumps(d, ensure_ascii=False),
                                   encoding="utf-8")
     LOG.append("Copied 25 clinic files to FINAL_AUDIT/fixed/ (originals untouched).")
 
