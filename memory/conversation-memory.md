@@ -2409,3 +2409,10 @@ reporting style + session persistence, start with trial read task (default yes).
 
 ## STANDING RULE (user-corrected 2026-10-11): primary browser = debug Chrome :9222
 - ALWAYS attach via CDP to 127.0.0.1:9222 (existing debug instance). NEVER launch a separate browser/profile/window. No new Chrome windows on user's screen. Read-only: no posts/messages/likes/follows. дисковой cleanup of any temp profiles.
+
+## 2026-10-11 — social-layer research via agreed debug browser :9222 (CDP, read-only)
+- Reddit r/Egypt: weak source for this topic (1 shitpost on vezeeta).
+- Facebook: dentist groups mapped (107K/88K/78K/58K members); NOT joined (needs user approval — joining is an action). Posts search login-walled.
+- LinkedIn: STRONG — Egyptian dev (Apex Team) actively selling clinic booking automation in Egyptian Arabic (missed calls, no-shows, self-booking till midnight). Direct competitor + proven messaging.
+- X: live Egyptian timeline accessible; vezeeta chatter is generic/student talk, not buyer intent.
+- Verdict stands: demand validated; wedge = WhatsApp AI, Arabic-first, no commissions, cheaper than HumAI 4-12k/mo.
