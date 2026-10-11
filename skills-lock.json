@@ -835,6 +835,12 @@
       "skillPath": "skills/emails/SKILL.md",
       "computedHash": "261d986c2a1f1f5f823f8c889e16db723edb8a9d0fa5ede8412f981594715c49"
     },
+    "excalidraw-diagram-generator": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/excalidraw-diagram-generator/SKILL.md",
+      "computedHash": "d26f6110fda8be59a3ba2e627f26b9d11834cd6a82b8cba05a9d80e97ea457d3"
+    },
     "excalidraw-skill": {
       "source": "lingzhi227/agent-research-skills",
       "sourceType": "github",
