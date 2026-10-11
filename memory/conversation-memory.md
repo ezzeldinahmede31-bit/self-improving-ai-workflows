@@ -2424,3 +2424,9 @@ reporting style + session persistence, start with trial read task (default yes).
 - Joined: اسأل دكتور الأسنان بالمجان (107K, joined today). Verified member: jobs group 78K, حكايات أسنانجي 114K. NOT joined (private/approval needed): DENTISTS CAFE 121K.
 - Patient-side evidence (public posts): price/installment asks, phone-number drops in comments = zero booking rails, chaos confirmed. Dentist-side: clinical chatter + training complaints (distribution channel, not pain).
 - Lines held: no DMs opened, no posting/commenting/liking, tabs untouched, temp browser copy deleted. Scripts cleaned after run.
+
+## Booking system recall + Desktop copy (Oct 11 2026)
+- User (Arabic): recall the booking management system we built, recall everything in it, copy it to a folder on Desktop.
+- Recalled: clinic dental booking system (Telegram receptionist, 25 JSON in memory/workflows) — main 59-node agent + cal book/cancel/resched/check/find + eng lanes + voice STT + KB + escalation + queue + staff console + reminder engine (2-min cron) + recall via clinic_visits_log + review form + global error audit + trend/audience/competitor radars. History: WhatsApp v1 gated READY, Telegram rebuild, live E2E exec 623, NVIDIA 410→lightning-30b fix, world-class battery in memory/test_matrix.md.
+- Clarify-before-execute: asked 5 Q (source/dest/scope/overwrite/purpose); answers: source=memory/workflows, dest=delete+recreate نظام-الحجز same name, scope=workflows+README, overwrite=all, purpose=handover.
+- Delivered: deleted + recreated /home/ezzeldin/Desktop/نظام-الحجز, copied 25 clinic_*.json (md5 25/25 match), wrote Arabic handover README.md (7KB). Total 26 files.
