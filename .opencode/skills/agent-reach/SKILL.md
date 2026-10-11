@@ -34,21 +34,18 @@ agent-reach skill --install              # register SKILL.md into agent dirs
 
 ### Live on this machine (verified via doctor)
 
-| Channel | How the agent calls it | Notes |
-|---------|------------------------|-------|
-| `youtube` | `yt-dlp --skip-download --print "%(title)s" <url>` for info; `--write-auto-sub --sub-langs ar,en --skip-download` for subtitles | Proven live on this machine (title+duration+AR/EN subs extracted) |
-| `rss` | any feed URL via feedparser/curl | Clean text, no login |
-| `web` | `curl https://r.jina.ai/<URL>` | Jina Reader, no key |
-| `v2ex` | public API | Hot posts, threads, replies |
-| `bilibili` | search API direct | Full subs need `bili-cli` |
-
-### Unlockable (needs approval or login)
-
-| Channel | Requirement |
-|---------|-------------|
-| `github` (private/issues/PRs) | `gh` CLI install (needs sudo approval) |
-| `exa` semantic search | `mcporter` via `npm install -g` (needs sudo approval) |
-| `twitter`, `reddit`, `facebook`, `instagram`, `linkedin`, `xiaohongshu` | Cookie login per channel — ask the agent "ثبّتلي Twitter" etc. |
+| Channel | How the agent calls it | Status on this machine |
+|---------|------------------------|------------------------|
+| `youtube` | `yt-dlp --skip-download --print "%(title)s" <url>`; `--write-auto-sub --sub-langs ar,en` for subs | ✅ LIVE (title+duration+AR/EN subs proven) |
+| `twitter/X` | `twitter search <query>`, `twitter tweet <id>`, `twitter user-posts <user>`, `twitter whoami` | ✅ LIVE as **Ezzeldin Ali @ezzeldinq8td** (cookies from user Chrome via CDP, `configure twitter-cookies --sync-legacy-twitter`) |
+| `reddit` | `rdt search <query>`, `rdt sub <name>`, `rdt whoami` | ✅ LIVE as **Ezzeldin_Alawy** (read+write, auto browser-subprocess auth) |
+| `exa` semantic search | `mcporter call exa.web_search_exa query="..." numResults=N` | ✅ LIVE (results proven, no API key) |
+| `rss` | any feed URL via feedparser/curl | ✅ LIVE, no login |
+| `web` | `curl https://r.jina.ai/<URL>` | ✅ LIVE, no key |
+| `v2ex` | public API | ✅ LIVE |
+| `bilibili` | search API direct | ✅ search live; full subs need `bili-cli` |
+| `github` public | `gh` CLI 2.45.0 (installed via apt) | ✅ public repos; private needs `gh auth login` → user PAT pending |
+| `facebook`, `instagram`, `linkedin` | No working CLI (`bird`/`opencli` abandoned, unbuildable on modern Python) → use `persistent-browser-automation` + user Chrome CDP (all 3 proven logged-in: FB Ezzeldin, IG ezzeldina738, LinkedIn Ezzeldin Mohamed) | ⚠️ via browser fallback |
 
 ## Security rules (from upstream docs)
 
