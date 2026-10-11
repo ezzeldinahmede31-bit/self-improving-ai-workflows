@@ -2383,3 +2383,8 @@ reporting style + session persistence, start with trial read task (default yes).
 - Security: no creds in JSON ($env refs), body-token gate (TEAM_TOKEN in container env), no-auth-webhook + jailbreak-word findings accepted+logged (owner-ordered execution).
 - TESTS (all real executions, all success): GUI 200, token-deny forbidden, dev/sales/qa live answers, skill EN+AR matches, plan trio merged+usage object. Total plan+build LLM spend ~$0.11.
 - GUI: http://127.0.0.1:5677/webhook/team (token auto-injected, user never types it).
+
+## 2026-10-11 — team GUI rebuilt as real chat app (user couldn't use v1)
+- v1 page was static buttons + raw JSON output. Rebuilt team-gui ServePage: sidebar (manager/dev/sales/qa/team-all), per-chat history (localStorage), Enter-to-send, typing timer (free-tier latency warning), clean-text rendering (extracts choices/content, merged, matches), Arabic error/retry states, mode select for manager.
+- Verified: page 200 (6282B), token injected, JS balanced, all 4 endpoints live incl. simulated team fan-out (3 parallel answers).
+- GUI URL: http://127.0.0.1:5677/webhook/team
