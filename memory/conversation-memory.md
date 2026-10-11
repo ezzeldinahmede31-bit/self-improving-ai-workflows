@@ -2406,3 +2406,6 @@ reporting style + session persistence, start with trial read task (default yes).
 - Rivals: Vezeeta (marketplace+commission, thin EMR), CliniDo (simple), Clinit (full SaaS), Medastik (dental), HumAI Egypt (WhatsApp 4-12k EGP/mo = price anchor). Egypt needs: Arabic UI, EGP+Paymob, WhatsApp-first, go-live in days.
 - Our gap: WhatsApp AI automation (not links), cheap/fast, Arabic-first, no commissions.
 - Private layer (FB groups/IG/LinkedIn/TikTok/X) needs user's one-time browser login — offered as next step.
+
+## STANDING RULE (user-corrected 2026-10-11): primary browser = debug Chrome :9222
+- ALWAYS attach via CDP to 127.0.0.1:9222 (existing debug instance). NEVER launch a separate browser/profile/window. No new Chrome windows on user's screen. Read-only: no posts/messages/likes/follows. дисковой cleanup of any temp profiles.
