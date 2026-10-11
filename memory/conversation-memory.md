@@ -2375,3 +2375,11 @@ reporting style + session persistence, start with trial read task (default yes).
 ## 2026-10-11 — $1k/15d startup plan via multi-model pipeline (real run, $0.073)
 - GPT-5 planned (15 steps, $0.030) -> Claude Opus 4.6 critiqued (ban risk CRITICAL, EGP pricing mismatch, trust deficit; $0.037) -> Kimi merged (EGP-first tiers, warm-up caps, trust architecture, official API path; $0.006). Kimi-K3 on OpenRouter=402, NVIDIA direct flaky -> used kimi-k2-0905.
 - Key corrections: NO mass cold DMs (10-15/day caps, warm-up ladder); EGP prices (1.5k-25k); demos without installing on client numbers; 360dialog/Twilio official path for paid.
+
+## 2026-10-11 — startup team on n8n: BUILT + TESTED (5 workflows live)
+- Audit: 48 existing workflows (Multi-Agent, staff, router, Clinic Receptionist GATED w/ NVIDIA agent, First Pass Demo). Backup: n8n-data-backup-20261011.tgz (128MB) + 48 JSON exports. Reused exact node shapes (chatTrigger v1.4, http 4.2, IF 2.3, agent v1.7, lmChatNvidia v1, respond 1.5) + credential IDs; 23 creds already in DB.
+- Arch review: kimi-k2 + deepseek-v3.2 BOTH verdict C (HYBRID). Built: team-gui (GET /team HTML page), startup-mgr (token gate + classify + NVIDIA/OpenRouter simple + GPT/deepseek->Haiku->Kimi plan chain w/ guards + skill lookup w/ AR bridge), startup-dev/sales/qa.
+- Hard lessons (all fixed w/ evidence): import strips webhookId -> top-level webhookId + composite-path discovery; sqlite activation needs activeVersionId; Code has no process (use $env); $() inside JSON strings is literal -> concatenation form; OpenRouter free-tier 402 on GPT-5/Opus -> deepseek-v3.2+haiku+kimi-k2; NVIDIA kimi timeouts + nemotron 410 -> OpenRouter Kimi (NVIDIA one-line swap); free-tier latency variance seconds->minutes (executionTimeout 300).
+- Security: no creds in JSON ($env refs), body-token gate (TEAM_TOKEN in container env), no-auth-webhook + jailbreak-word findings accepted+logged (owner-ordered execution).
+- TESTS (all real executions, all success): GUI 200, token-deny forbidden, dev/sales/qa live answers, skill EN+AR matches, plan trio merged+usage object. Total plan+build LLM spend ~$0.11.
+- GUI: http://127.0.0.1:5677/webhook/team (token auto-injected, user never types it).

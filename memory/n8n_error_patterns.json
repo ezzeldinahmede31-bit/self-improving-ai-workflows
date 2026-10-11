@@ -1,31 +1,31 @@
 [
   {
-    "gate": "quality",
-    "pattern": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "count": 171,
-    "first_seen": "2026-08-15T01:45:33.866641+00:00",
-    "last_seen": "2026-10-11T11:26:54.654369+00:00"
-  },
-  {
     "gate": "skills",
     "pattern": "no --skills-loaded manifest — actual agent loads are NOT verifiable headless; readiness (installed + frontmatter + routable) verified only",
-    "count": 170,
+    "count": 182,
     "first_seen": "2026-08-24T13:18:28.258531+00:00",
-    "last_seen": "2026-10-11T11:26:54.660450+00:00"
+    "last_seen": "2026-10-11T13:46:00.236452+00:00"
+  },
+  {
+    "gate": "quality",
+    "pattern": "No pinnedData on primary nodes — cannot unit-test instantly",
+    "count": 176,
+    "first_seen": "2026-08-15T01:45:33.866641+00:00",
+    "last_seen": "2026-10-11T12:59:01.959065+00:00"
   },
   {
     "gate": "quality",
     "pattern": "No Error Trigger node and no continueOnFail on any node",
-    "count": 155,
+    "count": 160,
     "first_seen": "2026-08-15T01:45:33.866459+00:00",
-    "last_seen": "2026-10-11T11:26:54.653093+00:00"
+    "last_seen": "2026-10-11T12:59:01.958534+00:00"
   },
   {
     "gate": "dry_run",
     "pattern": "no dry-run evidence: nodes carry no pinned data and no expected_result from a trial run — run the workflow on the n8n instance (n8n-pinned-data-mocking) before delivery",
-    "count": 54,
+    "count": 59,
     "first_seen": "2026-08-17T06:06:55.931702+00:00",
-    "last_seen": "2026-10-10T11:11:25.318683+00:00"
+    "last_seen": "2026-10-11T12:59:01.964455+00:00"
   },
   {
     "gate": "quality",
@@ -44,9 +44,16 @@
   {
     "gate": "quality",
     "pattern": "Deprecated syntax `\\$json\\b(?!\\.)` used",
-    "count": 7,
+    "count": 14,
     "first_seen": "2026-08-24T13:18:28.243630+00:00",
-    "last_seen": "2026-09-10T04:58:32.106824+00:00"
+    "last_seen": "2026-10-11T13:02:19.403341+00:00"
+  },
+  {
+    "gate": "quality",
+    "pattern": "Workflow has 16 nodes — recommend sub-workflow split",
+    "count": 11,
+    "first_seen": "2026-08-15T01:33:03.197084+00:00",
+    "last_seen": "2026-10-11T13:07:24.421232+00:00"
   },
   {
     "gate": "quality",
@@ -105,6 +112,13 @@
     "last_seen": "2026-08-24T13:26:00.088013+00:00"
   },
   {
+    "gate": "quality",
+    "pattern": "Workflow has 13 nodes — recommend sub-workflow split",
+    "count": 3,
+    "first_seen": "2026-09-14T14:06:50.735296+00:00",
+    "last_seen": "2026-10-11T12:55:58.868234+00:00"
+  },
+  {
     "gate": "security",
     "pattern": "[TOOL_SCOPE_LOCK] Agent 'Understand Request (LLM)' has unrestricted or undefined tool access (no explicit allowed_tools list)",
     "count": 2,
@@ -131,13 +145,6 @@
     "count": 2,
     "first_seen": "2026-08-15T01:33:03.196889+00:00",
     "last_seen": "2026-08-15T01:33:42.470919+00:00"
-  },
-  {
-    "gate": "quality",
-    "pattern": "Workflow has 16 nodes — recommend sub-workflow split",
-    "count": 2,
-    "first_seen": "2026-08-15T01:33:03.197084+00:00",
-    "last_seen": "2026-08-15T01:33:42.471045+00:00"
   },
   {
     "gate": "quality",
@@ -684,13 +691,6 @@
     "count": 1,
     "first_seen": "2026-09-14T14:06:48.639298+00:00",
     "last_seen": "2026-09-14T14:06:48.639311+00:00"
-  },
-  {
-    "gate": "quality",
-    "pattern": "Workflow has 13 nodes — recommend sub-workflow split",
-    "count": 1,
-    "first_seen": "2026-09-14T14:06:50.735296+00:00",
-    "last_seen": "2026-09-14T14:06:50.735309+00:00"
   },
   {
     "gate": "quality",

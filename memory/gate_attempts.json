@@ -97,5 +97,8 @@
   },
   "proof_malicious.json": {
     "SECURITY_VIOLATION_REQUIRES_HUMAN::Metadata/SSRF target `169.254.169.254` in flow": 4
+  },
+  "startup-mgr.json": {
+    "SECURITY_VIOLATION_REQUIRES_HUMAN::[JAILBREAK_OVERRIDE_IN_PROMPT] Node 'SkillLookup' contains prompt-injection override /jailbreak/ — prompt injection (OWA": 12
   }
 }

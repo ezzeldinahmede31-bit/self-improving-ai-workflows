@@ -1,887 +1,5 @@
 [
   {
-    "id": "quality-1789839417770",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:36:57.770787+00:00",
-    "resolved_at": "2026-09-19T17:48:53.114865+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840133647",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:48:53.647355+00:00",
-    "resolved_at": "2026-09-19T17:48:58.236049+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840139619",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:48:59.620004+00:00",
-    "resolved_at": "2026-09-19T17:49:02.803524+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840142998",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:49:02.998506+00:00",
-    "resolved_at": "2026-09-19T17:49:05.999631+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840147017",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:49:07.017541+00:00",
-    "resolved_at": "2026-09-19T17:49:10.565113+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840150752",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:49:10.752749+00:00",
-    "resolved_at": "2026-09-19T17:49:13.517362+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840154697",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:49:14.697381+00:00",
-    "resolved_at": "2026-09-19T17:49:20.148896+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840160414",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:49:20.414803+00:00",
-    "resolved_at": "2026-09-19T17:49:23.633656+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840165311",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:49:25.311470+00:00",
-    "resolved_at": "2026-09-19T17:49:29.545586+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840169823",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:49:29.823520+00:00",
-    "resolved_at": "2026-09-19T17:49:32.676408+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840173956",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:49:33.956758+00:00",
-    "resolved_at": "2026-09-19T17:49:37.104823+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840177359",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:49:37.359021+00:00",
-    "resolved_at": "2026-09-19T17:49:41.160680+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840182907",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:49:42.907937+00:00",
-    "resolved_at": "2026-09-19T17:49:46.673934+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840186846",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:49:46.846051+00:00",
-    "resolved_at": "2026-09-19T17:49:49.593698+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840191177",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:49:51.177536+00:00",
-    "resolved_at": "2026-09-19T17:49:54.891460+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840195063",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:49:55.064003+00:00",
-    "resolved_at": "2026-09-19T17:49:58.590265+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840199708",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:49:59.708839+00:00",
-    "resolved_at": "2026-09-19T17:50:02.753586+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840203238",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:50:03.238857+00:00",
-    "resolved_at": "2026-09-19T17:50:08.239635+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840209866",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:50:09.866948+00:00",
-    "resolved_at": "2026-09-19T17:50:14.535367+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840214874",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:50:14.874587+00:00",
-    "resolved_at": "2026-09-19T17:50:24.623492+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840226127",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:50:26.127993+00:00",
-    "resolved_at": "2026-09-19T17:50:29.854759+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840230051",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:50:30.051364+00:00",
-    "resolved_at": "2026-09-19T17:50:33.223273+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840234348",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:50:34.348151+00:00",
-    "resolved_at": "2026-09-19T17:50:37.753072+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840238052",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:50:38.052321+00:00",
-    "resolved_at": "2026-09-19T17:50:43.325137+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840244984",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:50:44.985083+00:00",
-    "resolved_at": "2026-09-19T17:50:49.060599+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840249245",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:50:49.245240+00:00",
-    "resolved_at": "2026-09-19T17:50:52.278936+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840253592",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:50:53.592653+00:00",
-    "resolved_at": "2026-09-19T17:50:56.388225+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840256710",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:50:56.710839+00:00",
-    "resolved_at": "2026-09-19T17:51:00.067796+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840261633",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:51:01.633574+00:00",
-    "resolved_at": "2026-09-19T17:51:05.022006+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840265302",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:51:05.302125+00:00",
-    "resolved_at": "2026-09-19T17:51:08.723643+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840270315",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:51:10.315760+00:00",
-    "resolved_at": "2026-09-19T17:51:14.100067+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840274500",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:51:14.500313+00:00",
-    "resolved_at": "2026-09-19T17:51:19.027417+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840303525",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:51:43.525964+00:00",
-    "resolved_at": "2026-09-19T17:51:46.820065+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840307663",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:51:47.663527+00:00",
-    "resolved_at": "2026-09-19T17:51:51.067914+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840721615",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:58:41.615823+00:00",
-    "resolved_at": "2026-09-19T17:58:45.591772+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840725785",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:58:45.785899+00:00",
-    "resolved_at": "2026-09-19T17:58:48.993993+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840729887",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:58:49.887797+00:00",
-    "resolved_at": "2026-09-19T17:58:53.022488+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840733318",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:58:53.318581+00:00",
-    "resolved_at": "2026-09-19T17:58:57.017486+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840737906",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:58:57.906300+00:00",
-    "resolved_at": "2026-09-19T17:59:00.373876+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840740561",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:59:00.561358+00:00",
-    "resolved_at": "2026-09-19T17:59:03.466707+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840751820",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:59:11.820077+00:00",
-    "resolved_at": "2026-09-19T17:59:14.398251+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840754580",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:59:14.580292+00:00",
-    "resolved_at": "2026-09-19T17:59:17.134525+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840778805",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:59:38.805992+00:00",
-    "resolved_at": "2026-09-19T17:59:42.264839+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840782455",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:59:42.455285+00:00",
-    "resolved_at": "2026-09-19T17:59:45.094288+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840786137",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:59:46.137722+00:00",
-    "resolved_at": "2026-09-19T17:59:49.196307+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840789384",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:59:49.384517+00:00",
-    "resolved_at": "2026-09-19T17:59:54.737261+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840796097",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T17:59:56.097710+00:00",
-    "resolved_at": "2026-09-19T18:00:02.177119+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840802370",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T18:00:02.370200+00:00",
-    "resolved_at": "2026-09-19T18:00:05.960920+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1789840807042",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-09-19T18:00:07.042355+00:00",
-    "resolved_at": "2026-09-19T18:00:09.556353+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
     "id": "quality-1789840809757",
     "gate": "QUALITY",
     "kind": "SKILL_GAP",
@@ -3596,6 +2714,912 @@
     "status": "NO_SOLUTION",
     "created_at": "2026-10-11T11:36:04.456791+00:00",
     "resolved_at": "2026-10-11T11:36:07.203677+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723325125",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
+    "keywords": [
+      "pinneddata",
+      "primary",
+      "unit-test",
+      "instantly"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:55:25.125944+00:00",
+    "resolved_at": "2026-10-11T12:55:28.282196+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723325302",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Code node `SkillLookup` exceeds cyclomatic threshold",
+    "keywords": [
+      "code",
+      "skilllookup",
+      "exceeds",
+      "cyclomatic",
+      "threshold"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:55:25.302954+00:00",
+    "resolved_at": "2026-10-11T12:55:31.430198+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723332239",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
+    "keywords": [
+      "pinneddata",
+      "primary",
+      "unit-test",
+      "instantly"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:55:32.239123+00:00",
+    "resolved_at": "2026-10-11T12:55:35.928899+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723332408",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Code node `SkillLookup` exceeds cyclomatic threshold",
+    "keywords": [
+      "code",
+      "skilllookup",
+      "exceeds",
+      "cyclomatic",
+      "threshold"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:55:32.408601+00:00",
+    "resolved_at": "2026-10-11T12:55:38.220716+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723347340",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
+    "keywords": [
+      "pinneddata",
+      "primary",
+      "unit-test",
+      "instantly"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:55:47.340832+00:00",
+    "resolved_at": "2026-10-11T12:55:51.187286+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723347508",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Code node `SkillLookup` exceeds cyclomatic threshold",
+    "keywords": [
+      "code",
+      "skilllookup",
+      "exceeds",
+      "cyclomatic",
+      "threshold"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:55:47.508356+00:00",
+    "resolved_at": "2026-10-11T12:55:53.128169+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723353947",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
+    "keywords": [
+      "pinneddata",
+      "primary",
+      "unit-test",
+      "instantly"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:55:53.947178+00:00",
+    "resolved_at": "2026-10-11T12:55:56.709319+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723354115",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Code node `SkillLookup` exceeds cyclomatic threshold",
+    "keywords": [
+      "code",
+      "skilllookup",
+      "exceeds",
+      "cyclomatic",
+      "threshold"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:55:54.115814+00:00",
+    "resolved_at": "2026-10-11T12:55:58.854740+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723440961",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Isolated/unreachable nodes: ['TokenGate', 'TokenOk', 'DenyReply']",
+    "keywords": [
+      "isolated",
+      "unreachable",
+      "tokengate",
+      "tokenok",
+      "denyreply"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:57:20.961392+00:00",
+    "resolved_at": "2026-10-11T12:57:24.147377+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723441160",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
+    "keywords": [
+      "pinneddata",
+      "primary",
+      "unit-test",
+      "instantly"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:57:21.160869+00:00",
+    "resolved_at": "2026-10-11T12:57:26.402643+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723441330",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Code node `SkillLookup` exceeds cyclomatic threshold",
+    "keywords": [
+      "code",
+      "skilllookup",
+      "exceeds",
+      "cyclomatic",
+      "threshold"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:57:21.330311+00:00",
+    "resolved_at": "2026-10-11T12:57:29.576137+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723450321",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Isolated/unreachable nodes: ['DenyReply']",
+    "keywords": [
+      "isolated",
+      "unreachable",
+      "denyreply"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:57:30.321228+00:00",
+    "resolved_at": "2026-10-11T12:57:33.472117+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723450489",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
+    "keywords": [
+      "pinneddata",
+      "primary",
+      "unit-test",
+      "instantly"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:57:30.489021+00:00",
+    "resolved_at": "2026-10-11T12:57:35.726775+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723450658",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Code node `SkillLookup` exceeds cyclomatic threshold",
+    "keywords": [
+      "code",
+      "skilllookup",
+      "exceeds",
+      "cyclomatic",
+      "threshold"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:57:30.658273+00:00",
+    "resolved_at": "2026-10-11T12:57:38.074407+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723458804",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Isolated/unreachable nodes: ['DenyReply']",
+    "keywords": [
+      "isolated",
+      "unreachable",
+      "denyreply"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:57:38.804337+00:00",
+    "resolved_at": "2026-10-11T12:57:46.169711+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723458978",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
+    "keywords": [
+      "pinneddata",
+      "primary",
+      "unit-test",
+      "instantly"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:57:38.978208+00:00",
+    "resolved_at": "2026-10-11T12:57:49.033098+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723459146",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Code node `SkillLookup` exceeds cyclomatic threshold",
+    "keywords": [
+      "code",
+      "skilllookup",
+      "exceeds",
+      "cyclomatic",
+      "threshold"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:57:39.147022+00:00",
+    "resolved_at": "2026-10-11T12:57:51.182924+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723480385",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Isolated/unreachable nodes: ['TokenGate', 'TokenOk', 'DenyReply']",
+    "keywords": [
+      "isolated",
+      "unreachable",
+      "tokengate",
+      "tokenok",
+      "denyreply"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:58:00.386003+00:00",
+    "resolved_at": "2026-10-11T12:58:03.371260+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723480586",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
+    "keywords": [
+      "pinneddata",
+      "primary",
+      "unit-test",
+      "instantly"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:58:00.586061+00:00",
+    "resolved_at": "2026-10-11T12:58:05.423019+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723480754",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Code node `SkillLookup` exceeds cyclomatic threshold",
+    "keywords": [
+      "code",
+      "skilllookup",
+      "exceeds",
+      "cyclomatic",
+      "threshold"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:58:00.754519+00:00",
+    "resolved_at": "2026-10-11T12:58:07.875179+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723488602",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Isolated/unreachable nodes: ['DenyReply']",
+    "keywords": [
+      "isolated",
+      "unreachable",
+      "denyreply"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:58:08.602211+00:00",
+    "resolved_at": "2026-10-11T12:58:11.967978+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723488764",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
+    "keywords": [
+      "pinneddata",
+      "primary",
+      "unit-test",
+      "instantly"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:58:08.764323+00:00",
+    "resolved_at": "2026-10-11T12:58:13.842834+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723488926",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Code node `SkillLookup` exceeds cyclomatic threshold",
+    "keywords": [
+      "code",
+      "skilllookup",
+      "exceeds",
+      "cyclomatic",
+      "threshold"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:58:08.926314+00:00",
+    "resolved_at": "2026-10-11T12:58:15.964460+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723496703",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Isolated/unreachable nodes: ['DenyReply']",
+    "keywords": [
+      "isolated",
+      "unreachable",
+      "denyreply"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:58:16.703213+00:00",
+    "resolved_at": "2026-10-11T12:58:21.267060+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723496885",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
+    "keywords": [
+      "pinneddata",
+      "primary",
+      "unit-test",
+      "instantly"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:58:16.885476+00:00",
+    "resolved_at": "2026-10-11T12:58:23.354026+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723497050",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Code node `SkillLookup` exceeds cyclomatic threshold",
+    "keywords": [
+      "code",
+      "skilllookup",
+      "exceeds",
+      "cyclomatic",
+      "threshold"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:58:17.050494+00:00",
+    "resolved_at": "2026-10-11T12:58:25.797879+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723515402",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Isolated/unreachable nodes: ['TokenGate', 'TokenOk', 'DenyReply']",
+    "keywords": [
+      "isolated",
+      "unreachable",
+      "tokengate",
+      "tokenok",
+      "denyreply"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:58:35.402799+00:00",
+    "resolved_at": "2026-10-11T12:58:38.902055+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723515610",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
+    "keywords": [
+      "pinneddata",
+      "primary",
+      "unit-test",
+      "instantly"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:58:35.610145+00:00",
+    "resolved_at": "2026-10-11T12:58:41.749580+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723515768",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Code node `SkillLookup` exceeds cyclomatic threshold",
+    "keywords": [
+      "code",
+      "skilllookup",
+      "exceeds",
+      "cyclomatic",
+      "threshold"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:58:35.768922+00:00",
+    "resolved_at": "2026-10-11T12:58:44.559765+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723525304",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Isolated/unreachable nodes: ['DenyReply']",
+    "keywords": [
+      "isolated",
+      "unreachable",
+      "denyreply"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:58:45.304152+00:00",
+    "resolved_at": "2026-10-11T12:58:48.420909+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723525468",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
+    "keywords": [
+      "pinneddata",
+      "primary",
+      "unit-test",
+      "instantly"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:58:45.468631+00:00",
+    "resolved_at": "2026-10-11T12:58:50.271898+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723525634",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Code node `SkillLookup` exceeds cyclomatic threshold",
+    "keywords": [
+      "code",
+      "skilllookup",
+      "exceeds",
+      "cyclomatic",
+      "threshold"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:58:45.634742+00:00",
+    "resolved_at": "2026-10-11T12:58:52.380343+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723533113",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Isolated/unreachable nodes: ['DenyReply']",
+    "keywords": [
+      "isolated",
+      "unreachable",
+      "denyreply"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:58:53.113807+00:00",
+    "resolved_at": "2026-10-11T12:58:56.104262+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723533288",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
+    "keywords": [
+      "pinneddata",
+      "primary",
+      "unit-test",
+      "instantly"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:58:53.288951+00:00",
+    "resolved_at": "2026-10-11T12:58:59.481517+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723533465",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Code node `SkillLookup` exceeds cyclomatic threshold",
+    "keywords": [
+      "code",
+      "skilllookup",
+      "exceeds",
+      "cyclomatic",
+      "threshold"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T12:58:53.465992+00:00",
+    "resolved_at": "2026-10-11T12:59:01.943560+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723718264",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Code node `SkillLookup` exceeds cyclomatic threshold",
+    "keywords": [
+      "code",
+      "skilllookup",
+      "exceeds",
+      "cyclomatic",
+      "threshold"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T13:01:58.264947+00:00",
+    "resolved_at": "2026-10-11T13:02:00.764221+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723721518",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Code node `SkillLookup` exceeds cyclomatic threshold",
+    "keywords": [
+      "code",
+      "skilllookup",
+      "exceeds",
+      "cyclomatic",
+      "threshold"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T13:02:01.518268+00:00",
+    "resolved_at": "2026-10-11T13:02:03.983151+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723732955",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Code node `SkillLookup` exceeds cyclomatic threshold",
+    "keywords": [
+      "code",
+      "skilllookup",
+      "exceeds",
+      "cyclomatic",
+      "threshold"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T13:02:12.955491+00:00",
+    "resolved_at": "2026-10-11T13:02:15.274081+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723736342",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Code node `SkillLookup` exceeds cyclomatic threshold",
+    "keywords": [
+      "code",
+      "skilllookup",
+      "exceeds",
+      "cyclomatic",
+      "threshold"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T13:02:16.342617+00:00",
+    "resolved_at": "2026-10-11T13:02:19.378310+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723925879",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Code node `SkillLookup` exceeds cyclomatic threshold",
+    "keywords": [
+      "code",
+      "skilllookup",
+      "exceeds",
+      "cyclomatic",
+      "threshold"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T13:05:25.879250+00:00",
+    "resolved_at": "2026-10-11T13:05:28.596363+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723929281",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Code node `SkillLookup` exceeds cyclomatic threshold",
+    "keywords": [
+      "code",
+      "skilllookup",
+      "exceeds",
+      "cyclomatic",
+      "threshold"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T13:05:29.281373+00:00",
+    "resolved_at": "2026-10-11T13:05:31.462292+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723940418",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Code node `SkillLookup` exceeds cyclomatic threshold",
+    "keywords": [
+      "code",
+      "skilllookup",
+      "exceeds",
+      "cyclomatic",
+      "threshold"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T13:05:40.418587+00:00",
+    "resolved_at": "2026-10-11T13:05:42.467206+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791723943170",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Code node `SkillLookup` exceeds cyclomatic threshold",
+    "keywords": [
+      "code",
+      "skilllookup",
+      "exceeds",
+      "cyclomatic",
+      "threshold"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T13:05:43.170539+00:00",
+    "resolved_at": "2026-10-11T13:05:45.300072+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791724007594",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Code node `SkillLookup` exceeds cyclomatic threshold",
+    "keywords": [
+      "code",
+      "skilllookup",
+      "exceeds",
+      "cyclomatic",
+      "threshold"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T13:06:47.594055+00:00",
+    "resolved_at": "2026-10-11T13:06:50.206917+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791724010979",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Code node `SkillLookup` exceeds cyclomatic threshold",
+    "keywords": [
+      "code",
+      "skilllookup",
+      "exceeds",
+      "cyclomatic",
+      "threshold"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T13:06:50.979616+00:00",
+    "resolved_at": "2026-10-11T13:06:53.173203+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791724039216",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Code node `SkillLookup` exceeds cyclomatic threshold",
+    "keywords": [
+      "code",
+      "skilllookup",
+      "exceeds",
+      "cyclomatic",
+      "threshold"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T13:07:19.216774+00:00",
+    "resolved_at": "2026-10-11T13:07:21.551148+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791724042245",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Code node `SkillLookup` exceeds cyclomatic threshold",
+    "keywords": [
+      "code",
+      "skilllookup",
+      "exceeds",
+      "cyclomatic",
+      "threshold"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T13:07:22.245506+00:00",
+    "resolved_at": "2026-10-11T13:07:24.407519+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791726353805",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Code node `SkillLookup` exceeds cyclomatic threshold",
+    "keywords": [
+      "code",
+      "skilllookup",
+      "exceeds",
+      "cyclomatic",
+      "threshold"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T13:45:53.805420+00:00",
+    "resolved_at": "2026-10-11T13:45:57.132939+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791726357823",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "Code node `SkillLookup` exceeds cyclomatic threshold",
+    "keywords": [
+      "code",
+      "skilllookup",
+      "exceeds",
+      "cyclomatic",
+      "threshold"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-11T13:45:57.823937+00:00",
+    "resolved_at": "2026-10-11T13:46:00.221779+00:00",
     "resolution": "no skill found by find-skills",
     "search_hits": []
   }
