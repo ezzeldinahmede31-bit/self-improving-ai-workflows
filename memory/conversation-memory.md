@@ -2395,3 +2395,8 @@ reporting style + session persistence, start with trial read task (default yes).
 
 ## 2026-10-11 — team workflows DELETED per user order
 - Removed all 5 (team-gui, startup-mgr/dev/sales/qa) + their webhooks + executions from n8n DB. Verified 404 on all endpoints. Original 48 workflows untouched. Builder JSONs kept in /tmp/team-backup/ (rebuildable). TEAM_TOKEN env left inert in container.
+
+## 2026-10-11 — world-best marketing skills installed (user: التسويق وصناعة المحتوى)
+- L0: local had marketing-psychology/plan/social/ad-creative/video. Installed from coreyhaines31/marketingskills (54.1K stars, triple-pass audits, 150-224K installs each): copywriting, content-strategy, seo-audit, programmatic-seo. All VALID (appended workspace Verification/Pairs), registered, library refreshed.
+- REJECTED: 101-skills ai-video-generation (730K installs BUT 7-star repo, Socket Warn, needs paid belt CLI; local video/faceless-video-builder cover it). Skipped social-content (local `social` covers domain).
+- Sibling cross-refs (emails/cro/schema/...) mostly not installed — optional extensions, pulled on demand.
