@@ -2453,3 +2453,14 @@ reporting style + session persistence, start with trial read task (default yes).
 - User rule (Arabic): تشتغل مع أي مشروع بشكل تلقائي من غير ما أطلب وده يكون دايما لحد ما أطلب تتوقف — مش النهاردة بس، باستمرار.
 - Contract confirmed: pack = dispatching-parallel-agents (PRIMARY) + subagent-task-delegator + using-git-worktrees; trigger = 2+ independent parts with no shared state; safety = research/investigation parallel always, code implementation SEQUENTIAL unless isolated worktree per worker (subagent-driven-development conflict rule); announce = one line `[auto-parallel] N agents: <A, B, C>`; stop phrase = `وقف التوازي التلقائي`.
 - Enforcement: STATE -2d in `.opencode/skills/compensatory-router/SKILL.md` (MANDATORY AUTO-PARALLEL BASELINE on EVERY request); this memory section is the durable flag across sessions (re-encoded to .bin).
+
+## 2026-10-12 — dental plan via 3-model device-browser run (user: عيادة اسنان, متصفح حقيقي)
+- Contract (5 Q): full-cycle, Egyptian single-dentist clinic, pro stack (WATI/Gemini), final plan in English, real browser mandated (API path declined).
+- Ran in user's debug-Chrome profile: ChatGPT base 15-step plan → Claude 26-flaw critique + corrected 15-step plan (Postgres-over-Sheets, privacy-first, emergency keyword layer, staff console, households) → Kimi 14 remaining issues + final 15-step plan (consent-gate, redaction fn, timed escalation, 100-phrase corpus, queue mode, amount matching). Final merged plan delivered in English; chats saved in user accounts.
+- Baselines cited: n8n templates 8043/13697/8825 + Cubeedge180 n8n-Dental-Lead-Automation.
+
+## 2026-10-12 — system evolution: browser failures → `browser-debug-discipline` skill
+- Failures harvested (all evidenced): (1) launched separate Chrome windows violating standing no-new-windows rule — port 9222 was down and agent self-launched instead of asking user to start debug Chrome; (2) wrong side profile first (chatgpt_profile, logged-out) → user "wrong tab" correction, registry-primary only; (3) question-tool schema retry (missing `question` field); (4) Kimi: composed ~5k chars on kimi.com pre-login, lost on reload — login-before-compose, Kimi auth lives on kimi.ai; (5) pkill -f sandbox-blocked → exact-PID kills; (6) reasoning gate flagged innocent word "between" (false positive, reworded to "across", no gate machinery touched).
+- Built `.opencode/skills/browser-debug-discipline/SKILL.md` (68 lines): gates READY_FOR_DEPLOYMENT exit 0, registered in router (Automation bucket), library refreshed.
+- Self-evolver honesty: no rules.json promotion — browser-discipline violations have no deterministic canonical probe for SecurityGate; skill+memory+gates are the enforcement path. Complaints ledger all NO_SOLUTION (unchanged, no fabrication).
+- Bridge verified closed at end (no stray windows); debug profile untouched apart from normal browsing.
