@@ -12,23 +12,13 @@ Search multiple academic databases to find relevant papers.
 
 - `$ARGUMENTS` — The search query (natural language)
 
-## Scripts
+## Scripts (installed in this skill — use these paths)
 
-### Semantic Scholar (primary — best for ML/AI, has BibTeX)
-```bash
-python ~/.claude/skills/deep-research/scripts/search_semantic_scholar.py \
-  --query "QUERY" --max-results 20 --year-range 2022-2026 \
-  --api-key "$(grep S2_API_Key /Users/lingzhi/Code/keys.md 2>/dev/null | cut -d: -f2 | tr -d ' ')" \
-  -o results_s2.jsonl
-```
-
-Key flags: `--peer-reviewed-only`, `--top-conferences`, `--min-citations N`, `--venue NeurIPS ICML`
-
-### arXiv (latest preprints)
-```bash
-python ~/.claude/skills/deep-research/scripts/search_arxiv.py \
-  --query "QUERY" --max-results 10 -o results_arxiv.jsonl
-```
+> Semantic Scholar direct search, arXiv direct search, merge/dedupe and
+> BibTeX helpers used to live in the companion `deep-research` skill, which
+> is not installed here — those commands were removed on 2026-10-12 rather
+> than point at missing files. Never harvest API keys from another person's
+> files; use your own env vault.
 
 ### OpenAlex (broadest coverage, free, no API key)
 ```bash
@@ -37,12 +27,8 @@ python ~/.claude/skills/literature-search/scripts/search_openalex.py \
   --min-citations 5 -o results_openalex.jsonl
 ```
 
-### Merge & Deduplicate
-```bash
-python ~/.claude/skills/deep-research/scripts/paper_db.py merge \
-  --inputs results_s2.jsonl results_arxiv.jsonl results_openalex.jsonl \
-  --output merged.jsonl
-```
+### Merge & Deduplicate (manual — no merge script ships with this skill)
+Merge the per-source JSONL files, dedupe by DOI/title, and write `merged.jsonl`.
 
 ### CrossRef (DOI-based lookup, broadest type coverage)
 ```bash
@@ -60,11 +46,8 @@ python ~/.claude/skills/literature-search/scripts/download_arxiv_source.py \
 
 Key flags: `--arxiv-id 1706.03762`, `--metadata`, `--max-results N`
 
-### Generate BibTeX from results
-```bash
-python ~/.claude/skills/deep-research/scripts/bibtex_manager.py \
-  --jsonl merged.jsonl --output references.bib
-```
+### Generate BibTeX from results (manual — no BibTeX script ships with this skill)
+Convert `merged.jsonl` to `references.bib` (one @article per record).
 
 ## Workflow
 

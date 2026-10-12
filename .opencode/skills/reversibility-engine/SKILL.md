@@ -74,11 +74,10 @@ Phase 2: Commit (execute) OR Abort (release)
 
 ## Usage
 
-### Detection Mode (default)
-Run skill detection on a workflow JSON:
-```bash
-venv/bin/python scripts/detect_reversibility.py .opencode/skills/reversibility-engine   --workflow /path/to/workflow.json   --output /path/to/reversibility_report.json
-```
+### Review Mode (manual — no detector script ships with this skill)
+Walk the workflow JSON against the reversibility catalog above and record
+every hit in the Report Format below. Route structural fixes through
+`n8n-error-boundary-architect` and `build_gates_pipeline.py`.
 
 ### Report Format
 ```json

@@ -40,11 +40,10 @@ This skill enforces:
 
 ## Usage
 
-### Detection Mode (default)
-Run skill detection on a workflow JSON:
-```bash
-venv/bin/python scripts/detect_orthogonality.py .opencode/skills/orthogonality-guard   --workflow /path/to/workflow.json   --output /path/to/coupling_report.json
-```
+### Review Mode (manual — no detector script ships with this skill)
+Walk the workflow JSON against the coupling catalog above and record every
+hit in the Report Format below. Route structural fixes through
+`build_gates_pipeline.py` (QUALITY/INTEGRITY stages).
 
 ### Report Format
 ```json

@@ -64,10 +64,10 @@ The Clean Coder teaches that professionalism is a responsibility, not just a job
 
 ## Usage
 
-### Detection Mode
-```bash
-venv/bin/python scripts/check_professionalism.py .opencode/skills/professional-conduct-gate   --workflow /path/to/workflow.json   --output /path/to/professionalism_report.json
-```
+### Review Mode (manual — no detector script ships with this skill)
+Walk the workflow JSON against the conduct catalog above and record every
+hit in the Report Format below. Route process fixes through
+`tdd-sandbox-proof-engine` and `verification-before-completion`.
 
 ### Report Format
 ```json

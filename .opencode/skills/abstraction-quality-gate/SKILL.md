@@ -81,10 +81,10 @@ Ratio: 15/3 = 5 → DEEP
 
 ## Usage
 
-### Detection Mode
-```bash
-venv/bin/python scripts/check_abstraction_quality.py .opencode/skills/abstraction-quality-gate   --workflow /path/to/workflow.json   --output /path/to/abstraction_report.json
-```
+### Review Mode (manual — no detector script ships with this skill)
+Walk the workflow JSON against the catalog above and record every hit in
+the Report Format below. Route structural fixes through
+`build_gates_pipeline.py` (QUALITY/INTEGRITY stages).
 
 ### Report Format
 ```json

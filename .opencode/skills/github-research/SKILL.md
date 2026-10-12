@@ -410,5 +410,4 @@ Do NOT just summarize READMEs. You must:
 ## References
 
 - See `references/phase-guide.md` for detailed phase execution guidance
-- Deep-research skill: `~/.claude/skills/deep-research/SKILL.md`
-- Paper database pattern: `~/.claude/skills/deep-research/scripts/paper_db.py`
+- Paper-database pattern: track papers in a local JSONL log (no paper_db script ships with this skill)

@@ -99,10 +99,10 @@ Every external dependency gets an adapter:
 
 ## Usage
 
-### Detection Mode
-```bash
-venv/bin/python scripts/check_dependency_inversion.py .opencode/skills/dependency-inversion-enforcer   --workflow /path/to/workflow.json   --output /path/to/dependency_report.json
-```
+### Review Mode (manual — no detector script ships with this skill)
+Walk the workflow JSON against the layer catalog above and record every hit
+in the Report Format below. Route structural fixes through
+`build_gates_pipeline.py` (QUALITY/INTEGRITY stages).
 
 ### Report Format
 ```json

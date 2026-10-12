@@ -35,7 +35,7 @@ def _router_text():
         "| trigger | primary | notes |\n"
         "| - | - | - |\n"
         "\n"
-        "## Full skill registry (complete inventory — 10 installed)\n"
+        "## Full skill registry (complete inventory — 10 routed)\n"
         "\n"
         "### Automation (per-tool) (2)\n"
         "`sheets-automation` (D) - `jira-automation` (D)\n"
@@ -210,25 +210,25 @@ def test_registry_entry_noop_without_registry_header():
 
 def test_bump_total_by_n():
     txt = _router_text()
-    assert "10 installed" in txt
+    assert "10 routed" in txt
     txt = bump_total(txt, 2)
-    assert "12 installed" in txt
+    assert "12 routed" in txt
 
 
 def test_bump_total_noop_when_n_zero():
     txt = bump_total(_router_text(), 0)
-    assert "10 installed" in txt
+    assert "10 routed" in txt
 
 
 def test_recount_registry_heals_drifted_header():
     # G2: header says 10 but only 3 entries exist (post-removal drift) —
     # recount must set the header to the measured truth, not increment.
     txt = recount_registry(_router_text())
-    assert "3 installed" in txt
+    assert "3 routed" in txt
 
 
 def test_recount_registry_noop_when_accurate():
-    txt = _router_text().replace("10 installed", "3 installed")
+    txt = _router_text().replace("10 routed", "3 routed")
     assert recount_registry(txt) == txt
 
 
@@ -254,7 +254,7 @@ def test_main_full_run_adds_row_registry_and_total(tmp_path, monkeypatch):
     assert "### Automation (per-tool) (3)" in out
     # G2: header reconciled to measured truth (3 fixture entries + zznew = 4),
     # not blind-incremented from the intentionally drifted fixture header (10).
-    assert "4 installed" in out
+    assert "4 routed" in out
 
 
 def test_main_idempotent_rerun_is_noop(tmp_path, monkeypatch):
@@ -273,7 +273,7 @@ def test_main_idempotent_rerun_is_noop(tmp_path, monkeypatch):
 
     out = router_path.read_text(encoding="utf-8")
     assert out.count("(Auto-registered)") == 1
-    assert "4 installed" in out  # reconciled truth, not 5 and not drifted 11/12
+    assert "4 routed" in out  # reconciled truth, not 5 and not drifted 11/12
 
 
 def test_main_multi_add_bumps_total_by_exact_count(tmp_path, monkeypatch):
@@ -291,7 +291,7 @@ def test_main_multi_add_bumps_total_by_exact_count(tmp_path, monkeypatch):
     assert rr.main(["zznew", "zzsec"]) == 0
 
     out = router_path.read_text(encoding="utf-8")
-    assert "5 installed" in out  # 3 fixture entries + 2 new, reconciled
+    assert "5 routed" in out  # 3 fixture entries + 2 new, reconciled
     assert "`zznew` (D)" in out
     assert "`zzsec` (D)" in out
 
@@ -310,6 +310,33 @@ def test_main_skips_missing_skill(tmp_path, monkeypatch, capsys):
     out = router_path.read_text(encoding="utf-8")
     # G2: even with zero additions the drifted fixture header (10) is healed
     # to the measured entry count (3).
-    assert "3 installed" in out
+    assert "3 routed" in out
     assert "ghost-skill" not in out
     assert "[skip] ghost-skill: not found" in capsys.readouterr().out
+
+
+def test_recount_counts_routed_surface_not_installs(tmp_path, monkeypatch):
+    """G2 semantic (2026-10-12 audit): the header counts every marked
+    registry entry — workspace + global + nested skills — not the workspace
+    install count. A renamed skill whose old row was pruned must drop the
+    header; entries with no install dir still count while present."""
+    import scripts.router_register as rr
+    skills_dir = tmp_path / "skills"
+    router_path = tmp_path / "router" / "SKILL.md"
+    router_path.parent.mkdir(parents=True)
+    router_path.write_text(
+        _router_text().replace(
+            "### Automation (per-tool) (2)",
+            "### Automation (per-tool) (2)\n`ghost-old` (D) - `zzother` (D)",
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(rr, "SKILLS_DIR", skills_dir)
+    monkeypatch.setattr(rr, "ROUTER", router_path)
+
+    _make_skill(skills_dir, "zzother", "Automates spreadsheet sync.")
+    assert rr.main(["ghost-missing"]) == 0
+    out = router_path.read_text(encoding="utf-8")
+    # 3 fixture entries + ghost-old + zzother = 5 routed (zzother has an
+    # install dir, ghost-old does not — both count while rows exist).
+    assert "5 routed" in out

@@ -155,18 +155,22 @@ def ensure_registry_entry(router_txt, name, bucket):
 
 
 def bump_total(router_txt, n=1):
-    m = re.search(r"## Full skill registry \(complete inventory — (\d+) installed\)", router_txt)
+    m = re.search(r"## Full skill registry \(complete inventory — (\d+) routed\)", router_txt)
     if m and n > 0:
         router_txt = router_txt.replace(m.group(0), m.group(0).replace(m.group(1), str(int(m.group(1)) + n)), 1)
     return router_txt
 
 
 def recount_registry(router_txt):
-    """G2: self-healing header — set the 'N installed' count to the ACTUAL
-    number of unique skill entries in the registry section instead of blindly
+    """G2: self-healing header — set the 'N routed' count to the ACTUAL
+    number of unique marked registry entries instead of blindly
     incrementing. Skill removals, manual edits, and out-of-band installs
-    otherwise leave the header permanently drifted (seen: 1305 vs 1300)."""
-    m = re.search(r"## Full skill registry \(complete inventory — (\d+) installed\)", router_txt)
+    otherwise leave the header permanently drifted (seen: 1305 vs 1300).
+    NOTE (2026-10-12 audit): 'routed' counts every marked registry entry,
+    including global (~/.claude/skills) and nested (agent-squad/*) skills —
+    it is the routing surface, NOT the workspace install count. Renamed
+    skills must have their old rows pruned, or the header over-counts."""
+    m = re.search(r"## Full skill registry \(complete inventory — (\d+) routed\)", router_txt)
     if not m:
         return router_txt
     section = router_txt.split("## Full skill registry", 1)[1]
