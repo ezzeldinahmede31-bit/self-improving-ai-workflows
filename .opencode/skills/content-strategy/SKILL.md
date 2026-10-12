@@ -151,7 +151,7 @@ For programmatic content at scale, see **programmatic-seo** skill.
 
 Content pillars are the 3-5 core topics your brand will own. Each pillar spawns a cluster of related content.
 
-Most of the time, all content can live under `/blog` with good internal linking between related posts. Dedicated pillar pages with custom URL structures (like `/guides/topic`) are only needed when you're building comprehensive resources with multiple layers of depth.
+Most of the time, all content can live under `/blog` with good internal linking across related posts. Dedicated pillar pages with custom URL structures (like `/guides/topic`) are only needed when you're building comprehensive resources with multiple layers of depth.
 
 ### How to Identify Pillars
 
@@ -439,6 +439,12 @@ Visual or structured representation of how content interconnects.
 - **emails**: For email-based content
 - **social**: For social media content, content atomization, and repurposing execution
 - **launch**: For the ORB channel-type playbook and launch-day distribution
+
+### Publishing cadence & repurposing (merged from global variant, 2026-10-12)
+
+- Cadence: early (0–50K audience) 2–4 posts/week; scale phase 5–10/week.
+- Batching workflow: week 1 research → week 4 publish/promote/repurpose.
+- 1-post-to-8 plan: 1 blog post → newsletter + X thread + LinkedIn post + carousel + 60s video + infographic + podcast outline + quote graphics.
 
 ## Verification (workspace)
 

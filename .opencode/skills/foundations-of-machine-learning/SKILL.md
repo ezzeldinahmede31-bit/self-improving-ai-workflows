@@ -153,3 +153,8 @@ Need theoretical guarantee for algorithm choice?
 - `learning-with-kernels` — Schölkopf & Smola's kernel methods
 - `algorithmic-math-reasoner` — mathematical rigor
 - `formal-math-logic-verification-engine` — mechanical verification
+
+## Verification
+
+Reproduce the bounds on a small dataset. Verify that empirical error matches
+the theory. Test kernels against the guarantees on synthetic data.

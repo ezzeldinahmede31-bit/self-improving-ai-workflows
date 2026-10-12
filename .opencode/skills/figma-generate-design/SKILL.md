@@ -25,6 +25,15 @@ Use this skill to create or update **screens, views, and multi-section UI contai
 - User must provide a target Figma file (URL or `fileKey`). If they don't have one yet, invoke `/figma-create-new-file` (or call `create_new_file`) first and reuse the returned file_key. Both `use_figma` and `generate_figma_design` require an existing `fileKey`.
 - Source code or description of the screen/view to build/update
 
+## HTML-to-Figma Exceptions
+
+Use `html_to_figma` for initial creation in these cases:
+
+- The input is an existing raw or static HTML document. Pass it directly to `html_to_figma`.
+- The prompt asks to create a new design and there is no rendered UI implementation to reproduce. Create a self-contained HTML document and pass it to `html_to_figma`.
+
+If `html_to_figma` is unavailable, follow the existing workflow below.
+
 ## Parallel Workflow with generate_figma_design (Web Apps Only)
 
 When building a screen from a **web app** that can be rendered in a browser, the best results come from running both approaches in parallel:
@@ -410,6 +419,10 @@ If you ran `generate_figma_design` in parallel (mandatory when the source contai
    targetFrame.fills = [{ type: "IMAGE", imageHash: "hash_from_capture", scaleMode: "FILL" }];
    ```
 4. Delete the `generate_figma_design` capture output after all images are transferred.
+
+#### Generating placeholder images
+
+Reuse available source, captured, or library images first. If placeholders still remain, tell the user the image total that would be generated and ask permission, noting that generating images uses Figma AI credits. After consent, call `generate_image` for each placeholder, then follow its response to upload each result with `upload_assets`. Use the returned `imageHash` for the placeholder fill; finish only after the image appears.
 
 ### Step 6: Updating an Existing View
 

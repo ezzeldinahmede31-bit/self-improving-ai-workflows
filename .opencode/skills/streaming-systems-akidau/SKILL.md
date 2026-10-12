@@ -170,3 +170,9 @@ For any streaming pipeline:
 - `distributed-systems-concepts-design` — Coulouris' distributed theory
 - `cloud-native-patterns` — resilience in streaming
 - `qdrant-ops` — vector search as streaming sink
+
+## Operational Rules
+
+- Keep state in the pipeline engine (managed, checkpointed), not in memory.
+- Test with injected disorder and lateness — a pipeline that only passes on
+  sorted input is not a streaming pipeline.

@@ -23,7 +23,7 @@ Before designing a programmatic SEO strategy, understand:
 
 2. **Opportunity Assessment**
    - What search patterns exist?
-   - How many potential pages?
+   - Estimate the potential page total?
    - What's the search volume distribution?
 
 3. **Competitive Landscape**
@@ -45,7 +45,7 @@ Hierarchy of data defensibility:
 1. Proprietary (you created it)
 2. Product-derived (from your users)
 3. User-generated (your community)
-4. Licensed (exclusive access)
+4. Licensed (sole access)
 5. Public (anyone can use—weakest)
 
 ### 3. Clean URL Structure
@@ -112,7 +112,7 @@ You can layer multiple playbooks (e.g., "Best coworking spaces in San Diego").
 **Identify the pattern:**
 - What's the repeating structure?
 - What are the variables?
-- How many unique combinations exist?
+- How large is the unique-combination space?
 
 **Validate demand:**
 - Aggregate search volume
@@ -145,7 +145,7 @@ You can layer multiple playbooks (e.g., "Best coworking spaces in San Diego").
 **Hub and spoke model:**
 - Hub: Main category page
 - Spokes: Individual programmatic pages
-- Cross-links between related spokes
+- Cross-links across related spokes
 
 **Avoid orphan pages:**
 - Every page reachable from main site
@@ -161,7 +161,7 @@ You can layer multiple playbooks (e.g., "Best coworking spaces in San Diego").
 
 ### 6. Choose the Build Platform
 
-Check that the platform can hold the page count, refresh the data, render server-side HTML, branch on data for conditional sections, and control indexation per page. Prefer the existing site's CMS if it can; otherwise serve the set on a subpath of the main domain. Options and tradeoffs: [references/implementation-platforms.md](references/implementation-platforms.md).
+Check that the platform can hold the page volume, refresh the data, render server-side HTML, branch on data for conditional sections, and control indexation per page. Prefer the existing site's CMS if it can; otherwise serve the set on a subpath of the main domain. Options and tradeoffs: [references/implementation-platforms.md](references/implementation-platforms.md).
 
 ---
 
@@ -227,7 +227,7 @@ Watch for: Thin content warnings, Ranking drops, Manual actions, Crawl errors
 
 1. What keyword patterns are you targeting?
 2. What data do you have (or can acquire)?
-3. How many pages are you planning?
+3. What page volume are you planning?
 4. What does your site authority look like?
 5. Who currently ranks for these terms?
 6. What's your technical stack?
@@ -240,6 +240,12 @@ Watch for: Thin content warnings, Ranking drops, Manual actions, Crawl errors
 - **schema**: For adding structured data
 - **site-architecture**: For page hierarchy, URL structure, and internal linking
 - **competitors**: For comparison page frameworks
+
+### Rollout thresholds & quality gates (merged from global variant, 2026-10-12)
+
+- Rollout: deploy 50–100 pages; >80% indexed → continue; <50% indexed → stop and fix the template.
+- Thin-content gates: >60% unique text, >500 words, ≥2 entity data points, ≥1 visual per page.
+- Meta formulas: title "`{Keyword}` in `{Location}` | `{Brand}`"; meta "Compare {X} providers, {Y} reviews, avg ${Z}."
 
 ## Verification (workspace)
 

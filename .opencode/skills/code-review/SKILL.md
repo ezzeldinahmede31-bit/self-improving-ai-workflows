@@ -85,3 +85,12 @@ A change can pass one axis and fail the other:
 - Code that does exactly what the issue asked but breaks the project's conventions → **Spec pass, Standards fail.**
 
 Reporting them separately stops one axis from masking the other.
+
+### Optional: CodeRabbit CLI loop
+
+When the repo uses CodeRabbit, run the tool loop instead of hand-rolling review commands (detail in `references/cli-workflows.md`):
+
+- Check `coderabbit review --help` when support for an option is uncertain.
+- Scope with `--agent` / `--committed` / `--uncommitted` / `--base` / `--dir`.
+- Read `--agent` output as NDJSON; preserve the critical/major/minor/trivial/info/none severities.
+- `review_skipped` with zero findings means no review ran — not a pass.

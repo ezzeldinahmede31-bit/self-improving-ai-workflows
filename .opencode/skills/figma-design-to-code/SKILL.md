@@ -53,6 +53,12 @@ Images and icons come back as `<img>` elements whose `src` is a remote asset URL
 - **Reuse a project icon component only if its glyph clearly matches** (a name match is not enough); otherwise use the exported asset.
 - **Size explicitly:** a fixed-size container (icons are usually square, e.g. `size-[24px]`, `overflow-clip`) with BOTH width and height set, and size the leaf `<img>` to fill it (`100%` or fixed px) — never `auto`, which blows the image up to its intrinsic size.
 
+### 6. Visual-target discipline (screenshot mandate)
+
+- MUST request a screenshot in the initial `get_design_context` call; if none comes back, call `get_screenshot` explicitly.
+- On a sparse response, fan out a parallel batch of child-node calls rather than guessing structure.
+- Verify EVERY asset (file + slot + callsite + geometry) — a single mismatch is FAIL, not a warning.
+
 ## Error Recovery
 
 - On a `get_design_context` error, STOP and read the message before retrying.

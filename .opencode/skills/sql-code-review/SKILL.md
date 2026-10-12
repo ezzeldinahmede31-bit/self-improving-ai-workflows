@@ -71,12 +71,12 @@ AND o.order_date < '2025-01-01';
 ```sql
 -- ❌ BAD: Inefficient aggregation
 SELECT user_id, 
-       (SELECT SUM(1) FROM orders o2 WHERE o2.user_id = o1.user_id) as order_count
+       (SELECT COUNT(*) FROM orders o2 WHERE o2.user_id = o1.user_id) as order_count
 FROM orders o1
 GROUP BY user_id;
 
 -- ✅ GOOD: Efficient aggregation
-SELECT user_id, SUM(1) as order_count
+SELECT user_id, COUNT(*) as order_count
 FROM orders
 GROUP BY user_id;
 ```
@@ -181,7 +181,7 @@ LEFT JOIN users u ON o.user_id = u.id
 WHERE u.id IS NULL;
 
 -- Check for data consistency
-SELECT SUM(1) as inconsistent_records
+SELECT COUNT(*) as inconsistent_records
 FROM products 
 WHERE price < 0 OR stock_quantity < 0;
 ```

@@ -41,7 +41,7 @@ Gather this context (ask if not provided):
 ## Copywriting Principles
 
 ### Clarity Over Cleverness
-If you have to choose between clear and creative, choose clear. Clarity also converts. Clearer positioning and copy is associated with +81% conversions, a 38% shorter sales cycle, 28% lower CAC, and 175% more referrals. When a reader has to decode your line, you've lost them.
+If you have to choose, choose clear over creative. Clarity also converts. Clearer positioning and copy is associated with +81% conversions, a 38% shorter sales cycle, 28% lower CAC, and 175% more referrals. When a reader has to decode your line, you've lost them.
 
 **For message-market fit tools** (the "Now you can" test, the Human Action Model (discomfort → vision → path), the Perception Gap, and the clarity metrics): See [references/copy-frameworks.md](references/copy-frameworks.md#clarity--message-market-fit)
 
@@ -99,7 +99,7 @@ Clients and buyers reject copy that reads as AI-written, and a reader who spots 
 
 ### Keep these rare
 
-- At most one fragment and one list of three per section (a hero, a page section, or one short post). CTA microcopy and a real three-feature list are fine.
+- No more than one fragment and one list of three per section (a hero, a page section, or one short post). CTA microcopy and a real three-feature list are fine.
 - Words like seamless, robust, powerful, unlock, and streamline: replace them with the fact they stand in for.
 - Swap test: if a line would work unchanged on a competitor's site, rewrite it. If you lack the differentiator to fix it, flag `[NEED: differentiator]`.
 
@@ -284,6 +284,13 @@ For headlines and CTAs, provide 2-3 options:
 - **emails**: For email copywriting
 - **popups**: For popup and modal copy
 - **ab-testing**: To test copy variations
+
+### Framework selector & readability gates (merged from global variant, 2026-10-12)
+
+- Frameworks: PAS (Problem-Agitate-Solution), AIDA, BAB, 4Ps — pick one per page, never blend.
+- Headline formulas: "How to [outcome] without [pain]"; "Stop [bad]. Start [good]."
+- Power words: urgency (Now, Limited), trust (Proven, Guaranteed).
+- Gates: avg 15–20 words per sentence, never >35; Flesch-Kincaid 6–8 consumer, 8–10 B2B; ≥80% active voice.
 
 ## Verification (workspace)
 

@@ -177,7 +177,7 @@ Three equivalent placement methods: HTML `<link>` in `<head>`, HTTP `Link` heade
 
 **Common errors:** Missing self-referencing entry (all hreflang ignored). No return tag / one-directional (pair dropped). Invalid codes like `en-UK` (use `en-GB`). Hreflang target is non-canonical, 404, or blocked (cluster discarded). HTML and sitemap annotations disagree (conflicting pair dropped).
 
-**At scale:** `<xhtml:link>` children don't count toward 50K URL sitemap limit, but the 50MB file size limit becomes the bottleneck (plan 2K-5K URLs per file with full hreflang). Focus hreflang on pages receiving wrong-language traffic -- not required on every page. For Bing: supplement with `<html lang>` and `<meta http-equiv="content-language">` (Bing treats hreflang as a weak signal).
+**At scale:** `<xhtml:link>` children are excluded from the 50K-URL sitemap limit, but the 50MB file size limit becomes the bottleneck (plan 2K-5K URLs per file with full hreflang). Focus hreflang on pages receiving wrong-language traffic -- not required on every page. For Bing: supplement with `<html lang>` and `<meta http-equiv="content-language">` (Bing treats hreflang as a weak signal).
 
 ### Canonicalization for Multilingual Sites
 
@@ -188,7 +188,7 @@ Three equivalent placement methods: HTML `<link>` in `<head>`, HTTP `Link` heade
 - Protocol/domain must be consistent across canonical, hreflang, and sitemap (`https` + same domain variant)
 - Paginated locale pages: self-referencing canonical per page (never canonical page 2+ to page 1)
 
-**Common mistakes:** all locales canonical to English (kills indexing), canonical URL not in hreflang set (silently ignored), protocol mismatch between canonical and hreflang, CMS setting deep page canonical to homepage.
+**Common mistakes:** all locales canonical to English (kills indexing), canonical URL not in hreflang set (silently ignored), protocol mismatch: canonical vs hreflang, CMS setting deep page canonical to homepage.
 
 ### International Sitemaps
 
@@ -304,7 +304,7 @@ Three equivalent placement methods: HTML `<link>` in `<head>`, HTTP `Link` heade
 - Descriptive anchor text
 - Logical link relationships
 - No broken internal links
-- Reasonable link count per page
+- Reasonable links per page
 
 **Common issues:**
 - Orphan pages (no internal links)
@@ -494,6 +494,11 @@ Same format as above
 - **schema**: For implementing structured data
 - **cro**: For optimizing pages for conversion (not just ranking)
 - **analytics**: For measuring SEO performance
+
+### Weighted scoring & evidence gathering (merged from global variant, 2026-10-12)
+
+- Score: Overall = Crawl×0.20 + Tech×0.25 + OnPage×0.25 + Content×0.15 + Authority×0.15. Bands: 90–100 Excellent … 0–24 Critical. Deductions: Critical −25 / High −15 / Medium −8 / Low −3.
+- Gather first: fetch the page + /robots.txt + /sitemap.xml + PageSpeed mobile & desktop. Never fabricate unmeasured metrics.
 
 ## Verification (workspace)
 
