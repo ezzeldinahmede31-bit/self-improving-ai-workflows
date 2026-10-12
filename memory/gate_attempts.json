@@ -1,7 +1,7 @@
 {
   "SKILL.md": {
     "REASONING_REVIEW_REQUIRED::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 71,
-    "REASONING_REVIEW_REQUIRED::AVOID previous rejection: no --skills-loaded manifest — actual agent loads are NOT verifiable headless; readiness (insta": 26
+    "REASONING_REVIEW_REQUIRED::AVOID previous rejection: no --skills-loaded manifest — actual agent loads are NOT verifiable headless; readiness (insta": 27
   },
   "test_autofix.json": {
     "RUNTIME_STRUCTURAL_INCONSISTENCY::AVOID previous rejection: No pinnedData on primary nodes — cannot unit-test instantly": 2,
