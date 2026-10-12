@@ -2464,3 +2464,4 @@ reporting style + session persistence, start with trial read task (default yes).
 - Built `.opencode/skills/browser-debug-discipline/SKILL.md` (68 lines): gates READY_FOR_DEPLOYMENT exit 0, registered in router (Automation bucket), library refreshed.
 - Self-evolver honesty: no rules.json promotion — browser-discipline violations have no deterministic canonical probe for SecurityGate; skill+memory+gates are the enforcement path. Complaints ledger all NO_SOLUTION (unchanged, no fabrication).
 - Bridge verified closed at end (no stray windows); debug profile untouched apart from normal browsing.
+- Health: full pytest green 1182 passed, 1 skipped, 9 deselected in 91s (count differs from older recorded 295 — suite has grown since; this is the new reference).
