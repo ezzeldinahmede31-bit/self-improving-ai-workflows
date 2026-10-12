@@ -6,11 +6,23 @@ disable-model-invocation: false
 
 # Build / Update Screens and Views from Design System
 
+**Hard deliverable gate:** Code-to-design output must recreate the UI as editable text, components, icons, and hierarchy.
+Treat any screenshot or flattened rendering of the complete UI only as a visual reference: never upload or import it into the deliverable, including as the wrapper fill or a child node, even if it exists in the repository or appears more pixel-accurate. Before completion, inspect the result; if the UI is not primarily represented by editable layers, rebuild it semantically or report failure.
+
 Use this skill to create or update **screens, views, and multi-section UI containers** in Figma by **reusing the published design system** — components, variables, and styles — rather than drawing primitives with hardcoded values. This includes full pages, modals, dialogs, drawers, sidebars, panels, and any composed view with multiple sections. The key insight: the Figma file likely has a published design system with components, color/spacing variables, and text/effect styles that correspond to the codebase's UI components and tokens. Find and use those instead of drawing boxes with hex colors.
 
 **MANDATORY**: You MUST also load [figma-use](../figma-use/SKILL.md) before any `use_figma` call. That skill contains critical rules (color ranges, font loading, etc.) that apply to every script you write.
 
 **Always include `figma-generate-design` in the comma-separated `skillNames` parameter when calling `use_figma` as part of this skill. If this skill was loaded via an MCP resource, you MUST prefix the name with `resource:` (e.g. `resource:figma-generate-design`).** This is a logging parameter — it does not affect execution.
+
+## HTML-to-Figma Exceptions
+
+Use `html_to_figma` for initial creation in these cases:
+
+- The input is an existing raw or static HTML document. Pass it directly to `html_to_figma`.
+- The prompt asks to create a new design and there is no rendered UI implementation to reproduce. Create a self-contained HTML document and pass it to `html_to_figma`.
+
+If `html_to_figma` is unavailable, follow the existing workflow below.
 
 ## Skill Boundaries
 
@@ -37,7 +49,7 @@ When building a screen from a **web app** that can be rendered in a browser, the
 
 This combines the best of both: `generate_figma_design` gives pixel-perfect layout accuracy, while use_figma gives proper design system component instances that stay linked and updatable.
 
-**This parallel workflow is MANDATORY when the source contains images.** The `use_figma` Plugin API cannot fetch external image URLs — it can only set image fills by copying `imageHash` values from nodes already in the file. `generate_figma_design` rasterizes all visible images into Figma, providing the hashes you need. If you skip the capture when images are present, image frames will be left blank.
+**This parallel workflow is MANDATORY when the source contains discrete content images used by the app, such as photos, avatars, logos, or icons. A screenshot or flattened rendering of the complete UI is a visual reference, not a content image.** The `use_figma` Plugin API cannot fetch external image URLs — it can only set image fills by copying `imageHash` values from nodes already in the file. `generate_figma_design` rasterizes all visible images into Figma, providing the hashes you need. If you skip the capture when these content images are present, their image frames will be left blank.
 
 For non-web apps (iOS, Android, etc.) or when updating existing screens, use the standard workflow below.
 
@@ -90,24 +102,45 @@ Batch multiple lookups in a single call. Use the returned keys with `importCompo
 
 Mark resolved components. If all components are resolved, skip 2a-ii and 2a-iii. If none of the needed components have Code Connect files, proceed to 2a-ii.
 
-**2a-ii — REQUIRED if unresolved components remain: Inspect existing screens.** Check if the target file already contains screens using the same design system. A single `use_figma` call that walks an existing frame's instances gives you an exact, authoritative component map:
+**2a-ii — REQUIRED if unresolved components remain: Inspect existing screens.** Check if the target file already contains screens using the same design system. One read-only `use_figma` call inventories an existing frame — its component keys, bound variables, and text/effect styles — in a single authoritative pass. Run it once here and reuse the result in 2b and 2c rather than re-walking the frame:
 
 ```js
 const frame = figma.currentPage.findOne(n => n.name === "Existing Screen");
-const uniqueSets = new Map();
-frame.findAllWithCriteria({ types: ["INSTANCE"] }).forEach(inst => {
-  const mc = inst.mainComponent;
-  const cs = mc?.parent?.type === "COMPONENT_SET" ? mc.parent : null;
-  const key = cs ? cs.key : mc?.key;
-  const name = cs ? cs.name : mc?.name;
-  if (key && !uniqueSets.has(key)) {
-    uniqueSets.set(key, { name, key, isSet: !!cs, sampleVariant: mc.name });
+const components = new Map();
+const styles = { text: new Map(), effect: new Map() };
+const variableIds = new Set();
+
+// boundVariables and style ids can sit on any scene node, so walk them all.
+for (const node of frame?.findAll(() => true) ?? []) {
+  if (node.type === "INSTANCE") {
+    const mc = node.mainComponent;
+    const cs = mc?.parent?.type === "COMPONENT_SET" ? mc.parent : null;
+    const key = cs ? cs.key : mc?.key;
+    if (key && !components.has(key)) {
+      components.set(key, { name: cs ? cs.name : mc.name, key, isSet: !!cs, sampleVariant: mc.name });
+    }
   }
-});
-return [...uniqueSets.values()];
+  for (const b of Object.values(node.boundVariables ?? {}).flat()) {
+    if (b?.id) variableIds.add(b.id);
+  }
+  for (const [prop, bucket] of [["textStyleId", "text"], ["effectStyleId", "effect"]]) {
+    if (prop in node && typeof node[prop] === "string" && node[prop]) {
+      const s = figma.getStyleById(node[prop]);
+      if (s) styles[bucket].set(s.id, { name: s.name, id: s.id, key: s.key });
+    }
+  }
+}
+const vars = await Promise.all([...variableIds].map(id => figma.variables.getVariableByIdAsync(id)));
+
+return {
+  components: [...components.values()],
+  variables: vars.filter(Boolean).map(v => ({ name: v.name, id: v.id, key: v.key, type: v.resolvedType, remote: v.remote })),
+  textStyles: [...styles.text.values()],
+  effectStyles: [...styles.effect.values()],
+};
 ```
 
-Match results against your unresolved components. Mark any newly resolved. If all components are resolved, skip 2a-iii.
+Match `components` against your unresolved components; Code Connect keys from 2a-i stay authoritative. Mark any newly resolved. If all components are resolved, skip 2a-iii.
 
 **2a-iii — LAST RESORT: `search_design_system`.** Only if components remain unresolved after completing both 2a-i and 2a-ii.
 
@@ -148,7 +181,7 @@ Component Map:
 
 #### 2b: Discover variables (colors, spacing, radii)
 
-**Inspect existing screens first** (same as components). Or use `search_design_system` with `queries` entries whose `entity` is `"variable"`.
+**Inspect existing screens first.** Reuse `variables` from the 2a-ii inventory; if that step was skipped, run the inventory here when an existing screen is available. For unresolved variables, use `search_design_system` with `queries` entries whose `entity` is `"variable"`.
 
 > **WARNING: Two different variable discovery methods — do not confuse them.**
 >
@@ -157,37 +190,13 @@ Component Map:
 >
 > **Never conclude "no variables exist" based solely on `getLocalVariableCollectionsAsync()` returning empty.** Always also run `search_design_system` with variable query entries to check for library variables before deciding to create your own.
 
-**Query strategy:** `search_design_system` matches against **variable names** (e.g., "Gray/gray-9", "core/gray/100", "space/400"), not categories. Put multiple short, simple queries in one `queries` call rather than one compound query:
+**Query strategy:** `search_design_system` matches against **variable names** (e.g., "Gray/gray-9", "core/gray/100", "space/400"), not categories. Put multiple short, simple searches in one `queries` call rather than one compound query. Every array entry must be an `{ "entity": "variable", "query": "..." }` object, never a bare string:
 
-- **Primitive colors:** "gray", "red", "blue", "green", "white", "brand"
-- **Semantic colors:** "background", "foreground", "border", "surface", "text"
-- **Spacing/sizing:** "space", "radius", "gap", "padding"
+- **Primitive colors:** `{ "entity": "variable", "query": "gray" }`, `{ "entity": "variable", "query": "red" }`, etc.
+- **Semantic colors:** `{ "entity": "variable", "query": "background" }`, `{ "entity": "variable", "query": "surface" }`, etc.
+- **Spacing/sizing:** `{ "entity": "variable", "query": "space" }`, `{ "entity": "variable", "query": "radius" }`, etc.
 
 If initial searches return empty, try shorter fragments or different naming conventions — libraries vary widely ("grey" vs "gray", "spacing" vs "space", "color/bg" vs "background").
-
-Inspect an existing screen's bound variables for the most authoritative results:
-
-```js
-const frame = figma.currentPage.findOne(n => n.name === "Existing Screen");
-
-// boundVariables can live on any scene node — enumerating every scene type
-// just to feed findAllWithCriteria is roughly the same as findAll(() => true)
-// and is much noisier in script output.
-const uniqueIds = new Set(
-  frame.findAll(() => true).flatMap(n =>
-    Object.values(n.boundVariables ?? {})
-      .flatMap(b => Array.isArray(b) ? b : [b])
-      .map(b => b?.id)
-      .filter(Boolean)
-  )
-);
-const variables = await Promise.all(
-  [...uniqueIds].map(id => figma.variables.getVariableByIdAsync(id))
-);
-return variables
-  .filter(Boolean)
-  .map(v => ({ name: v.name, id: v.id, key: v.key, type: v.resolvedType, remote: v.remote }));
-```
 
 For library variables (remote = true), import them by key with `figma.variables.importVariableByKeyAsync(key)`. For local variables, use `figma.variables.getVariableByIdAsync(id)` directly.
 
@@ -195,31 +204,7 @@ See [variable-patterns.md](../figma-use/references/variable-patterns.md) for bin
 
 #### 2c: Discover styles (text styles, effect styles)
 
-Search for styles using `search_design_system` with `entity: "style"` query entries and terms like "heading", "body", "shadow", "elevation". Or inspect what an existing screen uses:
-
-```js
-const frame = figma.currentPage.findOne(n => n.name === "Existing Screen");
-const styles = { text: new Map(), effect: new Map() };
-
-for (const node of frame.findAll(() => true)) {
-  // textStyleId is on TEXT and TEXT_PATH; effectStyleId is on most scene
-  // shape/container types. Use `in` guards to handle both without an
-  // exhaustive type list.
-  if ('textStyleId' in node && node.textStyleId) {
-    const s = figma.getStyleById(node.textStyleId);
-    if (s) styles.text.set(s.id, { name: s.name, id: s.id, key: s.key });
-  }
-  if ('effectStyleId' in node && node.effectStyleId) {
-    const s = figma.getStyleById(node.effectStyleId);
-    if (s) styles.effect.set(s.id, { name: s.name, id: s.id, key: s.key });
-  }
-}
-
-return {
-  textStyles: [...styles.text.values()],
-  effectStyles: [...styles.effect.values()]
-};
-```
+Reuse `textStyles` and `effectStyles` from the inventory in 2a-ii or 2b. If no inventory exists, inspect an available screen with the same script or search with `search_design_system` using `entity: "style"` query entries and terms like "heading", "body", "shadow", "elevation". Search for any styles still missing.
 
 Import library styles with `figma.importStyleByKeyAsync(key)`, then apply with `node.textStyleId = style.id` or `node.effectStyleId = style.id`.
 
@@ -258,9 +243,9 @@ wrapper.y = 0;
 return { success: true, wrapperId: wrapper.id };
 ```
 
-### Step 4: Build Each Section Inside the Wrapper
+### Step 4: Build the Sections Inside the Wrapper
 
-**This is the most important step.** Build one section at a time, each in its own `use_figma` call. At the start of each script, fetch the wrapper by ID and append new content directly to it.
+**This is the most important step.** Build in retry-safe construction phases: related sections may share one `use_figma` call when the resulting script is safe to retry. Split a phase only when it would cross page context, when partial execution would be hard to recover, or when an actual failure requires a targeted retry — not merely to create a validation checkpoint. At the start of each script, fetch the wrapper by ID and append new content directly to it.
 
 ```js
 const createdNodeIds = [];
@@ -305,7 +290,7 @@ createdNodeIds.push(section.id);
 return { success: true, createdNodeIds };
 ```
 
-After each section, validate with `get_screenshot` before moving on. Look closely for cropped/clipped text (line heights cutting off content) and overlapping elements — these are the most common issues and easy to miss at a glance.
+Return the created node IDs plus the relevant counts, names, and bounds from each call — this is your default structural validation. Run a separate structural read only when that evidence is missing or when a relevant mutation has invalidated it. Save the visual pass for Step 5.
 
 #### Override instance text with setProperties()
 
@@ -373,16 +358,18 @@ slotFrame.appendChild(icon);
 
 ### Step 5: Validate the Full View and Transfer Images
 
-After composing all sections, call `get_screenshot` on the wrapper frame and compare against the source. Fix any issues with targeted `use_figma` calls — don't rebuild the entire view.
+Before visual validation, use `use_figma` to read back the wrapper and return its total descendant count, counts for every descendant node type present, and the ID, name, node type, and dimensions of every image-filled node. These counts are evidence, not a numeric pass threshold; do not infer editability from a screenshot or accept token editable nodes layered over a complete-UI raster. If a screenshot or flattened rendering of the complete UI is present anywhere inside the wrapper, remove it and rebuild the UI semantically or report failure; do not claim completion.
 
-**Screenshot individual sections, not just the full view.** A full-view screenshot at reduced resolution hides text truncation, wrong colors, and placeholder text that hasn't been overridden. Take a screenshot of each section by node ID to catch:
+After composing all sections, take **one full-view composition screenshot** of the wrapper frame and compare against the source. If it reveals a meaningful visual defect, apply targeted `use_figma` fixes — don't rebuild the entire view — then take **one** post-fix screenshot. The most recent passing screenshot is the final check: do not take an additional unchanged "final" shot, and do not screenshot every section individually.
+
+Inspect the composition screenshot for:
 - **Cropped/clipped text** — line heights or frame sizing cutting off descenders, ascenders, or entire lines
 - **Overlapping content** — elements stacking on top of each other due to incorrect sizing or missing auto-layout
 - Placeholder text still showing ("Title", "Heading", "Button")
 - Truncated content from layout sizing bugs
 - Wrong component variants (e.g., Neutral vs Primary button)
 - **Wrong font family** — text rendered in a different typeface than the product uses (e.g. Inter where the product is SF Pro). The script ran without error, so this is invisible at a glance; assert it explicitly (see "Assert the font family is correct" below)
-- **Blank image placeholders** — if images are missing, you need to transfer them from the `generate_figma_design` capture (see below)
+- **Blank image placeholders** — if images are missing, transfer them from the `generate_figma_design` capture before considering `generate_image` to generate placeholders (see "Transfer images from the generate_figma_design capture" below)
 
 #### Assert the font family is correct
 
@@ -392,7 +379,7 @@ See [references/discover-product-font.md](references/discover-product-font.md#ve
 
 #### Transfer images from the generate_figma_design capture
 
-If you ran `generate_figma_design` in parallel (mandatory when the source contains images), transfer the captured images into your design system output:
+If you ran `generate_figma_design` in parallel, transfer only discrete content assets used by the app into your design system output. Never upload or transfer the capture root or any screenshot or flattened rendering of the complete UI.
 
 1. Find all image nodes in the capture output by searching for fills with `type === "IMAGE"`:
    ```js
@@ -411,6 +398,10 @@ If you ran `generate_figma_design` in parallel (mandatory when the source contai
    ```
 4. Delete the `generate_figma_design` capture output after all images are transferred.
 
+#### Generating placeholder images
+
+Reuse available source, captured, or library images first. If placeholders still remain, tell the user how many images would be generated and ask permission, noting that generating images uses Figma AI credits. After consent, call `generate_image` for each placeholder, then follow its response to upload each result with `upload_assets`. Use the returned `imageHash` for the placeholder fill; finish only after the image appears.
+
 ### Step 6: Updating an Existing View
 
 When updating rather than creating from scratch:
@@ -423,7 +414,7 @@ When updating rather than creating from scratch:
    - Update text content, variant properties, or layout as needed
    - Remove deprecated sections
    - Add new sections
-4. Validate with `get_screenshot` after each modification.
+4. Follow the same evidence and screenshot cadence as Steps 4–5: rely on returned IDs plus relevant counts, names, and bounds for structural validation, then take one full-view screenshot after the updates (and one post-fix screenshot only if a targeted visual fix is needed).
 
 ```js
 // Example: Swap a button variant in an existing screen.
@@ -459,7 +450,7 @@ Follow [figma-use error recovery](../figma-use/SKILL.md#7-error-recovery--self-c
 - If `safeToRetryWithoutCanvasRead` is `true`, fix the error and retry.
 - If `false`, read the canvas, determine what changed, then make changes.
 
-Because this skill works incrementally (one section per call), errors are naturally scoped to a single section. Previous sections from successful calls remain intact.
+Because this skill works in retry-safe construction phases, errors are naturally scoped to the current phase. Content from previous successful calls remains intact.
 
 ## Best Practices
 
@@ -468,8 +459,8 @@ Because this skill works incrementally (one section per call), errors are natura
 - **Prefer design system tokens over hardcoded values.** Use variable bindings for colors, spacing, and radii. Use text styles for typography. Use effect styles for shadows. This keeps the screen linked to the design system.
 - **Prefer component instances over manual builds.** Instances stay linked to the source component and update automatically when the design system evolves.
 - **Componentize by default.** Build repeated or reusable elements as a component once, then place instances. Do not ship a flat tree of one-off frames that needs a second "make it componentized" pass.
-- **Work section by section.** Never build more than one major section per `use_figma` call.
-- **Return node IDs from every call.** You'll need them to compose sections and for error recovery.
-- **Validate visually after each section.** Use `get_screenshot` to catch issues early.
+- **Work in retry-safe construction phases.** Batch related sections into one `use_figma` call when the script stays safe to retry; split only at page-context boundaries, hard-to-recover mutations, or a targeted retry after an actual failure.
+- **Return node IDs and validation evidence from every call.** Return created IDs plus the relevant counts, names, and bounds — this is your default structural validation, and you'll need the IDs to compose sections and for error recovery.
+- **Validate visually with one composition screenshot.** Take one full-view screenshot after composition, and one more only after a targeted visual fix; the most recent passing screenshot is final.
 - **Assert the font family, not just a successful load.** A script can load the wrong font without error. After building, verify rendered text uses the product font identified in Step 1 (see Step 5).
 - **Match existing conventions.** If the file already has screens, match their naming, sizing, and layout patterns.
