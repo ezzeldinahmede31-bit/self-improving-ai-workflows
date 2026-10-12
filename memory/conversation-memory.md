@@ -2476,6 +2476,13 @@ reporting style + session persistence, start with trial read task (default yes).
 - BACKLOG (accepted, not started): 43 oversized SKILL.md >500 lines (compensatory-router 1283); per-bucket registry counts drift; monday.com dot-name deviation; 5 dual-installed global/workspace pairs (canonical: .opencode); .agents 68/70 overlap (canonical: .opencode).
 - Health: full pytest 1183 passed (+1 new recount test), 1 skipped, 9 deselected.
 
+## 2026-10-12 — backlog burndown: symlinks + bucket recount + monday rename (user: حل المشاكل التانية)
+- Claude Code gap closed: 5 globals now symlinks → ws canonicals (content-strategy, copywriting, programmatic-seo, seo-audit, zapier-make-patterns). Single source of truth, both runtimes see it. Needs Claude Code session restart to pick up.
+- Bucket headers recounted mechanically: only 3 drifted (Automation 432→431, ML/Data 6→5, Systems 77→73); total 1379 verified. Bucket lines are mega-lines — edit by token surgery + verify, never retype.
+- monday.com-automation → monday-com-automation (dir + frontmatter + registry + Office row + docs regen + stale doc deleted). Vendor YAML `count` values covered by .gates-ack.json. READY.
+- STAYS backlog (reasoned): 43 oversized SKILL.md — splitting 3rd-party bulk imports creates update drift, and the router's size is structural (single-file grep routing). Revisit only per-skill on touch.
+- rm -rf is harness-denied: retire-by-move into git-tracked archive dir is the deletion path (recoverable, sync-committed).
+
 ## 2026-10-12 — skills consolidation: similar merged, losers retired (user: واحدة فقط الأفضل)
 - Detection: 71 exact-name groups (66 ws/ag pairs + 5 ws/gl/ag triples) + fuzzy pass → only 2 true same-topic pairs (foundations-ml, streaming-systems). Boilerplate template prose fools description-similarity — strip it first.
 - Comparison: 6 parallel read-only agents × 32 pairs. Key correction: software-architecture-design transplant pointed at nonexistent append_learning.py — ws kept my direct-append fix instead.
