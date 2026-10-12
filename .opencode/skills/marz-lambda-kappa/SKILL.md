@@ -56,7 +56,7 @@ Unrecomputable pipelines are liabilities with dashboards.
 
 ## Pairs with
 
-- `streaming-systems` (speed-layer machinery),
+- `streaming-systems-akidau` (speed-layer machinery),
   `fundamentals-of-data-engineering` (platform),
   `data-pipelines-pocket-reference` (batch practice),
   `event-driven-ai-workflows` (log-centric thinking).

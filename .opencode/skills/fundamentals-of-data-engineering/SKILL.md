@@ -46,7 +46,7 @@ usable assets — and it is a lifecycle with explicit stages plus cross-cutting
 
 - **Batch**: simple, exact, cheap to operate; latency of minutes to hours.
 - **Streaming**: complex, approximate by nature, low latency; right when freshness
-  beats completeness (see `streaming-systems`).
+  beats completeness (see `streaming-systems-akidau`).
 - Choose streaming only when the business truly needs the freshness; otherwise
   batch wins on simplicity and cost.
 

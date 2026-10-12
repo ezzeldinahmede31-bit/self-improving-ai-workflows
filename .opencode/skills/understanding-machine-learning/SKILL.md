@@ -55,7 +55,7 @@ m(ε, δ) = O((d + log(1/δ)) / ε²)
 | **Agnostic PAC** | No assumption on f | ERM finds h with L(h) ≤ min L(h*) + ε |
 | **Non-uniform** | Complexity hierarchy | SRM / MDL |
 
-**Key insight**: Uniform convergence (sup\|L_D(h) - L_S(h)\| → 0) is the bridge between empirical and true risk.
+**Key insight**: Uniform convergence (sup\|L_D(h) - L_S(h)\| → 0) is the bridge from empirical to true risk.
 
 ---
 
@@ -118,7 +118,7 @@ Is theoretical guarantee required?
 
 ## Pairings
 
-- `foundations-machine-learning` — Mohri et al.'s Rademacher focus
+- `foundations-of-machine-learning` — Mohri et al.'s Rademacher focus
 - `elements-of-statistical-learning` — Hastie et al.'s statistical learning
 - `algorithmic-math-reasoner` — mathematical rigor
 - `formal-math-logic-verification-engine` — mechanical verification

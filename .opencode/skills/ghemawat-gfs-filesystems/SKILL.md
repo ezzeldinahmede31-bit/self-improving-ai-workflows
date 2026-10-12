@@ -57,5 +57,5 @@ re-replication). Untested recovery = no recovery.
 
 - `petrov-lsm-storage-compaction` (what lives on the chunks),
   `fundamentals-of-data-engineering` (lakes on top),
-  `streaming-systems` (compute-to-data), `sre-workbook-practices`
+  `streaming-systems-akidau` (compute-to-data), `sre-workbook-practices`
   (operating the cluster).
