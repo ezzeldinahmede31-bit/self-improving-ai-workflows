@@ -1,5 +1,5 @@
 ---
-name: monday.com-automation
+name: monday-com-automation
 description: Automate Monday.com workflows, board management, team collaboration, and cross-board integrations
 version: 1.0.0
 author: Claude Office Skills

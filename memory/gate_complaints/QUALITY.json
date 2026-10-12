@@ -1,41 +1,5 @@
 [
   {
-    "id": "quality-1791716169777",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-10-11T10:56:09.777279+00:00",
-    "resolved_at": "2026-10-11T10:56:11.878335+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
-    "id": "quality-1791716179293",
-    "gate": "QUALITY",
-    "kind": "SKILL_GAP",
-    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
-    "keywords": [
-      "pinneddata",
-      "primary",
-      "unit-test",
-      "instantly"
-    ],
-    "elapsed_seconds": 0.0,
-    "status": "NO_SOLUTION",
-    "created_at": "2026-10-11T10:56:19.293764+00:00",
-    "resolved_at": "2026-10-11T10:56:21.247009+00:00",
-    "resolution": "no skill found by find-skills",
-    "search_hits": []
-  },
-  {
     "id": "quality-1791716181442",
     "gate": "QUALITY",
     "kind": "SKILL_GAP",
@@ -3620,6 +3584,42 @@
     "status": "NO_SOLUTION",
     "created_at": "2026-10-12T15:12:47.335835+00:00",
     "resolved_at": "2026-10-12T15:12:49.451960+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791818715643",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
+    "keywords": [
+      "pinneddata",
+      "primary",
+      "unit-test",
+      "instantly"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-12T15:25:15.643275+00:00",
+    "resolved_at": "2026-10-12T15:25:18.437702+00:00",
+    "resolution": "no skill found by find-skills",
+    "search_hits": []
+  },
+  {
+    "id": "quality-1791818718726",
+    "gate": "QUALITY",
+    "kind": "SKILL_GAP",
+    "violation": "No pinnedData on primary nodes — cannot unit-test instantly",
+    "keywords": [
+      "pinneddata",
+      "primary",
+      "unit-test",
+      "instantly"
+    ],
+    "elapsed_seconds": 0.0,
+    "status": "NO_SOLUTION",
+    "created_at": "2026-10-12T15:25:18.726671+00:00",
+    "resolved_at": "2026-10-12T15:25:21.604055+00:00",
     "resolution": "no skill found by find-skills",
     "search_hits": []
   }
