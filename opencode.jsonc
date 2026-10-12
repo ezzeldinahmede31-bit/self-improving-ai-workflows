@@ -34,7 +34,7 @@
     },
     "playwright": {
       "type": "local",
-      "command": ["npx", "-y", "@playwright/mcp@latest", "--browser", "chrome", "--caps", "vision,pdf", "--user-data-dir", "/home/ezzeldin/Documents/Default Project/memory/.sessions/playwright_persistent"],
+      "command": ["npx", "-y", "@playwright/mcp@latest", "--cdp-endpoint", "http://127.0.0.1:9222", "--caps", "vision,pdf"],
       "enabled": true
     },
     "firecrawl": {
