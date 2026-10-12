@@ -13,7 +13,7 @@ Clean Architecture's fundamental rule: **Dependencies must point inward**. The i
 2. **Use Cases** (Application Business Rules): Orchestration of entities, workflow logic
 
 ### Outer Layers (Details - Can Depend on Inner)
-3. **Interface Adapters**: Convert data between inner and outer formats
+3. **Interface Adapters**: Convert data across the inner/outer boundary
 4. **Frameworks & Drivers**: HTTP clients, Database drivers, UI frameworks, External APIs
 
 ## Dependency Rule Enforcement

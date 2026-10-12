@@ -37,7 +37,7 @@ Treat estate modernization, platform engineering, and AI-native interoperability
 Invoke when working on:
 
 - **Software shape inside a known solution**: Turning a chosen solution shape into runtime boundaries, bounded contexts, and platform decisions
-- **System decomposition**: Deciding between monolith, modular monolith, microservices
+- **System decomposition**: Choosing among monolith, modular monolith, microservices
 - **Architecture patterns**: Event-driven, CQRS, layered, hexagonal, serverless
 - **Platform architecture**: Internal developer platforms, golden paths, policy and delivery guardrails
 - **Estate modernization**: Too many repos, too many runtime units, polyrepo rationalization, platform-first operating models
@@ -73,7 +73,7 @@ Use other skills instead for:
 ```text
 Primary question: [What kind of architecture problem is this?]
     ├─ Large estate with many repos/services and rising cognitive load?
-    │   ├─ Runtime count is the main problem → Bounded-context platforms + selective consolidation
+    │   ├─ Runtime sprawl is the main problem → Bounded-context platforms + selective consolidation
     │   ├─ Delivery inconsistency is the main problem → IDP + golden paths + scorecards
     │   └─ Both are true → Platform-first modernization, then consolidate low-value runtime units
     │
@@ -128,7 +128,7 @@ Every architecture recommendation must cover the following; skip elements only w
 - [ ] **Recommended option + rejected alternatives** — what was considered, why alternatives lost
 - [ ] **What NOT to build** — explicitly defer or exclude premature scope
 - [ ] **Team and process alignment** — CODEOWNERS, deployment ownership, on-call boundaries
-- [ ] **Repo and runtime model** — for multi-repo estates, distinguish repo count from deployable count
+- [ ] **Repo and runtime model** — for multi-repo estates, distinguish the repo tally from the deployable tally
 - [ ] **Operability model** — deployment topology, failure domains, rollback points, SLO ownership, incident boundaries
 - [ ] **Migration path** — sequencing, cutover strategy, reversibility (for refactors or new subsystems)
 - [ ] **Key risks and failure modes** — named breakpoints, how to detect early
@@ -173,7 +173,7 @@ Architecture design request
 ## Known Traps
 
 - Choosing microservices because the estate already has many repos, even though runtime sprawl and weak ownership are the real issue.
-- Drawing a target-state diagram without a migration sequence, rollback boundary, or compatibility plan between old and new paths.
+- Drawing a target-state diagram without a migration sequence, rollback boundary, or compatibility plan across old and new paths.
 - Splitting domains before ownership, on-call, and deploy authority are ready to support the additional surface area.
 - Introducing async and event-driven workflows on every boundary before deciding which paths actually need decoupling.
 - Calling something platform engineering while the golden path remains optional, inconsistent, or under-owned.
@@ -190,7 +190,7 @@ Architecture design request
 
 ### Core References
 
-Read **at most 2–3 references** per question — pick the ones most relevant to the specific ask. Do not read all of them.
+Read **no more than 2–3 references** per question — pick the ones most relevant to the specific ask. Do not read all of them.
 
 | Reference | Contents | When to Read |
 |-----------|----------|--------------|

@@ -1,6 +1,6 @@
 ---
 name: orthogonality-guard
-description: "Enforces the Pragmatic Programmer principle of Orthogonality: changes in one area of the system should not affect other areas. In n8n workflows, this means detecting hidden coupling between modules, ensuring node configurations are independent, and preventing parameter leaks between seemingly unrelated workflows. Triggers on workflow build/validation; reports coupling issues with severity and refactoring recommendations. Pairs with: gate-first-pass-builder, code-smell-detector, n8n-syntax-v2-enforcer."
+description: "Enforces the Pragmatic Programmer principle of Orthogonality: changes in one area of the system should not affect other areas. In n8n workflows, this means detecting hidden coupling across modules, ensuring node configurations are independent, and preventing cross-workflow parameter leaks. Triggers on workflow build/validation; reports coupling issues with severity and refactoring recommendations. Pairs with: gate-first-pass-builder, code-smell-detector, n8n-syntax-v2-enforcer."
 ---
 # Orthogonality Guard
 
