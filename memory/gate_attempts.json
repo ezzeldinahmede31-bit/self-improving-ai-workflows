@@ -110,5 +110,8 @@
   },
   "uml.md": {
     "REASONING_REVIEW_REQUIRED::AVOID previous rejection: no --skills-loaded manifest — actual agent loads are NOT verifiable headless; readiness (insta": 1
+  },
+  "rag_workflow_from_n8n.json": {
+    "SECURITY_VIOLATION_REQUIRES_HUMAN::[TOOL_SCOPE_LOCK] Agent 'AI Agent' has unrestricted or undefined tool access (no explicit allowed_tools list)": 1
   }
 }
