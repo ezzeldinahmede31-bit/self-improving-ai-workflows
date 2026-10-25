@@ -156,4 +156,6 @@
       }
     }
   }
+,
+  "model": "deepseek_v3/deepseek-chat"
 }
