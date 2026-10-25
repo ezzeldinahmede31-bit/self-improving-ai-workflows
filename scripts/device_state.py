@@ -683,7 +683,11 @@ def main(argv):
         import subprocess
         r = subprocess.run([sys.executable, __file__, "snapshot"],
                            capture_output=True, text=True)
-        dest = r.stdout.strip().split(" ")[0]
+        # snapshot prints "<dest> (<n> files)"; dest may contain spaces
+        # (e.g. ".config/Kilo Desktop/..."), so strip the trailing count
+        # suffix rather than splitting on whitespace.
+        out = r.stdout.strip()
+        dest = out.rsplit(" (", 1)[0] if out.endswith(" files)") else out
         write("t.json", {"a": 999})
         subprocess.run([sys.executable, __file__, "restore", dest],
                        check=True, capture_output=True)
