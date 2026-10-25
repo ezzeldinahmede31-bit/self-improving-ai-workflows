@@ -114,4 +114,4 @@ The updater fetches these, extracts the standards text, hashes it, and only
 rewrites this file when the content changed — so the skill evolves on its own
 while staying stable between real upstream changes.
 
-> Auto-maintained by `scripts/ai_skill_standards_updater.py`; last run 2026-10-22 05:00:04 — 4/4 sources reachable (unreachable: none).
+> Auto-maintained by `scripts/ai_skill_standards_updater.py`; last run 2026-10-25 05:00:04 — 4/4 sources reachable (unreachable: none).
