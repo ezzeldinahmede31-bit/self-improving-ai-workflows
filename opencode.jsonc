@@ -42,6 +42,11 @@
       "command": ["node", "/home/ezzeldin/Documents/Default Project/scripts/remotion-mcp-server.js"],
       "enabled": true
     },
+    "canva": {
+      "type": "local",
+      "command": ["node", "/home/ezzeldin/Documents/Default Project/scripts/canva-mcp-server.js"],
+      "enabled": true
+    },
     "firecrawl": {
       "type": "remote",
       "url": "https://mcp.firecrawl.dev/v2/mcp",

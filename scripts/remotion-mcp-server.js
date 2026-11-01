@@ -244,7 +244,7 @@ function runCmd(cmd, args, options = {}) {
   });
 }
 
-async callTool = async (name, args) => {
+const callTool = async (name, args) => {
   switch (name) {
     case 'remotion_info': {
       const pkg = JSON.parse(
