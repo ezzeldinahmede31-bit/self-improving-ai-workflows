@@ -37,6 +37,11 @@
       "command": ["npx", "-y", "@playwright/mcp@latest", "--cdp-endpoint", "http://127.0.0.1:9222", "--caps", "vision,pdf"],
       "enabled": true
     },
+    "remotion": {
+      "type": "local",
+      "command": ["node", "/home/ezzeldin/Documents/Default Project/scripts/remotion-mcp-server.js"],
+      "enabled": true
+    },
     "firecrawl": {
       "type": "remote",
       "url": "https://mcp.firecrawl.dev/v2/mcp",
