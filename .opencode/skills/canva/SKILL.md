@@ -1,55 +1,53 @@
 ---
 name: canva
-description: "Bind the agent to Canva via a local MCP server. Use when the user wants to create, list, get, or export Canva designs. Requires CANVA_API_KEY for live API calls."
+description: "Bind the agent to Canva via the official Canva Dev MCP server (@canva/cli@latest mcp). Use when the user wants to create, list, get, or export Canva designs, or access Canva developer documentation."
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # Canva
 
-Binding to Canva (web design platform) via a local MCP server at `scripts/canva-mcp-server.js`, registered in `opencode.jsonc`.
+Binding to Canva (web design platform) via the **official Canva Dev MCP server** (`npx -y @canva/cli@latest mcp`), registered in `opencode.jsonc`.
 
 ## Prerequisites
 
-Canva is a web application. Live API calls require a **CANVA_API_KEY** set in your environment:
+Canva is a web application. The official Canva Dev MCP server requires:
 
-```bash
-export CANVA_API_KEY=your_canva_api_key_here
+* **Node.js v24+** and npm (to run `npx -y @canva/cli@latest mcp`)
+* A Canva developer account / API access for live design operations
+* The MCP server fetches Canva documentation from `canva.dev` and provides development assistance for Canva apps
+
+## Configuration (already added to opencode.jsonc)
+
+```json
+"canva": {
+  "type": "local",
+  "command": ["npx", "-y", "@canva/cli@latest", "mcp"],
+  "enabled": true
+}
 ```
 
-Without the key, the MCP server starts but all Canva API tools return a "key not configured" message instead of making unauthenticated requests.
+## Available Capabilities (via official Canva Dev MCP server)
 
-## Available MCP Tools
+The official server provides AI-powered development assistance for Canva apps, including:
 
-| Tool | Purpose |
-|------|---------|
-| `canva_info` | Check connection status and whether CANVA_API_KEY is configured |
-| `canva_designs_list` | List your Canva designs (paginated) |
-| `canva_design_get` | Get details of a specific design by ID |
-| `canva_design_export` | Export a design to png/jpg/pdf/mp4/gif |
-| `canva_exec` | Run an arbitrary Canva API request (GET/POST/PUT/DELETE) |
-
-## Example Usage
-
-```bash
-# Check if Canva is bound and key is configured
-# MCP tool: canva_info
-
-# List designs
-# MCP tool: canva_designs_list { page: 1, per_page: 10 }
-
-# Get a design
-# MCP tool: canva_design_get { designId: "DESIGN_ID" }
-
-# Export a design as PNG
-# MCP tool: canva_design_export { designId: "DESIGN_ID", format: "png" }
-```
+* Access to Canva documentation and App UI Kit reference
+* Canva Developers SDK guidance
+* Design-related tool invocations (LLM-controlled — include keywords like "App UI Kit", "Canva Developers SDK" in requests)
 
 ## When to Activate
 
-- User says "canva", "Canva design", "export from Canva", "Canva API"
-- User wants to create or manage Canva designs programmatically
+- User says "canva", "Canva design", "Canva API", "Canva Dev MCP"
+- User wants to access Canva developer documentation
 - User wants to bind the agent to Canva using the system's MCP infrastructure
+
+## Verification
+
+After saving `opencode.jsonc`, restart the MCP client / session, then ask:
+
+> "How many components are in the App UI Kit?"
+
+If the connection is successful, the client should display a tool invocation prompt.
 
 ## Related Skills
 
@@ -57,9 +55,6 @@ Without the key, the MCP server starts but all Canva API tools return a "key not
 - `video` — general video production
 - `video-editing` — FFmpeg + Remotion pipeline
 
-## Notes
+## Documentation Index
 
-- Canva API is REST-based at `https://api.canva.com/rest/v1`
-- All requests use `Authorization: Bearer <CANVA_API_KEY>`
-- Export endpoints may return async job IDs that need polling
-- If you don't have a Canva API key, you can get one from the Canva Developer Portal
+Full Canva docs index: https://www.canva.dev/docs/apps/llms.txt

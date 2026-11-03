@@ -397,6 +397,14 @@ Both added to `compensatory-router` stacks.
 - CONTAMINATION TEST 5/5: 2026 AIME I (held 2026-02-05, Areteem/LIVE key: 277 062 079 070 065 441 396 244 029 156 896 161 039 681 083) — `fresh_solve_2026.py`: P1=277 (252/25), P4=70 (a+b+ab exhaustive), P9=29 (9/20 via 14400-conditioning + 9 allowed repeat-pairs × 720), P13=39 (Lucas mod 503: (1+x)^10000 ≡ (1+x)^462 mod (503, x^502−1); S_r ≡ C(462,r), zero iff r=463..501), P15=83 (nested loops ↔ Catalan; 2C₅−1, n=2 brute-validated = 3).
 - DELIVERABLE: `memory/aime2025_audit.md` — per-problem CLAIM/EVIDENCE rows, sources, verdict (35/35 reproduce official answers; no contamination signal). scipy+sympy now installed in venv. Protocol artifacts stay 29/30 in benchmarks.md; audit supersedes to 30/30.
 
+## JPMorgan COiN video render (Nov 03, 2026) — delivered
+- User uploaded `/home/ezzeldin/Downloads/jpmorgan-coin-remotion-project.zip` (Remotion project) and asked "شغلي الفيديو ده يالا" (play/run this video).
+- Project copied to `video-production/jpmorgan-coin/` (README: JPMorgan COiN Story 01, 30s, 1920×1080, 30fps, 900 frames, 6 scenes: Intro→Problem→Machine→Extraction→Result→Outro).
+- `npm install` (250 packages, 0 vulns) → `npx remotion render src/index.ts COINFilm out/jpmorgan-coin-story-01.mp4 --codec h264` → ALL 900 frames rendered + encoded.
+- VERIFIED: out/jpmorgan-coin-story-01.mp4 = ISO Media MP4, h264, 1920×1080, 30fps, duration 30.000000s, 3,543,282 bytes (3.5 MB). Matches spec exactly.
+- Preview still generated: out/preview-still.png at frame 450 (Result scene).
+- Deliverable ready for user to play; no audio bundled (per README production notes).
+
 ## Two more skills from reels (Aug 13 night 4) — 166 total
 - Reels downloaded (yt-dlp venv + chrome cookies, both public, no auth needed): reel_2737379429980936.mp4 (13.5MiB, 84s), reel_1030083303226387.mp4 (3.7MiB, 45s) → /tmp/opencode/skills_videos/transcript_*.txt (faster-whisper base, EN).
 - Reel 1 = "Agent Reach" (`Panniantong/Agent-Reach`, 53–70k stars, MIT, Python 3.10+, created 2026-02-24, HN'd): one CLI gives agents read/search access to Twitter/X, Reddit, YouTube, Bilibili, XHS, Douyin, LinkedIn, GitHub, RSS — zero API keys; cookies stay local; `agent-reach doctor` diagnostics. INSTALLED: `pip install agent-reach` in venv (v0.1.0) + `agent-reach install rss|youtube` (channels ready: feedparser, yt-dlp 2024.04.09) + skill at `.opencode/skills/agent-reach/SKILL.md` (generated via `agent-reach skill --write`). Live proof: `agent-reach get rss.feed https://hnrss.org/frontpage --limit 2` returns clean text envelope. NOTE: this pip index only ships rss+youtube channels; twitter/reddit/etc. channels live on GitHub master — install via `npx skills add Panniantong/Agent-Reach@agent-reach` if wanted. Security: cookies local, install per-channel, safe mode exists.

@@ -44,7 +44,7 @@
     },
     "canva": {
       "type": "local",
-      "command": ["node", "/home/ezzeldin/Documents/Default Project/scripts/canva-mcp-server.js"],
+      "command": ["npx", "-y", "@canva/cli@latest", "mcp"],
       "enabled": true
     },
     "firecrawl": {
