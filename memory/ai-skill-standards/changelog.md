@@ -5,3 +5,4 @@
 - **v2** (2026-09-14 05:00): standards updated from upstream (anthropic-best-practices, agentskills-io, mgechev-skills-best-practices, neon-agents-md-spec); 4/4 sources reachable.
 - **v3** (2026-10-22 05:00): standards updated from upstream (anthropic-best-practices, agentskills-io, mgechev-skills-best-practices, neon-agents-md-spec); 4/4 sources reachable.
 - **v4** (2026-10-25 05:00): standards updated from upstream (anthropic-best-practices, agentskills-io, mgechev-skills-best-practices, neon-agents-md-spec); 4/4 sources reachable.
+- **v5** (2026-11-07 05:00): standards updated from upstream (anthropic-best-practices, agentskills-io, mgechev-skills-best-practices, neon-agents-md-spec); 4/4 sources reachable.
