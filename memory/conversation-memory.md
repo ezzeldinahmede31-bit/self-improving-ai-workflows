@@ -2518,3 +2518,10 @@ reporting style + session persistence, start with trial read task (default yes).
 - Retired to .archive-retired-skills-2026-10-12/ (git-tracked, recoverable; rm -rf is harness-denied so archive-not-delete): 70 .agents twins + 2 ws (foundations-machine-learning, streaming-systems) + 5 global. .agents keeps 2 unique + 10 figma-pack remnants. Global Claude Code loses those 5 (user-approved).
 - Router: deleted 6 dead rows total (4 renames + 2 merged); fixed 4 stale Pairs mentions; header 1381→1379 routed (verify: recount counts marked entries incl. global/nested).
 - Counting-heuristic lesson: 15+ flags all false positives (between/at most/count/how-many in prose, SQL COUNT(*), Beam element-count) — reword innocent prose, .gates-ack.json sidecar for code/domain terms that must stay verbatim. skills-docs generator does NOT prune stale docs (delete by hand).
+
+## Disk cleanup (Nov 09 2026)
+- Root filesystem `/dev/nvme0n1p6` was at 95% (77G used / 4.2G free). Removed per user request:
+  - `~/.ollama/models` (3.7G) — Ollama model blobs.
+  - `~/opencode-full-backup-20261025-040741` (12G) — full backup from 25 Oct 2026.
+- Result: 77G used → 62G used; 4.2G free → **20G free** (77% usage). ~16G reclaimed.
+- Note: Ollama models must be re-downloaded if Ollama is used again.
